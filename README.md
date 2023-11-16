@@ -1,7 +1,7 @@
 # procstack.github.io
 ## NodeJS app with pxlNav navigation framework for three.js
 
-Metown usa, baby!
+Metown USA, baby!
 
 
 I decided to release the pxlNav framework for three.js I wrote for use in the website `Antib0dy.club`,
