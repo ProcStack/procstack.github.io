@@ -1,8 +1,13 @@
 # procstack.github.io
-## NodeJS app with pxlNav navigation framework for three.js
+### NodeJS app with pxlNav navigation framework for three.js
 
-Metown USA, baby!
+#### Metown USA, baby!
 
+Kevin Edzenga's web dev & shader resume site
+
+## 
+
+#### Note about pxlNav -<br/>&nbsp;&nbsp;&nbsp;&nbsp;*November 16th, 2023*
 
 I decided to release the pxlNav framework for three.js I wrote for use in the website `Antib0dy.club`,
 <br/>&nbsp;&nbsp;A site used during the height of the pandemic to throw virtual parties & dj album releases.
@@ -29,5 +34,4 @@ But I did remove the Jitsi integration of users webcams and mics
 Realistically, this scene comprehension should be migrated over to support Universal Scene Description (USD) for the future advancements to the system.
 
 But heck with it, for now I'm making a rabbit druid dude poke a fire and look at a stick for my website!
-<br/> - Kevin Edzenga
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;November 16th, 2023
+<br/> - *Kevin Edzenga*
