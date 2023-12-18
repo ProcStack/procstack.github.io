@@ -1,0 +1,162 @@
+
+/* Multiverse GUI and HUD Styles */
+
+.gui_multiverseBoxHeader{
+    display: grid;
+    justify-items: center;
+    grid-auto-flow: row;
+	font-size:2em;
+	font-weight:bold;
+	padding:5px;
+	color:#ffffff;
+	width:100%;
+    text-align:center;
+}
+
+.gui_multiverseParentGrid{
+	display:grid;
+    grid-gap: 15px 30px;
+    grid-template-columns: max-content max-content;
+    grid-template-rows: auto;
+}
+  
+.multiverseEmptySpacer{
+	height:0px;
+	width:50%;
+	overflow:hidden;
+	margin:10px;
+}
+
+
+.multiverseContentBodyStyle{
+	display:grid;
+	grid-template-rows:auto;
+    grid-gap:20px;
+	text-align:center;
+	align-items:center;
+    justify-content: center;
+	position:fixed;
+    width: max-content;
+	left:50%;
+	top:50%;
+	transform:translate(-50%, -50%);
+}
+.multiverseBodyBlockStyle{
+	display:grid;
+	grid-auto-flow: row;
+	justify-items:center;
+	align-items:center;
+	font-family: 'Raleway', sans-serif;
+	text-align:center;
+	font-size:1em;
+	color:#ffffff;
+	overflow:hidden;
+} 
+
+.multiverseEntryBlockStyle{
+	display:grid;
+    grid-auto-flow: column;
+	grid-template-columns: auto max-content;
+	grid-gap:0px;
+	text-align:center;
+	align-items:center;
+    
+}
+
+.multiverseEntryParentStyle{
+	display:grid;
+	grid-template-columns: auto 100px;
+	grid-gap:0px;
+	text-align:center;
+	align-items:center;
+    
+	border: 2px solid #ffffff;
+	border-radius:10px;
+    background-color:rgba(0,0,0,.6);
+    font-size:2vh;
+    font-weight:700;
+    cursor:pointer;
+    padding:10px;
+}
+.multiverseEntryParentStyle:hover{
+    background-color:rgba(255,255,255,.65);
+}
+
+.multiverseElectStyle{
+	border: 2px solid #ffffff;
+	border-radius:10px;
+    background-color:rgba(0,0,0,.6);
+    font-weight:700;
+    cursor:pointer;
+    padding:10px;
+    margin-left: 5px;
+    align-self: stretch;
+    width: 50px;
+}
+.multiverseElectStyle:hover{
+    background-color:rgba(255,255,255,.65);
+}
+
+.multiverseEntryCountParentStyle{
+	display:grid;
+    grid-template-columns: max-content 20px max-content;
+    justify-self: end;
+    font-size: .7em;
+}
+
+
+.guiVerseHudTitle{
+	border: 2px solid #ffffff;
+	border-radius:10px;
+    padding:2px 5px;
+    color:#ffffff;
+    font-size:.8em;
+    font-weight:700;
+    cursor:pointer;
+}
+
+
+
+
+.gui_mitosisPromptStyle{
+	display:grid;
+	grid-template-rows:auto;
+	grid-gap:0px;
+	text-align:center;
+	align-items:center;
+    justify-content: center;
+	height:50%;
+    width:100%;
+	position:fixed;
+	left:50%;
+	top:50%;
+	transform:translate(-50%, -50%);
+}
+.gui_mitosisBody{
+    display: grid;
+    justify-items: center;
+    grid-auto-flow: row;
+	grid-gap:10px;
+	font-size:2em;
+	font-weight:bold;
+	padding:5px;
+	color:#ffffff;
+	width:100%;
+    text-align:center;
+}
+
+.gui_mitosisBodyHead{
+	font-size:.6em;
+}
+
+.gui_mitosisFooterButtons{
+	display:grid;
+    grid-auto-flow: column;
+	grid-template-columns: auto;
+	grid-gap:0px;
+	padding:3px;
+	align-self:start;
+    justify-self: center;
+}
+
+/* -- -- -- -- -- -- -- -- -- */

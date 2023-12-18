@@ -18,25 +18,21 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
   <meta name='theme-color' content='#000822'>
 </head>
-<link type="text/css" rel="stylesheet" href="style/Proc.css?v=<%= cssVersion %>">
+<link type="text/css" rel="stylesheet" href="style/pxlNavStyle.css?v=<%= cssVersion %>">
 
 <body>
-  <canvas id="ProcGLCanvas" height='1' width='1' style='z-index:3;position:fixed;top:0px;left:0px;touch-action:none;' ></canvas>
-  <canvas id="markerCanvas" height='1' width='1' style='z-index:2;position:fixed;top:0px;left:0px;touch-action:none;' ></canvas>
-  <canvas id="bkCanvas" height='1' width='1' style='z-index:0;position:fixed;top:0px;left:0px;'></canvas>
+  <canvas id="map-core" height='1' width='1' class="mapCoreCanvasStyle" ></canvas>
   
-  <div id="stats" style='z-index:100;position:fixed;top:0px;left:0px;color:#ffffff;'></div>
+	<div style="position:fixed;top:0px;left:0px;z-index:101;color:#fff;">
+	<div id="verbErrorConsole"></div>
+	</div>
   
-  <div align='center' id="verbose" style='z-index:400;position:fixed;top:100px;left:10px;color:#cccccc;font-size:150%'> </div>
-  <div align='center' id="score" style='z-index:200;position:fixed;top:0px;left:300px;color:#555555;visibility:hidden;'>
-    <span style='cursor:pointer;' onClick="$('#score').css('visibility','hidden');">[X]</span> Score : <span id='score_val' style="color:#777777">0</span>
-  </div>
   <div id="introCards" class="introCards" vis=1>
     <div id="introCardsInner" class="introCardsInner">
       <%- include('partials/splash'); %>
     </div>
   </div>
   
-	<script type="module" src="js/Proc.js?v=<%= jsVersion %>"></script>
+	<script type="module" src="js/pxlNav.js?v=<%= jsVersion %>"></script>
 </body>
 </html>

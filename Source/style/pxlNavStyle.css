@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap');
+
+@import "howToStyle.css";
+@import "envPopupStyle.css";
+@import "multiverseGuiStyle.css";
+@import "guiHudDisplayStyle.css";
+@import "guiRangeSliderStyle.css";
+@import "helpGuiStyle.css";
+@import "infoGuiStyle.css";
+@import "settingsGuiStyle.css";
+@import "jmaGuiStyle.css";
+@import "chatBoxGuiStyle.css";
+@import "userProfileBoxGuiStyle.css";
+@import "shaderBoxGuiStyle.css";
+@import "artistInfoStyle.css";
+@import "userControlStyles.css";
+
+:root {
+	--gui-table-width: 80%;
+
+	--gui-slider-width: 76%;
+	--gui-slider-height: 76%;
+	--gui-slider-marker-width: 75.5%;
+	--gui-slider-thumb-dia: 15px;
+	--gui-slider-value: 73%;
+}
+
+
+BODY{
+	margin:0px;
+	padding:0px;
+	background-color:#000000;
+	cursor:grab;
+	user-select:none;
+	font-family: 'Raleway', sans-serif;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none;
+}
+
+.pxlDomBlock{
+    display:inline;
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+	z-index:115;
+}
+
+
+/* -- -- -- -- -- -- */
+
+
+/*    Scrollbar Style       */
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0,0,0,.2); 
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(150,150,150,.5); 
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(50,50,50,.5); 
+}
+
+
+/* -- -- -- -- -- -- */
+
+
+
+.parentGoogleLinkDoc{
+	cursor:alias;
+	background-color:rgba(0,0,0,.65);
+	position:fixed;
+	top:0px;
+	left:0px;
+	height:100%;
+	width:100%;
+	overflow:hidden;
+	z-index:499;
+}
+.iframeGoogleLinkDoc{
+	cursor:default;
+	color:#000000;
+	height:55%;
+	width:65%;
+	min-height:750px;
+	min-width:900px;
+	max-width:1475px;
+	position:fixed;
+	left:50%;
+	top:50%;
+	transform:translate(-50%, -50%);
+	overflow:auto;
+	z-index:500;
+	border: 2px solid #ffffff;
+	background-color:#000000;
+	border-radius:25px;
+}
+.iframeGoogleLinkDoc:a{
+	cursor:pointer;
+}
+
+
+
+
+/* -- -- -- -- -- -- */
+
+.videoScreenBlockStyle{
+    display: grid;
+	overflow:hidden;
+	position:fixed;
+    top:0px;
+    left:0px;
+    grid-auto-flow: column;
+    grid-auto-rows: auto;
+	z-index:-1;
+    transform: scale(.1);
+    transform-origin: 0px 0px;
+}
+
+
+/* -- -- -- -- -- -- */
+
+
+.mapCoreCanvasStyle{
+	touch-action:none;
+	position:fixed;
+	top:0px;
+	left:0px;
+	z-index:100;
+	background-color:#000000;
+}
+
+
+
+/* -- -- -- -- -- -- */
+
+.bgMediaAssets{
+}
+.bgMediaAssetsBK{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}

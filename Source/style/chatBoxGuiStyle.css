@@ -1,0 +1,186 @@
+
+/* Chat Box GUI */
+
+.gui_chatBoxBlockStyle{
+	cursor:default;
+	position:fixed;
+	left:0px;
+	top:0px;
+	height:100%;
+	overflow:hidden;
+	z-index:112;
+	width:20%;
+	min-width:330px;
+	max-width:450px;
+	font-family: 'Raleway', sans-serif;
+}
+.gui_chatBoxBlockStyle_mobile{
+	position:fixed;
+	left:0px;
+	top:0px;
+	height:100%;
+	overflow:hidden;
+	z-index:112;
+	width:100%;
+	font-family: 'Raleway', sans-serif;
+}
+
+.gui_chatBoxParentStyle{
+	display:grid;
+	grid-gap:0px;
+	grid-auto-flow: row;
+	grid-auto-rows: max-content max-content auto max-content max-content;
+	text-align:left;
+	padding-right:8px;
+	width:100%;
+	height:100%;
+	justify-content:stretch;
+	align-content:space-center;
+	width:100%;
+	background-color:rgba(0,0,0,.6);
+}
+
+
+.gui_chatBoxHeader{
+	font-size:2em;
+	font-weight:bold;
+	padding:5px;
+	color:#ffffff;
+	width:100%;
+}
+.gui_chatBodHeaderLine{
+	height:2px;
+	overflow:hidden;
+	width:80%;
+	background-color:#ffffff;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:5px;
+}
+
+.gui_chatBoxDisplay{
+	display:grid;
+	justify-content:stretch;
+	align-content:start;
+	width:100%;
+	height:100%;
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+
+.gui_chatBoxFieldBlockStyle{
+	width:100%;
+}
+
+.gui_chatBoxFieldParentStyle{
+	display:grid;
+	grid-gap:5px;
+	grid-auto-flow: column;
+	grid-auto-columns: auto min-content;
+	width:100%;
+	justify-content:stretch;
+	align-content:center;
+}
+.gui_chatBoxFieldParentStyle textarea{
+	resize:none;
+	outline:none;
+	width:100%;
+	margin:5px;
+	color:#ffffff;
+	border-radius:5px;
+	border: 2px solid #ffffff;
+	background-color:rgba(0,0,0,.45);
+}
+.gui_chatBoxSpacer{
+	height:53px;
+	max-height:0px;
+}
+
+.chatBox_sendMessage{
+	cursor:pointer;
+	outline:none;
+	margin:5px;
+	color:#ffffff;
+	border-radius:5px;
+	border: 2px solid #ffffff;
+	background-color:rgba(0,0,0,.45);
+}
+.chatBox_sendMessage:hover{
+	background-color:rgba(255,255,255,.6);
+}
+.chatBox_sendMessage:active{
+	background-color:rgba(255,255,255,1);
+	color:#000000;
+}
+
+
+/* -- -- -- -- -- -- -- -- -- -- */
+
+.gui_chatMessageBlock{
+	display:grid;
+	border-radius:10px;
+	grid-gap:0px;
+	grid-auto-flow: column;
+    grid-auto-columns: minmax(10%, auto);
+	padding:3px;
+	max-width:100%;
+	justify-content:space-between;
+	align-content:end;
+}
+.gui_chatMessageParent{
+	border-radius:10px;
+	background-color:rgba(0,0,0,.5);
+	border:2px solid #ffffff;
+	justify-content:stretch;
+	user-select:text;
+}
+.gui_chatMessageHeader{
+    display: grid;
+    user-select: text;
+    grid-auto-columns: auto max-content;
+    grid-auto-flow: column;
+    margin: 0px 10px;
+}
+.gui_chatMessageUsername{
+	color:#ffffff;
+	font-size:1.1em;
+	font-weight:bold;
+	text-shadow: 1px 1px 2px #000000;
+}
+.gui_chatMessageTime{
+	text-align:right;
+    align-self: end;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:2px;
+	color:#ffffff;
+	font-size:.75em;
+	user-select:text;
+}
+.gui_chatMessageBodyParent{
+	min-width:150px;
+	width:100%;
+	max-width:95vw;
+	border-width:1px 0px 0px 0px;
+	border-style:solid;
+}
+.gui_chatMessageBody{
+	word-wrap:break-word;
+	font-size:.85em;
+	color:#ffffff;
+	min-height:30px;
+    padding: 0px 10px;
+	text-shadow: 1px 1px 1px #000000;
+	user-select:text;
+    margin-bottom: 3px;
+}
+
+.gui_chatMessageOptionParent{
+	min-width:150px;
+	width:100%;
+	max-width:95vw;
+}
+.gui_chatOptions{}
+
+
+

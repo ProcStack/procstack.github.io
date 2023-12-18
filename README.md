@@ -7,6 +7,13 @@ Kevin Edzenga's web dev & shader resume site
 
 ## 
 
+If you're running Windows, you'll need to have -
+`Desktop development with C++` for visual studio
+<br/>Or run `npm i -g windows-build-tools` to support the `package.json` node modules safe install.
+
+
+##
+
 #### Note about `pxlNav` -<br/>&nbsp;&nbsp;&nbsp;&nbsp;*November 16th, 2023*
 
 I decided to release the `pxlNav` framework for `three.js` I wrote for use in the virtual event website `Antib0dy.club`,

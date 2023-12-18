@@ -1,0 +1,168 @@
+proc prepColliderAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "checkX"  -at long  -min -2 -max 1 -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".checkX");
+        addAttr -ln "checkZ"  -at long  -min -2 -max 1 -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".checkZ");
+    }
+}
+prepColliderAttributes();
+
+
+
+proc prepDoubleSidedAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "doubleSided"  -at bool -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".doubleSided");
+    }
+}
+prepDoubleSidedAttributes();
+
+
+
+proc prepScriptedAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "Scripted"  -at bool -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".Scripted");
+    }
+}
+prepScriptedAttribute();
+
+
+
+proc prepInstanceAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "Instance"  -dt "string" $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".Instance");
+    }
+}
+prepInstanceAttribute();
+
+
+proc prepEmitterAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "Emitter"  -dt "string" $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".Emitter");
+    }
+}
+prepEmitterAttribute();
+
+
+proc prepGlowPassAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "GlowPass"  -at bool -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".GlowPass");
+        addAttr -ln "GlowPerc"  -at double  -min 0 -max 2 -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".GlowPerc");
+    }
+}
+prepGlowPassAttribute();
+
+proc prepGlowPercAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "GlowPerc"  -at double  -min 0 -max 2 -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".GlowPerc");
+    }
+}
+prepGlowPercAttribute();
+
+
+
+
+
+proc prepInteractableAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "Hover"  -at bool -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".Hover");
+        addAttr -ln "Click"  -at bool -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".Click");
+    }
+}
+prepInteractableAttribute();
+
+
+
+
+
+
+
+
+
+proc prepCamPathAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "duration"  -at long  -min 1 -max 1000 -dv 50 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".duration");
+    }
+}
+prepCamPathAttributes();
+
+
+
+
+
+
+proc prepScreenAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "djScreen"  -at long  -min 0 -max 3 -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".djScreen");
+        addAttr -ln "performerScreen"  -at long  -min 0 -max 3 -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".performerScreen");
+    }
+}
+prepScreenAttributes();
+
+
+
+proc prepDjAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "dj"  -at long  -min 0 -max 3 -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".dj");
+    }
+}
+prepDjAttributes();
+
+proc prepPerformerAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "dj"  -at long  -min 0 -max 3 -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".performer");
+    }
+}
+prepPerformerAttributes();
+
+
+proc prepAdAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "ad"  -at long  -min 0 -max 3 -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".ad");
+    }
+}
+prepAdAttributes();
+
+proc prepVideoAttributes(string $vidName){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        if( !`attributeExists "video" $sel[$x]`){
+            addAttr -ln "video" -dt "string"  $sel[$x];
+            setAttr -e-keyable true ($sel[$x]+".video");
+        }
+        if( !`attributeExists "portrait" $sel[$x]`){
+            addAttr -ln "portrait"  -at long  -min 0 -max 3 -dv 0 $sel[$x];
+            setAttr -e-keyable true ($sel[$x]+".portrait");
+        }
+        setAttr -type "string" ($sel[$x]+".video") $vidName;
+    }
+}
+prepVideoAttributes("JimBobFallsDownVideo");

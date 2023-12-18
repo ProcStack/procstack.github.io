@@ -1,0 +1,134 @@
+
+/* Chat Box GUI */
+
+.gui_shaderEditorBlockStyle{
+	cursor:default;
+	position:fixed;
+	left:0px;
+	top:0px;
+	height:100%;
+	overflow:hidden;
+	z-index:120;
+    width:100%;
+    max-width:30vw;
+	min-width:430px;
+	font-family: 'Raleway', sans-serif;
+	background-color:rgba(0,0,0,.6);
+  padding: 0px 3px;
+}
+
+.gui_shaderEditorParentStyle{
+	display:grid;
+	grid-gap:0px;
+	grid-auto-flow: row;
+	grid-auto-rows: max-content max-content max-content auto max-content;
+	text-align:left;
+	width:100%;
+	height:100%;
+	justify-content:stretch;
+}
+
+
+.gui_shaderHeaderSpacer{
+	height: 122px;
+    color: #ffffff;
+    font-size: .8em;
+    padding-left: 5px;
+}
+
+
+.gui_shaderEditorHeaderBlock{
+	font-size:2em;
+	font-weight:bold;
+	padding:5px;
+	color:#ffffff;
+	width:100%;
+}
+.gui_shaderEditorHeaderParent{
+	display:grid;
+	grid-gap:0px;
+	grid-auto-flow: column;
+	grid-template-columns: auto;
+}
+.gui_shaderEditorHeaderLine{
+	height:2px;
+	overflow:hidden;
+	width:80%;
+	background-color:#ffffff;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:5px;
+}
+
+.gui_shaderEditorDisplay{
+	display:grid;
+	justify-content:stretch;
+	align-content:start;
+	width:100%;
+	height:0%;
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+
+.gui_shaderEditorFieldParentStyle{
+	display:grid;
+	grid-auto-flow: row;
+	grid-auto-rows: min-content auto auto;
+	justify-content:stretch;
+  align-content: space-between;
+  overflow: hidden;
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 12px;
+  padding-right: 10px;
+  font-size:12px
+}
+.gui_shaderEditorFieldParentStyle textarea{
+	transition: max-height .5s ease;
+    height:2000px;
+    resize:none;
+	outline:none;
+	width:100%;
+	color:#ffffff;
+    margin: 0px 0px 3px 0px;
+	border-radius:5px;
+	border: 2px solid #ffffff;
+	background-color:rgba(0,0,0,.45);
+}
+.gui_shaderEditorSpacer{
+	height:53px;
+}
+
+.shaderEditor_sendMessage{
+	cursor:pointer;
+	outline:none;
+	margin:5px;
+	color:#ffffff;
+	border-radius:5px;
+	border: 2px solid #ffffff;
+	background-color:rgba(0,0,0,.45);
+    font-weight: 700;
+    text-align: center;
+    font-size: .9em;
+    padding: 5px;
+}
+.shaderEditor_sendMessage:hover{
+	background-color:rgba(255,255,255,.65);
+}
+.shaderEditor_sendMessage:active{
+	background-color:rgba(255,255,255,1);
+	color:#000000;
+}
+
+
+.gui_changeShaderLink{
+    cursor:pointer;
+    font-size: .6em;
+    font-weight:700;
+    color:#ffffff;
+    text-decoration:none;
+    margin: 0px 5px;
+}
+.gui_changeShaderLink:hover{
+    text-decoration:underline;
+}

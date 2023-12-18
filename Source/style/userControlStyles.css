@@ -1,0 +1,79 @@
+/* User Control Styles */
+
+
+.userControlBlockStyle{
+	transition: top .5s, left .5s, padding .5s;
+    transition-timing-function: ease-out;
+	display:grid;
+	grid-auto-flow: row;
+	grid-template-rows:auto;
+	text-align:left;
+	align-items:center;
+    justify-content: start;
+    width: max-content;
+	position:fixed;
+    top:0px;
+    left:0px;
+    z-index:110;
+    background-color: rgba(0,0,0,.6);
+    border-radius: 0px 5px 5px 0px;
+    padding: 0px;
+}
+.userControlParentStyle{
+	transition: max-height .5s, max-width .5s, opacity .25s, filter .25s;
+	display:grid;
+	justify-items:start;
+	align-items:center;
+    align-content: space-around;
+	font-family: 'Raleway', sans-serif;
+	text-align:left;
+	font-size:1em;
+    color:#ffffff;
+    max-height:24px;
+    max-width:30px;
+    opacity:1;
+    filter:alpha(opacity=100);
+    overflow: hidden;
+    text-shadow: 1px 1px 2px #000000;
+}
+.userControlParentStyle:hover{
+    font-weight:700;
+}
+.userControlProximityOff{
+    max-height:0px;
+    opacity:0;
+    filter:alpha(opacity=0);
+}
+.userControlInnerParentStyle{
+	display:grid;
+	grid-auto-flow: column;
+    grid-template-columns: max-content auto;
+    grid-gap: 6px;
+	justify-items:start;
+	align-items:center;
+    align-content: space-around;
+    padding:3px;
+}
+
+.userControlSpeakerParentStyle{}
+.userControlSpeakerStyle{
+    height:24px;
+    width:auto;
+}
+
+.userControlSpeakerButtonStyle{
+    cursor:pointer;
+}
+
+.userControlNameStyle{
+    white-space: nowrap;
+}
+.userControlVisStyle{
+    transition:opacity .25s, filter .25s;
+    opacity:0;
+    filter:alpha(opacity=0);
+}
+.userControlVisible{
+    opacity:1;
+    filter:alpha(opacity=100);
+}

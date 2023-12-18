@@ -16,73 +16,217 @@
 ///////////////////////////////////////////////
 
 const path = require('path');
-//const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-//const CopyWebpackPlugin = require('copy-webpack-plugin');
-//const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const glob = require("glob");
+const fs = require('fs');
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 //require("babel-core/register");
 //require("babel-polyfill");
 
-console.log( "// -- -- -- -- -- -- -- -- -- -- -- -- -- -- --" );
-console.log( "//  Building, packing, otherwise, smacking - -- --  ");
-console.log( "// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- \n\n" );
+const envMode=process.env.NODE_ENV;
+const devMode =  envMode === 'development';
+const adminMode = process.env.ADMIN_BUILD === "admin";
+
+var buildMode= adminMode ? "admin" : envMode;
+
+buildMode=buildMode.charAt(0).toUpperCase() + buildMode.slice(1);
+console.log( "// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //" );
+console.log( "//  Building Antib0dy.club for " + buildMode + " -- -- ");
+console.log( "// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //\n\n" );
 
 // -- -- -- -- -- -- -- //
 // -- -- -- -- -- -- -- //
 
-    module.exports = {
-      mode: 'production',
-      entry: './source/js/Neurous.js',
-      output: {
-        path: path.resolve(__dirname, 'Public/js'),
-        filename: 'Neurous.min.js'
-      },
-      resolve: {
-        alias: {
-          'node_modules': path.join(__dirname, 'node_modules'),
+
+var outputPath="Build";
+var publicPath="Public";
+var entryPath="Source";
+var roomFolder = "pxlRooms";
+// -- -- -- -- -- -- -- //
+// Remove Admin code from scripts
+var adminOption=[
+					{
+						loader: 'string-replace-loader',
+						options: {
+							search: /\/\/%=([\S\s\W\w\n]*?)\/\/%/gi,
+							replace: '',
+						}
+					}
+				];
+if(envMode=="production" && !adminMode ){
+	//outputPath="Build"; // Non-Admin Build Output Path
+	adminOption.push(
+			{
+				loader: 'string-replace-loader',
+				options: {
+					search: /\/\/&=([\S\s\W\w\n]*?)\/\/&/gi,
+					replace: '',
+				}
+			});
+}else{
+	process.env.NODE_ENV="production";
+}
+//adminOption.push(
+adminOption = [
+			{
+				loader:'babel-loader',
+        options: {
         }
-      }
-    };
-
-/*
-var outputPath="build";
-// -- -- -- -- -- -- -- //
-var buildOption=[]
-buildOption.push(
-  {
-    loader:'babel-loader',
-    options: {
-        presets: [
-            '@babel/preset-env'
-        ],
-        plugins: [
-            //'@babel/transform-runtime'
-        ]
-    }
-  }
-);
+			}
+		];
+//adminOption = [
+//      "file-loader?name=[path][name].[ext]",
+//      "babel-loader"
+//    ]
 // -- -- -- -- -- -- -- //
 
 
 // Inclusion paths for Packing
-//const includePath = path.join(__dirname, 'src/js');
-//const nodeModulesPath = path.join(__dirname, 'node_modules');
+const includePath = path.join(__dirname, `${entryPath}/js`);
+const nodeModulesPath = path.join(__dirname, 'node_modules');
 
 
+// console.log( glob.sync(`./${entryPath}/**/*.js`).reduce((acc, file) => {
+      // if( !file.includes(`./${entryPath}/lib`) ){
+        // acc[file.replace(/^\.\/Source\//, "")] = file;
+      // }
+      // return acc;
+    // }, {}) )
+
+let entryFullList = glob.sync(`./${entryPath}/js/${roomFolder}/**/*.js`).reduce((acc, file) => {
+      if( !file.includes(`./${entryPath}/lib`) && !file.includes("templateRoom") && !file.includes("Shaders.js") ){
+        acc[file.replace(`./${entryPath}/`, "")] = file;
+      }
+      return acc;
+    }, {});
+let entryPoints = Object.assign({},
+    {
+      "js/pxlNav.js":`./${entryPath}/js/pxlNav.js`,
+      "style/pxlNavStyle.css": `./${entryPath}/style/pxlNavStyle.css`
+    },
+    entryFullList );
+entryPoints = {
+      "js/pxlNav":`./${entryPath}/js/pxlNav.js`,
+      "style/pxlNavStyle": `./${entryPath}/style/pxlNavStyle.css`
+    };
+//entryPoints["style/pxlNavStyle.css"] = `./${entryPath}/style/pxlNavStyle.css`;
+
+let copyFileList = [ { from: publicPath } ]
+//			{ from: 'src/libs/three/examples/jsm/libs/stats.module.js', to: 'js/three/stats.module.js' },
+let entryPointScan = [];
+// ## Scan for Room Asset Folders
+Object.keys( entryFullList ).forEach( (e)=>{
+  let ePath = entryFullList[e];
+  if( ePath.includes( roomFolder ) ){
+    let splitter = ePath.split( "/" );
+    let title = splitter.pop();
+    while( title.includes(".") ){
+      title = splitter.pop();
+      if( splitter.length == 0 ){
+        break
+      }
+    }
+    if( title != "" && !entryPointScan.includes(title) ){
+      let basePath = ePath;
+      basePath = basePath.split("/")
+      if( basePath[ basePath.length-1 ].includes(".") ){
+        basePath.pop();
+      }
+      basePath=basePath.join("/") + "/Assets";
+      if( fs.existsSync(basePath) ){
+        let fromPath = basePath.replace(`./${entryPath}/`, `${entryPath}/`)
+        let toPath = basePath.replace(`./${entryPath}/`, "")
+        
+        entryPointScan.push( title );
+        
+        copyFileList.push( {
+          from: fromPath,
+          to: toPath
+        } );
+      }
+    }
+  }
+});
+
+console.log(entryPoints);
+console.log(" -- -- -- ");
+console.log(copyFileList)
+
+//entryPoints={}
+//entryPoints="./webpack-entry.js";
 // Module options for Webpack; Babel, Code Removal, Etc.
+
 module.exports = {
   mode: 'production',
-  entry: [ './source/js/Neurous.js' ],
+  // entry: {
+  // //'':'babel-polyfill',
+	// 'pxlNav' : './Source/js/pxlNav.js',
+	// 'pxlStyle' : './Source/style/pxlNavStyle.css',
+  // },
+  entry: entryPoints ,
   output: {
     path: path.resolve(__dirname, outputPath),
     publicPath: '/', // Output root folder for assets
-    filename: 'js/Neurous.min.js' // Bundle Output
+    filename: '[name].min.js', // Bundle Output
   },
+  module: {
+    rules: [
+      { // Prepped this step in GULP, but lets see webpack
+        test: /\.(css)$/,
+        use: [
+          { // Prep from 'plugins'
+            loader: MiniCssExtractPlugin.loader
+          },
+          { // Load CSS
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2
+            }
+          },
+          { // PostCSS to minify and autoprefix. Config - postcss.config.js
+            loader: 'postcss-loader'
+          }
+        ]
+      }
+    ]
+  },
+  plugins: [ // Load CSS root file
+    new MiniCssExtractPlugin({
+      filename: 'style/pxlNavStyle.css'
+    }),
+	new CopyWebpackPlugin({
+		patterns: copyFileList,
+	})
+  ]
+}
+/*
+module.exports = {
+  mode: devMode ? 'development' : 'production',
+  // entry: {
+  // //'':'babel-polyfill',
+	// 'pxlNav' : './Source/js/pxlNav.js',
+	// 'pxlStyle' : './Source/style/pxlNavStyle.css',
+  // },
+  entry: entryPoints ,
+  output: {
+    path: path.resolve(__dirname, outputPath),
+    publicPath: '/', // Output root folder for assets
+    filename: '[name].min.js', // Bundle Output
+    //sourceMapFilename: `[name].map`
+  },
+  //devtool: "source-map",
   module: {
     rules: [
       { // Config for Babel - .babelrc
         test: /\.(js)$/,
-        exclude: [],
-        use: buildOption,
+      //  exclude: [
+			// /(node_modules|three)/,
+			// /\*three*\.(js)$/,
+			// /\*libs*\.(js)$/
+		  //],
+        use: adminOption,
       },
       { // Prepped this step in GULP, but lets see webpack
         test: /\.(css)$/,
@@ -103,26 +247,52 @@ module.exports = {
       }
     ]
   },
-	optimization: {},
+	optimization: {
+		splitChunks: {
+			cacheGroups: {
+				vendor: {
+					test: /[\\\/]three[\\\/]/,
+					name: 'three',
+					chunks: 'all'
+				},
+				vendor: {
+					test: /[\\\/]libs[\\\/]/,
+					name: 'libs',
+					chunks: 'all'
+				},
+			},
+		},
+	},
   plugins: [ // Load CSS root file
     new MiniCssExtractPlugin({
-      filename: 'style/Neurous.min.css'
-    })//,
+      filename: 'style/pxlNavStyle.css'
+    }),
 	new CopyWebpackPlugin({
-		patterns: [
-			{ from: 'public' },
-			{ from: 'src/libs/three/build/three.module.js', to: 'js/three/three.module.js' },
-			{ from: 'src/libs/three/examples/jsm/libs/inflate.module.min.js', to: 'js/three/inflate.module.min.js' },
-			{ from: 'src/libs/three/examples/jsm/postprocessing/EffectComposer.js', to: 'js/three/EffectComposer.js' },
-			{ from: 'src/libs/three/examples/jsm/postprocessing/RenderPass.js', to: 'js/three/RenderPass.js' },
-			{ from: 'src/libs/three/examples/jsm/postprocessing/ShaderPass.js', to: 'js/three/ShaderPass.js' },
-			{ from: 'src/libs/three/examples/jsm/shaders/CopyShader.js', to: 'js/three/CopyShader.js' },
-			{ from: 'src/libs/three/examples/jsm/postprocessing/SSAARenderPass.js', to: 'js/three/SSAARenderPass.js' },
-			{ from: 'src/libs/three/examples/jsm/postprocessing/UnrealBloomPass.js', to: 'js/three/UnrealBloomPass.js' },
-			{ from: 'src/libs/three/examples/jsm/libs/dat.gui.module.js', to: 'js/three/dat.gui.module.js' },
-			{ from: 'src/libs/three/examples/jsm/libs/stats.module.js', to: 'js/three/stats.module.js' },
-		],
+		patterns: copyFileList,
 	})
   ]
-};*/
+};
+*/
 
+/*const path = require('path');
+
+module.exports = {
+    mode: 'development',
+    entry: {
+		index:'./src/js/pxlNav.js',
+		pxlNav:'./src/js/pxlBase/pxlBase.js',
+		rolLobby:'./src/js/rolLobby/rolLobby.js',
+		rolShadowPlanet:'./src/js/rolShadowPlanet/rolShadowPlanet.js',
+		rolDanceFloor:'./src/js/rolDanceFloor/rolDanceFloor.js',
+	},
+    output: {
+        filename: '[name].min.js',
+        path: path.resolve(__dirname, 'dist'),
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
+    },
+};
+*/
