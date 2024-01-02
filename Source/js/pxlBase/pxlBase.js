@@ -30,8 +30,3 @@ export { AutoCamera } from './cam/AutoCamera.js';
 export { MusicUtils } from './media/MusicUtils.js';
 export { Audio } from './media/Audio.js';
 export { Video } from './media/Video.js';
-
-// Networking; Socket.io, Multiplayer Avatars, and WebRTC PeerConnections Audio & Video Correlation (Unused in MAP)
-export { Avatars } from './networking/Avatars.js';
-export { Socket } from './networking/Socket.js';
-export { UserConnect } from './networking/UserConnect.js';

@@ -17,12 +17,11 @@ export class FileIO{
 		this.pxlCamera=null;
 		this.pxlAutoCam=null;
 		this.pxlUser=null;
-		this.pxlAvatars=null;
 		this.pxlEnv=null;
 		this.pxlDevice=null;
 		this.pxlShaders=null;
 		
-		this.runDebugger=true;
+		this.runDebugger=false;
 		
 		this.assetRoot=assetRoot;
 		this.guiRoot=guiRoot;
@@ -199,24 +198,12 @@ export class FileIO{
           let name = mesh.name;
 					this.log("Generate Instance - ",name);
 					
-          if(!envObj.geoList['InstancesGroup']){
-            let instGrp=new THREE.Group();
-            envObj.geoList['InstancesGroup']=instGrp;
-            instGrp.matrixAutoUpdate=false;
-            envScene.add(instGrp);
-          }
-          if(!envObj.geoList['InstanceCopies']){
-            envObj.geoList['InstanceCopies']={};
-          }
-          if(!envObj.geoList['InstanceCopies'][name]){
-            let instGrp=new THREE.Group();
-            envObj.geoList['InstanceCopies'][name]=instGrp;
-            envObj.geoList['InstancesGroup'].add(envObj.geoList['InstanceCopies'][name]);
-          }
+					if( !envObj.geoList.hasOwnProperty("InstancesObjects") ){
+						envObj.geoList['InstancesObjects']={};
+					}
           
           let instBase= envObj.baseInstancesList[ mesh.userData.Instance ];
 
-          
           let curPos=mesh.position;
           let curRot=mesh.rotation;
           let curScale=mesh.scale;
@@ -234,7 +221,9 @@ export class FileIO{
             curSide=THREE.DoubleSide;
           }
           dupe.material.side=curSide;
+					dupe.name = name+"Geo";
             
+					envObj.geoList['InstancesObjects'][name]=dupe;
           mesh.parent.add( dupe );
     }
   }
@@ -508,6 +497,7 @@ export class FileIO{
           });
         }
 			}
+			
 			
 			if(groupNames.indexOf('Items')>-1){
 				let ch=groups[groupTypes['Items']].children;

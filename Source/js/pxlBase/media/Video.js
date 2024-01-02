@@ -308,7 +308,6 @@ export class Video{
         
         this.videoStreams[ streamId ]['videoTexture'] = curTexture;
         this.videoStreams[ streamId ]['checkScreens'] = true ;
-        this.pxlEnv.pxlConnect.jmaUserCountChange=true;
     }
     resetEnvSettings( streamId ){
         this.resetvideoTexture( streamId );
@@ -658,7 +657,6 @@ export class Video{
                     //this.videoStreams['dj']['player'].play();
                     let player=streamDict['player'];
                     streamDict['active']=player.core.isLoaded && !player.core.paused;
-                    //this.pxlConnect.jmaUserCountChange=true;
                 }else{
                     streamDict['loading']=false;
                 }

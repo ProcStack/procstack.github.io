@@ -14,8 +14,6 @@ export class AutoCamera{
 		this.pxlUtils=pxlUtils;
 		this.pxlDevice=null;
 		this.pxlAudio=pxlAudio;
-		this.pxlSocket=null;
-		this.pxlAvatars=null;
 		this.pxlCamera=null;
 		this.pxlEnv=null;
         this.camera=null;
@@ -75,7 +73,6 @@ export class AutoCamera{
         this.getNextPath();
         
         this.checkStatus();
-        this.pxlSocket.sendAutoCam({type:"enable", value:true});
 	}
 	
 	step( force=false ){
@@ -96,17 +93,14 @@ export class AutoCamera{
             }
             
             this.curAvatar=0;
-            this.pxlSocket.sendAutoCam( {type:"follow", value:0} );
             this.camera.up.set( 0,1,0 );
             
             this.pxlDevice.touchMouseData.netDistance.multiplyScalar(0);
         
             if( this.camMode == 1 ){
-                if( !this.prepAvatarCam() ){
-                    this.setCamMode(0);
-                }
+              this.setCamMode(0);
             }else if( this.camMode == 2 ){
-                this.prepClusterCam();
+              this.setCamMode(0);
             }else{
                 this.curCluster=[];
                 this.stepDroneCam();
@@ -116,16 +110,7 @@ export class AutoCamera{
         
         
         // Run AutoCam Mode Step
-        if( this.autoCamMode==1 ){
-            this.updateAvatarCamera();
-        }else if( this.autoCamMode==2 ){
-            // Update orbit value
-            this.clusterRotation+=this.clusterRotRate;
-            
-            this.updateClusterCamera();
-        }else{
-            this.updateAutoCamera();
-        }
+				this.updateAutoCamera();
         
         this.applyTouchRotate();
         return false;
@@ -139,23 +124,14 @@ export class AutoCamera{
     checkCamMode(){
         let ret=1;
         let prevCamMode=this.camMode;
-        this.camMode=0; // Sets in this.setAvatarMode();
+        this.camMode=0;
         if( !this.enabled ){
             return ret;
         }
         if( !this.active ){ return ret; }
         
-        if( this.clusterReturn ){
-            this.clusterReturn=false;
-            this.camMode=2;
-            ret=1.5;
-        }else if( this.camMode == 0 ){// && this.curModeCount>1){
-                let checkMode= Math.random( this.nextCamChange );
-                if( checkMode<.5 ){
-                    let valid=this.setAvatarMode();
-                    ret = valid ? 1.25 : 1; // There are avatars : there are not
-                }
-        }
+        // Insert Mode Logic --
+				
         if( this.camMode!=prevCamMode && this.camMode==0){
             this.forceNewRoom=true;
         }
@@ -165,9 +141,9 @@ export class AutoCamera{
     setCamMode( autoCamData ){
         let timeMult=1;
         if( autoCamData.type == 1 ){
-            timeMult= this.setAvatarMode(1) ? 1.25 : 1;
+            timeMult= 1;
         }else if( autoCamData.type == 2 ){
-            timeMult= this.setAvatarMode(2) ? 1.5 : 1;
+            timeMult= 1;
         }else{
             this.camMode=0;
             this.forceNewRoom=true;
@@ -251,90 +227,6 @@ export class AutoCamera{
         }
     }
     
-    
-/////////////////////////////
-// Avatar Data Functions  //
-///////////////////////////
-    
-    prepAvatarCam(){
-        let aKeys= Object.keys( this.pxlAvatars.userAvatarSpacialData );
-        if( aKeys.length > 0 ){
-            let randAvatar= this.pxlUtils.getRandom( aKeys, this.pxlTimer.curMS );
-            this.curAvatar=randAvatar;
-            
-            let aRoom=this.pxlAvatars.userAvatarSpacialData[ randAvatar ].room;
-            if( !this.roomList.includes( aRoom ) ){
-                return false;
-            }
-            if( this.pxlEnv.currentRoom != aRoom ){
-                this.curRoom=aRoom;
-                this.pxlCamera.warpEventTriggered( 1, this.curRoom, 'init' );
-            }
-            
-            this.pxlCamera.resetAutoCam=true;
-            
-            this.pxlSocket.sendAutoCam( {type:"follow", value:this.curAvatar} );
-            
-            return true;
-        }
-        return false;
-    }
-    prepClusterCam(){
-        this.clusterRotation=0;
-        let curAvatar=this.curCluster[0];
-        
-        
-        if( !this.pxlAvatars.userAvatarSpacialData[ curAvatar ] ){
-            this.setCamMode( { type:0, value:1 } );
-            return;
-        }
-        let aRoom=this.pxlAvatars.userAvatarSpacialData[ curAvatar ].room;
-        if( this.pxlEnv.currentRoom != aRoom && this.roomList.includes(aRoom) ){
-            this.curRoom=aRoom;
-            this.pxlCamera.warpEventTriggered( 1, this.curRoom, 'init' );
-        }else{
-            this.setCamMode( { type:0, value:1 } );
-        }
-        this.pxlCamera.resetAutoCam=true;
-        
-    }
-    
-    setAvatarMode( force=0 ){
-        let aKeys= Object.keys( this.pxlAvatars.userAvatarSpacialData );
-        let valid=aKeys.length >= this.avatarMin;
-        if( valid ){
-            let checkMode= Math.random( this.nextCamChange )+force;
-            if( checkMode<.5 || force==1){
-                this.camMode=1;
-            }else{
-                this.requestAvatarCluster();
-            }
-        }
-        return valid;
-    }
-    requestAvatarCluster(){
-        this.pxlSocket.requestCluster();
-        setTimeout( ()=>{
-            this.pxlSocket.requestCluster();
-        }, 1000); // Allow time to populate cluster lists
-    }
-    foundAvatarCluster( avatarList=[] ){
-        let validList=[];
-        for( let x=0; x<avatarList.length; ++x){
-            let curList=avatarList[x];
-            let curLen=curList.length;
-            if( curLen>=this.clusterValid ){
-                validList.push( x );
-            }
-        }
-        let validLen=validList.length;
-        if( validLen > 0 ){
-            let rand= this.pxlUtils.getRandom( validList, this.pxlTimer.curMS );
-            this.clusterReturn=true;
-            this.curCluster=avatarList[ rand ];
-        }
-        avatarList=null; // I dunno, faster grabage collect maybe?
-    }
 
 
 ////////////////////////////
@@ -420,14 +312,10 @@ export class AutoCamera{
           this.autoCamStartTime = this.pxlTimer.curMS - (this.totalLoopDuration*Math.random());
         }catch(err){}
         
-        this.pxlAvatars.proximityMult.x = 0;
-        
 			}else{
 				this.setPosQuat(this.pxlCamera.cameraPrevPos.clone(), this.pxlCamera.prevQuaternion.clone());
                 
         this.pxlDevice.touchMouseData.netDistance.copy( this.netDistance );
-        this.pxlAvatars.proximityMult.x = 1;
-
 			}
 		}
 	}
@@ -523,95 +411,7 @@ export class AutoCamera{
 			this.camera.setRotationFromQuaternion(camPoseQuat);*/
 	}
 	
-	updateAvatarCamera(){
-        let curId=this.curAvatar;
-        let curAvatar=this.pxlAvatars.userAvatarSpacialData[ curId ];
-        if( !curAvatar ){
-            this.setCamMode( { type:0, value:1 } );
-            return;
-        }
-        let pos=curAvatar.avatarGroup.position.clone();
-        let quat=curAvatar.avatarGroup.quaternion;
-        
-        let camPos=new THREE.Vector3( 0,25,60 ).applyQuaternion( quat ).add( pos);
-        let camLookAt=new THREE.Vector3( 0,15,-25 ).applyQuaternion( quat ).add( pos);
-
-        if( this.resetAutoCam ){
-            this.resetAutoCam=false;
-            this.autoCamPrevPos=camPos.clone();
-            this.autoCamPrevLookAt=camLookAt.clone();
-        }
-        
-        camPos= camPos.add( this.autoCamPrevPos.clone() ).multiplyScalar(.5);
-        camLookAt= camLookAt.add( this.autoCamPrevLookAt.clone() ).multiplyScalar(.5);
-        this.autoCamPrevPos=camPos.clone();
-        this.autoCamPrevLookAt=camLookAt.clone();
-        
-		this.camera.position.copy(camPos);
-		this.camera.lookAt(camLookAt);
-        this.camera.up.set( 0,1,0 );
-        
-        if( curAvatar.room != this.pxlEnv.currentRoom ){
-            if( this.roomList.includes( curAvatar.room ) ){
-                this.curRoom=curAvatar.room;
-                this.pxlCamera.warpEventTriggered( 1, this.curRoom, 'init' );
-            }else{
-                this.setCamMode( { type:0, value:1 } );
-            }
-        }
-        
-	}
-	updateClusterCamera(){
-        let cluster=this.curCluster;
-        let maxDist=0;
-        let camLookAt=new THREE.Vector3();
-        let changeMode=false;
-        
-        cluster.forEach( (i)=>{
-            let curAvatar=this.pxlAvatars.userAvatarSpacialData[ i ];
-            if( !curAvatar ){
-                changeMode=true;
-            }else{
-                let curPos=curAvatar.avatarGroup.position.clone();
-                camLookAt.add( curPos );
-                
-                changeMode= curAvatar.room != this.pxlEnv.currentRoom || changeMode;
-            }
-        });
-        
-        if( changeMode ){
-            this.setCamMode( { type:0, value:1 } );
-            return;
-        }
-        
-        camLookAt.multiplyScalar( 1/cluster.length );
-        cluster.forEach( (i)=>{
-            let curAvatar=this.pxlAvatars.userAvatarSpacialData[ i ];
-            let curPos=curAvatar.avatarGroup.position.clone();
-            let relPos=curPos.sub( camLookAt );
-            let dist=relPos.length();
-            maxDist=Math.max( dist, maxDist );
-        });
-        
-        
-        let camPos=new THREE.Vector3( 0, 40, maxDist*2.7 );
-        camPos.applyAxisAngle( new THREE.Vector3(0,1,0), this.clusterRotation );
-        camPos.add( camLookAt.clone() );
-        if( this.resetAutoCam ){
-            this.resetAutoCam=false;
-            this.autoCamPrevPos=camPos.clone();
-            this.autoCamPrevLookAt=camLookAt.clone();
-        }
-        
-        camPos= camPos.add( this.autoCamPrevPos.clone() ).multiplyScalar(.5);
-        camLookAt= camLookAt.add( this.autoCamPrevLookAt.clone() ).multiplyScalar(.5);
-        this.autoCamPrevPos=camPos.clone();
-        this.autoCamPrevLookAt=camLookAt.clone();
-        
-		this.camera.position.copy(camPos);
-		this.camera.lookAt(camLookAt);
-	}
-    
+	
     applyTouchRotate(){
 		// this.pxlDevice.touchMouseData.startPos;
 		// this.pxlDevice.touchMouseData.endPos;

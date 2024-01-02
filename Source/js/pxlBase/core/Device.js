@@ -5,7 +5,7 @@ import * as THREE from "../../../libs/three/build/three.module.js";
 
 
 export class Device{
-	constructor(projectTitle, mapCore, mobile, pxlTimer, pxlAutoCam, pxlAudio, pxlUser, pxlSocket, pxlAvatars, pxlEnv, pxlQuality){
+	constructor(projectTitle, mapCore, mobile, pxlTimer, pxlAutoCam, pxlAudio, pxlUser, pxlEnv, pxlQuality){
     this.projectTitle=projectTitle;
 		this.mapCore=mapCore;
 		this.pxlEnv=pxlEnv;
@@ -14,9 +14,6 @@ export class Device{
 		this.pxlUser=pxlUser;
 		this.pxlCamera=null;
 		this.pxlAutoCam=pxlAutoCam;
-		this.pxlAvatars=pxlAvatars;
-		this.pxlSocket=pxlSocket;
-		this.pxlConnect=null;
 		this.pxlGuiDraws=null;
 		this.pxlQuality=pxlQuality;
 		
@@ -147,7 +144,6 @@ export class Device{
     
     document.addEventListener("visibilitychange", function(e) {
         tmpThis.windowHidden=document.hidden ;
-        //tmpThis.pxlConnect.windowVisible( !document.hidden );
               
         tmpThis.directionKeysPressed=[0,0,0,0];
         tmpThis.directionKeyDown=false;
@@ -176,85 +172,8 @@ export class Device{
           tmpThis.controlKey=false;
           tmpThis.mapLockCursor(false, 0);
           return "Close tab?";
-      }else{
-          //tmpThis.pxlSocket.sendExitedData(tmpThis.pxlUser.jmaUserId);
-          if( tmpThis.pxlSocket && tmpThis.pxlSocket.socket ){
-            tmpThis.pxlSocket.socket.disconnect();
-          }
-          tmpThis.pxlConnect.unload(e, tmpThis.pxlConnect);
       }
 		});
-		/*window.addEventListener( 'unload', (e)=>{
-			//tmpThis.pxlConnect.unload(e, tmpThis.pxlConnect);
-		});*/
-        /*let wError=console.error;
-        console.error= (...args)=>{//(a,b,c,d,e,f,g,h)=>{ // Ugh, so stupid
-            let errMsg=args.join("\n");//a+" "+e+"; "+b+":"+c+"\n"+f+"\n"+g;
-            let data={
-                msg:"Error",
-                data:errMsg
-            }
-            tmpThis.pxlSocket.sendErrorMsg( data );
-             
-            return wError.apply(console, arguments);
-        }*/
-        window.addEventListener('error', function(e) {
-            let data={
-                msg:e.message,
-                file:e.filename+"; "+e.lineno,
-            }
-            if( e.error ){
-                if( e.error.stack ){
-                    data['stack']=e.error.stack;
-                }
-            }
-            tmpThis.pxlSocket.sendErrorMsg( data );
-            //%=
-            if(false){
-            //%
-            e.returnValue = '';
-            return false;
-            //%=
-            }
-            //%
-        });
-        window.addEventListener('warn', function(e) {
-            //%=
-            if(false){
-            //%
-            e.preventDefault();
-            return false;
-            //%=
-            }
-            //%
-        }, false);
-        window.addEventListener('log', function(e) {
-            //%=
-            if(false){
-            //%
-            e.preventDefault();
-            return false;
-            //%=
-            }
-            //%
-        }, false);
-        let wInfo=console.info;
-        console.info= (e)=>{
-            let infoMsg="";
-            let data={
-                msg:"info - "+e,
-            }
-            //tmpThis.pxlSocket.sendErrorMsg( data );
-            return wInfo.apply(console, arguments);
-            //%=
-            if(false){
-            //%
-            e.preventDefault();
-            return false;
-            //%=
-            }
-            //%
-        };
 	}
     
   // -- -- -- -- -- -- -- -- -- -- //
@@ -301,7 +220,6 @@ export class Device{
   // -- -- -- -- -- -- -- -- -- -- //
   
   runHiddenCalcs(){
-      this.pxlAvatars.step();
       if( this.windowHidden ){
           setTimeout( ()=>{
               this.runHiddenCalcs();
@@ -723,6 +641,8 @@ export class Device{
 		//e.this.preventDefault(e)();
         if( e.ctrlKey ){
             this.controlKey=false;
+						e.preventDefault();
+						return false;
         }
 		if(document.activeElement.type==undefined ){
 			let keyHit=e.keyCode || e.which;
@@ -730,16 +650,10 @@ export class Device{
 			if( !e.isTrusted ){
 				return false;
 			}
-            //%=
-            if(false){
-            //%
-            if( e.ctrlKey || e.altKey || e.code.includes("F") ){
-                e.preventDefault();
-                return false;
-            }
-            //%=
-            }
-            //%
+			if( e.ctrlKey || e.altKey || e.code.includes("F") ){
+					e.preventDefault();
+					return false;
+			}
             
 			if(this.pxlTimer.active){
 				if(keyHit==37 || keyHit==65){ // Left
@@ -822,29 +736,15 @@ export class Device{
 				//%=
 				// 75 K Numpad-Plus
 				if(keyHit == 75 || keyHit == 107 || keyHit == 187){
-					this.pxlAvatars.fakeUserAdd(false); // No Texture
-					return;
 				}
 				// 74 J Numpad-Minus
 				if(keyHit == 74 || keyHit == 109 || keyHit == 189){
-					this.pxlAvatars.fakeUserRemove(false); // No Texture
-					return;
 				}
 				// 76 L
 				if(keyHit == 76){
-					this.pxlAvatars.fakeUserAdd(true); // Dupe Local Texture
-					return;
 				}
 				// 48  0
 				if(keyHit == 48){
-					this.pxlAvatars.camFallOff=!this.pxlAvatars.camFallOff;
-                    let data={
-                        "id":this.pxlConnect.jmaUserId,
-                        "type":"proxAudio",
-                        "value":this.pxlAvatars.camFallOff,
-                    };
-                    this.pxlSocket.sendAvatarSettings(data);
-					return;
 				}
 				// 89 Y
 				if( keyHit == 89 ){
@@ -890,59 +790,24 @@ export class Device{
 				}
 				// 221 ]
 				if( keyHit == 221 ){
-          console.log( this.pxlUser.itemInactiveCmd.pop() );
+					// Prevent current item from wearing off
+					//   Printing it from the check list
+					if( this.pxlUser?.itemInactiveCmd?.length >0 ){
+						console.log( this.pxlUser.itemInactiveCmd.pop() );
+					}
           return;
 				}
 				// 106 *
 				if( keyHit == 106 ){
-          let verseKeys=Object.keys(this.guiWindows.multiverseGui.verseEntry);
-          let toVerse=parseInt( Math.random()*verseKeys.length );
-          toVerse=verseKeys[ toVerse ];
-          this.pxlAvatars.userElectJump(toVerse);
-          return;
 				}
 				
-				// 74 J
-				/*if(keyHit == 74){
-					this.pxlAvatars.recordData=!this.pxlAvatars.recordData;
-					if( this.pxlAvatars.recordData ){
-						this.pxlAvatars.recordedData=[];
-					}else{
-						let printer="";
-						this.pxlAvatars.recordedData.forEach( (e)=>{
-							printer+="{";
-							let k=Object.keys( e );
-							k.forEach( (k)=>{
-								let val="[";
-								val+="["+e[k][0]+"],";
-								val+="["+e[k][1]+"],";
-								val+="'"+e[k][2]+"',";
-								val+=e[k][3];
-								printer+="'"+k+"':"+val+"]";
-							});
-							printer+="},"
-						});
-					}
-					return;
-				}*/
-				//%
-                
-                //&=
-				// 84 T
-				if( keyHit == 84 ){
-                    this.pxlGuiDraws.iconEvent( "click", this.pxlGuiDraws.hudIcons.multiverseIcon, "users" );
-                    return;
-				}
-                //&
 			}
 			
 			// Close all gui windows
 			// ESC / Enter
 			if(keyHit==27 || ( keyHit == 13 && !e.ctrlKey )){
-        if( !this.pxlGuiDraws.multiverseData.mitosisState ){
-            this.pxlGuiDraws.toggleHudBlock(false, true);
-            this.pxlGuiDraws.toggleGuiWindowContainer(false, false, true);
-        }
+				this.pxlGuiDraws.toggleHudBlock(false, true);
+				this.pxlGuiDraws.toggleGuiWindowContainer(false, false, true);
 				return;
 			}
 			
@@ -953,8 +818,6 @@ export class Device{
 			
 			// 85  U
 			if(keyHit == 85){
-				this.pxlGuiDraws.iconEvent( "click", this.pxlGuiDraws.hudIcons.multiverseIcon, "multiverse" );
-				return;
 			}
 			// 73  I
 			if(keyHit == 73){
@@ -969,8 +832,6 @@ export class Device{
 			
 			// 67  C
 			if(keyHit == 67){
-				this.pxlGuiDraws.iconEvent( "click", this.pxlGuiDraws.hudIcons.chatIcon, "chat" );
-				return;
 			}
 			// 66  B
 			if(keyHit == 66){
@@ -984,22 +845,18 @@ export class Device{
 			}
 			// 77  M
 			if(keyHit == 77){
-				this.pxlGuiDraws.iconEvent( "click", this.pxlGuiDraws.hudIcons.micIcon, "micToggle");
-				return;
 			}
 			// 86  V
 			if(keyHit == 86){
-				this.pxlGuiDraws.iconEvent( "click", this.pxlGuiDraws.hudIcons.camIcon, "camToggle");
-				return;
 			}
 			// 191  ?
-			if(keyHit == 191){
+			if(keyHit == 191){ // Open Help Screen
 				this.pxlGuiDraws.iconEvent( "click", this.pxlGuiDraws.hudIcons.helpIcon, "help" );
 				return;
 			}
 			
 			// P 
-			if(keyHit == 80){
+			if(keyHit == 80){ // Pause pxlNav Environment
 				this.directionKeysPressed=[0,0,0,0];
 				this.directionKeyDown=false;
 				this.pxlTimer.pausePlayback();

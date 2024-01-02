@@ -6,7 +6,6 @@ export class QualityController{
 		this.pxlCookie=pxlCookie;
 		this.pxlDevice=null;
 		this.pxlEnv=null;
-		this.pxlAvatars=null;
 		this.msLog=0;
 		this.prevMS=new Date().getTime()*.001;
 		this.autoQuality=false;
@@ -133,9 +132,9 @@ export class QualityController{
 		this.benchmarkQuality= this.benchmarkRating*(this.benchmarkQualityRange[1]-this.benchmarkQualityRange[0]) + this.benchmarkQualityRange[0];
 		
 		//%=
-		console.log("Benchmark Timing - ",bDelta); 
-		console.log("Benchmark Rating - ",this.benchmarkRating);
-		console.log("Benchmark Quality - ", parseInt(this.benchmarkQuality*100), "%");
+		//console.log("Benchmark Timing - ",bDelta); 
+		//console.log("Benchmark Rating - ",this.benchmarkRating);
+		//console.log("Benchmark Quality - ", parseInt(this.benchmarkQuality*100), "%");
 		//%
 		
 		let percStep=Math.min(1, Math.max(0, this.benchmarkRating ));
@@ -144,7 +143,7 @@ export class QualityController{
 		if( this.setFromBenchmark ){
 			//%=
 			let levelText=["Low","Medium","High"][this.qualityStep];
-			console.log( "Setting Benchmark to "+levelText+" quality.");
+			//console.log( "Setting Benchmark to "+levelText+" quality.");
 			//%
 			this.setQualityLevel( this.qualityStep );
 		}else{
@@ -342,7 +341,6 @@ export class QualityController{
 				
 			case "bloom":
 				this.pxlEnv.portaluserScreenIntensity.x = val ? .4 : 1;
-				//this.pxlEnv.pxlRenderSettings.mult = val ? 1 : 1;
 				
 				this.pxlEnv.mapGlowPass.enabled = val;
 				this.pxlEnv.roomBloomPass.enabled = val;
@@ -350,7 +348,6 @@ export class QualityController{
 				
 				this.pxlEnv.userScreenIntensity.x = val ? .65 : .8;
 				this.pxlEnv.userScreenIntensity.y = val ? 0 : .8;
-				//this.pxlAvatars.colorMult.x = val ? .2 : 1.5;
                 if(this.pxlEnv.geoList['HDRView']){
                     this.pxlEnv.geoList['HDRView'].material.uniforms.cdMult.value = val==0 ? .7 : .3;
                 }
@@ -368,7 +365,7 @@ export class QualityController{
 				
 			default:
 				//%=
-				console.error("No Setting Component Updated - ",component,": ",val);
+				//console.error("No Setting Component Updated - ",component,": ",val);
 				//%
 				break;
 		}
@@ -418,10 +415,6 @@ export class QualityController{
 					portalIntensity=.4;
 				}
 				
-        let redBullPromo = null;
-        if(this.pxlVideo){
-          redBullPromo = this.pxlVideo.screenVideos[ "redBull" ];
-        }
                 
 				if( this.settings.bloom ){
 					this.pxlEnv.mapGlowPass.enabled=true;	
@@ -429,13 +422,6 @@ export class QualityController{
 					this.pxlEnv.roomGlowPass.enabled=true;	
 					this.pxlEnv.userScreenIntensity.x=.65;
 					this.pxlEnv.userScreenIntensity.y=0;
-					this.pxlAvatars.colorMult.x=.5;
-                    if( redBullPromo ){
-                        let promoInt=redBullPromo[ "intensity" ];
-                        redBullPromo[ "intensity" ].x=promoInt.z;
-                        promoInt=redBullPromo[ "boost" ];
-                        redBullPromo[ "boost" ].x=promoInt.z;
-                    }
                     circleGateBloom=1;
                     circleGateColor=.25;
 				}else{
@@ -449,15 +435,8 @@ export class QualityController{
                     this.pxlEnv.engine.clear();
                     this.pxlEnv.engine.setRenderTarget(null);
                     
-					this.pxlAvatars.colorMult.x=this.settings.fog==0 ? 1.5 : .5;
                     this.pxlEnv.userScreenIntensity.x=.8;
 					this.pxlEnv.userScreenIntensity.y=0;
-                    if( redBullPromo ){
-                        let promoInt=redBullPromo[ "intensity" ];
-                        redBullPromo[ "intensity" ].x=promoInt.y;
-                        promoInt=redBullPromo[ "boost" ];
-                        redBullPromo[ "boost" ].x=promoInt.y;
-                    }
                     
 					//multVal=1.0;
 					portalIntensity=1;
@@ -487,50 +466,4 @@ export class QualityController{
 				//this.pxlEnv.setExposure(multVal);
 	}
 	
-	/*
-	
-				if( this.percent==1 ){
-					multVal=1.10;
-					this.pxlEnv.geoList['HDRView'].material.uniforms.cdMult.value=.25;
-					portalIntensity=.5;
-				}else if( this.percent>=this.percentSteps[2] ){
-					this.pxlEnv.mapMotionBlurPass.enabled=true;	
-					this.pxlEnv.mapOverlayHeavyPass.enabled=false;
-					this.pxlEnv.mapOverlayPass.enabled=true;
-					this.pxlEnv.mapOverlaySlimPass.enabled=false;
-					multVal=1.15;
-					this.pxlEnv.geoList['HDRView'].material.uniforms.cdMult.value=.25;
-					portalIntensity=.5;
-				}else{
-					this.pxlEnv.mapMotionBlurPass.enabled=false;
-					this.pxlEnv.mapOverlayPass.enabled=false;
-					this.pxlEnv.mapOverlaySlimPass.enabled=true;
-					multVal=1.0;
-					this.pxlEnv.geoList['HDRView'].material.uniforms.cdMult.value=.3;
-					portalIntensity=.4;
-				}
-				
-				if( this.percent>this.percentSteps[1] ){
-					this.pxlEnv.mapGlowPass.enabled=true;	
-					this.pxlEnv.roomGlowPass.enabled=true;	
-					this.pxlEnv.userScreenIntensity.x=.65;
-					this.pxlEnv.userScreenIntensity.y=0;
-					this.pxlEnv.lightList[1].visible=true;
-					this.pxlAvatars.colorMult.x=.2;
-				}else{
-					this.pxlEnv.mapGlowPass.enabled=false;
-					this.pxlEnv.roomGlowPass.enabled=false;
-					this.pxlEnv.userScreenIntensity.x=.8;
-					this.pxlEnv.userScreenIntensity.y=.8;
-					this.pxlAvatars.colorMult.x=1.5;
-					this.pxlEnv.lightList[1].visible=false;
-					multVal=2.0;
-					this.pxlEnv.geoList['HDRView'].material.uniforms.cdMult.value=.7;
-					portalIntensity=1;
-				}
-				
-				this.pxlEnv.portaluserScreenIntensity.x=portalIntensity;
-				this.pxlEnv.pxlRenderSettings.mult=multVal;
-
-	*/
 };

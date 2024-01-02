@@ -6,12 +6,13 @@ import { SettingsGui } from './pxlGui/SettingsGui.js';*/
 
 // THIS FILE IS A MESS!!
 //   When necessity and limited time drives development....
+//  
 
 import { SVGUtils } from './guiUtils/svgUtils.js';
 
 
 export class GuiDraws{
-	constructor(projectTitle="Metal-Asylum", pxlCookie, pxlTimer, pxlAudio, pxlUtils, pxlUser, pxlConnect, pxlSocket, pxlDevice, pxlCamera, pxlQuality, pxlFile, pxlEnv, assetRoot="images/assets/", guiRoot="images/GUI/", pxlAutoCam){
+	constructor(projectTitle="Metal-Asylum", pxlCookie, pxlTimer, pxlAudio, pxlUtils, pxlUser, pxlDevice, pxlCamera, pxlQuality, pxlFile, pxlEnv, assetRoot="images/assets/", guiRoot="images/GUI/", pxlAutoCam){
 
     this.projectTitle = projectTitle;
 
@@ -26,8 +27,6 @@ export class GuiDraws{
 		this.pxlUser=pxlUser;
 		this.pxlDevice=pxlDevice;
 		this.pxlAutoCam=pxlAutoCam;
-		this.pxlConnect=pxlConnect;
-		this.pxlSocket=pxlSocket;
 		this.pxlCamera=pxlCamera;
 		this.mapCanvas=null;
 		this.pxlQuality=pxlQuality;
@@ -37,12 +36,13 @@ export class GuiDraws{
 		//this.djAudioObj=null;
         this.introHelpActive=true;
 		
+		// -- Medalion Loads
         this.branding={
             title:projectTitle,
-            loader:guiRoot+"branding/OffGrid_logogram.svg",
-            logo:guiRoot+"branding/OffGrid_logomark.svg",
-            medalion:guiRoot+"branding/OffGrid_logomark.svg",
-            stack:guiRoot+"branding/OffGrid_logostack.svg"
+            loader:guiRoot+".svg",
+            logo:guiRoot+".svg",
+            medalion:guiRoot+".svg",
+            stack:guiRoot+".svg"
         };
         
 		// Dynamic Styles 
@@ -162,23 +162,20 @@ export class GuiDraws{
 		this.qualityText=["Netbook", "Laptop", "Desktop Computer", "Gamer Rig"];
 	
 		this.activeItem=null;
-		this.fitUserCountActive=false;
 		
 		//&=
 		this.jmaWindowVis=false;
 		//&
 		
 		this.actionPopUp=null;
-		this.ctaLocalDocURL={
-			'blmSupport':'./cta/blmSupport/blmResources.html',
-		}
+		this.ctaLocalDocURL={}
 		
 		// ## Gat damn cross origin on google
 		// ## iFrames headers to google prevent following links
 		// ## Fix!
 		this.ctaContentLoading=false;
 		this.googleDocHTML=null;
-		this.googleDocURL="https://docs.google.com/document/d/e/2PACX-1vRAAHI8NQFpczzaYHP5QuwRNM44tIPIs8MLxYljRyom4sfjkLL6HVFMN-m7IwMwRnvmS-nU3Gu-psgG/pub";
+		this.googleDocURL="";
 		
 		this.init();
 	}
@@ -254,8 +251,7 @@ export class GuiDraws{
 	booted(){
         this.buildHudBlock();
         this.buildTopBar();
-        this.buildRoomControlsBar();
-        this.buildMedalionBar();
+        //this.buildMedalionBar();
         this.buildBottomBar();
         this.buildGuiWindowContainer();
         this.buildUserControlBlock();
@@ -269,7 +265,6 @@ export class GuiDraws{
 			this.hideItemHud();
 		}
         
-        this.serverBalancing();
         this.pxlNavDataUpdate();
 	}
 	
@@ -311,7 +306,6 @@ export class GuiDraws{
         this.setUserControlPosition();
 		
         this.inviteUserPosition();
-		this.resizeSideBarSpacer();
         this.setArtistInfoSizing();
 	}
 	resetHelpTextPlacement(){
@@ -388,8 +382,6 @@ export class GuiDraws{
                 retSearch+=s+"&"
             }
         });
-		//tmpThis.pxlCookie.setCookie( "detailLimit", this.pxlQuality.detailLimit+1 );
-        //location.reload();
         location.search=retSearch
     }
     
@@ -422,32 +414,6 @@ export class GuiDraws{
         }
     }
     
-	setUserCount( curCount=null ){
-		if( Number.isInteger( curCount ) ){
-            curCount= curCount<0 ? 0 : curCount;
-            
-            this.userCountCur=curCount;
-            if( this.userCountObj ){
-                this.userCountObj.innerText=curCount+this.pxlEnv.pxlAvatars.fakeUserCount;
-                this.fitUserCount( true, curCount );
-            }
-		}
-	}
-	fitUserCount( initRun=true, count=null ){
-		let countObj=this.userCountObj;
-        if(count!=null){
-            if(count<10){
-                countObj.style.fontSize="100%";
-                countObj.style.letterSpacing="0px";
-            }else if(count<100){
-                countObj.style.fontSize="95%";
-                countObj.style.letterSpacing="0px";
-            }else{
-                countObj.style.fontSize="90%x";
-                countObj.style.letterSpacing="-.8px";
-            }
-        }
-	}
 	
 	
 	/**
@@ -611,7 +577,6 @@ export class GuiDraws{
             }
 			if(close){
 				if(this.guiWindows[g].button){
-					this.toggleDeviceChoiceGUI( g, false );
 					this.flipIcon(this.guiWindows[g].button, false );
 				}
 				if(this.guiWindows[g].gui && this.guiWindows[g].active){
@@ -761,41 +726,6 @@ export class GuiDraws{
 	}
 	
 	
-	buildRoomControlsBar(){
-        if( this.buildGuiStatus.roomControls ){
-            let ftBar=document.createElement( "div" );
-            ftBar.id="hud_fastTravelBar";
-            ftBar.classList.add("hud_fastTravelBlockStyle");
-            this.fastTravelBar=ftBar;
-            document.body.appendChild( this.fastTravelBar );
-            
-            if( !this.pxlDevice.mobile ){
-                
-                let curCount=this.userCountCur;
-                let html=`
-                    <div id="hud_fastTravelParent" class="hud_fastTravelParentStyle">
-                        <span class="ftButtonStyle" id="ft2Button"></span>
-                        <span class="ftButtonStyle" id="ft3Button"></span>
-                        <span class="ftButtonStyle hud_userCountStyle" id="hud_userCount">${curCount}</div>
-                        </span>
-                    </div>
-                `;
-                ftBar.innerHTML=html;
-                
-                //this.hudIcons.infoIcon=SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_info.svg`, "infoIcon", "info", null, "ftButtonStyle" );
-                this.userCountObj=document.getElementById( "hud_userCount" );
-                
-                let svgDivList=[
-                    [ this.guiRoot+"roomControls/rc_EnviornmentIcon.svg", "ft2Button",["buttonHover","ftButtonStyle"],true,"ft2" ],
-                    [ this.guiRoot+"roomControls/rc_InviteFriendIcon.svg", "ft3Button",["buttonHover","ftButtonStyle"],true,"ft3" ],
-                ];
-                svgDivList.forEach( (s)=>{
-                    SVGUtils.svgButtonPromise( ...s );
-                });
-            }
-        }
-	}
-	
     
     
     /*
@@ -941,22 +871,17 @@ export class GuiDraws{
         
         if( !this.pxlDevice.mobile && !this.pxlAutoCam.enabled ){
             this.hudIcons.multiverseIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_multiverse.svg`, "multiverseIcon", "multiverse" );
-            this.hudIcons.speakerIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_ProxAudio.svg`, "speakerIcon", "speakerToggle", this.pxlConnect.speakerActive );
+            this.hudIcons.speakerIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_ProxAudio.svg`, "speakerIcon", "speakerToggle", false );
             this.hudIcons.speakerChoiceIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_downcaret.svg`, "speakerChoiceIcon", "speakerChoice", false, "iconCaretStyle" );
-            this.hudIcons.micIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_mic.svg`, "micIcon", "micToggle", this.pxlConnect.micActive );
+            this.hudIcons.micIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_mic.svg`, "micIcon", "micToggle", false );
             this.hudIcons.micChoiceIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_downcaret.svg`, "micChoiceIcon", "micChoice", false, "iconCaretStyle" );
-            this.hudIcons.camIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_camera.svg`, "camIcon", "camToggle", this.pxlConnect.camActive );
+            this.hudIcons.camIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_camera.svg`, "camIcon", "camToggle", false );
             this.hudIcons.camChoiceIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_downcaret.svg`, "camChoiceIcon", "camChoice", false, "iconCaretStyle" );
             this.hudIcons.helpIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_help.svg`, "helpIcon", "help" );
             this.hudIcons.settingsIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_settings.svg`, "settingsIcon", "settings" );
             
             let guiVerseTitle=document.getElementById("guiVerseTitle");
             let tmpThis=this;
-            /*if( guiVerseTitle ){
-                guiVerseTitle.onclick=()=>{
-                    tmpThis.toggleMultiverseList();
-                };
-            }*/
         }else{
             let chatBlock=document.getElementById("hud_chatIconBlock");
             chatBlock.style.gridAutoColumns= "max-content max-content auto max-content";
@@ -1102,9 +1027,6 @@ export class GuiDraws{
 			if(mode=="chat"){
 				this.toggleChatBox();
 				return;
-			}else if(mode=="multiverse"){
-				this.toggleMultiverseList();
-				return;
 			}else if(mode=="musicToggle"){
 				this.pxlAudio.djPlayerMuteToggle();
 				this.toggleIcon(obj, !this.pxlAudio.djMuted, true );
@@ -1113,30 +1035,10 @@ export class GuiDraws{
 				this.setUserControls( obj );
 				return;
 			}else if(mode=="speakerToggle"){
-				this.pxlConnect.toggleLocalDevice( "speaker" );
-				this.toggleIcon(obj, this.pxlConnect.speakerActive, true );
+				this.toggleIcon(obj, false, true );
 				return;
 			}else if(mode=="speakerChoice"){
 				let curType="audiooutput";
-				this.toggleDeviceChoiceGUI( curType );
-				this.flipIcon(obj, this.guiWindows[curType] && this.guiWindows[curType].active );
-				return;
-			}else if(mode=="micToggle"){
-				this.pxlConnect.toggleLocalDevice( "audio" );
-				this.toggleIcon(obj, this.pxlConnect.micActive, true );
-				return;
-			}else if(mode=="micChoice"){
-				let curType="audioinput";
-				this.toggleDeviceChoiceGUI( curType );
-				this.flipIcon(obj, this.guiWindows[curType] && this.guiWindows[curType].active );
-				return;
-			}else if(mode=="camToggle"){
-				this.pxlConnect.toggleLocalDevice( "video" );
-				this.toggleIcon(obj, this.pxlConnect.camActive, true );
-				return;
-			}else if(mode=="camChoice"){
-				let curType="videoinput";
-				this.toggleDeviceChoiceGUI( curType );
 				this.flipIcon(obj, this.guiWindows[curType] && this.guiWindows[curType].active );
 				return;
 			}else if(mode=="help"){
@@ -1160,11 +1062,8 @@ export class GuiDraws{
 				return;
 			//&=
 			}else if(mode=="users"){
-				this.toggleModBox();
-				return;
 			//&
 			}else if(mode=="stats"){
-				this.pxlConnect.toggleConnection();
 				return;
 			}
 		}
@@ -1206,178 +1105,6 @@ export class GuiDraws{
 // -- -- -- -- -- -- -- -- -- -- -- -- -- //
 ///////////////////////////////////////////
 
-	
-	// ## Add speaker list
-	toggleDeviceChoiceGUI(type="videoinput", active=null){
-		let trackType={ "videoinput":"video", "audioinput":"audio", "audiooutput":"speaker" }[type];
-		let curDeviceList= this.guiWindows[type];//type=="videoinput" ? this.camChoicesObj : this.micChoicesObj;
-
-		if( !curDeviceList ){
-            if( !this.pxlConnect.localDevices.hasOwnProperty( type ) ){
-                this.guiWindows[type]={};
-                this.guiWindows[type].active=active;
-                let pxlc=this.pxlConnect;
-                pxlc.onDeviceListChanged( pxlc );
-                return;
-            }
-			let tracks=this.pxlConnect.localDevices[ type ];// videoinput // audioinput // audiooutput
-			let deviceList=document.createElement( "div" );
-			deviceList.classList.add( "deviceOptionList" );
-
-			let labelDivList=[];
-			let nameDivList=[];
-			let prevObj=null;
-			if( tracks ){
-				let curTrackId=null;
-				this.pxlConnect.localTracks.forEach( (t)=>{
-					if( t.type==trackType ){
-						curTrackId=t.deviceId;
-					}
-				});
-				if(curTrackId==null){
-					curTrackId=tracks[0].deviceId;
-				}
-				let tmpThis=this;
-				tracks.forEach( (t,x)=>{
-					let curLabel = t.label.substr( 0, 1 ).toUpperCase(); 
-					let nameSuffix= t.label.includes("Default") ? "Default - " : "";
-                    let curName=t.label;
-                    try{
-                        let curSplit = curName.split( /\(|\)/g ); // Slim, might not catch all
-                        curName=curSplit[ Math.min(1, curSplit.length-1) ];
-                        curName= curName.includes(":") ? curSplit[0] : curName;
-                        curName = curName.replace(/[-|_|+]/g," ").replace(/\b\w/g, (c)=> c.toUpperCase() );
-                        curName = nameSuffix+curName;
-                    }catch(err){}
-					
-					let curDeviceId=t.deviceId;
-					let curDiv=document.createElement( "div" );
-					curDiv.id=type+"_"+x;
-					curDiv.setAttribute( "option", x );
-					curDiv.setAttribute( "deviceId", curDeviceId );
-					curDiv.setAttribute( "trackType", trackType );
-					curDiv.classList.add( "deviceOption" );
-					if(curTrackId==curDeviceId){
-						prevObj=curDiv;
-						curDiv.classList.add( "deviceSelected" );
-					}
-					let curDivLabel=document.createElement( "div" );
-					curDivLabel.classList.add( "deviceOption_label" );
-					curDivLabel.innerHTML=curLabel;
-					labelDivList.push( curDivLabel );
-					curDiv.appendChild( curDivLabel );
-					
-					let curDivName=document.createElement( "div" );
-					curDivName.classList.add( "deviceOption_name" );
-					curDivName.innerHTML=curName;
-					nameDivList.push( curDivName );
-					curDiv.appendChild( curDivName );
-					
-					deviceList.appendChild( curDiv );
-					
-					curDiv.addEventListener("click", (e)=>{ tmpThis.optionSelected( tmpThis, type, curDiv ); } );
-				});
-			}
-			
-			this.guiWindows[type]={};
-			this.guiWindows[type].prevObj=prevObj;
-			this.guiWindows[type].divList=deviceList;
-			this.guiWindows[type].active=active;
-			this.guiWindows[type].type=trackType;
-			curDeviceList=deviceList;
-			let optionBlockId=null;
-			let curIcon=null;
-			if( type=="videoinput" ){
-				//this.camChoicesObj=deviceList;
-				optionBlockId="camChoiceOptionsBlock";
-				curIcon=this.hudIcons.camChoiceIcon;
-			}else if( type=="audioinput" ){
-				//this.micChoicesObj=deviceList;
-				optionBlockId="micChoiceOptionsBlock";
-				curIcon=this.hudIcons.micChoiceIcon;
-			}else if( type=="audiooutput" ){
-				//this.micChoicesObj=deviceList;
-				optionBlockId="speakerChoiceOptionsBlock";
-				curIcon=this.hudIcons.speakerChoiceIcon;
-			}
-			this.guiWindows[type].button=curIcon;
-			
-			let optionBlock=document.getElementById( optionBlockId );
-			optionBlock.appendChild( deviceList );
-			
-			let curWidth=100;
-			if( nameDivList.length > 0 ){
-				curWidth=Math.max(100, nameDivList[0].getBoundingClientRect().width);
-				curWidth= Math.ceil( curWidth*.1 )*this.optionWidthRound+this.optionWidthAdd;
-				nameDivList.forEach( (d)=>{
-					d.style.width=curWidth;
-				});
-			}
-			
-			let bbox=curIcon.parent.getBoundingClientRect();
-			optionBlock.style.left=bbox.x-curWidth*.5;
-			optionBlock.style.bottom=this.sH - this.hudBottomBar.getBoundingClientRect().y;
-			
-		}else{
-			curDeviceList= this.guiWindows[type].divList;
-		}
-		
-		active= active == null ? !this.guiWindows[type].active : active;
-		this.guiWindows[type].active=active;
-		if( this.guiWindows["audiooutput"] ){
-			if( active && this.guiWindows["audiooutput"].active && type!="audiooutput" ){
-				this.hudIcons.speakerChoiceIcon.parent.click();
-			}
-		}
-		if( this.guiWindows["audioinput"] ){
-			if( active && this.guiWindows["audioinput"].active && type!="audioinput" ){
-				this.hudIcons.micChoiceIcon.parent.click();
-			}
-		}
-		if( this.guiWindows["videoinput"] ){
-			if( active && this.guiWindows["videoinput"].active && type!="videoinput"){
-				this.hudIcons.camChoiceIcon.parent.click();
-			}
-		}
-		
-		if(active){
-			curDeviceList.style.display= "inline-block";
-			setTimeout( ()=>{
-				if( curDeviceList.scrollHeight >= this.deviceOptionHeight[1] ){
-					curDeviceList.style.overflowY="scroll";
-				}else{
-					curDeviceList.style.overflowY="hidden";
-				}
-				curDeviceList.style.maxHeight=Math.min( curDeviceList.scrollHeight, this.deviceOptionHeight[ 1 ] );
-			},20);
-		}else{
-			curDeviceList.style.maxHeight=this.deviceOptionHeight[ 0 ];
-			setTimeout( ()=>{
-				curDeviceList.style.display= "none";
-				this.checkOpenWindows();
-			},700);
-		}
-	}
-	
-	optionSelected( tmpThis, trackType, curDiv ){
-		let curGui=tmpThis.guiWindows[trackType];
-		if(curGui){
-			let prev=tmpThis.guiWindows[trackType].prevObj;
-			if(prev){
-				prev.classList.remove("deviceSelected");
-			}
-			
-			tmpThis.guiWindows[trackType].prevObj=curDiv;
-			curDiv.classList.add("deviceSelected");
-			
-			let curType=curGui.type;
-			let curDeviceId=curDiv.getAttribute("deviceId");
-			
-			this.pxlConnect.switchDevice( curType, curDeviceId);
-
-		}
-		
-	}
 	
 	// -- -- -- -- -- -- -- -- -- //
 	
@@ -1572,27 +1299,9 @@ export class GuiDraws{
                 this.pxlNavData.fpsSet=this.pxlTimer.msRunner.x+1;
                 this.pxlNavData.fps.innerText=parseInt(1/this.pxlTimer.msRunner.y);
             }
-            this.pxlNavData.ul.innerText=this.pxlConnect.connectionStats.upload;
-            this.pxlNavData.dl.innerText=this.pxlConnect.connectionStats.download;
         }
     }
 
-/////////////////////////////////////////////
-// -- -- -- -- -- -- -- -- -- -- -- -- -- //
-///////////////////////////////////////////
-    jmaFunc(func){
-        if(func == "muteAudio"){
-            this.iconEvent( "click", this.hudIcons.micIcon, "micToggle");
-        }else if(func == "muteVideo"){
-			this.iconEvent( "click", this.hudIcons.camIcon, "camToggle");
-        }else if(func == "disableVideo"){
-        }else if(func == "kickUser"){
-            this.pxlConnect.leaveConference(null,this.pxlConnect);
-            setTimeout( ()=>{
-                window.location.href="../exit";
-            },500);
-        }
-    }
 
 /////////////////////////////////////////////
 // -- -- -- -- -- -- -- -- -- -- -- -- -- //
@@ -1862,7 +1571,7 @@ export class GuiDraws{
 		settingsGuiDiv.classList.add("gui_settingsGuiParentStyle");
 		this.prepPromptFader( settingsGuiDiv );
 		this.guiWindowBG.appendChild( settingsGuiDiv );
-		let curName=this.pxlConnect.jmaUserName;
+		let curName="Default";
         curName=!curName ? "" : curName;
 		let html=`
 			<div id="gui_settingsContent" class="gui_contentSettingsStyle">
@@ -2437,7 +2146,7 @@ export class GuiDraws{
 		let iframe=null;
 		if(bodyOnly == '' || !bodyOnly){
 			iframe=document.createElement("iframe");
-			iframe.src="https://docs.google.com/document/d/e/2PACX-1vRAAHI8NQFpczzaYHP5QuwRNM44tIPIs8MLxYljRyom4sfjkLL6HVFMN-m7IwMwRnvmS-nU3Gu-psgG/pub?embedded=true"
+			iframe.src=""
 			iframe.classList.add("iframeGoogleLinkDoc");
 			apuInner.appendChild(iframe);
 			//iframe.allow='';
@@ -2477,10 +2186,6 @@ export class GuiDraws{
     getUserControls( curId ){
         if( !curId ) return [null];
         let curAvatar=curId;
-        if( typeof( curId ) == "string" ){
-            curAvatar=this.pxlEnv.pxlAvatars.getAvatarData( curId );
-            if( !curAvatar ) return [null];
-        }
         let curGui=curAvatar.userStatusGui;
         let curAudio=curAvatar.audio;
         let curAudioMuted=curAvatar.audioMuted;
@@ -2623,7 +2328,6 @@ export class GuiDraws{
             
             curAvatar.audioMuted=active;
         }
-        this.pxlEnv.pxlAvatars.updateAvatarSpacialData( [curId], null, true );
     }
 	async setUserControlRemoteMute( curId, track=null, inVerse=true, color="#ffffff" ){
         let {curAudio, curAudioGui} = this.getUserControls( curId );
@@ -2717,7 +2421,7 @@ export class GuiDraws{
     
     setUserControlColor( curId, color=null ){
         let {curAvatar, curGui, curAudioGui, curVerse} = this.getUserControls( curId );
-        let verseCompare=this.pxlConnect.roomId==curVerse;
+        let verseCompare=true;
         if( color == null ){
             if(verseCompare){
                 color="#ffffff";
@@ -2744,1120 +2448,9 @@ export class GuiDraws{
     
 	toggleUserControls( curAvatar ){
         if( !curAvatar ) return null;
-        if( typeof( curAvatar ) == "String" ){
-            curAvatar=this.pxlEnv.pxlAvatars.getAvatarData( curAvatar );
-            if( !curAvatar ) return null;
-        }
     }
 	
 
-/////////////////////////////////////////////
-// -- -- -- -- -- -- -- -- -- -- -- -- -- //
-///////////////////////////////////////////
-
-
-    requestVerseCount(){
-        if(this.requestVerseList==false){
-            this.requestVerseList=true;
-            this.pxlSocket.sendVerseRequest( this.pxlUser.jmaUserId );
-        }
-        // this.verseList=[];
-        // this.verseUserCounts={};
-    }
-    multiverseList( listing, isResponse=true ){
-        // listing.verseList
-        // listing.counts
-        this.pxlEnv.pxlAvatars.verseCountsRemote=listing;
-        if( !this.guiWindows.multiverseGui ){
-            if( this.requestVerseList ){
-                this.buildMultiverseList( );
-                this.multiverseUpdateValues( listing );
-                this.guiWindows.multiverseGui.initState=false;
-            }
-        }else{
-            if( this.guiWindows.multiverseGui.initState ){
-                this.guiWindows.multiverseGui.initState=false;
-                this.toggleMultiverseList( true, listing );
-            }else{
-                this.multiverseUpdateValues( listing );
-            }
-        }
-        this.requestVerseList=false;
-    }
-    
-	buildMultiverseList(){
-		this.guiWindows.multiverseGui={};
-		this.guiWindows.multiverseGui.gui=null;
-		this.guiWindows.multiverseGui.active=false;
-		this.guiWindows.multiverseGui.initState=true;
-		
-		let multiverseGuiDiv=document.createElement( "div" );
-		multiverseGuiDiv.id="gui_multiverseGuiWindow";
-		multiverseGuiDiv.classList.add("gui_settingsGuiParentStyle");
-		this.prepPromptFader( multiverseGuiDiv );
-		this.guiWindowBG.appendChild( multiverseGuiDiv );
-		
-        let addedSupport="";
-        //&=
-        addedSupport=`<div class="guiButton" id="guiMultiverseOpenVerseButton">open new verse</div>`;
-        //&
-        
-		let html=`
-			<div id="gui_multiverseContent" class="multiverseContentBodyStyle">
-				<div class="gui_multiverseBoxHeader">
-					Enter The Multiverse
-				</div>
-					<div class="settingsSpacer"></div>
-				<div class="multiverseBodyBlockStyle">
-					<div id="multiverseBlock">
-                        
-					</div>
-                        <div class="multiverseEmptySpacer"></div>
-					<div class="gui_mitosisFooterButtons">
-                        ${addedSupport}
-						<div class="guiButton" id="guiMultiverseBackButton">close</div>
-					</div>
-				</div>
-			</div>
-		`;
-		multiverseGuiDiv.innerHTML=html;
-		this.guiWindows.multiverseGui.gui=multiverseGuiDiv;	
-		
-        let tmpThis=this;
-		let guiClose=document.getElementById("guiMultiverseBackButton");
-		guiClose.onclick=(e)=>{ tmpThis.svgCheckClick(e, "close"); };
-        
-        
-        //&=
-        
-		let openVerseButton=document.getElementById("guiMultiverseOpenVerseButton");
-		openVerseButton.onclick=(e)=>{ tmpThis.pxlSocket.openNextVerse(); };
-        
-        //&
-        
-        let multiverseBlock=document.getElementById( "multiverseBlock" );
-        
-        let verseList=document.createElement( "div" );
-        verseList.classList.add( "gui_multiverseParentGrid" );
-        verseList.innerText=": Loading Rooms :";
-        this.guiWindows.multiverseGui.parent=verseList;
-        multiverseBlock.appendChild( verseList );
-        
-        this.guiWindows.multiverseGui.verseEntry={};
-        this.guiWindows.multiverseGui.loading=true;
-        
-	}
-    
-    multiverLoggedIn( toVerse ){
-        this.multiverseData.fromVerse= this.multiverseData.toVerse != null ? this.multiverseData.toVerse : toVerse; 
-        this.multiverseData.toVerse= toVerse;
-        if( this.pxlEnv.geoList["skySemiSphere"] ){
-            let verseColor=this.pxlUtils.stringToRgb( toVerse, .5, true );
-            this.pxlEnv.fog.color.set( ...verseColor );
-            this.pxlEnv.geoList["skySemiSphere"].material.uniforms.skyColor.value.x= verseColor[0]*1.2 ;
-            this.pxlEnv.geoList["skySemiSphere"].material.uniforms.skyColor.value.y= verseColor[1]*1.2 ;
-            this.pxlEnv.geoList["skySemiSphere"].material.uniforms.skyColor.value.z= verseColor[2]*1.2 ;
-            let fogColor=this.pxlUtils.stringToRgb( toVerse, .2, true );
-            this.pxlEnv.fog.color.r=fogColor[0]*.05;
-            this.pxlEnv.fog.color.g=fogColor[1]*.05;
-            this.pxlEnv.fog.color.b=fogColor[2]*.05;
-            this.pxlEnv.geoList["skySemiSphere"].material.uniforms.fogColor.value.r=fogColor[0];
-            this.pxlEnv.geoList["skySemiSphere"].material.uniforms.fogColor.value.g=fogColor[1];
-            this.pxlEnv.geoList["skySemiSphere"].material.uniforms.fogColor.value.b=fogColor[2];
-        }
-        
-        this.multiverseSetHud( toVerse );
-
-        this.pxlSocket.sendVerseChange( {from:this.multiverseData.fromVerse, to:this.multiverseData.toVerse} );
-        
-        if(this.guiWindows.multiverseGui){
-            let toVerseEntry=this.guiWindows.multiverseGui.verseEntry[toVerse];
-            toVerseEntry.gui.style.backgroundColor=toVerseEntry.verseHex;
-            toVerseEntry.gui.style.color="#000000";
-            toVerseEntry.gui.style.borderColor=toVerseEntry.verseHex;
-            //let toVerseCount=Math.max( 0, parseInt(toVerseEntry.count.innerText)+1 );
-            //toVerseEntry.count.innerText= toVerseCount;
-
-            if(this.multiverseData.fromVerse){
-                let fromVerseName=this.multiverseData.fromVerse;
-                let fromVerseEntry=this.guiWindows.multiverseGui.verseEntry[fromVerseName];
-                if(fromVerseEntry){
-                    //let fromVerseCount=Math.max( 0, parseInt(fromVerseEntry.count.innerText)-1 );
-                    fromVerseEntry.gui.removeAttribute("style"); 
-                    fromVerseEntry.gui.style.borderColor = fromVerseEntry.verseHex ;
-                    fromVerseEntry.gui.style.color = fromVerseEntry.ident ? fromVerseEntry.verseHex : "#0000FF" ;
-                }
-                //fromVerseEntry.count.innerText= fromVerseCount;
-            }
-        }
-    }
-    
-    multiverseSetHud( toVerse ){
-        let hudVerse=document.getElementById( "guiVerseTitle" );
-        if(hudVerse){
-            //let verseColor=this.pxlUtils.stringToRgb( toVerse, .3 );
-            //let verseHex=this.pxlUtils.rgbToHex( ...verseColor );
-            toVerse=toVerse.split("_");
-            toVerse=toVerse.join(" ");
-            hudVerse.innerText=this.verseTitlePrefix + toVerse + this.verseTitleSuffix;
-            
-            //hudVerse.style.borderColor=verseHex;
-            //hudVerse.style.backgroundColor="rgba(" + verseColor[0] +"," + verseColor[1] +"," + verseColor[2] +", .1)";
-        }
-    }
-    
-    multiverseUpdateValues( listings ){
-        let verseList=Object.keys( listings );
-        if( verseList.length > 0 ){
-            if( this.guiWindows.multiverseGui.loading==true ){
-                this.guiWindows.multiverseGui.parent.innerHTML="";
-                this.guiWindows.multiverseGui.loading=false;
-            }
-            
-            let tmpThis=this;
-            verseList.forEach( (v)=>{
-                let curVerseListing=this.guiWindows.multiverseGui.verseEntry[v];
-                if( curVerseListing ){
-                    curVerseListing.count.innerText = listings[v].count;
-                    if( listings[v].hasOwnProperty("maxCount") ){
-                        curVerseListing.maxCount.innerText = listings[v].maxCount;
-                    }
-                    if( listings[v].hasOwnProperty("ident") ){
-                        curVerseListing.gui.style.borderColor = listings[v].ident ? curVerseListing.verseHex : "#0000FF" ;
-                    }
-                    let textColor;
-                    if( v==this.pxlConnect.roomId ){
-                        textColor="#000000";
-                    }else{
-                        textColor=listings[v].ident ? curVerseListing.verseHex : "#0000FF";
-                    }
-                    curVerseListing.gui.style.color = textColor ;
-                }else{
-                    this.guiWindows.multiverseGui.verseEntry[v]={};
-                    this.guiWindows.multiverseGui.verseEntry[v].ident=listings[v].ident;
-                    let verseColor=this.pxlUtils.stringToRgb( v, .3 );
-                    this.guiWindows.multiverseGui.verseEntry[v].verseColor=verseColor;
-                    let verseHex=this.pxlUtils.rgbToHex( ...verseColor );
-                    this.guiWindows.multiverseGui.verseEntry[v].verseHex=verseHex;
-                    
-                    let verseButtonBlock=document.createElement( "div" );
-                    verseButtonBlock.id=v+"_block";
-                    verseButtonBlock.classList.add( "multiverseEntryBlockStyle" );
-                    
-                    let verseButton=document.createElement( "div" );
-                    verseButton.id=v+"_parent";
-                    verseButton.classList.add( "multiverseEntryParentStyle" );
-                    verseButton.onclick=(e)=>{
-                        let toVerse=v;
-                        let fromVerse=tmpThis.pxlConnect.roomId;
-                        if(toVerse != fromVerse){
-                            let vListing=tmpThis.guiWindows.multiverseGui.verseEntry;
-                            let keyList=Object.keys( vListing );
-                            keyList.forEach( (r)=>{
-                                if( r==toVerse ){
-                                    vListing[r].gui.style.color="#FFFF00";
-                                    vListing[r].gui.style.borderColor="#FFFF00";
-                                }else if( r==fromVerse ){
-                                    vListing[r].gui.style.color="#FF0000";
-                                    vListing[r].gui.style.borderColor="#FF0000";
-                                }
-                            });
-                            let swap=tmpThis.pxlConnect.loadVerse( toVerse, true );
-                            if( swap ){
-                                //tmpThis.multiverseData.fromVerse=fromVerse;
-                                //tmpThis.multiverseData.toVerse=toVerse;
-                                tmpThis.pxlConnect.checkAuth();
-                            }
-                        }
-                    };
-                    if( !listings[v].ident ){
-                        verseButton.style.borderColor="#ff0000";
-                    }else{
-                        verseButton.style.borderColor=verseHex;
-                        verseButton.style.color=verseHex;
-                    }
-                    if( v==this.pxlConnect.roomId ){
-                        verseButton.style.backgroundColor=verseHex;
-                        verseButton.style.color="#000000";
-                    }
-                    
-                    let verseTitle=document.createElement( "div" );
-                    verseTitle.classList.add( "multiverseEntryTitleStyle" );
-                    let titleText=v;
-                    titleText=titleText.split("_");
-                    titleText=titleText.join(" ");
-                    if(titleText=="tussin"){
-                        titleText="'"+titleText;
-                    }
-                    
-                    verseTitle.innerText=titleText;
-                    verseButton.appendChild( verseTitle );
-                    
-                    
-                    let verseCounts=document.createElement( "div" );
-                    verseCounts.classList.add( "multiverseEntryCountParentStyle" );
-                    
-                    let verseCount=document.createElement( "div" );
-                    verseCount.classList.add( "multiverseEntryCountStyle" );
-                    verseCount.innerText=listings[v].count;
-                    verseCounts.appendChild( verseCount );
-                    this.guiWindows.multiverseGui.verseEntry[v].count=verseCount;
-                    
-                    verseCount=document.createElement( "div" );
-                    verseCount.classList.add( "multiverseEntryCountStyle" );
-                    verseCount.innerText="/";
-                    verseCounts.appendChild( verseCount );
-                    
-                    verseCount=document.createElement( "div" );
-                    verseCount.classList.add( "multiverseEntryCountStyle" );
-                    verseCount.innerText=listings[v].maxCount;
-                    verseCounts.appendChild( verseCount );
-                    this.guiWindows.multiverseGui.verseEntry[v].maxCount=verseCount;
-                    
-                    verseButton.appendChild( verseCounts );
-                    this.guiWindows.multiverseGui.verseEntry[v].gui=verseButton;
-                    
-                    verseButtonBlock.appendChild( verseButton );
-                    
-                    //&=
-                    /*
-                    let verseMaxCountInput=document.createElement( "input" );
-                    verseMaxCountInput.id=v+"_parent";
-                    verseMaxCountInput.classList.add( "multiverseElectStyle" );
-                    verseMaxCountInput.classList.add( "settings_usernameInput" );
-                    verseMaxCountInput.style.borderColor = "settings_usernameInput" );
-                    verseMaxCountInput.innerHTML="Mitosis<br>Elect"
-                    verseMaxCountInput.style.borderColor=verseHex;
-                    verseButtonBlock.appendChild( verseMaxCountInput );
-                    */
-                    
-                    
-                    let verseElectButton=document.createElement( "div" );
-                    verseElectButton.id=v+"_parent";
-                    verseElectButton.classList.add( "multiverseElectStyle" );
-                    verseElectButton.innerHTML="Mitosis<br>Elect"
-                    verseElectButton.onclick=(e)=>{
-                        let toVerse=v;
-                        let fromId=tmpThis.pxlUser.jmaUserId;
-                        let data={'type':"force",value:{ 'id':fromId, 'verse':toVerse }};
-                        tmpThis.pxlSocket.sendForceElect(data);
-                    };
-                    verseElectButton.style.borderColor=verseHex;
-                    verseButtonBlock.appendChild( verseElectButton );
-                    //&
-                    
-                    this.guiWindows.multiverseGui.parent.appendChild( verseButtonBlock );
-                    
-                }
-            });
-        }
-    }
-    updateMultiverseListing( verseData ){
-        if( this.guiWindows.multiverseGui ){
-            let vKeys= Object.keys( verseData );
-            vKeys.forEach( (v)=>{
-                let curVerse=this.guiWindows.multiverseGui.verseEntry[ v ] ;
-                if( curVerse ){
-                    curVerse.count.innerText = verseData[v];
-                }
-            });
-        }
-    }
-	toggleMultiverseList( active=null, listing=null ){
-        
-        if(active==null && listing==null){
-            this.requestVerseCount();
-        }
-        if( !this.guiWindows.multiverseGui ){
-            this.buildMultiverseList( );
-            if( this.pxlEnv.pxlAvatars.verseCountsRemote == null ){
-                return;
-            }
-        }
-        
-		active= active==null ? !this.guiWindows.multiverseGui.active : active;
-        
-        listing= listing==null ? this.pxlEnv.pxlAvatars.verseCountsRemote : listing;
-        if( listing ){
-            this.multiverseUpdateValues( listing );
-        }
-        
-        if( active == this.guiWindows.multiverseGui.active ){
-            return;
-        }
-        
-		this.guiWindows.multiverseGui.active=active;
-		this.promptFader( this.guiWindows.multiverseGui.gui, active );
-		this.toggleGuiWindowContainer( null, active );
-		//if(this.hudBlock.active){ this.toggleHudBlock( active ); }
-        this.toggleHudBlock(active, false);
-        if(!active && this.mapCanvas){ this.mapCanvas.focus(); }
-        
-	}
-
-
-/////////////////////////////////////////////
-// -- -- -- -- -- -- -- -- -- -- -- -- -- //
-///////////////////////////////////////////
-	
-    serverBalancingInit( toVerse ){
-        //this.multiverseData.fromVerse=this.multiverseData.toVerse;
-        //this.multiverseData.toVerse=toVerse;
-        this.multiverseData.electedVerse=toVerse;
-        
-        let curTime=this.pxlTimer.msRunner.x + this.multiverseData.mitosisBufferTime;
-        this.multiverseData.mitosisTime=curTime;
-        
-        this.multiverseData.mitosisState=true;
-        
-        
-		this.checkOpenWindows( true );
-        
-        this.toggleMitosisPrompt( true );
-    }
-    
-    serverBalancing( userButton=null ){
-        if( this.multiverseData.mitosisState == true ){
-            if( userButton === false ){
-                //this.multiverseData.toVerse=this.multiverseData.fromVerse;
-                this.multiverseData.mitosisState=false;
-                this.toggleMitosisPrompt(false);
-                return false;
-            }
-            if( this.pxlTimer.msRunner.x > this.multiverseData.mitosisTime || userButton === true ){
-                let electedVerse=this.multiverseData.electedVerse;
-                
-                let swap=this.pxlConnect.loadVerse( electedVerse, true );
-                if( swap ){
-                    this.pxlConnect.checkAuth();
-                }
-                this.multiverseData.mitosisState=false;
-                this.toggleMitosisPrompt(false);
-            }else{
-                this.setMitosisValues();
-            }
-        }
-    }
-    
-    setMitosisValues( setRooms=false ){
-        if( this.multiverseData.mitosisState == true && this.guiWindows.mitosisPrompt ){
-        
-            // Set the room names
-            if(setRooms){
-                // From Verse Settings
-                let curVerse=this.multiverseData.toVerse;
-                let verseColor=this.pxlUtils.stringToRgb( curVerse, .3 );
-                let verseHex=this.pxlUtils.rgbToHex( ...verseColor );
-                this.guiWindows.mitosisPrompt.mitosisSource.innerText = curVerse ;
-                this.guiWindows.mitosisPrompt.mitosisSource.style.color = verseHex ;
-                
-                // To Verse Settings
-                let electedVerse=this.multiverseData.electedVerse;
-                verseColor=this.pxlUtils.stringToRgb( electedVerse, .3 );
-                verseHex=this.pxlUtils.rgbToHex( ...verseColor );
-                this.guiWindows.mitosisPrompt.mitosisTarget.innerText = electedVerse ;
-                this.guiWindows.mitosisPrompt.mitosisTarget.style.color = verseHex ;
-            }
-            
-            // Set the count down timer
-            if( this.pxlTimer.msRunner.x > this.multiverseData.mitosisUpdateTime ) {
-                this.multiverseData.mitosisUpdateTime=this.pxlTimer.msRunner.x;
-                let timeLeft= Math.round( this.multiverseData.mitosisTime - this.pxlTimer.msRunner.x );
-                timeLeft= Math.max( 0, timeLeft );
-                
-                this.guiWindows.mitosisPrompt.mitosisCountDown.innerText = timeLeft;
-            }
-        }
-    }
-    
-	buildMitosisPrompt(){
-		this.guiWindows.mitosisPrompt={};
-		this.guiWindows.mitosisPrompt.gui=null;
-		this.guiWindows.mitosisPrompt.active=false;
-		
-		let multiverseGuiDiv=document.createElement( "div" );
-		multiverseGuiDiv.id="gui_mitosisGuiWindow";
-		multiverseGuiDiv.classList.add("gui_mitosisGuiParentStyle");
-		this.prepPromptFader( multiverseGuiDiv );
-		this.guiWindowBG.appendChild( multiverseGuiDiv );
-		
-		let html=`
-			<div id="gui_multiverseContent" class="gui_mitosisPromptStyle">
-				<div class="gui_mitosisBody">
-					<div id="mitosisBody">
-                        <div class="gui_mitosisBodyHead">
-                            this room is getting pretty full, to help us manage the size of the party,
-                            <br>we invite you to a more intimate space
-                        </div>
-                    <div class="multiverseEmptySpacer"></div>
-                        <div>
-                            you'll be transfered to <span id="gui_mitosisTarget" class="gui_boldText"></span>
-                            <br>in <span id="gui_mitosisCountDown" class="gui_boldText"></span> seconds
-                        </div>
-                    <div class="multiverseEmptySpacer"></div>
-                        <div>
-                            to come back to <span id="gui_mitosisSource" class="gui_boldText"></span>
-                            <br> click <span id="gui_mitosisMultiverseIcon"></span> on the bottom bar
-                        </div>
-					</div>
-                    <div class="multiverseEmptySpacer"></div>
-					<div class="guiMitosisFooterButtons">
-						<div class="guiButton" id="gui_mitosisButton_stay">nah, i wanna stay here</div>
-						<div class="guiButton" id="gui_mitosisButton_explore">hell yeah, let's explore</div>
-					</div>
-				</div>
-			</div>
-		`;
-		multiverseGuiDiv.innerHTML=html;
-		this.guiWindows.mitosisPrompt.gui=multiverseGuiDiv;	
-		
-		let mitosisTarget=document.getElementById("gui_mitosisTarget");
-        mitosisTarget.style.fontSize="105%";
-		this.guiWindows.mitosisPrompt.mitosisTarget=mitosisTarget;
-		let mitosisSource=document.getElementById("gui_mitosisSource");
-        mitosisSource.style.fontSize="105%";
-		this.guiWindows.mitosisPrompt.mitosisSource=mitosisSource;
-		let mitosisCountDown=document.getElementById("gui_mitosisCountDown");
-        mitosisCountDown.style.fontSize="105%";
-		this.guiWindows.mitosisPrompt.mitosisCountDown=mitosisCountDown;
-        
-        let tmpThis=this;
-		let guiClose=document.getElementById("gui_mitosisButton_stay");
-		guiClose.onclick=(e)=>{ tmpThis.serverBalancing(false); };
-		guiClose=document.getElementById("gui_mitosisButton_explore");
-		guiClose.onclick=(e)=>{ tmpThis.serverBalancing(true); };
-        
-		let mitosisMultiverseIcon=document.getElementById("gui_mitosisMultiverseIcon");
-        mitosisMultiverseIcon.innerHTML=this.hudIcons.multiverseIcon.svg.parentNode.innerHTML;
-        mitosisMultiverseIcon.style.position="relative";
-        mitosisMultiverseIcon.style.top="5px";
-        mitosisMultiverseIcon.style.width="30px";
-        mitosisMultiverseIcon.children[0].style.height="26px";
-	}
-
-	toggleMitosisPrompt( active=null ){
-        if( !this.guiWindows.mitosisPrompt ){
-            this.buildMitosisPrompt( );
-        }
-        
-		active= active==null ? !this.guiWindows.mitosisPrompt.active : active;
-        
-        if( !active && this.multiverseData.mitosisState==true ){
-            return;
-        }
-        if(active){
-            this.setMitosisValues(true);
-        }
-        
-		this.guiWindows.mitosisPrompt.active=active;
-		this.promptFader( this.guiWindows.mitosisPrompt.gui, active );
-		this.toggleGuiWindowContainer( null, active );
-		//if(this.hudBlock.active){ this.toggleHudBlock( active ); }
-        this.toggleHudBlock(active, false);
-        if(!active && this.mapCanvas){ this.mapCanvas.focus(); }
-        
-	}
-    
-
-/////////////////////////////////////////////
-// -- -- -- -- -- -- -- -- -- -- -- -- -- //
-///////////////////////////////////////////
-	
-    checkClose( toVerse ){
-        //this.multiverseData.fromVerse=this.multiverseData.toVerse;
-        //this.multiverseData.toVerse=toVerse;
-        
-        
-		this.checkOpenWindows( true );
-        
-        this.toggleClosePrompt( true );
-    }
-    
-    userClose( userButton=null ){
-        if( this.multiverseData.closeState == true ){
-            if( userButton === false ){
-                this.toggleClosePrompt(false);
-                return false;
-            }
-            if( this.pxlTimer.msRunner.x > this.multiverseData.mitosisTime || userButton === true ){
-                let electedVerse=this.multiverseData.electedVerse;
-                
-                window.location.href="../exit";
-            }else{
-                this.activeClose();
-            }
-        }
-    }
-    
-    activeClose( ){
-        if( this.multiverseData.mitosisState == true && this.guiWindows.closePrompt ){
-        
-        }
-    }
-    
-	buildClosePrompt(){
-		this.guiWindows.closePrompt={};
-		this.guiWindows.closePrompt.gui=null;
-		this.guiWindows.closePrompt.active=false;
-		
-		let multiverseGuiDiv=document.createElement( "div" );
-		multiverseGuiDiv.id="gui_mitosisGuiWindow";
-		multiverseGuiDiv.classList.add("gui_mitosisGuiParentStyle");
-		this.prepPromptFader( multiverseGuiDiv );
-		this.guiWindowBG.appendChild( multiverseGuiDiv );
-		
-		let html=`
-			<div id="gui_multiverseContent" class="gui_mitosisPromptStyle">
-				<div class="gui_mitosisBody">
-					<div>
-                        <div class="gui_mitosisBodyHead">
-                            just a heads up
-                        </div>
-                    <div class="multiverseEmptySpacer"></div>
-                        <div>
-                            This ${this.projectTitle} room will be closing
-                            <br>in <span id="gui_closeCountDown" class="gui_boldText"></span>
-                        </div>
-                        <div>
-                            so get your last fix in
-                        </div>
-                    <div class="multiverseEmptySpacer"></div>
-					<div class="guiMitosisFooterButtons">
-						<div class="guiButton" id="gui_closeButton_stay">thanks for the heads up</div>
-						<div class="guiButton" id="gui_closeButton_leave">its been fun, I'll head out</div>
-					</div>
-				</div>
-			</div>
-		`;
-		multiverseGuiDiv.innerHTML=html;
-		this.guiWindows.closePrompt.gui=multiverseGuiDiv;	
-		
-		this.guiWindows.closePrompt.mitosisSource=mitosisSource;
-		let closeCountDown=document.getElementById("gui_closeCountDown");
-        closeCountDown.style.fontSize="105%";
-		this.guiWindows.closePrompt.closeCountDown=closeCountDown;
-        
-        let tmpThis=this;
-		let guiClose=document.getElementById("gui_closeButton_stay");
-		guiClose.onclick=(e)=>{ tmpThis.userClose(false); };
-		guiClose=document.getElementById("gui_closeButton_leave");
-		guiClose.onclick=(e)=>{ tmpThis.userClose(true); };
-        
-	}
-    finalClosePrompt(){
-		let child=this.guiWindows.closePrompt.gui.children();
-        child.parentNode.removeChild( child );
-		
-		let html=`
-			<div id="gui_multiverseContent" class="gui_mitosisPromptStyle">
-				<div class="gui_mitosisBody">
-					<div>
-                        <div class="gui_mitosisBodyHead">
-                            This room has shut down 
-                        </div>
-                    <div class="multiverseEmptySpacer"></div>
-                        <div>
-                            Thank you for coming!
-                        </div>
-                    <div class="multiverseEmptySpacer"></div>
-					<div class="guiMitosisFooterButtons">
-						<div class="guiButton" id="gui_closeButton_leave">I'll head out</div>
-					</div>
-				</div>
-			</div>
-		`;
-		multiverseGuiDiv.innerHTML=html;
-		this.guiWindows.closePrompt.gui=multiverseGuiDiv;	
-		
-		this.guiWindows.closePrompt.mitosisSource=mitosisSource;
-		let closeCountDown=document.getElementById("gui_closeCountDown");
-        closeCountDown.style.fontSize="105%";
-		this.guiWindows.closePrompt.closeCountDown=closeCountDown;
-        
-        let tmpThis=this;
-		let guiClose=document.getElementById("gui_closeButton_leave");
-		guiClose.onclick=(e)=>{ tmpThis.userClose(true); };
-    }
-	toggleClosePrompt( active=null ){
-        if( !this.guiWindows.closePrompt ){
-            this.buildClosePrompt( );
-        }else if(active){
-            this.finalClosePrompt( );
-        }
-        
-		active= active==null ? !this.guiWindows.closePrompt.active : active;
-        
-        if(active){
-            this.setCloseValues(true);
-        }
-        
-		this.guiWindows.closePrompt.active=active;
-		this.promptFader( this.guiWindows.closePrompt.gui, active );
-		this.toggleGuiWindowContainer( null, active );
-		//if(this.hudBlock.active){ this.toggleHudBlock( active ); }
-        this.toggleHudBlock(active, false);
-        if(!active && this.mapCanvas){ this.mapCanvas.focus(); }
-        
-	}
-    
-/////////////////////////////////////////////
-// -- -- -- -- -- -- -- -- -- -- -- -- -- //
-///////////////////////////////////////////
-	
-	buildUserProfileBox(){
-		let type="userProfileBoxGui";
-		
-		let userProfileDiv=document.createElement( "div" );
-		userProfileDiv.id="userProfileBoxBlock";
-		userProfileDiv.classList.add( "gui_userProfileBoxBlockStyle" );
-		this.prepPromptFader( userProfileDiv );
-		
-		let curName=this.pxlUser.jmaUserName;
-		curName= curName ? curName : "";
-		
-		let subhtml="";
-		//&=
-		/*subhtml=`<div class="gui_userProfileBoxSpacer"></div>
-				<div class="gui_userProfileBoxHeader">
-					Login
-				</div>
-				<div id="guiuserProfileLoginFieldBlock" class="gui_userProfileLoginFieldBlockStyle">
-					<div id="guiuserProfileLoginFieldParent" class="gui_userProfileLoginFieldParentStyle">
-						<input type="text" name="username" placeholder="Username" id="userProfileBox_loginUsername" class="userProfileBox_usernameInput"></input>
-						<input type="password" name="password" placeholder="Password" id="userProfileBox_loginPassword" class="userProfileBox_usernameInput" required></input>
-						<input type="button" value="Login" id="userProfileBox_loginSubmit" class="userProfileBox_sendUsername" style="margin:auto;">
-					</div>
-				</div>
-				<div id="gui_userProfileBoxSpacer" class="gui_userProfileBoxSpacer"></div>
-					<div id="loginResponseMessage" class="usernameResponseMessageStyle"></div>`;*/
-		//&
-		
-		
-        let mobileStyle="";
-        let unHoverButton="";
-        let userInputMobile="";
-        if( this.pxlDevice.mobile ){
-            mobileStyle="style='width: max-content;'";
-            userInputMobile=" sunInput_mobile";
-        }else{
-            unHoverButton=" sendUsernameHover";
-        }
-        
-		let html=`
-			<div id="gui_userProfileBoxParent" class="gui_userProfileBoxParentStyle" ${mobileStyle}>
-				<div class="gui_userProfileBoxHeader">
-					Username
-				</div>
-				<div id="userProfileBoxDisplay" class="gui_userProfileBoxDisplay">
-				</div>
-				<div id="gui_userProfileBoxSpacer" class="gui_userProfileBoxSpacer"></div>
-					<div id="usernameHeaderMessage" class="usernameResponseMessageStyle"></div>
-				<div id="gui_userProfileBoxSpacer" class="gui_userProfileBoxSpacer"></div>
-				<div id="guiuserProfileBoxFieldBlock" class="gui_userProfileBoxFieldBlockStyle">
-					<div id="guiuserProfileBoxFieldParent" class="gui_userProfileBoxFieldParentStyle">
-						<input type="text" placeholder="Set your username" value="${curName}" id="userProfileBox_usernameInput" class="settings_usernameInput${userInputMobile}"></input>
-						<div id="userProfileBox_sendUsername" class="sendUsername${unHoverButton}">Set</div>
-					</div>
-				</div>
-				<div id="gui_userProfileBoxSpacer" class="gui_userProfileBoxSpacer"></div>
-					<div id="usernameResponseMessage" class="usernameResponseMessageStyle"></div>
-				${subhtml};
-				<div id="gui_userProfileBoxSpacer" class="gui_userProfileBoxSpacer"></div>
-				<div id="userProfileBox_close" class="guiButton">close</div>
-				<div id="gui_userProfileBoxSpacer" class="gui_userProfileBoxSpacer"></div>
-			</div>
-		`;
-
-		userProfileDiv.innerHTML=html;
-		document.body.appendChild( userProfileDiv );
-		
-		this.guiWindows[type]={};
-		this.guiWindows[type].gui=userProfileDiv;
-		this.guiWindows[type].active=false;
-		this.guiWindows[type].headerMessage=document.getElementById("usernameHeaderMessage");
-		this.guiWindows[type].footerMessage=document.getElementById("usernameResponseMessage");
-		this.guiWindows[type].loginMessage=document.getElementById("loginResponseMessage");
-		
-		let tmpThis=this;
-		
-		userProfileDiv.onclick=(e)=>{
-			let target= e.path ? e.path[0] : e.target;
-			let targetId=target.getAttribute("id");
-			if(targetId=="userProfileBoxBlock"){
-				tmpThis.toggleUserProfile(false);
-			}
-		};
-		
-		let closeButton=document.getElementById("userProfileBox_close");
-		closeButton.onclick=(e)=>{
-			tmpThis.toggleUserProfile(false);
-		};
-		
-		this.userProfileMessageDisplay=document.getElementById("userProfileBoxDisplay");
-		
-		let button=document.getElementById( "userProfileBox_sendUsername" );
-		button.addEventListener("click", ()=>{
-			tmpThis.sendUsernameUpdate();
-		});
-		
-		let msgInput=document.getElementById( "userProfileBox_usernameInput" );
-		msgInput.onkeyup=(e)=>{ tmpThis.keyUsernameSet(e); };
-		msgInput.onkeydown=(e)=>{ tmpThis.keyDownUsernameSet(e); };
-		this.userProfileMessageInput=msgInput;
-		
-		let retMessage=document.getElementById( "usernameResponseMessage" );
-		this.userProfileReturnMessage=retMessage;
-		
-		//&=
-		/*let loginUsername=document.getElementById( "userProfileBox_loginUsername" );
-		let loginPassword=document.getElementById( "userProfileBox_loginPassword" );
-		let loginButton=document.getElementById( "userProfileBox_loginSubmit" );
-		loginButton.addEventListener("click", ()=>{
-			tmpThis.sendLogin( loginUsername.value,  loginPassword.value );
-		});*/
-		//&
-	}
-	sendLogin( un,  ps ){
-		let strip=document.createElement( "div" );
-		strip.innerHTML=un;
-		un=strip.innerText;
-		strip.innerHTML=ps;
-		ps=strip.innerText;
-		this.pxlConnect.checkLogin(un,ps);
-        strip=null;
-	}
-	toggleUserProfile( active=null, message=null, launchChat=false ){
-		if( !this.guiWindows.userProfileBoxGui ){
-			this.buildUserProfileBox();
-		}
-        
-		
-		let userInput=document.getElementById("userProfileBox_usernameInput");
-		let userName= this.pxlUser.jmaUserName || "";
-		userInput.value=userName;
-		
-		active= active==null ? !this.guiWindows.userProfileBoxGui.active : active;
-		//this.toggleGuiWindowContainer( null, active, true );
-		this.guiWindows.userProfileBoxGui.active=active;
-		this.promptFader( this.guiWindows.userProfileBoxGui.gui, active );
-		//if(this.hudBlock.active){ this.toggleHudBlock( active ); }
-        
-        let delayTime= active ? 0 : 1000;
-        setTimeout( ()=>{
-            message=message ? message : "";
-            this.guiWindows["userProfileBoxGui"].headerMessage.innerText=message;
-            this.guiWindows["userProfileBoxGui"].footerMessage.innerText="";
-        }, delayTime);
-	}
-
-	keyDownUsernameSet(e){
-        let target=e.target;
-        let strip=this.pxlUtils.cleanBasic( target.value ).substr(0,50);
-		target.value=strip;
-	}
-	keyUsernameSet(e){
-		let keyHit=e.keyCode || e.which;
-        
-        let target=e.target;
-        let strip=this.pxlUtils.cleanBasic( target.value ).substr(0,50);
-		target.value=strip;
-        
-		let shift=e.shiftKey;
-		if(keyHit==13 && !shift){
-			this.sendUsernameUpdate();
-		}
-	}
-	sendUsernameUpdate( ){
-		let toName=null;
-        if(this.guiWindows["userProfileBoxGui"]){
-            if(this.guiWindows["userProfileBoxGui"].active){
-                toName=this.userProfileMessageInput.value;
-            }
-        }
-        if(this.guiWindows.settingsGui){
-            if( this.guiWindows.settingsGui.active ){
-                toName=this.guiWindows.settingsGui.usernameInput.value;
-            }
-        }
-        
-		let status=false;
-		[status,toName]=this.pxlConnect.setUserName( toName );
-        if( toName==false ){
-            return;
-        }
-        
-		if(status){
-            try{
-                this.guiWindows["userProfileBoxGui"].footerMessage.innerText=`You're username has been set to '${toName}'`;
-            }catch(err){}
-			try{
-                this.guiWindows.settingsGui.usernameReturn.innerText=`You're username has been set to '${toName}'`;
-			}catch(err){}
-            if(this.userProfileMessageInput){
-                this.userProfileMessageInput.blur();
-            }
-            if(this.guiWindows.settingsGui){
-                if(this.guiWindows.settingsGui.usernameReturn){
-                    this.guiWindows.settingsGui.usernameReturn.blur();
-                }
-            }
-			if(this.delayLoadChatWindow){
-				this.delayLoadChatWindow=false;
-				this.toggleUserProfile(false);
-				this.toggleChatBox(true);
-			}
-		}else{
-            try{
-                this.guiWindows["userProfileBoxGui"].footerMessage.innerText=`That username already exists; you can try '${toName}'`;
-                this.userProfileMessageInput.value=toName;
-                this.userProfileMessageInput.focus();
-            }catch(err){}
-			try{
-                this.guiWindows.settingsGui.usernameReturn.innerText=`That username already exists; you can try '${toName}'`;
-                this.guiWindows.settingsGui.usernameInput.value=toName;
-                this.guiWindows.settingsGui.usernameInput.focus();
-			}catch(err){}
-		}
-	}
-	
-/////////////////////////////////////////////
-// -- -- -- -- -- -- -- -- -- -- -- -- -- //
-///////////////////////////////////////////
-	
-	
-	resizeSideBarSpacer(){
-    if(this.hudBottomBar){
-      let bBarHeight=this.hudBottomBar.offsetHeight;
-      let type=["chatBoxGui"];
-      type.forEach( (t)=>{
-        if(this.guiWindows[t]){
-          let guiHeight=this.sH-bBarHeight;
-          this.guiWindows[t].gui.style.height=guiHeight;
-          if( t=="chatBoxGui"){
-              let curHeight= this.pxlDevice.mobile ? 0 : this.fastTravelBar.offsetHeight;
-              this.guiWindows[t].header.style.height=curHeight+"px";
-              
-              let innerHeight = guiHeight-curHeight-15;
-              this.guiWindows[t].inner.style.height=innerHeight+"px";
-          }
-        }
-      });
-    }
-	}
-	
-	buildChatBox(){
-		let type="chatBoxGui";
-		
-		let chatDiv=document.createElement( "div" );
-        if( this.pxlDevice.mobile ){
-            chatDiv.classList.add( "gui_chatBoxBlockStyle_mobile" );
-        }else{
-            chatDiv.classList.add( "gui_chatBoxBlockStyle" );
-        }
-		this.prepPromptFader( chatDiv );
-        //chatDiv.style.zIndex=-1;
-		
-		let html=`
-			<div id="gui_chatBoxParent" class="gui_chatBoxParentStyle">
-				<div id="gui_chatBoxHeaderSpacer" class="gui_chatBoxHeaderSpacer"></div>
-                <div class="gui_chatBoxInner" id="gui_chatBoxInner">
-                    <div class="gui_chatBoxTitle" id="gui_chatBoxTitle">
-                        Chat
-                        <div class="gui_chatBodHeaderLine"></div>
-                    </div>
-                    <div id="chatBoxDisplay" class="gui_chatBoxDisplay">
-                    </div>
-                    <div id="guiChatBoxFieldBlock" class="gui_chatBoxFieldBlockStyle">
-                        <div id="guiChatBoxFieldParent" class="gui_chatBoxFieldParentStyle">
-                            <textarea placeholder="Send to everyone!" row="2" id="chatBox_messageInput"></textarea>
-                            <input type="button" value="Send" id="chatBox_sendMessage" class="chatBox_sendMessage">
-                        </div>
-                    </div>
-                </div>
-			</div>
-		`;
-		chatDiv.innerHTML=html;
-		document.body.appendChild( chatDiv );
-		
-		this.guiWindows[type]={};
-		this.guiWindows[type].gui=chatDiv;
-		this.guiWindows[type].active=false;
-		this.guiWindows[type].header=document.getElementById( "gui_chatBoxHeaderSpacer" );
-		this.guiWindows[type].inner=document.getElementById( "gui_chatBoxInner" );
-		
-		let tmpThis=this;
-		
-		this.chatMessageDisplay=document.getElementById("chatBoxDisplay");
-		
-		let button=document.getElementById( "chatBox_sendMessage" );
-		button.addEventListener("click", ()=>{
-			tmpThis.sendChatMessage();
-		});
-		
-		let msgInput=document.getElementById( "chatBox_messageInput" );
-		msgInput.onkeyup=(e)=>{ tmpThis.keyChatMessage(e); };
-		msgInput.onkeydown=(e)=>{ tmpThis.keyDownChatMessage(e); };
-		this.chatMessageInput=msgInput;
-    
-        setTimeout( ()=>{
-            this.resizeSideBarSpacer();
-        },20);
-	}
-	toggleChatBox( active=null ){
-		if( !this.pxlUser.jmaUserName ){
-			this.delayLoadChatWindow=true;
-			this.toggleUserProfile( true, "To use chat, please set your username", true );
-			return;
-		}
-		if( !this.guiWindows.chatBoxGui ){
-			this.buildChatBox();
-		}
-		
-		this.resizeSideBarSpacer();
-        /*if(active){
-            this.guiWindows.chatBoxGui.gui.style.zIndex=135;
-        }else{
-            setTimeout( ()=>{
-                this.guiWindows.chatBoxGui.gui.style.zIndex=-1;
-            },1000);
-		}*/
-        
-		active= active==null ? !this.guiWindows.chatBoxGui.active : active;
-		//this.toggleGuiWindowContainer( null, active, true );
-		this.guiWindows.chatBoxGui.active=active;
-		this.promptFader( this.guiWindows.chatBoxGui.gui, active );
-		//if(this.hudBlock.active){ this.toggleHudBlock( active ); }
-		
-        this.setUserControlPosition();
-        
-		if(active){
-			this.chatMessageInput.focus();
-			this.displayChatNotification( false );
-		}
-	}
-    
-	keyDownChatMessage(e){
-		let keyHit=e.keyCode || e.which;
-		let shift=e.shiftKey;
-		this.chatMessageInput.value=this.chatMessageInput.value.substr(0,500);
-		if(!shift && keyHit==13){
-            e.preventDefault();
-            return false;
-		}
-	}
-	keyChatMessage(e){
-		let keyHit=e.keyCode || e.which;
-		let shift=e.shiftKey;
-		if(shift){
-			return;
-		}
-		if(keyHit==13){
-            e.preventDefault();
-			this.sendChatMessage();
-            return false;
-		}
-	}
-	sendChatMessage( targetId=null ){
-		let msgInput=this.chatMessageInput.value;
-		this.pxlSocket.sendChat( targetId, msgInput );
-		this.chatMessageInput.value="";
-		this.chatMessageInput.focus();
-	}
-    
-	displayChatMessage( messageData ){
-		if(!this.chatMessageDisplay){
-			this.buildChatBox();
-		}
-		
-        let userId= messageData.jid || "somebody";
-        let targetId= messageData.target;
-        let userName= messageData.un;
-        let msg= messageData.msg;
-        let dateTime= messageData.time;
-		let userColor;
-        if( userId.length > 12 ){
-            userColor=this.pxlUtils.stringToRgb( userId, .2 );
-        }else{
-            userColor=this.pxlUtils.hexToRgb( userId );
-        }
-		
-        
-		let spacer="<div class='gui_chatMessageSpacer'></div>";
-		let local=userId==this.pxlConnect.jmaUserId || userId==this.pxlUser.jitsiUserId;
-		let localSpacer= local ? spacer : "";
-		let remoteSpacer= local ? "" : spacer;
-		
-		let setMessageCount=false;
-		if( dateTime==null ){
-			setMessageCount=true;
-			let date,time;
-			[date,time]=this.pxlUtils.getDateTime();
-			dateTime=`<div></div><div>${time}</div>`;
-		}else{
-            let dt=new Date();
-            let mt=new Date( dateTime );
-            setMessageCount= dt.getTime()-5000 < mt.getTime();
-			dateTime=dateTime.split(/[A-Z]/g)[1];
-            dateTime=dateTime.split(".").shift();
-            
-            dateTime=((dt.getHours()%12)+"").padStart(2, "0") + ":" + (dt.getMinutes()+"").padStart(2, "0") + ":" + (dt.getSeconds()+"").padStart(2, "0");
-            dateTime += " " + (dt.getHours()<13 ? "am" : "pm")
-			dateTime=`<div></div><div>${dateTime}</div>`;
-		}
-		
-        let mobileStyle="";
-        if( this.pxlDevice.mobile ){
-            mobileStyle="style='max-width: 85vw;'";
-        }
-        
-		let html=`
-				${localSpacer}<div id="chatMessageParent" class='gui_chatMessageParent'>
-					<div class='gui_chatMessageHeader'>
-                        <div class='gui_chatMessageUsername'>${userName}</div>
-                        <div class='gui_chatMessageTime'>${dateTime}</div>
-                    </div>
-                    <div class='gui_chatMessageBodyParent' ${mobileStyle}><div class='gui_chatMessageBody'>${msg}</div></div>
-                    <div class='gui_chatMessageOptionParent' ${mobileStyle}><div class='gui_chatOptions'></div></div>
-				</div>${remoteSpacer}
-		`;
-		let curMessage=document.createElement( "div" );
-		curMessage.classList.add("gui_chatMessageBlock");
-		curMessage.innerHTML=html;
-		this.chatMessageDisplay.appendChild(curMessage);
-		
-		/*let borderColor=`rgba( ${userColor[0]*.35}, ${userColor[1]*.35}, ${userColor[2]*.35},.8)`;
-		let curParent=curMessage.children[~~local];
-		curParent.style.backgroundColor=borderColor;
-		let avg=(userColor[0] + userColor[1] + userColor[2]);
-		curParent.style.border="2px solid "+this.pxlUtils.rgbToHex( (userColor[0]*2+avg)*.2, (userColor[1]*2+avg)*.2, (userColor[2]*2+avg)*.2 );
-		let curHeader=curParent.children[0];
-        let curUsername=curHeader.children[0];
-		curUsername.style.color=this.pxlUtils.rgbToHex( userColor[0]*.5+100, userColor[1]*.5+100, userColor[2]*.5+100);
-		curUsername.style.borderColor=borderColor;
-		let curTime=curHeader.children[1];
-		curTime.style.color=this.pxlUtils.rgbToHex( userColor[0]*.15+100, userColor[1]*.15+100, userColor[2]*.15+100);
-		let curBody=curParent.children[1];
-		curBody.style.borderColor=borderColor;*/
-
-		this.chatMessageDisplay.scrollTo(0,this.chatMessageDisplay.scrollHeight);
-		if(setMessageCount){
-			this.displayChatNotification( !this.guiWindows.chatBoxGui.active );
-		}
-	}
-	displayChatNotification( active=true ){
-		if( this.hudIcons.chatIcon ){
-			if( this.hudIcons.chatIcon.state ){
-				this.hudIcons.chatIcon.state.style.display= active ? "inline-block" : "none";
-				this.messageCountCur= active ? this.messageCountCur+1 : 0 ;
-				//this.messageCountObj.style.display= active ? "inline-block" : "none";
-				this.messageCountObj.style.opacity= active ? 1 : 0;
-				this.messageCountObj.style.filter= "alpha(opacity="+(active ? 100 : 0)+")";
-				if(active){
-					this.messageCountObj.innerText= this.messageCountCur>9 ? "9+" : this.messageCountCur;
-				}
-			}
-		}
-	}
 	
 
 
@@ -3928,19 +2521,49 @@ export class GuiDraws{
         uniforms=vert=frag="Unable To Load";
         
         roomShader.uniforms['sliders']={type:"v",value:this.pxlEnv.shaderSliderValues};
-        roomShader.needsUpdate=true;
-        
         try{
             uniforms=JSON.stringify( roomShader.uniforms );
             vert=roomShader.vertexShader;
             frag=roomShader.fragmentShader;
-            uniforms=uniforms.replace("{","{\n").replace("}","\n}").replace(",",",\n");
-            uniforms=Object.keys(  roomShader.uniforms );
+            //uniforms=uniforms.replace("{","{\n").replace("}","\n}").replace(",",",\n");
+            //uniforms=Object.keys(  roomShader.uniforms );
+						uniforms="";
+						for( const x in roomShader.uniforms ){
+							let curType ="float";
+							let typeDict={
+								"t":"sampler2D",
+								"b":"bool",
+								"i":"int",
+								"f":"float",
+								"v":"vec",
+								"c":"vec",
+							};
+							curType = typeof(roomShader.uniforms[x].value)
+							
+							if( curType == "object"){
+								curType=""
+								if("image" in roomShader.uniforms[x].value){
+									curType = "sampler2D";
+								}else{
+									curType = curType + "vec" + (Object.keys(roomShader.uniforms[x].value).length);
+								}
+							}else{
+								if( typeDict.hasOwnProperty( roomShader.uniforms[x].type ) ){
+									curType = roomShader.uniforms[x].type=="i" ? "i" : "";
+								}
+								if( typeDict.hasOwnProperty( roomShader.uniforms[x].type ) ){
+									curType = typeDict[roomShader.uniforms[x].type];
+								}
+							}
+							uniforms+= `uniform ${curType} ${x};   `;
+						}
             
             vert=vert.replace(/[\t]/g, "    ");
             frag=frag.replace(/[\t]/g, "    ");
         }catch(err){}
         
+        roomShader.needsUpdate=true;
+				
 		this.guiWindows[type].uniformsObj.value = uniforms;
 		this.guiWindows[type].vertObj.value = vert;
 		this.guiWindows[type].fragObj.value = frag;
@@ -3972,58 +2595,60 @@ export class GuiDraws{
           });
 
           let avatarSelected="";
-          let fogSelected="";
-          if( Object.keys(this.pxlEnv.pxlAvatars.userAvatarSpacialData).length > 0 ){
-              avatarSelected="selected";
-              this.guiWindows[type].currentShader="script_avatar";
-          }else{
-              fogSelected="selected";
-              this.guiWindows[type].currentShader="script_fog";
-          }
+          let fogSelected="selected";
+					this.guiWindows[type].currentShader="script_fog";
+
 
           /*<a class="gui_changeShaderLink" shader="avatar">Load Avatar</a>
           <a class="gui_changeShaderLink" shader="fog">Load Fog</a>*/
       let html=`
         <div id="gui_shaderEditorParent" class="gui_shaderEditorParentStyle">
-          <div id="gui_shaderHeaderSpacer" class="gui_shaderHeaderSpacer">
-                  <span class="gui_boldText">Ctrl+Enter</span> - Update Shader on Material
-                  <br>Returns use existing indent spacing type (Spaces/Tabs)
-                  <br><span class="gui_boldText">Ctrl+D</span> - Duplicate current line
-                  <br><span class="gui_boldText">Ctrl+K</span> - To Comment current/selected lines
-                  <br><span class="gui_boldText">Ctrl+Shift+K</span> - To Uncomment current/selected lines
-                  <br><span class="gui_boldText">Ctrl+NumPad {1,2,3}</span> - Add selection or '.0' into float(), vec2(), vec3() 
-                  <br><span class="gui_boldText">Ctrl+{Up,Down,Left,Right}</span> - Searches for selection in direction
-                  </div>
-          <div class="gui_shaderEditorHeaderBlock">
-            <div class="gui_shaderEditorHeaderParent">
-                          Edit Room Shader
-                          <div id="gui_shaderEditorHeaderList">
-                              <label for="shaderEditor_loadShader" style="font-size:.4em;">Edit Shader</label>
-                              <select name="shaderEditor_loadShader" id="shaderEditor_loadShader" class="pickerStyle">
-                                  <option value="script_avatar" ${avatarSelected}>Avatar</option>
-                                  <option value="script_fog" ${fogSelected}>Fog</option>
-                                  <option value="script_dArrows">Direction Arrows</option>
-                                  <option value="script_userScreens">User Screens</option>
-                                  <option value="script_warpZonePortals">Warp Zone Portals</option>
-                                  <option value="script_lizardking">Item; Lizard King</option>
-                                  <option value="script_majorTom">Item; Major Tom</option>
-                                  <option value="script_fractalSubstrate">Item; Fractal Substrate</option>
-                                  <option value="script_fractalEcho">Item; Fractal Echo Pass</option>
-                                  ${objectShaderOptions}
-                              </select>
-                          </div>
-                      </div>
-            <div class="gui_shaderEditorHeaderLine"></div>
-          </div>
-                  <div id="guiShaderUserSliders"></div>
-                  <div id="guiShaderFieldParent" class="gui_shaderEditorFieldParentStyle">
-                      <textarea spellcheck="false" placeholder="Shader Uniforms" rows="3" id="shaderEditor_uniformInput" style="height:unset;" readonly></textarea>
-                      <span style='height:12px'>Vertex Shader -</span>
-                      <textarea spellcheck="false" placeholder="Vertex Shader" id="shaderEditor_vertInput"></textarea>
-                      <span style='height:12px'>Fragment Shader -</span>
-                      <textarea spellcheck="false" placeholder="Fragment Shader" id="shaderEditor_fragInput"></textarea>
-                  </div>
-                  <div id="shader_updateShader" class="shaderEditor_sendMessage">Update Shader</div>
+					<div class="gui_shaderEditorHeaderBlock">
+						<div class="gui_shaderEditorOptionBlock">
+							<div class="gui_shaderEditorTitleBlock">
+								<div class="gui_shaderEditorTitleParent">
+											<div id="gui_shaderEditorTitle" clsss="gui_shaderEditorTitleStyle">GLSL Shader Editor</div>
+											<div id="gui_shaderEditorHeaderList">
+													<label for="shaderEditor_loadShader" style="font-size:.75em;">Edit Shader</label>
+													<select name="shaderEditor_loadShader" id="shaderEditor_loadShader" class="pickerStyle">
+															<option value="script_avatar" ${avatarSelected}>Avatar</option>
+															<option value="script_fog" ${fogSelected}>Fog</option>
+															<option value="script_dArrows">Direction Arrows</option>
+															<option value="script_userScreens">User Screens</option>
+															<option value="script_warpZonePortals">Warp Zone Portals</option>
+															<option value="script_lizardking">Item; Lizard King</option>
+															<option value="script_majorTom">Item; Major Tom</option>
+															<option value="script_fractalSubstrate">Item; Fractal Substrate</option>
+															<option value="script_fractalEcho">Item; Fractal Echo Pass</option>
+															${objectShaderOptions}
+													</select>
+											</div>
+									</div>
+								<div class="gui_shaderEditorHeaderLine"></div>
+							</div>
+							<div id="guiShaderUserSliders"></div>
+							<span class="gui_shaderEditorFieldParentStyle" style='height:12px'>Uniforms -</span>
+						</div>
+						<div id="gui_shaderHeaderSpacer" class="gui_shaderHeaderSpacer">
+							<span><span class="gui_boldText">Ctrl+Enter</span> - Update Shader on Material</span>
+							<br><span>Returns use existing indent spacing type (Spaces/Tabs)</span>
+							<br><span><span class="gui_boldText">Ctrl+D</span> - Duplicate current line</span>
+							<br><span><span class="gui_boldText">Ctrl+K</span> - To Comment current/selected lines</span>
+							<br><span><span class="gui_boldText">Ctrl+Shift+K</span> - To Uncomment current/selected lines</span>
+							<br><span><span class="gui_boldText">Ctrl+NumPad {1,2,3}</span> - Add selection or '.0' into float(), vec2(), vec3() </span>
+							<br><span><span class="gui_boldText">Ctrl+{Up,Down,Left,Right}</span> - Searches for selection in direction</span>
+						</div>
+					</div>
+					
+						
+					<div id="guiShaderFieldParent" class="gui_shaderEditorFieldParentStyle">
+						<textarea spellcheck="false" placeholder="Shader Uniforms" rows="3" id="shaderEditor_uniformInput" style="height:unset;" readonly></textarea>
+						<span style='height:12px'>Vertex Shader -</span>
+						<textarea spellcheck="false" placeholder="Vertex Shader" id="shaderEditor_vertInput"></textarea>
+						<span style='height:12px'>Fragment Shader -</span>
+						<textarea spellcheck="false" placeholder="Fragment Shader" id="shaderEditor_fragInput"></textarea>
+					</div>
+					<div id="shader_updateShader" class="shaderEditor_sendMessage">Update Shader</div>
         </div>
       `;
       shaderDiv.innerHTML=html;
@@ -4044,6 +2669,7 @@ export class GuiDraws{
           
           
       this.guiWindows[type].shaderParentObj=document.getElementById("shaderEditor_uniformInput").parentNode;
+      this.guiWindows[type].titleObj=document.getElementById("gui_shaderEditorTitle");
       this.guiWindows[type].uniformsObj=document.getElementById("shaderEditor_uniformInput");
       this.guiWindows[type].vertObj=document.getElementById("shaderEditor_vertInput");
       this.guiWindows[type].fragObj=document.getElementById("shaderEditor_fragInput");
@@ -4061,6 +2687,7 @@ export class GuiDraws{
               tmpThis.updateShaderTextFields( shaderPicker.value );
           };
           
+					
       /*
           let shaderLinkList=this.guiWindows[type].shaderList.children;
           for( let x=0; x<shaderLinkList.length; ++x){
@@ -4072,8 +2699,6 @@ export class GuiDraws{
           };*/
           
           
-      this.guiWindows[type].headSpacer.style.height=(this.pxlConnect.localThumbHeight+2)+"px";
-      this.guiWindows[type].headSpacer.style.marginLeft=(this.pxlConnect.camObject.offsetWidth+4)+"px";
       
       this.guiWindows[type].updateObj.addEventListener("click", ()=>{
         let unisObj=document.getElementById("shaderEditor_uniformInput");
@@ -4494,27 +3119,22 @@ export class GuiDraws{
 			this.buildShaderEditor();
 		}
 		
-        this.updateShaderList();
-        this.updateShaderTextFields();
-        
+		this.updateShaderList();
+		this.updateShaderTextFields();
 		
-		this.guiWindows.shaderGui.headSpacer.style.height=(this.pxlConnect.localThumbHeight+2)+"px";
-		this.guiWindows.shaderGui.headSpacer.style.marginLeft=(this.pxlConnect.camObject.offsetWidth+4)+"px";
-        
 		active= active==null ? !this.guiWindows.shaderGui.active : active;
 		this.guiWindows.shaderGui.active=active;
 		this.promptFader( this.guiWindows.shaderGui.gui, active );
+
+		if(active){
+				this.mapCanvas.addEventListener("mousedown", this.shaderFocusMapCore);
+		}else{
+				this.mapCanvas.removeEventListener("mousedown", this.shaderFocusMapCore);
+		}
 		
-        if(active){
-            this.mapCanvas.addEventListener("mousedown", this.shaderFocusMapCore);
-        }else{
-            this.mapCanvas.removeEventListener("mousedown", this.shaderFocusMapCore);
-        }
-            
-        
-        setTimeout( ()=>{
-            this.resizeShaderElements();
-        },10);
+		setTimeout( ()=>{
+				this.resizeShaderElements();
+		},10);
 	}
     updateShaderList(){
         let pulldown=this.guiWindows["shaderGui"].shaderSelect;
@@ -4540,6 +3160,21 @@ export class GuiDraws{
         document.activeElement.blur()
         let fieldParent=document.getElementById("guiShaderEditorBlock");
         fieldParent.style.maxWidth="30vw";
+				
+        let titleText=document.getElementById("gui_shaderEditorTitle");
+				if(titleText){
+					//titleText.classList.remove("gui_shaderEditorTitleEditing");
+					//titleText.style.transform="scale(.75)";
+					titleText.style.fontSize="1em";
+					titleText.style.paddingTop="8px";
+				}
+				
+        let helpParent=document.getElementById("gui_shaderHeaderSpacer");
+				if( helpParent ){
+					helpParent.classList.remove("gui_shaderHeaderSpacerVisible");
+					helpParent.style.removeProperty("width");
+					helpParent.style.removeProperty("max-width");
+				}
     }
     
 	resizeShaderElements(){
@@ -4547,18 +3182,17 @@ export class GuiDraws{
     if(this.hudBottomBar){
       bBarHeight = this.hudBottomBar.offsetHeight
     }
+		
 		let type=["shaderGui"];
 		type.forEach( (t)=>{
 			if(this.guiWindows[t]){
 				this.guiWindows[t].gui.style.height=this.sH-bBarHeight;
                 
-        let maxFieldsHeight = this.guiWindows[t].shaderFieldParent.clientHeight;
-        let textHeight = 24;
-        
-        let uHeight = this.guiWindows[type].uniformsObj.clientHeight;
-        let bHeight = this.guiWindows[type].updateObj.clientHeight;
-        //let pHeight=this.guiWindows[type].shaderParentObj.offsetHeight - uHeight - bHeight;
-        let pHeight = maxFieldsHeight - bBarHeight - uHeight - bHeight - textHeight;
+        let vertTextTop = this.guiWindows[type].vertObj.getBoundingClientRect().top;
+        let bHeight = this.guiWindows[type].updateObj.getBoundingClientRect().height;
+				bHeight += 50;
+        let pHeight =  this.sH - bHeight - vertTextTop;
+				
         this.guiWindows[type].vertObj.style.maxHeight=pHeight*.4+"px";
         this.guiWindows[type].vertObj.displayHeight=pHeight*.4;
         this.guiWindows[type].fragObj.style.maxHeight=pHeight*.6+"px";
@@ -4571,7 +3205,7 @@ export class GuiDraws{
         let guiWindow=this.guiWindows["shaderGui"];
         let vertSize = guiWindow.vertObj.displayHeight;
         let fragSize = guiWindow.fragObj.displayHeight;
-        let minSize = Math.max(100, this.sH * .1);
+        let minSize = Math.max(150, this.sH * .135);
         let sizeShift= guiWindow.fieldBodyHeight-minSize;
         
         vertSize= area=="vertObj" ? sizeShift : minSize;
@@ -4579,38 +3213,30 @@ export class GuiDraws{
         guiWindow.vertObj.style.maxHeight=vertSize+"px";
         guiWindow.fragObj.style.maxHeight=fragSize+"px";
         guiWindow.gui.style.maxWidth="75vw";
+			
+				//guiWindow.titleObj.classList.add("gui_shaderEditorTitleEditing");
+				//guiWindow.titleObj.style.transform="scale(1.5)";
+				guiWindow.titleObj.style.fontSize="2em";
+				guiWindow.titleObj.style.paddingTop="0px";
+				guiWindow.headSpacer.classList.add("gui_shaderHeaderSpacerVisible");
+				let hasInnerWidth = guiWindow.headSpacer.hasAttribute("innerWidth");
+				if( !hasInnerWidth ){
+					(async ()=>{
+						let maxHelpWidth=0;
+						let helpBlockChildren = guiWindow.headSpacer.children;
+						for( const ch of helpBlockChildren ){
+							maxHelpWidth = Math.max( maxHelpWidth, ch.getBoundingClientRect()['width'] );
+						}
+						guiWindow.headSpacer.setAttribute("innerWidth", maxHelpWidth)
+						guiWindow.headSpacer.style.width=maxHelpWidth+"px";
+						guiWindow.headSpacer.style.maxWidth=maxHelpWidth+"px";
+					})();
+				}else{
+						let maxHelpWidth = guiWindow.headSpacer.getAttribute("innerWidth");
+						guiWindow.headSpacer.style.width=maxHelpWidth+"px";
+						guiWindow.headSpacer.style.maxWidth=maxHelpWidth+"px";
+				}
     }
 	//%
 	
-    //&=
-	toggleModBox(){
-		let userBox=document.getElementById( "jmaBlock" );
-		if(userBox){
-			this.jmaWindowVis=!this.jmaWindowVis;
-			if(this.jmaWindowVis){
-				userBox.style.zIndex=120;
-                this.updateUserIconStatus( false );
-			}else{
-				userBox.style.zIndex=-5;
-			}
-		}
-		//	this.hudIcons.usersIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_users.svg`, "usersIcon", "users" );
-	}
-    updateUserIconStatus( status ){
-        if( status!=this.hudIcons.usersIcon.status ){
-            if( this.jmaWindowVis && status){
-                return;
-            }
-            let color= status ? "deepskyblue" : "white";
-            this.hudIcons.usersIcon.status=status;
-            let ch=this.hudIcons.usersIcon.svg.children;
-            for( let x=0; x<ch.length; ++x){
-                if( ch[x].hasAttribute("fill") ){
-                    ch[x].setAttribute("fill",color);
-                }
-            }
-        }
-    }
-	//&
-    
 }

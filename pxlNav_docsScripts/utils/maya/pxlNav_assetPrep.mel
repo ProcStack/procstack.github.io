@@ -1,0 +1,429 @@
+///////////////////////////////////////////////
+// Asset & Scene Utility Scripts for pxlNav  //
+//   Maya Pipeline; Mel Window               //
+//   Written by Kevin Edzenga 2020-2023      //
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+// By running the mel script contents here,  //
+//   A window will launch with two tabs.
+// Tab 1 is the `Scene Group Manager`
+// Tab 2 is the `Asset Attributes`
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////////
+
+
+global proc pxlNav_launcher(){
+    global string $pxlNavName = "AssetPrepper";
+    global int $pxlNav_ww=485; // window width
+    global int $pxlNav_wh=460; // window height
+    global int $pxlNav_btnHeight=30;// Button height
+    
+    global string $pxlNav_imgDirectory="pxlNavAssets";
+    global string $pxlNav_imgDirectory;
+    $pxlNav_imgDirectory=(`internalVar -userScriptDir`+ $pxlNav_imgDirectory + "/");
+    global string $pxlNav_iconDirectory;
+    $pxlNav_iconDirectory=(`internalVar -userScriptDir`+$pxlNav_imgDirectory + "/");
+    string $scriptName="pxlNav";
+    string $version="v0.01";
+    $pxlNavName=($scriptName +" "+ $version);
+    
+    TartarusPulldownMenu();
+}
+
+global proc string pxlNav_camelToHumanReadable(string $label){
+    string $caps[]={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+    int $ccc=0;
+    string $retStr=$label;
+    for($ccc=0;$ccc<size($caps);++$ccc){
+        $label= substituteAllString($label, $caps[$ccc], (" "+$caps[$ccc])) ;
+    }
+    return $label;
+}
+
+global proc string[] pxlNav_findEnvGroups(){
+    string $envRoot[]=`ls -tr -l`;
+    int $x=0;
+    string $envGroupChildren[];
+    string $envGroupObj;
+    string $token[];
+    for($x=0;$x<size($envRoot);++$x){
+        tokenize $envRoot[$x] "|" $token;
+        if( size($token)<2 ){
+            $envGroupChildren=`listRelatives -f $envRoot[$x]`;
+            print($envGroupChildren);
+            print("\n");
+            if( `objectType($envGroupChildren[0])` == "transform" ){
+                $envGroupObj=$envRoot[$x];
+                break;
+            }
+        }
+    }
+    string $retArr[]=`listRelatives -children $envGroupObj`;
+    stringArrayInsertAtIndex(0, $retArr, $envGroupObj);
+    
+    return $retArr;
+}
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+
+global proc pxlNav_prepColliderAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "checkX"  -at long  -min -2 -max 1 -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".checkX");
+        addAttr -ln "checkZ"  -at long  -min -2 -max 1 -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".checkZ");
+    }
+}
+//pxlNav_prepColliderAttributes();
+
+global proc pxlNav_prepDoubleSidedAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "doubleSided"  -at bool -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".doubleSided");
+    }
+}
+//pxlNav_prepDoubleSidedAttributes();
+
+global proc pxlNav_prepScriptedAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "Scripted"  -at bool -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".Scripted");
+    }
+}
+//pxlNav_prepScriptedAttribute();
+
+global proc pxlNav_prepInstanceAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "Instance"  -dt "string" $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".Instance");
+    }
+}
+//pxlNav_prepInstanceAttribute();
+
+global proc pxlNav_prepEmitterAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "Emitter"  -dt "string" $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".Emitter");
+    }
+}
+//pxlNav_prepEmitterAttribute();
+
+global proc pxlNav_prepCameraThirdPersonAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "isThirdPerson"  -at bool -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".isThirdPerson");
+    }
+}
+//pxlNav_prepCameraThirdPersonAttribute();
+
+
+global proc pxlNav_prepGlowPassAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "GlowPass"  -at bool -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".GlowPass");
+        addAttr -ln "GlowPerc"  -at double  -min 0 -max 2 -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".GlowPerc");
+    }
+}
+//pxlNav_prepGlowPassAttribute();
+
+global proc pxlNav_prepGlowPercAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "GlowPerc"  -at double  -min 0 -max 2 -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".GlowPerc");
+    }
+}
+//pxlNav_prepGlowPercAttribute();
+
+global proc pxlNav_prepInteractableAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "Hover"  -at bool -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".Hover");
+        addAttr -ln "Click"  -at bool -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".Click");
+    }
+}
+//pxlNav_prepInteractableAttribute();
+
+global proc pxlNav_prepCamPathAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "duration"  -at long  -min 1 -max 1000 -dv 50 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".duration");
+    }
+}
+//pxlNav_prepCamPathAttributes();
+
+global proc pxlNav_prepScreenAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "djScreen"  -at long  -min 0 -max 3 -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".djScreen");
+        addAttr -ln "performerScreen"  -at long  -min 0 -max 3 -dv 0 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".performerScreen");
+    }
+}
+//pxlNav_prepScreenAttributes();
+
+global proc pxlNav_prepDjAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "dj"  -at long  -min 0 -max 3 -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".dj");
+    }
+}
+//pxlNav_prepDjAttributes();
+
+global proc pxlNav_prepPerformerAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "dj"  -at long  -min 0 -max 3 -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".performer");
+    }
+}
+//pxlNav_prepPerformerAttributes();
+
+global proc pxlNav_prepAdAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "ad"  -at long  -min 0 -max 3 -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".ad");
+    }
+}
+//pxlNav_prepAdAttributes();
+
+global proc pxlNav_prepVideoAttributes(string $vidName){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        if( !`attributeExists "video" $sel[$x]`){
+            addAttr -ln "video" -dt "string"  $sel[$x];
+            setAttr -e-keyable true ($sel[$x]+".video");
+        }
+        if( !`attributeExists "portrait" $sel[$x]`){
+            addAttr -ln "portrait"  -at long  -min 0 -max 3 -dv 0 $sel[$x];
+            setAttr -e-keyable true ($sel[$x]+".portrait");
+        }
+        setAttr -type "string" ($sel[$x]+".video") $vidName;
+    }
+}
+//pxlNav_prepVideoAttributes("JimBobFallsDownVideo");
+
+
+
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+
+// Prep for FXB export
+
+global proc pxlNav_saveAntibodyDesktopAndMobile_FBX( string $projectName ){
+    string $curSceneName=`file -q -sn`;
+    string $token[];
+    tokenize $curSceneName "." $token;
+    
+    // Prep for Live
+    
+    
+    select -r $projectName ;
+    file -force -options "v=0;" -typ "FBX export" -es ($token[0]+".fbx");
+        
+    string $queue=`undoInfo -ock`;
+    string $nameList[]={
+            "Items",
+            "PortalExit",
+            "RoomWarpZoneVisuals",
+            "Colliders",
+            "Instances",
+            "Clickable",
+            "Glass",
+            "Chrome",
+            "Side_Walk_Shop",
+            "Stairs_Metal_Gray",
+            "WaveGlow",
+            "Metal_RoofTop_SupportRails",
+            "Metal_Black",
+            "polySurface16351",
+            "polySurface16268",
+            "InstanceTransforms"
+    };
+    string $sl[]=`ls -l $nameList`;
+    select $sl;
+    parent -w;
+    
+    // Lower Texture Quality --
+    //   Override textures with lower res version so scenes can load quicker in browser
+    setAttr -type "string" TEXTURE_USING_TEXTURE_VARIATIONS.fileTextureName "Local/Path/To/Image_1k.jpg";
+    
+    select -r $projectName ;
+    file -force -options "v=0;" -typ "FBX export" -es ($token[0]+"_mobile.fbx");
+    
+    undoInfo -cck;
+    undo;
+    print( "Desktop FBX Saved To - "+$token[0]+".fbx\n");
+    print( "Mobile FBX Saved To - "+$token[0]+"_mobile.fbx");
+}
+//pxlNav_saveAntibodyDesktopAndMobile_FBX( "CampfireEnvironment" );
+
+
+
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+
+
+
+global proc pxlNav_assetPrepWindow(){
+	global string $pxlNavName;
+	global string $pxlNavAssetPrepWindowObject;
+	global string $pxlNav_imgDirectory;
+	global float $pxlNavMinEdge;
+	string $toolWindow="User Data Attributes";
+	string $toolWindowName=($toolWindow +" - "+ $pxlNavName);
+	if(`window -exists $pxlNavAssetPrepWindowObject`){
+		deleteUI -window $pxlNavAssetPrepWindowObject;
+	}
+	
+    // -- -- -- -- -- -- -- -- -- -- -- -- -- --
+	
+	global int $pxlNav_ww;
+	global int $pxlNav_wh;
+	global int $pxlNav_btnHeight;
+	
+	string $envGroups[]={"MainScene","Sky","Glass","Instances","Lights","Camera","AutoCamPaths","Colliders","Items","Clickable","Scripted"};
+	
+	string $assetFuncs[]={
+	    ".-General/Visual Attrs-.",
+       "pxlNav_prepDoubleSidedAttributes()",
+       "---",
+       "pxlNav_prepGlowPassAttribute()","pxlNav_prepGlowPercAttribute()",
+       "---",
+       "pxlNav_prepColliderAttributes()","pxlNav_prepInteractableAttribute()","pxlNav_prepCamPathAttributes()",
+       "---",
+	    "pxlNav_prepEmitterAttribute()",
+       "---",
+       "pxlNav_prepInstanceAttribute()","pxlNav_prepScriptedAttribute()",
+	    
+	    ".-Video/Specalized Attrs-.",
+	    "pxlNav_prepVideoAttributes('vidName')",
+       "---",
+       "pxlNav_prepScreenAttributes()","pxlNav_prepDjAttributes()","pxlNav_prepPerformerAttributes()","pxlNav_prepAdAttributes()"
+	};       
+       
+
+   string $replacePrefix="prep";
+   string $toPrefix = "Add";
+    int $x=0;
+    int $c=0;
+	int $v=0;
+    string $token[];
+    string $label="Default";
+	
+    // -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    
+	$pxlNavAssetPrepWindowObject=`window -iconName $toolWindowName  -title $toolWindowName`;
+	menuBarLayout  tartarusSoloWindowPulldowns;
+		menu -label "Info";
+			menuItem -label "Walkthrough";// -c "walkthroughWindowTARTARUS";
+			menuItem -label "Contact Info";// -c "contactWindowTARTARUS";
+		setParent..;
+
+    paneLayout -cn "horizontal2" -ps 1 100 87;
+    
+    
+   string $colLayout=`columnLayout -columnAttach "both" 5 -rowSpacing 1 -columnWidth ($pxlNav_ww-5) -backgroundColor .2 .2 .2 `;
+ 	setParent..;
+    string $tabs = `tabLayout -innerMarginWidth 1 -innerMarginHeight 1 -p $colLayout`;
+    
+    string $sceneGroupsTab = `scrollLayout -horizontalScrollBarThickness 0 -verticalScrollBarThickness 10 -cr 1 -backgroundColor .35 .35 .35 -h ($pxlNav_wh-55-$pxlNav_btnHeight)`;
+		columnLayout -adj 1  -backgroundColor .35 .35 .35 ;
+			image -image ($pxlNav_imgDirectory+"pxlNav_windowHeader_sceneGroups.png") -h 35 -w 446;
+			scrollField -editable false -height 62 -isObscured -wordWrap true -backgroundColor .8 .8 .8 -text "Not implemented yet. \n";
+				setParent..;
+				string $envGrpCol=`columnLayout -adj 1 -backgroundColor .55 .55 .55`;
+				setParent..;
+				
+				int $grpIndex;
+				string $existingEnvGroups[]=pxlNav_findEnvGroups();
+				int $existsVal;
+				for($v=0;$v<size($envGroups);++$v){
+				    $label=pxlNav_camelToHumanReadable($envGroups[$v]);
+				    $grpIndex = stringArrayFind( $envGroups[$v], 0, $existingEnvGroups );
+				    $existsVal = $grpIndex<0 ? 0 : 1;
+				    checkBox -label $label -v $existsVal -p $envGrpCol $envGroups[$v];
+				}
+				
+	setParent..;
+    string $assetUserDataTab = `scrollLayout -horizontalScrollBarThickness 0 -verticalScrollBarThickness 10 -cr 1 -backgroundColor .25 .25 .25 `;
+		columnLayout -adj 1  -backgroundColor .35 .35 .35 ;
+			image -image ($pxlNav_imgDirectory+"pxlNav_windowHeader_assetAttributes.png") -h 35 -w 446;
+			
+			scrollField -editable false -height 62 -isObscured -wordWrap true -backgroundColor .8 .8 .8 -text "Select an object you'd like to add an override to.\nClicking a button will add a new channel to your selection, change the values from there. \n";
+			
+         string $assetAttrTabs = `tabLayout -innerMarginWidth 1 -innerMarginHeight 1 -noBackground false -p $assetUserDataTab  -backgroundColor .2 .2 .2 `;
+
+         string $curLayout;
+			for($x=0;$x<size($assetFuncs);++$x){
+			    
+			    $label = $assetFuncs[$x];
+			    if( $label=="---" ){
+			        separator -p $curLayout;
+			        continue;
+			    }
+			    
+			    tokenize $label "--" $token;
+			    if( size($token)>1 ){
+			        $curLayout=`scrollLayout -horizontalScrollBarThickness 0 -verticalScrollBarThickness 10 -cr 1  -h ($pxlNav_wh-55-$pxlNav_btnHeight)`;
+		            setParent..;
+                 tabLayout -edit -tabLabel $curLayout $token[1] $assetAttrTabs;
+                 continue;
+			    }
+			    
+			    tokenize $label "_" $token;
+			    $label = $token[size($token)-1];
+			    tokenize $label "(" $token;
+			    $label = $token[0];
+			    
+			    $label=`pxlNav_camelToHumanReadable($label)`;
+			    
+                $label= substituteAllString($label, ($replacePrefix+" "), ($toPrefix+" ")) ;
+
+			    button -backgroundColor .65 .65 .65 -label $label -height $pxlNav_btnHeight -p $curLayout -command $assetFuncs[$x];
+			}
+		setParent..;
+	
+	
+    	
+     tabLayout -edit
+         -tabLabel $sceneGroupsTab "Scene Groups" -tabLabel $assetUserDataTab "Asset Attributes"
+         -selectTab $assetUserDataTab
+         $tabs;
+    	
+	button -l "Close Window" -c "deleteUI -window $pxlNavAssetPrepWindowObject;" -h $pxlNav_btnHeight -backgroundColor .8 .8 .8 -p $colLayout;
+ 
+	showWindow $pxlNavAssetPrepWindowObject;
+	window -edit -wh $pxlNav_ww $pxlNav_wh -backgroundColor .3 .3 .3 $pxlNavAssetPrepWindowObject;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+pxlNav_launcher();
+pxlNav_assetPrepWindow();

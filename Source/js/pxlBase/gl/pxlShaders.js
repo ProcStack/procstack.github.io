@@ -7,7 +7,6 @@ import { pxlPrincipledVert, pxlPrincipledFrag } from './pxlShaders/pxlPrincipled
 
 // Vert and Frag Shaders
 import { glowTextureVert, glowTextureFrag } from './pxlShaders/glowTextureShader.js';
-import { avatarShaderVert, avatarShaderFrag } from './pxlShaders/avatarShader.js';
 import { hdrRoomVert, hdrRoomFrag } from './pxlShaders/hdrRoomShader.js';
 import { skyObjectVert, skyObjectFrag, skyTextureVert, skyTextureFrag, skyPlaneVert, skyPlaneFrag } from './pxlShaders/skyTextureShader.js';
 import { userScreenVert, userScreenFrag } from './pxlShaders/userScreenShader.js';
@@ -36,7 +35,6 @@ import { lKingPostProcess, sFieldPostProcessVert, sFieldPostProcessFrag, texture
 import { warpPostProcess } from './pxlShaders/warpPostProcess.js';
 import { boxAntiAliasPass, crossAntiAliasPass  } from './pxlShaders/antiAliasingPostProcess.js';
 
-import { multiTextureVert, packedTextureFrag } from './pxlShaders/rolFloor.js';
 import { superficialCircleGateVert, superficialCircleGateFrag, superficialCircleGateGlowFrag } from './pxlShaders/superficialCircleGate.js';
 
 import { bgScreenVert, bgScreenFrag } from './pxlShaders/bgScreenShader.js';
@@ -56,9 +54,6 @@ export var pxlShaders={
     
   'dArrowVert':dArrowVert,
   'dArrowFrag':dArrowFrag,
-	
-	'avatarShaderVert':avatarShaderVert,
-	'avatarShaderFrag':avatarShaderFrag,
 
 	'hdrRoomVert':hdrRoomVert,
 	'hdrRoomFrag':hdrRoomFrag,
@@ -116,8 +111,6 @@ export var pxlShaders={
   'boxAntiAliasPass':boxAntiAliasPass,
   'crossAntiAliasPass':crossAntiAliasPass,
 	
-	'multiTextureVert':multiTextureVert,
-	'packedTextureFrag':packedTextureFrag,
 	
   'superficialCircleGateVert':superficialCircleGateVert,
   'superficialCircleGateFrag':superficialCircleGateFrag,

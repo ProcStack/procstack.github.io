@@ -2,6 +2,10 @@
 /* Chat Box GUI */
 
 .gui_shaderEditorBlockStyle{
+	display:grid;
+	grid-gap:0px;
+	grid-auto-flow: column;
+	grid-auto-rows: auto max-content;
 	cursor:default;
 	position:fixed;
 	left:0px;
@@ -21,28 +25,50 @@
 	display:grid;
 	grid-gap:0px;
 	grid-auto-flow: row;
-	grid-auto-rows: max-content max-content max-content auto max-content;
+	grid-auto-rows: max-content auto max-content;
 	text-align:left;
 	width:100%;
 	height:100%;
 	justify-content:stretch;
 }
 
-
-.gui_shaderHeaderSpacer{
-	height: 122px;
-    color: #ffffff;
-    font-size: .8em;
-    padding-left: 5px;
+#gui_shaderEditorTitle{
+	transition: font-size .5s, padding-top .5s ;
+	font-size:1em;
+	padding-top:10px;
+}
+#shaderEditor_uniformInput{
+	color:#dfdfdf;
+	background-color:rgba(60,60,60,.45);
 }
 
 
+.gui_shaderHeaderSpacer{
+	color: #ffffff;
+	font-size: .8em;
+	padding-left: 2px;
+	padding-bottom:2px;
+	background-color:rgba(0,0,0,.6);
+	text-wrap: nowrap;
+	transition: max-width .5s, opacity .5s ease, filter .5s ease;
+	max-width:30px;
+	opacity:.35;
+	filter:alpha(opacity=35);
+}
+.gui_shaderHeaderSpacerVisible{
+	max-width:385px;
+	width:385px;
+	opacity:1;
+	filter:alpha(opacity=100);
+}
+
 .gui_shaderEditorHeaderBlock{
-	font-size:2em;
-	font-weight:bold;
-	padding:5px;
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: auto max-content;
+	align-items: end;
+	padding: 0px 2px 0px 2px;
 	color:#ffffff;
-	width:100%;
 }
 .gui_shaderEditorHeaderParent{
 	display:grid;
@@ -60,6 +86,18 @@
 	margin-top:5px;
 }
 
+.gui_shaderEditorTitleBlock{
+	font-weight:bold;
+	padding:5px;
+	width:100%;
+}
+.gui_shaderEditorTitleParent{
+	display:grid;
+	grid-gap:0px;
+	grid-auto-flow: column;
+	grid-template-columns: auto;
+	align-items: end;
+}
 .gui_shaderEditorDisplay{
 	display:grid;
 	justify-content:stretch;
@@ -102,11 +140,11 @@
 .shaderEditor_sendMessage{
 	cursor:pointer;
 	outline:none;
-	margin:5px;
+	margin: 1px 1px 2px 1px;
 	color:#ffffff;
 	border-radius:5px;
 	border: 2px solid #ffffff;
-	background-color:rgba(0,0,0,.45);
+	background-color:rgba(100,100,100,.45);
     font-weight: 700;
     text-align: center;
     font-size: .9em;

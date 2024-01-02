@@ -161,64 +161,38 @@ var pxlAudio=new PxlBase.Audio( pxlTimer );
 	pxlFile.pxlAutoCam=pxlAutoCam;
 var pxlUser=new PxlBase.User();
 	
-var pxlAvatars=new PxlBase.Avatars(pxlUtils, pxlTimer, pxlUser);
-pxlQuality.pxlAvatars=pxlAvatars;
-pxlAutoCam.pxlAvatars=pxlAvatars;
 	
-var pxlSocket=new PxlBase.Socket(pxlUtils, pxlTimer, pxlUser, pxlAvatars, pxlAutoCam);
-pxlAvatars.pxlSocket=pxlSocket;
-	pxlAudio.pxlSocket=pxlSocket;
-	pxlAutoCam.pxlSocket=pxlSocket;
 	
-var pxlEnv=new PxlBase.Environment( 'Default', mobile, pxlUtils, pxlTimer, pxlAudio, pxlFile, null, pxlUser, pxlQuality, pxlAvatars, pxlShaders, pxlAutoCam, pxlSocket);
+var pxlEnv=new PxlBase.Environment( 'Default', mobile, pxlUtils, pxlTimer, pxlAudio, pxlFile, null, pxlUser, pxlQuality, pxlShaders, pxlAutoCam);
 	pxlUser.pxlEnv=pxlEnv;
-	pxlSocket.pxlEnv=pxlEnv;
 	pxlAudio.pxlEnv=pxlEnv;
 	pxlAutoCam.pxlEnv=pxlEnv;
-	window.pxlEnv = pxlEnv;
+	window.pxlNav = pxlEnv;
 	
-var pxlDevice=new PxlBase.Device( projectTitle, mapCore, mobile, pxlTimer, pxlAutoCam, pxlAudio, pxlUser, pxlSocket, pxlAvatars, pxlEnv, pxlQuality);
+var pxlDevice=new PxlBase.Device( projectTitle, mapCore, mobile, pxlTimer, pxlAutoCam, pxlAudio, pxlUser, pxlEnv, pxlQuality);
 	pxlAudio.pxlDevice=pxlDevice;
 	pxlQuality.pxlDevice=pxlDevice;
 	pxlAutoCam.pxlDevice=pxlDevice;
 	
-var pxlCamera=new PxlBase.Camera( pxlTimer, pxlAudio, pxlEnv, pxlUser, pxlSocket, pxlAvatars, pxlUtils, pxlDevice, pxlQuality, pxlAutoCam);
+var pxlCamera=new PxlBase.Camera( pxlTimer, pxlAudio, pxlEnv, pxlUser, pxlUtils, pxlDevice, pxlQuality, pxlAutoCam);
 	pxlEnv.pxlCamera=pxlCamera;
 	pxlDevice.pxlCamera=pxlCamera;
 	pxlAutoCam.pxlCamera=pxlCamera;
 	
-var pxlConnect=new PxlBase.UserConnect(mobile, pxlUtils, pxlUser, pxlCookie, pxlTimer, pxlAudio, pxlSocket, pxlAvatars, pxlEnv, pxlAutoCam);
-	pxlAudio.pxlConnect=pxlConnect;
-	pxlDevice.pxlConnect=pxlConnect;
-	pxlEnv.pxlConnect=pxlConnect;
-	pxlCamera.pxlConnect=pxlConnect;
-	pxlAvatars.pxlConnect=pxlConnect;
-	//&=
-	pxlSocket.pxlConnect=pxlConnect;
-	//&
 	
-var pxlGuiDraws=new PxlBase.GuiDraws( projectTitle, pxlCookie, pxlTimer, pxlAudio, pxlUtils, pxlUser, pxlConnect, pxlSocket, pxlDevice, pxlCamera, pxlQuality, pxlFile, pxlEnv, assetRoot, guiRoot, pxlAutoCam );
+var pxlGuiDraws=new PxlBase.GuiDraws( projectTitle, pxlCookie, pxlTimer, pxlAudio, pxlUtils, pxlUser, pxlDevice, pxlCamera, pxlQuality, pxlFile, pxlEnv, assetRoot, guiRoot, pxlAutoCam );
 pxlAudio.pxlGuiDraws=pxlGuiDraws;
 	pxlCamera.pxlGuiDraws=pxlGuiDraws;
 pxlDevice.pxlGuiDraws=pxlGuiDraws;
-pxlAvatars.pxlGuiDraws=pxlGuiDraws;
-pxlConnect.pxlGuiDraws=pxlGuiDraws;
 pxlEnv.pxlGuiDraws=pxlGuiDraws;
-pxlSocket.pxlGuiDraws=pxlGuiDraws;
 	
 pxlEnv.pxlDevice=pxlDevice;
 pxlQuality.pxlEnv=pxlEnv;
-pxlAvatars.pxlEnv=pxlEnv;
-pxlAvatars.pxlShaders=pxlShaders;
 pxlFile.pxlUser=pxlUser;
-pxlFile.pxlAvatars=pxlAvatars;
 pxlFile.pxlEnv=pxlEnv;
 pxlFile.pxlCamera=pxlCamera;
 pxlFile.pxlDevice=pxlDevice;
 pxlFile.pxlShaders=pxlShaders;
-if( typeof io !== 'undefined' ){
-	pxlSocket.setSocket(io);
-}
 
 pxlEnv.bootRoom=startingRoom;
 pxlGuiDraws.prepLoader();
@@ -277,7 +251,6 @@ function pxlBoot(){
         pxlQuality.startBenchmark(); // Start benchmark timer
         
         mapBootEngine().then( ()=>{
-            console.log("room loaded");
             let promiseList=[];
             promiseList.push( pxlEnv.loadRoom( startingRoom ) );
             if( pxlEnv.bootRoom != startingRoom ){
@@ -285,7 +258,6 @@ function pxlBoot(){
             }
             
             Promise.all( promiseList ).then( ()=>{
-                console.log("Post - LOAD ROOM ");
                 
                 pxlEnv.buildComposers();
 
@@ -524,52 +496,8 @@ function mapBootEngine(){
     
 	
 	
-///////////////////////////////////////////////////
-	//%= Dev
-	/*if(localCameraExists){
-		bootLocalCamera();
-	}*/
-	//%
 }
 
-//%= Dev
-function bootLocalCamera(){
-	if( navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
-		var cons;
-		var verb="";
-		var cameraActive=false;
-		navigator.mediaDevices.enumerateDevices().then( (mediaDevices) => {
-			mediaDevices.forEach( (mediaDevice) => {
-				if(mediaDevice.kind==='videoinput' || mediaDevice.kind==='videoInput'){
-					let name=mediaDevice.label;
-					//if( name=='Snap Camera' || name.indexOf('Logitech') >-1 ){
-					//if( ( name=='Snap Camera' || name.indexOf('Logitech') >-1 ) && !cameraActive ){
-					if( name.indexOf('Logitech') >-1 ){
-						let videoConstraints={"deviceId":{"exact":mediaDevice.deviceId}, "width":{"ideal":1280}};
-						//var videoConstraints={"width":{"ideal":1280}};
-						let cons={ video:videoConstraints, audio:false};
-						navigator.mediaDevices.getUserMedia(cons).then( function success(stream) {
-							window.stream=stream;
-							window.track=stream.getVideoTracks()[0];
-							pxlEnv.localWebcamVideo.srcObject=stream;
-							pxlEnv.localWebcamVideo.play();
-							pxlTimer.videoFeeds.push(pxlEnv.localWebcamVideo);
-							if(verbose){ console.log("Using webcam '"+name+"'"); }
-							//cameraActive=true;  // ## ASYNC, So this might not run in time for future media device checks
-						}).catch( (err)=>{
-							if(verbose){
-								console.log(" Couldn't access webCam '"+name+"' - ", err.message);
-							}
-						});
-					}
-				}
-			});
-		})
-	}else{
-		console.log("Webcam not available");
-	}
-}
-//%
 
 //////////////////////////////////////
 
@@ -677,8 +605,13 @@ function cameraRunAnimatorMobile( ){
 
 		pxlQuality.mapAutoQualityUpdate(1,true);
 		runPrepDrawScenes( 0, true, snapShotCommands );
+		// Bypass scene screenshots, as there are no portals in procstack.git.io
+		//   Check for portals would only be able to happen after loading fbx
+		//     Which this loader step occurs after room initiation
+	  //runPrepDrawScenes( 0, false, [] );
 	}
 }
+
 
 function runPrepDrawScenes(runner=0, jumpCam=true, cmdList=[]){
 	runner++;
@@ -690,6 +623,7 @@ function runPrepDrawScenes(runner=0, jumpCam=true, cmdList=[]){
 		}
 		
 		pxlCamera.colliderPrevObjHit=null;
+		// Erroring here means shader failure in scene
 		pxlEnv.mapRender( false );
 		
 		if(runner%10==0){
@@ -703,7 +637,6 @@ function runPrepDrawScenes(runner=0, jumpCam=true, cmdList=[]){
 		
 		requestAnimationFrame( ()=>{ runPrepDrawScenes( runner, jumpCam, cmdList ); });
 	}else{
-		pxlConnect.checkCreds();
 		pxlGuiDraws.stepLoader("Post Room Prep"); // --
         
 		pxlNavPrepSettings(); 
@@ -718,38 +651,13 @@ function pxlNavPrepSettings(){
 	pxlCamera.warpToRoom( pxlEnv.bootRoom, true );
 	pxlQuality.endBenchmark(); // All the heavy lifting as completed
 	
-	pxlAvatars.userDataRequest('tmpId');
-	pxlConnect.logInRequest+=1;
-	pxlConnect.checkAuth();
 		
 	pxlGuiDraws.stepLoader( "Nav Settings" ); // --
 	
-	//jmaResponceCheck();
     startPxlNav();
 	
 }
-//How deep in the rabbit hole are we?
-// SDP Simulcast causes a hiccup prepping its layers, delay till Jitsi Fail or Tracks Recieved
-// ## Figure out a better way to do this, maybe just run from jma itself?
-// ## Just set up a promise await and return
-function jmaResponceCheck( runner=0 ){
-	//tmpThis.status = 'open';
-    runner+=1;
-	if( ( runner >= 30 ) || ( pxlConnect.isJoined && pxlConnect.logInRequest+pxlConnect.logInAttempts>2 ) ){
-		setTimeout( ()=>{
-			startPxlNav();
-		},1000);
-	}else{
-        if( runner >= 30 && pxlConnect.logInAttempts < 2 ){
-            pxlConnect.logInAttempts+=1;
-            runner=0;
-            /*pxlAvatars.userDataRequest('tmpId');*/
-        }
-		setTimeout( ()=>{
-			jmaResponceCheck( runner );
-		},100);
-	}
-}
+
 
 // ========================================
 
@@ -776,12 +684,11 @@ function startPxlNav(){
     pxlAutoCam.init();
     //pxlVideo.boot();
 
-    
+
+
     pxlDevice.resizeRenderResolution();
-	pxlEnv.mapRender();
-    /*
-    let qSetting=pxlQuality.settingsQualityChoice;
-    console.log(qSetting);*/
+		pxlEnv.mapRender();
+		
     pxlQuality.setDependentSettings();
     
     setTimeout( ()=>{

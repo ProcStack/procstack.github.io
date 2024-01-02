@@ -6,19 +6,16 @@ import * as THREE from "../../../libs/three/build/three.module.js";
 //        Jumping is locked to some weird held space velocity limits
 
 export class Camera{
-	constructor( pxlTimer, pxlAudio, pxlEnv, pxlUser, pxlSocket, pxlAvatars, pxlUtils, pxlDevice, pxlQuality, pxlAutoCam ){
+	constructor( pxlTimer, pxlAudio, pxlEnv, pxlUser, pxlUtils, pxlDevice, pxlQuality, pxlAutoCam ){
 		this.pxlAudio=pxlAudio;
 		this.pxlTimer=pxlTimer;
 		this.pxlAutoCam=pxlAutoCam;
 		this.pxlEnv=pxlEnv;
 		this.pxlUser=pxlUser;
-		this.pxlSocket=pxlSocket;
-		this.pxlAvatars=pxlAvatars;
 		this.pxlUtils=pxlUtils;
 		this.pxlDevice=pxlDevice;
 		this.pxlGuiDraws=null;
 		this.pxlQuality=pxlQuality;
-		this.pxlConnect=null;
 		this.socket=null;
 		
 		this.camera=null;
@@ -30,7 +27,7 @@ export class Camera{
 		this.camUpdated=true;
 		this.cameraBooted=false;
     
-    this.userScale=16.5;
+    this.userScale=5.5;
     
 		// User Height
     this.standingHeight=1;
@@ -165,6 +162,8 @@ export class Camera{
   // ## Get worker implemented for whole of camera scripts
   init(){
       var worker;
+			// Camera Service Worker - Ray Intersect Collision Detector
+			// TODO : Finish adding worker to check collision detection only
       if( false && Worker ){
           worker = new Worker("js/pxlWorkers/CameraWorker.js");  
           this.worker=worker;
@@ -439,7 +438,6 @@ export class Camera{
 	}
 	
 	warpToRoom(roomName, start=false, objTarget=null){
-		this.pxlAvatars.avatarSpacialDataChanged=true;
 		this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].stop();
 
         let prevRoom=this.pxlEnv.currentRoom;
@@ -506,7 +504,6 @@ export class Camera{
     let standingHeight=this.getUserHeight();
     this.emitCameraTransforms( this.camera.position.clone(), standingHeight, true );
         
-    this.pxlAvatars.runAllSpacialData=true;
     
     this.pxlAutoCam.checkStatus();
 	}
@@ -521,7 +518,6 @@ export class Camera{
 		this.camera.far=roomEnv.pxlCamFarClipping;
         this.camera.updateProjectionMatrix();
 		this.setTransform( roomEnv.camThumbPos, roomEnv.camThumbLookAt );
-        this.pxlAvatars.runAllSpacialData=true;
 
         let standingHeight=this.getUserHeight();
         this.emitCameraTransforms( this.camera.position.clone(), standingHeight, true );
@@ -1204,7 +1200,6 @@ export class Camera{
                 let proxMult=this.colliderAdjustPerc;
                 proxMult=1-(1-proxMult)*(1-proxMult);
                 this.pxlEnv.fogMult.x = proxMult;
-                this.pxlAvatars.proximityMult.x = proxMult;
                 if( !this.colliderShiftActive ){
                     this.proximityScaleTrigger=false;
                 }
@@ -1647,44 +1642,7 @@ export class Camera{
 /////////////////////////////////////////////////////
 	// Notify Server of Position / Rotation Changes
 	emitCameraTransforms( cameraPos, standingHeight, force=false ){
-		if( this.pxlSocket.socket ){
-			if(this.pxlUser.jitsiUserId==null){
-				if(this.pxlConnect.jmaUserId){
-					this.pxlUser.jitsiUserId=this.pxlConnect.jmaUserId;
-				}
-			}
-			if(this.pxlUser.jmaTempUserIdActive && this.pxlConnect.jmaUserId){
-				this.pxlSocket.sendUserSwap( this.pxlUser.jitsiUserId, this.pxlConnect.jmaUserId );
-				this.pxlUser.jitsiUserId = this.pxlConnect.jmaUserId;
-				this.pxlUser.jmaUserId = this.pxlConnect.jmaUserId;
-				this.pxlUser.jmaTempUserIdActive = false;
-			}
-			if( this.pxlUser.jitsiUserId ){
-				let camQuat=this.camera.quaternion.normalize();
-				// Pop()'ed on server, added to dictionary
-        let emit={}
-        emit.pos=[this.pxlUtils.toHundreths(cameraPos.x), this.pxlUtils.toHundreths(cameraPos.y), this.pxlUtils.toHundreths(cameraPos.z)]
-        emit.rot=[this.pxlUtils.toHundreths(camQuat.x), this.pxlUtils.toHundreths(camQuat.y),this.pxlUtils.toHundreths(camQuat.z),this.pxlUtils.toHundreths(camQuat.w)];
-        
-        let jCamCheck=[...emit.pos, ...emit.rot];
-				if(jCamCheck+'' != this.pxlAvatars.jPrevCamData || force){
-					this.pxlAvatars.jPrevCamData=jCamCheck+'';
-					
-          emit.rot=[ camQuat.x, camQuat.y, camQuat.z, camQuat.w ];
-          emit.id=this.pxlUser.jitsiUserId;
-          emit.name=this.pxlUser.jmaUserName;
-          emit.room=this.pxlEnv.currentRoom;
-          emit.audioZone=this.pxlEnv.currentAudioZone;
-          emit.verse=this.pxlConnect.roomId;
-          emit.fps=parseInt(1/this.pxlTimer.msRunner.y);
-          emit.jump= cameraPos.y-this.nearestFloorHit.y-standingHeight;
-                    
-					// Emit for later server bounce
-					this.pxlSocket.sendCamData(emit, force);
-					this.pxlAvatars.avatarSpacialDataChanged=true;
-				}
-			}
-		}
+		// Networking scripting removed
 	}
   jogServerMemory(){
     let curCamPos=this.cameraPos.clone();

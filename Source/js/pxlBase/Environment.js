@@ -11,7 +11,7 @@ import { BloomPass } from '../../libs/three/examples/jsm/postprocessing/BloomPas
 
 
 export class Environment{
-	constructor( mainRoom='Default', mobile, pxlUtils, pxlTimer, pxlAudio, pxlFile, pxlVideo, pxlUser, pxlQuality, pxlAvatars, pxlShaders, pxlAutoCam, pxlSocket){
+	constructor( mainRoom='Default', mobile, pxlUtils, pxlTimer, pxlAudio, pxlFile, pxlVideo, pxlUser, pxlQuality, pxlShaders, pxlAutoCam){
 		this.engine=null;
 		this.scene=null;
 		this.parentGroupList={};
@@ -43,11 +43,8 @@ export class Environment{
 		this.pxlVideo=pxlVideo;
 		this.pxlQuality=pxlQuality;
 		this.pxlUser=pxlUser;
-		this.pxlAvatars=pxlAvatars;
-		this.pxlConnect=null;
 		this.pxlShaders=pxlShaders;
 		this.pxlDevice=null;
-		this.pxlSocket=pxlSocket;
 		this.pxlCamera=null;
 		this.pxlGuiDraws=null;
 		
@@ -69,8 +66,8 @@ export class Environment{
 		this.portalMtlRate=.7;
     this.mobile=mobile;
     
-    this.camNear=.4;
-    this.camFar=4000;
+    this.camNear=.1;
+    this.camFar=5000;
     
     this.fogMult = new THREE.Vector2(0,0);
     this.fogColor=new THREE.Color(.07,.07,.10);//new THREE.Color(.07,.07,.10);
@@ -284,10 +281,6 @@ export class Environment{
     }
     
 	step(){
-        /*if(this.posted){
-            this.pxlConnect.isJoined
-            this.pxlConnect.logInRequest
-        }*/
         
         // ## Should just have a stepper system set up...
         //      Easier for modular installations
@@ -298,17 +291,7 @@ export class Environment{
             this.pxlCamera.step();
         }
         this.pxlGuiDraws.step();
-        this.pxlAvatars.step();
 
-		if(window.jmaConnect){
-			if(this.pxlConnect.status=="closed" && this.jmaCheckConnection){
-				this.jmaCheckConnection=false;
-				this.pxlConnect.connection.connect();
-				setTimeout( ()=>{
-					this.jmaCheckConnection=true;
-				},1500);
-			}
-		}
 		this.stepWarpPass();
         
         if( this.pxlTimer.msRunner.x > this.checkContext && this.activeContext ){
@@ -504,16 +487,7 @@ export class Environment{
 	//%=
 	// Return Primary Shader Material
 	readShader( objShader="" ){
-        if( !objShader || objShader=="script_avatar" ){
-            objShader="script_avatar";
-            this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
-
-            let aList=Object.keys(this.pxlAvatars.userAvatarSpacialData);
-
-            if( aList.length >0){
-                return this.pxlAvatars.userAvatarSpacialData[ aList[0] ].videoMtl;
-            }
-        }else if( objShader=="script_fog" ){
+        if( objShader=="script_fog" ){
             this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
             
             if(this.mapOverlayHeavyPass.enabled==true){
@@ -563,16 +537,7 @@ export class Environment{
         let setShaderMtl;
         
         let objShader=this.pxlGuiDraws.guiWindows["shaderGui"].currentShader;
-        if( objShader=="script_avatar" ){
-            let aList=Object.keys(this.pxlAvatars.userAvatarSpacialData);
-            aList.forEach( (a)=>{
-                setShaderMtl=this.pxlAvatars.userAvatarSpacialData[ a ].videoMtl;
-                setShaderMtl.vertexShader=vert;
-                setShaderMtl.fragmentShader=frag;
-                setShaderMtl.needsUpdate=true;
-            });
-            return;
-        }else if( objShader=="script_fog" ){
+        if( objShader=="script_fog" ){
             if(this.mapOverlayHeavyPass.enabled==true){
                 setShaderMtl= this.mapOverlayHeavyPass.material ;
             }else if(this.mapOverlayPass.enabled==true){
@@ -776,14 +741,6 @@ export class Environment{
         if( this.promoClickableLinks.hasOwnProperty( pLink ) ){
             var link= window.open( this.promoClickableLinks[pLink], "_blank");
             link.focus();
-            
-            this.promoPrevActiveObject=null;
-            let data={
-                "id":this.pxlConnect.jmaUserId,
-                "promo":pLink,
-                "screen":pScreen
-            };
-            this.pxlAvatars.pxlSocket.sendPromoClick(data);
         }
 	}
 	// Hover over clickable
@@ -1052,7 +1009,7 @@ export class Environment{
 					scenePos: { value: this.scene.renderWorldPos.texture },
 					noiseTexture: { value: this.cloud3dTexture },
 					fogMult: { value: this.fogMult },
-					proximityMult: { value: this.pxlAvatars.proximityMult },
+					proximityMult: { value: 1 },
 					//bloomTexture: { value: this.mapComposerMotionBlur.renderTarget2.texture }
 				},
 				vertexShader: this.pxlShaders.defaultVert(),
@@ -1077,7 +1034,7 @@ export class Environment{
 					scenePos: { value: this.scene.renderWorldPos.texture },
 					noiseTexture: { value: this.cloud3dTexture },
 					fogMult: { value: this.fogMult },
-					proximityMult: { value: this.pxlAvatars.proximityMult },
+					proximityMult: { value: 1 },
 					//bloomTexture: { value: this.mapComposerMotionBlur.renderTarget2.texture }
 				},
 				vertexShader: this.pxlShaders.defaultVert(),
@@ -1100,7 +1057,7 @@ export class Environment{
 					bloomTexture: { value: this.mapComposerGlow.renderTarget2.texture },
 					sceneDepth: { value: this.scene.renderTarget.depthTexture },
 					fogMult: { value: this.fogMult },
-					proximityMult: { value: this.pxlAvatars.proximityMult },
+					proximityMult: { value: 1 },
 					//bloomTexture: { value: this.mapComposerMotionBlur.renderTarget2.texture }
 				},
 				vertexShader: this.pxlShaders.defaultVert(),
@@ -1350,11 +1307,6 @@ export class Environment{
                     roomComposer: { type:"f", value : 0 },
 					tDiffusePrev: { value: this.mapComposer.renderTarget1.texture },
 					tDiffusePrevRoom: { value: this.roomComposer.renderTarget1.texture },
-					// tDiffusePrev: { value: this.mapComposer.writeBuffer.texture },
-					// tDiffusePrevRoom: { value: this.roomComposer.writeBuffer.texture },
-					//tDiffusePrev: { value: this.mapComposer.readBuffer.texture },
-					//tDiffusePrevRoom: { value: this.roomComposer.readBuffer.texture },
-					//tDiffusePrevRoom: { value: this.mapComposerWarpPass.renderTarget2.texture },
 				},
 				vertexShader: this.pxlShaders.defaultVert(),
 				fragmentShader: this.pxlShaders.textureStorePass(),
@@ -1368,54 +1320,8 @@ export class Environment{
 		this.delayComposer.autoClear=false;
         
         this.pxlUser.iZoomPass.uniforms.tDiffusePrev.value = this.delayComposer.renderTarget2.texture;
-        //this.pxlUser.iZoomPass.uniforms.tDiffusePrev.value = this.delayComposer.writeBuffer.texture;
-        
-        //this.sendMaterialData( this.mapComposer );
 	}
-    sendMaterialData( obj ){
-        let passes=obj.passes;
-        let dataMsg="";
-        for( let x=0; x<passes.length; ++x){
-            dataMsg+="Pass "+x+" - \n";
-            let p=passes[x];
-            let enabled=p.enabled;
-            let type=p.constructor.name;
-            let textType= p.textureID;
-            dataMsg+=type+"; "+enabled+" - "+textType+"\n";
-            
-            let curMat=p.material;
-            let matType=curMat.constructor.name;
-            let matUni=curMat.uniforms;
-            let matUniKeys=Object.keys( matUni );
-            let dmsgAdd=""
-            matUniKeys.forEach( (k)=>{
-                dmsgAdd+=k+":";
-                if( matUni[k].value ){
-                    if( matUni[k].value.constructor ){
-                        dmsgAdd+=matUni[k].value.constructor.name;
-                    }else{
-                        dmsgAdd+=typeof matUni[k].value;
-                    }
-                }else{
-                    dmsgAdd+="-";
-                }
-                dmsgAdd+="\n";
-            });
-            dataMsg+="Uniforms-\n"+dmsgAdd+"\n---\n";
-            
-            let matVert=curMat.vertexShader;
-            dataMsg+="Vert-\n"+matVert+"\n---\n";
-            let matFrag=curMat.fragmentShader;
-            dataMsg+="Frag-\n"+matFrag+"\n---\n";
-        }
-        
-        let data={
-            msg:"Material Data",
-            print:dataMsg,
-        }
-        this.pxlSocket.sendErrorMsg( data );
-    }
-	
+  
 	setExposure(curExp){
         let animPerc=1;
 		//curExp= this.pxlCamera.uniformScalars.curExp + curExp*this.pxlCamera.uniformScalars.brightBase*animPerc; 
@@ -1444,90 +1350,15 @@ export class Environment{
 	}
 	
 	checkUserVideoStatus(curId){
-        // Add check for used User Remote Video on Canyon Screens
-        //   Adjust for muted / removed videos
-        //   No need to refresh all video screens
-		//console.log(curId+" Vid Data Changed, Avatar Checker");
-	}
-	async setUserVideoStatus(curId, active){
-		if(this.remoteUserMediaList[ curId ]){
-            if( !this.remoteUserMediaList[ curId ].vidEnabled){
-				this.remoteUserMediaList[ curId ].vidEnabled=true;
-            }
-			this.remoteUserMediaList[ curId ].videoActive=active;
-			//this.pxlAvatars.userSetVideoStatus( curId, active);
-			
-			if( active && this.remoteUserMediaList[ curId ].videoPlaying){
-                this.remoteUserMediaList[ curId ].videoObject.play();
-			}else if( !active ){
-				this.remoteUserMediaList[ curId ].videoPlaying=false;
-                this.remoteUserMediaList[ curId ].videoObject.pause();
-			}
-			
-		}
-	}
-
-	userPlayMedia( curId=null, roomCheck=true ){
-		if(this.remoteUserMediaList[ curId ]){
-			if( this.remoteUserMediaList[ curId ].videoActive && roomCheck ){
-				this.remoteUserMediaList[ curId ].videoPlaying=true;
-				if(this.remoteUserMediaList[ curId ].videoObject){
-                    this.remoteUserMediaList[ curId ].videoObject.play();
-				}
-			}else if( !roomCheck && this.remoteUserMediaList[ curId ].videoPlaying==true ){
-                this.userPauseMedia( curId, roomCheck );
-            }
-		}
-	}
-	userPauseMedia( curId=null, roomCheck=true ){
-		if(this.remoteUserMediaList[ curId ]){
-			if( !this.remoteUserMediaList[ curId ].videoInUse || !roomCheck ){
-				this.remoteUserMediaList[ curId ].videoPlaying=false;
-				this.remoteUserMediaList[ curId ].videoObject.pause();
-			}
-		}
 	}
 		
 	remoteUserUpdateMedia( curId, video=false, audio=null){
-        let jmaMediaParent=this.pxlConnect.remoteTracks[curId];
-        if(jmaMediaParent){
-            if(video){
-                this.remoteUserVideoList.push(curId);
-                
-                this.remoteUserMediaList[ curId ].videoActive=jmaMediaParent.videoPlaying;
-                this.remoteUserMediaList[ curId ].videoObject=jmaMediaParent.videoObject;
-                this.remoteUserMediaList[ curId ].videoTexture=jmaMediaParent.videoTexture;
-            }
-            
-            if( !audio ) return;
-            
-            let curAudio=this.pxlConnect.remoteTracks[curId].audioObject;
-            
-            if(curAudio){
-                curAudio=curAudio[0];
-                this.remoteUserAudioList.push(curId);
-                this.remoteUserMediaList[ curId ].audioObject=jmaMediaParent.audioObject;
-            }
-        }
+        //
 	}
     
     userRemoveRemoteData( curId ){
-        if( this.remoteUserMediaList[ curId ] ){
-            this.remoteUserMediaList[ curId ].videoTexture.dispose();
-            this.remoteUserMediaList[ curId ]=null;
-            delete this.remoteUserMediaList[ curId ];
-            let el=this.remoteUserNameList.indexOf( curId );
-            if( el>-1 ){
-                this.remoteUserNameList.splice( el, 1 );
-            }
-            el=this.remoteUserVideoList.indexOf( curId );
-            if(el>-1){
-                this.remoteUserVideoList.splice( el, 1 );
-            }
-        }
+        //
     }
-    
-    
     
     
 	stepShaderValues(){ // ## Switch variables in shaders to three variables to avoid this whole thing	

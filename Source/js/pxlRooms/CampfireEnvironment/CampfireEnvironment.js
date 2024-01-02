@@ -1,9 +1,10 @@
 import * as THREE from "../../../libs/three/build/three.module.js";
 import { ShaderPass } from '../../../libs/three/examples/jsm/postprocessing/ShaderPass.js';
 import { pxlPrincipledVert, pxlPrincipledFrag,
-         cobbleBaseVert, cobbleBaseFrag,  envGroundVert, envGroundFrag, forceFieldVert, forceFieldFrag,
-         mapBookGglowFrag, mapBookGlowVert, mapBookGemsFrag, mapBookGemsVert, mapBookCorruptionVert, mapBookCorruptionFrag,
-         dustVert, dustFrag, candleFlameVert, candleFlameFrag } from "./Shaders.js";
+				 campfireLogVert, campfireLogFrag,
+         envGroundVert, envGroundFrag,
+				 dustVert, dustFrag, smokeFrag, smokeVert,
+				 emberWispsVert, emberWispsFrag } from "./Shaders.js";
 
 
 export class CampfireEnvironment{
@@ -18,10 +19,9 @@ export class CampfireEnvironment{
 		this.active=true;
 		this.assetPath=assetPath+"Assets/";
     
-    this.sceneFile = this.assetPath+"CabinEnvironment.fbx";
-    //this.sceneFile = this.assetPath+"ForceField.fbx";
+    this.sceneFile = this.assetPath+"CampfireEnvironment.fbx";
 		
-		this.envObjName="CabinEnv";
+		this.envObjName="environmentGround";
 		// Environment Shader 
 		this.spiralizerUniforms={};
 		this.textureList={};
@@ -109,6 +109,7 @@ export class CampfireEnvironment{
 	init(){
         this.scene.fog=this.fog;
         this.scene.background = this.fogColor ;//pxlEnv.fogColor;
+        this.cloud3dTexture=this.pxlEnv.cloud3dTexture;
         this.smoothNoiseTexture=this.pxlEnv.softNoiseTexture;
         
     }
@@ -259,8 +260,8 @@ export class CampfireEnvironment{
     buildDust(){
         //sprite = THREE.ImageUtils.loadTexture( "textures/sprites/disc.png" );
 
-        let vertexCount = 2000; // Point Count
-            let pScale = 12;  // Point Base Scale
+        let vertexCount = 1000; // Point Count
+            let pScale = 8;  // Point Base Scale
 
         let geo = new THREE.BufferGeometry();
         let verts = [];
@@ -283,7 +284,8 @@ export class CampfireEnvironment{
         geo.setAttribute( 'seeds', seedAttribute );
         geo.setAttribute( 'atlas', atlasAttribute );
         //geo.setAttribute( 'id', idAttribute );
-            
+        
+				
         let lightPos=[];
         let lightCount=0;
         if( this.lightList.hasOwnProperty("PointLight") ){
@@ -292,9 +294,10 @@ export class CampfireEnvironment{
             lightPos.push( l.position.clone() )
           })
         }
+				
         let dustUniforms={
-          dustTexture:{type:"t",value: this.pxlUtils.loadTexture( this.assetPath+"dustAtlas.png", 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} ) },
-          noiseTexture:{type:"t",value: this.smoothNoiseTexture },
+          atlasTexture:{type:"t",value: null },
+          noiseTexture:{type:"t",value: null },
           time:{type:"f",value: this.msRunner },
           pointScale:{type:"f",value: pScale*this.pxlEnv.pxlQuality.screenResPerc },
           intensity:{type:"f",value:1.0},
@@ -302,10 +305,12 @@ export class CampfireEnvironment{
           lightPos:{value:lightPos},
         };
             //let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, snowVert( true ), snowFrag() );
-        let mtl = this.pxlFile.pxlShaderBuilder( dustUniforms, dustVert( true, lightCount ), dustFrag() );
+        let mtl = this.pxlFile.pxlShaderBuilder( dustUniforms, dustVert( lightCount ), dustFrag() );
         mtl.side=THREE.DoubleSide;
         mtl.transparent=true;
         // mtl.blending=THREE.AdditiveBlending;
+				mtl.uniforms.atlasTexture.value = this.pxlUtils.loadTexture( this.assetPath+"sprite_dustFloaters.png", 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
+				mtl.uniforms.noiseTexture.value = this.softNoiseTexture;
         mtl.depthTest=true;
         mtl.depthWrite=false;
         this.textureList[ "dust" ]=mtl;
@@ -318,91 +323,146 @@ export class CampfireEnvironment{
         dust.pBaseScale=pScale;
         this.geoList['dust']=dust;
     }
-    
-    buildCandleFlame( emitter ){
+		
+    buildSmoke(){
         //sprite = THREE.ImageUtils.loadTexture( "textures/sprites/disc.png" );
 
-        let vertexCount = 4; // Point Count
-        let pHeightScaleAlpha = [ // [ HeightPerc, Scale, Alpha, RotateInf ]
-                        0.0, 45, 1.0, .2,
-                        0.12, 50, 1.0, .35,
-                        0.22, 47, 1.0, .30,
-                        0.5, 500, .15, .1
-                      ];  // Point Base Scale
+        let vertexCount = 40; // Point Count
+            let pScale = 56;  // Point Base Scale
+
+        let geo = new THREE.BufferGeometry();
+        let verts = [];
+        let seeds = [];
+        let atlasId = [];
+				
+				const dupe=(val,count)=>{ return Array.from({length:count}).fill(val) };
+				const atlasPicks = [...dupe([0.0,0.],4),...dupe([0.25,0.],4),...dupe([0.5,0.0],2),
+														...dupe([0.5,0.25],2),...dupe([0.5,0.5],2),...dupe([0.5,0.75],2),
+														...dupe([0.75,0.75],4),...dupe([0.75,0.25],3),...dupe([0.75,0.25],3)];
+        const atlasPicker=()=>{ return atlasPicks[Math.floor( (Math.random() * 92314.75) % atlasPicks.length )]; };
+
+        for( let x=0; x<vertexCount; ++x ){
+					verts.push( 0,0,0 );
+          seeds.push( (Math.random()),(Math.random()),(Math.random()*2-1), (Math.random()*.5+.5) );
+          atlasId.push( ...atlasPicker() );
+        }
+				
+        let posAttribute = new THREE.Float32BufferAttribute( verts, 3 );
+        let seedAttribute = new THREE.Float32BufferAttribute( seeds, 4 );
+        let atlasAttribute = new THREE.Float32BufferAttribute( atlasId, 2 );
+        //let idAttribute = new THREE.Uint8BufferAttribute( pId, 1 ); // ## would only be 0-65536; set up vector array for ids
+        geo.setAttribute( 'position', posAttribute );
+        geo.setAttribute( 'seeds', seedAttribute );
+        geo.setAttribute( 'atlas', atlasAttribute );
+        //geo.setAttribute( 'id', idAttribute );
+        
+				
+        let lightPos=[];
+        let lightCount=0;
+        if( this.lightList.hasOwnProperty("PointLight") ){
+          lightCount = this.lightList.PointLight.length;
+          this.lightList.PointLight.forEach( (l)=>{
+            lightPos.push( l.position.clone() )
+          })
+        }
+				
+        let dustUniforms={
+          atlasTexture:{type:"t",value: null },
+          noiseTexture:{type:"t",value: null },
+          time:{type:"f",value: this.msRunner },
+          pointScale:{type:"f",value: pScale*this.pxlEnv.pxlQuality.screenResPerc },
+          intensity:{type:"f",value:1.0},
+          rate:{type:"f",value:1.2},
+          lightPos:{value:lightPos},
+        };
+            //let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, snowVert( true ), snowFrag() );
+        let mtl = this.pxlFile.pxlShaderBuilder( dustUniforms, smokeVert(), smokeFrag() );
+        mtl.side=THREE.DoubleSide;
+        mtl.transparent=true;
+        // mtl.blending=THREE.AdditiveBlending;
+				mtl.uniforms.atlasTexture.value = this.pxlUtils.loadTexture( this.assetPath+"sprite_dustLiquid.png", 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
+				mtl.uniforms.noiseTexture.value = this.softNoiseTexture;
+        mtl.depthTest=true;
+        mtl.depthWrite=false;
+        this.textureList[ "smoke" ]=mtl;
+
+        let dust = new THREE.Points( geo, mtl );
+        dust.sortParticles = false;
+        dust.frustumCulled = false;
+        this.scene.add( dust );
+        dust.layers.set(1);
+        dust.pBaseScale=pScale;
+        this.geoList['smoke']=dust;
+    }
+    
+    buildEmberWisps(){
+        //sprite = THREE.ImageUtils.loadTexture( "textures/sprites/disc.png" );
+
+        let vertexCount = 30; // Point Count
+            let pScale = 6;  // Point Base Scale
 
         let geo = new THREE.BufferGeometry();
         let verts = [];
         let seeds = [];
         let atlasId = [];
 
-        const atlasGen=()=>{ return Math.floor( (Math.random() * 4000) % 2 )*.5; };
+				const dupe=(val,count)=>{ return Array.from({length:count}).fill(val) };
+				const atlasPicks = [...dupe([0.0,0.75],4),...dupe([0.0,0.5],4),
+														...dupe([0.25,0.75],4),...dupe([0.25,0.5],4)];
+        const atlasPicker=()=>{ return atlasPicks[Math.floor( (Math.random() * 92314.75) % atlasPicks.length )]; };
 
         for( let x=0; x<vertexCount; ++x ){
-            verts.push( 0,0,0 );
-            seeds.push( (Math.random()*.5+.5), (Math.random()),(x/vertexCount) );
-            atlasId.push( x%2, Math.floor(x*.5+1)%2 );
+					verts.push( 0,0,0 );
+          seeds.push( (Math.random()),(Math.random()),(Math.random()*2-1), (Math.random()*2-1) );
+          atlasId.push( ...atlasPicker() );
         }
 
         let posAttribute = new THREE.Float32BufferAttribute( verts, 3 );
         let seedAttribute = new THREE.Float32BufferAttribute( seeds, 4 );
         let atlasAttribute = new THREE.Float32BufferAttribute( atlasId, 2 );
-        let pInfoAttribute = new THREE.Float32BufferAttribute( pHeightScaleAlpha, 4 );
         //let idAttribute = new THREE.Uint8BufferAttribute( pId, 1 ); // ## would only be 0-65536; set up vector array for ids
         geo.setAttribute( 'position', posAttribute );
         geo.setAttribute( 'seeds', seedAttribute );
         geo.setAttribute( 'atlas', atlasAttribute );
-        geo.setAttribute( 'pointInfo', pInfoAttribute );
         //geo.setAttribute( 'id', idAttribute );
         
-        let mtl = null;
-        let candleFlameAtlas = this.pxlUtils.loadTexture( this.assetPath+"sprite_candleFlame.png", 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
-
-        if( !this.textureList[ "CandleFlame" ] ){
-          let dustUniforms={
-            flameTexture:{type:"t",value: candleFlameAtlas },
-            noiseTexture:{type:"t",value: this.smoothNoiseTexture },
-            smoothTexture:{type:"t",value: this.pxlEnv.softNoiseTexture },
-            time:{type:"f",value: this.msRunner },
-            pointMult:{type:"f",value: this.pxlEnv.pxlQuality.screenResPerc },
-            rate:{type:"f",value:.35},
-            seed:{type:"f",value: Math.random() },
-          };
-              //let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, snowVert( true ), snowFrag() );
-          mtl = this.pxlFile.pxlShaderBuilder( dustUniforms, candleFlameVert(), candleFlameFrag() );
-          mtl.side=THREE.DoubleSide;
-          mtl.transparent=true;
-          // mtl.blending=THREE.AdditiveBlending;
-          mtl.depthTest=true;
-          mtl.depthWrite=false;
-          //mtl.blending = THREE.AdditiveBlending;
-          
-          mtl.blending = THREE.CustomBlending;
-          mtl.blendEquation = THREE.AddEquation; //default
-          mtl.blendSrc = THREE.SrcAlphaFactor;
-          //mtl.blendSrc = THREE.OneFactor;
-          mtl.blendDst = THREE.DstAlphaFactor; 
-
-          this.textureList[ "CandleFlame" ]=mtl;
-        }else{
-          mtl = this.textureList[ "CandleFlame" ].clone();
-          mtl.uniforms.flameTexture.value = candleFlameAtlas;
-          mtl.uniforms.noiseTexture.value = this.smoothNoiseTexture;
-          mtl.uniforms.smoothTexture.value = this.pxlEnv.softNoiseTexture;
-          mtl.uniforms.time.value = this.msRunner;
-          mtl.uniforms.seed.value = Math.random();
+				
+        let lightPos=[];
+        let lightCount=0;
+        if( this.lightList.hasOwnProperty("PointLight") ){
+          lightCount = this.lightList.PointLight.length;
+          this.lightList.PointLight.forEach( (l)=>{
+            lightPos.push( l.position.clone() )
+          })
         }
+				
+        let dustUniforms={
+          atlasTexture:{type:"t",value: null },
+          noiseTexture:{type:"t",value: null },
+          time:{type:"f",value: this.msRunner },
+          pointScale:{type:"f",value: pScale*this.pxlEnv.pxlQuality.screenResPerc },
+          intensity:{type:"f",value:1.0},
+          rate:{type:"f",value:5.5},
+          lightPos:{value:lightPos},
+        };
+            //let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, snowVert( true ), snowFrag() );
+        let mtl = this.pxlFile.pxlShaderBuilder( dustUniforms, emberWispsVert(), emberWispsFrag() );
+        mtl.side=THREE.DoubleSide;
+        mtl.transparent=true;
+        // mtl.blending=THREE.AdditiveBlending;
+				mtl.uniforms.atlasTexture.value = this.pxlUtils.loadTexture( this.assetPath+"sprite_dustLiquid.png", 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
+				mtl.uniforms.noiseTexture.value = this.softNoiseTexture;
+        mtl.depthTest=true;
+        mtl.depthWrite=false;
+        this.textureList[ "wisps" ]=mtl;
 
-        let flame = new THREE.Points( geo, mtl );
-        flame.sortParticles = false;
-        flame.frustumCulled = false;
-        emitter.parent.add( flame );
-        
-        flame.layers.set(1);
-        flame.renderOrder = 2;
-        //flame.pBaseScale=pScale;
-        let ePos=emitter.position;
-        flame.position.set( ePos.x, ePos.y, ePos.z );
-        return flame;
+        let dust = new THREE.Points( geo, mtl );
+        dust.sortParticles = false;
+        dust.frustumCulled = false;
+        this.scene.add( dust );
+        dust.layers.set(1);
+        dust.pBaseScale=pScale;
+        this.geoList['wisps']=dust;
     }
     
     
@@ -432,12 +492,11 @@ export class CampfireEnvironment{
     
     
 	fbxPostLoad(){
-        //this.buildSnow();
-        this.buildDust();
-        // if(this.geoList['Cobble_Walls']){
-          // console.log(this.geoList['Cobble_Walls'])
-        // }
-        if(this.geoList['ForceField']){}
+				// Find Point light count for adjusted shadowing
+				let pointLightCount = 0;
+        if( this.lightList.hasOwnProperty("PointLight") ){
+          pointLightCount = this.lightList.PointLight.length;
+        }
         
         if(this.geoList.hasOwnProperty('GlowPass') && this.geoList['GlowPass'].length > 0){
           this.geoList['GlowPass'].forEach((g)=>{
@@ -454,8 +513,6 @@ export class CampfireEnvironment{
           }
         }
         
-        //this.pxlEnv.renderLayerEnum SCENE PARTICLES GLOW
-        //this.geoList['lights']
         
         var ambientLight = new THREE.AmbientLight( 0x303030 ); // soft white light
 				//this.lightList.push( ambientLight );
@@ -522,7 +579,7 @@ export class CampfireEnvironment{
               let mat=this.pxlFile.pxlShaderBuilder(
                         shaderUniforms,
                         pxlPrincipledVert( useShadows ),
-                        pxlPrincipledFrag( ShaderParms, useColor, useFog, useLights, useShadows, 4 ),
+                        pxlPrincipledFrag( ShaderParms, useColor, useFog, useLights, useShadows, pointLightCount ),
                         defines
                       );
               //mat.side=THREE.FrontSide;
@@ -540,19 +597,98 @@ export class CampfireEnvironment{
           }
         }
         
-        if( this.emitterList ){
-          if( this.emitterList.hasOwnProperty("CandleFlame") ){
-            let idList = [];
-            this.emitterList.CandleFlame.Emitter.forEach( (e)=>{
-              if( !idList.includes( e.id ) ){
-                idList.push( e.id ); 
-                this.emitterList.CandleFlame.Particles.push( this.buildCandleFlame( e ) );
-              }
-            });
-          }
-        }
-        
+				
+				if(this.geoList.hasOwnProperty('InstancesObjects')){
+					
+          for( const x in this.geoList['InstancesObjects'] ){
+						if( x.includes("campfireLog") ){
+							
+							let logMat = null;
+							if( this.textureList.hasOwnProperty('CampfireLogs') ){
+								logMat = this.textureList["CampfireLogs"];
+							}else{ // Campfire Log material doesn't exists
+								let campfireLogUniforms={
+									// THREE.LinearFilter // THREE.NearestMipmapLinearFilter // THREE.NearestFilter // THREE.NearestMipmapNearestFilter
+									baseTexture:{type:"t",value: null },
+									midEmberTexture:{type:"t",value: null },
+									heavyEmberTexture:{type:"t",value: null },
+									dataTexture:{type:"t",value: null },
+									noiseTexture:{type:"t",value: null },
+									time:{type:"f",value: this.msRunner },
+									intensity:{type:"f",value:1.0},
+									rate:{type:"f",value:.035},
+								};
+								logMat = this.pxlFile.pxlShaderBuilder( campfireLogUniforms, campfireLogVert(), campfireLogFrag() );
+								//logMat.depthTest=true;
+								//logMat.depthWrite=true;
+								//logMat.uniforms.baseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_diffuse_charred.jpg", 4, {"magFilter":THREE.LinearFilter, "minFilter":THREE.NearestMipmapLinearFilter} );
+								//logMat.uniforms.midEmberTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_diffuse_charredEmberGlow.jpg", 4, {"magFilter":THREE.LinearFilter, "minFilter":THREE.NearestMipmapLinearFilter} );
+								//logMat.uniforms.heavyEmberTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_diffuse_emberGlow.jpg", 4, {"magFilter":THREE.LinearFilter, "minFilter":THREE.NearestMipmapLinearFilter} );
+								//logMat.uniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_dataMask.jpg", 4, {"magFilter":THREE.LinearFilter, "minFilter":THREE.NearestMipmapLinearFilter} );
+								//logMat.uniforms.noiseTexture.value = this.smoothNoiseTexture;
+							
+								this.textureList["CampfireLogs"]=logMat;
+							}
+							
+							// Asign Campfire Log material
+							//console.log(x)
+							//console.log(x.material)
+              this.geoList['InstancesObjects'][x].material=logMat;
+						}
+					}
+				}
+				
+				
+				
+				this.buildDust();
+				this.buildSmoke();
+				this.buildEmberWisps();
+				
+				/*
+				let envGroundUniforms = THREE.UniformsUtils.merge(
+								[
+									THREE.UniformsLib[ "common" ],
+									THREE.UniformsLib[ "lights" ],
+									THREE.UniformsLib[ "shadowmap" ],
+									{
+										'diffuse' : { type:'t', value: null },
+										'dirtDiffuse' : { type:'t', value: null },
+										'mult': { type:'f', value:1 },
+										'fogColor': { type:'c', value: null },
+										'noiseTexture' : { type:'t', value: null },
+										'uniformNoise' : { type:'t', value: null },
+										'crossNoise' : { type:'t', value: null },
+									}
+								]
+						);
+				let textureOptions = {
+						"wrapS" : THREE.RepeatWrapping,
+						"wrapT" : THREE.RepeatWrapping,
+				};
+				envGroundUniforms.fogColor.value = this.scene.fog.color;
+				envGroundUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Diffuse.jpg" );
+				envGroundUniforms.dirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"Dirt_Diffuse.jpg" );
+				envGroundUniforms.noiseTexture.value = this.cloud3dTexture;
+				envGroundUniforms.uniformNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+				envGroundUniforms.crossNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_NCross.jpg" );
+				
+				let environmentGroundMat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag(1) );
+				environmentGroundMat.lights= true;
+				
+				envGroundUniforms.uniformNoise.value.wrapS = THREE.RepeatWrapping;
+				envGroundUniforms.uniformNoise.value.wrapT = THREE.RepeatWrapping;
+				envGroundUniforms.crossNoise.value.wrapS = THREE.RepeatWrapping;
+				envGroundUniforms.crossNoise.value.wrapT = THREE.RepeatWrapping;
+				envGroundUniforms.dirtDiffuse.value.wrapS = THREE.RepeatWrapping;
+				envGroundUniforms.dirtDiffuse.value.wrapT = THREE.RepeatWrapping;
+				
+				this.textureList[ "environmentGround" ]=environmentGroundMat;
+				*/
+				
+				
         this.booted=true;
+				
+				
     }
 	
 // -- -- -- -- -- -- -- -- -- -- -- -- -- //
@@ -576,125 +712,8 @@ export class CampfireEnvironment{
         
 		this.textureList[ "environmentGround" ]=mat;*/
     
-    // -- -- --
     
-    let cabinWallsUniforms = THREE.UniformsUtils.merge(
-        [
-          THREE.UniformsLib[ "common" ],
-          THREE.UniformsLib[ "lights" ],
-          THREE.UniformsLib[ "shadowmap" ],
-          {
-            'noiseTexture' : { type:'t', value: null },
-            'detailTexture' : { type:'t', value: null },
-            'fogColor' : { type: "c", value: this.scene.fog.color },
-          }
-        ]
-    )
-    var defines = {};
-    defines[ "USE_MAP" ] = "";
     
-		let mat=this.pxlFile.pxlShaderBuilder( cabinWallsUniforms, cobbleBaseVert(), cobbleBaseFrag(4), defines );
-		//mat.side=THREE.FrontSide;
-    mat.transparent= false;
-    mat.lights= true;
-    mat.uniforms.noiseTexture.value = this.cloud3dTexture;
-    mat.uniforms.detailTexture.value = this.pxlEnv.detailNoiseTexture;
-        
-		this.textureList[ "Cobble_Walls" ]=mat;
-    
-    // -- -- --
-    
-    let forceFieldUniforms = {
-          'noiseTexture' : { type:'t', value: this.cloud3dTexture },
-          'baseCd' : { type:'f', value: .1 }
-        }
-		let fieldMat=this.pxlFile.pxlShaderBuilder( forceFieldUniforms, forceFieldVert(), forceFieldFrag() );
-		fieldMat.side=THREE.FrontSide;
-    fieldMat.transparent= true;
-    fieldMat.depthTest=false;
-        
-		this.textureList[ "ForceField" ]=fieldMat;
-    
-    // -- -- --
-    
-    let mapBookGemsUniforms = {
-          'mult': { type:'f', value:1 },
-          'noiseTexture' : { type:'t', value: this.cloud3dTexture }
-        }
-		let gemMat=this.pxlFile.pxlShaderBuilder( mapBookGemsUniforms, mapBookGemsVert(), mapBookGemsFrag() );
-		gemMat.side=THREE.FrontSide;
-
-        
-		this.textureList[ "StaticCover_Gems_Mesh" ]=gemMat;
- //   
-    // -- -- -- 
-    
-    let mapBookCorruptionUniforms = {
-          'mult': { type:'f', value:1 },
-          'noiseTexture' : { type:'t', value: this.cloud3dTexture }
-        }
-		let corruptionMat=this.pxlFile.pxlShaderBuilder( mapBookCorruptionUniforms, mapBookCorruptionVert(), mapBookCorruptionFrag() );
-		corruptionMat.side=THREE.FrontSide;
-
-        
-		this.textureList[ "CoverCorruption_Mesh" ]=corruptionMat;
-  //
-    // -- -- --
-    
-    let envGroundUniforms = THREE.UniformsUtils.merge(
-            [
-              THREE.UniformsLib[ "common" ],
-              THREE.UniformsLib[ "lights" ],
-              THREE.UniformsLib[ "shadowmap" ],
-              {
-                'diffuse' : { type:'t', value: null },
-                'dirtDiffuse' : { type:'t', value: null },
-                'mult': { type:'f', value:1 },
-                'fogColor': { type:'c', value: null },
-                'noiseTexture' : { type:'t', value: null },
-                'uniformNoise' : { type:'t', value: null },
-                'crossNoise' : { type:'t', value: null },
-              }
-            ]
-        );
-    let textureOptions = {
-        "wrapS" : THREE.RepeatWrapping,
-        "wrapT" : THREE.RepeatWrapping,
-    };
-    envGroundUniforms.fogColor.value = this.scene.fog.color;
-    envGroundUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Diffuse.jpg" );
-    envGroundUniforms.dirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"Dirt_Diffuse.jpg" );
-    envGroundUniforms.noiseTexture.value = this.cloud3dTexture;
-    envGroundUniforms.uniformNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
-    envGroundUniforms.crossNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_NCross.jpg" );
-    
-		let environmentGroundMat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag(4) );
-    environmentGroundMat.lights= true;
-    
-    envGroundUniforms.uniformNoise.value.wrapS = THREE.RepeatWrapping;
-    envGroundUniforms.uniformNoise.value.wrapT = THREE.RepeatWrapping;
-    envGroundUniforms.crossNoise.value.wrapS = THREE.RepeatWrapping;
-    envGroundUniforms.crossNoise.value.wrapT = THREE.RepeatWrapping;
-    envGroundUniforms.dirtDiffuse.value.wrapS = THREE.RepeatWrapping;
-    envGroundUniforms.dirtDiffuse.value.wrapT = THREE.RepeatWrapping;
-    
-		this.textureList[ "environmentGround" ]=environmentGroundMat;
-    
-  //
-    // -- -- -- 
-    
-    let mapBookGlowUniforms = {
-          'diffuse' : { type:'t', value: this.pxlUtils.loadTexture( this.assetPath+"mapTitleGlowTexture_diffuse.jpg" ) },
-          'mult': { type:'f', value:1 },
-          'noiseTexture' : { type:'t', value: this.cloud3dTexture },
-          'hover' : { type:'f', value: 0 }
-        }
-		let mapBookGlowMat=this.pxlFile.pxlShaderBuilder( mapBookGlowUniforms, mapBookGlowVert(), mapBookGglowFrag() );
-		mapBookGlowMat.side=THREE.DoubleSide;
-    
-
-        
-		this.textureList[ "mapTitleGlow_Mesh" ]=mapBookGlowMat;
   //
     // -- -- -- 
         

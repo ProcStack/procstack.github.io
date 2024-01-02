@@ -9,7 +9,6 @@ export class Audio{
 		this.pxlEnv=null;
 		this.pxlGuiDraws=null;
 		this.pxlSocket=null;
-		this.pxlConnect=null;
         
 		this.active=false;
 		this.audioTimer=new Vector3(0,0,0);
