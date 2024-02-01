@@ -1,5 +1,5 @@
 // pxlNav Includes
-// Kevin Edzenga, 2021-2022
+//   Kevin Edzenga, 2021-2022; 2024
 //
 // TODO: Folders are new, files should be included from a *folder*/*folder*.js file.
 //         (Like pxlBase.js)
@@ -15,9 +15,6 @@ export { Device } from './core/Device.js'; // User's Machine / Device Dependenci
 
 // Primary drawing and run time class
 export { Environment } from './Environment.js';
-
-// GLSL; Particles
-export { Particles } from './gl/Particles.js';
 
 // HTML DOM; HUD / GUI
 export { GuiDraws } from './gui/GuiDraws.js';

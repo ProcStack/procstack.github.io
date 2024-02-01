@@ -1,0 +1,160 @@
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+// -- This file has extended information for --
+// --   Variable from `pxlNav.js`            --
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+
+
+
+// -- -- --
+
+// The Title of your Project
+//   This will be displayed on the 
+```
+const projectTitle = "ProcStack";
+```
+// -- -- --
+```
+const startingRoom = "CampfireEnvironment"; // Current possible rooms - "VoidEnvironment", "CampfireEnvironment", & "CabinEnvironment"
+```
+
+
+// -- -- --
+
+```
+const loadEnvAssetFile = false;
+```
+
+Boolean; loads the environment asset fbx file;
+   This is the included file with test pick-ups / assets
+     ./Public/images/assets/EnvironmentAssets.fbx
+     ./Public/images/assets/EnvironmentAssets_mobile.fbx
+	Note-
+	  I've added object suffixes for object naming best practices
+		  You don't need to include '_grp' or '_geo' in your environment's fbx,
+			  That info can be accessed with `self.geoList['objectName'].type` in your room code
+	  Since you need to address object's by name to your scripting,
+		  Skipping the naming convention makes it easier for deving
+
+If your room's environment doesn't include a camera object,
+  This file has a camera with and overview of -10 to 10 in x & z
+	  To aid in potential scene loading issues.
+
+If the env asset file isn't loaded, a default camera is added to the scene,
+  But is a zero'ed out camera to allow for less conflicts with custom environment scripts
+	
+So, should you have issues with the camera in your environment, try setting -
+  `loadEnvAssetFile = true`
+
+Loaded items are simply loaded for easy access, not added to your scene
+To access the default items, you'll need to add them to your three.js scene in your environment
+
+//  TODO : Add example of using test items in pxlNav's default environment fbx
+
+
+Rundown of item pick-ups & their effects in pxlNav --
+ ** All item effects last for 1 minute
+|-PxlNavGeoAssets
+  |-Scripted_grp
+		- AvatarCam_geo
+		    Default Web Camera Avatar for users when the Networking layer was included
+				  To be reimplemented
+		- PortalGlow_geo
+		    Geometry displayed at the base of a teleportation portal
+				  From locator/null object naming pairs in your FBX
+			  `.\Source\js\pxlBase\gl\pxlShaders\portalBaseShader.js`
+    |-Items_grp
+      - InfinityZoom_geo
+			    Triggers a visual echo'ing effect
+					  This uses a rendering order similar to feedback buffers
+						  Allowing sampling of the prior frames render in the shader
+				  `.\Source\js\pxlBase\gl\pxlShaders\chroAberPostProcess.js`
+					  `chroAberPostProcess`
+      - LizardKing_geo
+			    Inspired by Jim Morrison
+					  Specifically "Soul Kitchen" by The Doors
+				  `.\Source\js\pxlBase\gl\pxlShaders\lKingPostProcess.js`
+					  `lKingPostProcess`
+      - StarField_geo
+			    Inspired by David Bowie
+			    Triggers a field of shifted periferal perception
+					  Refractive warping of the screen
+				  `.\Source\js\pxlBase\gl\pxlShaders\chroAberPostProcess.js`
+					  `sFieldPostProcessVert`, `sFieldPostProcessFrag`
+      - LowGravity_geo
+			    Triggers a low gravity effect
+					  Letting a user jump incredibly high
+    - ItemBase_geo
+		    The common geometry shown under every item 
+				  `.\Source\js\pxlBase\gl\pxlShaders\itemBaseShader.js`
+
+
+// -- -- --
+
+
+
+```
+var mapAutoQuality = 1; // Adjust quality to device's capability
+```
+
+// -- -- --
+// 
+```
+var cloud3dTexture = null;
+```
+
+// -- -- --
+
+// -- -- --
+
+
+const searchAuto = searchParms.get('auto');
+
+// ## Reorder how modules handle what data
+//  Such a Klucking Fluster ...
+const pxlTimer=new PxlBase.Timer();
+const pxlCookie=new PxlBase.CookieManager( projectTitle, "/" );
+if( pxlCookie.hasCookie("forceMobile") ){
+		mobile = pxlCookie.parseCookie("forceMobile");
+}
+
+
+// 
+const pxlQuality=new PxlBase.QualityController(pxlTimer, pxlCookie, mobile, searchParms);//mobile);
+const pxlUtils=new PxlBase.Utils(assetRoot, mobile, pxlTimer);
+const pxlFile=new PxlBase.FileIO(pxlUtils, pxlQuality, pxlTimer, assetRoot, guiRoot, roomRoot, vidRoot);
+
+	
+const pxlAudio=new PxlBase.Audio( pxlTimer );
+const pxlAutoCam=new PxlBase.AutoCamera( autoCam, mobile, pxlTimer, pxlUtils, pxlAudio );
+	pxlFile.pxlAutoCam=pxlAutoCam;
+const pxlUser=new PxlBase.User();
+	
+	
+const pxlEnv=new PxlBase.Environment( 'Default', mobile, pxlUtils, pxlTimer, pxlAudio, pxlFile, null, pxlUser, pxlQuality, pxlShaders, pxlAutoCam);
+	pxlUser.pxlEnv=pxlEnv;
+	pxlAudio.pxlEnv=pxlEnv;
+	pxlAutoCam.pxlEnv=pxlEnv;
+	window.pxlNav = pxlEnv;
+	
+const pxlDevice=new PxlBase.Device( projectTitle, mapCore, mobile, pxlTimer, pxlAutoCam, pxlAudio, pxlUser, pxlEnv, pxlQuality);
+	pxlAudio.pxlDevice=pxlDevice;
+	pxlQuality.pxlDevice=pxlDevice;
+	pxlAutoCam.pxlDevice=pxlDevice;
+	
+const pxlCamera=new PxlBase.Camera( pxlTimer, pxlAudio, pxlEnv, pxlUser, pxlUtils, pxlDevice, pxlQuality, pxlAutoCam);
+	pxlEnv.pxlCamera=pxlCamera;
+	pxlDevice.pxlCamera=pxlCamera;
+	pxlAutoCam.pxlCamera=pxlCamera;
+	
+	
+const pxlGuiDraws=new PxlBase.GuiDraws(
+
+
+
+// -- -- -- -- -- -- -- -- -- -- --
+
+
+
+
+

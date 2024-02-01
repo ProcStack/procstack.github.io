@@ -1,0 +1,105 @@
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+// -- Included here is high-level info for      --
+// --   Files found in - `./Source/js/**/*.*`   --
+// --    `./Source/js/pxlNav.js`                --
+// --    `./Source/js/pxlBase/*/*.*`            --
+// --    `./Source/js/pxlRooms/*/*.*`           --
+// --    `./Source/js/pxlSubRooms/*/*.*`        --
+// --    `./Source/js/pxlWorkers/*/*.*`         --
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+- ./Source/js/pxlNav.js
+- ./Source/js/README.md
+|- ./Source/js/pxlBase
+	- Environment.js
+  |- cam
+	  - AutoCamera.js
+	  - Camera.js
+  |- core
+	  - BaryCaster.js (Unused)
+	  - CookieManager.js
+	  - Device.js
+	  - FBXLoader.js (three.js source; modified)
+	  - FileIO.js
+	  - QualityController.js
+	  - Timer.js
+	  - User.js
+	  - Utils.js
+  |- gl
+		|- pxlParticles
+			|- Animations
+				- countDownParticles.js ( Data File )
+			|- Shaders
+				- countDownShader.js
+				- default.js
+				- floatingDust.js
+				- snowConfettiShader.js
+				- snowShader.js
+			- Animations.js (JS File Includer)
+			- floatingDust.js
+			- Shaders.js (JS File Includer)
+			- snowShader.js
+		|- pxlShaders
+			- antiAliasingPostProcess.js
+			- bgScreenShader.js
+			- chroAberPostProcess.js
+			- compLayersPostProcess.js
+			- dArrowShaders.js
+			- defaults.js
+			- depthPostProcess.js
+			- directionalBlurPass.js
+			- finalOverlayPostProcess.js
+			- glowPassShader.js
+			- glowTextureShader.js
+			- hdrRoomShader.js
+			- itemBaseShader.js
+			- itemShader.js
+			- lKingPostProcess.js
+			- motionBlurPostProcess.js
+			- portalBaseShader.js
+			- promoBevelShader.js
+			- promoDisplayShader.js
+			- pxlPrincipled.js
+			- scrollTextureShader.js
+			- shaderHeader.js
+			- skyPlaneShader.js
+			- skyTextureShader.js
+			- snowShader.js
+			- superficialCircleGate.js
+			- userScreenShader.js
+			- wallBarrierShader.js
+			- warpPostProcess.js
+			- worldPositionSceneShader.js
+	  - Particles.js ( Unused )
+	  - pxlParticles.js (JS File Includer)
+	  - pxlShaders.js (JS File Includer)
+  |- gui
+		|- guiUtils
+			- svgUtils.js
+	  - GuiDraws.js
+	  - helpGui.js
+	  - infoGui.js
+	  - settingsGui.js
+	  - userGui.js
+  |- media
+	  - Audio.js
+	  - MusicUtils.js
+	  - Video.js
+  |- webWorkers
+	  - AudioProcessor.js ( Unused )
+	  - CameraWorker.js ( Unused )
+	  - FileWorkerIO.js ( Unused )
+	  - webWorkers.js ( Unused )
+	- pxlBase.js (JS File Includer)
+|- ./Source/js/pxlRooms
+	|- CampfireEnvironment
+		|- Assets
+			- README.md
+		- README.md
+	|- pxlSubRooms
+		|- templateSubRoom
+			- README.md
+	|- templateRoom (TO CHANGE)
+		- README.md ( // // // )
+
+// -- -- --

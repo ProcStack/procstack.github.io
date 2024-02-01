@@ -21,6 +21,7 @@ export class FileIO{
 		this.pxlDevice=null;
 		this.pxlShaders=null;
 		
+		// Turn on Verbose Logging to Javascript Console
 		this.runDebugger=false;
 		
 		this.assetRoot=assetRoot;
@@ -228,8 +229,12 @@ export class FileIO{
     }
   }
   
+	
+ // -- -- -- -- -- -- -- -- -- -- -- -- -- //
+ // -- -- -- -- -- -- -- -- -- -- -- -- -- //
+ // -- -- -- -- -- -- -- -- -- -- -- -- -- //
   
-	// Apparently traversing FBX objects with no children on a leaf breaks
+	// TODO : Apparently traversing FBX objects with no children on a leaf breaks
 	//   Oh well... Just get it done
   
   // Currently only used for loading core scene assets;
@@ -250,137 +255,135 @@ export class FileIO{
 			let groupTypes={};
 			let groupNames=[];
 			groups.forEach( (c,x) =>{ groupNames.push(c.name); groupTypes[c.name]=x; } );
-
-			if(groupNames.indexOf('Camera')>-1){
-				let ch=groups[groupTypes['Camera']].children;
-				ch.forEach( (c,x)=>{
-					c.matrixAutoUpdate=false;
-					if(c.name=="Position"){
-						let toPos=c.position.clone();
-						this.pxlCamera.cameraPrevPos=toPos.clone();
-						this.pxlCamera.camera.position.copy(toPos);
-						this.pxlCamera.cameraPos.copy(toPos);
-						this.pxlCamera.camera.updateMatrixWorld();
-						this.pxlCamera.cameraBooted=true;
-						this.pxlEnv.camInitPos=toPos;
-						this.pxlEnv.camThumbPos=this.pxlEnv.camThumbPos.clone().add( toPos.clone() );
-					}else if(c.name=="LookAt"){
-						let toLookAt=c.position.clone();
-						this.pxlCamera.cameraAimTarget.position.copy( toLookAt );
-						this.pxlCamera.camera.lookAt(toLookAt);
-						this.pxlCamera.camera.updateMatrixWorld();
-						this.pxlCamera.cameraPrevLookAt=new THREE.Vector3();
-						this.pxlEnv.camInitLookAt=toLookAt;
-						this.pxlEnv.camThumbLookAt=this.pxlEnv.camThumbLookAt.clone().add( toLookAt.clone() );
-					}else if(c.name=="ReturnPosition"){
-						let toPos=c.position.clone();
-						this.pxlEnv.camReturnPos=toPos;
-					}else if(c.name=="ReturnLookAt"){
-						let toPos=c.position.clone();
-						this.pxlEnv.camReturnLookAt=toPos;
-					}
-				});
-				this.pxlDevice.touchMouseData.initialQuat=this.pxlCamera.camera.quaternion.clone();
-			}
-			
-			
-			if(groupNames.indexOf('Items')>-1 && !this.pxlDevice.mobile){
-				let ch=groups[groupTypes['Items']].children;
-        let baseMtl=null;
-        let lowGravMtl=null;
-        let lizardKingMtl=null;
-        let infinityZoomMtl=null;
-        let starFieldMtl=null;
-				while(ch.length>0){
-					let g=ch.pop();
-					//ch.push(...c.children);
-					if(g.type == "Group"){
-						let curChildren=g.children;
-						curChildren.forEach( (c)=>{
-							if(c.name == "Item"){
-                if( g.name=="LowGravity" ){
-                    if(lowGravMtl==null){
-                        lowGravMtl=new THREE.ShaderMaterial({
-                            uniforms:{
-                                color:{value : c.material.emissive.clone() },
-                                alphaMap:{type:'t',value : c.material.map },
-                                cloudNoise:{type : 't',value : this.pxlEnv.cloud3dTexture},
-                                time:{ value:this.pxlTimer.msRunner },
-                                intensity: {  type:"f", value: 1.5 },
-                                rate: { type:"f", value: this.pxlUser.itemRotateRate }
-                            },
-                            vertexShader:this.pxlShaders.itemVert(),
-                            fragmentShader:this.pxlShaders.itemFrag(),
-                            transparent:true,
-                            side:THREE.DoubleSide,
-                            depthTest:true,
-                            depthWrite:false,
-                        });
-                    }
-                    c.material=lowGravMtl;
-                }else if( g.name.includes("LizardKing") ){
-                    if( lizardKingMtl==null ){
-                        lizardKingMtl= c.material.clone();
-                        lizardKingMtl.emissiveMap=lizardKingMtl.map;
-                        lizardKingMtl.emissive=new THREE.Color( 0x808080 );
-                    }
-                    c.material=lizardKingMtl;
-                }else if( g.name.includes("StarField") ){
-                    //c.material.emissiveMap=c.material.map;
-                    //c.material.emissive=new THREE.Color( 0x808080 );
-                }else if( g.name.includes("InfinityZoom") ){
-                    if(infinityZoomMtl==null){
-                        infinityZoomMtl=new THREE.ShaderMaterial({
-                            uniforms:{
-                                color:{value : c.material.map },
-                                cloudNoise:{type : 't',value : this.pxlEnv.cloud3dTexture},
-                                time:{ value:this.pxlTimer.msRunner },
-                                intensity: {  type:"f", value: 1.0 },
-                                rate: { type:"f", value: this.pxlUser.itemRotateRate }
-                            },
-                            vertexShader:this.pxlShaders.defaultVert(),
-                            fragmentShader:this.pxlShaders.itemZoomFrag(),
-                            transparent:true,
-                            side:THREE.DoubleSide,
-                            depthTest:true,
-                            depthWrite:true,
-                        });
-                    }
-                    c.material=infinityZoomMtl;
-                }
-								this.pxlUser.itemList[g.name]=c;
-							}else if(c.name == "Base"){
-                if(baseMtl==null){
-                    baseMtl=new THREE.ShaderMaterial({
-                        uniforms:{
-                            color:{value : c.material.emissive.clone() },
-                            alphaMap:{type:'t',value : c.material.map },
-                            cloudNoise:{type : 't',value : this.pxlEnv.cloud3dTexture},
-                            time:{ value:this.pxlTimer.msRunner },
-                            intensity: {  type:"f", value: 1.5 },
-                            rate: { type:"f", value: this.pxlUser.itemBaseRotateRate }
-                        },
-                        vertexShader:this.pxlShaders.itemBaseVert(),
-                        fragmentShader:this.pxlShaders.itemBaseFrag(),
-                        transparent:true,
-                        side:THREE.DoubleSide,
-                        depthTest:true,
-                        depthWrite:false,
-                    });
-                }
-								c.material=baseMtl;
-								this.pxlUser.itemBaseList.push(c);
-							}
-						});
-						
-						addToScene[0].add(g);
-						this.pxlUser.itemGroupList[g.name]=g;
-						this.pxlUser.itemListNames.push(g.name);
+			groupNames.forEach( (curName) =>{
+				if(curName.includes('Camera')){
+					let ch=groups[groupTypes[curName]].children;
+					ch.forEach( (c,x)=>{
+						c.matrixAutoUpdate=false;
+						if(c.name.includes("Position")){
+							let toPos=c.position.clone();
+							this.pxlCamera.cameraPrevPos=toPos.clone();
+							this.pxlCamera.camera.position.copy(toPos);
+							this.pxlCamera.cameraPos.copy(toPos);
+							this.pxlCamera.camera.updateMatrixWorld();
+							this.pxlCamera.cameraBooted=true;
+							this.pxlEnv.camInitPos=toPos;
+							this.pxlEnv.camThumbPos=this.pxlEnv.camThumbPos.clone().add( toPos.clone() );
+						}else if(c.name.includes("LookAt")){
+							let toLookAt=c.position.clone();
+							this.pxlCamera.cameraAimTarget.position.copy( toLookAt );
+							this.pxlCamera.camera.lookAt(toLookAt);
+							this.pxlCamera.camera.updateMatrixWorld();
+							this.pxlCamera.cameraPrevLookAt=new THREE.Vector3();
+							this.pxlEnv.camInitLookAt=toLookAt;
+							this.pxlEnv.camThumbLookAt=this.pxlEnv.camThumbLookAt.clone().add( toLookAt.clone() );
+						}else if(c.name.includes("ReturnPosition")){
+							let toPos=c.position.clone();
+							this.pxlEnv.camReturnPos=toPos;
+						}else if(c.name.includes("ReturnLookAt")){
+							let toPos=c.position.clone();
+							this.pxlEnv.camReturnLookAt=toPos;
+						}
+					});
+					this.pxlDevice.touchMouseData.initialQuat=this.pxlCamera.camera.quaternion.clone();
+				}
+				
+				if(curName.includes('Items')){
+					let ch=groups[groupTypes[curName]].children;
+					let baseMtl=null;
+					let lowGravMtl=null;
+					let lizardKingMtl=null;
+					let infinityZoomMtl=null;
+					let starFieldMtl=null;
+					while(ch.length>0){
+						let g=ch.pop();
+						//ch.push(...c.children);
+						if(g.type == "Group"){
+							let curChildren=g.children;
+							curChildren.forEach( (c)=>{
+								if(c.name.includes("Item")){
+									if( g.name.includes("LowGravity")){
+										if(lowGravMtl==null){
+											lowGravMtl=new THREE.ShaderMaterial({
+												uniforms:{
+													color:{value : c.material.emissive.clone() },
+													alphaMap:{type:'t',value : c.material.map },
+													cloudNoise:{type : 't',value : this.pxlEnv.cloud3dTexture},
+													time:{ value:this.pxlTimer.msRunner },
+													intensity: {  type:"f", value: 1.5 },
+													rate: { type:"f", value: this.pxlUser.itemRotateRate }
+												},
+												vertexShader:this.pxlShaders.objects.itemVert(),
+												fragmentShader:this.pxlShaders.objects.itemFrag(),
+												transparent:true,
+												side:THREE.DoubleSide,
+												depthTest:true,
+												depthWrite:false,
+											});
+										}
+										c.material=lowGravMtl;
+									}else if( g.name.includes("LizardKing") ){
+										if( lizardKingMtl==null ){
+											lizardKingMtl= c.material.clone();
+											lizardKingMtl.emissiveMap=lizardKingMtl.map;
+											lizardKingMtl.emissive=new THREE.Color( 0x808080 );
+										}
+										c.material=lizardKingMtl;
+									}else if( g.name.includes("StarField") ){
+										//c.material.emissiveMap=c.material.map;
+										//c.material.emissive=new THREE.Color( 0x808080 );
+									}else if( g.name.includes("InfinityZoom") ){
+										if(infinityZoomMtl==null){
+											infinityZoomMtl=new THREE.ShaderMaterial({
+												uniforms:{
+													color:{value : c.material.map },
+													cloudNoise:{type : 't',value : this.pxlEnv.cloud3dTexture},
+													time:{ value:this.pxlTimer.msRunner },
+													intensity: {  type:"f", value: 1.0 },
+													rate: { type:"f", value: this.pxlUser.itemRotateRate }
+												},
+												vertexShader:this.pxlShaders.core.defaultVert(),
+												fragmentShader:this.pxlShaders.objects.itemZoomFrag(),
+												transparent:true,
+												side:THREE.DoubleSide,
+												depthTest:true,
+												depthWrite:true,
+											});
+										}
+										c.material=infinityZoomMtl;
+									}
+									this.pxlUser.itemList[g.name]=c;
+								}else if(c.name.includes("ItemBase")){
+									if(baseMtl==null){
+										baseMtl=new THREE.ShaderMaterial({
+											uniforms:{
+												color:{value : c.material.emissive.clone() },
+												alphaMap:{type:'t',value : c.material.map },
+												cloudNoise:{type : 't',value : this.pxlEnv.cloud3dTexture},
+												time:{ value:this.pxlTimer.msRunner },
+												intensity: {  type:"f", value: 1.5 },
+												rate: { type:"f", value: this.pxlUser.itemBaseRotateRate }
+											},
+											vertexShader:this.pxlShaders.objects.itemBaseVert(),
+											fragmentShader:this.pxlShaders.objects.itemBaseFrag(),
+											transparent:true,
+											side:THREE.DoubleSide,
+											depthTest:true,
+											depthWrite:false,
+										});
+									}
+									c.material=baseMtl;
+									this.pxlUser.itemBaseList.push(c);
+								}
+							});
+							
+							addToScene[0].add(g);
+							this.pxlUser.itemGroupList[g.name]=g;
+							this.pxlUser.itemListNames.push(g.name);
+						}
 					}
 				}
-			}
-
-			
+			});
 			
 			if(meshKey!=''){
 				this.pxlEnv.geoList[meshKey]=curFbx;
@@ -397,7 +400,11 @@ export class FileIO{
 		return fbxLoader;
 	}
 
-
+ // -- -- -- -- -- -- -- -- -- -- -- -- -- //
+ // -- -- -- -- -- -- -- -- -- -- -- -- -- //
+ // -- -- -- -- -- -- -- -- -- -- -- -- -- //
+ 
+ 
  // -- -- -- -- -- -- -- -- -- -- //
  // Environment FBX Loader        //
  // -- -- -- -- -- -- -- -- -- -- //
@@ -416,30 +423,35 @@ export class FileIO{
     //          Sounds like the potential for a memory leak if not handled correctly
 		var fbxLoader=new FBXLoader();
 		fbxLoader.load( objPath, (curFbx)=>{
+			//envScene.add(curFbx);
+			//console.log(curFbx)
 			let groups=curFbx.children;
 			let groupTypes={};
 			let groupNames=[];
 			
-			groups.forEach( (c,x) =>{ groupNames.push(c.name); groupTypes[c.name]=x; } );
+			groups.forEach((c,x)=>{ let curName=c.name.split("_")[0]; groupNames.push(curName); groupTypes[curName]=x; });
 
+			// Verbose Logging Step Count
 			let count=0;
+			
+			// @ Loaded Scene File - Environment Group; 'Camera'
 			if(groupNames.indexOf('Camera')>-1){
 				let ch=groups[groupTypes['Camera']].children;
 				this.log("Camera - ",groups[groupTypes['Camera']]);
 				
 				ch.forEach( (c,x)=>{
 					c.matrixAutoUpdate=false;
-					if(c.name=="Position"){
+					if(c.name.includes("Position")){
 						let toPos=c.position.clone();
 						envObj.cameraBooted=true;
 						envObj.camInitPos=toPos;
-					}else if(c.name=="LookAt"){
+					}else if(c.name.includes("LookAt")){
 						let toPos=c.position.clone();
 						envObj.camInitLookAt=toPos;
-					}else if(c.name=="ReturnPosition"){
+					}else if(c.name.includes("ReturnPosition")){
 						let toPos=c.position.clone();
 						envObj.camReturnPos=toPos;
-					}else if(c.name=="ReturnLookAt"){
+					}else if(c.name.includes("ReturnLookAt")){
 						let toPos=c.position.clone();
 						envObj.camReturnLookAt=toPos;
 					}
@@ -447,6 +459,7 @@ export class FileIO{
 				//this.pxlDevice.touchMouseData.initialQuat=envObj.camera.quaternion.clone();
 			}
 			
+			// @ Loaded Scene File - Environment Group; 'AutoCamPaths'
 			if(groupNames.indexOf('AutoCamPaths')>-1){
 				let ch=groups[groupTypes['AutoCamPaths']].children;
 				this.log("AutoCamPaths - ",groups[groupTypes['AutoCamPaths']]);
@@ -470,6 +483,7 @@ export class FileIO{
 				}
 			}
 			
+			// @ Loaded Scene File - Environment Group; 'Instances'
 			if(groupNames.indexOf('Instances')>-1 && this.pxlQuality.detailLimit == 0){
 				let ch=[...groups[groupTypes['Instances']].children];
 				this.log("Instances - ",groups[groupTypes['Instances']]);
@@ -486,94 +500,200 @@ export class FileIO{
             this.checkForUserData( envObj, envScene, c );
             envObj.baseInstancesNames.push( c );
             envObj.baseInstancesList[c.name]=c;
-            if( c.material.name == "GemSprouts_Mtl" ){
-              c.material.specular.r=.1;
-              c.material.specular.g=.1;
-              c.material.specular.b=.1;
-              if( c.material.map ){
-                c.material.specularMap=c.material.map;
-              }
-            }
           });
         }
 			}
 			
 			
-			if(groupNames.indexOf('Items')>-1){
-				let ch=groups[groupTypes['Items']].children;
-				this.log("Items - ",groups[groupTypes['Items']]);
+			// @ Loaded Scene File - Environment Group; 'Lights'
+			if(groupNames.indexOf('Lights')>-1){
+				let ch=groups[groupTypes['Lights']].children;
+				this.log("Lights - ",groups[groupTypes['Lights']]);
 				
 				while(ch.length>0){
-					let g=ch.pop();
-					//ch.push(...c.children);
-                    // ## Set up Environment Assets for Item List
-					if(g.type == "Group"){
-						let curChildren=g.children;
-            if( curChildren.length > 0 ){
-              curChildren.forEach( (c)=>{
-                if(c.name == "Item"){
-                  let curMat=new THREE.ShaderMaterial({
-                      uniforms:{
-                          color:{value : c.material.emissive.clone() },
-                          alphaMap:{type:'t',value : c.material.map },
-                          cloudNoise:{type : 't',value : this.cloud3dTexture},
-                          time:{ value:this.pxlTimer.msRunner },
-                          intensity: {  type:"f", value: 1.5 },
-                          rate: { type:"f", value: this.pxlUser.itemRotateRate }
-                      },
-                      vertexShader:this.pxlShaders.itemVert(),
-                      fragmentShader:this.pxlShaders.itemFrag(),
-                      transparent:true,
-                      side:THREE.DoubleSide,
-                      depthTest:true,
-                      depthWrite:false,
-                  });
-                  c.material=curMat;
-                  this.pxlUser.itemList[g.name]=c;
-                }else if(c.name == "Base"){
-                  let curMat=new THREE.ShaderMaterial({
-                      uniforms:{
-                          color:{value : c.material.emissive.clone() },
-                          alphaMap:{type:'t',value : c.material.map },
-                          cloudNoise:{type : 't',value : this.cloud3dTexture},
-                          time:{ value:this.pxlTimer.msRunner },
-                          intensity: {  type:"f", value: 1.5 },
-                          rate: { type:"f", value: this.pxlUser.itemBaseRotateRate }
-                      },
-                      vertexShader:this.pxlShaders.itemBaseVert(),
-                      fragmentShader:this.pxlShaders.itemBaseFrag(),
-                      transparent:true,
-                      side:THREE.DoubleSide,
-                      depthTest:true,
-                      depthWrite:false,
-                  });
-                  c.material=curMat;
-                  this.pxlUser.itemBaseList.push(c);
-                }
-              });
+					let c=ch.pop();
+					ch.push(...c.children);
+					
+					if( c.type.includes("Light") ){
+            if( !envObj.hasOwnProperty('lightList') ){
+                envObj['lightList']={};
+            }
+            if( !envObj.geoList.hasOwnProperty('lights') ){
+                envObj.geoList['lights']=[];
+            }
+            if( c.type == "PointLight" ){
+              c.decay = 3;
+              c.distance = 20 * c.intensity;
+              c.intensity = 2;
+            }
+						
+            if( !envObj.lightList.hasOwnProperty( c.type ) ){
+              envObj.lightList[ c.type ] = [];
+            }
+						
+            envObj.lightList[ c.type ].push( c );
+            envObj.geoList['lights'].push( c );
+            
+						c.matrixAutoUpdate=false;
+						envScene.add(c);
+					}
+				}
+			}
+      
+			// Merged Geo, faster but more polies
+			// @ Loaded Scene File - Environment Group; 'MainScene'
+			if(groupNames.includes('Scene') || groupNames.includes('MainScene')){
+        let groupId = groupTypes['Scene'] || groupTypes['MainScene'];
+				let ch = groups[groupId].children;
+				this.log("MainScene - ",groups[groupId]);
+				while(ch.length>0){
+					let c=ch.pop();
+					
+          this.checkForUserData( envObj, envScene, c );
+
+					if(c.isMesh){
+            if( c.userData.hasOwnProperty("Show") && (!c.userData.Show || c.userData.Show == 0) ){
+              c.visible = false;
+            }
+            
+						envObj.geoList[c.name]=c;
               
-              envScene.add(g);
-              this.pxlUser.itemGroupList[g.name]=g;
-              this.pxlUser.itemListNames.push(g.name);
+            let curSide = THREE.FrontSide;
+						// @ FBX - User Data; boolean, 'doubleSided'
+            if(c.userData.doubleSided){
+              curSide=THREE.DoubleSide;
+            }
+						
+						// Custom material shader was added to this object, apply it
+            if( textureList.hasOwnProperty( c.name ) ){
+							c.material= textureList[ c.name ];
+							c.matrixAutoUpdate=false;
+							//c.geometry.computeFaceNormals();
+							//c.geometry.computeVertexNormals();
+              //c.material.shading = THREE.SmoothShading;
+							//envScene.add(c);
+							envObj.geoList[c.name]=c;
+							continue;
+						}
+						
+						// Material emission is non-zero
+						//   Since, to me, emisssion color looks better as the diffuse map color
+						//     Apply the diffuse map if it exists & the emissive map isn't set
+            if( c.material.map && !c.material.emissiveMap && c.material.emissive.r>0 ){
+							c.material.emissiveIntensity=c.material.emissive.r;
+							c.material.emissive=new THREE.Color( 0xFFFFFF );
+							c.material.emissiveMap=c.material.map;
+            }
+            //c.material.depthWrite=true;
+            c.material.side=curSide;
+            //c.geometry.computeFaceNormals();
+            //c.geometry.computeVertexNormals();
+            c.matrixAutoUpdate=false;
+            envScene.add(c);
+              
+					}else{ // Current Object isn't a mesh geometry
+            if( c.type.includes("Light") ){
+							if( !envObj.lightList.hasOwnProperty( c.type ) ){
+								envObj.lightList[ c.type ] = [];
+							}
+							envObj.lightList[ c.type ].push( c );
+							envScene.add(c);
+						}else if( c.type == "Group" ){
+							let addChildren = true;
+							if( envObj.geoList.hasOwnProperty('Scripted') ){
+								let scriptedList = Object.keys(envObj.geoList['Scripted']);
+								//addChildren = false;
+							}
+
+							if( addChildren ){
+								envScene.add(c);
+								ch.push( ...c.children );
+							}
             }
 					}
 				}
 			}
-            
-			if(groupNames.indexOf('Scripted')>-1){
-				let ch=groups[groupTypes['Scripted']].children;
-				this.log("Scripted - ",groups[groupTypes['Scripted']]);
+			
+			
+			// @ Loaded Scene File - Environment Group; 'Animation'
+			if(groupNames.includes('Animation')){
+        let groupId = groupTypes['Animation'] ;
+				let animGroup = groups[groupId];
+				let ch = animGroup.children;
+				animGroup.frustumCulled = false;
+				this.log("Animation - ",groups[groupId]);
 				
-				while(ch.length>0){
-					let c=ch.pop();
+				envScene.add( animGroup );
+				
+				let runner = -1;
+				while(runner < ch.length-1){
+					runner++;
+					let c=ch[runner];
+					if(!c){
+						this.log("-- Error, Uncaught Animation Child --");
+						this.log("Error Entry- '"+runner+"'");
+					}
+					
+          this.checkForUserData( envObj, envScene, c );
 					if(c.isMesh){
-              envObj.geoList[c.name]=c;
-              envScene.add(c);
-          }
+            if( c.userData.hasOwnProperty("Show") && (!c.userData.Show || c.userData.Show == 0) ){
+              c.visible = false;
+            }
+            
+						envObj.geoList[c.name]=c;
+              
+            let curSide = THREE.FrontSide;
+						
+            if(c.userData.doubleSided){
+              curSide=THREE.DoubleSide;
+            }
+						
+            if( textureList.hasOwnProperty( c.name ) ){
+							c.material= textureList[ c.name ];
+							c.matrixAutoUpdate=false;
+							continue;
+						}
+						
+            if( c.material.map ){
+							c.material.emissiveMap=c.material.map;
+              if( c.material.emissive.r>0 ){
+                c.material.emissiveIntensity=c.material.emissive.r;
+              }
+							c.material.emissive=new THREE.Color( 0xFFFFFF );
+							
+              if( !c.material.specularMap && c.material.specular.r>0 ){
+                c.material.specularMap=c.material.map;
+              }
+            }else{
+							c.material.emissive = c.material.color;
+						}
+            //c.material.depthWrite=true;
+            c.material.side=curSide;
+            //c.geometry.computeFaceNormals();
+            //c.geometry.computeVertexNormals();
+            //c.matrixAutoUpdate=false;
+            c.frustumCulled = false;
+            c.matrixAutoUpdate=true;
+            //envScene.add(c);
+              
+					}else if( c.type == "Group" ){
+						ch.push( ...c.children );
+            c.frustumCulled = false;
+					}else if(  c.type == "Bone" ){
+						//console.log(c);
+						
+            c.frustumCulled = false;
+						ch.push( ...c.children );
+					}else{
+						this.log("-- Warning, FBX Animation Bypass --");
+						this.log("Bypass Name- '"+c.name+"';\nBypass Type- '"+c.type+"'");
+					}
 				}
 			}
-            
+			
+			
 			// ## Restricted to only pxlNav's build
+			// @ Loaded Scene File - Environment Group; 'Glass'
 			if(groupNames.indexOf('Glass')>-1){
 				let ch=groups[groupTypes['Glass']].children;
 				this.log("Glass - ",groups[groupTypes['Glass']]);
@@ -600,16 +720,7 @@ export class FileIO{
                     c.material.specular.r = c.material.specular.r*.5 +.1;
                     c.material.specular.g = c.material.specular.g*.5 +.1;
                     c.material.specular.b = c.material.specular.b*.5 +.1;
-                    // Default glass attributes should be applied if non-existant
-                    /*
-                    c.material.color=new THREE.Color(.8,.8,.8);
-                    //c.material.flatShading=true;
-                    c.material.reflectivity=.35;
-                    c.material.shininess=.25;
-                    c.material.specular=new THREE.Color(.1,.1,.1);
-                    c.recieveShadow=false;
-                    c.castShadow=false;
-                    */
+										
                     //c.material.side=THREE.FrontSide;
                     //c.material.depthTest=true;
                     c.material.side=THREE.BackSide;
@@ -646,56 +757,8 @@ export class FileIO{
 				}
 			}
 			
-            
-			if(groupNames.indexOf('Sky')>-1){
-				let ch=groups[groupTypes['Sky']].children;
-				this.log("Sky - ",groups[groupTypes['Sky']]);
-				
-				while(ch.length>0){
-					let c=ch.pop();
-					ch.push(...c.children);
-					if(c.isMesh){
-						let curMat=new THREE.ShaderMaterial({
-							uniforms:{
-								diffuse: { type:"t",value:c.material.map },
-								envDiffuse: { type:"t",value:null },
-								noiseTexture: { type:"t",value:this.pxlEnv.cloud3dTexture },
-								fogColor:{ value: envScene.fog.color },
-								time:{ value:this.pxlTimer.msRunner },
-								camNear:{ type:"f", value: envObj.camera.near },
-								camFar:{ type:"f", value: envObj.camera.far },
-                resUV: { value: this.pxlDevice.screenRes },
-							},
-							vertexShader:this.pxlShaders.skyObjectVert(),
-							fragmentShader:this.pxlShaders.skyObjectFrag()
-						});
-						c.geometry.computeFaceNormals();
-						c.geometry.computeVertexNormals();
-						c.material = curMat;
-						c.matrixAutoUpdate = false;
-            c.frustumCulled = false;
-            c.layers.set( this.pxlEnv.renderLayerEnum.SKY )
-						//c.material.depthTest=true;
-						//c.material.depthWrite=true;
-						envObj.geoList[ c.name ] = c;
-            envObj.textureList[ c.name ] = curMat;
-            //envObj.shaderGeoList[c.name]=c;
-						envScene.add(c);
-					}
-				}
-			}
 			
-			if(groupNames.indexOf('PortalExit')>-1){
-				let ch=groups[groupTypes['PortalExit']].children;
-				this.log("PortalExit - ",groups[groupTypes['PortalExit']]);
-				
-				while(ch.length>0){
-					let c=ch.pop();
-					c.matrixAutoUpdate=false;
-					envObj.portalList[c.name]=c;
-				}
-			}
-			
+			// @ Loaded Scene File - Environment Group; 'Colliders'
 			if(groupNames.indexOf('Colliders')>-1){
 				let colliderParent=groups[groupTypes['Colliders']];
 				this.log("Colliders - ",groups[groupTypes['Colliders']]);
@@ -737,9 +800,220 @@ export class FileIO{
 					}
 				}
 			}
+			
+			// @ Loaded Scene File - Environment Group; 'PortalExit'
+			if(groupNames.indexOf('PortalExit')>-1){
+				let ch=groups[groupTypes['PortalExit']].children;
+				this.log("PortalExit - ",groups[groupTypes['PortalExit']]);
+				
+				while(ch.length>0){
+					let c=ch.pop();
+					c.matrixAutoUpdate=false;
+					envObj.portalList[c.name]=c;
+				}
+			}  
+			
+			// @ Loaded Scene File - Environment Group; 'FlatColor'
+			if(groupNames.indexOf('FlatColor')>-1){
+				let ch=groups[groupTypes['FlatColor']].children;
+				this.log("FlatColor - ",groups[groupTypes['FlatColor']]);
+				
+				while(ch.length>0){
+					let c=ch.pop();
+					ch.push(...c.children);
+					if(c.isMesh){
             
-            // This has become pretty specific to the Shadow Planet
-            // Rework it
+            this.checkForUserData( envObj, envScene, c );
+          
+						let mtl=new THREE.MeshBasicMaterial({
+							color:c.material.color.clone()
+						});
+						//mtl.side=THREE.DoubleSide;	
+						mtl.side=THREE.FrontSide;
+						mtl.flatShading=true;
+						c.material=mtl;
+						c.matrixAutoUpdate=false;
+						envScene.add(c);
+						//addToScene[1].add(c.clone());
+					}
+				}
+			}
+			
+			// @ Loaded Scene File - Environment Group; 'LambertColor'
+			if(groupNames.indexOf('LambertColor')>-1){
+				let ch=groups[groupTypes['LambertColor']].children;
+				this.log("LambertColor - ",groups[groupTypes['LambertColor']]);
+				
+				while(ch.length>0){
+					let c=ch.pop();
+					ch.push(...c.children);
+					if(c.isMesh){
+            
+            this.checkForUserData( envObj, envScene, c );
+          
+						let mtl=new THREE.MeshLambertMaterial();
+						if(c.material.map){
+							let mtlMap=c.material.map.clone();
+							mtl.map=mtlMap;
+							//mtl.color=new THREE.Color( 0x888888 );
+							mtl.emissiveMap=mtlMap;
+							mtl.emissiveIntensity=.5;
+							c.material=mtl;
+						}else{
+							mtl.color=c.material.color.clone();
+							mtl.emissive=c.material.emissive.clone();
+							//mtl.side=THREE.DoubleSide;
+							mtl.side=THREE.FrontSide;
+							mtl.flatShading=true;
+							c.material=mtl;
+						}
+						
+						c.matrixAutoUpdate=false;
+						envScene.add(c);
+						//addToScene[1].add(c.clone());
+					}
+				}
+			}
+			 
+            
+			// @ Loaded Scene File - Environment Group; 'Sky'
+			if(groupNames.indexOf('Sky')>-1){
+				let ch=groups[groupTypes['Sky']].children;
+				this.log("Sky - ",groups[groupTypes['Sky']]);
+				
+				while(ch.length>0){
+					let c=ch.pop();
+					ch.push(...c.children);
+					if(c.isMesh){
+						let curMat=new THREE.ShaderMaterial({
+							uniforms:{
+								diffuse: { type:"t",value:c.material.map },
+								envDiffuse: { type:"t",value:null },
+								noiseTexture: { type:"t",value:this.pxlEnv.cloud3dTexture },
+								fogColor:{ value: envScene.fog.color },
+								time:{ value:this.pxlTimer.msRunner },
+								camNear:{ type:"f", value: envObj.camera.near },
+								camFar:{ type:"f", value: envObj.camera.far },
+                resUV: { value: this.pxlDevice.screenRes },
+							},
+							vertexShader:this.pxlShaders.scene.skyObjectVert(),
+							fragmentShader:this.pxlShaders.scene.skyObjectFrag()
+						});
+						c.geometry.computeFaceNormals();
+						c.geometry.computeVertexNormals();
+						c.material = curMat;
+						c.matrixAutoUpdate = false;
+            c.frustumCulled = false;
+            c.layers.set( this.pxlEnv.renderLayerEnum.SKY )
+						//c.material.depthTest=true;
+						//c.material.depthWrite=true;
+						envObj.geoList[ c.name ] = c;
+            envObj.textureList[ c.name ] = curMat;
+            //envObj.shaderGeoList[c.name]=c;
+						envScene.add(c);
+					}
+				}
+			}
+			
+			// Shader Overrides
+			// @ Loaded Scene File - Environment Group; 'AnimatedTextures'
+			if(groupNames.indexOf('AnimatedTextures')>-1){
+				let ch=groups[groupTypes['AnimatedTextures']].children;
+				this.log("AnimatedTextures - ",groups[groupTypes['AnimatedTextures']]);
+				
+				while(ch.length>0){
+					let c=ch.pop();
+					ch.push(...c.children);
+					if(c.isMesh){
+            
+            this.checkForUserData( envObj, envScene, c );
+          
+						let uValues={
+								time:{ value:this.pxlTimer.msRunner },
+								glowTexture: { type:"t",value:c.material.map },
+								cloudNoise:{type : 't',value : this.pxlEnv.cloud3dTexture},
+								glowColor: { value: new THREE.Vector3( .01,.35,.55 ) },
+								intensity: { type:"f", value: .35 },
+								rate: { type:"f", value: 2.0 },
+								freq: { type:"f", value: 1.0 }
+							};
+						let vertShader=this.pxlShaders.animated.animTextureVert();
+						let fragShader=this.pxlShaders.animated.animTextureFrag();
+						
+						let curMat=new THREE.ShaderMaterial({
+							uniforms:uValues,
+							vertexShader:vertShader,
+							fragmentShader:fragShader,
+							transparent:true,
+							//depthTest:true,
+							//depthWrite:true,
+							//side:THREE.DoubleSide
+							side:THREE.FrontSide
+						});
+						
+						c.geometry.computeFaceNormals();
+						c.geometry.computeVertexNormals();
+
+						c.material=curMat;
+						
+						c.matrixAutoUpdate=false;
+						envScene.add(c);
+					}
+				}
+			}
+			
+			
+			// @ Loaded Scene File - Environment Group; 'ScrollingTextures'
+			if(groupNames.indexOf('ScrollingTextures')>-1){
+				let ch=groups[groupTypes['ScrollingTextures']].children;
+				this.log("ScrollingTextures - ",groups[groupTypes['ScrollingTextures']]);
+				
+				let scrollScreenSeed=1;
+				while(ch.length>0){
+					scrollScreenSeed+=1;
+					let c=ch.pop();
+					ch.push(...c.children);
+					if(c.isMesh){
+            
+            this.checkForUserData( envObj, envScene, c );
+          
+						let name=c.name;
+						let speed=0.05;
+						if(name.indexOf("_")>-1){
+							speed=name.split("_")[1];
+							speed=parseInt(speed)*.01;
+						}
+						let curMat=new THREE.ShaderMaterial({
+							uniforms:{
+								scrollTexture:{type : 't',value:c.material.map},
+								//cloudNoise:{type : 't',value : this.cloud3dTexture},
+								time:{ value:this.pxlTimer.msRunner },
+								speed: { value: speed },
+								seed:{ type:'f',value:scrollScreenSeed*1.1423 },
+								boostPerc: { value: 1.0 },
+							},
+							vertexShader:this.pxlShaders.animated.scrollingTextureVert(),
+							fragmentShader:this.pxlShaders.animated.scrollingTextureFrag(),
+							transparent:true,
+							//side:THREE.DoubleSide,
+							side:THREE.FrontSide,
+							//depthTest:true,
+							//depthWrite:true
+						});
+						
+						c.geometry.computeFaceNormals();
+						c.geometry.computeVertexNormals();
+						c.material=curMat;
+						
+						c.matrixAutoUpdate=false;
+						envScene.add(c);
+					}
+				}
+			}
+			
+			// @ Loaded Scene File - Environment Group; 'UserScreens'
+			// TODO : Update to read mask from material
+	    //          Less magic number reliance
 			if(groupNames.indexOf('UserScreens')>-1){
 				let ch=groups[groupTypes['UserScreens']].children;
 				this.log("UserScreens - ",groups[groupTypes['UserScreens']]);
@@ -794,114 +1068,85 @@ export class FileIO{
 				}
 			}
 			
-			if(groupNames.indexOf('ScrollingTextures')>-1){
-				let ch=groups[groupTypes['ScrollingTextures']].children;
-				this.log("ScrollingTextures - ",groups[groupTypes['ScrollingTextures']]);
+			
+			// @ Loaded Scene File - Environment Group; 'Items'
+			if(groupNames.indexOf('Items')>-1){
+				let ch=groups[groupTypes['Items']].children;
+				this.log("Items - ",groups[groupTypes['Items']]);
 				
-				let scrollScreenSeed=1;
 				while(ch.length>0){
-					scrollScreenSeed+=1;
-					let c=ch.pop();
-					ch.push(...c.children);
-					if(c.isMesh){
-            
-            this.checkForUserData( envObj, envScene, c );
-          
-						let name=c.name;
-						let speed=0.05;
-						if(name.indexOf("_")>-1){
-							speed=name.split("_")[1];
-							speed=parseInt(speed)*.01;
-						}
-						let curMat=new THREE.ShaderMaterial({
-							uniforms:{
-								scrollTexture:{type : 't',value:c.material.map},
-								//cloudNoise:{type : 't',value : this.cloud3dTexture},
-								time:{ value:this.pxlTimer.msRunner },
-								speed: { value: speed },
-								seed:{ type:'f',value:scrollScreenSeed*1.1423 },
-								boostPerc: { value: 1.0 },
-							},
-							vertexShader:this.pxlShaders.scrollingTextureVert(),
-							fragmentShader:this.pxlShaders.scrollingTextureFrag(),
-							transparent:true,
-							//side:THREE.DoubleSide,
-							side:THREE.FrontSide,
-							//depthTest:true,
-							//depthWrite:true
-						});
-						
-						c.geometry.computeFaceNormals();
-						c.geometry.computeVertexNormals();
-						c.material=curMat;
-						
-						c.matrixAutoUpdate=false;
-						envScene.add(c);
+					let g=ch.pop();
+					//ch.push(...c.children);
+					// ## Set up Environment Assets for Item List
+					if(g.type == "Group"){
+						let curChildren=g.children;
+            if( curChildren.length > 0 ){
+              curChildren.forEach( (c)=>{
+                if(c.name.includes("Item")){
+                  let curMat=new THREE.ShaderMaterial({
+                      uniforms:{
+                          color:{value : c.material.emissive.clone() },
+                          alphaMap:{type:'t',value : c.material.map },
+                          cloudNoise:{type : 't',value : this.cloud3dTexture},
+                          time:{ value:this.pxlTimer.msRunner },
+                          intensity: {  type:"f", value: 1.5 },
+                          rate: { type:"f", value: this.pxlUser.itemRotateRate }
+                      },
+                      vertexShader:this.pxlShaders.objects.itemVert(),
+                      fragmentShader:this.pxlShaders.objects.itemFrag(),
+                      transparent:true,
+                      side:THREE.DoubleSide,
+                      depthTest:true,
+                      depthWrite:false,
+                  });
+                  c.material=curMat;
+                  this.pxlUser.itemList[g.name]=c;
+                }else if(c.name.includes("Base")){
+                  let curMat=new THREE.ShaderMaterial({
+                      uniforms:{
+                          color:{value : c.material.emissive.clone() },
+                          alphaMap:{type:'t',value : c.material.map },
+                          cloudNoise:{type : 't',value : this.cloud3dTexture},
+                          time:{ value:this.pxlTimer.msRunner },
+                          intensity: {  type:"f", value: 1.5 },
+                          rate: { type:"f", value: this.pxlUser.itemBaseRotateRate }
+                      },
+                      vertexShader:this.pxlShaders.objects.itemBaseVert(),
+                      fragmentShader:this.pxlShaders.objects.itemBaseFrag(),
+                      transparent:true,
+                      side:THREE.DoubleSide,
+                      depthTest:true,
+                      depthWrite:false,
+                  });
+                  c.material=curMat;
+                  this.pxlUser.itemBaseList.push(c);
+                }
+              });
+              
+              envScene.add(g);
+              this.pxlUser.itemGroupList[g.name]=g;
+              this.pxlUser.itemListNames.push(g.name);
+            }
 					}
 				}
 			}
 			
-			if(groupNames.indexOf('FlatColor')>-1){
-				let ch=groups[groupTypes['FlatColor']].children;
-				this.log("FlatColor - ",groups[groupTypes['FlatColor']]);
+			// @ Loaded Scene File - Environment Group; 'Scripted'
+			if(groupNames.includes('Scripted')){
+				let ch=groups[groupTypes['Scripted']].children;
+				this.log("Scripted - ",groups[groupTypes['Scripted']]);
 				
 				while(ch.length>0){
 					let c=ch.pop();
-					ch.push(...c.children);
 					if(c.isMesh){
-            
-            this.checkForUserData( envObj, envScene, c );
-          
-						let mtl=new THREE.MeshBasicMaterial({
-							color:c.material.color.clone()
-						});
-						//mtl.side=THREE.DoubleSide;	
-						mtl.side=THREE.FrontSide;
-						mtl.flatShading=true;
-						c.material=mtl;
-						c.matrixAutoUpdate=false;
-						envScene.add(c);
-						//addToScene[1].add(c.clone());
-					}
+              envObj.geoList[c.name]=c;
+              envScene.add(c);
+          }
 				}
 			}
 			
-			if(groupNames.indexOf('LambertColor')>-1){
-				let ch=groups[groupTypes['LambertColor']].children;
-				this.log("LambertColor - ",groups[groupTypes['LambertColor']]);
-				
-				while(ch.length>0){
-					let c=ch.pop();
-					ch.push(...c.children);
-					if(c.isMesh){
-            
-            this.checkForUserData( envObj, envScene, c );
-          
-						let mtl=new THREE.MeshLambertMaterial();
-						if(c.material.map){
-							let mtlMap=c.material.map.clone();
-							mtl.map=mtlMap;
-							//mtl.color=new THREE.Color( 0x888888 );
-							mtl.emissiveMap=mtlMap;
-							mtl.emissiveIntensity=.5;
-							c.material=mtl;
-						}else{
-							mtl.color=c.material.color.clone();
-							mtl.emissive=c.material.emissive.clone();
-							//mtl.side=THREE.DoubleSide;
-							mtl.side=THREE.FrontSide;
-							mtl.flatShading=true;
-							c.material=mtl;
-						}
-						
-						c.matrixAutoUpdate=false;
-						envScene.add(c);
-						//addToScene[1].add(c.clone());
-					}
-				}
-			}
-			
-			if(groupNames.indexOf('Clickable')>-1){
+			// @ Loaded Scene File - Environment Group; 'Clickable'
+			if(groupNames.includes('Clickable')){
 				let colliderParent=groups[groupTypes['Clickable']];
 				this.log("Clickable - ",groups[groupTypes['Clickable']]);
 				
@@ -936,160 +1181,8 @@ export class FileIO{
 				}
 			}
 			
-			// Shader Overrides
-			if(groupNames.indexOf('AnimatedTextures')>-1){
-				let ch=groups[groupTypes['AnimatedTextures']].children;
-				this.log("AnimatedTextures - ",groups[groupTypes['AnimatedTextures']]);
-				
-				while(ch.length>0){
-					let c=ch.pop();
-					ch.push(...c.children);
-					if(c.isMesh){
-            
-            this.checkForUserData( envObj, envScene, c );
-          
-						let uValues={
-								time:{ value:this.pxlTimer.msRunner },
-								glowTexture: { type:"t",value:c.material.map },
-								cloudNoise:{type : 't',value : this.pxlEnv.cloud3dTexture},
-								glowColor: { value: new THREE.Vector3( .01,.35,.55 ) },
-								intensity: { type:"f", value: .35 },
-								rate: { type:"f", value: 2.0 },
-								freq: { type:"f", value: 1.0 }
-							};
-						let vertShader=this.pxlShaders.glowTextureVert();
-						let fragShader=this.pxlShaders.glowTextureFrag();
-						
-						let curMat=new THREE.ShaderMaterial({
-							uniforms:uValues,
-							vertexShader:vertShader,
-							fragmentShader:fragShader,
-							transparent:true,
-							//depthTest:true,
-							//depthWrite:true,
-							//side:THREE.DoubleSide
-							side:THREE.FrontSide
-						});
-						
-						c.geometry.computeFaceNormals();
-						c.geometry.computeVertexNormals();
-
-						c.material=curMat;
-						
-						c.matrixAutoUpdate=false;
-						envScene.add(c);
-					}
-				}
-			}
-			
-            
-			if(groupNames.indexOf('Lights')>-1){
-				let ch=groups[groupTypes['Lights']].children;
-				this.log("Lights - ",groups[groupTypes['Lights']]);
-				
-				while(ch.length>0){
-					let c=ch.pop();
-					ch.push(...c.children);
-					
-					if( c.type.includes("Light") ){
-            if( !envObj.hasOwnProperty('lightList') ){
-                envObj['lightList']={};
-            }
-            if( !envObj.geoList.hasOwnProperty('lights') ){
-                envObj.geoList['lights']=[];
-            }
-            if( c.type == "PointLight" ){
-              c.decay = 3;
-              c.distance = 20 * c.intensity;
-              c.intensity = 2;
-            }
-						
-            if( !envObj.lightList.hasOwnProperty( c.type ) ){
-              envObj.lightList[ c.type ] = [];
-            }
-						
-            envObj.lightList[ c.type ].push( c );
-            envObj.geoList['lights'].push( c );
-            
-						c.matrixAutoUpdate=false;
-						envScene.add(c);
-					}
-				}
-			}
-      
-			// Merged Geo, faster but more polies
-			if(groupNames.includes('Scene') || groupNames.includes('MainScene')){
-        let groupId = groupTypes['Scene'] || groupTypes['MainScene'];
-				let ch = groups[groupId].children;
-				this.log("MainScene - ",groups[groupId]);
-        
-				while(ch.length>0){
-					let c=ch.pop();
-          
-          this.checkForUserData( envObj, envScene, c );
-
-					if(c.isMesh){
-            if( c.userData.hasOwnProperty("Show") && (!c.userData.Show || c.userData.Show == 0) ){
-              c.visible = false;
-            }
-            
-						envObj.geoList[c.name]=c;
-              
-            let curSide = THREE.FrontSide;
-            if(c.userData.doubleSided){
-              curSide=THREE.DoubleSide;
-            }
-						
-            if( textureList.hasOwnProperty( c.name ) ){
-							c.material= textureList[ c.name ];
-							c.matrixAutoUpdate=false;
-							//c.geometry.computeFaceNormals();
-							//c.geometry.computeVertexNormals();
-              //c.material.shading = THREE.SmoothShading;
-							//envScene.add(c);
-							envObj.geoList[c.name]=c;
-							continue;
-						}
-            if( c.material.map ){
-              if( c.material.emissive.r>0 ){
-                c.material.emissiveIntensity=c.material.emissive.r;
-                c.material.emissive=new THREE.Color( 0xFFFFFF );
-                c.material.emissiveMap=c.material.map;
-              }
-              if( !c.material.specularMap && c.material.specular.r>0 ){
-                c.material.specularMap=c.material.map;
-              }
-            }
-            //c.material.depthWrite=true;
-            c.material.side=curSide;
-            //c.geometry.computeFaceNormals();
-            //c.geometry.computeVertexNormals();
-            c.matrixAutoUpdate=false;
-            //envScene.add(c);
-              
-					}else{
-            if( c.type.includes("Light") ){
-                if( !envObj.lightList.hasOwnProperty( c.type ) ){
-                  envObj.lightList[ c.type ] = [];
-                }
-                envObj.lightList[ c.type ].push( c );
-						}else if( c.type == "Group" ){
-                let addChildren = true;
-                if( envObj.geoList.hasOwnProperty('Scripted') ){
-                  let scriptedList = Object.keys(envObj.geoList['Scripted']);
-                  //addChildren = false;
-                }
-
-                if( addChildren ){
-                  envScene.add(c);
-                  ch.push( ...c.children );
-                }
-            }
-					}
-				}
-			}
-			
-			if(groupNames.indexOf('Markers')>-1){
+			// @ Loaded Scene File - Environment Group; 'Markers'
+			if(groupNames.includes('Markers')){
 				let ch=groups[groupTypes['Markers']].children;
 				this.log("Markers - ",groups[groupTypes['Markers']]);
 				
@@ -1112,6 +1205,117 @@ export class FileIO{
 		
 		return fbxLoader;
 	}
+
+
+	loadAnimFBX( envObj, objPath, meshKey, textureList ){
+		if(meshKey==''){ // Prep for IsLoaded checks
+        meshKey = envObj.roomName;
+    }
+    this.pxlEnv.geoLoadListComplete=0;
+    this.pxlEnv.geoLoadList[meshKey]=0;
+
+		let addedGlow=0;
+		let envScene=envObj.scene;
+		
+    // TODO : Do new FBXLoader objects really need to be created?
+    //          Sounds like the potential for a memory leak if not handled correctly
+		var fbxLoader=new FBXLoader();
+		fbxLoader.load( objPath, (curFbx)=>{
+			
+			let groups=curFbx.children;
+			let groupTypes={};
+			let groupNames=[];
+			
+			groups.forEach((c,x)=>{ let curName=c.name.split("_")[0]; groupNames.push(curName); groupTypes[curName]=x; });
+
+			// -- -- --
+			
+			this.log("Animation FBX - ",groupNames[0]);
+			envScene.add(curFbx);
+			console.log(curFbx);
+			curFbx.frustumCulled = false;
+			
+			// -- -- --
+
+			console.log(groups)
+			//envObj.geoList[c.name]=c;
+			let count=0;
+		
+			let runner = -1;
+			while(runner < groups.length-1){
+				runner++;
+				let c=groups[runner];
+				if(!c){
+					this.log("-- Error, Uncaught Animation Child --");
+					this.log("Error Entry- '"+runner+"'");
+				}
+				
+				this.checkForUserData( envObj, envScene, c );
+				if(c.isMesh){
+					if( c.userData.hasOwnProperty("Show") && (!c.userData.Show || c.userData.Show == 0) ){
+						c.visible = false;
+					}
+					
+					envObj.geoList[c.name]=c;
+						
+					let curSide = THREE.FrontSide;
+					
+					if(c.userData.doubleSided){
+						curSide=THREE.DoubleSide;
+					}
+					
+					if( textureList.hasOwnProperty( c.name ) ){
+						c.material= textureList[ c.name ];
+						c.matrixAutoUpdate=false;
+						continue;
+					}
+					
+					if( c.material.map ){
+						c.material.emissiveMap=c.material.map;
+						if( c.material.emissive.r>0 ){
+							c.material.emissiveIntensity=c.material.emissive.r;
+						}
+						c.material.emissive=new THREE.Color( 0xFFFFFF );
+						
+						if( !c.material.specularMap && c.material.specular.r>0 ){
+							c.material.specularMap=c.material.map;
+						}
+					}else{
+						c.material.emissive = c.material.color;
+					}
+					//c.material.depthWrite=true;
+					c.material.side=curSide;
+					//c.geometry.computeFaceNormals();
+					//c.geometry.computeVertexNormals();
+					//c.matrixAutoUpdate=false;
+					c.frustumCulled = false;
+					c.matrixAutoUpdate=true;
+					//envScene.add(c);
+						
+				}else if( c.type == "Group" ){
+					groups.push( ...c.children );
+					c.frustumCulled = false;
+				}else if(  c.type == "Bone" ){
+					//console.log(c);
+					
+					c.frustumCulled = false;
+					groups.push( ...c.children );
+				}else{
+					this.log("-- Warning, FBX Animation Bypass --");
+					this.log("Bypass Name- '"+c.name+"';\nBypass Type- '"+c.type+"'");
+				}
+			}
+		}, null, (err)=>{
+			if(meshKey!=''){
+				this.pxlEnv.geoLoadList[meshKey]=1;
+			}
+		});
+		
+		return fbxLoader;
+	}
+
+
+// -- -- -- -- --
 
 
 	pxlShaderBuilder( customUniforms, vertShader, fragShader, defines=null ){
@@ -1282,7 +1486,7 @@ export class FileIO{
     urlExists(url){
         var worker;
         if( Worker ){
-            worker = new Worker("js/pxlWorkers/FileWorkerIO.js");  
+            worker = new Worker("js/pxlBase/webWorkers/FileWorkerIO.js");  
             //this.workerList.push( worker );
         }
         

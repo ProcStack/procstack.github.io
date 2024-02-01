@@ -1,190 +1,98 @@
 "use strict";
 
-// TODO; June 26th, 2022 -
-/*
-
-| Reformat Class Dependencies
-  _Current dependencies are maintained as direct links to classes
-     Should be requesting throughput from parent classes
-  _This level of dependency breaks all sense of modular class development!!
-  _This pxlNav file should exist as the entry point to all classes.
-     The class requests should be handled through event emits, callbacks, or simply a method passing the class' request for a response
-| GUI callbacks arn't callbacks and some cases use eval() instead of a _callback array or new Function() creation
-| GUI div/span builds are currently hardcoded or limited to this. class functions
-  _Update GuiDraws to a base class and extended upon by the needs of the project with requires/imports and supers
-| CTA iframe execution should be derived from a server side + scene file value set per clickable object
-  _Currently any CTA is hardcoded, which should be built at a Room or Subroom level
-  _Server side data should be able to set these CTA callbacks / dictionary values
-| GUI Loader should be moved to stand alone class, imported, and created
-  _Don't have it auto generate in file. May be need for additional loading screens
-| Set FBX loader promise to actually control final loading of Loading Bar progress
-  _Scene objects should be visible before bar disappears and onboarding begins
-| There are an awful lot of listeners which could be onClick, onHover, onMouseOver, onMouseOut, etc.
-
-*/
-
-// TODO; December 22th, 2021 -
-//   (Retaining 12-22-21 for persistance)
-/*
-Classes Classes Classes Classes
-https://www.youtube.com/watch?v=rRm0NDo1CiY
-
-| Quick / Mid
-  _Walking Hiccup seems to be from a cap check after given time?
-  _Use Hardware Performance to elect Vector Value Easing where possible; QualityController Class
-    -Camera movement, button release, easing
-  _Motion Blur Pass
-    -Uncomment, check working status
-    -Include in blurComposer with the box blur pass
-      
-  _Controller Module
-    -User input current/prev values
-    -Positional / Mouse offsets
-  
-  _Scene Determined
-    -Draw Style; Post Processes
-  _Ray Caster Class
-    -Finish the Bary Caster Returner
-    -Handle Object Sets; collider axis checking; Room Oriented
-    
-  _Move more "response" based event functions to a subscription based exicution
-    -Custom listeners or object/function array
-    
-| Longer / Time Consuming
-  _Asset & Item Scene should include a default void scene; Voids
-    -This is NOT an interactive void
-    -This is Loading Screen / Room Crashed / Purgatory
-
-  _Consolidate the user data dang it!
-    -Gravity Rates and Items in User
-    -Height and Grav Influence is in Camera
-    -Name and Id set from Socket
-    
-    
-  _Create an Item Class; Item Types in Extends
-    -Limited? Forever? When in Possesion Only? (Droppable Items)
-    -Timer / Count Down, Init & Cleanup
-    -Target Object to Influence; User In Most Cases
-    -User Object Known All Known Items; Active Item Objects
-    -Add to Item Iterator on Step
-  -Allow Items to influence non User Objects
-  _Move Visual Effect Passes to a Class; Lizard King, Substrate, Major Tom
-    -Allow for Prep, Load, and Unload of Pass' Active Status
-      ie; Substrate needs to clear buffers on active state change
-      
-  _Split up camera.js into Extended Classes
-    -Base Class; It's a camera... Move Rotate
-    -User Movement Influence
-    -Network Updates, see below vvv
-  _User-Camera Network Updates should be handled in Networking Classes
-  _Load local FBX as Scene
-    ? Read from local disc after open FBX ??
-    
-| Niceties
-  _Generate Shader On Selected; button
-    -Make New Shader; Default Vert Frag
-    -Find connected textures on Diffuse and Transparency
-    -Interactive Selection; Item Highlight
-      Prob just dupe, scale up, yellow mtl, draw inside
-      
-  _Change Loader / Help / Hud Graphics & Style
-  _Change Settings Menu Graphics & Style
-      
-  _Dynamic File Loads / Unloads / Clean Up
-    -Part of this code is in Void's Express-Server
-    -Socket response file request
-    -Will remove dependency on set values on boot
-  _Memory Leak Monitor; Device.js
-    -Check dict entries from "this" object, scene usage, etc. on a random basis
-
-  _FBX Exporter
-    -Store FBX, create FBX for download
-    -Items; Position changes, values inf
-    -User Data; Colliders, Clickables, Hoverables
-*/
-
-
 import * as THREE from "../libs/three/build/three.module.js";
 import Stats from '../libs/three/examples/jsm/libs/stats.module.js';
 
 // pxlNav Environment, Controls, UI imports
 import * as PxlBase from './pxlBase/pxlBase.js';
-import { pxlShaders } from './pxlBase/gl/pxlShaders.js';
+import { pxlShaders } from './pxlBase/shaders/shaders.js';
 
+// Javascript Console Logging; bool
+//   Semi-implemented
+const verbose = 0;
 
-var projectTitle = "ProcStack";
+// The Title of your Project
+//   This will be displayed on the 
+const projectTitle = "ProcStack";
 
-var startingRoom="CampfireEnvironment"; // Current possible rooms - "VoidEnvironment", "CampfireEnvironment", & "CabinEnvironment"
-var verbose=0;
+// Current possible rooms - "VoidEnvironment", "CampfireEnvironment", & "CabinEnvironment"
+const startingRoom = "CampfireEnvironment"; 
 
-var mapCore="map-core";
+// Bool to load the environment asset fbx file;
+//   This is the included file with test pick-ups / assets
+//     ./Public/images/assets/EnvironmentAssets.fbx
+//     ./Public/images/assets/EnvironmentAssets_mobile.fbx
+//   For further information of each item & object,
+//     See pxlNav_docScripts/docs/
+const loadEnvAssetFile = true;
+
+const mapCore = "map-core"; // Name of DIV in Index
 var mapRenderTarget;
-var mapAutoQuality=1;
-var cloud3dTexture=null;
+var mapAutoQuality = 1; // Adjust quality to device's capability
+var cloud3dTexture = null;
 
-var assetRoot="images/assets/";
-var guiRoot="images/GUI/";
-var roomRoot="images/rooms/";
-var vidRoot="images/screenContent/";
+var assetRoot = "images/assets/";
+var guiRoot = "images/GUI/";
+var roomRoot = "images/rooms/";
+var vidRoot = "images/screenContent/";
 
 var mapW,mapH;
-var sW=window.innerWidth;
-var sH=window.innerHeight;
+var sW = window.innerWidth;
+var sH = window.innerHeight;
 
 var mobile = false;
 mobile = (/\b(BlackBerry|webOS|iPhone|IEMobile|Android|Windows Phone|iPad|iPod)\b/i.test(navigator.userAgent));
 
 
-const searchParms= new URLSearchParams(window.location.search);
+const searchParms = new URLSearchParams(window.location.search);
 
-const searchAuto= searchParms.get('auto');
-const autoCam= searchAuto!=null ? searchAuto : false;
-const searchMobile= searchParms.get('m');
-mobile= searchMobile!=null ? searchMobile : mobile;
-mobile = false;
+const searchAuto = searchParms.get('auto');
+const autoCam = searchAuto!=null ? searchAuto : false;
+const searchMobile = searchParms.get('m');
+mobile = searchMobile!=null ? searchMobile : mobile;
 
 // ## Reorder how modules handle what data
 //  Such a Klucking Fluster ...
-var pxlTimer=new PxlBase.Timer();
-var pxlCookie=new PxlBase.CookieManager( projectTitle, "/" );
+const pxlTimer=new PxlBase.Timer();
+const pxlCookie=new PxlBase.CookieManager( projectTitle, "/" );
 	if( pxlCookie.hasCookie("forceMobile") ){
 			mobile = pxlCookie.parseCookie("forceMobile");
 	}
-	
-var pxlQuality=new PxlBase.QualityController(pxlTimer, pxlCookie, mobile, searchParms);//mobile);
-var pxlUtils=new PxlBase.Utils(assetRoot, mobile, pxlTimer);
-var pxlFile=new PxlBase.FileIO(pxlUtils, pxlQuality, pxlTimer, assetRoot, guiRoot, roomRoot, vidRoot);
+
+// 
+const pxlQuality=new PxlBase.QualityController(pxlTimer, pxlCookie, mobile, searchParms);//mobile);
+const pxlUtils=new PxlBase.Utils(assetRoot, mobile, pxlTimer);
+const pxlFile=new PxlBase.FileIO(pxlUtils, pxlQuality, pxlTimer, assetRoot, guiRoot, roomRoot, vidRoot);
 
 	
-var pxlAudio=new PxlBase.Audio( pxlTimer );
-	var pxlAutoCam=new PxlBase.AutoCamera( autoCam, mobile, pxlTimer, pxlUtils, pxlAudio );
+const pxlAudio=new PxlBase.Audio( pxlTimer );
+const pxlAutoCam=new PxlBase.AutoCamera( autoCam, mobile, pxlTimer, pxlUtils, pxlAudio );
 	pxlFile.pxlAutoCam=pxlAutoCam;
-var pxlUser=new PxlBase.User();
+const pxlUser=new PxlBase.User();
 	
 	
-	
-var pxlEnv=new PxlBase.Environment( 'Default', mobile, pxlUtils, pxlTimer, pxlAudio, pxlFile, null, pxlUser, pxlQuality, pxlShaders, pxlAutoCam);
+const pxlEnv=new PxlBase.Environment( 'Default', mobile, pxlUtils, pxlTimer, pxlAudio, pxlFile, null, pxlUser, pxlQuality, pxlShaders, pxlAutoCam);
 	pxlUser.pxlEnv=pxlEnv;
 	pxlAudio.pxlEnv=pxlEnv;
 	pxlAutoCam.pxlEnv=pxlEnv;
 	window.pxlNav = pxlEnv;
 	
-var pxlDevice=new PxlBase.Device( projectTitle, mapCore, mobile, pxlTimer, pxlAutoCam, pxlAudio, pxlUser, pxlEnv, pxlQuality);
+const pxlDevice=new PxlBase.Device( projectTitle, mapCore, mobile, pxlTimer, pxlAutoCam, pxlAudio, pxlUser, pxlEnv, pxlQuality);
 	pxlAudio.pxlDevice=pxlDevice;
 	pxlQuality.pxlDevice=pxlDevice;
 	pxlAutoCam.pxlDevice=pxlDevice;
 	
-var pxlCamera=new PxlBase.Camera( pxlTimer, pxlAudio, pxlEnv, pxlUser, pxlUtils, pxlDevice, pxlQuality, pxlAutoCam);
+const pxlCamera=new PxlBase.Camera( pxlTimer, pxlAudio, pxlEnv, pxlUser, pxlUtils, pxlDevice, pxlQuality, pxlAutoCam);
 	pxlEnv.pxlCamera=pxlCamera;
 	pxlDevice.pxlCamera=pxlCamera;
 	pxlAutoCam.pxlCamera=pxlCamera;
 	
 	
-var pxlGuiDraws=new PxlBase.GuiDraws( projectTitle, pxlCookie, pxlTimer, pxlAudio, pxlUtils, pxlUser, pxlDevice, pxlCamera, pxlQuality, pxlFile, pxlEnv, assetRoot, guiRoot, pxlAutoCam );
-pxlAudio.pxlGuiDraws=pxlGuiDraws;
+const pxlGuiDraws=new PxlBase.GuiDraws( projectTitle, pxlCookie, pxlTimer, pxlAudio, pxlUtils, pxlUser, pxlDevice, pxlCamera, pxlQuality, pxlFile, pxlEnv, assetRoot, guiRoot, pxlAutoCam );
+	pxlAudio.pxlGuiDraws=pxlGuiDraws;
 	pxlCamera.pxlGuiDraws=pxlGuiDraws;
-pxlDevice.pxlGuiDraws=pxlGuiDraws;
-pxlEnv.pxlGuiDraws=pxlGuiDraws;
+	pxlDevice.pxlGuiDraws=pxlGuiDraws;
+	pxlEnv.pxlGuiDraws=pxlGuiDraws;
 	
 pxlEnv.pxlDevice=pxlDevice;
 pxlQuality.pxlEnv=pxlEnv;
@@ -461,9 +369,13 @@ function mapBootEngine(){
         if( mobile ){
             mobileSuffix="_mobile";
         }
-        let sceneFile=assetRoot+"EnvironmentAssets"+mobileSuffix+".fbx";
-        pxlFile.loadSceneFBX(sceneFile, textureList, transformList, verboseLoading,'EnvironmentAssets',[pxlEnv.scene]);
-
+				
+				if( loadEnvAssetFile ){
+					let sceneFile=assetRoot+"EnvironmentAssets"+mobileSuffix+".fbx";
+					// This is a separate fbx loaded specifically for the Environment Asset FBX
+					//   It opens up the found scene objects to easier global access
+					pxlFile.loadSceneFBX(sceneFile, textureList, transformList, verboseLoading,'EnvironmentAssets',[pxlEnv.scene]);
+				}
 
     ///////////////////////////////////////////////////
     // -- LIGHTS -- -- -- -- -- -- -- -- -- -- -- -- //

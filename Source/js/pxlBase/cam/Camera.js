@@ -165,7 +165,7 @@ export class Camera{
 			// Camera Service Worker - Ray Intersect Collision Detector
 			// TODO : Finish adding worker to check collision detection only
       if( false && Worker ){
-          worker = new Worker("js/pxlWorkers/CameraWorker.js");  
+          worker = new Worker("js/pxlBase/webWorkers/CameraWorker.js");  
           this.worker=worker;
           //this.workerList.push( worker );
       

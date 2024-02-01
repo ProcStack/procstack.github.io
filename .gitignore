@@ -13,6 +13,9 @@ Source/js/pxlRooms/CabinEnvironment
 Source/js/pxlRooms/VoidEnvironment
 pxlNav-*
 
+# Maya likes being Maya
+.mayaSwatches
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 

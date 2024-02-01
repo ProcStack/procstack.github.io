@@ -16,11 +16,19 @@ If you're running Windows, you'll need to have -
 
 #### Note about `pxlNav` -<br/>&nbsp;&nbsp;&nbsp;&nbsp;*November 16th, 2023*
 
+TL;DR - `pxlNav` entry point is -
+<br/>&nbsp;&nbsp;`./Source/js/pxlNav.js`
+
 I decided to release the `pxlNav` framework for `three.js` I wrote for use in the virtual event website `Antib0dy.club`,
 <br/>&nbsp;&nbsp;A site used during the height of the pandemic to throw multiplayer avitar filled virtual parties & dj album drops.
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;With live video feeds of our house dj and event dj, switched dynamically durring events.
 
-For `pxlNav` I wrote a first person navigation system, collision detection, camera-on-rail animation sequencer,
+
+<img src="_show/10_chatImplemented.png" alt="Antib0dy.club, using pxlNav with Three.js" style="margin-left:auto;margin-right:auto;"/>
+<div style="margin-left:auto;margin-right:auto;">(Antib0dy.Club, networking has been removed though)</div>
+
+
+For `pxlNav` I wrote a first person navigation system, collision detection, camera animation sequencer,
 <br/>&nbsp;&nbsp;An in-browser opengl vert/frag shader code text editor & compiler/refresher with keyboard shortcut regex commands,
 <br/>&nbsp;&nbsp;FBX 3d scene structure to allow for Maya/Blender directly into pxlNav with complete scene comprehension.
 

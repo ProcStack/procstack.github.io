@@ -1,3 +1,20 @@
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+// --   The Core pxlNav Engine File          --
+// --    -- -- -- -- -- -- -- --             --
+// --  Written by Kevin Edzenga; 2020-2024   --
+// --    Using Three.js as its backbone      --
+// --                                        --
+// --  The 'Environment' class manages       --
+// --    engine management & render stack    --
+// --  This is the class that interprets     --
+// --    the rooms found in -                --
+// --     ./Source/js/pxlRooms               --
+// --  To make a custom room,                --
+// --    See the 'templateRoom' project      --
+// --                                        --
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+
 import * as THREE from "../../libs/three/build/three.module.js";
 
 import { EffectComposer } from '../../libs/three/examples/jsm/postprocessing/EffectComposer.js';
@@ -8,6 +25,9 @@ import { CopyShader } from '../../libs/three/examples/jsm/shaders/CopyShader.js'
 // TODO : Remove all traces of bloom passes, implement Neurous Box Blur passes
 import { UnrealBloomPass } from '../../libs/three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { BloomPass } from '../../libs/three/examples/jsm/postprocessing/BloomPass.js';
+
+
+// TODO : This class needs breaking up into BaseEnvironment & MainEnvironment expand
 
 
 export class Environment{
@@ -188,69 +208,69 @@ export class Environment{
 			camFindInfoList:[]
 		};
 		
-        this.curUserCount=0;
-        this.prevUserCount=0;
-        
-        //%=
-        this.shaderSliderValues=new THREE.Vector3();
-        //%
+		this.curUserCount=0;
+		this.prevUserCount=0;
+		
+		//%=
+		this.shaderSliderValues=new THREE.Vector3();
+		//%
 	}
 	
 	// Function required
 	init(){
 		//this.setExposure( 0 );
-        let subList=Object.keys( this.roomSubList );
-        subList.forEach( (s)=>{
-            this.roomSubList[ s ].init();
-        });
+		let subList=Object.keys( this.roomSubList );
+		subList.forEach( (s)=>{
+				this.roomSubList[ s ].init();
+		});
 	}
     
 	boot(){
 		//this.pxlQuality.attachModule( this );
-    }
+	}
     
-    setBootRoom(bootRoom){
-        this.bootRoom=bootRoom;
-    }
+	setBootRoom(bootRoom){
+			this.bootRoom=bootRoom;
+	}
     
-    postBoot(){
-        
-        this.posted=true;
-        
-        this.buildSnow();
-        
-        if( this.pxlDevice.mobile || this.pxlAutoCam.enabled){
-            this.pxlAutoCam.toggleAutoCam();
-            this.fogMult.x = 1;
-            if( ! this.pxlAutoCam.enabled ){
-                this.pxlGuiDraws.toggleMobileWelcome(true);
-            }else{
-                this.postIntro=true;
-                this.pxlCamera.colliderValid=true;
-                this.pxlCamera.eventCheckStatus=true;
-                this.pxlCamera.colliderShiftActive=true;
-                this.pxlCamera.nearestFloorObjName="mobile";
-                this.pxlCamera.colliderCurObjHit="AudioTrigger_2";
-                this.pxlCamera.proximityScaleTrigger=true;
-                this.exposureShiftActive=true;
-                this.pxlAudio.setFadeActive( 1 );
-            }
-        }else{
-            this.pxlGuiDraws.iconEvent( "click", this.pxlGuiDraws.hudIcons.helpIcon, "help" );
-        }
-            
-        setTimeout( ()=>{
-            this.pxlAudio.postBoot();
-            
-            if( this.pxlDevice.mobile ){
-              this.pxlAudio.djPlayerMuteToggle(true);
-            }
-            
-            if(this.pxlVideo){
-              this.pxlVideo.postBoot('dj');
-            }
-            
-        }, 1000);
+	postBoot(){
+			
+			this.posted=true;
+			
+			this.buildSnow();
+			
+			if( this.pxlDevice.mobile || this.pxlAutoCam.enabled){
+					this.pxlAutoCam.toggleAutoCam();
+					this.fogMult.x = 1;
+					if( ! this.pxlAutoCam.enabled ){
+							this.pxlGuiDraws.toggleMobileWelcome(true);
+					}else{
+							this.postIntro=true;
+							this.pxlCamera.colliderValid=true;
+							this.pxlCamera.eventCheckStatus=true;
+							this.pxlCamera.colliderShiftActive=true;
+							this.pxlCamera.nearestFloorObjName="mobile";
+							this.pxlCamera.colliderCurObjHit="AudioTrigger_2";
+							this.pxlCamera.proximityScaleTrigger=true;
+							this.exposureShiftActive=true;
+							this.pxlAudio.setFadeActive( 1 );
+					}
+			}else{
+					this.pxlGuiDraws.iconEvent( "click", this.pxlGuiDraws.hudIcons.helpIcon, "help" );
+			}
+					
+			setTimeout( ()=>{
+					this.pxlAudio.postBoot();
+					
+					if( this.pxlDevice.mobile ){
+						this.pxlAudio.djPlayerMuteToggle(true);
+					}
+					
+					if(this.pxlVideo){
+						this.pxlVideo.postBoot('dj');
+					}
+					
+			}, 1000);
 	}
     
     postHelpIntro(){
@@ -282,67 +302,44 @@ export class Environment{
     
 	step(){
         
-        // ## Should just have a stepper system set up...
-        //      Easier for modular installations
-        this.pxlTimer.step();
-        this.pxlAudio.step();
-        this.pxlQuality.step();
-        if( this.pxlAutoCam.step() ){
-            this.pxlCamera.step();
-        }
-        this.pxlGuiDraws.step();
+		// ## Should just have a stepper system set up...
+		//      Easier for modular installations
+		this.pxlTimer.step();
+		this.pxlAudio.step();
+		this.pxlQuality.step();
+		if( this.pxlAutoCam.step() ){
+				this.pxlCamera.step();
+		}
+		this.pxlGuiDraws.step();
 
 		this.stepWarpPass();
         
-        if( this.pxlTimer.msRunner.x > this.checkContext && this.activeContext ){
-            this.checkContext=this.pxlTimer.msRunner.x+1;
-            let tmpCanvas=document.createElement('canvas');
-            try{
-                let ctxVal=!!tmpCanvas.getContext('webgl');
-            }catch(err){
-                this.activeContext=true;
-                this.pxlGuiDraws.mapCanvas.style.display='none';
-            }
-        }
-        
-        if( this.pxlDevice.mobile && this.exposureShiftActive ){
+		if( this.pxlTimer.msRunner.x > this.checkContext && this.activeContext ){
+			this.checkContext=this.pxlTimer.msRunner.x+1;
+			let tmpCanvas=document.createElement('canvas');
+			try{
+				let ctxVal=!!tmpCanvas.getContext('webgl');
+			}catch(err){
+				this.activeContext=true;
+				this.pxlGuiDraws.mapCanvas.style.display='none';
+			}
+		}
+		
+		if( this.pxlDevice.mobile && this.exposureShiftActive ){
 			//this.pxlCamera.colliderShiftActive=!(this.pxlCamera.colliderAdjustPerc==1 || this.pxlCamera.colliderAdjustPerc==0);
-            
 			//this.updateCompUniforms(curExp);
-        }
-        
+		}
 	}
 	
 	// Function required, stoping functions
 	async stop(){
 		this.setExposure( 0 );
-        let subList=Object.keys( this.roomSubList );
-        subList.forEach( (s)=>{
-            this.roomSubList[ s ].stop();
-        });
+		let subList=Object.keys( this.roomSubList );
+		subList.forEach( (s)=>{
+			this.roomSubList[ s ].stop();
+		});
 	}
 	
-	// Room scripts
-    /*
-	var voidEnv=null;
-	if( typeof(VoidEnvironment) == "function" ){//&& !mobile && !pxlAutoCam.enabled){
-		voidEnv=new VoidEnvironment("Void", "./js/pxlRooms/voidEnvironment/", pxlFile, pxlUtils, pxlDevice, pxlEnv, pxlTimer.msRunner);
-		pxlGuiDraws.pxlLoaderTotal+=1;
-        newRoomList.push( voidEnv );
-	}
-	var basementEnv=null;
-	if( typeof(BasementEnvironment) == "function" ){//&& !mobile && !pxlAutoCam.enabled){
-		basementEnv=new BasementEnvironment("Basement", "./js/pxlRooms/basementEnvironment/", pxlFile, pxlUtils, pxlDevice, pxlEnv, pxlTimer.msRunner);
-		pxlGuiDraws.pxlLoaderTotal+=1;
-        newRoomList.push( basementEnv );
-	}
-	var oceanTurbEnv=null;
-	if( typeof(OceanTurbineEnvironment) == "function" ){//&& !mobile && !pxlAutoCam.enabled){
-		oceanTurbEnv=new OceanTurbineEnvironment("OceanTurbine", "./js/pxlRooms/oceanTurbineEnvironment/", pxlFile, pxlUtils, pxlDevice, pxlEnv, pxlTimer.msRunner);
-		pxlGuiDraws.pxlLoaderTotal+=1;
-        newRoomList.push( oceanTurbEnv );
-	}
-    */
   loadRoom(roomName){
     return new Promise( (resolve, reject) =>{
       console.log("loading room", roomName);
@@ -381,6 +378,8 @@ export class Environment{
         roomObj.scene.renderTarget.depthTexture.type=THREE.UnsignedShortType;
         
         // World Pos Target
+				//   Remains from a Portal Room Snapshot Display system
+				//     Would be desired tech, but needs re-implementation
         // roomObj.scene.renderWorldPos=new THREE.WebGLRenderTarget( this.pxlDevice.sW*this.pxlQuality.screenResPerc, this.pxlDevice.sH*this.pxlQuality.screenResPerc,options);
         // roomObj.scene.renderWorldPos.texture.format=THREE.RGBAFormat;
         // roomObj.scene.renderWorldPos.texture.minFilter=THREE.NearestFilter;
@@ -465,70 +464,70 @@ export class Environment{
 	}
 	
 	getArtistInfo(){
-        return null;
-    }
+		return null;
+	}
     
   setFogHue( orig=[0,0], rot=[1,1] ){
-      let hsl=this.fog.color.getHSL();
+		let hsl=this.fog.color.getHSL();
 
-      let atanVals=[ rot[0]-orig[0], rot[1]-orig[1] ];
-      //let scalar=(atanVals[0]+atanVals[1]);
-      //atanVals= [ atanVals[0]/scalar, atanVals[0]/scalar ]
-      let hRot=Math.abs(Math.atan2( atanVals[0], atanVals[1] ) * 0.3183098861837907 ); // 1/pi
-      
-      let scale= (atanVals[0]**2+atanVals[1]**2)**.5 / Math.max(this.pxlDevice.sW, this.pxlDevice.sH);
-      this.fog.color.setHSL( hRot, scale*.5+.3, scale*.5 );
-      
-      if( this.roomSceneList[this.currentRoom] && this.roomSceneList[this.currentRoom].setFog ){
-        this.roomSceneList[this.currentRoom].setFog( this.fog.color );
-      }
+		let atanVals=[ rot[0]-orig[0], rot[1]-orig[1] ];
+		//let scalar=(atanVals[0]+atanVals[1]);
+		//atanVals= [ atanVals[0]/scalar, atanVals[0]/scalar ]
+		let hRot=Math.abs(Math.atan2( atanVals[0], atanVals[1] ) * 0.3183098861837907 ); // 1/pi
+		
+		let scale= (atanVals[0]**2+atanVals[1]**2)**.5 / Math.max(this.pxlDevice.sW, this.pxlDevice.sH);
+		this.fog.color.setHSL( hRot, scale*.5+.3, scale*.5 );
+		
+		if( this.roomSceneList[this.currentRoom] && this.roomSceneList[this.currentRoom].setFog ){
+			this.roomSceneList[this.currentRoom].setFog( this.fog.color );
+		}
   }
     
 	//%=
 	// Return Primary Shader Material
 	readShader( objShader="" ){
-        if( objShader=="script_fog" ){
-            this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
-            
-            if(this.mapOverlayHeavyPass.enabled==true){
-                return this.mapOverlayHeavyPass.material ;
-            }else if(this.mapOverlayPass.enabled==true){
-                return this.mapOverlayPass.material ;
-            }else if(this.mapOverlaySlimPass.enabled==true){
-                return this.mapOverlaySlimPass.material ;
-            }
-        }else if( objShader=="script_dArrows" ){
-            this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
+		if( objShader=="script_fog" ){
+			this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
+				
+			if(this.mapOverlayHeavyPass.enabled==true){
+				return this.mapOverlayHeavyPass.material ;
+			}else if(this.mapOverlayPass.enabled==true){
+				return this.mapOverlayPass.material ;
+			}else if(this.mapOverlaySlimPass.enabled==true){
+				return this.mapOverlaySlimPass.material ;
+			}
+		}else if( objShader=="script_dArrows" ){
+			this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
 			return this.geoList[ "dArrows" ][0].material;
-        }else if( objShader=="script_userScreens" ){
-            this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
+		}else if( objShader=="script_userScreens" ){
+			this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
 			return this.camScreenData.screenGeoList[0].material;
-        }else if( objShader=="script_warpZonePortals" ){
-            this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
-            return this.returnPortalGlowList[0].material;
-            
-        }else if( objShader=="script_lizardking" ){
-            this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
-            return this.lizardKingPass.material;
-        }else if( objShader=="script_majorTom" ){
-            this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
-            return this.pxlUser.sFieldPass.material;
-        }else if( objShader=="script_fractalSubstrate" ){
-            this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
-            return this.pxlUser.iZoomPass.material;
-        }else if( objShader=="script_fractalEcho" ){
-            this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
-            return this.delayPass.material;
-            
-        }else{
-            let geoRead=objShader.split("_");
-            geoRead.shift();
-            geoRead=geoRead.join("_");
-            if( this.geoList[ geoRead ] ){
-                this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
-                return this.geoList[ geoRead ].material ;
-            }
-        }
+		}else if( objShader=="script_warpZonePortals" ){
+			this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
+			return this.returnPortalGlowList[0].material;
+				
+		}else if( objShader=="script_lizardking" ){
+			this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
+			return this.lizardKingPass.material;
+		}else if( objShader=="script_majorTom" ){
+			this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
+			return this.pxlUser.sFieldPass.material;
+		}else if( objShader=="script_fractalSubstrate" ){
+			this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
+			return this.pxlUser.iZoomPass.material;
+		}else if( objShader=="script_fractalEcho" ){
+			this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
+			return this.delayPass.material;
+				
+		}else{
+			let geoRead=objShader.split("_");
+			geoRead.shift();
+			geoRead=geoRead.join("_");
+			if( this.geoList[ geoRead ] ){
+					this.pxlGuiDraws.guiWindows["shaderGui"].currentShader=objShader;
+					return this.geoList[ geoRead ].material ;
+			}
+		}
         
         
 		//return this.pxlUser.sFieldPass.material;
@@ -633,7 +632,7 @@ export class Environment{
 			intensity:{type:"f",value:1.0},
 			rate:{type:"f",value:.035},
 		};
-        let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, this.pxlShaders.snowVert( this.mobile ), this.pxlShaders.snowFrag() );
+        let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, this.pxlShaders.particles.snowVert( this.mobile ), this.pxlShaders.particles.snowFrag() );
 		mtl.side=THREE.DoubleSide;
         mtl.transparent=true;
         mtl.blending=THREE.AdditiveBlending;
@@ -657,14 +656,14 @@ export class Environment{
         Object.assign( bgUniforms, customUniforms );
         
         if( bgVert==null || typeof(bgVert)!="string"){
-            bgVert=this.pxlShaders.bgScreenVert();
+            bgVert=this.pxlShaders.scene.bgScreenVert();
         }
         if( bgFrag==null || typeof(bgFrag)!="string"){
-            bgFrag=this.pxlShaders.bgScreenFrag();
+            bgFrag=this.pxlShaders.scene.bgScreenFrag();
         }
         
         let mtl = this.pxlFile.pxlShaderBuilder( bgUniforms, bgVert, bgFrag );
-		mtl.side=THREE.DoubleSide;
+				mtl.side=THREE.DoubleSide;
         mtl.depthTest=true;
         mtl.depthWrite=false;
         //mtl.transparent=true;
@@ -852,8 +851,8 @@ export class Environment{
 				camNear: { type:"f", value: this.pxlCamera.camera.near },
 				camFar: { type:"f", value: this.pxlCamera.camera.far }
 			},
-			vertexShader: this.pxlShaders.worldPositionVert(),
-			fragmentShader: this.pxlShaders.worldPositionFrag()
+			vertexShader: this.pxlShaders.rendering.worldPositionVert(),
+			fragmentShader: this.pxlShaders.rendering.worldPositionFrag()
 		});
 		//this.mapWorldPosMaterial.side=THREE.DoubleSide;
 		this.mapWorldPosMaterial.side=THREE.FrontSide;
@@ -872,8 +871,8 @@ export class Environment{
           pDiffuse: { value: this.scene.renderGlowTarget.texture },
           resUV: { value: this.pxlDevice.screenRes },
         },
-        vertexShader: this.pxlShaders.defaultVert(),
-        fragmentShader: this.pxlShaders.directionalBlurPass( "pDiffuse", [1,0], 14, 1.8 ),
+        vertexShader: this.pxlShaders.core.defaultVert(),
+        fragmentShader: this.pxlShaders.rendering.directionalBlurPass( "pDiffuse", [1,0], 14, 1.8 ),
         defines: {}
       } ), "tDiffuse"
     );
@@ -895,8 +894,8 @@ export class Environment{
           pDiffuse: { value: this.scene.renderGlowTarget.texture },
           resUV: { value: this.pxlDevice.screenRes },
         },
-        vertexShader: this.pxlShaders.defaultVert(),
-        fragmentShader: this.pxlShaders.directionalBlurPass( "pDiffuse", [0,1], 14, 1.3 ),
+        vertexShader: this.pxlShaders.core.defaultVert(),
+        fragmentShader: this.pxlShaders.rendering.directionalBlurPass( "pDiffuse", [0,1], 14, 1.3 ),
         defines: {}
       } ), "tDiffuse"
     );
@@ -912,8 +911,8 @@ export class Environment{
           pDiffuse: { value: this.scene.renderGlowTarget.texture },
           resUV: { value: this.pxlDevice.screenRes },
         },
-        vertexShader: this.pxlShaders.defaultVert(),
-        fragmentShader: this.pxlShaders.mixBlurShaderPass(),
+        vertexShader: this.pxlShaders.core.defaultVert(),
+        fragmentShader: this.pxlShaders.rendering.mixBlurShaderPass(),
         defines: {}
       } ), "tDiffuse"
     );
@@ -942,8 +941,8 @@ export class Environment{
 					blurDirPrev:{ type:'f',value:this.blurDirPrev },
 					noiseTexture: { value: this.cloud3dTexture },
 				},
-				vertexShader: this.pxlShaders.defaultVert(),
-				fragmentShader: this.pxlShaders.motionBlurPostProcess(this.pxlDevice.screenRes,this.pxlDevice.mobile),
+				vertexShader: this.pxlShaders.core.defaultVert(),
+				fragmentShader: this.pxlShaders.rendering.motionBlurPostProcess(this.pxlDevice.screenRes,this.pxlDevice.mobile),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -969,8 +968,8 @@ export class Environment{
 					mtDiffuse: { value: this.scene.renderTarget.texture },
 					exposure:{type:"f",value:this.pxlRenderSettings.exposure}
 				},
-				vertexShader: this.pxlShaders.defaultVert(),
-				fragmentShader: this.pxlShaders.compLayersPostProcess(),
+				vertexShader: this.pxlShaders.core.defaultVert(),
+				fragmentShader: this.pxlShaders.rendering.compLayersPostProcess(),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -1012,8 +1011,8 @@ export class Environment{
 					proximityMult: { value: 1 },
 					//bloomTexture: { value: this.mapComposerMotionBlur.renderTarget2.texture }
 				},
-				vertexShader: this.pxlShaders.defaultVert(),
-				fragmentShader: this.pxlShaders.finalOverlayHeavyShader(),
+				vertexShader: this.pxlShaders.core.defaultVert(),
+				fragmentShader: this.pxlShaders.rendering.finalOverlayHeavyShader(),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -1037,8 +1036,8 @@ export class Environment{
 					proximityMult: { value: 1 },
 					//bloomTexture: { value: this.mapComposerMotionBlur.renderTarget2.texture }
 				},
-				vertexShader: this.pxlShaders.defaultVert(),
-				fragmentShader: this.pxlShaders.finalOverlayShader(),
+				vertexShader: this.pxlShaders.core.defaultVert(),
+				fragmentShader: this.pxlShaders.rendering.finalOverlayShader(),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -1060,8 +1059,8 @@ export class Environment{
 					proximityMult: { value: 1 },
 					//bloomTexture: { value: this.mapComposerMotionBlur.renderTarget2.texture }
 				},
-				vertexShader: this.pxlShaders.defaultVert(),
-				fragmentShader: this.pxlShaders.finalOverlaySlimShader(),
+				vertexShader: this.pxlShaders.core.defaultVert(),
+				fragmentShader: this.pxlShaders.rendering.finalOverlaySlimShader(),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -1078,8 +1077,8 @@ export class Environment{
 					rDiffuse: { value: this.scene.renderGlowTarget.texture },
 					sceneDepth: { value: this.scene.renderTarget.depthTexture },
 				},
-				vertexShader: this.pxlShaders.defaultVert(),
-				fragmentShader: this.pxlShaders.glowPassPostProcess(),
+				vertexShader: this.pxlShaders.core.defaultVert(),
+				fragmentShader: this.pxlShaders.rendering.glowPassPostProcess(),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -1109,8 +1108,8 @@ export class Environment{
 					ratio: { value: this.pxlDevice.screenRes },
 					noiseTexture: { value: this.cloud3dTexture },
 				},
-				vertexShader: this.pxlShaders.defaultVert(),
-				fragmentShader: this.pxlShaders.lKingPostProcess(),
+				vertexShader: this.pxlShaders.core.defaultVert(),
+				fragmentShader: this.pxlShaders.rendering.lKingPostProcess(),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -1127,8 +1126,8 @@ export class Environment{
 					noiseTexture: { value: this.cloud3dTexture },
 					starTexture: { value: this.pxlUtils.loadTexture(this.pxlUtils.assetRoot+"starNoise_1k.jpg") },
 				},
-				vertexShader: this.pxlShaders.sFieldPostProcessVert(),
-				fragmentShader: this.pxlShaders.sFieldPostProcessFrag(),
+				vertexShader: this.pxlShaders.rendering.sFieldPostProcessVert(),
+				fragmentShader: this.pxlShaders.rendering.sFieldPostProcessFrag(),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -1144,8 +1143,8 @@ export class Environment{
 					ratio: { value: this.pxlDevice.screenRes },
 					noiseTexture: { value: this.cloud3dTexture },
 				},
-				vertexShader: this.pxlShaders.defaultVert(),
-				fragmentShader: this.pxlShaders.iZoomPostProcess(),
+				vertexShader: this.pxlShaders.core.defaultVert(),
+				fragmentShader: this.pxlShaders.rendering.iZoomPostProcess(),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -1163,8 +1162,8 @@ export class Environment{
 					chroAberUVTexture: { value: this.chroAberUVTexture },
 					lKing: { value: this.pxlUser.lKingWarp },
 				},
-				vertexShader: this.pxlShaders.defaultVert(),
-				fragmentShader: this.pxlShaders.chroAberPostProcess(),
+				vertexShader: this.pxlShaders.core.defaultVert(),
+				fragmentShader: this.pxlShaders.rendering.chroAberPostProcess(),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -1186,8 +1185,8 @@ export class Environment{
 					animTexture: { value: this.blockAnimTexture  },
 					//bloomTexture: { value: this.mapComposerMotionBlur.renderTarget2.texture }
 				},
-				vertexShader: this.pxlShaders.camPosVert(),
-				fragmentShader: this.pxlShaders.warpPostProcess(),
+				vertexShader: this.pxlShaders.core.camPosVert(),
+				fragmentShader: this.pxlShaders.rendering.warpPostProcess(),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -1204,8 +1203,8 @@ export class Environment{
 					ratio:{ type:'f',value: 1 },
 					gamma:{type:"f",value:this.pxlDevice.gammaCorrection},
 				},
-				vertexShader: this.pxlShaders.camPosVert(),
-				fragmentShader: this.pxlShaders.boxAntiAliasPass(),
+				vertexShader: this.pxlShaders.core.camPosVert(),
+				fragmentShader: this.pxlShaders.rendering.boxAntiAliasPass(),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -1221,8 +1220,8 @@ export class Environment{
 					ratio:{ type:'f',value: 1 },
 					gamma:{type:"f",value:this.pxlDevice.gammaCorrection},
 				},
-				vertexShader: this.pxlShaders.camPosVert(),
-				fragmentShader: this.pxlShaders.crossAntiAliasPass(),
+				vertexShader: this.pxlShaders.core.camPosVert(),
+				fragmentShader: this.pxlShaders.rendering.crossAntiAliasPass(),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -1271,8 +1270,8 @@ export class Environment{
 					rDiffuse: { value: this.blurComposer.renderTarget2.texture },
 					sceneDepth: { value: this.scene.renderTarget.depthTexture },
 				},
-				vertexShader: this.pxlShaders.defaultVert(),
-				fragmentShader: this.pxlShaders.glowPassPostProcess(),
+				vertexShader: this.pxlShaders.core.defaultVert(),
+				fragmentShader: this.pxlShaders.rendering.glowPassPostProcess(),
 				defines: {}
 			} ), "tDiffuse"
 		);
@@ -1308,8 +1307,8 @@ export class Environment{
 					tDiffusePrev: { value: this.mapComposer.renderTarget1.texture },
 					tDiffusePrevRoom: { value: this.roomComposer.renderTarget1.texture },
 				},
-				vertexShader: this.pxlShaders.defaultVert(),
-				fragmentShader: this.pxlShaders.textureStorePass(),
+				vertexShader: this.pxlShaders.core.defaultVert(),
+				fragmentShader: this.pxlShaders.rendering.textureStorePass(),
 				defines: {}
 			} ), "tDiffuse"
 		);
