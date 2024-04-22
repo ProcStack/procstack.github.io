@@ -1,9 +1,12 @@
-# procstack.github.io
+# procstack.github.io / pxlNav
 ### NodeJS app with pxlNav navigation framework for three.js
 
 #### Metown USA, baby!
 
 Kevin Edzenga's web dev & shader resume site
+
+*Temporary holdover for `pxlNav` until I implement the third-person controller & code clean up / commenting,*
+<br/>&nbsp; *I'll created a `pxlNav` repo when complete*
 
 ## 
 
