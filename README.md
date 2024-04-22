@@ -6,7 +6,13 @@
 Kevin Edzenga's web dev & shader resume site
 
 *Temporary holdover for `pxlNav` until I implement the third-person controller & code clean up / commenting,*
-<br/>&nbsp; *I'll created a `pxlNav` repo when complete*
+<br/>&nbsp;&nbsp;*I'll created a `pxlNav` repo when complete*
+
+## 
+
+Too Long; Not Gonna Read -
+<br/>&nbsp;&nbsp;`pxlNav` entry point is -
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;`./Source/js/pxlNav.js`
 
 ## 
 
@@ -18,9 +24,6 @@ If you're running Windows, you'll need to have -
 ##
 
 #### Note about `pxlNav` -<br/>&nbsp;&nbsp;&nbsp;&nbsp;*November 16th, 2023*
-
-TL;DR - `pxlNav` entry point is -
-<br/>&nbsp;&nbsp;`./Source/js/pxlNav.js`
 
 I decided to release the `pxlNav` framework for `three.js` I wrote for use in the virtual event website `Antib0dy.club`,
 <br/>&nbsp;&nbsp;A site used during the height of the pandemic to throw multiplayer avitar filled virtual parties & dj album drops.
