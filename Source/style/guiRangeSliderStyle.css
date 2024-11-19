@@ -8,6 +8,7 @@ input[type='range'] {
 	z-index:4;
 	color: #ffffff;
 	cursor: pointer;
+	padding:9px 2px;
 	width:var(--gui-slider-width);
 	border:2px solid #FFFFFF;
 	border-radius: var(--gui-slider-thumb-dia);

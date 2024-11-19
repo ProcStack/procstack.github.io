@@ -1,6 +1,9 @@
- Antib0dy.Club Room Template
+ Antib0dy.Club Room Template Info
    (Running through pxlNav, the engine built upon THREE.js)
  
+ 
+ ***This file is a Work-In-Progress***
+ *Please see the `pxlRooms/CampfireEnvironment` for a complete `pxlNav` room example*
  
  
  

@@ -1,6 +1,6 @@
 
-import {shaderHeader} from "../../pxlBase/shaders/core/ShaderHeader.js";
-import * as THREE from "../../../libs/three/build/three.module.js";
+import {shaderHeader} from "../../pxlNav/shaders/core/ShaderHeader.js";
+import * as THREE from "../../libs/three/three.module.js";
 
 ///////////////////////////////////////////////////////////
 // Snow Shaders                                         //
@@ -8,8 +8,8 @@ import * as THREE from "../../../libs/three/build/three.module.js";
 
 
 export function envGroundVert(){
-	//let ret=shaderHeader();
-	let ret=`
+  let ret=shaderHeader();
+  ret+=`
     
     varying vec2 vUv;
     varying vec3 vPos;
@@ -40,13 +40,13 @@ export function envGroundVert(){
         ${THREE.ShaderChunk[ "shadowmap_vertex" ]}
         
     }`;
-	return ret;
+  return ret;
 }
 
 // Shadow Map Code Used From Three.JS; shadowmap_pars_fragment
 export function envGroundFrag(){
-	//let ret=shaderHeader();
-	let ret=`
+  let ret=shaderHeader();
+  ret+=`
         
     uniform sampler2D diffuse;
     uniform sampler2D dirtDiffuse;
@@ -212,7 +212,7 @@ export function envGroundFrag(){
             lightInf *=  1.0-min(1.0, length(vPos - pointLights[i].position) * pointLights[i].decay*.006 );
             lights.rgb += lightInf;
         }
-				#pragma unroll_loop_end
+        #pragma unroll_loop_end
         Cd.rgb *= lights.rgb*.8+.2;
         
         float shadowInf = 0.0;
@@ -225,7 +225,7 @@ export function envGroundFrag(){
             lShadow = getPointShadow( pointShadowMap[i], pointLightShadows[i].shadowMapSize, pointLightShadows[i].shadowBias, pointLightShadows[i].shadowRadius, vPointShadowCoord[i], pointLightShadows[i].shadowCameraNear, pointLightShadows[i].shadowCameraFar );
             shadowInf = max( lShadow, shadowInf);
         }
-				#pragma unroll_loop_end
+        #pragma unroll_loop_end
         
         Cd.rgb*=(shadowInf*.7+.3);
         
@@ -236,7 +236,7 @@ export function envGroundFrag(){
             vec3 lightInf= ( max(0.0, dot(directionalLights[i].direction, reflect( normalize(pos), vN ) ))*.65) * directionalLights[i].color;
             lights.rgb += lightInf*.3;
         }
-				#pragma unroll_loop_end
+        #pragma unroll_loop_end
         Cd.rgb += lights.rgb*baseDirtNoise;
         
         float shade = clamp(dot(vN, reflect( normalize(vPos), vN ))+depthFade, 0.0, 1.0 );
@@ -244,7 +244,7 @@ export function envGroundFrag(){
         
         gl_FragColor=Cd;
     }`;
-	return ret;
+  return ret;
 }
 
 
@@ -253,8 +253,8 @@ export function envGroundFrag(){
 
 
 export function campfireLogVert(){
-	//let ret=shaderHeader();
-	let ret=`
+  //let ret=shaderHeader();
+  let ret=`
     uniform vec2 time;
     uniform float intensity;
     uniform float rate;
@@ -296,12 +296,12 @@ export function campfireLogVert(){
         vPosW = position.xyz;
         
     }`;
-	return ret;
+  return ret;
 }
 
 export function campfireLogFrag(){
-	//let ret=shaderHeader();
-	let ret=`
+  //let ret=shaderHeader();
+  let ret=`
     
     uniform vec2 time;
     uniform float intensity;
@@ -338,7 +338,7 @@ export function campfireLogFrag(){
         
         gl_FragColor=Cd;
     }`;
-	return ret;
+  return ret;
 }
 
 
@@ -360,8 +360,8 @@ export function campfireLogFrag(){
     
     
 export function forceFieldVert(){
-	//let ret=shaderHeader();
-	let ret=`
+  //let ret=shaderHeader();
+  let ret=`
     uniform vec2 time;
     uniform float baseCd;
     uniform sampler2D noiseTexture;
@@ -404,12 +404,12 @@ export function forceFieldVert(){
         vPosW = position.xyz;
         
     }`;
-	return ret;
+  return ret;
 }
 
 export function forceFieldFrag(){
-	//let ret=shaderHeader();
-	let ret=`
+  //let ret=shaderHeader();
+  let ret=`
     
     uniform sampler2D noiseTexture;
         
@@ -472,6 +472,6 @@ export function forceFieldFrag(){
         
         gl_FragColor=Cd;
     }`;
-	return ret;
+  return ret;
 }
 

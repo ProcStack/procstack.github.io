@@ -25,13 +25,12 @@
 	z-index:150;
 }
 .pxlLoaderTitle{
-	font-size:1.12em;
-  font-variant: small-caps;
+	font-size:1.27em;
 }
 .loadStyleParent{
 	width:200px;
 	height:20px;
-	margin:5px;
+	margin:15px;
 }
 .loadStyle{
     width: 100%;
@@ -47,7 +46,7 @@
     border: 2px solid #ffffff;
     position: relative;
     height: 100%;
-    top: -24px;
+    top: -24;
 }
 
 

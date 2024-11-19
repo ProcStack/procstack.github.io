@@ -1,21 +1,36 @@
 {
-  "name": "metal-asylum-productions",
+  "name": "procstack-github-io",
   "version": "1.0.0",
-  "description": "Metal Asylum Productions by Kevin Edzenga",
+  "description": "ProcStack's git.io by Kevin Edzenga",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "live": "cross-env NODE_ENV=production node index.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js"
+    "build": "cross-env NODE_ENV=production webpack --config ./packing/webpack.config.js",
+    "deploy" : "gh-pages -d dist"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ProcStack/procstack.github.io.git"
+  },
+  "keywords": [
+    "procstack",
+    "Kevin Edzenga",
+    "Edzenga",
+    "pxlNav",
+    "player controller",
+    "webgl"
+  ],
   "author": "Kevin Edzenga",
-  "license": "ISC",
+  "license": "GNU",
+  "homepage": "https://procstack.github.io",
   "dependencies": {
     "babelify": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "http": "0.0.1-security",
+    "path": "^0.12.7",
     "regenerator-runtime": "^0.13.9",
     "three": "^0.133.1"
   },
@@ -35,6 +50,7 @@
     "cross-env": "^7.0.2",
     "css-loader": "^5.0.1",
     "file-loader": "^6.2.0",
+    "gh-pages": "^6.2.0",
     "string-replace-loader": "^3.0.1",
     "webpack": "^5.9.0",
     "webpack-cli": "^4.2.0"

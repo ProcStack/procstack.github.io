@@ -7,27 +7,27 @@ import {shaderHeader} from "../../pxlBase/shaders/core/ShaderHeader.js";
 
 
 export function templateVert(){
-	let ret=shaderHeader();
-	ret+=`
-	varying vec2 vUv;
-	void main(){
-		vUv=uv;
-		vec4 modelViewPosition=modelViewMatrix * vec4(position, 1.0);
-		gl_Position = projectionMatrix * modelViewPosition;
-	}`;
-	return ret;
+  let ret=shaderHeader();
+  ret+=`
+  varying vec2 vUv;
+  void main(){
+    vUv=uv;
+    vec4 modelViewPosition=modelViewMatrix * vec4(position, 1.0);
+    gl_Position = projectionMatrix * modelViewPosition;
+  }`;
+  return ret;
 }
 
 
 export function templateFrag(){
-	let ret=shaderHeader();
-	ret+=`
-		uniform sampler2D tDiffuse;
-		varying vec2 vUv;
-		
-		void main() {
-			vec4 Cd = texture2D( tDiffuse, vUv );
-			gl_FragColor = Cd;
-		}`;
-	return ret;
+  let ret=shaderHeader();
+  ret+=`
+    uniform sampler2D tDiffuse;
+    varying vec2 vUv;
+    
+    void main() {
+      vec4 Cd = texture2D( tDiffuse, vUv );
+      gl_FragColor = Cd;
+    }`;
+  return ret;
 }
