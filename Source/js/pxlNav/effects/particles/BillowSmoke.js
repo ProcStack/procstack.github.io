@@ -36,7 +36,7 @@ export class BillowSmoke extends ParticleBase{
       time:{type:"f",value: this.room.msRunner },
       pointScale:{type:"f",value: this.pscale },
       intensity:{type:"f",value:0.8},
-      rate:{type:"f",value:1.0}
+      rate:{type:"f",value:2.0}
     };
     
     let mtl = this.room.pxlFile.pxlShaderBuilder( dustUniforms, smokeVert(), smokeFrag() );

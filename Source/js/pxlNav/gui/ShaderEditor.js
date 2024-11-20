@@ -23,6 +23,14 @@ export class ShaderEditor {
     
     this.shaderSliderValues=new Vector3();
 
+    // 'min' for when you click off the editor window itself; into the pxlNav canvas
+    // 'max' for when you click into a field to edit
+    //   Values are in `uw` units; for easy scaling
+    this.editorWidthMinMax = {
+      "min": 30,
+      "max": 70
+    };
+
   }
   
   addSlider(parentObj, label, val, min, max, step, callback, args){
@@ -107,19 +115,23 @@ export class ShaderEditor {
         curType = typeof(roomShader.uniforms[x].value)
         
         if( curType == "object"){
-        curType=""
-        if("image" in roomShader.uniforms[x].value){
-          curType = "sampler2D";
+          curType=""
+          let curVal = roomShader.uniforms[x].value;
+          if(!curVal){
+            continue;
+          }
+          if("image" in roomShader.uniforms[x].value){
+            curType = "sampler2D";
+          }else{
+            curType = curType + "vec" + (Object.keys(roomShader.uniforms[x].value).length);
+          }
         }else{
-          curType = curType + "vec" + (Object.keys(roomShader.uniforms[x].value).length);
-        }
-        }else{
-        if( typeDict.hasOwnProperty( roomShader.uniforms[x].type ) ){
-          curType = roomShader.uniforms[x].type=="i" ? "i" : "";
-        }
-        if( typeDict.hasOwnProperty( roomShader.uniforms[x].type ) ){
-          curType = typeDict[roomShader.uniforms[x].type];
-        }
+          if( typeDict.hasOwnProperty( roomShader.uniforms[x].type ) ){
+            curType = roomShader.uniforms[x].type=="i" ? "i" : "";
+          }
+          if( typeDict.hasOwnProperty( roomShader.uniforms[x].type ) ){
+            curType = typeDict[roomShader.uniforms[x].type];
+          }
         }
         uniforms+= `uniform ${curType} ${x};   `;
       }
@@ -735,9 +747,9 @@ export class ShaderEditor {
 		this.guiManager.promptFader( this.helpGui, active );
 
 		if(active){
-			this.guiManager.pxlNavCanvas.addEventListener("mousedown", this.blurShaderEditor);
+			this.guiManager.pxlNavCanvas.addEventListener("mousedown", this.blurShaderEditor.bind(this));
 		}else{
-			this.guiManager.pxlNavCanvas.removeEventListener("mousedown", this.blurShaderEditor);
+			this.guiManager.pxlNavCanvas.removeEventListener("mousedown", this.blurShaderEditor.bind(this));
 		}
 		
 		setTimeout( ()=>{
@@ -773,11 +785,11 @@ export class ShaderEditor {
   blurShaderEditor(){
     document.activeElement.blur()
     let fieldParent=document.getElementById("guiShaderEditorBlock");
-    fieldParent.style.maxWidth="30vw";
+    fieldParent.style.maxWidth = this.editorWidthMinMax['min']+"vw";
 
     let helpDiv=document.getElementById("gui_shaderHelpBlock");
     if(helpDiv){
-      helpDiv.style.left="30vw";
+      helpDiv.style.left = "max("+this.editorWidthMinMax['min']+"vw, 430px)";
     }
     
     let curPulldown = document.getElementById("shaderEditor_loadShader");
@@ -824,7 +836,7 @@ export class ShaderEditor {
     guiWindow.fragObj.style.maxHeight=fragSize+"px";
     
     let fieldParent=document.getElementById("gui_shaderEditorParent");
-    this.gui.style.maxWidth="75vw";
+    this.gui.style.maxWidth = this.editorWidthMinMax['max']+"vw";
     
     if( this.children?.shaderSelect ){
       this.children.shaderSelect.style.maxWidth="225px";
@@ -832,7 +844,7 @@ export class ShaderEditor {
 
     let helpDiv=document.getElementById("gui_shaderHelpBlock");
     if(helpDiv){
-      helpDiv.style.left="75vw";
+      helpDiv.style.left = this.editorWidthMinMax['max']+"vw";
     }
   }
 }

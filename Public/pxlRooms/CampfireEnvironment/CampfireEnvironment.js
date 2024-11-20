@@ -1,6 +1,7 @@
 import * as THREE from "../../js/libs/three/three.module.js";
 import { ShaderPass } from '../../js/libs/three/postprocessing/ShaderPass.js';
 import { campfireLogVert, campfireLogFrag,
+         campfireVert, campfireFrag,
          envGroundVert, envGroundFrag } from "./Shaders.js";
 import RoomEnvironment from "../../js/pxlNav/RoomClass.js";
 
@@ -104,7 +105,7 @@ export class CampfireEnvironment extends RoomEnvironment{
                             ...bSmoke.dupeArray([0.75,0.25],3) ];
 
     // bSmoke.build( Particle Count (50),  Particle Scale (56),  Atlas Resolution (4, 8, square only[4x4,8x8]), Atlas Picks [ [0-1,0-1],[#,#] ... ] )
-    bSmoke.build( 50, 56, 4, billowAtlasPicks );
+    bSmoke.build( 600, 56, 4, billowAtlasPicks );
     
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     
@@ -119,7 +120,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     eWisps.setPosition( particleSourcePos );
     //
     let emberAtlasPicks=eWisps.elementDuplicator([ [0.0,0.75], [0.0,0.5], [0.25,0.75], [0.25,0.5] ],4);
-    eWisps.build( 30, 6, 4, emberAtlasPicks );
+    eWisps.build( 30, 5, 4, emberAtlasPicks );
     
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     
@@ -234,21 +235,73 @@ export class CampfireEnvironment extends RoomEnvironment{
 
 // Build Scene and Assets
   build(){
-    let envGroundUniforms = THREE.UniformsUtils.merge(
-        [THREE.UniformsLib['lights'],
-        {
-          'noiseTexture' : { type:'t', value: this.cloud3dTexture },
-          'baseCd' : { type:'f', value: .1 },
-          'fogColor' : { type: "c", value: this.scene.fog.color },
-        }
-        ]
-    )
-    let mat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag() );
-    //mat.side=THREE.FrontSide;
-    mat.lights= true;
-        
-    //this.textureList[ "EnvironmentGround_geo" ]=mat;
     
+    let envGroundUniforms = THREE.UniformsUtils.merge(
+        [
+          THREE.UniformsLib[ "common" ],
+          THREE.UniformsLib[ "lights" ],
+          THREE.UniformsLib[ "shadowmap" ],
+          {
+            'diffuse' : { type:'t', value: null },
+            'dirtDiffuse' : { type:'t', value: null },
+            'mult': { type:'f', value:1 },
+            'fogColor': { type:'c', value: null },
+            'noiseTexture' : { type:'t', value: null },
+            'uniformNoise' : { type:'t', value: null },
+            'crossNoise' : { type:'t', value: null },
+          }
+        ]
+      );
+
+    envGroundUniforms.fogColor.value = this.fogColor;
+    envGroundUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Diffuse.jpg" );
+    envGroundUniforms.dirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"Dirt_Diffuse.jpg" );
+    envGroundUniforms.noiseTexture.value = this.cloud3dTexture;
+    envGroundUniforms.uniformNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+    envGroundUniforms.crossNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_NCross.jpg" );
+
+    let environmentGroundMat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag(4) );
+    environmentGroundMat.lights= true;
+    environmentGroundMat.transparent=false;
+
+    envGroundUniforms.uniformNoise.value.wrapS = THREE.RepeatWrapping;
+    envGroundUniforms.uniformNoise.value.wrapT = THREE.RepeatWrapping;
+    envGroundUniforms.crossNoise.value.wrapS = THREE.RepeatWrapping;
+    envGroundUniforms.crossNoise.value.wrapT = THREE.RepeatWrapping;
+    envGroundUniforms.dirtDiffuse.value.wrapS = THREE.RepeatWrapping;
+    envGroundUniforms.dirtDiffuse.value.wrapT = THREE.RepeatWrapping;
+
+    
+    // -- -- --
+    
+    let campfireUniforms = THREE.UniformsUtils.merge(
+      [
+          THREE.UniformsLib['lights'],
+        {
+          'noiseTexture' : { type:'t', value: null },
+          'smoothNoiseTexture' : { type:'t', value: null },
+          'webNoise' : { type:'t', value: null },
+        }
+      ]
+    );
+
+    
+    campfireUniforms.noiseTexture.value = this.cloud3dTexture;
+    campfireUniforms.smoothNoiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+    campfireUniforms.webNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_NCross.jpg" );
+
+
+    let campfireMtl=this.pxlFile.pxlShaderBuilder( campfireUniforms, campfireVert(), campfireFrag() );
+    campfireMtl.side=THREE.DoubleSide;
+    campfireMtl.transparent=true;
+    campfireMtl.lights= false;
+
+
+    // -- -- --
+          
+    this.textureList[ "EnvironmentGround_geo" ]=environmentGroundMat;
+    this.textureList[ "CampfireFlame_geo" ]=campfireMtl;
+  
     
 
     

@@ -150,7 +150,7 @@ export function envGroundFrag(){
      dp += shadowBias;
         vec3 bd3D = normalize( lightToPosition );
         vec2 offset = vec2( - 1, 1 ) * shadowRadius * texelSize.y;
-        return texture2D( pointShadowMap[1], cubeToUV( bd3D, texelSize.y )).rgb;
+        return texture2D( pointShadowMap[0], cubeToUV( bd3D, texelSize.y )).rgb;
     }
         
     void main(){
@@ -205,14 +205,13 @@ export function envGroundFrag(){
         
         
         vec4 lights = vec4(0.0, 0.0, 0.0, 1.0);
-        #pragma unroll_loop_start
         for(int i = 0; i < NUM_POINT_LIGHTS; i++) {
-            vec3 lightVector = normalize(vPos - pointLights[i].position);
-            vec3 lightInf= clamp(dot(-lightVector, vN), 0.0, 1.0) * pointLights[i].color;
-            lightInf *=  1.0-min(1.0, length(vPos - pointLights[i].position) * pointLights[i].decay*.006 );
+            int shadowIndex = i;
+            vec3 lightVector = normalize(vPos - pointLights[shadowIndex].position);
+            vec3 lightInf= clamp(dot(-lightVector, vN), 0.0, 1.0) * pointLights[shadowIndex].color;
+            lightInf *=  1.0-min(1.0, length(vPos - pointLights[shadowIndex].position) * pointLights[shadowIndex].decay*.006 );
             lights.rgb += lightInf;
         }
-        #pragma unroll_loop_end
         Cd.rgb *= lights.rgb*.8+.2;
         
         float shadowInf = 0.0;
@@ -220,28 +219,25 @@ export function envGroundFrag(){
         float lShadow = 0.0;
         int i = 0;
         
-        #pragma unroll_loop_start
-        for(int i = 0; i < NUM_POINT_LIGHTS; i++) {
-            lShadow = getPointShadow( pointShadowMap[i], pointLightShadows[i].shadowMapSize, pointLightShadows[i].shadowBias, pointLightShadows[i].shadowRadius, vPointShadowCoord[i], pointLightShadows[i].shadowCameraNear, pointLightShadows[i].shadowCameraFar );
-            shadowInf = max( lShadow, shadowInf);
-        }
-        #pragma unroll_loop_end
+        // Read from Point Lights
+        lShadow = getPointShadow( pointShadowMap[0], pointLightShadows[0].shadowMapSize, pointLightShadows[0].shadowBias, pointLightShadows[0].shadowRadius, vPointShadowCoord[0], pointLightShadows[0].shadowCameraNear, pointLightShadows[0].shadowCameraFar );
+        shadowInf = max( lShadow, shadowInf);
+
         
         Cd.rgb*=(shadowInf*.7+.3);
         
         pos = vPos;
-        #pragma unroll_loop_start
         lights = vec4(0.0, 0.0, 0.0, 1.0);
         for(int i = 0; i < NUM_DIR_LIGHTS; i++) {
-            vec3 lightInf= ( max(0.0, dot(directionalLights[i].direction, reflect( normalize(pos), vN ) ))*.65) * directionalLights[i].color;
+            int shadowIndex = i;
+            vec3 lightInf= ( max(0.0, dot(directionalLights[shadowIndex].direction, reflect( normalize(pos), vN ) ))*.65) * directionalLights[shadowIndex].color;
             lights.rgb += lightInf*.3;
         }
-        #pragma unroll_loop_end
         Cd.rgb += lights.rgb*baseDirtNoise;
         
         float shade = clamp(dot(vN, reflect( normalize(vPos), vN ))+depthFade, 0.0, 1.0 );
         Cd.rgb=  mix( Cd.rgb*shade, fogColor, depth );
-        Cd.rgb = Cd.rgb*.15+.85;
+        
         gl_FragColor=Cd;
     }`;
   return ret;
@@ -292,7 +288,7 @@ export function campfireLogVert(){
         vec4 mvPos=modelViewMatrix * vec4(pos, 1.0);
         gl_Position = projectionMatrix*mvPos;
         
-        vPos = mvPos.xyz;
+        vPos = pos.xyz;// mvPos.xyz;
         vPosW = position.xyz;
         
     }`;
@@ -325,16 +321,31 @@ export function campfireLogFrag(){
     #define PI 3.14159265358979
     
     void main(){
-        float timer = time.x*.01;
-        vec3 pos = vPos*.0001;
-        vec2 uv = vUv;
+        float timer = time.x*0.06;
+        vec3 pos = vPos*0.3;
+        vec2 uv = vUv*.9;
         uv.x = fract( pos.x+timer );
-        uv.y = fract( pos.z+timer*.1 ); 
-        vec3 nCd=(texture2D(noiseTexture,uv).rgb-.5)*.3;
+        uv.y = fract( pos.z+timer ); 
+        vec3 nCd=(texture2D(noiseTexture,uv*.1).rgb-.5)*2.0;
+        uv.x = fract( pos.x+timer*1.2 + nCd.x*1.2 + nCd.z );
+        uv.y = fract( pos.z-timer*2.1  + nCd.y - nCd.x); 
+        nCd=(texture2D(noiseTexture,uv).rgb-.5)*10.3;
         vec3 vertCd=vCd + nCd;
         
         vec4 Cd=vec4( vertCd, 1.0 );
         
+        vec4 baseCd=texture2D(baseTexture,vUv);
+        vec4 midEmberCd=texture2D(midEmberTexture,vUv);
+        vec4 heavyEmberCd=texture2D(heavyEmberTexture,vUv);
+        vec4 dataTexCd=texture2D(dataTexture,vUv);
+        
+        float blender = max(0.0, dataTexCd.g * (1.0 + nCd.x * nCd.y * nCd.z*5.0) + (dataTexCd.z*40.0));
+        float centerMass = length(vPos)*.29;
+        centerMass = 1.0-(centerMass*centerMass);
+        blender =  clamp((blender * clamp((centerMass*15.5+.5), 0.0, 1.0 ) + centerMass*(.2+nCd.y*nCd.x)), 0.0, 1.0 );
+        Cd.rgb = mix( midEmberCd.rgb, heavyEmberCd.rgb, blender );
+        //Cd.rgb = mix( baseCd.rgb, Cd.rgb, (centerMass+centerMass)*(1.0-blender) );
+        //Cd.rgb = vec3(blender);
         
         gl_FragColor=Cd;
     }`;
@@ -359,119 +370,198 @@ export function campfireLogFrag(){
 // -- -- -- -- -- -- -- -- -- -- --
     
     
-export function forceFieldVert(){
-  //let ret=shaderHeader();
-  let ret=`
-    uniform vec2 time;
-    uniform float baseCd;
-    uniform sampler2D noiseTexture;
-    
-    attribute vec3 color;
 
-    varying float vFlicker;
+
+
+export function campfireVert(){
+  let ret=shaderHeader();
+  ret+=`               
+  uniform vec2 time;
+  uniform sampler2D noiseTexture;
+  uniform sampler2D smoothNoiseTexture;
+  uniform sampler2D webNoise;
+          
+  varying vec2 vUv;
+  varying vec3 vCd;
+  varying vec3 vPos;
+  varying vec3 vCamPos;
+  varying vec3 vN;
+  varying float vInf;
+  varying vec3 vShift;
+  varying float vShiftDist;
+  varying float vBBY;
+  varying float vInnerFlame;
+  
+  
+  vec3 noiseLayerInf = vec3(0.85, 1.5, 1.15) ;
+  vec3 layerPush = vec3(0.0140, 0.35, 2.15) ;
+    
+  void main(){
+    vUv=uv;
+    vN = normal;
+    vCamPos = cameraPosition;
+    
+    vec3 pos = position;
+    
+    float facingCam = dot(vN, normalize( vCamPos - pos));
+    float camInf = 1.0-abs( facingCam );
+    camInf *= camInf*camInf;
+    vInnerFlame = camInf;
+    
+    
+    float t = time.x * .085;
+    float inf = clamp( (pos.y-.05), 0.0, 1.0 );
+    vec3 nInfv = noiseLayerInf * inf;
+    
+    // Base Shape Noise; Central spiky moving
+    vec2 nUv = fract( vUv + vec2(t*(.3+pos.y*.09)) + pos.yy * inf  );
+    vec4 nCd=texture2D( noiseTexture, nUv );
+    nCd.y += .2;
+    nCd = (nCd-.5)*nInfv.x;
+    
+    inf *= max(0.0, 1.0-length( pos.xz * nCd.x*inf ) );
+    vInf = inf;
+    
+    nUv = fract( vUv + vec2(t*1.) * pos.xz*.1  * pos.yy*.1 + nCd.xy*.01 );
+    vec4 snCd=texture2D( smoothNoiseTexture, nUv );
+    snCd = -(snCd-.5)*nInfv.y;
+    snCd.y *= 1.6;
+    //snCd *= sin( t );
+    
+    nUv = fract( vUv + vec2(t*.1 + nCd.x*.01, t*.15 + snCd.z*.01 ));
+    vec4 webCd=texture2D( webNoise, nUv );
+    webCd = (webCd-.5) * nInfv.z;
+    
+    vec3 infv = vec3(  inf  );
+    infv.xz *= .1 ; 
+    vShift = (nCd.rgb * nInfv.x + snCd.rgb * nInfv.y ) * layerPush;
+    vShift -= webCd.rgb * nInfv.z * infv.z;
+    vShift *= vec3(inf, 1.0, inf);
+    
+    
+    pos += vShift;
+    vPos = pos;
+    
+    vec3 delta = pos-position;
+    float dist = length( pos.xz );
+    pos.y += dist * inf * .65;
+    vShiftDist = length( pos*vec3(1.0, .0, 1.0) - position );
+    
+    vBBY = pos.y;
+    
+    vec4 modelViewPosition=modelViewMatrix * vec4(pos, 1.0);
+    gl_Position = projectionMatrix*modelViewPosition;
+    
+    vCd = vec3(nCd.xyz);
+  }`;
+  return ret;
+}
+export function campfireFrag(){
+  let ret=shaderHeader();
+  ret+=`          
+    uniform vec2 time;
+    uniform sampler2D noiseTexture;
+    uniform sampler2D smoothNoiseTexture;
+    uniform sampler2D webNoise;
+    
     varying vec2 vUv;
     varying vec3 vCd;
-    varying vec3 vPosW;
     varying vec3 vPos;
+    varying vec3 vCamPos;
     varying vec3 vN;
-    varying vec3 vLocalN;
+    varying float vInf;
+    varying vec3 vShift;
+    varying float vShiftDist;
+    varying float vBBY;
+    varying float vInnerFlame;
+    
+    #define CD_BASE_MID_BLEND .3
+    #define CD_MID_TIP_BLEND .85
+    const vec3 cd_base = vec3(0.45,.22,0.0);
+    const vec3 cd_mid = vec3(0.57, 0.24, 0.0);
+    const vec3 cd_bodyCenter = vec3(0.74, 0.4, 0.0);
+    const vec3 cd_tip = vec3(0.44,.24,.0);
+    
+    const float finalColorBoost = .2;
     
     
+    void main() {
     
-    void main(){
-        vUv=uv;
-        
-        vec3 vertCd=vec3(baseCd);
-        vCd=color;
-        
-        vLocalN = normal;
-        vN = (modelViewMatrix * vec4(normal, 0.0)).xyz;
-        
-        
-        float timer = time.x*.01;
-        vec3 np = position*.001;
-        vec2 nuv = uv;
-        nuv.x = fract( np.x+timer );
-        nuv.y = fract( np.z+timer ); 
-        vec3 nCd=(texture2D(noiseTexture,nuv).rgb-.5)*10.;
-        vec3 pos = position;
-        pos += normal*length(nCd);
-        
-        vec4 mvPos=modelViewMatrix * vec4(pos, 1.0);
-        gl_Position = projectionMatrix*mvPos;
-        
-        vPos = mvPos.xyz;
-        vPosW = position.xyz;
-        
+      vec4 outCd=vec4(.0, .0, .0, 1.0);
+      
+      float t = time.x*2.3 ;
+      float inf = vInf*.8+.2;
+      
+      
+      vec3 nInfv = vec3(1.8, 1.2, 2.15) * inf;
+      vec3 layerInf = vec3(0.0140, 0.25, -1.15) ;
+      
+      vec3 shift = layerInf;
+      
+      
+      // Base Shape Noise; Central spiky moving
+      vec2 uvSqueeze = vec2( 30.0, 1.0);
+      vec2 nUv = fract( vUv*uvSqueeze + vec2(0.0, t*(1.64+vInf*.9 * vUv.x) ) + vShift.yy * inf  );
+      vec4 nCd=texture2D( noiseTexture, nUv );
+      nCd = (nCd-.4)*nInfv.x;
+      
+      // Adds a slight haze on the bottom inside of the flame
+      nCd.y = clamp( nCd.y + 6.2, 0.0, 1.0 );
+      
+      
+      nUv = fract( vUv + vec2(-t*.2, t*1.5 * vShiftDist) * vShiftDist *.1  * vShift.yy*.01 + nCd.xz*.2 );
+      vec4 snCd=texture2D( smoothNoiseTexture, nUv );
+      snCd = -(snCd-.5)*nInfv.y;
+      
+      nUv = fract( vUv*vec2(1.0, .60)*uvSqueeze - vec2(t*1.0 + nCd.x*.01, t*1.5 + snCd.z - vShiftDist*vBBY*.1 ));
+      vec4 webCd=texture2D( webNoise, nUv );
+      webCd = (webCd-.5) * nInfv.z;
+      
+      vec3 infv = vec3(  inf  );
+      infv.xz *= .1 ; 
+      
+      
+      shift = (nCd.rgb * nInfv.x + snCd.rgb * nInfv.y ) * layerInf;
+      shift -= webCd.rgb * nInfv.z * infv.z;
+      shift.xz *= inf;
+      
+      
+      float toCam = clamp( dot( vN, normalize( vCamPos - vPos ) )*1.5, 0.0, 1.0 );
+      
+      vec3 baseCd = cd_base * (1.0 + nCd.rgb + webCd.rgb + (1.0-vShiftDist)*.5);
+      vec3 midCd = cd_mid ;
+      vec3 tipCd = cd_tip * (webCd.rgb*.2+.8);
+      
+      
+      
+      outCd.rgb = vec3(shift.xyz) * outCd.rgb;
+      float shiftLen = length( shift.xyz )*.5+.45;
+      shiftLen = 1.0-vInf * shiftLen;
+      //outCd.rgb = vec3(vShiftDist*.2);
+      
+      float cdLen = length(outCd.rgb * shiftLen) ;
+      outCd.a = min( cdLen+.1 + shiftLen,  shiftLen );
+      
+      float blender =  (vBBY*100.0+vShiftDist+cdLen)-CD_BASE_MID_BLEND - vShiftDist*toCam;
+      blender = clamp( blender * snCd.x  * nCd.y * webCd.z + (1.0-vInnerFlame), 0.0, 1.0 );
+      //blender *= blender;
+      vec3 blendedCd = mix( baseCd, midCd, blender ) ;
+      
+      blender = min(1.0, max(0.0, vBBY - CD_MID_TIP_BLEND) + vShiftDist * vBBY);
+      blender *= blender*blender;
+      blendedCd = mix( blendedCd, tipCd, blender ) ;
+      
+      blender = clamp( toCam*(.8*webCd.x*webCd.y*webCd.z*snCd.x*snCd.y*snCd.z + .1 + vBBY*.3 + (.80-vInnerFlame) ), 0.0, 1.0);
+      blendedCd = mix( blendedCd, cd_bodyCenter, blender ) ;
+      
+      outCd.rgb = blendedCd;
+      outCd.rgb = mix( outCd.rgb, normalize(outCd.rgb), finalColorBoost );
+      outCd.a *= min(1.0, max( 0.0, vShiftDist + max(0.0,1.0-length(outCd.rgb)) )) * .5;
+      outCd.a = max(outCd.a + (1.0-vBBY)*.3, webCd.z*webCd.y*(snCd.x*.5+1.0)+outCd.a );
+      outCd.a += toCam*.4*webCd.z*(1.0-vBBY);
+      
+      
+      gl_FragColor = outCd;
     }`;
   return ret;
 }
-
-export function forceFieldFrag(){
-  //let ret=shaderHeader();
-  let ret=`
-    
-    uniform sampler2D noiseTexture;
-        
-    uniform vec2 time;
-    uniform float baseCd;
-    
-    
-    varying vec2 vUv;
-    varying vec3 vCd;
-    varying vec3 vCam;
-    varying vec3 vPosW;
-    varying vec3 vPos;
-    varying vec3 vN;
-    varying vec3 vLocalN;
-    
-    varying float vFlicker;
-    
-    #define PI 3.14159265358979
-    
-    struct PointLight {
-      vec3 color;
-      float decay;
-      float distance;
-      vec3 position;
-    };
-    struct DirLight {
-      vec3 color;
-      float distance;
-    };
-     
-    uniform PointLight pointLights[NUM_POINT_LIGHTS];
-    uniform DirLight directionalLights[NUM_DIR_LIGHTS];
-    
-    void main(){
-        float timer = time.x*.01;
-        vec3 pos = vPos*.0001;
-        vec2 uv = vUv;
-        uv.x = fract( pos.x+timer );
-        uv.y = fract( pos.z+timer*.1 ); 
-        vec3 nCd=(texture2D(noiseTexture,uv).rgb-.5)*.3;
-        vec3 vertCd=vCd + nCd;
-        
-        vec4 Cd=vec4( vertCd, 1.0 );
-        
-        
-        pos=vPosW*.01;
-        timer*=2.0;
-        uv.x = fract( pos.x+timer );
-        uv.y = fract( pos.z+timer*.1 ); 
-        vec3 warpNoise=(texture2D(noiseTexture,fract(uv+nCd.rg*1.0)).rgb)-.2;
-        float edgeNoise = dot( normalize( cameraPosition - vPosW + warpNoise*30.0  ), normalize(vLocalN+warpNoise.bgr) );
-        float outerEdge =  max(0.0, 1.0-max(0.0, edgeNoise*2.));
-        edgeNoise= (1.0-max(0.0, edgeNoise*1.5)) - outerEdge;
-        Cd.a = edgeNoise ;
-        
-        float dist = length( cameraPosition - vPos);
-        dist = (1.0-min(1.0, dist*.003));
-        dist = 1.0 - (1.0-dist)*(1.0-dist);
-        Cd.a *= dist*warpNoise.g;
-        
-        gl_FragColor=Cd;
-    }`;
-  return ret;
-}
-

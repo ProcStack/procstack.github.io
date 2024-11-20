@@ -46,7 +46,7 @@
 	padding-left: 5px;
 	position: fixed;
 	top: 0px;
-	left: 30vw;
+	left: max(30vw, 430px);
 	margin: 0px 0px 3px 0px;
 	border-radius:5px;
 	border: 2px solid #ffffff;

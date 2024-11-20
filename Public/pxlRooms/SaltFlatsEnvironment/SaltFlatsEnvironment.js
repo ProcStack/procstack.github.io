@@ -27,14 +27,11 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
       "RabbitDruidA" : {
         "rig" : this.assetPath+"RabbitDruidA/RabbitDruidA_rig.fbx",
         "anim" : {
-          "Walk" : this.assetPath+"RabbitDruidA/RabbitDruidA_Walk.fbx",
-          "Sit_Idle" : this.assetPath+"RabbitDruidA/RabbitDruidA_Sit_Idle.fbx",
-          "Sit_Stoke" : this.assetPath+"RabbitDruidA/RabbitDruidA_Sit_Stoke.fbx"
+          "Walk" : this.assetPath+"RabbitDruidA/RabbitDruidA_Walk.fbx"
         },
         "stateConnections"  : {
           // Non existing states will be ignored and loop'ed, ie "Walk"
-          "Sit_Idle" : ["Sit_Idle", "Sit_Stoke"],
-          "Sit_Stoke" : ["Sit_Idle"]
+          //"Sit_Idle" : ["Sit_Idle", "Sit_Stoke", ...]
         }
       }
     };
@@ -259,7 +256,8 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     //
     // -- -- -- 
         
-    return this.pxlFile.loadRoomFBX( this, this.sceneFile, this.envObjName, this.textureList);
+    //return this.pxlFile.loadRoomFBX( this, this.sceneFile, this.envObjName, this.textureList);
+    return false;
     
     // -- -- -- -- -- -- -- -- -- -- -- -- -- //
     

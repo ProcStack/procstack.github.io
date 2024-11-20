@@ -130,7 +130,11 @@ export default class RoomEnvironment{
     this.scene.fog=this.fog;
     this.scene.background = this.fogColor ;//pxlEnv.fogColor;
     this.cloud3dTexture=this.pxlEnv.cloud3dTexture;
+    this.cloud3dTexture.wrapS = THREE.RepeatWrapping;
+    this.cloud3dTexture.wrapT = THREE.RepeatWrapping;
     this.smoothNoiseTexture=this.pxlEnv.softNoiseTexture;
+    this.smoothNoiseTexture.wrapS = THREE.RepeatWrapping;
+    this.smoothNoiseTexture.wrapT = THREE.RepeatWrapping;
   }
 
 // Run on init room warp; reset room values

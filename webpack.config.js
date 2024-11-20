@@ -50,7 +50,7 @@ var adminOption=[
 					}
 				];
 if(envMode=="production" && !adminMode ){
-	outputPath="build"; // Non-Admin Build Output Path
+	outputPath="dist"; // Non-Admin Build Output Path
 	adminOption.push(
 			{
 				loader: 'string-replace-loader',
@@ -79,7 +79,7 @@ adminOption.push(
 
 
 // Inclusion paths for Packing
-const includePath = path.join(__dirname, 'src/js');
+const includePath = path.join(__dirname, 'Source/js');
 const nodeModulesPath = path.join(__dirname, 'node_modules');
 
 
@@ -88,8 +88,11 @@ module.exports = {
   mode: devMode ? 'development' : 'production',
   entry: {
     //'':'babel-polyfill',
-	'pxlNav' : './src/js/pxlNav.js',
-	'pxlStyle' : './src/style/pxlNavStyle.css',
+	'pxlNav' : './Public/pxlNav.js',
+	'pxlStyle' : [
+								'./Public/style/ProcStackStyle.css',
+								'./Source/style/pxlNav.css'
+							]
   },
   output: {
     path: path.resolve(__dirname, outputPath),
