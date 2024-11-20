@@ -12,7 +12,7 @@ Kevin Edzenga's web dev & shader resume site
 
 Too Long; Not Gonna Read -
 <br/>&nbsp;&nbsp;`pxlNav` entry point is -
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;`./Source/js/pxlNav.js`
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;`./Source/js/pxlNavCore.js`
 
 ## 
 
