@@ -1,3 +1,4 @@
+import { Vector3 } from "../core/Types.js";
 
 export class ShaderEditor {
   constructor( pxlCore, guiManager ){
@@ -10,6 +11,7 @@ export class ShaderEditor {
 		this.guiManager = guiManager;
     this.parent = null;
     this.gui = null;
+    this.helpGui = null;
     this.shaderEditorDisplay = null;
     this.children = {};
     
@@ -18,6 +20,9 @@ export class ShaderEditor {
     this.fragObj = null;
     
     this.currentShader = null;
+    
+    this.shaderSliderValues=new Vector3();
+
   }
   
   addSlider(parentObj, label, val, min, max, step, callback, args){
@@ -29,12 +34,11 @@ export class ShaderEditor {
     sliderParent.style.gridAutoFlow="column";
     sliderParent.style.alignItems="center";
     sliderParent.style.gridAutoColumns="max-content auto max-content";
-    sliderParent.innerHTML="<div style='font-weight: 700; color: #ffffff; padding: 0px 5px;'>"+label+" : </div>";
+    sliderParent.innerHTML="<div class='input_sliderLabel'>"+label+" : </div>";
 
     let slider=document.createElement("input");
     slider.type="range";
-    slider.style.height="15px";
-    slider.style.width="auto";
+    slider.classList.add("input_sliderRange");
     slider.min=min;
     slider.max=max;
     slider.step=step;
@@ -44,10 +48,7 @@ export class ShaderEditor {
     let numberDisp=document.createElement("input");
     numberDisp.type="number";
     numberDisp.classList.add("gui_defaultInput");
-    numberDisp.style.width="50px";
-    numberDisp.style.height="10px";
-    numberDisp.style.textAlign="center";
-    numberDisp.style.padding="4px 5px 3px 5px";
+    numberDisp.classList.add("input_numberInput");
     numberDisp.value=val;
     
     sliderParent.appendChild( numberDisp );
@@ -75,17 +76,17 @@ export class ShaderEditor {
     }
     
     try{
-      roomShader=this.pxlEnv.roomSceneList[ this.pxlEnv.currentRoom ].readShader(objRead);
+      roomShader=this.pxlEnv.roomSceneList[ this.pxlEnv.currentRoom ].readShader(objRead, this.shaderSliderValues);
     }catch(err){
+
       return;
     }
     
     let uniforms, vert, frag;
     uniforms=vert=frag="Unable To Load";
     
-    
     try{
-      roomShader.uniforms['sliders']={type:"v",value:this.pxlEnv.shaderSliderValues};
+      roomShader.uniforms['sliders']={type:"v",value:this.shaderSliderValues};
 
       uniforms=JSON.stringify( roomShader.uniforms );
       vert=roomShader.vertexShader;
@@ -125,13 +126,16 @@ export class ShaderEditor {
       
       vert=vert.replace(/[\t]/g, "  ");
       frag=frag.replace(/[\t]/g, "  ");
-    }catch(err){}
+    }catch(err){
+      console.log("Error Reading Shader");
+      console.log(err);
+    }
     
     if( roomShader ){
       roomShader.needsUpdate=true;
-      this.uniformsObj.value = uniforms;
-      this.vertObj.value = vert;
-      this.fragObj.value = frag;
+      this.children.uniformsObj.value = uniforms;
+      this.children.vertObj.value = vert;
+      this.children.fragObj.value = frag;
     }
     
 
@@ -149,8 +153,23 @@ export class ShaderEditor {
     this.pxlEnv.pxlGuiDraws.guiWindows[type].gui=shaderDiv;
     this.pxlEnv.pxlGuiDraws.guiWindows[type].active=false;
     this.gui = shaderDiv;
+
+    // -- -- --
+    
+    let shaderHelpDiv=document.createElement( "div" );
+    shaderHelpDiv.id="guiShaderHelpBlock";
+    shaderHelpDiv.classList.add( "gui_shaderHelpBlockStyle" );
+    shaderHelpDiv.style.transition = "left .3s ease, opacity .8s, filter .8s";
+    this.pxlEnv.pxlGuiDraws.prepPromptFader( shaderHelpDiv );
+    this.pxlEnv.pxlGuiDraws.guiWindows[type].help=shaderHelpDiv;
+    this.helpGui = shaderHelpDiv;
+
+
+    // -- -- --
     
     let curRoom = this.pxlEnv.currentRoom;
+    
+    // -- -- --
 
     //let geoList = this.pxlEnv.geoList;
     let geoList = this.pxlEnv.roomSceneList[curRoom].geoList;
@@ -176,9 +195,9 @@ export class ShaderEditor {
         <div class="gui_shaderEditorTitleBlock">
         <div class="gui_shaderEditorTitleParent">
             <div id="gui_shaderEditorTitle" clsss="gui_shaderEditorTitleStyle">GLSL Shader Editor</div>
-            <div id="gui_shaderEditorHeaderList">
+            <div id="gui_shaderEditorHeaderList" clsss="gui_shaderEditorHeaderListStyle">
               <label for="shaderEditor_loadShader" style="font-size:.75em;">Edit Shader</label>
-              <select name="shaderEditor_loadShader" id="shaderEditor_loadShader" class="pickerStyle">
+              <select name="shaderEditor_loadShader" id="shaderEditor_loadShader" class="pickerStyle gui_shaderPickerStyle">
                 <option value="script_avatar" ${avatarSelected}>Avatar</option>
                 <option value="script_fog" ${fogSelected}>Fog</option>
                 <option value="script_dArrows">Direction Arrows</option>
@@ -192,69 +211,87 @@ export class ShaderEditor {
               </select>
             </div>
           </div>
-        <div class="gui_shaderEditorHeaderLine"></div>
         </div>
+        <div class="gui_shaderEditorHeaderLine"></div>
         <div id="guiShaderUserSliders"></div>
-        <span class="gui_shaderEditorFieldParentStyle" style='height:12px'>Uniforms -</span>
-      </div>
-      <div id="gui_shaderHeaderSpacer" class="gui_shaderHeaderSpacer">
-        <span><span class="gui_boldText">Ctrl+Enter</span> - Update Shader on Material</span>
-        <br><span>Returns use existing indent spacing type (Spaces  abs)</span>
-        <br><span><span class="gui_boldText">Ctrl+D</span> - Duplicate current line</span>
-        <br><span><span class="gui_boldText">Ctrl+K</span> - To Comment current/selected lines</span>
-        <br><span><span class="gui_boldText">Ctrl+Shift+K</span> - To Uncomment current/selected lines</span>
-        <br><span><span class="gui_boldText">Ctrl+NumPad {1,2,3}</span> - Add selection or '.0' into float(), vec2(), vec3() </span>
-        <br><span><span class="gui_boldText">Ctrl+{Up,Down,Left,Right}</span> - Searches for selection in direction</span>
+        <div class="gui_shaderEditorHeaderLine"></div>
       </div>
       </div>
       
       
       <div id="guiShaderFieldParent" class="gui_shaderEditorFieldParentStyle">
-      <textarea spellcheck="false" placeholder="Shader Uniforms" rows="3" id="shaderEditor_uniformInput" style="height:unset;" readonly></textarea>
-      <span style='height:12px'>Vertex Shader -</span>
-      <textarea spellcheck="false" placeholder="Vertex Shader" id="shaderEditor_vertInput"></textarea>
-      <span style='height:12px'>Fragment Shader -</span>
-      <textarea spellcheck="false" placeholder="Fragment Shader" id="shaderEditor_fragInput"></textarea>
+        <span style='height:12px'>Uniforms -</span>
+        <textarea spellcheck="false" placeholder="Shader Uniforms" rows="3" id="shaderEditor_uniformInput" style="height:unset;" readonly></textarea>
+        <span style='height:12px'>Vertex Shader -</span>
+        <textarea spellcheck="false" placeholder="Vertex Shader" id="shaderEditor_vertInput"></textarea>
+        <span style='height:12px'>Fragment Shader -</span>
+        <textarea spellcheck="false" placeholder="Fragment Shader" id="shaderEditor_fragInput"></textarea>
       </div>
       <div id="shader_updateShader" class="shaderEditor_sendMessage">Update Shader</div>
     </div>
     `;
-    shaderDiv.innerHTML=html;
-    document.body.appendChild( shaderDiv );
     
+    // -- -- --
+    let spacer = "<div class='gui_shaderHelpSpacerStyle'></div>"
+    html +=`
+    <div id="gui_shaderHelpBlock" class="gui_shaderHelpBlockStyle">
+      <div class="gui_shaderHelpTitle">:: Keyboard Shortcuts ::</div>
+      ${spacer}
+      <span><span class="gui_boldText">Ctrl + Enter</span><br> - Update Shader on Material</span>
+      <br>&nbsp;&nbsp;<span>Returns use existing indent type (Spaces or Tabs)</span>
+      ${spacer}
+      <span><span class="gui_boldText">Ctrl + D</span><br> - Duplicate current line</span>
+      ${spacer}
+      <span><span class="gui_boldText">Ctrl + K</span><br> - Comment current/selected lines</span>
+      ${spacer}
+      <span><span class="gui_boldText">Ctrl + Shift + K</span><br> - Uncomment current/selected lines</span>
+      ${spacer}
+      <span><span class="gui_boldText">Ctrl + NumPad {1,2,3}</span><br> - Add selection or '.0' into float(), vec2(), vec3() </span>
+      ${spacer}
+      <span><span class="gui_boldText">Ctrl + {Up,Down,Left,Right}</span><br> - Searches for current selection in direction</span>
+      ${spacer}
+    </div>
+    `;
+    shaderDiv.innerHTML = html;
+    document.body.appendChild( shaderDiv );
+
+    // -- -- --
+
     let shaderSliders=document.getElementById("guiShaderUserSliders");
     
     this.parentObj=shaderSliders;
       
-    let peSliderValues=this.pxlEnv.shaderSliderValues;
+    let peSliderValues=this.shaderSliderValues;
     let sliderSetShader=(v, ...c)=>{
       peSliderValues[c[0]]=v;
     };
     
-    shaderSliders.style.paddingBottom = "2px";
+    //shaderSliders.style.paddingBottom = "2px";
     this.addSlider(shaderSliders, "sliders.x", 0,-1,1, .01, sliderSetShader, ['x'])
     this.addSlider(shaderSliders, "sliders.y", 0,-5,5, .1, sliderSetShader, ['y'])
     this.addSlider(shaderSliders, "sliders.z", 0,-10,10, .1, sliderSetShader, ['z'])
-    this.pxlEnv.pxlGuiDraws.guiWindows[type].shaderSliders=shaderSliders;
+    this.children.shaderSliders=shaderSliders;
       
       
     this.children.shaderParentObj=document.getElementById("shaderEditor_uniformInput").parentNode;
+    this.children.shaderEditor=document.getElementById("gui_shaderEditorParent");
     this.children.titleObj=document.getElementById("gui_shaderEditorTitle");
     this.children.uniformsObj=document.getElementById("shaderEditor_uniformInput");
     this.children.vertObj=document.getElementById("shaderEditor_vertInput");
     this.children.fragObj=document.getElementById("shaderEditor_fragInput");
     this.children.updateObj=document.getElementById("shader_updateShader");
-    this.children.headSpacer=document.getElementById("gui_shaderHeaderSpacer");
+    this.children.helpDiv=document.getElementById("gui_shaderHelpBlock");
     this.children.shaderList=document.getElementById("gui_shaderEditorHeaderList");
     this.children.shaderFieldParent=document.getElementById("guiShaderFieldParent");
     this.shaderEditorDisplay=document.getElementById("shaderEditorDisplay");
-    let shaderPicker=document.getElementById("shaderEditor_loadShader");
-    this.children.shaderSelect=shaderPicker;
+    this.children.shaderSelect=document.getElementById("shaderEditor_loadShader");
     
+
+
     let tmpThis=this;
       
-      shaderPicker.onchange=(s)=>{
-        tmpThis.updateShaderTextFields( shaderPicker.value );
+      this.children.shaderSelect.onchange=(s)=>{
+        tmpThis.updateShaderTextFields( this.children.shaderSelect.value );
       };
       
       
@@ -501,7 +538,9 @@ export class ShaderEditor {
         repStr= vType+repStr+")";
       }
       repStr= preBuffer+repStr+postBuffer;
-      Document.execCommand("insertText", false, repStr);
+      document.execCommand("insertText", false, repStr);
+      // No undo added--
+      //textObj.setRangeText(repStr, textObj.selectionStart, textObj.selectionEnd, "end");
       
       if( !hasSel ){
         textObj.setSelectionRange( postPos, postPos );
@@ -562,7 +601,7 @@ export class ShaderEditor {
           posEnd+=2;
         }
         textObj.setSelectionRange( cStart, cEnd );
-        Document.execCommand("insertText", false, cText);
+        document.execCommand("insertText", false, cText);
         textObj.setSelectionRange( posStart, posEnd );
 
         return false;
@@ -605,7 +644,7 @@ export class ShaderEditor {
         });
 
         textObj.setSelectionRange( newStart, newEnd );
-        Document.execCommand("insertText", false, selection);
+        document.execCommand("insertText", false, selection);
         textObj.setSelectionRange( posStart, posEnd );
         return false;
       }
@@ -649,7 +688,7 @@ export class ShaderEditor {
         cPosStart=cPosStart + inText.length;
         cPosEnd=cPosStart;
       }
-      Document.execCommand("insertText", false, inText);
+      document.execCommand("insertText", false, inText);
       textObj.setSelectionRange( cPosStart, cPosEnd );
       return false;
     }
@@ -667,14 +706,14 @@ export class ShaderEditor {
         let cursorPos=retString.length;
         curLine="\n" + curLine ;
         textObj.setSelectionRange(cursorPos, cursorPos);
-        Document.execCommand("insertText", false, curLine);
+        document.execCommand("insertText", false, curLine);
 
         cursorPos=curPos+curLine.length;
         textObj.setSelectionRange(cursorPos, cursorPos);
       }else{
         let selection=textValue.substring( posStart, posEnd );
         textObj.setSelectionRange(posEnd, posEnd);
-        Document.execCommand("insertText", false, selection);
+        document.execCommand("insertText", false, selection);
         posEnd+=selection.length;
         textObj.setSelectionRange(posEnd, posEnd);
       }
@@ -688,27 +727,29 @@ export class ShaderEditor {
 		}
 		
 		this.updateShaderList();
-		this.updateShaderTextFields();
+		this.updateShaderTextFields( this.children.shaderSelect.value);
 		
 		active= active==null ? !this.active : active;
 		this.active=active;
 		this.guiManager.promptFader( this.gui, active );
+		this.guiManager.promptFader( this.helpGui, active );
 
 		if(active){
-			this.guiManager.pxlNavCanvas.addEventListener("mousedown", this.shaderFocusPxlCore);
+			this.guiManager.pxlNavCanvas.addEventListener("mousedown", this.blurShaderEditor);
 		}else{
-			this.guiManager.pxlNavCanvas.removeEventListener("mousedown", this.shaderFocuspxlCore);
+			this.guiManager.pxlNavCanvas.removeEventListener("mousedown", this.blurShaderEditor);
 		}
 		
 		setTimeout( ()=>{
 			this.resizeShaderElements();
 		},10);
   }
+
   updateShaderList(){
-    let pulldown=this.pxlEnv.pxlGuiDraws.guiWindows["shaderGui"].shaderSelect;
+    let pulldown=this.children.shaderSelect;
     if( !pulldown ){
       console.log("No pulldown");
-      console.log(this.pxlEnv.pxlGuiDraws.guiWindows["shaderGui"]);
+      console.log(this.gui);
       return;
     }
     let editables= this.pxlEnv.roomSceneList[ this.pxlEnv.currentRoom ].getShaderList();
@@ -725,29 +766,25 @@ export class ShaderEditor {
     }else{
       pulldownVis="none";
     }
-    this.guiWindows.shaderGui.shaderList.style.display= pulldownVis;
+    this.children.shaderList.style.display = pulldownVis;
     
   }
   
-  shaderFocusPxlCore(){
+  blurShaderEditor(){
     document.activeElement.blur()
     let fieldParent=document.getElementById("guiShaderEditorBlock");
     fieldParent.style.maxWidth="30vw";
-    
-    let titleText=document.getElementById("gui_shaderEditorTitle");
-    if(titleText){
-      //titleText.classList.remove("gui_shaderEditorTitleEditing");
-      //titleText.style.transform="scale(.75)";
-      titleText.style.fontSize="1em";
-      titleText.style.paddingTop="8px";
+
+    let helpDiv=document.getElementById("gui_shaderHelpBlock");
+    if(helpDiv){
+      helpDiv.style.left="30vw";
     }
     
-    let helpParent=document.getElementById("gui_shaderHeaderSpacer");
-    if( helpParent ){
-      helpParent.classList.remove("gui_shaderHeaderSpacerVisible");
-      helpParent.style.removeProperty("width");
-      helpParent.style.removeProperty("max-width");
+    let curPulldown = document.getElementById("shaderEditor_loadShader");
+    if( curPulldown ){
+      curPulldown.style.maxWidth="85px";
     }
+
   }
   
   resizeShaderElements(){
@@ -755,24 +792,22 @@ export class ShaderEditor {
 		if(this.hudBottomBar){
 			bBarHeight = this.hudBottomBar.offsetHeight
 		}
-		
-		let type=["shaderGui"];
-		type.forEach( (t)=>{
-			if(this.pxlEnv.pxlGuiDraws.guiWindows[t]){
-			this.pxlEnv.pxlGuiDraws.guiWindows[t].gui.style.height=this.sH-bBarHeight;
-					
+
+		if( this.gui ){
+			this.gui.style.height=this.guiManager.sH-bBarHeight;
+
 			let vertTextTop = this.children.vertObj.getBoundingClientRect().top;
 			let bHeight = this.children.updateObj.getBoundingClientRect().height;
-			bHeight += 50;
-			let pHeight =  this.sH - bHeight - vertTextTop;
+			bHeight += 40;
+			let pHeight =  this.guiManager.sH - bHeight - vertTextTop;
 			
 			this.children.vertObj.style.maxHeight=pHeight*.4+"px";
 			this.children.vertObj.displayHeight=pHeight*.4;
 			this.children.fragObj.style.maxHeight=pHeight*.6+"px";
 			this.children.fragObj.displayHeight=pHeight*.6;
 			this.children.fieldBodyHeight=pHeight;
-			}
-		});
+
+		}
   }
 	
   focusShaderMessage(e,area){
@@ -780,36 +815,24 @@ export class ShaderEditor {
     
     let vertSize = guiWindow.vertObj.displayHeight;
     let fragSize = guiWindow.fragObj.displayHeight;
-    let minSize = Math.max(150, this.sH * .135);
+    let minSize = Math.max(150, this.guiManager.sH * .135);
     let sizeShift= guiWindow.fieldBodyHeight-minSize;
     
     vertSize= area=="vertObj" ? sizeShift : minSize;
     fragSize= area=="fragObj" ? sizeShift : minSize;
     guiWindow.vertObj.style.maxHeight=vertSize+"px";
     guiWindow.fragObj.style.maxHeight=fragSize+"px";
+    
+    let fieldParent=document.getElementById("gui_shaderEditorParent");
     this.gui.style.maxWidth="75vw";
     
-    //guiWindow.titleObj.classList.add("gui_shaderEditorTitleEditing");
-    //guiWindow.titleObj.style.transform="scale(1.5)";
-    guiWindow.titleObj.style.fontSize="2em";
-    guiWindow.titleObj.style.paddingTop="0px";
-    guiWindow.headSpacer.classList.add("gui_shaderHeaderSpacerVisible");
-    let hasInnerWidth = guiWindow.headSpacer.hasAttribute("innerWidth");
-    if( !hasInnerWidth ){
-      (async ()=>{
-      let maxHelpWidth=0;
-      let helpBlockChildren = guiWindow.headSpacer.children;
-      for( const ch of helpBlockChildren ){
-        maxHelpWidth = Math.max( maxHelpWidth, ch.getBoundingClientRect()['width'] );
-      }
-      guiWindow.headSpacer.setAttribute("innerWidth", maxHelpWidth)
-      guiWindow.headSpacer.style.width=maxHelpWidth+"px";
-      guiWindow.headSpacer.style.maxWidth=maxHelpWidth+"px";
-      })();
-    }else{
-      let maxHelpWidth = guiWindow.headSpacer.getAttribute("innerWidth");
-      guiWindow.headSpacer.style.width=maxHelpWidth+"px";
-      guiWindow.headSpacer.style.maxWidth=maxHelpWidth+"px";
+    if( this.children?.shaderSelect ){
+      this.children.shaderSelect.style.maxWidth="225px";
+    }
+
+    let helpDiv=document.getElementById("gui_shaderHelpBlock");
+    if(helpDiv){
+      helpDiv.style.left="75vw";
     }
   }
 }

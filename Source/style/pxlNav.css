@@ -1,11 +1,13 @@
 @import "envPopupStyle.css";
 @import "guiRangeSliderStyle.css";
+@import "guiHudDisplayStyle.css";
 @import "settingsGuiStyle.css";
 @import "helpGuiStyle.css";
 @import "howToStyle.css";
 @import "infoGuiStyle.css";
 @import "shaderBoxGuiStyle.css";
 @import "verbose.css";
+
 
 .pxlNavCoreCanvasStyle{
 	touch-action:none;

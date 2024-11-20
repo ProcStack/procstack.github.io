@@ -254,13 +254,15 @@ export default class RoomEnvironment{
   getCurrentShader(){
     return this.currentShader || Object.keys( this.textureList )[0];
   }
-  readShader( objShader="" ){
+  readShader( objShader="", sliderVectorObj=null ){
     if( this.currentShader!=null && this.textureList[ this.currentShader ].hasOwnProperty('uniforms')){
-      this.textureList[ this.currentShader ].uniforms.sliders.value=new Vector3();
+      if( !sliderVectorObj ){
+        sliderVectorObj=new Vector3();
+      }
+      this.textureList[ this.currentShader ].uniforms.sliders.value=sliderVectorObj;
       this.textureList[ this.currentShader ].needsUpdate=true;
     }
     this.currentShader=objShader;
-        
     return this.textureList[ this.currentShader ];
   }
   setShader( unis, vert, frag ){

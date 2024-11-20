@@ -221,9 +221,6 @@ export class Environment{
 
     this.emit=(type,value)=>{};
     
-    //%=
-    this.shaderSliderValues=new THREE.Vector3();
-    //%
   }
   
   setDependencies( pxlNav ){

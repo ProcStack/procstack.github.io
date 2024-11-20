@@ -157,24 +157,6 @@
 
 /* -- -- -- -- -- -- -- -- */
 
-.gui_defaultInput{
-	resize:none;
-	outline:none;
-	height:30px;
-	padding:10px;
-	color:#ffffff;
-	border-radius:5px;
-    border: 2px #ffffff solid;
-	background-color:rgba(0,0,0,.45);
-}
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input[type=number] {
-  -moz-appearance: textfield;
-}
 
 .settings_usernameInput{
 	resize:none;
