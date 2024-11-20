@@ -1,5 +1,5 @@
 # procstack.github.io / pxlNav
-### NodeJS app with pxlNav navigation framework for three.js
+### Javascript player controller & framework for three.js
 
 #### Metown USA, baby!
 
