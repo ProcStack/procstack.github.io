@@ -473,9 +473,34 @@ export default class RoomEnvironment{
   }
   
 // -- -- -- -- -- -- -- -- -- -- -- -- -- //
-  
+
 // Build Scene and Assets
 
   build(){
   }
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+
+// Recive outside message
+//   Custom implementation of HTML/GUI in conjunction with pxlNav
+//     Lets get some incoming messages to trigger some stuffs!
+  onMessage( msgType, msgValue ){
+    console.log("Room : "+this.roomName+" - Message Received: "+msgType);
+    console.log("Message : "+msgValue);
+    switch( msgType ){
+      case "roomWarp":
+        this.roomWarp=msgValue;
+        break;
+      default:
+        console.log( "-- Message Type Not Recognized -- " );
+        console.log( "Room : "+this.roomName );
+        console.log( "Message Received: "+msgType );
+        console.log( "Message : "+msgValue );
+        break;
+    }
+  }
+
+
+
+
 }

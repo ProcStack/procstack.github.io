@@ -103,15 +103,11 @@ export class Animation{
       this.animMixer[ animName ] = new THREE.AnimationMixer( animRoot );
       outDict[ 'mixer' ] = this.animMixer[ animName ];
       this.objects[ animName ] = outDict;
-      console.log(Object.keys(this.objects[ animName ]));
-
 
       let skinnedMaterial = new THREE.MeshStandardMaterial( { skinning: true } );
       skinnedMaterial.map = bindObj.material.map;
 
-
       bindObj.material = skinnedMaterial;
-
     }
   }
   

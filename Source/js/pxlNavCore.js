@@ -3,27 +3,54 @@
 //    Written by Kevin Edzenga 2020;2024
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 // 
-// Currently AutoCamera is on by default
+//   When importing this module,
+//     Navigating the nested classes can be a bit tricky.
+//   To help with that, use `pxlNav.trigger` in this file to send events to your custom pxlNav rooms.
+//     Used like - `pxlNav.trigger('toRoom','changeRoom','SaltFlatsEnvironment')`
+//     This way you can trigger room events or custom code in your rooms
+//   Use the `onMessage( *type*, *value* )` function in your room to catch the events you send.
 //
+//   The only Callback for subscription is "booted" at the moment, more to come!
+//     Usage - `pxlNav.subscribe('booted', yourCallbackFunc)`
+//       This will trigger when the engine has fully booted and is ready to be addressed.
+//         ALL rooms, assets, files, and initial functions have completed by this point.
+//           ::the progress bar fades out::
+//
+//   Until I find time to make it easier to connect to `pxlDevice` events.
+//     For things like mouse position, clicks, mobile phone pose/orientation, etc.
+//   You'll need to stick your nose into `./js/pxlNav/core/Device.js`
+//     For all your mouse drag, mouse velocity, key states, etc.
+
+//
+// -- -- --
 //
 
+//   *Note to pxlNav modifiers* -
+//     `//%=` `//%`  and  `//&=` `//&`
+//        Are used to mark code that is removed during webpack version building
+//          The sandwiched code is for the developmental & moderator specific code & builds.
+//            ( The initial need for pxlNav was as a virtual event space after all. )
+//        Treat them the same as `/*` & `*/` for commenting out code
+//          So if you remove a `//%` and not the before `//%=`, it will likely break your build
 
 
 // The Title of your Project
 //   This will be displayed on the 
 const projectTitle = "ProcStack.git.io";
-const pxlNavVersion = "0.0.3";
+const pxlNavVersion = "0.0.5";
 
 // pxlRoom folder path, available to change folder names or locations if desired
 const pxlRoomRootPath = "./pxlRooms";
 
-// Current possible rooms - "CampfireEnvironment", "FranksHouse"
+// Current possible rooms - "CampfireEnvironment"
 const startingRoom = "CampfireEnvironment"; 
-const bootRoomList = ["CampfireEnvironment"];
+const bootRoomList = ["CampfireEnvironment"];//, "SaltFlatsEnvironment"];
 
 // Bool to set window.pxlNav object for easier access to real-time data
 //   Disable when pushing to production
-const setPxlNav = true;
+//%=
+const setPxlNav = false;
+//%
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -32,17 +59,9 @@ const setPxlNav = true;
 import * as THREE from './libs/three/three.module.js';
 import * as PxlBase from './pxlNav/pxlBase.js';
 import { pxlShaders } from './pxlNav/shaders/shaders.js';
+import { VERBOSE_LEVEL } from './pxlNav/core/Types.js';
 
-var VERBOSE_LEVEL = {
-	NONE : 0,
-	ERROR : 1,
-	WARN : 2,
-	INFO : 3
-}
-
-
-// Javascript Console Logging; bool
-//   Semi-implemented
+// Options are - NONE, ERROR, WARN, INFO
 //const verbose = VERBOSE_LEVEL.NONE;
 const verbose = VERBOSE_LEVEL.ERROR;
 
@@ -64,9 +83,6 @@ var sW = window.innerWidth;
 var sH = window.innerHeight;
 
 
-  
-    
-
 
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -86,6 +102,7 @@ export class pxlNavCore{
 			roomBootList.push( startingRoom );
 		}
 		this.roomBootList = roomBootList
+		this.callbacks = {};
 
 		this.uriHashParms = this.findHashParms();
 		this.mobile = this.isMobile();
@@ -604,6 +621,7 @@ export class pxlNavCore{
 			tmpThis.pxlEnv.postBoot();
 				if(tmpThis.pxlGuiDraws.mapPrompt) tmpThis.pxlGuiDraws.promptFader(tmpThis.pxlGuiDraws.mapPrompt, false,null,true);
 				if(tmpThis.pxlGuiDraws.mapPromptBG) tmpThis.pxlGuiDraws.promptFader(tmpThis.pxlGuiDraws.mapPromptBG, false,null,false);
+				tmpThis.emit("booted", true);
 		}, 200);
 	}
 
@@ -725,15 +743,44 @@ export class pxlNavCore{
 		}
 	}
 	
+
+	// -- -- --
+
+	trigger( eventType, eventValue, eventObj=null ){
+		switch( eventType ){
+			case "toRoom":
+				let roomEventType = eventObj["type"];
+				let roomEventValue = eventObj["value"];
+				this.pxlEnv.sendRoomMessage( eventValue, roomEventType, roomEventValue );
+			default:
+				break;
+		}
+	}
+
+	subscribe( eventType, callbackFunc ){
+		const validEvents = ["booted", "roomChange", "fromRoom"];
+		if( validEvents.includes( eventType ) ){
+			this.callbacks[eventType] = callbackFunc;
+		}
+	}
+
+	emit( eventType, eventValue ){
+		if( this.callbacks[eventType] ){
+			this.callbacks[eventType]( eventValue );
+		}
+	}
+
 }
 
 
 const pxlNav = new pxlNavCore( verbose, projectTitle, pxlRoomRootPath, startingRoom, bootRoomList );
 pxlNav.addRooms( bootRoomList );
 
+//%=
 if( setPxlNav ){
 	window.pxlNav = pxlNav;
 }
+//%
 
 function init(){
   pxlNav.bootTimer();
@@ -744,3 +791,5 @@ function init(){
 	}
 }
 (()=>{init()})();
+
+export { pxlNav };

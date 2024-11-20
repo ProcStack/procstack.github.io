@@ -218,6 +218,8 @@ export class Environment{
     
     this.curUserCount=0;
     this.prevUserCount=0;
+
+    this.emit=(type,value)=>{};
     
     //%=
     this.shaderSliderValues=new THREE.Vector3();
@@ -239,6 +241,8 @@ export class Environment{
     this.pxlDevice=pxlNav.pxlDevice;
     this.pxlCamera=pxlNav.pxlCamera;
     this.pxlGuiDraws=pxlNav.pxlGuiDraws;
+    this.emit=pxlNav.emit;
+
   }
   
   // Function required
@@ -874,6 +878,16 @@ export class Environment{
             //this.blurScreenMerge.uniforms.exposure.value = this.pxlRenderSettings.exposure;
     }
   }
+
+// -- -- -- -- -- -- -- -- -- -- -- //
+
+  // Event Helpers
+  sendRoomMessage( roomName, messageType, messageValue ){
+    if( this.roomSceneList[ roomName ] ){
+      this.roomSceneList[ roomName ].onMessage( messageType, messageValue );
+    }
+  }
+
 
 // -- -- -- -- -- -- -- -- -- -- -- //
 
