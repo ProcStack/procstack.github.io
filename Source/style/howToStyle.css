@@ -1,17 +1,5 @@
 
 
-.mapPromptStyle{
-	position:fixed;
-	left:50%;
-	top:50%;
-	transform:translate(-50%,-50%);
-	color:#ffffff;
-	font-size:1.5em;
-	font-family: 'Raleway', sans-serif;
-	font-weight:700;
-	text-align:center;
-	z-index:152;
-}
 .mapHowToPromptStyle{
 	position:fixed;
 	top:0px;
@@ -23,30 +11,6 @@
 	font-size:1em;
 	color:#ffffff;
 	z-index:150;
-}
-.pxlLoaderTitle{
-	font-size:1.27em;
-}
-.loadStyleParent{
-	width:200px;
-	height:20px;
-	margin:15px;
-}
-.loadStyle{
-    width: 100%;
-    border-radius: 5px 0px 0px 5px;
-    border: 2px solid #ffffff;
-    background-color: #ffffff;
-    height: 100%;
-}
-
-.loadStyleBackground{
-    width: 100%;
-    border-radius: 5px;
-    border: 2px solid #ffffff;
-    position: relative;
-    height: 100%;
-    top: -24;
 }
 
 

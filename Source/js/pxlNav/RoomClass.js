@@ -123,13 +123,16 @@ export default class RoomEnvironment{
     this.currentShader=null;
     //%
   }
+
+// Run after all needed pxlNav services are loaded/built
+//   So it's safe to access global assets at this point
   init(){
     this.scene.fog=this.fog;
     this.scene.background = this.fogColor ;//pxlEnv.fogColor;
     this.cloud3dTexture=this.pxlEnv.cloud3dTexture;
     this.smoothNoiseTexture=this.pxlEnv.softNoiseTexture;
-        
   }
+
 // Run on init room warp; reset room values
   start(){
     /*this.spiralizerPass.enabled=true;
@@ -154,6 +157,7 @@ export default class RoomEnvironment{
     this.pxlEnv.engine.setRenderTarget(null);*/
         
   }
+
 // When leaving the room
   stop(){
     //this.spiralizerPass.enabled=false;

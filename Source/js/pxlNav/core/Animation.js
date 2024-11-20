@@ -8,12 +8,25 @@ export class Animation{
   constructor( assetPath=null, msRunner=null ){
     this.pxlEnv = null;
     this.assetPath=assetPath;
-    this.msRunner=msRunner;
     this.verbose = true;
+    
+    this.animInitEntry = {
+      'rig' : null,
+      'mesh' : null,
+      'mixer' : null,
+      'clips' : {},
+
+      'state' : null,
+      'hasConnection' : false,
+      'prevTime' : -1,
+      'connected' : [],
+      'connections' : {}
+    }
     
     this.objNames = [];
     this.objects = {};
     this.animMixer = {};
+    this.msRunner=msRunner;
     this.clock = new THREE.Clock();
   }
   setDependencies( pxlEnv ){
@@ -84,13 +97,13 @@ export class Animation{
 
     if( !this.objNames.includes( animName ) ){
       this.objNames.push( animName );
-      let outDict = {};
+      let outDict = Object.assign({}, this.animInitEntry);
       outDict[ 'rig' ] = animRoot;
       outDict[ 'mesh' ] = bindObj;
-      outDict[ 'clips' ] = {};
       this.animMixer[ animName ] = new THREE.AnimationMixer( animRoot );
       outDict[ 'mixer' ] = this.animMixer[ animName ];
       this.objects[ animName ] = outDict;
+      console.log(Object.keys(this.objects[ animName ]));
 
 
       let skinnedMaterial = new THREE.MeshStandardMaterial( { skinning: true } );
@@ -118,6 +131,7 @@ export class Animation{
 
     let newClip = animMixer.clipAction( animFbx.animations[0] );
     this.objects[ animName ][ 'clips' ][ clipName ] = newClip;
+
   }
 
   hasClip( animName, clipName ){
@@ -154,6 +168,9 @@ export class Animation{
       let clipNames = Object.keys( this.objects[ animName ][ 'clips' ] );
       if( clipNames.includes( clipName ) ){
         let clip = this.objects[ animName ][ 'clips' ][ clipName ];
+        this.objects[ animName ][ 'state' ] = clipName ;
+        this.objects[ animName ][ 'prevTime' ] = -1 ;
+        this.objects[ animName ][ 'hasConnection' ] = this.objects[ animName ][ 'connected' ].includes( clipName );
 
         this.setWeight( animName, clipName, 1, true );
 
@@ -183,6 +200,51 @@ export class Animation{
       }
     }
   }
+
+  setStateConnections( animName, stateConnections ){
+    if( this.objNames.includes( animName ) ){
+      let stateKeys = Object.keys( stateConnections );
+      this.objects[ animName ][ 'connected' ] = stateKeys;
+      this.objects[ animName ][ 'connections' ] = stateConnections;
+    }
+  }
+
+  // -- -- --
+  
+  // Rudimentary State Machine Implementation
+  // If the current state has 'connections',
+  //   It'll random pick form those possible states
+  // If no outgoing connections, it'll loop the current state
+  step( animName ){
+    if( this.objNames.includes( animName ) ){
+      let hasConnection = this.objects[ animName ][ 'hasConnection' ];
+      if( !hasConnection ){
+        this.animMixer[ animName ].update( this.clock.getDelta() );
+        return;
+      }
+
+      let curState = this.objects[ animName ][ 'state' ];
+      if( curState ){ // Dunno why this would never be set when 'hasConnection' is set, sanity check
+        let curClip = this.objects[ animName ][ 'clips' ][ curState ];
+        let curTime = curClip.time;
+        let prevTime = this.objects[ animName ][ 'prevTime' ];
+
+        // Cycle loop check
+        if( prevTime > curTime ){
+          let nextStates = this.objects[ animName ][ 'connections' ][ curState ];
+          let randState = nextStates[ Math.floor( Math.random() * nextStates.length ) ];
+          this.playClip( animName, randState );
+        }else{
+          this.animMixer[ animName ].update( this.clock.getDelta() );
+          this.objects[ animName ][ 'prevTime' ] = curTime;
+        }
+      }else{
+        this.animMixer[ animName ].update( this.clock.getDelta() );
+      }
+    }
+  }
+
+  // -- -- -- 
 
   destroy( animName ){
     if( this.objNames.includes( animName ) ){

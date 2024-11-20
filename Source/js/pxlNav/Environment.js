@@ -31,13 +31,20 @@ import { BloomPass } from '../libs/three/postprocessing/BloomPass.js';
 
 
 export class Environment{
-  constructor( mainRoom='Default', verbose, mobile ){
+  constructor( mainRoom='Default', pxlRoomName='pxlRooms', verbose, mobile ){
     this.verbose=verbose;
     this.engine=null;
     this.scene=null;
     this.parentGroupList={};
     this.parentGroupList[mainRoom]=[];
     this.parentNameList=[];
+
+
+    this.pxlRoomAbsRoot = pxlRoomName;
+    let splitRoot = pxlRoomName.split("/");
+    splitRoot.splice(0,1);
+    splitRoot = splitRoot.join("/");
+    this.pxlRoomLclRoot = "../../"+pxlRoomName.split("/").pop();
     
     this.mainRoom=mainRoom; // Main environment room
     this.bootRoom=mainRoom; // Room to start pxlNav in
@@ -373,10 +380,10 @@ export class Environment{
         console.log("Loading Room - ", roomName);
       }
 
-      var curImport=import(`../pxlRooms/${roomName}/${roomName}.js`);
+      var curImport=import(`${this.pxlRoomLclRoot}/${roomName}/${roomName}.js`);
       
       curImport.then((module)=>{
-        let roomObj=new module[roomName]( roomName, `./js/pxlRooms/${roomName}/`, this.pxlFile, this.pxlAnim, this.pxlUtils, this.pxlDevice, this, this.pxlTimer.msRunner, null, null, this.cloud3dTexture);
+        let roomObj=new module[roomName]( roomName, `../${this.pxlRoomLclRoot}/${roomName}/`, this.pxlFile, this.pxlAnim, this.pxlUtils, this.pxlDevice, this, this.pxlTimer.msRunner, null, null, this.cloud3dTexture);
         this.pxlGuiDraws.pxlLoaderTotal+=1;
 
         roomObj.camera=this.pxlCamera.camera;

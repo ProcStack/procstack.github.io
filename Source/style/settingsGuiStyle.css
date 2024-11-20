@@ -7,9 +7,9 @@
 	position:fixed;
 	top:0px;
 	left:0px;
-    overflow:hidden;
-    z-index:152;
-    background-color: rgba( 0,0,0,.65 );
+	overflow:hidden;
+	z-index:152;
+	background-color: rgba( 0,0,0,.65 );
 }
 .gui_contentSettingsStyle{
 	display:grid;

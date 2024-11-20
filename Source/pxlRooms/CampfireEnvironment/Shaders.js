@@ -1,6 +1,6 @@
 
-import {shaderHeader} from "../../pxlNav/shaders/core/ShaderHeader.js";
-import * as THREE from "../../libs/three/three.module.js";
+import {shaderHeader} from "../../js/pxlNav/shaders/core/ShaderHeader.js";
+import * as THREE from "../../js/libs/three/three.module.js";
 
 ///////////////////////////////////////////////////////////
 // Snow Shaders                                         //

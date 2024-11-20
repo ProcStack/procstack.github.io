@@ -501,7 +501,7 @@ export class ShaderEditor {
         repStr= vType+repStr+")";
       }
       repStr= preBuffer+repStr+postBuffer;
-      document.execCommand("insertText", false, repStr);
+      Document.execCommand("insertText", false, repStr);
       
       if( !hasSel ){
         textObj.setSelectionRange( postPos, postPos );
@@ -562,7 +562,7 @@ export class ShaderEditor {
           posEnd+=2;
         }
         textObj.setSelectionRange( cStart, cEnd );
-        document.execCommand("insertText", false, cText);
+        Document.execCommand("insertText", false, cText);
         textObj.setSelectionRange( posStart, posEnd );
 
         return false;
@@ -605,7 +605,7 @@ export class ShaderEditor {
         });
 
         textObj.setSelectionRange( newStart, newEnd );
-        document.execCommand("insertText", false, selection);
+        Document.execCommand("insertText", false, selection);
         textObj.setSelectionRange( posStart, posEnd );
         return false;
       }
@@ -649,7 +649,7 @@ export class ShaderEditor {
         cPosStart=cPosStart + inText.length;
         cPosEnd=cPosStart;
       }
-      document.execCommand("insertText", false, inText);
+      Document.execCommand("insertText", false, inText);
       textObj.setSelectionRange( cPosStart, cPosEnd );
       return false;
     }
@@ -667,14 +667,14 @@ export class ShaderEditor {
         let cursorPos=retString.length;
         curLine="\n" + curLine ;
         textObj.setSelectionRange(cursorPos, cursorPos);
-        document.execCommand("insertText", false, curLine);
+        Document.execCommand("insertText", false, curLine);
 
         cursorPos=curPos+curLine.length;
         textObj.setSelectionRange(cursorPos, cursorPos);
       }else{
         let selection=textValue.substring( posStart, posEnd );
         textObj.setSelectionRange(posEnd, posEnd);
-        document.execCommand("insertText", false, selection);
+        Document.execCommand("insertText", false, selection);
         posEnd+=selection.length;
         textObj.setSelectionRange(posEnd, posEnd);
       }
@@ -776,7 +776,8 @@ export class ShaderEditor {
   }
 	
   focusShaderMessage(e,area){
-    let guiWindow=this.pxlEnv.pxlGuiDraws.guiWindows["shaderGui"];
+    let guiWindow=this.children;
+    
     let vertSize = guiWindow.vertObj.displayHeight;
     let fragSize = guiWindow.fragObj.displayHeight;
     let minSize = Math.max(150, this.sH * .135);
@@ -786,7 +787,7 @@ export class ShaderEditor {
     fragSize= area=="fragObj" ? sizeShift : minSize;
     guiWindow.vertObj.style.maxHeight=vertSize+"px";
     guiWindow.fragObj.style.maxHeight=fragSize+"px";
-    guiWindow.gui.style.maxWidth="75vw";
+    this.gui.style.maxWidth="75vw";
     
     //guiWindow.titleObj.classList.add("gui_shaderEditorTitleEditing");
     //guiWindow.titleObj.style.transform="scale(1.5)";

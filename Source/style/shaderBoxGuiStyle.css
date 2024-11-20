@@ -6,15 +6,16 @@
 .gui_shaderEditorBlockStyle{
 	cursor:default;
 	position:fixed;
+	font-size: .6em;
+	font-family: 'Raleway', sans-serif;
 	left:0px;
 	top:0px;
 	height:100%;
 	overflow:hidden;
-	z-index:120;
-    width:100%;
-    max-width:30vw;
+	z-index:302;
+	width:100%;
+	max-width:30vw;
 	min-width:430px;
-	font-family: 'Raleway', sans-serif;
 	background-color:rgba(0,0,0,.6);
 }
 
@@ -32,9 +33,9 @@
 
 .gui_shaderHeaderSpacer{
 	height: 122px;
-    color: #ffffff;
-    font-size: .8em;
-    padding-left: 5px;
+	color: #ffffff;
+	font-size: .8em;
+	padding-left: 5px;
 }
 
 

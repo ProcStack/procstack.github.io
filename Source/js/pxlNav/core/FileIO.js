@@ -1334,7 +1334,7 @@ export class FileIO{
   }
 
 
-  loadAnimFBX( envObj, meshKey, rigPath, animPath, textureList ){
+  loadAnimFBX( envObj, meshKey, rigPath, animPath, stateConnections ){
     if(meshKey==''){ // Prep for IsLoaded checks
         meshKey = envObj.roomName;
     }
@@ -1389,6 +1389,7 @@ export class FileIO{
       });
 
       Promise.all(promisList).then(() => {
+        this.pxlAnim.setStateConnections( meshKey, stateConnections );
         this.log("All animations loaded");
         envObj.animPostLoad(meshKey);
       }).catch((err) => {

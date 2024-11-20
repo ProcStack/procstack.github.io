@@ -1,10 +1,10 @@
-import * as THREE from "../../libs/three/three.module.js";
-import { ShaderPass } from '../../libs/three/postprocessing/ShaderPass.js';
+import * as THREE from "../../js/libs/three/three.module.js";
+import { ShaderPass } from '../../js/libs/three/postprocessing/ShaderPass.js';
 import { campfireLogVert, campfireLogFrag,
          envGroundVert, envGroundFrag } from "./Shaders.js";
-import RoomEnvironment from "../../pxlNav/RoomClass.js";
+import RoomEnvironment from "../../js/pxlNav/RoomClass.js";
 
-import { BillowSmoke, EmberWisps, FloatingDust } from '../../pxlNav/effects/particles.js';
+import { BillowSmoke, EmberWisps, FloatingDust } from '../../js/pxlNav/effects/particles.js';
 
 export class CampfireEnvironment extends RoomEnvironment{
   constructor( roomName='CampfireEnvironment', assetPath=null, pxlFile=null, pxlAnim=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
@@ -14,6 +14,11 @@ export class CampfireEnvironment extends RoomEnvironment{
     
     this.sceneFile = this.assetPath+"CampfireEnvironment.fbx";
     this.animInitCycle = "Sit_Idle";
+
+    // Animation Source & Clips are managed under the hood,
+    //   So you only need to set your rig, animations, and connections in one room.
+    // Current issue, re-imports will re-read the file from disk/url,
+    //   But wont overwrite the data if it exists from a prior Room's load.
     this.animSource = {
       "RabbitDruidA" : {
         "rig" : this.assetPath+"RabbitDruidA/RabbitDruidA_rig.fbx",
@@ -21,9 +26,15 @@ export class CampfireEnvironment extends RoomEnvironment{
           "Walk" : this.assetPath+"RabbitDruidA/RabbitDruidA_Walk.fbx",
           "Sit_Idle" : this.assetPath+"RabbitDruidA/RabbitDruidA_Sit_Idle.fbx",
           "Sit_Stoke" : this.assetPath+"RabbitDruidA/RabbitDruidA_Sit_Stoke.fbx"
+        },
+        "stateConnections"  : {
+          // Non existing states will be ignored and loop'ed, ie "Walk"
+          "Sit_Idle" : ["Sit_Idle", "Sit_Stoke"],
+          "Sit_Stoke" : ["Sit_Idle"]
         }
       }
     };
+
     this.animMixer = null;
     
     this.envObjName="environmentGround";
@@ -43,8 +54,6 @@ export class CampfireEnvironment extends RoomEnvironment{
     this.fog=new THREE.FogExp2( this.fogColor, this.fogExp);
     
     this.perspectiveInstances = 160;
-    
-    this.clock = new THREE.Clock();
   }
   init(){
     super.init();
@@ -56,8 +65,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     // When the Druid Rabbit finishes loading, we'll step the animation here
     //   Cycle changes occur here as well.
     if(this.animMixer){
-      //this.animMixer.update( this.msRunner.y );
-      this.animMixer.update( this.clock.getDelta() );
+      this.pxlAnim.step( "RabbitDruidA" );
     }
 
   }
@@ -132,7 +140,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     //   to maintain shared characters and animation across rooms
 
     let curCharacter = "RabbitDruidA";
-    let animFbxLoader = this.pxlFile.loadAnimFBX( this, curCharacter, this.animSource[curCharacter]['rig'], this.animSource[curCharacter]['anim']);
+    let animFbxLoader = this.pxlFile.loadAnimFBX( this, curCharacter, this.animSource[curCharacter]['rig'], this.animSource[curCharacter]['anim'], this.animSource[curCharacter]['stateConnections']);
 
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

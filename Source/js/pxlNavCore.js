@@ -11,8 +11,11 @@
 
 // The Title of your Project
 //   This will be displayed on the 
-const projectTitle = "ProcStack";
-const pxlNavVersion = "0.0.2";
+const projectTitle = "ProcStack.git.io";
+const pxlNavVersion = "0.0.3";
+
+// pxlRoom folder path, available to change folder names or locations if desired
+const pxlRoomRootPath = "./pxlRooms";
 
 // Current possible rooms - "CampfireEnvironment", "FranksHouse"
 const startingRoom = "CampfireEnvironment"; 
@@ -73,7 +76,7 @@ var sH = window.innerHeight;
 
 
 export class pxlNavCore{
-  constructor( verbose, projectTitle, startingRoom, roomBootList ){
+  constructor( verbose, projectTitle, pxlRoomRoot, startingRoom, roomBootList ){
     this._active = false;
 
 		this.verbose = verbose;
@@ -90,10 +93,10 @@ export class pxlNavCore{
 		this.loadPercent=0.0;
 
 		this.folderDict = {
-			"assetRoot" : "images/assets/",
-			"guiRoot" : "images/GUI/",
-			"roomRoot" : "images/rooms/",
-			"vidRoot" : "images/screenContent/"
+			"assetRoot" : "assets/",
+			"guiRoot" : "assets/GUI/",
+			"roomRoot" : "assets/rooms/",
+			"vidRoot" : "assets/screenContent/"
 		};
 
     this.pxlTimer = new PxlBase.Timer();
@@ -112,7 +115,7 @@ export class pxlNavCore{
 
 		this.pxlUser = new PxlBase.User();
 
-		this.pxlEnv = new PxlBase.Environment( this.startingRoom, this.verbose, this.mobile );
+		this.pxlEnv = new PxlBase.Environment( this.startingRoom, pxlRoomRoot, this.verbose, this.mobile );
 		this.pxlDevice = new PxlBase.Device( projectTitle, pxlCore, this.mobile, this.autoCam );
 		this.pxlCamera = new PxlBase.Camera();
 		this.pxlAnim = new PxlBase.Animation( this.folderDict["assetRoot"], this.pxlTimer );
@@ -725,7 +728,7 @@ export class pxlNavCore{
 }
 
 
-const pxlNav = new pxlNavCore( verbose, projectTitle, startingRoom, bootRoomList );
+const pxlNav = new pxlNavCore( verbose, projectTitle, pxlRoomRootPath, startingRoom, bootRoomList );
 pxlNav.addRooms( bootRoomList );
 
 if( setPxlNav ){

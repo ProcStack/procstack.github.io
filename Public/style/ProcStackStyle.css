@@ -1,13 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-@import "verbose.css";
-@import "envPopupStyle.css";
-@import "guiRangeSliderStyle.css";
-@import "settingsGuiStyle.css";
-@import "helpGuiStyle.css";
-@import "infoGuiStyle.css";
-@import "shaderBoxGuiStyle.css";
-@import "howToStyle.css";
-
 
 BODY {
     display: flex;
@@ -15,40 +6,11 @@ BODY {
     align-items: center;
     height: 100vh;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-size: 14px;
+	font-family: 'Roboto', sans-serif;
     color:white;
     background: rgb(17,34,85);
     background: linear-gradient(25deg, rgba(17,34,85,1) 0%, rgba(9,9,121,1) 35%, rgba(34,85,153,1) 100%);
-}
-
-/*  -- -- --  */
-
-
-.pxlNavCoreCanvasStyle{
-    touch-action:none;
-    position:fixed;
-    top:0px;
-    left:0px;
-    z-index:100;
-    background-color:#000000;
-  }
-
-/*  -- -- --  */
-
-#ffLogo {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: 1s;
-}
-
-#verbErrorConsole{
-    position:fixed;
-    top:0px;
-    left:0px;
-    z-index:101;
-    color:#ffffff;
 }
 
 /*  -- -- --  */
@@ -77,28 +39,24 @@ BODY {
     height: 100vh;
 }
 
-.topBar {
+.menuParent {
     background-color: #f2f2f2;
     padding: 10px;
     display: flex;
     justify-content: space-between;
 }
 
-.topBar a {
+.menuParent a {
     margin-right: 10px;
     text-decoration: none;
     color: black;
 }
 
-.topBarParent {
+.menuBlock {
     padding : 3px;
 }
 
-.bodyBlock {
-    display: grid;
-    grid-template-rows: 150px auto max-content;
-    height: 100vh;
-}
+
 .centerBody {
     background-color: #f2f2f2;
     padding: 10px;
