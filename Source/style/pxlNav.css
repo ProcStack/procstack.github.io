@@ -8,28 +8,28 @@
 @import "verbose.css";
 
 .pxlNavCoreCanvasStyle{
-    touch-action:none;
-    position:fixed;
-    top:0px;
-    left:0px;
-    z-index:100;
-    background-color:#000000;
+	touch-action:none;
+	position:fixed;
+	top:0px;
+	left:0px;
+	z-index:100;
+	background-color:#000000;
   }
 
 /*  -- -- --  */
 
 #verbErrorConsole{
-    position:fixed;
-    top:0px;
-    left:0px;
-    z-index:301;
-    color:#ffffff;
+	position:fixed;
+	top:0px;
+	left:0px;
+	z-index:301;
+	color:#ffffff;
 }
 
 /*  -- -- --  */
 
 .animator {
-    transition: transform 0.3s, top 0.3s, left 0.3s;
+	transition: transform 0.3s, top 0.3s, left 0.3s;
 }
 
 .fader{
@@ -54,33 +54,33 @@
 .loadStyleParent{
 	width:200px;
 	height:10px;
-    margin: 4px;
+	margin: 4px;
 }
 .loadStyle{
-		width: 100%;
-		border-radius: 5px 0px 0px 5px;
-		border: 2px solid #ffffff;
-		background-color: #ffffff;
-		height: 20px;
-		position:absolute;
-		z-index: 2;
+	width: 100%;
+	border-radius: 5px 0px 0px 5px;
+	border: 2px solid #ffffff;
+	background-color: #ffffff;
+	height: 20px;
+	position:absolute;
+	z-index: 2;
 }
 
 .loadStyleBackground{
-		width: 100%;
-		border-radius: 5px;
-		border: 2px solid #ffffff;
-		position: relative;
-		height: 20px;
-		top: -24;
-		position:absolute;
-		z-index: 1;
+	width: 100%;
+	border-radius: 5px;
+	border: 2px solid #ffffff;
+	position: relative;
+	height: 20px;
+	top: -24;
+	position:absolute;
+	z-index: 1;
 }
 
 /*  -- -- --  */
 
 .mapPromptStyle{
-    position:fixed;
+  position:fixed;
 	left:50%;
 	top:50%;
 	transform:translate(-50%,-50%);

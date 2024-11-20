@@ -13,23 +13,6 @@ BODY {
     background: linear-gradient(25deg, rgba(17,34,85,1) 0%, rgba(9,9,121,1) 35%, rgba(34,85,153,1) 100%);
 }
 
-/*  -- -- --  */
-
-.animator {
-    transition: transform 0.3s, top 0.3s, left 0.3s;
-}
-
-.fader{
-	transition: opacity .8s, filter .8s;
-}
-.visOn{
-	filter:alpha(opacity=100);
-	opacity:1.0;
-}
-.visOff{
-	filter:alpha(opacity=0);
-	opacity:0.0;
-}
 
 /*  -- -- --  */
 

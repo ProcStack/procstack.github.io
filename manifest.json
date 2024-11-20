@@ -1,6 +1,6 @@
 {
-  "short_name": "Antibody Club",
-  "name": "Virtual Event Space",
+  "short_name": "procgitio",
+  "name": "Procstack.git.io",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +10,6 @@
   ],
   "start_url": ".",
   "display": "fullscreen",
-  "theme_color": "#000000",
-  "background_color": "#000000"
+  "theme_color": "#cccccc",
+  "background_color": "#cccccc"
 }

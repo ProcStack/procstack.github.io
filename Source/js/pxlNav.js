@@ -1,6 +1,8 @@
 //
 //  Core pxlNav Engine
-//    Written by Kevin Edzenga 2020;2024
+const pxlNavVersion = "0.0.6";
+//      Written by Kevin Edzenga 2020;2024
+
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 // 
 //   When importing this module,
@@ -34,23 +36,7 @@
 //          So if you remove a `//%` and not the before `//%=`, it will likely break your build
 
 
-// The Title of your Project
-//   This will be displayed on the 
-const projectTitle = "ProcStack.git.io";
-const pxlNavVersion = "0.0.5";
 
-// pxlRoom folder path, available to change folder names or locations if desired
-const pxlRoomRootPath = "./pxlRooms";
-
-// Current possible rooms - "CampfireEnvironment"
-const startingRoom = "CampfireEnvironment"; 
-const bootRoomList = ["CampfireEnvironment"];//, "SaltFlatsEnvironment"];
-
-// Bool to set window.pxlNav object for easier access to real-time data
-//   Disable when pushing to production
-//%=
-const setPxlNav = false;
-//%
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -61,9 +47,7 @@ import * as PxlBase from './pxlNav/pxlBase.js';
 import { pxlShaders } from './pxlNav/shaders/shaders.js';
 import { VERBOSE_LEVEL } from './pxlNav/core/Types.js';
 
-// Options are - NONE, ERROR, WARN, INFO
-//const verbose = VERBOSE_LEVEL.NONE;
-const verbose = VERBOSE_LEVEL.ERROR;
+export {VERBOSE_LEVEL};
 
 
 // Bool to load the environment asset fbx file;
@@ -91,7 +75,7 @@ var sH = window.innerHeight;
 
 
 
-export class pxlNavCore{
+export class pxlNav{
   constructor( verbose, projectTitle, pxlRoomRoot, startingRoom, roomBootList ){
     this._active = false;
 
@@ -737,7 +721,7 @@ export class pxlNavCore{
 			if( !this.pxlEnv.roomNameList.includes( roomList[x] ) ){
 				if(this.booted){
 				}else{
-					this.bootRoomList.push( roomList[x] );
+					this.roomBootList.push( roomList[x] );
 				}
 			}
 		}
@@ -771,25 +755,3 @@ export class pxlNavCore{
 	}
 
 }
-
-
-const pxlNav = new pxlNavCore( verbose, projectTitle, pxlRoomRootPath, startingRoom, bootRoomList );
-pxlNav.addRooms( bootRoomList );
-
-//%=
-if( setPxlNav ){
-	window.pxlNav = pxlNav;
-}
-//%
-
-function init(){
-  pxlNav.bootTimer();
-  pxlNav.init();
-  
-	if( verbose > VERBOSE_LEVEL.ERROR ){
-  	console.log("Booted");
-	}
-}
-(()=>{init()})();
-
-export { pxlNav };

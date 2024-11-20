@@ -5,14 +5,14 @@
 
 Kevin Edzenga's web dev & shader resume site
 
-*Temporary holdover for `pxlNav` until I implement the third-person controller & code clean up / commenting,*
-<br/>&nbsp;&nbsp;*I'll created a `pxlNav` repo when complete*
-
 ## 
 
-Too Long; Not Gonna Read -
+### Too Long; Not Gonna Read -
+*Wanna make a site with a 3d fbx file?*
+<br/>&nbsp; `./Public/pxlRooms` to look at example rooms or make a new'n.
+
 <br/>&nbsp;&nbsp;`pxlNav` entry point is -
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;`./Source/js/pxlNavCore.js`
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;`./Source/js/pxlNav.js`
 
 ## 
 
@@ -57,3 +57,7 @@ Realistically, I should add Universal Scene Description (USD) support for future
 
 But heck with it, for now I'm making a rabbit druid dude poke a fire and look at a stick for my website!
 <br/> - *Kevin Edzenga*
+
+
+*Temporary holdover for `pxlNav` until I implement the third-person controller & code clean up / commenting,*
+<br/>&nbsp;&nbsp;*I'll created a `pxlNav` repo when complete*
