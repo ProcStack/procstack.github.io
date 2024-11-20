@@ -15,6 +15,7 @@ export class FileIO{
     this.pxlAutoCam=null;
     this.pxlUser=null;
     this.pxlEnv=null;
+    this.pxlAnim=null;
     this.pxlDevice=null;
     this.pxlShaders=null;
     
@@ -38,6 +39,7 @@ export class FileIO{
     this.pxlAutoCam=pxlNav.pxlAutoCam;
     this.pxlUser=pxlNav.pxlUser;
     this.pxlEnv=pxlNav.pxlEnv;
+    this.pxlAnim=pxlNav.pxlAnim;
     this.pxlDevice=pxlNav.pxlDevice;
     this.pxlShaders=pxlNav.pxlShaders;
   }
@@ -1338,10 +1340,6 @@ export class FileIO{
     }
     this.pxlEnv.geoLoadListComplete=0;
     this.pxlEnv.geoLoadList[meshKey]=0;
-    this.pxlEnv.animMixers[meshKey]={
-      'rig':null,
-      'anims':{}
-    };
 
     let addedGlow=0;
     let envScene=envObj.scene;
@@ -1349,7 +1347,6 @@ export class FileIO{
     // TODO : Do new FBXLoader objects really need to be created?
     //          Sounds like the potential for a memory leak if not handled correctly
     var fbxLoader=new FBXLoader();
-    let animMixers = {};
     fbxLoader.load( rigPath, (curFbx)=>{
 
       let groups=curFbx.children;
@@ -1358,20 +1355,8 @@ export class FileIO{
       
       groups.forEach((c,x)=>{ let curName=c.name.split("_")[0]; groupNames.push(curName); groupTypes[curName]=x; });
 
-      let curAnimRoot = null;
-      for(let x=0; x<groups.length; ++x){
-        let c=groups[x];
-        if( c.type == "Bone" ){
-          curAnimRoot = c;
-          break;
-        }
-      }
-      if( curAnimRoot ){
-        this.pxlEnv.animMixers[meshKey]['rig'] = curAnimRoot;
-        console.log("SDFSDFSD");
-      }else{
-        this.log("Error, No Bone/Rig Root Found; Please move your rig to the scene's root. Grouped rigs aren't supported yet.");
-      }
+
+      this.pxlAnim.initObject( meshKey, curFbx );
 
       // -- -- --
       
@@ -1385,12 +1370,13 @@ export class FileIO{
       animKeys.forEach( (animKey)=>{
         let curAnimPath = animPath[animKey];
         let animPromise = new Promise((resolve, reject) => {
-          console.log("Loading Animation", animKey);
           animLoader.load( curAnimPath, (animFbx)=>{
-            console.log("Animation Loaded", animFbx);
-            let mixer = new THREE.AnimationMixer( curFbx );
-            animMixers[ animKey ] = mixer;
-            this.pxlEnv.animMixers[meshKey][animKey] = mixer;
+            if( animFbx.animations.length == 0 ){
+              this.log("No animations found in file", curAnimPath);
+              this.log(animFbx);
+              resolve();
+            }
+            this.pxlAnim.addClips( meshKey, animKey, animFbx );
             this.log("Animation Loaded", animKey);
             resolve();
           }, null, (err)=>{
@@ -1404,7 +1390,7 @@ export class FileIO{
 
       Promise.all(promisList).then(() => {
         this.log("All animations loaded");
-        envObj.animPostLoad(meshKey, curFbx, animMixers);
+        envObj.animPostLoad(meshKey);
       }).catch((err) => {
         this.log("Error loading animations", err);
       });

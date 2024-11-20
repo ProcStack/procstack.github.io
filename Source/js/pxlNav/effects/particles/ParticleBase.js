@@ -1,7 +1,7 @@
 // Base Particle Class for pxlNav
 //   Written by Kevin Edzenga; 2024
 
-import { Vector2 } from "../../core/Types.js";
+import { Vector2, Vector3 } from "../../core/Types.js";
 import * as THREE from "../../../libs/three/three.module.js";
 
 import { dustVert, dustFrag } from '../../shaders/particles/FloatingDust.js';
@@ -16,6 +16,7 @@ export default class ParticleBase{
     this.points = null;
     this.count = -1;
     this.pscale = new Vector2(0,0);
+    this.position = new Vector3(0,0,0);
     
     // Default atlas texture file path
     this.atlasPath = this.room.assetPath+"sprite_dustLiquid.png";
@@ -34,6 +35,17 @@ export default class ParticleBase{
     }
     
     this.addToScene( vertexCount, pScale, atlasRes, atlasPicks );
+  }
+
+  setPosition( ...args ){
+    if( args.length === 1 ){
+      this.position = args[0];
+    }else{
+      this.position = new Vector3( ...args );
+    }
+    if( this.points ){
+      this.points.position.copy( this.position );
+    }
   }
   
   // -- -- -- -- -- -- -- --
@@ -65,6 +77,7 @@ export default class ParticleBase{
     let seeds = [];
     let atlasId = [];
     
+
     for( let x=0; x<vertexCount; ++x ){
       verts.push( 0,0,0 );
       seeds.push( (Math.random()),(Math.random()),(Math.random()*2-1), (Math.random()*2-1) );
@@ -91,6 +104,8 @@ export default class ParticleBase{
     
     this.material = atlasMtl;
     this.points = psystem;
+
+    psystem.position.copy( this.position );
     
     return psystem;
   }

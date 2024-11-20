@@ -4,9 +4,9 @@
 //   Written by Kevin Edzenga 2020-2023      //
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
 // By running the mel script contents here,  //
-//   A window will launch with two tabs.
-// Tab 1 is the `Scene Group Manager`
-// Tab 2 is the `Asset Attributes`
+//   A window will launch with two tabs.     //
+// Tab 1 is the `Scene Group Manager`        //
+// Tab 2 is the `Asset Attributes`           //
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
 ///////////////////////////////////////////////
 
@@ -87,6 +87,28 @@ global proc pxlNav_prepDoubleSidedAttributes(){
 }
 //pxlNav_prepDoubleSidedAttributes();
 
+global proc pxlNav_prepGlassAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "isGlass"  -at bool -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".isGlass");
+    }
+}
+//pxlNav_prepGlassAttributes();
+
+global proc pxlNav_prepLiquidAttributes(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "isLiquid"  -at bool -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".isLiquid");
+    }
+}
+//pxlNav_prepLiquidAttributes();
+
+
+
+
+
 global proc pxlNav_prepScriptedAttribute(){
     string $sel[]=`ls -sl -l`;
     for($x=0; $x<size($sel); ++$x){
@@ -104,6 +126,12 @@ global proc pxlNav_prepInstanceAttribute(){
     }
 }
 //pxlNav_prepInstanceAttribute();
+global proc pxlNav_createInstance(){
+    string $sel[]=`ls -sl`;
+    parentConstraint -weight 1 $sel[0] $sel[1];
+    connectAttr -f ($sel[0]+".scale") ($sel[1]+".scale");
+}
+//pxlNav_createInstance();
 
 global proc pxlNav_prepEmitterAttribute(){
     string $sel[]=`ls -sl -l`;
@@ -223,6 +251,35 @@ global proc pxlNav_prepVideoAttributes(string $vidName){
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
 
+
+proc pxlNav_parConstScaleConnectMulti(){
+    string $sel[]=`ls -sl`;
+    
+    
+    string $animConnection[];
+    string $parconst[];
+    string $group, $loc, $geo;
+    int $x=0;
+    int $mid=int(size($sel)*.5);
+    for($x=0; $x<$mid; ++$x){
+        $loc = ($sel[$x]);
+        $geo = ($sel[$mid+$x]);
+
+        $parconst=`parentConstraint -weight 1 $loc $geo`;
+        connectAttr -f ($loc+".scale") ($geo+".scale");
+        setAttr ($parconst[0]+".interpType") 0;
+    }
+    
+}
+//pxlNav_parConstScaleConnectMulti();
+
+
+
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+
+
+
 // Prep for FXB export
 
 global proc pxlNav_saveAntibodyDesktopAndMobile_FBX( string $projectName ){
@@ -251,8 +308,6 @@ global proc pxlNav_saveAntibodyDesktopAndMobile_FBX( string $projectName ){
             "WaveGlow",
             "Metal_RoofTop_SupportRails",
             "Metal_Black",
-            "polySurface16351",
-            "polySurface16268",
             "InstanceTransforms"
     };
     string $sl[]=`ls -l $nameList`;
@@ -305,13 +360,16 @@ global proc pxlNav_assetPrepWindow(){
 	    ".-General/Visual Attrs-.",
        "pxlNav_prepDoubleSidedAttributes()",
        "---",
+       "pxlNav_prepGlassAttributes()",
+       "pxlNav_prepLiquidAttributes()",
+       "---",
        "pxlNav_prepGlowPassAttribute()","pxlNav_prepGlowPercAttribute()",
        "---",
        "pxlNav_prepColliderAttributes()","pxlNav_prepInteractableAttribute()","pxlNav_prepCamPathAttributes()",
        "---",
 	    "pxlNav_prepEmitterAttribute()",
        "---",
-       "pxlNav_prepInstanceAttribute()","pxlNav_prepScriptedAttribute()",
+       "pxlNav_prepScriptedAttribute()","pxlNav_prepInstanceAttribute()","pxlNav_createInstance()",
 	    
 	    ".-Video/Specalized Attrs-.",
 	    "pxlNav_prepVideoAttributes('vidName')",
@@ -413,15 +471,6 @@ global proc pxlNav_assetPrepWindow(){
 	showWindow $pxlNavAssetPrepWindowObject;
 	window -edit -wh $pxlNav_ww $pxlNav_wh -backgroundColor .3 .3 .3 $pxlNavAssetPrepWindowObject;
 }
-
-
-
-
-
-
-
-
-
 
 
 

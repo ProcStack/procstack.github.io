@@ -1,13 +1,6 @@
 // SVG Helper Utilities
 
-// TODO : Appears my concept of using a promise correctly was unbelievably wrong
-//          Linked objects in memory is not a promise.... Or a Resolve ... Or a Reject
-//        Return the promise, remove the failed attempts at making a callback
-//        None of these functions should elicit the need for callbacks
-
-
 import { FileIO } from '../../pxlBase.js'; // File In / Out
-
 
 export class SVGUtils {
 

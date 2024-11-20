@@ -9,7 +9,7 @@ export function defaultShiftVert(){
   let ret=shaderHeader();
   ret+=`
   varying vec2 vUv;
-    varying vec2 vUvShift;
+  varying vec2 vUvShift;
   void main(){
     vUv=uv;
         vUvShift=uv-.5;

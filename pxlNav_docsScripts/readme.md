@@ -1,5 +1,12 @@
-# pxlNav Docs
-### January 1st 2024
+# pxlNav v0.0.2 Documentation
+### November 19th 2024
+
+*Note* - Until my transfer to gh-pgaes and automated webpacked releases, this set of Docs will be out of date
+<br/>I'll do what I can to maintain parity.
+<br/>However, the `pxlNav_assetPrp.mel` script will always be up-to-date
+<br/>&nbsp; So if you can add an attribute in Maya from the window, it's supported in pxlNav to some capacity.
+
+
 
 Here you'll find scene files, scripts, heirachy needs, and other supportive information to help create your own pxlNav environment in browser.
 

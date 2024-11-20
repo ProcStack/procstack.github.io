@@ -11,7 +11,7 @@ export function shaderHeader(){
       precision mediump float;
     #endif
         `;
-  /*if(pxlQuality.percent>.5){ // ## Uhh.... doeeeesss nothing
+  /*if(pxlQuality.percent>.5){
     ret+=`
       #ifdef GL_FRAGMENT_PRECISION_HIGH
         precision highp float;

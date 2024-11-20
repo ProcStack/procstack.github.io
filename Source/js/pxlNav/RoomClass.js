@@ -21,10 +21,11 @@ import { ShaderPass } from '../libs/three/postprocessing/ShaderPass.js';
 import { pxlPrincipledVert, pxlPrincipledFrag } from "./shaders/objects/PxlPrincipled.js";
 
 export default class RoomEnvironment{
-  constructor( roomName='CampfireEnvironment', assetPath=null, pxlFile=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
+  constructor( roomName='CampfireEnvironment', assetPath=null, pxlFile=null, pxlAnim=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
     this.roomName=roomName;
     this.pxlFile=pxlFile;
     this.pxlUtils=pxlUtils;
+    this.pxlAnim=pxlAnim;
     this.pxlDevice=pxlDevice;
     this.pxlEnv=pxlEnv;
     this.booted=false;

@@ -1,7 +1,7 @@
-import {Vector3} from "./Types.js";
+import {Vector3,VERBOSE_LEVEL} from "./Types.js";
 
 export class QualityController{
-  constructor( mobile=false, searchParms={}){
+  constructor( verbose, mobile=false, searchParms={}){
     this.pxlTimer=null;
     this.pxlCookie=null;
     this.pxlDevice=null;
@@ -10,6 +10,7 @@ export class QualityController{
     this.prevMS=new Date().getTime()*.001;
     this.autoQuality=false;
     this.percent=1;
+    this.verbose=verbose;
         
     this.screenResPerc=1;
     this.mBlurPercMult=mobile?.65:1;
@@ -85,18 +86,19 @@ export class QualityController{
 
   init(){
         
-        if( this.detailLimitOverride!=null ){
-            this.detailLimit = this.detailLimitOverride;
-        }else{
-            if(this.pxlCookie.hasCookie("detailLimit")){
-                this.detailLimit=this.pxlCookie.parseCookie("detailLimit");
-            }
+    if( this.detailLimitOverride!=null ){
+        this.detailLimit = this.detailLimitOverride;
+    }else{
+        if(this.pxlCookie.hasCookie("detailLimit")){
+            this.detailLimit=this.pxlCookie.parseCookie("detailLimit");
         }
-        //%=
-        console.log( "Graphics Limiting is set to level ", this.detailLimit );
-        //%
-        
-        //parseDict sets the dict key values, returning true/false if keys missed
+    }
+    
+    if( this.verbose >= VERBOSE_LEVEL.INFO ){
+      console.log( "Graphics Limiting is set to level ", this.detailLimit );
+    }
+    
+    //parseDict sets the dict key values, returning true/false if keys missed
     this.setFromBenchmark = !this.pxlCookie.parseDict( this.settings );
 
     if(this.pxlCookie.hasCookie("leftRight")){

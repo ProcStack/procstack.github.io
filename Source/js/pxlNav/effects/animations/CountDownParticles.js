@@ -1,4 +1,21 @@
 /*
+Update - Nov 19th 2024
+Jeez.... all this cause I wanted to have the files packing easier with the webpack process
+I'll need to revisit this
+
+// -- Script Usage --
+Animate points based on a array style animation to opengl
+It only updated the uniform's array once a second, since this is a countdown timer,
+But means there is room for a better uniform animation system using textures instead of arrays
+.... It is easier tho ...
+
+// Why?
+It's easy for me to animate stuff in Houdini and export it directly to Javascript.
+So heck with it
+
+*/
+
+/*
     attribute float pscale;
     attribute vec3 P;
     attribute float Alpha;

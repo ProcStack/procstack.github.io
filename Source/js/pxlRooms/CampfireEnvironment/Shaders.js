@@ -241,7 +241,7 @@ export function envGroundFrag(){
         
         float shade = clamp(dot(vN, reflect( normalize(vPos), vN ))+depthFade, 0.0, 1.0 );
         Cd.rgb=  mix( Cd.rgb*shade, fogColor, depth );
-        
+        Cd.rgb = Cd.rgb*.15+.85;
         gl_FragColor=Cd;
     }`;
   return ret;

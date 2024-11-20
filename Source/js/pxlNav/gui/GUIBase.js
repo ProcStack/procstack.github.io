@@ -14,6 +14,7 @@ import { SettingsGui } from './pxlGui/SettingsGui.js';*/
 // TODO : Remove hard coded html/css, promote to div generator class
 
 import { SVGUtils } from './guiUtils/svgUtils.js';
+import {VERBOSE_LEVEL} from '../core/Types.js';
 
 
 export class GUIManager{
@@ -279,9 +280,9 @@ export class GUIManager{
 				this.pxlLoader.style.borderRadius = "5px";
 			}
 		this.pxlLoader.style.width= curPerc +"%";
-		//%=
-		console.log("Loader", this.pxlLoaderCount, this.pxlLoader.style.width, "; "+msg,);
-		//%
+		if( this.verbose >= VERBOSE_LEVEL.INFO ){
+		  console.log("Loader", this.pxlLoaderCount, this.pxlLoader.style.width, "; "+msg,);
+    }
   }
   
   // -- -- -- -- -- -- -- -- -- -- -- -- -- //

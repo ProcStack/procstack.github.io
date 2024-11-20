@@ -7,8 +7,8 @@ import RoomEnvironment from "../../pxlNav/RoomClass.js";
 import { BillowSmoke, EmberWisps, FloatingDust } from '../../pxlNav/effects/particles.js';
 
 export class CampfireEnvironment extends RoomEnvironment{
-  constructor( roomName='CampfireEnvironment', assetPath=null, pxlFile=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
-    super( roomName, assetPath, pxlFile, pxlUtils, pxlDevice, pxlEnv, msRunner, camera, scene, cloud3dTexture );
+  constructor( roomName='CampfireEnvironment', assetPath=null, pxlFile=null, pxlAnim=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
+    super( roomName, assetPath, pxlFile, pxlAnim, pxlUtils, pxlDevice, pxlEnv, msRunner, camera, scene, cloud3dTexture );
     
     this.assetPath=assetPath+"Assets/";
     
@@ -24,7 +24,6 @@ export class CampfireEnvironment extends RoomEnvironment{
         }
       }
     };
-    this.animClips = {};
     this.animMixer = null;
     
     this.envObjName="environmentGround";
@@ -45,6 +44,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     
     this.perspectiveInstances = 160;
     
+    this.clock = new THREE.Clock();
   }
   init(){
     super.init();
@@ -52,9 +52,12 @@ export class CampfireEnvironment extends RoomEnvironment{
   // Per-Frame Render updates
   step(){
     super.step();
-    //console.log(this.animMixer);
+    
+    // When the Druid Rabbit finishes loading, we'll step the animation here
+    //   Cycle changes occur here as well.
     if(this.animMixer){
-      this.animMixer.update( this.msRunner.y*100.0 );
+      //this.animMixer.update( this.msRunner.y );
+      this.animMixer.update( this.clock.getDelta() );
     }
 
   }
@@ -65,6 +68,9 @@ export class CampfireEnvironment extends RoomEnvironment{
   fbxPostLoad(){
     super.fbxPostLoad();
     
+    let particleSource = this.geoList['Scripted']['ParticleSource_loc'];
+    let particleSourcePos = particleSource.position;
+
     // build( Obj & Mtl Name, This Object, Sprite Count, Sprite Size )
     let systemName = "billowSmoke";
     let bSmoke = new BillowSmoke( this, systemName );
@@ -72,6 +78,8 @@ export class CampfireEnvironment extends RoomEnvironment{
     //
     let atlasPath = this.assetPath+"sprite_dustLiquid.png";
     bSmoke.setAtlasPath( atlasPath );
+    bSmoke.setPosition( particleSourcePos );
+
     //
     // Bit arbitrary the numbers I'm picking here.
     //   It's creating a weighted choise of which atlas texture I want to use.
@@ -100,6 +108,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     //
     atlasPath = this.assetPath+"sprite_dustLiquid.png"
     eWisps.setAtlasPath( atlasPath );
+    eWisps.setPosition( particleSourcePos );
     //
     let emberAtlasPicks=eWisps.elementDuplicator([ [0.0,0.75], [0.0,0.5], [0.25,0.75], [0.25,0.5] ],4);
     eWisps.build( 30, 6, 4, emberAtlasPicks );
@@ -177,28 +186,45 @@ export class CampfireEnvironment extends RoomEnvironment{
     
     this.booted=true;
     
-    console.log(this.geoList);
+    //console.log(this.geoList);
         
   }
 
-  animPostLoad( animKey, fbxObj, animMixers ){
-    let animKeys = Object.keys(animMixers);
-    if( animKeys.includes( this.animInitCycle ) ){
-      let curAnimMixer = animMixers[this.animInitCycle];
-      console.log(curAnimMixer);
-      this.animMixer = curAnimMixer;
-      console.log(fbxObj.animations);
-      //this.animMixer.play();
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+
+// Runs after Rabbit Druid's FBX files have been loaded
+  animPostLoad( animKey ){
+    if( this.pxlAnim.hasClip( animKey, this.animInitCycle ) ){
+      let animMixer = this.pxlAnim.getMixer( animKey );
+      this.animMixer = animMixer;
+      
+      this.pxlAnim.playClip( animKey, this.animInitCycle );
     }else{
       let fallback = animKeys[0];
       this.animInitCycle = fallback;
-      console.log("No animation cycle '"+this.animInitCycle+"' found; Using '"+fallback+"' instead");
+      this.log("No animation cycle '"+this.animInitCycle+"' found; Using '"+fallback+"' instead");
     }
+
+    
+    // To view the skeleton of Mr. Rabbit Druid
+    //   Uncomment the following 2 lines --
+    //let curRig = this.pxlAnim.getRig( animKey );
+    //let helper = new THREE.SkeletonHelper( curRig );
+    //this.scene.add( helper );
+
+    let curMesh = this.pxlAnim.getMesh( animKey );
+    if(curMesh){
+      let curMtl = curMesh.material;
+    }
+
   }
   
+
 // -- -- -- -- -- -- -- -- -- -- -- -- -- //
   
-  // Build Scene and Assets
+
+// Build Scene and Assets
   build(){
     let envGroundUniforms = THREE.UniformsUtils.merge(
         [THREE.UniformsLib['lights'],
@@ -213,7 +239,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     //mat.side=THREE.FrontSide;
     mat.lights= true;
         
-    this.textureList[ "environmentGround" ]=mat;
+    //this.textureList[ "EnvironmentGround_geo" ]=mat;
     
     
 

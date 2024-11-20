@@ -10,6 +10,7 @@ export { CookieManager } from './core/CookieManager.js'; // Local Browser Cookie
 export { Timer } from './core/Timer.js'; // Universal Timer; Used in all custom Shaders & real time animations
 export { User } from './core/User.js'; // User Status, Items, and States
 export { Device } from './core/Device.js'; // User's Machine / Device Dependencies
+export { Animation } from './core/Animation.js'; // Rigging and skeletal animations mostly
 
 // Primary drawing and run time class
 export { Environment } from './Environment.js';

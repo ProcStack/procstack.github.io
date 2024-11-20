@@ -19,3 +19,10 @@ export const Quaternion = THREE.Quaternion;
 export const Euler = THREE.Euler;
 export const Color = THREE.Color;
 
+
+export const VERBOSE_LEVEL = {
+	'NONE' : 0,
+	'ERROR' : 1,
+	'WARN' : 2,
+	'INFO' : 3
+}

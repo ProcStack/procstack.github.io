@@ -32,16 +32,16 @@ import { pxlShaders } from './pxlNav/shaders/shaders.js';
 
 var VERBOSE_LEVEL = {
 	NONE : 0,
-	ERROR : 3,
+	ERROR : 1,
 	WARN : 2,
-	INFO : 1
+	INFO : 3
 }
 
 
 // Javascript Console Logging; bool
 //   Semi-implemented
 //const verbose = VERBOSE_LEVEL.NONE;
-const verbose = VERBOSE_LEVEL.INFO;
+const verbose = VERBOSE_LEVEL.ERROR;
 
 
 // Bool to load the environment asset fbx file;
@@ -102,7 +102,7 @@ export class pxlNavCore{
 		if( this.pxlCookie.hasCookie("forceMobile") ){
 				this.mobile = pxlCookie.parseCookie("forceMobile");
 		}
-		this.pxlQuality = new PxlBase.QualityController( this.mobile, this.uriHashParms );
+		this.pxlQuality = new PxlBase.QualityController( this.verbose, this.mobile, this.uriHashParms );
 		this.pxlUtils = new PxlBase.Utils( this.folderDict["assetRoot"], this.mobile );
 		this.pxlFile = new PxlBase.FileIO( this.folderDict );
 
@@ -112,9 +112,10 @@ export class pxlNavCore{
 
 		this.pxlUser = new PxlBase.User();
 
-		this.pxlEnv = new PxlBase.Environment( this.startingRoom, this.mobile );
+		this.pxlEnv = new PxlBase.Environment( this.startingRoom, this.verbose, this.mobile );
 		this.pxlDevice = new PxlBase.Device( projectTitle, pxlCore, this.mobile, this.autoCam );
 		this.pxlCamera = new PxlBase.Camera();
+		this.pxlAnim = new PxlBase.Animation( this.folderDict["assetRoot"], this.pxlTimer );
 
 		this.pxlGuiDraws = new PxlBase.GUI( this.verbose, projectTitle, this.folderDict["assetRoot"], this.folderDict["guiRoot"] );
 		
@@ -124,6 +125,7 @@ export class pxlNavCore{
 		this.pxlAudio.setDependencies( this );
 		this.pxlAutoCam.setDependencies( this );
 		this.pxlEnv.setDependencies( this );
+		this.pxlAnim.setDependencies( this );
 		this.pxlDevice.setDependencies( this );
 		this.pxlCamera.setDependencies( this );
 		this.pxlGuiDraws.setDependencies( this );
@@ -184,11 +186,15 @@ export class pxlNavCore{
 				this.pxlDevice.setCursor("grab");
 			 })
 			 .catch( (err)=>{
-				console.error("Error in pxlNavCore.init(); Load level - ", err);
-				console.error(err);
+				if( this.verbose > VERBOSE_LEVEL.NONE ){
+					console.error("Error in pxlNavCore.init(); Load level - ", err);
+					console.error(err);
+				}
 			})
 			 .finally( ()=>{
-				console.log("pxlNavCore Promise Chain Completed; ", this.loadPercent);
+				if( this.verbose > VERBOSE_LEVEL.ERROR ){
+					console.log("pxlNavCore Promise Chain Completed; ", this.loadPercent);
+				}
 				this.start();
 			 });
 		
@@ -298,7 +304,7 @@ export class pxlNavCore{
 				this.pxlEnv.engine.debug.checkShaderErrors=true;
 				//%
 				
-				if(verbose){
+				if( this.verbose >= VERBOSE_LEVEL.INFO ){
 						if(this.pxlEnv.engine.extensions.get('WEBGL_depth_texture')){
 								console.log("  ** WebGL Depth Texture support enabled **");
 						}else{
@@ -730,6 +736,8 @@ function init(){
   pxlNav.bootTimer();
   pxlNav.init();
   
-  console.log("booted");
+	if( verbose > VERBOSE_LEVEL.ERROR ){
+  	console.log("Booted");
+	}
 }
 (()=>{init()})();

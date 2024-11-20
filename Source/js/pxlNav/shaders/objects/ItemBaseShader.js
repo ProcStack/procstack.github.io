@@ -1,6 +1,11 @@
 // pxlNav Shader
 //  -- -- -- --
 // Written by Kevin Edzenga; 2020; 2024
+//
+// The wave around the base of the item/pickup
+// Intended to work with a circular mesh, uvs 0-1 & (.5,.5) centered
+//   Please see the asset FBX file in a 3d software of your choice,
+//     `./Public/images/assets/EnvironmentAssets.fbx`  
 
 import {shaderHeader} from "../core/ShaderHeader.js";
  

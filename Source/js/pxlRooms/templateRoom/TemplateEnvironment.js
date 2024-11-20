@@ -6,8 +6,9 @@ import * as THREE from "../../libs/three/three.module.js";
 
 // TODO : Why isn't this an expanded Room class??  Why isn't there a Room class???
 
-export class TemplateEnvironment{
-  constructor( roomName='TemplateEnvironment', pxlAudio, pxlFile, pxlUtils, pxlDevice, pxlEnv, msRunner, camera=null, scene=null, cloud3dTexture=null ){
+export class TemplateEnvironment extends RoomEnvironment{
+  constructor( roomName='TemplateEnvironment', assetPath=null, pxlFile=null, pxlAnim=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
+    super( roomName, assetPath, pxlFile, pxlAnim, pxlUtils, pxlDevice, pxlEnv, msRunner, camera, scene, cloud3dTexture );
     this.roomName=roomName;
     this.pxlAudio=pxlAudio; // Access to music driven data
     this.pxlFile=pxlFile; // Load assets from disk; Scene File, Images

@@ -3,6 +3,7 @@
  |-Camera
   _Position
 	_LookAt
+	_Offset
 	_ReturnPosition
 	_ReturnLookAt
  |-AutoCamPaths

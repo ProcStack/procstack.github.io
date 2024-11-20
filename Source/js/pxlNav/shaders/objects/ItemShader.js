@@ -1,6 +1,8 @@
 // pxlNav Shader
 //  -- -- -- --
 // Written by Kevin Edzenga; 2020; 2024
+// 
+// For items/pickups on the ground
 
 import {shaderHeader} from "../core/ShaderHeader.js";
  

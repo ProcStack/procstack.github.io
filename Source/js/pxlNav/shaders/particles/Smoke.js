@@ -73,6 +73,7 @@ export function smokeVert(){
 
         gl_PointSize = pScale;
         
+        pos += modelMatrix[3].xyz;
         vec4 mvPos=viewMatrix * vec4(pos, 1.0);
         gl_Position = projectionMatrix*mvPos;
     }`;

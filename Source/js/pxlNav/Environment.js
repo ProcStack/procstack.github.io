@@ -31,7 +31,8 @@ import { BloomPass } from '../libs/three/postprocessing/BloomPass.js';
 
 
 export class Environment{
-  constructor( mainRoom='Default', mobile ){
+  constructor( mainRoom='Default', verbose, mobile ){
+    this.verbose=verbose;
     this.engine=null;
     this.scene=null;
     this.parentGroupList={};
@@ -57,6 +58,7 @@ export class Environment{
     
     this.pxlUtils=null;
     this.pxlTimer=null;
+    this.pxlAnim=null;
     this.pxlAutoCam=null;
     this.pxlAudio=null;
     this.pxlFile=null;
@@ -117,7 +119,6 @@ export class Environment{
     this.geoList=[];
     this.geoLoadList=[]; // 0 Not loaded, 1 Loaded, 2 Loaded and Processed (Setting Dependants)
     this.geoLoadListComplete=0;
-    this.animMixers={};
     this.lightList=[];
     this.returnPortalGlowList=[];
     this.roomWarpVisuals={};
@@ -220,6 +221,7 @@ export class Environment{
     this.scene=pxlNav.scene;
     this.pxlUtils=pxlNav.pxlUtils;
     this.pxlTimer=pxlNav.pxlTimer;
+    this.pxlAnim=pxlNav.pxlAnim;
     this.pxlAutoCam=pxlNav.pxlAutoCam;
     this.pxlAudio=pxlNav.pxlAudio;
     this.pxlFile=pxlNav.pxlFile;
@@ -366,12 +368,15 @@ export class Environment{
   
   loadRoom(roomName){
     return new Promise( (resolve, reject) =>{
-      console.log("loading room", roomName);
+
+      if( this.verbose>2 ){
+        console.log("Loading Room - ", roomName);
+      }
 
       var curImport=import(`../pxlRooms/${roomName}/${roomName}.js`);
       
       curImport.then((module)=>{
-        let roomObj=new module[roomName]( roomName, `./js/pxlRooms/${roomName}/`, this.pxlFile, this.pxlUtils, this.pxlDevice, this, this.pxlTimer.msRunner, null, null, this.cloud3dTexture);
+        let roomObj=new module[roomName]( roomName, `./js/pxlRooms/${roomName}/`, this.pxlFile, this.pxlAnim, this.pxlUtils, this.pxlDevice, this, this.pxlTimer.msRunner, null, null, this.cloud3dTexture);
         this.pxlGuiDraws.pxlLoaderTotal+=1;
 
         roomObj.camera=this.pxlCamera.camera;
