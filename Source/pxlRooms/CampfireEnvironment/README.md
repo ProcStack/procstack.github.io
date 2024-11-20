@@ -8,7 +8,7 @@ Make a back-up of the `CampfireEnvironment.js` file,
 <br/>&nbsp;&nbsp;Then start here for any modifications made in your testing.
 
 To stop pxlNav from loading this room environment,
-<br/>&nbsp;&nbsp;Change the `startingRoom` variable in `./Source/js/pxlNav.js`
+<br/>&nbsp;&nbsp;Change the `startingRoom` variable in `./Source/js/pxlNavCore.js`
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;To your desired room name -
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;`const startingRoom = "CampfireEnvironment";`
 
