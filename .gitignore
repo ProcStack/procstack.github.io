@@ -9,7 +9,6 @@ lerna-debug.log*
 
 dev
 makingof
-packing
 Source/js/pxlRooms/CabinEnvironment
 Source/js/pxlRooms/VoidEnvironment
 pxlNav-*

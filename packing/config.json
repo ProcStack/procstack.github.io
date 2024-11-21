@@ -1,0 +1,69 @@
+{
+	
+	"//":"///////////////////////////////////////",
+	"//":" !! Config.json not implemented yet !! ",
+	"//":"///////////////////////////////////////",
+	
+	"name":"prockstack.github.io",
+	"label":"prockstack",
+	"title":"[: Explorations into the current ProcStack skill level :]",
+	
+	"--":"-- -- -- -- -- -- -- ",
+	"--":"-- Global Settings - --",
+	"--":"-- -- -- -- -- -- -- -- --",
+	
+	"//":"0 None, 1 Errors, 2 Warnings, 3 Info/Stats, 4 All",
+	"verbose":4,
+	"logging":4,
+	
+	"--":"-- -- -- -- -- -- -- ",
+	"--":"-- Express Configs - --",
+	"--":"-- -- -- -- -- -- -- -- --",
+	
+	"port":4000,
+	
+	"--":"--",
+	
+	"//":"For NodeJS Express view engine",
+	"viewEngineState":true,
+	"viewEngine":{
+		"type":"ejs",
+		"entryPoints":["index.ejs"],
+		"path":"./views",
+		"partials":"./views/partials"
+	},
+		
+	"--":"--",
+	
+	
+	
+	"--":"-- -- -- -- -- --",
+	"--":"-- Entry Points - --",
+	"--":"-- -- -- -- -- -- -- --",
+	
+	"//":"For swaping entry point paths quickly",
+	"//":  "Key name of dictionary entry",
+	"entryPoints":{
+		"css":"css",
+		"js":"js"
+	},
+	"--":"--",
+	"css":{
+		"baseFile":"Proc.js",
+		"miniFile":"Proc.min.css",
+		"source":"./source/style/",
+		"public":"./Public/style/",
+		"build":"./build/style/"
+	},
+	
+	"js":{
+		"baseFile":"Proc.js",
+		"miniFile":"Proc.min.js",
+		"source":"./source/js/",
+		"public":"./Public/js/",
+		"build":"./build/js/"
+	},
+	
+	"--":"-- -- -- -- --",
+	"_":""
+}
