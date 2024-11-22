@@ -30,6 +30,8 @@ export class ProcstackPages {
       if( pageDiv.id == pageHash ){
         this.curPage = pageDiv;
         this.toggleFader( this.curPage, true );
+      }else{
+        pageDiv.style.display = "none";
       }
     });
 
