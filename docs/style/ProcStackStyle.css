@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+BODY {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-size: 14px;
+	font-family: 'Roboto', sans-serif;
+    color:white;
+    background: rgb(17,34,85);
+    background: linear-gradient(25deg, rgba(17,34,85,1) 0%, rgba(9,9,121,1) 35%, rgba(34,85,153,1) 100%);
+}
+
+
+/*  -- -- --  */
+
+
+.pagesFader{
+	transition: opacity .8s, filter .8s, max-height .8s;
+}
+.pagesVisOn{
+	filter:alpha(opacity=100);
+	opacity:1.0;
+    max-height: min-content;
+    position: relative;
+    z-index: 2;
+}
+.pagesVisOff{
+	filter:alpha(opacity=0);
+	opacity:0.0;
+    max-height: 0px;
+    position: relative;
+    z-index: 1;
+}
+
+/*  -- -- --  */
+
+.procStackGitBlockStyle {
+    justify-self: center;
+    justify-items: center;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 150;
+}
+
+.procStackGitParentStyle {
+    justify-self: center;
+    align-content: center;
+    width: 85vw;
+    max-width: 1200px;
+    max-height: 800px;
+    margin-bottom: 250px;
+    margin-top: 30px;
+}
+
+/*  -- -- --  */
+
+
+.gitPageNavBlockStyle {
+    padding : 3px;
+}
+
+.gitPageNavStyle {
+    border-radius: 15px 15px 0px 0px;
+    background-color: rgba(180,180,180,0.75);
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.gitPageNavStyle a {
+    text-decoration: none;
+    padding: 6px 15px 6px 15px;
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 1px 1.5px 4px #252525;
+    background-color: rgba(110, 110, 110, .35);
+}
+
+
+.gitPageNavStyle a:hover {
+    text-shadow: 1px 1.5px 4px #cccccc;
+    background-color: rgba(180, 180, 180, .85);
+}
+
+.gitPageNavStyle a:active {
+    color: #cccccc;
+    text-shadow: 1px 1.5px 4px #656565;
+    background-color: rgba(100, 100, 100, .85);
+}
+
+/*  -- -- --  */
+
+.gitPageContentParentStyle {
+    padding : 3px;
+}
+
+/* -- -- -- */
+
+.gitPageContentStyle {
+    background-color: rgba(140,140,140,0.15);
+    padding: 10px;
+    display: grid;
+    place-items: baseline;
+    grid-template-areas: "gitpage";
+    max-height: 65vh;
+    overflow: auto;
+    min-height: 16vh;
+    font-size: 1.1em;
+}
+.gitPageContentStyle a{
+    color: #ccddff;
+    text-decoration: none;
+    font-weight: 600;
+    text-shadow: 1px 1.5px 4px #252525;
+}
+.gitPageContentStyle a:hover{
+    color: #ffffff;
+    text-decoration: underline;
+    text-shadow: 1px 1.5px 5px #353535;
+}
+.gitPageContentStyle a:active{
+    color: #cccccc;
+    text-shadow: 1px 1.5px 4px #656565;
+}
+
+.gitPageImageStyle{
+    width: 70vw;
+    max-width: 800px;
+    height: auto;
+    display: grid;
+    justify-self: center;
+    margin: 10px 0px 10px 0px;
+}
+
+/* -- -- -- */
+
+.gitPageContentStyle::-webkit-scrollbar {
+	width: 10px;
+}
+
+.gitPageContentStyle::-webkit-scrollbar-track {
+	background: rgba( 155, 155, 155, 0.5 );
+}
+
+.gitPageContentStyle::-webkit-scrollbar-thumb {
+	cursor: grab;
+	background-color: rgba(180,180,180,.75);
+	border-radius: 5px;
+	border: 2px solid rgba(200,200,200,.65);
+}
+.gitPageContentStyle::-webkit-scrollbar-thumb:hover {
+	background-color: #ffffff;
+	border: 2px solid #ffffff;
+}
+
+
+.gitPageInnerStyle{
+    grid-area: gitpage;
+    position: revert;
+}
+
+.gitPageHeaderStyle{
+    font-size: 1.2em;
+    font-weight: 600;
+    padding: 10px 3px 0px 3px;
+}
+
+.socialsLinkStyle {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* -- -- -- */
+
+.footerBar {
+    background-color: rgba(180,180,180,0.75);
+    padding: 10px;
+    border-radius: 0px 0px 15px 15px ;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-around;
+}
+
+.footerBarParent {
+    padding : 3px;
+}
+
+.versionStyle {
+    font-variant: all-small-caps;
+    font-size: 1.2em;
+    height: 16px;
+    overflow: hidden;
+    line-height: 14px;
+}
+
+/* -- -- -- -- -- -- -- -- -- */
+
+
+
+
+
+
+
+
+
+
+
+/* -- -- -- -- -- -- -- -- -- */
+

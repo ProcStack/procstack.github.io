@@ -1,0 +1,23 @@
+<svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line id="stats_min" x1="1.5" y1="7" x2="1.5" y2="11" stroke="white" stroke-width="3">
+	<animate attributeName="y1" from="9" to="7" dur=".3s" begin="indefinite" fill="freeze" id="stats_min_on"/>
+	<animate attributeName="y1" from="7" to="9" dur=".3s" begin="stats_mid_off.begin + .1s" fill="freeze" id="stats_min_off"/>
+	
+	<animate attributeName="stroke" from="red" to="white" dur=".3s" begin="stats_min_on.begin" fill="freeze" id="stats_min_on_color"/>
+	<animate attributeName="stroke" from="white" to="red" dur=".3s" begin="stats_max_off.begin" fill="freeze" id="stats_min_off_color"/>
+</line>
+<line id="stats_mid" x1="5.5" y1="4" x2="5.5" y2="11" stroke="white" stroke-width="3">
+	<animate attributeName="y1" from="9" to="4" dur=".3s" begin="stats_min_on.begin + .1s" fill="freeze" id="stats_mid_on"/>
+	<animate attributeName="y1" from="4" to="9" dur=".3s" begin="stats_max_off.begin + .15s" fill="freeze" id="stats_mid_off"/>
+	
+	<animate attributeName="stroke" from="red" to="white" dur=".3s" begin="stats_min_on.begin" fill="freeze" id="stats_mid_on_color"/>
+	<animate attributeName="stroke" from="white" to="red" dur=".3s" begin="stats_max_off.begin" fill="freeze" id="stats_mid_off_color"/>
+</line>
+<line id="stats_max" x1="9.5" y1="0" x2="9.5" y2="11" stroke="white" stroke-width="3">
+	<animate attributeName="y1" from="9" to="0" dur=".3s" begin="stats_mid_on.begin + .15s" fill="freeze" id="stats_max_on"/>
+	<animate attributeName="y1" from="0" to="9" dur=".3s" begin="indefinite" fill="freeze" id="stats_max_off"/>
+	
+	<animate attributeName="stroke" from="red" to="white" dur=".3s" begin="stats_min_on.begin" fill="freeze" id="stats_max_on_color"/>
+	<animate attributeName="stroke" from="white" to="red" dur=".3s" begin="stats_max_off.begin" fill="freeze" id="stats_max_off_color"/>
+</line>
+</svg>

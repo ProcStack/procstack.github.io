@@ -1,12 +1,12 @@
 const esbuild = require('esbuild');
 
 // Define the entry point and output file
-const entryFile = './Source/js/pxlNav.js';
-const outputFile = './Build/pxlNav.min.js';
+const entryFile = '../Source/js/pxlNav.js';
+const outputFile = '../Build/pxlNav.min.js';
 
 var entryFiles = {
-  './Source/js/pxlNav.js' : './Build/pxlNav.min.js',
-  './Source/pxlRooms/CampfireEnvironment/CampfireEnvironment.js' : './Build/pxlRooms/CampfireEnvironment/CampfireEnvironment.js',
+  '../Source/js/pxlNav.js' : '../Build/pxlNav.min.js',
+  '../Source/pxlRooms/CampfireEnvironment/CampfireEnvironment.js' : '../Build/pxlRooms/CampfireEnvironment/CampfireEnvironment.js',
 };
 
 let promiseList = [];
