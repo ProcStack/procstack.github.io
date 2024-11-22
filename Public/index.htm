@@ -22,7 +22,7 @@
 <!-- -- -- -- -->
 
 <link type="text/css" rel="stylesheet" href="style/ProcStackStyle.css">
-<link type="text/css" rel="stylesheet" href="style/pxlNavStyle.css">
+<link type="text/css" rel="stylesheet" href="style/pxlNavStyle.min.css">
 
 <!-- -- -- -- -->
 
@@ -41,9 +41,9 @@
                     <span> </span>
                     <a href="#" class="pageLinkStyle" alt="Info on some of my repos I like">Repos</a>
                     <span> </span>
-                    <a href="#" class="pageLinkStyle" alt="Real world projects">Projects / Links</a>
+                    <a href="#" class="pageLinkStyle" alt="Real world projects">Projects<span id="squashOnMobile" class="squashOnMobileStyle"> / Links</span></a>
                     <span> </span>
-                    <a href="#" class="pageLinkStyle" alt="Real world projects">About Me</a>
+                    <a href="#" class="pageLinkStyle" alt="It's ah me! Marrr.... yeah"><span id="squashOnMobile" class="squashOnMobileStyle">About </span>Me</a>
                     <span> </span>
                 </div>
             </div>
@@ -52,23 +52,34 @@
                     <!-- -- -- -- -->
                     <div id="Init" class="gitPageInnerStyle">
                       <span class="gitPageHeaderStyle">Ahoi there!</span>
-                      <br><br>Ye be ProcStack, Trancor, or Kevin Edzenga, what ever you feel like calling me.
+                      <br><br>I'm <span class="textNudge">ProcStack</span>, <span class="textNudge">Trancor</span>, or <span class="textNudge">Kevin Edzenga</span>, which ever you feel like calling me!
                       
-                      <br><br>ProcStack is my coding work
-                      <br>Trancor is my visual graphics work
-                      <br>Kevin Edzenga is just .... I don't know which version of internet me is really me, but Kevin is just Me.
+                      <br><br><span class="textNudge">ProcStack</span> is my coding & real-time graphics creations
+                      <br><span class="textNudge">Trancor</span> is my pre-rendered visual graphics & diy builds
+                      <br><span class="textNudge">Kevin Edzenga</span> is just .... Me.
+                      
+                      <br><br>Everything shown here is my personal work;
+                      <br>The site code to 3d modeling, textures, shaders, and the like.
+                      <br>Except Three.js, certainly.
+                      
+                      <br><br><span class="textNudge">Everything the light touches!</span> ...sorta.
                     </div>
                     <!-- -- -- -- -->
                     <div id="pxlNav" class="gitPageInnerStyle">
-                      <span class="gitPageHeaderStyle">pxlNav <span id="pxlNavPageVersion"></span></span>
+                      <a href="https://github.com/ProcStack/procstack.github.io" target="_blank"><span class="gitPageHeaderStyle">pxlNav <span id="pxlNavPageVersion"></span></span></a>
 
-                      <br><br>Hit 'Y' on your keyboard to open the shader editor.
+                      <br><br>Hit <span class="textBoldBox">Y</span> on your keyboard to open the shader editor.
 
                       <br><br>The background of this page is running 'pxlNav', a camera navigation system I wrote for Three.js for the virtual event space called "Antibody Club" [defunct] during 2020 lockdowns.
                       <br>Antibody Club was a site we hosted virtual events, album releases, dj sets, and holiday parties available on any web browser and mobile.
 
-                      <br><br>Since then, society walked back into the sun and stretched their legs a bit, the need for a virtual event space had waned.
-                      <br>However, pxlNav was pretty cool, so I decided to make it easier to install for your own Three.js projects.
+                      <br><img src='http://www.metal-asylum.net/show/Antib0dyClub_10_chatImplemented.jpg' class='gitPageImageStyle' alt='Antibody Club'>
+                      <span class="imageDesc">Antibody Club - Showing some of the, now removed, network features.</span>
+
+                      <br><br>Since then, society walked back into the sun and stretched their legs a bit,
+                      <br>The needs for a virtual event space had waned.
+                      
+                      <br><br>However, pxlNav was pretty cool, so I decided to make it easier to install for your own Three.js projects.
                       <br>Aiming to turn your 3d modeling software into a level editor.
 
                       <br><br>As it stands, pxlNav supports FBX files for your Rooms (the environment / scene / levels) which can be made in your 3D program of choice.
@@ -82,7 +93,7 @@
                       <br><br>--
 
                       <br><br>During the run of Antibody Club (2020), I did have a helping hand on a couple shaders, camera animations, and some other odds'n'ends. Much of which has been altered since, but thanks none-the-less!
-                      <br>So, I'd be remiss if I didn't mention Michael Lee & Charles Wang for helping on Antibody Club / pxlNav.
+                      <br>So, I'd be remiss if I didn't mention <span class="textNudge">Michael Lee</span> & <span class="textNudge">Charles Wang</span> for helping on Antibody Club / pxlNav.
                       <br><br>
                     </div>
                     <!-- -- -- -- -->
@@ -120,29 +131,34 @@
                     </div>
                     <!-- -- -- -- -->
                     <div id="ProjectsLinks" class="gitPageInnerStyle">
-                      <span class="gitPageHeaderStyle">Projects / Links -</span>
+                      <span class="gitPageHeaderStyle">Personal Projects / Socials / Links -</span>
 
-                      <br><br><a href='http://Metal-Asylum.net' target='_blank'>Metal-Asylum.net</a>
-                      <br>  Best on desktop
-                      <br>    My main site
-                      <br>      Changing every couple years, never quite getting to a state of being “done,” yet always a shotgun blast of different dev work.
-                      <br>      Currently a real time first-person cabin in the woods, well, a forest with less trees than desired.
-                      <br>      This is using my javascript 'pxlNav' camera navigation and scene interpreter system for Three.js.
-                      <br>      Since it's pxlNav, and like this site, if you hit 'Y' on your keyboard, the shader editor will pop up.  Here you can look through the openGL shader code of the different object's materials in site.
+                      <br><br><a href='http://www.metal-asylum.net' target='_blank'>Metal-Asylum.net</a>
+                      <br>My main site - an earlier version of <span class="textNudge">pxlNav</span>,
+                      <br>But this time you can walk around and jump - Best on desktop
+                      
+                      <br><br>It changes every couple'a years, never quite getting to a state of being “done,” yet always a shotgun blast of different dev work.
+                      
+                      <br><br>Currently a real-time first-person Cabin in the woods, well, a forest with less trees than desired...
+                      <br>Since it's pxlNav, and like this site, if you hit 'Y' on your keyboard, the shader editor will pop up.
 
 
                       <br><br><a href='https://pxlmancer.com' target='_blank'>Pxlmancer</a>
-                      <br>  A full drawing/painting app on desktop, a fun fidget toy on mobile.
+                      <br>A full drawing/painting app on desktop, a fun fidget toy on mobile.
                       <br><img src='https://pxlmancer.com/show/tvKid.gif' class='gitPageImageStyle' alt='TV Kid timelapse'>
-                      <br>    A multi year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl),
-                      <br>  A mixing pallet you can blend colors together to use, then save the pallet to a number key,
-                      <br>  All of which can be saved to a pxlm file, to maintain your layers, settings, pallet swatches, and all!
+                      <span class="imageDesc">Timelapse of me making 'TV Kid' in pxlmancer</span>
+                      <br>A multi year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl),
+                      <br>A mixing pallet you can blend colors together to use, then save the pallet to a number key,
+                      <br>All of which can be saved to a pxlm file, to maintain your layers, settings, pallet swatches, and all!
+                      <br>Sadly, an update in javascript broke saving images, and I haven't had the time to fix it yet...
+                      <br>You can still save your document to a pxlm file, and open it back up to continue working with it!
                       <br><a href='https://imgur.com/gallery/8lSW1' target='_blank'>More on Imgur</a>
                       <br><img src='https://pxlmancer.com/show/tvKid.png' class='gitPageImageStyle' alt='TV was king!'>
                       <br><img src='https://pxlmancer.com/show/kitty.png' class='gitPageImageStyle' alt='Cat Tax of course!' >
+                      <span class="imageDesc">...of course, the cat tax...</span>
 
 
-                      <br><br><a href='https://neurous.net' target='_blank'>Neurous</a>
+                      <br><br><a href='http://www.neurous.net' target='_blank'>Neurous</a>
                       <br>  *Might be more fun on phone*
                       <br>    A few day project.
                       <br>    Just a page you can play around with particles.  A random project to make a custom emitter and particle class structure in javascript.
@@ -153,49 +169,80 @@
                       <br>    A custom photo filter site with interactive color and edge effects opengl shaders, using three.js for gpu access, and your multiple phone cameras in-browser.
                       <br>    Tap the triple down arrow to change the filter.  Tap and drag left & right or up & down to change the current filter's hue & saturation or edge detection size & brightness
 
-                      <br><br><span class="gitPageHeaderStyle">The One'Offs-</span>
-
-                      <br><br><a href='https://www.shadertoy.com/user/trancor' target='_blank'>Shadertoy</a>
-                      <br>  Only 3 at the moment.
-                      <br>  An exploration into the Kuwahara Filter being used in a single pass smart blur & edge detection.
-                      <br>  A Ray Marching shader to learn about sdf math.
-                      <br>  And 0-1 blending & animation helper functions with animated nyans, rainbows, and stars!
-
-                      <br><br><a href='https://dwitter.net/u/trancor' target='_blank'>Dwitter</a>
-                      <br>  JavaScript code golfing
-                      <br>  When all you get is 140 characters,
-                      <br>    Better make em count!
-                      <br>  
-
                       <br><br><span class="gitPageHeaderStyle">Socials-</span>
 
                       <div class="socialsLinkStyle">
                         <a href='https://www.youtube.com/@trancorwd' target='_blank'>YouTube</a>
                         <a href='https://instagram.com/trancor.diy' target='_blank'>Instagram</a>
                         <a href='https://github.com/ProcStack' target='_blank'>GitHub (you're there baby!)</a>
-                      </div><br>
+                      </div>
+
+                      <br><span class="gitPageHeaderStyle">The One'Offs-</span>
+                      <div class="oneOffsBlockStyle">
+                        <div class="oneOffsItemStyle">
+                          &nbsp;&nbsp;<a href='https://www.shadertoy.com/user/trancor' target='_blank'>Shadertoy</a>
+                          <br>  Most of the shaders are utilitarian, but click <a href='https://www.shadertoy.com/view/lXffz7' target='_blank'>dat cat!</a>
+                          <br>  'Utility' like an exploration into the <span class="textNudge">Kuwahara Filter</span>, as a single pass smart blur & edge detection.
+                          <br>  A Ray Marching shader to learn about sdf math and some ramppppps for sun glow.
+                        </div>
+                        <div class="oneOffsItemStyle innerEnd">
+                          <a href='https://dwitter.net/u/trancor' target='_blank'>Dwitter</a>&nbsp;&nbsp;
+                          <br>  JavaScript code golfing
+                          <br>  When all you get is 140 characters,
+                          <br>    Better make each one count!
+                        </div>
+                      </div>
+
                     </div>
                     <!-- -- -- -- -->
                     <div id="AboutMe" class="gitPageInnerStyle">
                       <span class="gitPageHeaderStyle">About Me -</span>
 
-                      <br><br>I think I'm a 'Technical Artist' (when doing real-time) or a 'Technical Director' (on film) or a 'Creative Technologist' (for immersive)...
-                      <br>Ya know... I don't really know what I am.  I just know I like figuring out puzzles, and for the life of me, can't seem to stop my fidgety fingers.
-                      <br>Always gotta be tapping away coding something, or building some diy contraption, or 3d modeling, or sewing, or writing, or... well, you get the idea.
+                      <br><br>I think I'm a '<span class="textNudge">Technical Artist</span>' (when doing real-time work) or a '<span class="textNudge">Technical Director</span>' (on films) or a '<span class="textNudge">Creative Technologist</span>' (for immersive)...
+                      <br><span class="textDrinkMeAlice"><span class="textItalicBox">So I says, blue M&M, red M&M, they all wind up the same color in the end.</span> - <span class="textNudge">Homer</span> ... <span class="textDrinkMeAlice">Simpson</span></span>
+                      
+                      <br><br>Ya know... I don't really know what I am.
+                      <br>I just know I like figuring out puzzles, and for the life of me, can't seem to stop my fidgety fingers.
+                      
+                      <br><br>Always gotta be tapping away at some code, or building some diy contraption, or 3d modeling, or sewing, or writing, or... well, ya get the idea.
 
-                      <br><br>An undiagnosed something-or-another that spawned-in with the energy which could only be brewed from within the mythical Red Bull itself!
+                      <br><br>An undiagnosed something-or-another, which spawned-in with the energy only befitting a gift from the mythical Red Bull itself!
 
-                      <br><br>In the past, I worked on 10 films, 9 of those at Blue Sky Studios.
-                      <br>Doing Character Simulation (for hair and clothing sims), Effects (volume sims, particles, and some RBDs), 
-                      <br>Along with 5 years of Crowds development/navigation/sims in Houdini for films like Ferdinand, Rio 2, and Spies In Disguise.
-                      <br>Being part of 2 published Siggraph papers and got an opportunity to speak at Siggraph to a bunch'a peoples about camera based crowd navigation for Peanuts.
+                      <br><br>In the past, I worked on <span class="textNudge">10</span> films, <span class="textNudge">9</span> of those at <span class="textBump">Blue Sky Studios</span>.
+                      <br>Doing <span class="textNudge">Character Simulation</span> (for hair and clothing sims) for <span class="textName">Epic</span>, <span class="textName">Rio 1</span> & <span class="textName">Rio 2</span>.
+                      <br><span class="textNudge">Effects</span> (volume sims, particles, and some RBDs) on <span class="textName">Ice Age 4</span>. 
+                      <br>Along with 5 years of <span class="textNudge">Crowds</span> development/navigation/sims in Houdini for <span class="textName">Ferdinand</span>, <span class="textName">Rio 2</span>, <span class="textName">Peanuts</span>, <span class="textName">Ice Age 5</span>, & <span class="textName">Spies In Disguise</span>.
+                      <br>Being part of 2 published Siggraph papers and got an opportunity to speak at <span class="textBump">Siggraph</span> to a bunch'a peoples about camera based crowd navigation for <span class="textName">Peanuts</span>.
                     
-                      <br><br>After that was Antibody Club / pxlNav, then a St. Jude / GCX virtual fundraising events outside of pxlNav.
+                      <br><br>After that was <span class="textBump">Antib0dy.Club</span> / <span class="textBump">pxlNav</span>, then a couple non-pxlNav virtual events, including a St. Jude + GCX virtual fundraiser.
                       <br>Then some xr/immersive reality work; like a couple official Instagram filters and 3 Home Environments for Oculus, among a few other things.
 
-                      <br><br>I recently made a tool that can turn any 3d model in a fabric pattern, so I've been making my own plushies in my free time.
-                      <br>While plushie making, I'm on'n'off working on a Graph Attention Networks using generic multi-purpose neurons for an AI project I've been working towards since 2015.
-                      <br>All this new AI stuff has been quite serendipitous for me!
+                      <br><br><span class="imageDesc">I recently made a tool that can turn any 3d model into fabric patterns in Houdini,</span>
+                      <img src='http://www.metal-asylum.net/show/pl_uvToFabricPattern_addedRGB_1_sm.jpg' class='gitPageImageStyle' alt='Daryll getting filleted!' >
+                      <img src='http://www.metal-asylum.net/show/a04_DaryllTheDuck_A_main.jpg' class='gitPageImageStyle' alt='Daryll all done!' >
+                      
+                      <br><span class="imageDesc">So I've been making custom plushies in my free time.</span>
+                      <img src='http://www.metal-asylum.net/show/FrankTheFish_n_Pinky.jpg' class='gitPageImageStyle' alt='Frank the Fish on his Pinky Flamingotube!' >
+                      <span class="imageDesc">Frank The Fish just chillin on his Flamingotube</span>
+                      
+                      <br><br>Outside of that, I'm on'n'off working on <span class="textNudge">Graph Attention Networks</span>.
+                      <br>I made a generic/multi-purpose neuron I'm getting to figure out when and where-to each are connected.
+                      <br>Rather than a grid of numbers aligning to yield a prediction, it's a data structure which outputs a value due to the neuron connections.
+                      <br>Realistically, the output should be similar to a RNN, but with a different mental structure.
+                      
+                      <br><br>...Mostly they are used for "<span class="textNudge">Recommendation Systems</span>",
+                      <br><span class="textItalicBox">Hey, you might know <span class="textNudge">Jim Bob McGee</span>!!</span>
+                      <br>But could be used for so much more!
+
+                      <br><span class="imageDesc">So all this new AI stuff has been quite serendipitous for me!</span>
+                      <img src='http://www.metal-asylum.net/show/esnLearning.gif' class='gitPageImageStyle' alt='Frank the Fish on his Pinky Flamingotube!' >
+                      <span class="imageDesc innerCenter">An ESN I wrote to detect & predict motion, upper left are some videos I made, upper right are it's 'levels' of learning R-G-B
+                      <br>The bottom two are slices of what the brain is seeing, and then predicting.</span>
+
+                      <br><br>There has been some advancements in Graph Neural Networks (GNNs), but not quite what I'm looking for in how the neurons are structured, or that I've seen yet.
+                      <br>Intrinsic learning dang it! That meta-learning to help with the learning of the learning!
+                      
+                      <br><br>Eh, I'm rambling now...
                       <br><br>
                     </div>
                     <!-- -- -- -- -->
@@ -204,7 +251,7 @@
             <div class="footerBarParent">
                 <div class="footerBar">
                     <div class="leftFooter versionStyle">
-                        [: pxlNav <span id="pxlNavVersion"></span> :]
+                        <a href="https://github.com/ProcStack/procstack.github.io" target="_blank">[: pxlNav <span id="pxlNavVersion"></span> :]</a>
                     </div>
                     <div>
                     </div>

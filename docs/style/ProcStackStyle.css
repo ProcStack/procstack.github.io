@@ -179,6 +179,74 @@ BODY {
     justify-content: space-around;
 }
 
+.imageDesc{
+    display: grid;
+    justify-self: center;
+}
+
+.innerCenter{
+    text-align: center;
+}
+
+.innerEnd{
+    text-align: end;
+}
+
+
+.textDrinkMeAlice{
+    font-size: 0.81em;
+}
+
+.textBump{
+    font-size: 1.22em;
+}
+
+.textNudge{
+    font-size: 1.07em;
+}
+
+.textName{
+    font-size: 1.05em;
+    border-radius: 6px;
+    background-color: rgba(180,180,180,0.15);
+    padding: 1px 3px 1px 3px;
+}
+
+.textBoldBox{
+    font-weight: 600;
+    border-radius: 6px;
+    background-color: rgba(110,110,110,0.5);
+    padding: 2px 6px 2px 6px;
+}
+
+.textInblockQuote{
+    font-size: 1.05em;
+    font-style: italic;
+    border-radius: 6px;
+    background-color: rgba(110,110,110,0.5);
+    padding: 2px 6px 2px 6px;
+    margin: 4px 4px;
+}
+
+
+
+.oneOffsBlockStyle{
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-around;
+    padding-top:6px;
+}
+
+
+
+
+
+
+
+
+
+
+
 /* -- -- -- */
 
 .footerBar {
@@ -200,6 +268,27 @@ BODY {
     height: 16px;
     overflow: hidden;
     line-height: 14px;
+    text-decoration: none;
+}
+
+.versionStyle a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.versionStyle a:hover {
+    color: #e5e5e5;
+    font-weight: 600;
+    text-decoration: underline;
+    font-weight: 600;
+    text-shadow: 1px 1.5px 4px rgba(50,50,50,.5);
+}
+
+.versionStyle a:active {
+    color: #cccccc;
+    text-shadow: 1px 1.5px 4px rgba(50,50,50,.75);
 }
 
 /* -- -- -- -- -- -- -- -- -- */
