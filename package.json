@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "ProcStack's git.io by Kevin Edzenga",
   "main": "index.js",
+  "sideEffects": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "startDist": "node index_distTest.js",
     "live": "cross-env NODE_ENV=production node index.js",
     "build": "cross-env NODE_ENV=production webpack --config ./packing/webpack.config.js",
+    "buildRoot": "cross-env NODE_ENV=production webpack --config ./webpack.config.js",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
@@ -44,8 +46,9 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/runtime": "^7.12.5",
     "babel-core": "^6.26.3",
-    "babel-loader": "^8.2.2",
+    "babel-loader": "^8.4.1",
     "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "clean-webpack-plugin": "^3.0.0",
@@ -54,6 +57,7 @@
     "css-loader": "^5.2.7",
     "css-minimizer-webpack-plugin": "^7.0.0",
     "cssnano": "^7.0.6",
+    "esbuild": "^0.24.0",
     "file-loader": "^6.2.0",
     "gh-pages": "^6.2.0",
     "glob": "^11.0.0",

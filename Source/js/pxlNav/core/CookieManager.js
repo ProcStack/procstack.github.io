@@ -49,7 +49,7 @@ export class CookieManager{
       return (val?"true":"false");
     }else if(val==null){ // null==undefined true; null===undefined false
       return "null";
-    }else if(val==NaN){
+    }else if(isNaN(Number(val))){
       return "NaN";
     }else{
       return val;

@@ -21,10 +21,11 @@ const fs = require('fs');
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+//const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const rimraf = require('rimraf');
+const { type } = require('os');
 //require("babel-core/register");
 //require("babel-polyfill");
 
@@ -36,8 +37,8 @@ var buildMode= adminMode ? "admin" : envMode;
 
 buildMode=buildMode.charAt(0).toUpperCase() + buildMode.slice(1);
 console.log( "// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //" );
-console.log( "//  Building Antib0dy.club for " + buildMode + " -- -- ");
-console.log( "// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //\n\n" );
+console.log( "// --  Building pxlNav for " + buildMode + " -- -- -- // ");
+console.log( "// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //\n\n" );
 
 // -- -- -- -- -- -- -- //
 // -- -- -- -- -- -- -- //
@@ -47,6 +48,7 @@ var outputPath="../dist";
 var publicPath="Public";
 var entryPath="Source";
 var roomFolder = "pxlRooms";
+var packerFolder = "packing";
 
 // Clear out the outputPath of all files before continuing
 rimraf.sync(path.resolve(__dirname, outputPath));
@@ -116,8 +118,11 @@ let entryPoints = Object.assign({},
     entryFullList );
 entryPoints = {
       "js/pxlNav":`./${entryPath}/js/pxlNav.js`,
-      "style/pxlNav": `./${entryPath}/style/pxlNav.css`
+      /*"style/pxlNav": `./${entryPath}/style/pxlNavStyle.css`*/
     };
+/*entryPoints = {
+      "js/pxlNav":`./${packerFolder}/webpack-entry.js`,
+    };*/
 //entryPoints["style/pxlNavStyle.css"] = `./${entryPath}/style/pxlNavStyle.css`;
 
 let copyFileList = [ { from: publicPath } ]
@@ -174,13 +179,35 @@ module.exports = {
   // },
   entry: entryPoints ,
   output: {
+    chunkLoading: "import", // import, require, or async-import
+    chunkFormat: "module", // array-push, commonjs, or module
+    chunkLoadingGlobal: 'pxlNav',
+    library: {
+      name:'pxlNav',
+      type: 'var',
+    },
+    libraryTarget: 'umd', // 'umd',
+    //libraryExport: 'pxlNav',
     path: path.resolve(__dirname, outputPath),
     publicPath: '/', // Output root folder for assets
-    filename: '[name].min.js', // Bundle Output
-    //filename: 'pxlNav.min.js', // Bundle Output
+    //filename: '[name].js', // Bundle Output
+    chunkFilename: (pathData) => {
+      return pathData.chunk.name === 'main' ? '[name].js' : 'js/pxlNavChunks/[name].js';
+    },
   },
   module: {
     rules: [
+      { // Prepped this step in GULP, but lets see webpack
+        test: /\.(js)$/,
+        use: [
+          {
+              loader: 'babel-loader',
+              options: {
+                  presets: ['@babel/preset-env']
+              }
+          },
+        ]
+      },
       { // Prepped this step in GULP, but lets see webpack
         test: /\.(css)$/,
         use: [
@@ -201,36 +228,41 @@ module.exports = {
     ]
   },
   optimization: {
-      splitChunks: {
-          chunks: 'all',
-          minSize: 20000,
-          maxSize: 70000,
-          minChunks: 1,
-          maxAsyncRequests: 30,
-          maxInitialRequests: 30,
-          automaticNameDelimiter: '~',
-          cacheGroups: {
-              defaultVendors: {
-                  test: /[\\/]node_modules[\\/]/,
-                  priority: -10,
-                  reuseExistingChunk: true,
-              },
-              default: {
-                  minChunks: 2,
-                  priority: -20,
-                  reuseExistingChunk: true,
-              },
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          keep_classnames: true,
+          keep_fnames: false,
+          mangle: {
+            reserved: ['pxlNav', 'VERBOSE_LEVELS'] // Add the names of the exports you want to keep
           },
+          output: {
+            comments: false,
+            beautify: false,
+          }
+        },
+        extractComments: false,
+      })
+    ],
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\\/]three[\\\/]/,
+          name: 'three',
+          chunks: 'all'
+        },
+        vendor: {
+          test: /[\\\/]libs[\\\/]/,
+          name: 'libs',
+          chunks: 'all'
+        },
       },
-      minimize: true,
-      minimizer: [
-          new TerserPlugin(),
-          new CssMinimizerPlugin(),
-      ],
+    },
   },
   plugins: [ // Load CSS root file
     new MiniCssExtractPlugin({
-      filename: 'style/pxlNav.css'
+      filename: 'style/pxlNavStyle.css'
     }),
 	new CopyWebpackPlugin({
 		patterns: copyFileList,

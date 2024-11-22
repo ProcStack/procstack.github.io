@@ -1,6 +1,6 @@
 //
 //  Core pxlNav Engine
-const pxlNavVersion = "0.0.7";
+const pxlNavVersion = "0.0.8";
 //      Written by Kevin Edzenga 2020;2024
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -46,8 +46,6 @@ import * as THREE from './libs/three/three.module.js';
 import * as PxlBase from './pxlNav/pxlBase.js';
 import { pxlShaders } from './pxlNav/shaders/shaders.js';
 import { VERBOSE_LEVEL } from './pxlNav/core/Types.js';
-
-export {VERBOSE_LEVEL};
 
 
 // Bool to load the environment asset fbx file;

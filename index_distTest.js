@@ -15,8 +15,7 @@ console.log("Booting in Development; Public / Source")
 
 //Setup folders
 //app.use( express.static(path.join(__dirname, '/Build')) );
-app.use( express.static(path.join(__dirname, '/Public')) );
-app.use( express.static(path.join(__dirname, '/Source')) );
+app.use( express.static(path.join(__dirname, '/dist')) );
 //app.use('/images', express.static(path.join(__dirname, '/Source/images')) );
 //app.use('/js', express.static(path.join(__dirname, '/Source/js')) );
 //app.use('/style', express.static(path.join(__dirname, '/Source/style')) );
