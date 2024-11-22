@@ -6,12 +6,11 @@
   "sideEffects": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "startDist": "node index_distTest.js",
+    "start": "node index.js developer",
+    "startDist": "node index.js dist",
     "live": "cross-env NODE_ENV=production node index.js",
     "build": "cross-env NODE_ENV=production webpack --config ./packing/webpack.config.js",
-    "buildRoot": "cross-env NODE_ENV=production webpack --config ./webpack.config.js",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d docs"
   },
   "repository": {
     "type": "git",

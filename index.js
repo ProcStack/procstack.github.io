@@ -1,7 +1,8 @@
 
-const projectName = "ProcStack.Git.io";
+const projectName = "ProcStack.Github.io";
 var httpPort = 3000;
 
+const args = process.argv.slice(2);
 
 
 const express = require('express');
@@ -15,8 +16,15 @@ console.log("Booting in Development; Public / Source")
 
 //Setup folders
 //app.use( express.static(path.join(__dirname, '/Build')) );
-app.use( express.static(path.join(__dirname, '/Public')) );
-app.use( express.static(path.join(__dirname, '/Source')) );
+
+if(args.length > 0 && args[0] == "dist"){
+    console.log("Serving from: docs");
+    app.use( express.static(path.join(__dirname, '/docs')) );
+}else{
+    console.log("Serving from: Public / Source");
+    app.use( express.static(path.join(__dirname, '/Public')) );
+    app.use( express.static(path.join(__dirname, '/Source')) );
+}
 //app.use('/images', express.static(path.join(__dirname, '/Source/images')) );
 //app.use('/js', express.static(path.join(__dirname, '/Source/js')) );
 //app.use('/style', express.static(path.join(__dirname, '/Source/style')) );
