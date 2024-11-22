@@ -149,6 +149,7 @@ BODY {
 
 .gitPageContentStyle::-webkit-scrollbar-track {
 	background: rgba( 155, 155, 155, 0.5 );
+    border-radius: 5px;
 }
 
 .gitPageContentStyle::-webkit-scrollbar-thumb {
@@ -271,14 +272,14 @@ BODY {
     text-decoration: none;
 }
 
-.versionStyle a {
+.footerBar a {
     color: #ffffff;
     text-decoration: none;
     font-weight: 400;
     text-decoration: none;
 }
 
-.versionStyle a:hover {
+.footerBar a:hover {
     color: #e5e5e5;
     font-weight: 600;
     text-decoration: underline;
@@ -286,7 +287,7 @@ BODY {
     text-shadow: 1px 1.5px 4px rgba(50,50,50,.5);
 }
 
-.versionStyle a:active {
+.footerBar a:active {
     color: #cccccc;
     text-shadow: 1px 1.5px 4px rgba(50,50,50,.75);
 }
