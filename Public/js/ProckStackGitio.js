@@ -19,7 +19,7 @@ const verbose = 0
 
 // The Title of your Project
 //   This will be displayed on the 
-const projectTitle = "ProcStack.git.io";
+const projectTitle = "procstack.git.io";
 
 // pxlRoom folder path, available to change folder names or locations if desired
 const pxlRoomRootPath = "./pxlRooms";
