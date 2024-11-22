@@ -31,137 +31,179 @@
 	</div>
     
 
-    <div id="procStackGitParent" class="procStackGitParentStyle fader visOff">
-        <div class="procStackGitParentStyle">
-            <div class="menuBlock">
-                <div class="menuParent">
-                    <a href="#" alt="Link to Init...">Init.</a>
+    <div id="procStackGitBlock" class="procStackGitBlockStyle pagesFader pagesVisOff">
+        <div id="procStackGitParent" class="procStackGitParentStyle">
+            <div class="gitPageNavBlockStyle">
+                <div id="gitPageNav" class="gitPageNavStyle">
+                    <a href="#" class="pageLinkStyle" alt="Link to Init...">Init.</a>
                     <span> </span>
-                    <a href="#" alt="Some info on this git.io site's backbone">pxlNav</a>
+                    <a href="#" class="pageLinkStyle" alt="Some info on this git.io site's backbone">pxlNav</a>
                     <span> </span>
-                    <a href="#" alt="Info on some of my repos I like">Repos</a>
+                    <a href="#" class="pageLinkStyle" alt="Info on some of my repos I like">Repos</a>
                     <span> </span>
-                    <a href="#" alt="Real world projects">Projects / Links</a>
+                    <a href="#" class="pageLinkStyle" alt="Real world projects">Projects / Links</a>
                     <span> </span>
-                    <a href="#" alt="Real world projects">About Me</a>
+                    <a href="#" class="pageLinkStyle" alt="Real world projects">About Me</a>
                     <span> </span>
                 </div>
             </div>
-            <div class="centerBodyParent">
-                <div id="gitPageContent" class="centerBody">
+            <div class="gitPageContentParentStyle">
+                <div id="gitPageContent" class="gitPageContentStyle">
                     <!-- -- -- -- -->
-                    <div id="Init">
-                        Ahoi there!  Ye be ProcStack, Trancor, or Kevin Edzenga, what ever you feel like calling me.
-                        ProcStack is my coding work
-                        Trancor is my visual graphics work
-                        Kevin Edzenga is just .... I don't know which version of internet me is really me, but Kevin is just Me.
+                    <div id="Init" class="gitPageInnerStyle">
+                      <span class="gitPageHeaderStyle">Ahoi there!</span>
+                      <br><br>Ye be ProcStack, Trancor, or Kevin Edzenga, what ever you feel like calling me.
+                      
+                      <br><br>ProcStack is my coding work
+                      <br>Trancor is my visual graphics work
+                      <br>Kevin Edzenga is just .... I don't know which version of internet me is really me, but Kevin is just Me.
                     </div>
                     <!-- -- -- -- -->
-                    <div id="pxlNav">
+                    <div id="pxlNav" class="gitPageInnerStyle">
+                      <span class="gitPageHeaderStyle">pxlNav <span id="pxlNavPageVersion"></span></span>
+
+                      <br><br>Hit 'Y' on your keyboard to open the shader editor.
+
+                      <br><br>The background of this page is running 'pxlNav', a camera navigation system I wrote for Three.js for the virtual event space called "Antibody Club" [defunct] during 2020 lockdowns.
+                      <br>Antibody Club was site we hosted virtual events, album releases, dj sets, and holiday parties available on any web browser and mobile.
+
+                      <br><br>Since then, society walked back into the sun and stretched their legs a bit, the need for a virtual event space had waned.
+                      <br>However, pxlNav was pretty cool, so I decided to make it easier to install for your own Three.js projects.
+                      <br>Aiming to turn your 3d modeling software into a level editor.
+
+                      <br><br>As it stands, pxlNav supports FBX files for your Rooms (the environment / scene / levels) which can be made in your 3D program of choice.
+                      <br>It supports rig + animation fbx files for your character animation, and a simple curve in your scene can act as your camera path ( add another if you want the camera to look somewhere as it's traveling the path ).
+                      <br>Animated textures by using a second texture, particle effects, FPS navigation, obstacles, items, portals, and more.
+
+                      <br><br>3d for web has come a far way, and it has less hurdles than getting your game ready for cross platform usability.
+                      <br>Websites are just there, anywhere, and can be turned into apps easily these days.
+                      <br>So why not?
+
+                      <br><br>--
+
+                      <br><br>During the run of Antibody Club (2020), I did have a helping hand on a couple shaders, camera animations, and some other odds'n'ends. Much of which has been altered since, but thanks none-the-less!
+                      <br>So, I'd be remiss if I didn't mention Michael Lee & Charles Wang for helping on Antibody Club / pxlNav.
+                      <br><br>
                     </div>
                     <!-- -- -- -- -->
-                    <div id="Repos">
+                    <div id="Repos" class="gitPageInnerStyle">
+                      <span class="gitPageHeaderStyle">Repos to Check Out-</span>
+
+                      <br><br><a href='https://github.com/ProcStack/procPromo_ShaderPack' target='_blank'>procPromo Minecraft Shader Pack</a>
+                      <br>A shader pack written for Minecraft, used through Optifine.
+                      <br>For the pack, I developed depth based smart texture bluring, in attempts to capture the Minecraft Key or Promo art used when new updates are released.
+                      
+                      <br><br>This included developing a edge detection system using depths & surface nornals saved through differed buffers, where the actual edge detection is performed on a final render pass.
+                      
+                      <br>Having also wrote a shadow distortion & bias system as well.  Having never written a shadow shader before, or the subsequent position projections from ever shader that would sample the shadow buffer, I wrote a simple radial distortion, distance based from the player.  However there were shadow scalping everywhere.
+                      <br>Circular shadow projections, in a cubic game based around 90 degree angles.
+                      <br>I then wrote a per-axis distortion system with biasing based on distance from camera.
+                      <br>This allowed for sharp crisp shadow edges on blocks, but also with the distance based biasing, solved a lot of depth based issues.
+                      <br>Allowing me to create a shadow with little to know peter panning, little scalping, edges on surfaces parallel to the suns directional rays, all at great distances from camera.
+                      
+                      <br><br><a href='https://github.com/ProcStack/pxlVisualizer' target='_blank'>pxlVisualizer</a>
+                      <br>Trippy visuals, using OpelGL and C++ through OpenFrameWorks.
+                      <br>Originally written in Python for PyGame, decided it would be a fun project to learn C++ on.
+                      
+                      <br><br><a href='https://github.com/ProcStack/pxlTextGenerator' target='_blank'>pxlTextGenerator</a>
+                      <br>Text to handwriting generator
+                      <br>Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.net.
+                      <br>Letting them write the very words written in the tome perched upon the desk.
+                      <br>A segmenter, labeler, and scripting language was written to allow saving individual characters, variants, and written pages, with text effects like opacity, scale, and kearning.
+                      
+                      <br><br>Scan some writing, click the letters, adjust the spacing, type your page with those letters, and hit save!
+                      
+                      <br><br>
                     </div>
                     <!-- -- -- -- -->
-                    <div id="ProjectsLinks">
-                        Projects/Links-
+                    <div id="ProjectsLinks" class="gitPageInnerStyle">
+                      <span class="gitPageHeaderStyle">Projects / Links -</span>
 
-[Metal-Asylum](http://Metal-Asylum.net)
-  Best on desktop
-    My main site
-      Changing every couple years, never quite getting to a state of being “done,” yet always a shotgun blast of different dev work.
-      Currently a real time first-person cabin in the woods, well, a forest with less trees than desired.
-      This is using my javascript ‘pxlNav’ camera navigation and scene interpreter system for Three.js.
-      Since it's pxlNav, and like this site, if you hit ’Y’ on your keyboard, the shader editor will pop up.  Here you can look through the openGL shader code of the different object’s materials in site.
-
-
-[Pixelmancer](https://pxlmancer.com)
-  A full drawing/painting app on desktop,
-  A fun fidget toy on mobile.
-[!TV Kid timelapse](https://pxlmancer.com/show/tvKid.gif)
-    A multi year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl),
-  A mixing pallet you can blend colors together to use, then save the pallet to a number key,
-  All of which can be saved to a pxlm file, to maintain your layers, settings, pallet swatches, and all!
-[More on Imgur](https://imgur.com/gallery/8lSW1)
-[!TV was king!](https://pxlmancer.com/show/tvKid.png)
-[!Cat Tax of course!](https://pxlmancer.com/show/kitty.png)
+                      <br><br><a href='http://Metal-Asylum.net' target='_blank'>Metal-Asylum.net</a>
+                      <br>  Best on desktop
+                      <br>    My main site
+                      <br>      Changing every couple years, never quite getting to a state of being “done,” yet always a shotgun blast of different dev work.
+                      <br>      Currently a real time first-person cabin in the woods, well, a forest with less trees than desired.
+                      <br>      This is using my javascript 'pxlNav' camera navigation and scene interpreter system for Three.js.
+                      <br>      Since it's pxlNav, and like this site, if you hit 'Y' on your keyboard, the shader editor will pop up.  Here you can look through the openGL shader code of the different object's materials in site.
 
 
-[Neurous](https://neurous.net)
-  *Might be more fun on phone*
-    A few day project.
-    Just a page you can play around with particles.  A random project to make a custom emitter and particle class structure in javascript.
-
-[pxlCam](https://pxlmancer.com/gl/pxlCam)
-  *Use on phone!!*
-    A few day project.
-    A custom photo filter site with interactive color and edge effects opengl shaders, using three.js for gpu access, and your multiple phone cameras in-browser.
-    Tap the triple down arrow to change the filter.  Tap and drag left & right or up & down to change the current filter’s hue & saturation or edge detection size & brightness
-
-Repos to Check Out-
-[procPromo Minecraft Shader Pack](https://github.com/ProcStack/procPromo_ShaderPack)
-A shader pack written for Minecraft, used through Optifine.
-For the pack, I developed depth based smart texture bluring, in attempts to capture the Minecraft Key or Promo art used when new updates are released.
-
-This included developing a edge detection system using depths & surface nornals saved through differed buffers, where the actual edge detection is performed on a final render pass.
-
-Having also wrote a shadow distortion & bias system as well.  Having never written a shadow shader before, or the subsequent position projections from ever shader that would sample the shadow buffer, I wrote a simple radial distortion, distance based from the player.  However there were shadow scalping everywhere.
-Circular shadow projections, in a cubic game based around 90 degree angles.
-I then wrote a per-axis distortion system with biasing based on distance from camera.
-This allowed for sharp crisp shadow edges on blocks, but also with the distance based biasing, solved a lot of depth based issues.
-Allowing me to create a shadow with little to know peter panning, little scalping, edges on surfaces parallel to the suns directional rays, all at great distances from camera.
-
-[PxlVisualizer](https://github.com/ProcStack/pxlVisualizer)
-Trippy visuals, using OpelGL and C++ through OpenFrameWorks.
-Originally written in Python for PyGame, decided it would be a fun project to learn C++ on.
-
-[pxlTextGenerator](https://github.com/ProcStack/pxlTextGenerator)
-Text to handwriting generator
-Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.net.
-Letting them write the very words written in the tome perched upon the desk.
-A segmenter, labeler, and scripting language was written to allow saving individual characters, variants, and written pages, with text effects like opacity, scale, and kearning.
-
-Scan some writing, click the letters, adjust the spacing, type your page with those letters, and hit save!
+                      <br><br><a href='https://pxlmancer.com' target='_blank'>Pxlmancer</a>
+                      <br>  A full drawing/painting app on desktop, a fun fidget toy on mobile.
+                      <br><img src='https://pxlmancer.com/show/tvKid.gif' class='gitPageImageStyle' alt='TV Kid timelapse'>
+                      <br>    A multi year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl),
+                      <br>  A mixing pallet you can blend colors together to use, then save the pallet to a number key,
+                      <br>  All of which can be saved to a pxlm file, to maintain your layers, settings, pallet swatches, and all!
+                      <br><a href='https://imgur.com/gallery/8lSW1' target='_blank'>More on Imgur</a>
+                      <br><img src='https://pxlmancer.com/show/tvKid.png' class='gitPageImageStyle' alt='TV was king!'>
+                      <br><img src='https://pxlmancer.com/show/kitty.png' class='gitPageImageStyle' alt='Cat Tax of course!' >
 
 
-The One’Offs-
+                      <br><br><a href='https://neurous.net' target='_blank'>Neurous</a>
+                      <br>  *Might be more fun on phone*
+                      <br>    A few day project.
+                      <br>    Just a page you can play around with particles.  A random project to make a custom emitter and particle class structure in javascript.
 
-[ShaderToy](https://www.shadertoy.com/user/trancor)
-  Only 3 at the moment.
-  An exploration into the Kuwahara Filter being used in a single pass smart blur & edge detection.
-  A Ray Marching shader to learn about sdf math.
-  And 0-1 blending & animation helper functions with animated nyans, rainbows, and stars!
+                      <br><br><a href='https://pxlmancer.com/gl/pxlCam' target='_blank'>pxlCam</a>
+                      <br>  *Use on phone!!*
+                      <br>    A few day project.
+                      <br>    A custom photo filter site with interactive color and edge effects opengl shaders, using three.js for gpu access, and your multiple phone cameras in-browser.
+                      <br>    Tap the triple down arrow to change the filter.  Tap and drag left & right or up & down to change the current filter's hue & saturation or edge detection size & brightness
 
-[Dwitter](https://dwitter.net/u/trancor)
-  JavaScript code golfing
-  When all you get is 140 characters,
-    Better make em count!
-  
+                      <br><br><span class="gitPageHeaderStyle">The One'Offs-</span>
 
-Socials-
+                      <br><br><a href='https://www.shadertoy.com/user/trancor' target='_blank'>Shadertoy</a>
+                      <br>  Only 3 at the moment.
+                      <br>  An exploration into the Kuwahara Filter being used in a single pass smart blur & edge detection.
+                      <br>  A Ray Marching shader to learn about sdf math.
+                      <br>  And 0-1 blending & animation helper functions with animated nyans, rainbows, and stars!
 
-[YouTube](https://www.youtube.com/@trancorwd)
-[Instagram](https://instagram.com/trancor.diy)
-[GitHub (you're there baby!)](https://github.com/ProcStack)
+                      <br><br><a href='https://dwitter.net/u/trancor' target='_blank'>Dwitter</a>
+                      <br>  JavaScript code golfing
+                      <br>  When all you get is 140 characters,
+                      <br>    Better make em count!
+                      <br>  
+
+                      <br><br><span class="gitPageHeaderStyle">Socials-</span>
+
+                      <div class="socialsLinkStyle">
+                        <a href='https://www.youtube.com/@trancorwd' target='_blank'>YouTube</a>
+                        <a href='https://instagram.com/trancor.diy' target='_blank'>Instagram</a>
+                        <a href='https://github.com/ProcStack' target='_blank'>GitHub (you're there baby!)</a>
+                      </div><br>
                     </div>
                     <!-- -- -- -- -->
-                    <div id="AboutMe">
+                    <div id="AboutMe" class="gitPageInnerStyle">
+                      <span class="gitPageHeaderStyle">About Me -</span>
+
+                      <br><br>I think I'm a 'Technical Artist' (for real-time) or a 'Technical Director' (for film) or a 'Creative Technologist' for immersive...
+                      <br>Ya know... I don't really know what I am.  I just know I like figuring out puzzles, and for the life of me, can't seem to stop my fidgety fingers.
+                      <br>Always gotta be tapping away coding something, or building some diy contraption, or 3d modeling, or sewing, or writing, or... well, you get the idea.
+
+                      <br><br>An undiagnosed something-or-another that spawned-in with the energy that could only be brewed from within the mythical Red Bull itself.
+
+                      <br><br>In the past, I worked on 10 films, 9 of those at Blue Sky Studios.
+                      <br>Doing Character Simulation (hair and clothing sims), Effects (volume sims, particles, and some RBDs), along with 5 years of Crowds development/navigation/sims in Houdini for films like Ferdinand, Rio 2, and Spies In Disguise.
+                      <br>Getting 2 Siggraph papers published and being allowed to speak to a giant group of people at Siggraph about camera based crowd navigation & cycles choices for Peanuts.
+                    
+                      <br><br>After that was Antibody Club / pxlNav, then a St. Jude / GCX virtual fundraising events outside of pxlNav.
+                      <br>Then some xr/immersive reality work; like a couple official Instagram filters and 3 Home Environments for Oculus, among a few other things.
+
+                      <br><br>I recently made a tool that can turn any 3d model in a fabric pattern, so I've been making my own plushies in my free time.
+                      <br><br>
                     </div>
                     <!-- -- -- -- -->
                 </div>
             </div>
             <div class="footerBarParent">
                 <div class="footerBar">
-                    <div class="leftFooter">
-                        Blerble mcderble
+                    <div class="leftFooter versionStyle">
+                        [: pxlNav <span id="pxlNavVersion"></span> :]
                     </div>
                     <div>
-                        <span class="centerFooter">
-                            &copy; 2024
-                        </span>
-                        <span class="rightFooter">
-                            <a href="#" alt="Contact Us">Contact Us</a>
-                        </span>
+                    </div>
+                    <div class="rightFooter">
+                        ProcStack / Trancor / Kevin Edzenga - 2024
                     </div>
                 </div>
             </div>

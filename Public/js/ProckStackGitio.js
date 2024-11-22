@@ -9,13 +9,13 @@
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
-import { pxlNav } from './pxlNav.js';
+import { pxlNav, pxlNavVersion } from './pxlNav.js';
 import { ProcstackPages } from './ProcstackPages.js';
 
 
 // Console logging level
 //   Options are - NONE, ERROR, WARN, INFO
-const verbose = 3
+const verbose = 0
 
 // The Title of your Project
 //   This will be displayed on the 
@@ -42,6 +42,7 @@ pxlNavr.subscribe("booted", procPages.postLoad.bind(procPages));
 
 function init(){
   procPages.init();
+  procPages.setPxlNavVersion(pxlNavVersion);
 
   pxlNavr.bootTimer();
   pxlNavr.init();

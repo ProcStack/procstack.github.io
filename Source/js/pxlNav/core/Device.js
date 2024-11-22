@@ -18,6 +18,13 @@ export class Device{
     this.pxlAutoCam=null;
     this.pxlGuiDraws=null;
     this.pxlQuality=null;
+
+
+    // If the cursor swaps between grabbing and grabable
+    // 'false' will keep the cursor as a pointer
+    // 'true' will be grabable over pxlNav, grabbing while clicking
+    this.allowCursorSwap = false;
+
     
     //this.bootTime=new Date().getTime();
     let sW=window.innerWidth;
@@ -309,10 +316,12 @@ export class Device{
   }
     
   setCursor(cursorType){
-    if(cursorType == "activeLatch"){
-            let cursorType=["grab", "grabbing","all-scroll"][this.touchMouseData.button];
+    if(this.allowCursorSwap){
+      if(cursorType == "activeLatch"){
+              let cursorType=["grab", "grabbing","all-scroll"][this.touchMouseData.button];
+      }
+      document.body.style.cursor=cursorType;
     }
-    document.body.style.cursor=cursorType;
   }
     
   getMouseXY(e){
