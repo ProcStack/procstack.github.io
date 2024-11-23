@@ -13,16 +13,23 @@ export class ProcstackPages {
     this.curPage = null;
     this.defaultPage = "Init";
     this.pageListing = {};
-    // this.navBar = new pxlNavr();
+
+    this.resObjsVis = true;
+    this.resBasedObjs = [];
     // this.navBar.init();
   }
   init(){
     this.mainDiv = document.getElementById("procStackGitBlock");
-    let navBar = document.getElementById("gitPageNav");
-    let navBarLinks = [...navBar.getElementsByTagName("a")];
+    this.navBar = document.getElementById("gitPageNav");
+    this.navBarLinks = [...this.navBar.getElementsByTagName("a")];
+
+    this.resBasedObjs = [...document.getElementsByClassName("squashInLowRes")];
+    this.contentParent = document.getElementById("gitPageContentParent");
+    this.pageParent = document.getElementById("procStackGitParent");
     let linkList = [...document.getElementById("gitPageNav").children];
     let pageDivs = [...document.getElementById("gitPageContent").children];
     let pageHash = this.getHash();
+    
 
     pageDivs.forEach( (pageDiv)=>{
       this.prepFader(pageDiv);
@@ -35,9 +42,9 @@ export class ProcstackPages {
       }
     });
 
-    navBarLinks.forEach( (navLink)=>{
-      let linkText = navLink.innerText;
-      linkText = linkText.replace(/(?: |\/|\.)/g, "");
+    this.navBarLinks.forEach( (navLink)=>{
+      let linkText = navLink.getAttribute("pageName");
+      linkText = linkText.replace(/(?: |\/|\.|\n)/g, "");
       navLink.addEventListener("click", (e)=>{
         e.preventDefault();
         if( linkText == this.curPage.id ){
@@ -48,7 +55,40 @@ export class ProcstackPages {
       });
     });
 
+    window.addEventListener("resize", this.onResize.bind(this));
+
+    // Let the dom settle for a step
+    setTimeout( ()=>{
+      this.checkNavBarSize();
+    });
+
   }
+
+  // -- -- --
+
+  eventHandler( e ){
+    if( e.type == "booted" ){
+      this.postLoad();
+    }else if( e.type == "shaderEditorVis" ){
+      this.toggleMidFader(this.mainDiv, e.value);
+    }else if( e.type == "roomChange-Start" ){
+      console.log("Room Change Start");
+    }else if( e.type == "roomChange-End" ){
+      console.log("Room Change End");
+    }else if( e.type == "pong" ){
+      console.log("Pong!");
+    }
+  }
+
+  // -- -- --
+  
+  postLoad(){
+    this.toggleFader(this.mainDiv, true);
+    
+  }
+
+  // -- -- --
+
   getHash(){
     let hash = window.location.hash;
     hash = hash.replace("#","");
@@ -57,9 +97,35 @@ export class ProcstackPages {
     }
     return hash;
   }
-  postLoad(){
-    this.toggleFader(this.mainDiv, true);
+  onResize(){
+    this.checkNavBarSize();
   }
+  
+  checkNavBarSize(){
+    let sw=window.innerWidth;
+    let sh=window.innerHeight;
+
+    let buttonWidthAgr = 0;
+    this.navBarLinks.forEach( (navLink)=>{
+      let btnWidth = navLink.offsetWidth;
+      buttonWidthAgr += btnWidth;
+    });
+
+    let navBarWidth = this.navBar.offsetWidth * 0.9;
+    let navBarThreshold = this.navBar.offsetWidth * 0.6;
+    if( this.resObjsVis && buttonWidthAgr > navBarWidth ){
+      this.resObjsVis = false;
+      this.resBasedObjs.forEach( (obj)=>{
+        obj.style.display = "none";
+      });
+    }else if( !this.resObjsVis && buttonWidthAgr < navBarThreshold ){
+      this.resObjsVis = true;
+      this.resBasedObjs.forEach( (obj)=>{
+        obj.style.display = "block";
+      });
+    }
+  }
+
   prepFader( obj ){
     if( typeof(obj)=="string" ){
       obj = document.getElementById(obj);
@@ -88,6 +154,32 @@ export class ProcstackPages {
       }, 800);
     }
   }
+
+  toggleMidFader( obj, vis=false ){
+    if( typeof(obj)=="string" ){
+      obj = document.getElementById(obj);
+    }
+    if( !obj ){
+      return;
+    }
+
+    if( vis ){
+      obj.style.display = "block";
+      obj.classList.add("pagesVisMid");
+      obj.classList.remove("pagesVisOn");
+
+      this.contentParent.classList.add("gitPageContentParentHiddenStyle");
+      this.contentParent.classList.remove("gitPageContentParentStyle");
+      this.pageParent.style.marginBottom = "0px";
+    } else {
+      obj.classList.add("pagesVisOn");
+      obj.classList.remove("pagesVisMid");
+      this.contentParent.classList.add("gitPageContentParentStyle");
+      this.contentParent.classList.remove("gitPageContentParentHiddenStyle");
+      this.pageParent.style.marginBottom = "250px";
+    }
+  }
+
   changePage( pageName ){
     if( pageName != this.curPage && Object.keys(this.pageListing).includes(pageName) ){
       this.toggleFader(this.curPage, false);
@@ -108,4 +200,5 @@ export class ProcstackPages {
       pnpv.innerText = version;
     }
   }
+
 }

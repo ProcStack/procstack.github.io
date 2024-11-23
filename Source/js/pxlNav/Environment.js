@@ -238,7 +238,7 @@ export class Environment{
     this.pxlDevice=pxlNav.pxlDevice;
     this.pxlCamera=pxlNav.pxlCamera;
     this.pxlGuiDraws=pxlNav.pxlGuiDraws;
-    this.emit=pxlNav.emit;
+    this.emit=pxlNav.emit.bind(pxlNav);
 
   }
   

@@ -31,14 +31,31 @@ const bootRoomList = ["CampfireEnvironment"];//, "SaltFlatsEnvironment"];
 
 // -- -- -- -- --
 
+
+// Create the pxlNav environment manager
 const pxlNavr = new pxlNav( verbose, projectTitle, pxlRoomRootPath, startingRoom, bootRoomList );
+
 
 // -- -- -- -- --
 
+
+// Create the main page manager
 const procPages = new ProcstackPages();
-pxlNavr.subscribe("booted", procPages.postLoad.bind(procPages));
+
+
+// -- -- -- -- --
+
+
+// Subscribe to events emitted from pxlNav for callback handling
+//   Non loop - pxlNavObj.subscribe("pxlNavEventNameHere", procPages.functionName.bind(procPages));
+const pageListenEvents = [ "booted", "shaderEditorVis", "roomChange-End", "fromRoom" ];
+pageListenEvents.forEach( (e)=>{
+  pxlNavr.subscribe( e, procPages.eventHandler.bind(procPages) );
+});
+
 
 // -- -- --
+
 
 function init(){
   procPages.init();
@@ -46,6 +63,6 @@ function init(){
 
   pxlNavr.bootTimer();
   pxlNavr.init();
-  
+
 }
 (()=>{init()})();

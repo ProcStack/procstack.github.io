@@ -158,10 +158,10 @@ export class Device{
     document.onkeyup=(e)=>{curObj.onkeyup(curObj,e)};
   
     let tmpThis=this;
-    window.addEventListener("popstate", (e)=>{
-        console.log( e.state );
+    /*window.addEventListener("popstate", (e)=>{
+        console.log( e );
         //JSON.stringify(e.state);
-    });
+    });*/
     
     document.addEventListener("visibilitychange", function(e) {
         tmpThis.windowHidden=document.hidden ;

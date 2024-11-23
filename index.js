@@ -12,16 +12,17 @@ const path = require('path');
 const http = require('http').Server(app);
 
 
-console.log("Booting in Development; Public / Source")
 
 //Setup folders
 //app.use( express.static(path.join(__dirname, '/Build')) );
 
 if(args.length > 0 && args[0] == "dist"){
-    console.log("Serving from: docs");
+    console.log("Booting in 'Live'")
+    console.log("Serving from: ./docs");
     app.use( express.static(path.join(__dirname, '/docs')) );
 }else{
-    console.log("Serving from: Public / Source");
+    console.log("Booting in Developer Mode");
+    console.log("Serving from: ./Public & ./Source");
     app.use( express.static(path.join(__dirname, '/Public')) );
     app.use( express.static(path.join(__dirname, '/Source')) );
 }

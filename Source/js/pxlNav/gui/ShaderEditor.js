@@ -746,6 +746,8 @@ export class ShaderEditor {
 		this.guiManager.promptFader( this.gui, active );
 		this.guiManager.promptFader( this.helpGui, active );
 
+    this.pxlEnv.emit( "shaderEditorVis", active );
+
 		if(active){
 			this.guiManager.pxlNavCanvas.addEventListener("mousedown", this.blurShaderEditor.bind(this));
 		}else{

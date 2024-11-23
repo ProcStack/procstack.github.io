@@ -9,17 +9,16 @@ Kevin Edzenga's web dev & shader resume site
 
 ### Too Long; Not Gonna Read -
 *Wanna make a site with a 3d fbx file?*
-<br/>&nbsp; `./Public/pxlRooms` to look at example rooms or make a new'n.
+<br/>&nbsp; `./Source/pxlRooms` to look at example rooms or make a new'n.
 
-<br/>&nbsp;&nbsp;`pxlNav` entry point is -
+<br/>&nbsp;&nbsp;Minified pxlNav & style -
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;`./Build`
+
+<br/>&nbsp;&nbsp;`pxlNav` dev entry point is -
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;`./Source/js/pxlNav.js`
 
-## 
-
-If you're running Windows, you'll need to have -
-`Desktop development with C++` for visual studio
-<br/>Or run `npm i -g windows-build-tools` to support the `package.json` node modules safe install.
-
+<br/>&nbsp;&nbsp;`procstack.github.io` public site -
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;`./docs`
 
 ##
 

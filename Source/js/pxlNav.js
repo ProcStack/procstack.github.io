@@ -98,6 +98,22 @@ export class pxlNav{
 			"vidRoot" : "assets/screenContent/"
 		};
 
+		this.validEvents = {
+			"booted" : "Emitted after the engine has fully booted and is ready to be addressed.",
+			"shaderEditorVis" : "Returns a [bool]; Emitted when the shader editor is toggled on or off.",
+			"roomChange-Start" : "Emitted when the room change transition begins.",
+			"roomChange-Middle" : "Emitted when the room change process occurs mid transition.",
+			"roomChange-End" : "Returns a [bool]; Emitted when the room change transition ends.",
+			"fromRoom" : "Returns a custom object; Emitted from your Room code you choose to emit during run time.",
+			"pxlNavEventNameHere" : "Never emitted; You did some copy'pasta.",
+			"" : "** NOTE : callbacks get an event object shaped -  **",
+			"" : "** { 'type' : *eventName*, 'value' : *data* } **",
+			"" : "",
+			"help" : "Hello! I'm here to help you!",
+			"pingPong" : "Send 'ping', Get 'pong'! - pxlNav.trigger('ping');",
+		};
+		this.validEventsKeys = Object.keys( this.validEvents );
+
     this.pxlTimer = new PxlBase.Timer();
 		this.pxlShaders = pxlShaders;
 		this.pxlCookie = new PxlBase.CookieManager( projectTitle, "/" );
@@ -728,11 +744,17 @@ export class pxlNav{
 
 	// -- -- --
 
-	trigger( eventType, eventValue, eventObj=null ){
+	trigger( eventType, eventValue=null, eventObj=null ){
 		switch( eventType ){
+			case "ping":
+				this.emit("pingPong", "pong");
+				break;
 			case "toRoom":
 				let roomEventType = eventObj["type"];
 				let roomEventValue = eventObj["value"];
+				if(eventValue==null){
+					eventValue=this.pxlEnv.currentRoom;
+				}
 				this.pxlEnv.sendRoomMessage( eventValue, roomEventType, roomEventValue );
 			default:
 				break;
@@ -740,15 +762,36 @@ export class pxlNav{
 	}
 
 	subscribe( eventType, callbackFunc ){
-		const validEvents = ["booted", "roomChange", "fromRoom"];
-		if( validEvents.includes( eventType ) ){
-			this.callbacks[eventType] = callbackFunc;
+		let triggerHelp = false;
+		if( this.validEventsKeys.includes( eventType ) ){
+			if( eventType == "pxlNavEventNameHere" ||  eventType == "help" || eventType == "test" ){
+				console.warn("Warning : `pxlNav.subscribe( 'pxlNavEventNameHere', ... )` was used; need some help?");
+
+				// developer triggered the emit help event
+				//   Dump all the events and info!
+				console.log("Valid Event Types : ");
+				this.validEventsKeys.forEach( (e)=>{
+					console.log( "  - ", e, " : ", this.validEvents[e] );
+				});
+
+			}else{
+				this.callbacks[eventType] = callbackFunc;
+			}
+		}else{
+			console.warn("Warning : `pxlNav.subscribe( '"+eventType+"', ... )` was used; use 'help' for a list of valid events.");	
 		}
 	}
 
-	emit( eventType, eventValue ){
+	emit( eventType, eventValue, statusValue=null ){
 		if( this.callbacks[eventType] ){
-			this.callbacks[eventType]( eventValue );
+			let msg = {
+				"type" : eventType,
+				"value" : eventValue
+			};
+			if( statusValue !== null ){
+				msg["status"] = statusValue;
+			}
+			this.callbacks[eventType]( msg );
 		}
 	}
 

@@ -17,12 +17,24 @@ BODY {
 /*  -- -- --  */
 
 
+.heightFader{
+	transition: max-height .8s;
+}
+
 .pagesFader{
 	transition: opacity .8s, filter .8s, max-height .8s;
 }
 .pagesVisOn{
 	filter:alpha(opacity=100);
 	opacity:1.0;
+    max-height: min-content;
+    position: relative;
+    z-index: 2;
+}
+
+.pagesVisMid{
+	filter:alpha(opacity=50);
+	opacity:0.25;
     max-height: min-content;
     position: relative;
     z-index: 2;
@@ -70,6 +82,7 @@ BODY {
     padding: 10px;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 
@@ -101,6 +114,14 @@ BODY {
 
 .gitPageContentParentStyle {
     padding : 3px;
+    max-height: 65vh;
+    overflow: hidden;
+}
+
+.gitPageContentParentHiddenStyle {
+    padding : 3px;
+    max-height: 0vh;
+    overflow: hidden;
 }
 
 /* -- -- -- */
@@ -180,6 +201,12 @@ BODY {
     justify-content: space-around;
 }
 
+.pageLinkStyle{
+    display: grid;
+    grid-auto-flow: column;
+}
+
+
 .imageDesc{
     display: grid;
     justify-self: center;
@@ -199,7 +226,7 @@ BODY {
 }
 
 .textBump{
-    font-size: 1.22em;
+    font-size: 1.17em;
 }
 
 .textNudge{
