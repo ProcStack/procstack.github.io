@@ -3141,7 +3141,7 @@ vec4 envMapTexelToLinear(vec4 color) {
             lightInf *=  1.0-min(1.0, length(vPos - pointLights[shadowIndex].position) * pointLights[shadowIndex].decay*.006 );
             lights.rgb += lightInf;
         }
-        Cd.rgb *= lights.rgb*.8+.2;
+        Cd.rgb *= lights.rgb*.7+.3;
         
         float shadowInf = 0.0;
         float detailInf = 0.0;
@@ -3160,7 +3160,7 @@ vec4 envMapTexelToLinear(vec4 color) {
         for(int i = 0; i < NUM_DIR_LIGHTS; i++) {
             int shadowIndex = i;
             vec3 lightInf= ( max(0.0, dot(directionalLights[shadowIndex].direction, reflect( normalize(pos), vN ) ))*.65) * directionalLights[shadowIndex].color;
-            lights.rgb += lightInf*.3;
+            lights.rgb += lightInf*.4;
         }
         Cd.rgb += lights.rgb*baseDirtNoise;
         
@@ -3260,7 +3260,7 @@ vec4 envMapTexelToLinear(vec4 color) {
         //Cd.rgb = vec3(blender);
         
         gl_FragColor=Cd;
-    }`}function bh(){let e=wt();return e+=`               
+    }`}function bh(){let e=wt();return e+=`
   uniform vec2 time;
   uniform sampler2D noiseTexture;
   uniform sampler2D smoothNoiseTexture;
@@ -3307,7 +3307,7 @@ vec4 envMapTexelToLinear(vec4 color) {
     inf *= max(0.0, 1.0-length( pos.xz * nCd.x*inf ) );
     vInf = inf;
     
-    nUv = fract( vUv + vec2(t*1.) * pos.xz*.1  * pos.yy*.1 + nCd.xy*.01 );
+    nUv = fract( vUv + vec2(t*.1) * pos.xz*.1  * pos.yy*.1 + nCd.xy*.01 );
     vec4 snCd=texture2D( smoothNoiseTexture, nUv );
     snCd = -(snCd-.5)*nInfv.y;
     snCd.y *= 1.6;
@@ -3318,27 +3318,27 @@ vec4 envMapTexelToLinear(vec4 color) {
     webCd = (webCd-.5) * nInfv.z;
     
     vec3 infv = vec3(  inf  );
-    infv.xz *= .1 ; 
+    infv.xz *= .1  ; 
     vShift = (nCd.rgb * nInfv.x + snCd.rgb * nInfv.y ) * layerPush;
     vShift -= webCd.rgb * nInfv.z * infv.z;
-    vShift *= vec3(inf, 1.0, inf);
+    vShift *= vec3(inf, 1.0, inf) * min(1.0,pos.y*pos.y);
     
     
-    pos += vShift;
+    pos += vShift + vec3( 0.0, length( vShift.xz )*.3, 0.0);
     vPos = pos;
+    vBBY = max( 0.0, pos.y );
     
     vec3 delta = pos-position;
-    float dist = length( pos.xz );
+    float dist = length( pos.xz ) * min(1.0, vBBY*.5);
     pos.y += dist * inf * .65;
     vShiftDist = length( pos*vec3(1.0, .0, 1.0) - position );
     
-    vBBY = pos.y;
     
     vec4 modelViewPosition=modelViewMatrix * vec4(pos, 1.0);
     gl_Position = projectionMatrix*modelViewPosition;
     
     vCd = vec3(nCd.xyz);
-  }`,e}function wh(){let e=wt();return e+=`          
+  }`,e}function wh(){let e=wt();return e+=`
     uniform vec2 time;
     uniform sampler2D noiseTexture;
     uniform sampler2D smoothNoiseTexture;
@@ -3369,7 +3369,7 @@ vec4 envMapTexelToLinear(vec4 color) {
     
       vec4 outCd=vec4(.0, .0, .0, 1.0);
       
-      float t = time.x*2.3 ;
+      float t = time.x*1.0 ;
       float inf = vInf*.8+.2;
       
       
@@ -3393,7 +3393,7 @@ vec4 envMapTexelToLinear(vec4 color) {
       vec4 snCd=texture2D( smoothNoiseTexture, nUv );
       snCd = -(snCd-.5)*nInfv.y;
       
-      nUv = fract( vUv*vec2(1.0, .60)*uvSqueeze - vec2(t*1.0 + nCd.x*.01, t*1.5 + snCd.z - vShiftDist*vBBY*.1 ));
+      nUv = fract( vUv*vec2(1.0, .60)*uvSqueeze - vec2(t*.20 + nCd.x*.01, t*1.5 + snCd.z - vShiftDist*(vBBY*1.7+.5)*.1 ));
       vec4 webCd=texture2D( webNoise, nUv );
       webCd = (webCd-.5) * nInfv.z;
       
@@ -3406,7 +3406,7 @@ vec4 envMapTexelToLinear(vec4 color) {
       shift.xz *= inf;
       
       
-      float toCam = clamp( dot( vN, normalize( vCamPos - vPos ) )*1.5, 0.0, 1.0 );
+      float toCam = clamp( dot( vN, normalize( vCamPos - vPos ) )*0.85, 0.0, 1.0 );
       
       vec3 baseCd = cd_base * (1.0 + nCd.rgb + webCd.rgb + (1.0-vShiftDist)*.5);
       vec3 midCd = cd_mid ;
@@ -3439,7 +3439,7 @@ vec4 envMapTexelToLinear(vec4 color) {
       outCd.a *= min(1.0, max( 0.0, vShiftDist + max(0.0,1.0-length(outCd.rgb)) )) * .5;
       outCd.a = max(outCd.a + (1.0-vBBY)*.3, webCd.z*webCd.y*(snCd.x*.5+1.0)+outCd.a );
       outCd.a += toCam*.4*webCd.z*(1.0-vBBY);
-      
+      outCd.a *= min( 1.0, vBBY * (1.0+(nCd.x*nCd.y*nCd.z)) );
       
       gl_FragColor = outCd;
     }`,e}var ho=z,xn=b;function Mh(e=!1){let t=`
@@ -3772,7 +3772,7 @@ vec4 envMapTexelToLinear(vec4 color) {
         vec4 Cd=vec4( dustCd.rgb, alpha );
 
         gl_FragColor=Cd;
-    }`,e}var _n=class{constructor(t=null,n="particles"){this.name=n,this.room=t,this.material=null,this.points=null,this.count=-1,this.pscale=new ho(0,0),this.position=new xn(0,0,0),this.atlasPath=this.room.assetPath+"sprite_dustLiquid.png"}build(t=30,n=6,i=4,r=null){r||(r=this.elementDuplicator([[0,.75],[0,.5],[.25,.75],[.25,.5]],4)),this.addToScene(t,n,i,r)}setPosition(...t){t.length===1?this.position=t[0]:this.position=new xn(...t),this.points&&this.points.position.copy(this.position)}addToScene(t=30,n=6,i=null,r=4,o=[[0,0]],s=!1){this.count=t,this.pscale.x=n*this.room.pxlEnv.pxlQuality.screenResPerc;let a=null;s?(a=this.atlasRandomGen,o=r):a=this.atlasArrayPicker,i||(i=this.newMaterial());let c=[],l=[],h=[];for(let v=0;v<t;++v)c.push(0,0,0),l.push(Math.random(),Math.random(),Math.random()*2-1,Math.random()*2-1),h.push(...a(o));let u=new ee(c,3),d=new ee(l,4),f=new ee(h,2),p=new oe;p.setAttribute("position",u),p.setAttribute("seeds",d),p.setAttribute("atlas",f);let y=new Or(p,i);return y.sortParticles=!1,y.frustumCulled=!1,this.room.scene.add(y),y.layers.set(1),y.pBaseScale=n,this.room.geoList[this.name]=y,this.material=i,this.points=y,y.position.copy(this.position),y}setUserHeight(t){this.pxlEnv.pxlCamera.userScale=t}atlasRandomGen(t=4,n=2){let i=1/t;return Array.from({length:n}).map(()=>Math.floor(Math.random()*648405.71%t)*i)}atlasRandomList(t=4,n=4,i=2){return Array.from({length:t}).map(r=>this.atlasRandomGen(n,i))}atlasArrayPicker(t){return t[Math.floor(Math.random()*92314.75%t.length)]}dupeArray(t,n){return Array.from({length:n}).fill(t)}elementDuplicator(t,n=4){return t.map(i=>this.dupeArray(i,n)).flat(1)}findLightPositions(){let t=[],n=0;return this.room.lightList.hasOwnProperty("PointLight")&&(n=this.room.lightList.PointLight.length,this.room.lightList.PointLight.forEach(i=>{t.push(i.position.clone())})),t}setAtlasPath(t){this.atlasPath=t}newMaterial(t=!0){let n=this.findLightPositions(),i={atlasTexture:{type:"t",value:null},noiseTexture:{type:"t",value:null},time:{type:"f",value:this.room.msRunner},pointScale:{type:"f",value:this.pscale},intensity:{type:"f",value:1},rate:{type:"f",value:.035},lightPos:{value:n}},r=this.room.pxlFile.pxlShaderBuilder(i,Zs(n.length),Js());return r.side=bt,r.transparent=!0,r.uniforms.atlasTexture.value=this.room.pxlUtils.loadTexture(this.atlasPath,4,{magFilter:Ue,minFilter:Vt}),r.uniforms.noiseTexture.value=this.room.softNoiseTexture,r.depthTest=!0,r.depthWrite=!1,t&&(this.room.textureList[this.name]=r),r}};function Th(){let e=wt();return e+=` 
+    }`,e}var _n=class{constructor(t=null,n="particles"){this.name=n,this.room=t,this.geometry=null,this.material=null,this.points=null,this.count=-1,this.pscale=new ho(0,0),this.position=new xn(0,0,0),this.atlasPath=this.room.assetPath+"sprite_dustLiquid.png"}build(t=30,n=6,i=4,r=null){r||(r=this.elementDuplicator([[0,.75],[0,.5],[.25,.75],[.25,.5]],4)),this.addToScene(t,n,i,r)}setPosition(...t){t.length===1?this.position=t[0]:this.position=new xn(...t),this.points&&this.points.position.copy(this.position)}addToScene(t=30,n=6,i=null,r=4,o=[[0,0]],s=!1){this.count=t,this.pscale.x=n*this.room.pxlEnv.pxlQuality.screenResPerc;let a=null;s?(a=this.atlasRandomGen,o=r):a=this.atlasArrayPicker,i||(i=this.newMaterial());let c=[],l=[],h=[];for(let v=0;v<t;++v)c.push(0,0,0),l.push(Math.random(),Math.random(),Math.random()*2-1,Math.random()*2-1),h.push(...a(o));let u=new ee(c,3),d=new ee(l,4),f=new ee(h,2),p=new oe;p.setAttribute("position",u),p.setAttribute("seeds",d),p.setAttribute("atlas",f);let y=new Or(p,i);return y.sortParticles=!1,y.frustumCulled=!1,this.room.scene.add(y),y.layers.set(1),y.pBaseScale=n,this.room.geoList[this.name]=y,this.geometry=p,this.material=i,this.points=y,y.position.copy(this.position),y}setUserHeight(t){this.pxlEnv.pxlCamera.userScale=t}atlasRandomGen(t=4,n=2){let i=1/t;return Array.from({length:n}).map(()=>Math.floor(Math.random()*648405.71%t)*i)}atlasRandomList(t=4,n=4,i=2){return Array.from({length:t}).map(r=>this.atlasRandomGen(n,i))}atlasArrayPicker(t){return t[Math.floor(Math.random()*92314.75%t.length)]}dupeArray(t,n){return Array.from({length:n}).fill(t)}elementDuplicator(t,n=4){return t.map(i=>this.dupeArray(i,n)).flat(1)}findLightPositions(){let t=[],n=0;return this.room.lightList.hasOwnProperty("PointLight")&&(n=this.room.lightList.PointLight.length,this.room.lightList.PointLight.forEach(i=>{t.push(i.position.clone())})),t}setAtlasPath(t){this.atlasPath=t}newMaterial(t=!0){let n=this.findLightPositions(),i={atlasTexture:{type:"t",value:null},noiseTexture:{type:"t",value:null},time:{type:"f",value:this.room.msRunner},pointScale:{type:"f",value:this.pscale},intensity:{type:"f",value:1},rate:{type:"f",value:.035},lightPos:{value:n}},r=this.room.pxlFile.pxlShaderBuilder(i,Zs(n.length),Js());return r.side=bt,r.transparent=!0,r.uniforms.atlasTexture.value=this.room.pxlUtils.loadTexture(this.atlasPath,4,{magFilter:Ue,minFilter:Vt}),r.uniforms.noiseTexture.value=this.room.softNoiseTexture,r.depthTest=!0,r.depthWrite=!1,t&&(this.room.textureList[this.name]=r),r}};function Th(){let e=wt();return e+=` 
     uniform sampler2D noiseTexture;
     uniform vec2 time;
     uniform float rate;
