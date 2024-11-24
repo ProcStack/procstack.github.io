@@ -11,6 +11,7 @@ export default class ParticleBase{
     this.name=systemName;
     this.room=room;
     
+    this.geometry = null;
     this.material = null;
     
     this.points = null;
@@ -102,6 +103,7 @@ export default class ParticleBase{
     psystem.pBaseScale=pScale;
     this.room.geoList[ this.name ]=psystem;
     
+    this.geometry = geo;
     this.material = atlasMtl;
     this.points = psystem;
 

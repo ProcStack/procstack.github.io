@@ -262,6 +262,8 @@ export class ShaderEditor {
       ${spacer}
       <span><span class="gui_boldText">Ctrl + {Up,Down,Left,Right}</span><br> - Searches for current selection in direction</span>
       ${spacer}
+      <span><span class="gui_boldText">Y</span><br> - To close the Shader Editor</span>
+      ${spacer}
     </div>
     `;
     shaderDiv.innerHTML = html;

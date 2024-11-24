@@ -68,7 +68,6 @@ export class CampfireEnvironment extends RoomEnvironment{
     if(this.animMixer){
       this.pxlAnim.step( "RabbitDruidA" );
     }
-
   }
   
   // -- -- --
