@@ -65,24 +65,30 @@ BODY {
     width: 85vw;
     max-width: 1200px;
     max-height: 800px;
-    margin-bottom: 250px;
-    margin-top: 30px;
 }
 
 /*  -- -- --  */
 
 
 .gitPageNavBlockStyle {
-    padding : 3px;
+    padding: 6px 0px;
+    background-color: rgba(80, 80, 80, 0.45);
+    border-bottom: 1px solid rgba(120, 120, 120, 0.45);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
 }
 
+
+
 .gitPageNavStyle {
-    border-radius: 15px 15px 0px 0px;
-    background-color: rgba(180,180,180,0.75);
-    padding: 10px;
+    width: 60vw;
+    max-width: 950px;
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
+    justify-content: space-around;
+    justify-self: center;
 }
 
 
@@ -113,15 +119,21 @@ BODY {
 /*  -- -- --  */
 
 .gitPageContentParentStyle {
-    padding : 3px;
-    max-height: 65vh;
-    overflow: hidden;
-}
-
-.gitPageContentParentHiddenStyle {
-    padding : 3px;
     max-height: 0vh;
     overflow: hidden;
+    top: 7vh;
+    position: fixed;
+    width: 85vw;
+    max-width: 1200px;
+    border: 1px solid rgba(60, 60, 60, 0.6);
+}
+
+.gpcpVisibleStyle {
+    max-height: 65vh;
+}
+
+.gpcpHiddenStyle {
+    max-height: 0vh;
 }
 
 /* -- -- -- */
@@ -169,15 +181,13 @@ BODY {
 }
 
 .gitPageContentStyle::-webkit-scrollbar-track {
-	background: rgba( 155, 155, 155, 0.5 );
-    border-radius: 5px;
+	background: rgba( 100, 100, 100, 0.2 );
 }
 
 .gitPageContentStyle::-webkit-scrollbar-thumb {
 	cursor: grab;
-	background-color: rgba(180,180,180,.75);
-	border-radius: 5px;
-	border: 2px solid rgba(200,200,200,.65);
+	background-color: rgba(120,120,120,.75);
+	border: 2px solid rgba(160,160,160,.35);
 }
 .gitPageContentStyle::-webkit-scrollbar-thumb:hover {
 	background-color: #ffffff;
@@ -277,17 +287,21 @@ BODY {
 
 /* -- -- -- */
 
-.footerBar {
-    background-color: rgba(180,180,180,0.75);
-    padding: 10px;
-    border-radius: 0px 0px 15px 15px ;
-    display: grid;
-    grid-auto-flow: column;
-    justify-content: space-around;
-}
-
 .footerBarParent {
     padding : 3px;
+    position: fixed;
+    width: 100vw;
+    bottom: 0px;
+    left: 0px;
+}
+
+.footerBar {
+    background-color: rgba(80, 80, 80, 0.15);
+    padding: 2px 10px 2px 10px;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    color: #999999;
 }
 
 .versionStyle {
@@ -300,7 +314,7 @@ BODY {
 }
 
 .footerBar a {
-    color: #ffffff;
+    color: #999999;
     text-decoration: none;
     font-weight: 400;
     text-decoration: none;
@@ -308,8 +322,6 @@ BODY {
 
 .footerBar a:hover {
     color: #e5e5e5;
-    font-weight: 600;
-    text-decoration: underline;
     font-weight: 600;
     text-shadow: 1px 1.5px 4px rgba(50,50,50,.5);
 }

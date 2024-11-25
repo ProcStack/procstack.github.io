@@ -126,6 +126,20 @@ global proc pxlNav_prepInstanceAttribute(){
     }
 }
 //pxlNav_prepInstanceAttribute();
+
+global proc pxlNav_prepInstanceFixAttribute(){
+    string $sel[]=`ls -sl -l`;
+    for($x=0; $x<size($sel); ++$x){
+        addAttr -ln "fixInstMatrix"  -at bool -dv 1 $sel[$x];
+        setAttr -e-keyable true ($sel[$x]+".fixInstMatrix");
+    }
+}
+//pxlNav_prepInstanceFixAttribute();
+
+
+
+
+
 global proc pxlNav_createInstance(){
     string $sel[]=`ls -sl`;
     parentConstraint -weight 1 $sel[0] $sel[1];
@@ -369,7 +383,7 @@ global proc pxlNav_assetPrepWindow(){
        "---",
 	    "pxlNav_prepEmitterAttribute()",
        "---",
-       "pxlNav_prepScriptedAttribute()","pxlNav_prepInstanceAttribute()","pxlNav_createInstance()",
+       "pxlNav_prepScriptedAttribute()","pxlNav_prepInstanceAttribute()","pxlNav_prepInstanceFixAttribute()","pxlNav_createInstance()",
 	    
 	    ".-Video/Specalized Attrs-.",
 	    "pxlNav_prepVideoAttributes('vidName')",
@@ -471,6 +485,15 @@ global proc pxlNav_assetPrepWindow(){
 	showWindow $pxlNavAssetPrepWindowObject;
 	window -edit -wh $pxlNav_ww $pxlNav_wh -backgroundColor .3 .3 .3 $pxlNavAssetPrepWindowObject;
 }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -25,7 +25,6 @@ export class ProcstackPages {
 
     this.resBasedObjs = [...document.getElementsByClassName("squashInLowRes")];
     this.contentParent = document.getElementById("gitPageContentParent");
-    this.pageParent = document.getElementById("procStackGitParent");
     let linkList = [...document.getElementById("gitPageNav").children];
     let pageDivs = [...document.getElementById("gitPageContent").children];
     let pageHash = this.getHash();
@@ -124,6 +123,14 @@ export class ProcstackPages {
         obj.style.display = "block";
       });
     }
+
+    // Adjust menu padding on thin screens
+    let targetWidth = 60;
+    if( sw < 1000 ){
+      let sidePadding = 1.0-Math.max(0.0, (sw * 0.001)*2.0-1.0);
+      targetWidth += sidePadding * 40;
+    }
+    this.navBar.style.width = targetWidth + "vw";
   }
 
   prepFader( obj ){
@@ -168,15 +175,13 @@ export class ProcstackPages {
       obj.classList.add("pagesVisMid");
       obj.classList.remove("pagesVisOn");
 
-      this.contentParent.classList.add("gitPageContentParentHiddenStyle");
-      this.contentParent.classList.remove("gitPageContentParentStyle");
-      this.pageParent.style.marginBottom = "0px";
+      this.contentParent.classList.add("gpcpHiddenStyle");
+      this.contentParent.classList.remove("gpcpVisibleStyle");
     } else {
       obj.classList.add("pagesVisOn");
       obj.classList.remove("pagesVisMid");
-      this.contentParent.classList.add("gitPageContentParentStyle");
-      this.contentParent.classList.remove("gitPageContentParentHiddenStyle");
-      this.pageParent.style.marginBottom = "250px";
+      this.contentParent.classList.add("gpcpVisibleStyle");
+      this.contentParent.classList.remove("gpcpHiddenStyle");
     }
   }
 

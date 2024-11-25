@@ -297,11 +297,75 @@ export class FileIO{
             envObj.geoList['InstancesObjects']={};
           }
           
-          let instBase= envObj.baseInstancesList[ mesh.userData.Instance ];
-
           let curPos=mesh.position;
           let curRot=mesh.rotation;
           let curScale=mesh.scale;
+          let instBase= envObj.baseInstancesList[ mesh.userData.Instance ];
+
+          
+          //console.log(mesh.type, mesh, instBase);
+          if( mesh.type == "Mesh" ){
+            const instancedMesh = new THREE.InstancedMesh(instBase.geometry, instBase.material, mesh.geometry.attributes.position.count);
+            instancedMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+            instancedMesh.name = name + "Geo";
+
+            const matrix = new THREE.Matrix4();
+            const position = new THREE.Vector3();
+            const quaternion = new THREE.Quaternion();
+            const scale = new THREE.Vector3(1, 1, 1);
+            const hasColor = mesh.geometry.attributes.hasOwnProperty("color");
+
+            for (let i = 0; i < mesh.geometry.attributes.position.count; i++) {
+              position.fromBufferAttribute(mesh.geometry.attributes.position, i);
+              quaternion.setFromEuler(mesh.rotation);
+              let curScale = scale;
+              if( hasColor ){
+                let curScalar = mesh.geometry.attributes.color.getX(i);
+                curScale = new THREE.Vector3(curScalar, curScalar, curScalar);
+              }
+              matrix.compose(position, quaternion, curScale);
+              instancedMesh.setMatrixAt(i, matrix);
+            }
+
+            instancedMesh.visible = true;
+            instancedMesh.updateMatrix();
+
+            envObj.geoList['InstancesObjects'][name] = instancedMesh;
+            mesh.parent.add(instancedMesh);
+            mesh.parent.remove(mesh);
+          }else{
+            // Clone the base instance; single instance
+            const instancedMesh = new THREE.InstancedMesh(instBase.geometry, instBase.material, 1);
+            instancedMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+            instancedMesh.name = name+"Geo";
+
+            let altInstPlacement = false;
+            if( mesh.userData.hasOwnProperty("fixInstMatrix") ){
+              altInstPlacement = !!mesh.userData.fixInstMatrix;
+            }
+
+            if( altInstPlacement ){
+              instancedMesh.rotation.set(curRot.x,curRot.y,curRot.z);
+              instancedMesh.position.set(curPos.x,curPos.y,curPos.z);
+              instancedMesh.scale.set(curScale.x,curScale.y,curScale.z);
+            }else{
+              const matrix = new THREE.Matrix4();
+              matrix.compose(curPos, new THREE.Quaternion().setFromEuler(curRot), curScale);
+              instancedMesh.setMatrixAt(0, matrix);
+            }
+
+            instancedMesh.visible=true;
+            instancedMesh.updateMatrix();
+
+            envObj.geoList['InstancesObjects'][name] = instancedMesh;
+            mesh.parent.add(instancedMesh);
+            mesh.parent.remove(mesh);
+          }
+           
+          
+
+          /*
+          // Dupe the base object; single dupe
           
           let dupe=instBase.clone();//new THREE.Mesh(instBase.geometry.clone());
           dupe.rotation.set(curRot.x,curRot.y,curRot.z);
@@ -320,6 +384,7 @@ export class FileIO{
             
           envObj.geoList['InstancesObjects'][name]=dupe;
           mesh.parent.add( dupe );
+          */
     }
   }
   
