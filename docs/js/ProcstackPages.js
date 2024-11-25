@@ -190,6 +190,7 @@ export class ProcstackPages {
       this.toggleFader(this.curPage, false);
       this.curPage = this.pageListing[pageName];
       this.toggleFader(this.curPage, true);
+      this.curPage.parentElement.scrollTop = 0;
     }
   }
   setPxlNavVersion( version ){
