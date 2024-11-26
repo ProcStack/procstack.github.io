@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js developer",
-    "startDist": "node index.js dist",
+    "startPages": "node index.js dist",
     "live": "cross-env NODE_ENV=production node index.js",
     "build": "cross-env NODE_ENV=production webpack --config ./packing/webpack.config.js",
     "deploy": "gh-pages -d docs"

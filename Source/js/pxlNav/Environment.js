@@ -39,6 +39,14 @@ export class Environment{
     this.parentGroupList[mainRoom]=[];
     this.parentNameList=[];
 
+    // -- -- -- --
+    // TODO : Move to pxlQuality, when I finally get to that module
+    this.prevRenderMS=0;
+    this.nextRenderMS=0;
+    // Max frame rate - 
+    this.fps = mobile ? 30 : 60;
+    this.renderInterval = 1.0 / this.fps;
+    // -- -- -- --
 
     this.pxlRoomAbsRoot = pxlRoomName;
     let splitRoot = pxlRoomName.split("/");
@@ -48,6 +56,7 @@ export class Environment{
     
     this.mainRoom=mainRoom; // Main environment room
     this.bootRoom=mainRoom; // Room to start pxlNav in
+    this.bootLocation=null; // Camera Position to start pxlNav at
     this.currentRoom=mainRoom; // Current residing room
     this.roomNameList=[mainRoom]; // Room name list
     this.roomSubList={};
@@ -256,8 +265,10 @@ export class Environment{
     //this.pxlQuality.attachModule( this );
   }
     
-  setBootRoom(bootRoom){
+  setBootRoom(bootRoom, bootLocation){
+    console.log(bootRoom, bootLocation);
       this.bootRoom=bootRoom;
+      this.bootLocation=bootLocation;
   }
     
   postBoot(){
@@ -1506,47 +1517,52 @@ export class Environment{
         this.step();
     }
     
-    // Render appropriate room
-    this.stepShaderValues();
-    this.stepAnimatedObjects();
-    
-    let curRoom=this.roomSceneList[this.currentRoom];
-    if(curRoom && curRoom.booted){
-      curRoom.step();
+    if( this.pxlTimer.curMS > this.nextRenderMS || anim==false ){
+      this.prevRenderMS = this.nextRenderMS;
+      this.nextRenderMS = this.pxlTimer.curMS + this.renderInterval;
+
+      // Render appropriate room
+      this.stepShaderValues();
+      this.stepAnimatedObjects();
       
-      curRoom.camera.layers.disable( this.renderLayerEnum.SKY );
-      this.engine.setRenderTarget(curRoom.scene.renderTarget);
-      this.engine.clear();
-      this.engine.render( curRoom.scene, curRoom.camera);
-      this.engine.setRenderTarget(null);
-      curRoom.camera.layers.enable( this.renderLayerEnum.SKY );
-      
-      if( false && this.pxlQuality.settings.fog>0 ){
-        this.pxlCamera.camera.layers.disable( 1 );
+      let curRoom=this.roomSceneList[this.currentRoom];
+      if(curRoom && curRoom.booted){
+        curRoom.step();
         
-        curRoom.scene.overrideMaterial=this.mapWorldPosMaterial;
-        this.engine.setRenderTarget(this.scene.renderWorldPos);
+        curRoom.camera.layers.disable( this.renderLayerEnum.SKY );
+        this.engine.setRenderTarget(curRoom.scene.renderTarget);
         this.engine.clear();
-        this.engine.render( curRoom.scene, this.pxlCamera.camera);
-        curRoom.scene.overrideMaterial=null;
-      
-        this.pxlCamera.camera.layers.enable( 1 );
+        this.engine.render( curRoom.scene, curRoom.camera);
         this.engine.setRenderTarget(null);
+        curRoom.camera.layers.enable( this.renderLayerEnum.SKY );
+        
+        if( false && this.pxlQuality.settings.fog>0 ){
+          this.pxlCamera.camera.layers.disable( 1 );
+          
+          curRoom.scene.overrideMaterial=this.mapWorldPosMaterial;
+          this.engine.setRenderTarget(this.scene.renderWorldPos);
+          this.engine.clear();
+          this.engine.render( curRoom.scene, this.pxlCamera.camera);
+          curRoom.scene.overrideMaterial=null;
+        
+          this.pxlCamera.camera.layers.enable( 1 );
+          this.engine.setRenderTarget(null);
+        }
+        
+        if( this.mapComposerGlow && ( this.pxlQuality.settings.bloom || this.pxlQuality.settings.fog ) ){ //  || this.pxlQuality.settings.motion ){ 
+            this.mapComposerGlow.render();
+        }
+        
+        this.mapRenderBlurStack( curRoom, curRoom.camera, curRoom.scene, this.scene.renderGlowTarget)
+        
+        this.roomComposer.render();
+        //this.engine.render( this.roomSceneList[this.currentRoom].scene, this.pxlCamera.camera);
+                
       }
       
-      if( this.mapComposerGlow && ( this.pxlQuality.settings.bloom || this.pxlQuality.settings.fog ) ){ //  || this.pxlQuality.settings.motion ){ 
-          this.mapComposerGlow.render();
+      if( this.pxlUser.iZoom ){
+          this.delayComposer.render();
       }
-      
-      this.mapRenderBlurStack( curRoom, curRoom.camera, curRoom.scene, this.scene.renderGlowTarget)
-      
-      this.roomComposer.render();
-      //this.engine.render( this.roomSceneList[this.currentRoom].scene, this.pxlCamera.camera);
-              
-    }
-    
-    if( this.pxlUser.iZoom ){
-        this.delayComposer.render();
     }
         
     if(this.pxlTimer.active && anim){

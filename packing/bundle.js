@@ -1,13 +1,33 @@
 const esbuild = require('esbuild');
+const fs = require('fs');
+const path = require('path');
 
 // Define the entry point and output file
 const entryFile = '../Source/js/pxlNav.js';
 const outputFile = '../Build/pxlNav.min.js';
 
+function getDirectories(source) {
+  return fs.readdirSync(source, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => path.join(source, dirent.name));
+}
+
 var entryFiles = {
-  '../Source/js/pxlNav.js' : '../Build/pxlNav.min.js',
-  '../Source/pxlRooms/CampfireEnvironment/CampfireEnvironment.js' : '../Build/pxlRooms/CampfireEnvironment/CampfireEnvironment.js',
+  '../Source/js/pxlNav.js' : '../Build/pxlNav.min.js'
 };
+
+let directories = getDirectories('../Source/pxlRooms');
+console.log(directories);
+directories.forEach( (dir)=>{
+  let roomName = dir.split('\\').pop();
+  console.log(roomName);
+  if( roomName != "templateRoom" ){
+    let entryFile = '../Source/pxlRooms/'+roomName+'/'+roomName+'.js';
+    let outputFile = '../Build/pxlRooms/'+roomName+'/'+roomName+'.js';
+    entryFiles[entryFile] = outputFile;
+  }
+});
+
 
 let promiseList = [];
 

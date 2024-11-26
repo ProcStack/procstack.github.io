@@ -231,11 +231,11 @@ export class GUIManager{
 		this.mapPrompt.classList.add("fader");
 		this.mapPrompt.classList.add("visOn");
 		this.mapPrompt.innerHTML=`
+            <div id="loaderBranding" class='pxlLoaderTitle'>${this.projectTitle}</div>
             <div class='loadStyleParent'>
               <div id='pxlLoader' class='loadStyle'></div>
               <div id='pxlLoaderBackground' class='loadStyleBackground'></div>
             </div>
-            <div id="loaderBranding" class='pxlLoaderTitle'>${this.projectTitle}</div>
           `;
 		document.body.appendChild(this.mapPrompt);
 		

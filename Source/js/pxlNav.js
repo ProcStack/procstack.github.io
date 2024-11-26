@@ -554,6 +554,8 @@ export class pxlNav{
 	// This compiles the materials in each scene, at least from the perspective of the camera
 	//   This causes a delay during the first warp to the new room in runtime,
 	//     So this runs that hiccup before the user can feel it
+	// `cmdList` currently unused, was used to take screenshots of each room initially.
+	//   But this is a stage where custom commands can be injected during environment prep.
 	runPrepDrawScenes(runner=0, jumpCam=true, cmdList=[]){
 		runner++;
 		if( cmdList.length > 0 ){
@@ -756,15 +758,25 @@ export class pxlNav{
 		}
 	}
 	
+	
+  setBootRoom( bootRoom, bootLocation ){
+    console.log(bootRoom, bootLocation);
+		this.pxlEnv.bootRoom = bootRoom;
+		this.pxlEnv.bootLocation = bootLocation;
+	}
 
 	// -- -- --
 
 	trigger( eventType, eventValue=null, eventObj=null ){
+		eventType = eventType.toLowerCase();
 		switch( eventType ){
+			case "warptoroom":
+				this.pxlCamera.warpToRoom( eventValue, true, eventObj );
+				break;
 			case "ping":
 				this.emit("pingPong", "pong");
 				break;
-			case "toRoom":
+			case "roommessage":
 				let roomEventType = eventObj["type"];
 				let roomEventValue = eventObj["value"];
 				if(eventValue==null){

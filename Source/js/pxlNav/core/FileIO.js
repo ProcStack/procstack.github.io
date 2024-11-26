@@ -311,20 +311,33 @@ export class FileIO{
 
             const matrix = new THREE.Matrix4();
             const position = new THREE.Vector3();
+            const normal = new THREE.Vector3();
             const quaternion = new THREE.Quaternion();
             const scale = new THREE.Vector3(1, 1, 1);
             const hasColor = mesh.geometry.attributes.hasOwnProperty("color");
 
+            // Prevent dupelicate instances
+            //   Verts are split, so neighboring polygons have stacked vertices
+            //     'entry' checks those dupes
+            let pointRecorder = {};
             for (let i = 0; i < mesh.geometry.attributes.position.count; i++) {
               position.fromBufferAttribute(mesh.geometry.attributes.position, i);
-              quaternion.setFromEuler(mesh.rotation);
-              let curScale = scale;
-              if( hasColor ){
-                let curScalar = mesh.geometry.attributes.color.getX(i);
-                curScale = new THREE.Vector3(curScalar, curScalar, curScalar);
+              let entry = position.toArray();
+              entry = entry.join(",");
+              if( !pointRecorder.hasOwnProperty(entry) ){
+                normal.fromBufferAttribute(mesh.geometry.attributes.normal, i);
+                let randomRot = new THREE.Euler( 0,Math.random() * 2 * Math.PI, 0);
+                quaternion.setFromEuler(randomRot);
+                
+                let curScale = scale;
+                if( hasColor ){
+                  let curScalar = mesh.geometry.attributes.color.getX(i);
+                  curScale = new THREE.Vector3(curScalar, curScalar, curScalar);
+                }
+                matrix.compose(position, quaternion, curScale);
+                instancedMesh.setMatrixAt(i, matrix);
+                pointRecorder[entry]=true;
               }
-              matrix.compose(position, quaternion, curScale);
-              instancedMesh.setMatrixAt(i, matrix);
             }
 
             instancedMesh.visible = true;
@@ -746,7 +759,23 @@ export class FileIO{
             
             // Custom material shader was added to this object, apply it
             if( textureList.hasOwnProperty( c.name ) ){
+              let curMap = null;
+              if( c.material.map ){
+                curMap = c.material.map;
+              }
               c.material= textureList[ c.name ];
+
+              if( curMap ){
+                if( c.material.uniforms.hasOwnProperty("diffuse") ){
+                  c.material.uniforms.diffuse.value = curMap;
+                }
+                if( c.material.hasOwnProperty("emissiveMap") ){
+                  c.material.emissiveMap=curMap;
+                  if( c.material.emissive.r>0 ){
+                    c.material.emissiveIntensity=c.material.emissive.r;
+                  }
+                }
+              }
               c.matrixAutoUpdate=false;
               //c.geometry.computeFaceNormals();
               //c.geometry.computeVertexNormals();
@@ -1457,7 +1486,8 @@ export class FileIO{
 
       Promise.all(promisList).then(() => {
         this.pxlAnim.setStateConnections( meshKey, stateConnections );
-        this.pxlEnv.geoList[meshKey]=curFbx;
+        //this.pxlEnv.geoList[meshKey]=curFbx;
+        envObj.geoList[meshKey]=curFbx;
         this.pxlEnv.geoLoadList[meshKey]=1;
         envObj.animPostLoad(meshKey);
       }).catch((err) => {

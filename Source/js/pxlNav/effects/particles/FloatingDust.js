@@ -16,8 +16,10 @@ export class FloatingDust extends ParticleBase{
   
   // 'vertexCount' - Point Count
   // 'pScale' - Point Base Scale
-  build( vertexCount=1000, pScale=7, proxDist=120 ){
+  build( vertexCount=1000, pScale=7, proxDist=120, pOffset=[0.0,0.0,0.0], wind=[0.0,1.0], atlasPicks=[[0.0,0.0]], randomAtlas=true ){
     let lightPosArr = super.findLightPositions();
+    wind = new THREE.Vector2( wind[0], wind[1] );
+    pOffset = new THREE.Vector3( pOffset[0], pOffset[1], pOffset[2] );
     let dustUniforms={
       atlasTexture:{type:"t",value: null },
       noiseTexture:{type:"t",value: null },
@@ -25,6 +27,8 @@ export class FloatingDust extends ParticleBase{
       pointScale:{type:"f",value: this.pscale },
       intensity:{type:"f",value:1.0},
       rate:{type:"f",value:.035},
+      positionOffset:{type:"v",value:pOffset},
+      windDir:{type:"v",value:wind},
       lightPos:{value:lightPosArr}
     };
         //let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, snowVert( true ), snowFrag() );
@@ -38,6 +42,6 @@ export class FloatingDust extends ParticleBase{
     mtl.depthWrite=false;
     this.room.textureList[ this.name ]=mtl;
 
-    super.addToScene( vertexCount, pScale, mtl, 4, [[0.0,0.0]], true );
+    super.addToScene( vertexCount, pScale, mtl, 4, atlasPicks, randomAtlas );
   }
 }

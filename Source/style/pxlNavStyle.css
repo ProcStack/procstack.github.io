@@ -54,6 +54,8 @@
 	font-variant: all-small-caps;
 	letter-spacing: 3.5px;
 	color:rgba(255,255,255,0.85);
+	top: 5px;
+	position: relative;
 }
 
 .loadStyleParent{

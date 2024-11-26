@@ -3,9 +3,7 @@
 
 
 import * as THREE from "../../js/libs/three/three.module.js";
-import { ShaderPass } from '../../js/libs/three/postprocessing/ShaderPass.js';
-import { campfireLogVert, campfireLogFrag,
-         envGroundVert, envGroundFrag } from "./Shaders.js";
+import { envGroundVert, envGroundFrag } from "./Shaders.js";
 import RoomEnvironment from "../../js/pxlNav/RoomClass.js";
 
 import { BillowSmoke, EmberWisps, FloatingDust } from '../../js/pxlNav/effects/particles.js';
@@ -23,8 +21,9 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     //   So you only need to set your rig, animations, and connections in one room.
     // Current issue, re-imports will re-read the file from disk/url,
     //   But wont overwrite the data if it exists from a prior Room's load.
+    this.animRigName = "RabbitDruidASalt";
     this.animSource = {
-      "RabbitDruidA" : {
+      "RabbitDruidASalt" : {
         "rig" : this.assetPath+"RabbitDruidA/RabbitDruidA_rig.fbx",
         "anim" : {
           "Walk" : this.assetPath+"RabbitDruidA/RabbitDruidA_Walk.fbx"
@@ -44,14 +43,14 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     this.particleList={};
     
     
-    this.pxlCamFOV=(pxlDevice.mobile?80:70);
+    this.pxlCamFOV=(pxlDevice.mobile?80:40);
     this.pxlCamZoom=1;
     this.pxlCamAspect=1;
     this.pxlCamNearClipping = 5;
     this.pxlCamFarClipping = 10000;
 
     // this.fogColor=new THREE.Color(.3,.3,.3);
-    this.fogColor=new THREE.Color(.01,.02,.05);
+    this.fogColor=new THREE.Color(.31,.42,.55);
     this.fogExp=.0007;
     this.fog=new THREE.FogExp2( this.fogColor, this.fogExp);
     
@@ -65,21 +64,45 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     if( this.booted ){
       this.resetCamera();
     }
-    let animKey = "RabbitDruidA";
+    let animKey = this.animRigName;
+    if( this.geoList.hasOwnProperty( animKey ) && this.geoList["Scripted"].hasOwnProperty( "Offset_loc" )  ){
+      let locObj = this.geoList["Scripted"]["Offset_loc"];
+      let parentObj = this.geoList[ animKey ];
+      
+      let locPos = locObj.position.clone();
+      let locRot = locObj.rotation.clone();
+      let locScale = locObj.scale.clone();
+
+      parentObj.position.set( locPos.x, locPos.y, locPos.z );
+      parentObj.rotation.set( locRot.x, locRot.y, locRot.z );
+      parentObj.scale.set( locScale.x, locScale.y, locScale.z );
+    }
     if( this.pxlAnim && this.pxlAnim.hasClip( animKey, this.animInitCycle ) ){
       this.pxlAnim.playClip( animKey, this.animInitCycle );
     }
-    console.log("starting - "+this.roomName);
+    
+    //this.pxlEnv.pxlCamera.setStats( this.pxlCamFOV, this.pxlCamZoom, this.pxlCamAspect, this.pxlCamNearClipping );
   }
 
   // Per-Frame Render updates
   step(){
     super.step();
-    
+
     // When the Druid Rabbit finishes loading, we'll step the animation here
     //   Cycle changes occur here as well.
     if(this.animMixer){
-      this.pxlAnim.step( "RabbitDruidA" );
+      this.pxlAnim.step( this.animRigName );
+    }
+
+    let scrollGrp = this.geoList["Scripted"]["MovingEng_grp"];
+    if( scrollGrp ){
+      scrollGrp.position.z += .05;
+      let shift = 15;
+      let scrollThreshold = 177.433;
+      let scrollLimit = 177.433 - shift;
+      if( scrollGrp.position.z > scrollLimit ){
+        scrollGrp.position.z -= scrollLimit;
+      }
     }
 
   }
@@ -95,10 +118,10 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
     let systemName = "floatingDust";
     this.particleList[systemName] = new FloatingDust( this, systemName );
-    let atlasPath = this.assetPath+"sprite_dustFloaters.png"
+    let atlasPath = this.assetPath+"sprite_dustLiquid.png"
 
     this.particleList[systemName].setAtlasPath( atlasPath );
-    this.particleList[systemName].build( 1000, 5 );
+    this.particleList[systemName].build( 1000, 10, 120, [-40,-10,0], [0.0, 5.0], [[.25,0],[.25,.25]], false );
     
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     
@@ -116,6 +139,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     
     this.booted=true;
     
+    console.log(this.geoList)
         
   }
 
@@ -153,25 +177,24 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 // Build Scene and Assets
   build(){
 
-    let curCharacter = "RabbitDruidA";
+    let curCharacter = this.animRigName;
     let animFbxLoader = this.pxlFile.loadAnimFBX( this, curCharacter, this.animSource[curCharacter]['rig'], this.animSource[curCharacter]['anim'], this.animSource[curCharacter]['stateConnections']);
 
-    /*
+    
     let envGroundUniforms = THREE.UniformsUtils.merge(
-        [THREE.UniformsLib['lights'],
-        {
+        [{
+          'diffuse' : { type:'t', value: null },
           'noiseTexture' : { type:'t', value: this.cloud3dTexture },
           'baseCd' : { type:'f', value: .1 },
-          'fogColor' : { type: "c", value: this.scene.fog.color },
-        }
-        ]
+          'fogColor' : { type: "c", value: this.fogColor },
+        }]
     )
     let mat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag() );
-    */
-    //mat.side=THREE.FrontSide;
+    
+    mat.side=THREE.FrontSide;
     //mat.lights= true;
         
-    //this.textureList[ "EnvironmentGround_geo" ]=mat;
+    this.textureList[ "EnvGround_geo" ]=mat;
     
 
     //

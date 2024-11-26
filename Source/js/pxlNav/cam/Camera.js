@@ -408,7 +408,14 @@ export class Camera{
     this.camera.updateProjectionMatrix();
     this.camUpdated=true;
   }
-  
+
+  setStats( fov, aspect, near, far ){
+    //this.camera.aspect=aspect;
+    this.camera.near=near;
+    this.camera.far=far;
+    this.setFOV(fov);
+  }
+
   // For portals and room warp zones
   setTransform(pos, lookAt=null){ // Vector3, Vector3
     this.resetCameraCalculations(pos); // Reinitiates Camera; Forces collision detection, Kills user inputs
@@ -457,38 +464,40 @@ export class Camera{
   warpToRoom(roomName, start=false, objTarget=null){
     this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].stop();
 
-        let prevRoom=this.pxlEnv.currentRoom;
-        let holdCamera=this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].camHoldWarpPos;
+    let prevRoom=this.pxlEnv.currentRoom;
+    let holdCamera=this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].camHoldWarpPos;
     this.pxlEnv.currentRoom=roomName;
-        this.pxlAutoCam.curRoom=roomName;
+    this.pxlAutoCam.curRoom=roomName;
     let roomEnv=this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom];
     
-        let isMainRoom=roomName==this.pxlEnv.mainRoom;
-        //this.pxlEnv.delayPass.uniforms.roomComposer.value= isMainRoom ? 0 : 1;
-        if( this.pxlUser.iZoom ){
-                let tDiff= isMainRoom ? this.pxlEnv.roomComposer : this.pxlEnv.mapComposer;
-                let tDiffPrev= isMainRoom ? this.pxlEnv.mapComposer: this.pxlEnv.roomComposer;
-                this.pxlEnv.delayPass.uniforms.tDiffusePrev.value= tDiff.renderTarget1.texture;
-                this.pxlEnv.delayPass.uniforms.tDiffusePrevRoom.value= tDiffPrev.renderTarget1.texture;
-            setTimeout( ()=>{
-                if(  prevRoom != roomName ){
-                    if( isMainRoom ){
-                        this.pxlEnv.roomComposer.reset();
-                    }else{
-                        this.pxlEnv.mapComposer.reset();
-                    }
-                }
-                setTimeout( ()=>{
-                    this.pxlEnv.mapComposerWarpPass.needsSwap=false;
-                },500);
-            },100);
+    let isMainRoom=roomName==this.pxlEnv.mainRoom;
+    //this.pxlEnv.delayPass.uniforms.roomComposer.value= isMainRoom ? 0 : 1;
+    if( this.pxlUser.iZoom ){
+      let tDiff= isMainRoom ? this.pxlEnv.roomComposer : this.pxlEnv.mapComposer;
+      let tDiffPrev= isMainRoom ? this.pxlEnv.mapComposer: this.pxlEnv.roomComposer;
+      this.pxlEnv.delayPass.uniforms.tDiffusePrev.value= tDiff.renderTarget1.texture;
+      this.pxlEnv.delayPass.uniforms.tDiffusePrevRoom.value= tDiffPrev.renderTarget1.texture;
+      setTimeout( ()=>{
+        if(  prevRoom != roomName ){
+          if( isMainRoom ){
+            this.pxlEnv.roomComposer.reset();
+          }else{
+            this.pxlEnv.mapComposer.reset();
+          }
         }
-        //this.pxlEnv.delayPass.uniforms.tDiffusePrev.value= roomName==this.pxlEnv.mainRoom ? this.pxlEnv.mapComposer.renderTarget1.texture : this.pxlEnv.roomComposer.renderTarget1.texture;
+        setTimeout( ()=>{
+          this.pxlEnv.mapComposerWarpPass.needsSwap=false;
+        },500);
+      },100);
+    }
+    //this.pxlEnv.delayPass.uniforms.tDiffusePrev.value= roomName==this.pxlEnv.mainRoom ? this.pxlEnv.mapComposer.renderTarget1.texture : this.pxlEnv.roomComposer.renderTarget1.texture;
         
-    if(roomName!=this.pxlEnv.mainRoom || start){
-      if(start){
+    //if(roomName!=this.pxlEnv.mainRoom || start){
+    if( start ){
+      if( roomName != prevRoom ){
         roomEnv.start();
       }
+
       this.pxlEnv.roomRenderPass.scene=roomEnv.scene;  
       if( roomEnv.camInitPos && roomEnv.camInitLookAt && ( !holdCamera || !this.pxlEnv.postIntro || this.hotKeyTriggered ) ){
         this.setTransform( roomEnv.camInitPos, roomEnv.camInitLookAt );
@@ -504,12 +513,12 @@ export class Camera{
         this.hotKeyTriggered=false;
       }
     }
-        this.pxlGuiDraws.prepArtistInfo( roomEnv.getArtistInfo() );
-        this.camUpdated=true;
-        /*this.pxlEnv.mapComposerWarpPass.enabled=!this.pxlEnv.mapComposerWarpPass.enabled;
-        this.pxlEnv.mapComposer.render();
-        this.pxlEnv.mapComposerWarpPass.enabled=!this.pxlEnv.mapComposerWarpPass.enabled;
-        this.pxlEnv.mapComposer.render();*/
+    this.pxlGuiDraws.prepArtistInfo( roomEnv.getArtistInfo() );
+    this.camUpdated=true;
+    /*this.pxlEnv.mapComposerWarpPass.enabled=!this.pxlEnv.mapComposerWarpPass.enabled;
+    this.pxlEnv.mapComposer.render();
+    this.pxlEnv.mapComposerWarpPass.enabled=!this.pxlEnv.mapComposerWarpPass.enabled;
+    this.pxlEnv.mapComposer.render();*/
         
     this.camera.fov=roomEnv.pxlCamFOV;
     this.camera.zoom=roomEnv.pxlCamZoom;
@@ -533,11 +542,11 @@ export class Camera{
     this.camera.aspect=roomEnv.pxlCamAspect;
     this.camera.near=roomEnv.pxlCamNearClipping;
     this.camera.far=roomEnv.pxlCamFarClipping;
-        this.camera.updateProjectionMatrix();
+    this.camera.updateProjectionMatrix();
     this.setTransform( roomEnv.camThumbPos, roomEnv.camThumbLookAt );
 
-        let standingHeight=this.getUserHeight();
-        this.emitCameraTransforms( this.camera.position.clone(), standingHeight, true );
+    let standingHeight=this.getUserHeight();
+    this.emitCameraTransforms( this.camera.position.clone(), standingHeight, true );
   }
   
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //

@@ -500,11 +500,13 @@ export default class RoomEnvironment{
   onMessage( msgType, msgValue ){
     console.log("Room : "+this.roomName+" - Message Received: "+msgType);
     console.log("Message : "+msgValue);
+    msgType = msgType.toLowerCase();
     switch( msgType ){
-      case "roomWarp":
+      case "roomwarp":
         this.roomWarp=msgValue;
         break;
-      default:
+        default:
+      case "roommessage":
         console.log( "-- Message Type Not Recognized -- " );
         console.log( "Room : "+this.roomName );
         console.log( "Message Received: "+msgType );

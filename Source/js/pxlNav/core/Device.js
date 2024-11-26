@@ -678,6 +678,61 @@ export class Device{
           return false;
       }
             
+      // -- -- -- -- -- -- -- -- -- -- //
+
+      // Non-Active dependent functions -
+      // 192 `
+      if( kCode == "Backquote" ){
+        this.pxlGuiDraws.guiToggleVisibility(); // No Texture
+        return;
+      }
+      // 89 Y
+      if( keyHit == 89 ){
+        this.pxlGuiDraws.toggleShaderEditor();
+      }
+              
+      // 220 \ | 
+      if( keyHit == 220 ){
+        console.log( "Saving screenshot" );
+        let tmpResSave=this.pxlQuality.screenResPerc;
+        this.pxlQuality.screenResPerc=1;
+        //this.resizeRenderResolution( 3840, 2160 );//3240, 3240 );
+        
+        this.pxlEnv.mapRender(false);
+        
+        let dlData=this.pxlGuiDraws.pxlNavCanvas.toDataURL("image/png");
+        let blob=atob( dlData.split(',')[1] );
+        let size=blob.length;
+        let arr=new Uint8Array(size);
+        for(var x=0; x<size; ++x){
+            arr[x]=blob.charCodeAt(x);
+        }
+        let cameraData=URL.createObjectURL(new Blob([arr]));
+
+        let dt=new Date();
+        let d=dt.getDate();
+        let m=dt.getMonth()+1;
+        let y=dt.getFullYear();
+        let fileSuffix=y+"-"+m+"-"+d+"_"+dt.getHours()+"-"+dt.getMinutes()+"-"+dt.getSeconds();
+
+        let tempLink=document.createElement("a");
+        tempLink.download=this.projectTitle+"_"+fileSuffix+".png";
+        tempLink.href=cameraData;
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        tempLink.parentNode.removeChild(tempLink);
+        
+        this.pxlQuality.screenResPerc=tmpResSave;
+        //this.resizeRenderResolution();
+        this.pxlEnv.mapRender(false);
+        
+        return;
+      }
+
+      // -- -- -- -- -- -- -- -- -- -- //
+      
+      // Active dependent functions; pxlNav needs to be running
+
       if(this.pxlTimer.active){
         if(keyHit==37 || keyHit==65){ // Left
           this.directionKeysPressed[0]=0;
@@ -749,12 +804,7 @@ export class Device{
           }
         }
                 
-                
-        // 192 `
-        if( kCode == "Backquote" ){
-          this.pxlGuiDraws.guiToggleVisibility(); // No Texture
-          return;
-        }
+             
         
         //%=
         // 75 K Numpad-Plus
@@ -769,48 +819,7 @@ export class Device{
         // 48  0
         if(keyHit == 48){
         }
-        // 89 Y
-        if( keyHit == 89 ){
-          this.pxlGuiDraws.toggleShaderEditor();
-        }
-                
-        // 220 \ | 
-        if( keyHit == 220 ){
-          console.log( "Saving screenshot" );
-          let tmpResSave=this.pxlQuality.screenResPerc;
-          this.pxlQuality.screenResPerc=1;
-          //this.resizeRenderResolution( 3840, 2160 );//3240, 3240 );
-          
-          this.pxlEnv.mapRender(false);
-          
-          let dlData=this.pxlGuiDraws.pxlNavCanvas.toDataURL("image/png");
-          let blob=atob( dlData.split(',')[1] );
-          let size=blob.length;
-          let arr=new Uint8Array(size);
-          for(var x=0; x<size; ++x){
-              arr[x]=blob.charCodeAt(x);
-          }
-          let cameraData=URL.createObjectURL(new Blob([arr]));
-
-          let dt=new Date();
-          let d=dt.getDate();
-          let m=dt.getMonth()+1;
-          let y=dt.getFullYear();
-          let fileSuffix=y+"-"+m+"-"+d+"_"+dt.getHours()+"-"+dt.getMinutes()+"-"+dt.getSeconds();
-
-          let tempLink=document.createElement("a");
-          tempLink.download=this.projectTitle+"_"+fileSuffix+".png";
-          tempLink.href=cameraData;
-          document.body.appendChild(tempLink);
-          tempLink.click();
-          tempLink.parentNode.removeChild(tempLink);
-          
-          this.pxlQuality.screenResPerc=tmpResSave;
-          //this.resizeRenderResolution();
-          this.pxlEnv.mapRender(false);
-          
-          return;
-        }
+        
         // 221 ]
         if( keyHit == 221 ){
           // Prevent current item from wearing off

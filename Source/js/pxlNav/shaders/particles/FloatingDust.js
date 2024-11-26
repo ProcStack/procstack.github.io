@@ -85,7 +85,13 @@ export function dustVert( lightCount, proxDistance=120 ){
     uniform vec2 time;
     uniform float rate;
     uniform vec2 pointScale;
-    uniform vec3[${lightCount}] lightPos;
+    uniform vec3 positionOffset;
+    uniform vec2 windDir;
+  `;
+  if(lightCount>0){
+    ret+=`uniform vec3[${lightCount}] lightPos;`;
+  }
+  ret+=`
     
     attribute vec4 seeds;
     attribute vec2 atlas;
@@ -122,8 +128,9 @@ export function dustVert( lightCount, proxDistance=120 ){
         
         // Loop point positions based on camera location
         float yFract=fract(t+seeds.x);
-        pOff.y+=cameraPosition.y; 
-        pOff.x+=-time.x; 
+        pOff.y+=cameraPosition.y ; 
+        pOff.x+=time.x*windDir.x; 
+        pOff.z+=time.x*windDir.y; 
         vec3 pos= pOff ;
         
         vec3 noiseCd=texture2D(noiseTexture, sin(pos.xz*.05+seeds.xz+time.x*.1)*.5+.5 ).rgb-.5;
@@ -149,18 +156,17 @@ export function dustVert( lightCount, proxDistance=120 ){
               vec3 lightVector = normalize(pos - lightPos[i]);
               lightInf = min(lightInf, length(pos - lightPos[i]) *.05 );
           }
+          vAlpha*=(1.0-lightInf)*.8+.2;
     `;
   }else if(lightCount == 1 ){
     ret+=`
         vec3 lightVector = normalize(pos - lightPos[0]);
         float lightInf = length(pos - lightPos[0]) *.02;
+        vAlpha*=(1.0-lightInf)*.8+.2;
     `;
   }
 
   ret+=`
-        vAlpha*=(1.0-lightInf)*.8+.2;
-
-
         vScalar = pScalar ;
         //float pScale = pointScale.x * ((seeds.w+.75)*.5) * pScalar + 1.0;
         float pScale = pointScale.x * (seeds.w*.5+.5)*pScalar + 1.0;
@@ -169,6 +175,7 @@ export function dustVert( lightCount, proxDistance=120 ){
        
         gl_PointSize = pScale;
         
+        pos+=positionOffset;
         vec4 mvPos=viewMatrix * vec4(pos, 1.0);
         gl_Position = projectionMatrix*mvPos;
     }`;
