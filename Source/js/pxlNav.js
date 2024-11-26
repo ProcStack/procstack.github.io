@@ -502,7 +502,6 @@ export class pxlNav{
 	cameraRunAnimatorMobile( tmpThis ){
 		let stillLoadingCheck=false;
 		let keys=Object.keys(tmpThis.pxlEnv.geoLoadList);
-	
 		for(let x=0; x<keys.length; ++x){ // Check if any objects are still loading
 			stillLoadingCheck=tmpThis.pxlEnv.geoLoadList[keys[x]]==0;
 			stillLoadingCheck = stillLoadingCheck && !tmpThis.pxlEnv.roomSceneList[x]?.booted;
@@ -519,29 +518,42 @@ export class pxlNav{
 		}
 	}
 
-	initRoomList( tmpThis, loop=0 ){
+	initRoomList( tmpThis){
 		tmpThis.pxlGuiDraws.stepLoader("camAnim"); // --
 		tmpThis.pxlCamera.setTransform( tmpThis.pxlEnv.camInitPos, tmpThis.pxlEnv.camInitLookAt );
 		tmpThis.pxlCamera.updateCamera();
-				
-		// ## Boot Sub Rooms
-		/*if( !pxlDevice.mobile && !pxlAutoCam.enabled ){
-			rolLobby.build();
-			tmpThis.pxlEnv.stepShaderFuncArr.push( rolLobby );
-		}*/
-				
+
 		// Append start up functions
-
 		tmpThis.pxlEnv.buildRoomEnvironments();
+		tmpThis.monitorRoomLoad( tmpThis );
+	}
+	monitorRoomLoad( tmpThis, loop=0 ){
+		let stillLoadingCheck=false;
+		let keys=Object.keys(tmpThis.pxlEnv.geoLoadList);
+		for(let x=0; x<keys.length; ++x){ // Check if any objects are still loading
+			stillLoadingCheck=tmpThis.pxlEnv.geoLoadList[keys[x]]==0;
+			stillLoadingCheck = stillLoadingCheck && !tmpThis.pxlEnv.roomSceneList[x]?.booted;
+			if(stillLoadingCheck){ // If entry isn't 1, means not fully loaded
+				break;
+			}
+		}
+		if( stillLoadingCheck ){ // Files are still loading
+			setTimeout(()=>{
+				tmpThis.monitorRoomLoad( tmpThis );
+			},300);
+		}else{
+			tmpThis.pxlQuality.mapAutoQualityUpdate(1,true);
+			//let snapShotCommands=tmpThis.pxlEnv.warpPortalQueue();
+			//let camStats={ fov:pxlCamera.camera.fov, zoom:pxlCamera.camera.zoom, aspect:pxlCamera.camera.aspect };
+			//runStartFunctions( camStats, 0, true, snapShotCommands);
+			tmpThis.runPrepDrawScenes( 0, true, []);//snapShotCommands );
+		}
 
-		tmpThis.pxlQuality.mapAutoQualityUpdate(1,true);
-		let snapShotCommands=tmpThis.pxlEnv.warpPortalQueue();
-		//let camStats={ fov:pxlCamera.camera.fov, zoom:pxlCamera.camera.zoom, aspect:pxlCamera.camera.aspect };
-		//runStartFunctions( camStats, 0, true, snapShotCommands);
-		tmpThis.runPrepDrawScenes( 0, true, []);//snapShotCommands );
 	}
 	
-	
+	// This compiles the materials in each scene, at least from the perspective of the camera
+	//   This causes a delay during the first warp to the new room in runtime,
+	//     So this runs that hiccup before the user can feel it
 	runPrepDrawScenes(runner=0, jumpCam=true, cmdList=[]){
 		runner++;
 		if( cmdList.length > 0 ){
@@ -612,14 +624,17 @@ export class pxlNav{
 		this.pxlEnv.mapRender();
 		
 		this.pxlQuality.setDependentSettings();
+
+
+		this.pxlGuiDraws.stepLoader( "Starting..." );
 		
 		let tmpThis = this;
 		
 		setTimeout( ()=>{
 			tmpThis.pxlEnv.postBoot();
-				if(tmpThis.pxlGuiDraws.mapPrompt) tmpThis.pxlGuiDraws.promptFader(tmpThis.pxlGuiDraws.mapPrompt, false,null,true);
-				if(tmpThis.pxlGuiDraws.mapPromptBG) tmpThis.pxlGuiDraws.promptFader(tmpThis.pxlGuiDraws.mapPromptBG, false,null,false);
-				tmpThis.emit("booted", true);
+			if(tmpThis.pxlGuiDraws.mapPrompt) tmpThis.pxlGuiDraws.promptFader(tmpThis.pxlGuiDraws.mapPrompt, false,null,true);
+			if(tmpThis.pxlGuiDraws.mapPromptBG) tmpThis.pxlGuiDraws.promptFader(tmpThis.pxlGuiDraws.mapPromptBG, false,null,false);
+			tmpThis.emit("booted", true);
 		}, 200);
 	}
 
@@ -630,8 +645,8 @@ export class pxlNav{
 
 	step(anim=true){
 		if(this.pxlTimer.active){
-				this.pxlTimer.step();
-		requestAnimationFrame( ()=>{ this.step(); });
+			this.pxlTimer.step();
+			requestAnimationFrame( ()=>{ this.step(); });
 		}
 	}
 	

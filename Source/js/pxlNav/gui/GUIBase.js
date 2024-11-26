@@ -230,11 +230,13 @@ export class GUIManager{
 		this.mapPrompt.classList.add("mapPromptStyle");
 		this.mapPrompt.classList.add("fader");
 		this.mapPrompt.classList.add("visOn");
-		this.mapPrompt.innerHTML=`<div id="loaderBranding" class='pxlLoaderTitle'>${this.projectTitle}</div>
+		this.mapPrompt.innerHTML=`
             <div class='loadStyleParent'>
               <div id='pxlLoader' class='loadStyle'></div>
               <div id='pxlLoaderBackground' class='loadStyleBackground'></div>
-            </div>`;
+            </div>
+            <div id="loaderBranding" class='pxlLoaderTitle'>${this.projectTitle}</div>
+          `;
 		document.body.appendChild(this.mapPrompt);
 		
 		if(this.buildGuiStatus.loadingBranding){
@@ -275,10 +277,10 @@ export class GUIManager{
 	
   stepLoader(msg=""){
 		this.pxlLoaderCount+=1;
-			let curPerc=Math.min(100, this.pxlLoaderCount/(this.pxlLoaderTotal-1)*100.0 )
-			if( curPerc == 100 ){
-				this.pxlLoader.style.borderRadius = "5px";
-			}
+    let curPerc=Math.min(100, this.pxlLoaderCount/(this.pxlLoaderTotal-1)*100.0 )
+    if( curPerc == 100 ){
+      this.pxlLoader.style.borderRadius = "5px";
+    }
 		this.pxlLoader.style.width= curPerc +"%";
 		if( this.verbose >= VERBOSE_LEVEL.INFO ){
 		  console.log("Loader", this.pxlLoaderCount, this.pxlLoader.style.width, "; "+msg,);

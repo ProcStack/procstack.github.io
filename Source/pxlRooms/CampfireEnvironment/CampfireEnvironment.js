@@ -59,6 +59,17 @@ export class CampfireEnvironment extends RoomEnvironment{
   init(){
     super.init();
   }
+
+  start(){
+    if( this.booted ){
+      this.resetCamera();
+    }
+    let animKey = "RabbitDruidA";
+    if( this.pxlAnim && this.pxlAnim.hasClip( animKey, this.animInitCycle ) ){
+      this.pxlAnim.playClip( animKey, this.animInitCycle );
+    }
+  }
+
   // Per-Frame Render updates
   step(){
     super.step();
@@ -139,10 +150,6 @@ export class CampfireEnvironment extends RoomEnvironment{
     // I'm including `Walk` at the moment until creating the pxlAnimation class
     //   to maintain shared characters and animation across rooms
 
-    let curCharacter = "RabbitDruidA";
-    let animFbxLoader = this.pxlFile.loadAnimFBX( this, curCharacter, this.animSource[curCharacter]['rig'], this.animSource[curCharacter]['anim'], this.animSource[curCharacter]['stateConnections']);
-
-
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
     // Log replicator time!
@@ -192,10 +199,10 @@ export class CampfireEnvironment extends RoomEnvironment{
     // TODO : This needs to not be needed --
     this.setUserHeight( this.camInitPos.y );
     
-    this.booted=true;
     
     //console.log(this.geoList);
         
+    this.booted=true;
   }
 
 
@@ -209,7 +216,6 @@ export class CampfireEnvironment extends RoomEnvironment{
       
       this.pxlAnim.playClip( animKey, this.animInitCycle );
     }else{
-      let fallback = animKeys[0];
       this.animInitCycle = fallback;
       this.log("No animation cycle '"+this.animInitCycle+"' found; Using '"+fallback+"' instead");
     }
@@ -226,15 +232,21 @@ export class CampfireEnvironment extends RoomEnvironment{
       let curMtl = curMesh.material;
     }
 
+    
   }
   
 
-// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- //
   
-
-// Build Scene and Assets
+  
+  // Build Scene and Assets
   build(){
     
+    let curCharacter = "RabbitDruidA";
+    let animFbxLoader = this.pxlFile.loadAnimFBX( this, curCharacter, this.animSource[curCharacter]['rig'], this.animSource[curCharacter]['anim'], this.animSource[curCharacter]['stateConnections']);
+    
+    // -- -- --
+
     let envGroundUniforms = THREE.UniformsUtils.merge(
         [
           THREE.UniformsLib[ "common" ],

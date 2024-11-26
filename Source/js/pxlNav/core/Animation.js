@@ -8,7 +8,7 @@ export class Animation{
   constructor( assetPath=null, msRunner=null ){
     this.pxlEnv = null;
     this.assetPath=assetPath;
-    this.verbose = true;
+    this.verbose = false;
     
     this.animInitEntry = {
       'rig' : null,

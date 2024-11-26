@@ -263,49 +263,51 @@ export class Environment{
   postBoot(){
 		
 		this.pxlGuiDraws.togglePageDisplay();
-      
-      this.posted=true;
 
-      //this.buildSnow();
-			
-      /*
-			// Prevent Web Camera from booting 
-      if( this.pxlDevice.mobile || this.pxlAutoCam.enabled){
-          this.pxlAutoCam.toggleAutoCam();
-          this.fogMult.x = 1;
-          if( ! this.pxlAutoCam.enabled ){
-              this.pxlGuiDraws.toggleMobileWelcome(true);
-          }else{
-              this.postIntro=true;
-              this.pxlCamera.colliderValid=true;
-              this.pxlCamera.eventCheckStatus=true;
-              this.pxlCamera.colliderShiftActive=true;
-              this.pxlCamera.nearestFloorObjName="mobile";
-              this.pxlCamera.colliderCurObjHit="AudioTrigger_2";
-              this.pxlCamera.proximityScaleTrigger=true;
-              this.exposureShiftActive=true;
-              this.pxlAudio.setFadeActive( 1 );
-          }
-      }else{
-          this.pxlGuiDraws.iconEvent( "click", this.pxlGuiDraws.hudIcons.helpIcon, "help" );
-      }
-			*/
-      
-			/*
-			// Prevent audio and video booting
-      setTimeout( ()=>{
-          this.pxlAudio.postBoot();
-          
-          if( this.pxlDevice.mobile ){
-            this.pxlAudio.djPlayerMuteToggle(true);
-          }
-          
-          if(this.pxlVideo){
-            this.pxlVideo.postBoot('dj');
-          }
-          
-      }, 1000);
-			*/
+    this.roomSceneList[this.bootRoom].start();
+    
+    this.posted=true;
+
+    //this.buildSnow();
+    
+    /*
+    // Prevent Web Camera from booting 
+    if( this.pxlDevice.mobile || this.pxlAutoCam.enabled){
+        this.pxlAutoCam.toggleAutoCam();
+        this.fogMult.x = 1;
+        if( ! this.pxlAutoCam.enabled ){
+            this.pxlGuiDraws.toggleMobileWelcome(true);
+        }else{
+            this.postIntro=true;
+            this.pxlCamera.colliderValid=true;
+            this.pxlCamera.eventCheckStatus=true;
+            this.pxlCamera.colliderShiftActive=true;
+            this.pxlCamera.nearestFloorObjName="mobile";
+            this.pxlCamera.colliderCurObjHit="AudioTrigger_2";
+            this.pxlCamera.proximityScaleTrigger=true;
+            this.exposureShiftActive=true;
+            this.pxlAudio.setFadeActive( 1 );
+        }
+    }else{
+        this.pxlGuiDraws.iconEvent( "click", this.pxlGuiDraws.hudIcons.helpIcon, "help" );
+    }
+    */
+    
+    /*
+    // Prevent audio and video booting
+    setTimeout( ()=>{
+        this.pxlAudio.postBoot();
+        
+        if( this.pxlDevice.mobile ){
+          this.pxlAudio.djPlayerMuteToggle(true);
+        }
+        
+        if(this.pxlVideo){
+          this.pxlVideo.postBoot('dj');
+        }
+        
+    }, 1000);
+    */
   }
     
   postHelpIntro(){
@@ -385,7 +387,6 @@ export class Environment{
       
       curImport.then((module)=>{
         let roomObj=new module[roomName]( roomName, `../${this.pxlRoomLclRoot}/${roomName}/`, this.pxlFile, this.pxlAnim, this.pxlUtils, this.pxlDevice, this, this.pxlTimer.msRunner, null, null, this.cloud3dTexture);
-        this.pxlGuiDraws.pxlLoaderTotal+=1;
 
         roomObj.camera=this.pxlCamera.camera;
         roomObj.scene=new THREE.Scene();
@@ -500,6 +501,7 @@ export class Environment{
     
     //this.log("Building Room Environments");
     //this.log(this.roomNameList);
+    let loadPromisList=[];
     
     this.roomNameList.forEach( (r)=>{
       //if( r != this.mainRoom){

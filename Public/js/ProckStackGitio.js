@@ -26,7 +26,9 @@ const pxlRoomRootPath = "./pxlRooms";
 
 // Current possible rooms - "CampfireEnvironment"
 const startingRoom = "CampfireEnvironment"; 
-const bootRoomList = ["CampfireEnvironment"];//, "SaltFlatsEnvironment"];
+//const startingRoom = "SaltFlatsEnvironment"; 
+const bootRoomList = ["CampfireEnvironment", "SaltFlatsEnvironment"];
+//const bootRoomList = ["SaltFlatsEnvironment"];//, "SaltFlatsEnvironment"];
 
 
 // -- -- -- -- --
@@ -35,7 +37,7 @@ const bootRoomList = ["CampfireEnvironment"];//, "SaltFlatsEnvironment"];
 // Create the pxlNav environment manager
 const pxlNavr = new pxlNav( verbose, projectTitle, pxlRoomRootPath, startingRoom, bootRoomList );
 
-
+window.pxlNav = pxlNavr;
 // -- -- -- -- --
 
 

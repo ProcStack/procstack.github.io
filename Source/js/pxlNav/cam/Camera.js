@@ -400,7 +400,7 @@ export class Camera{
     // Force collision detection
     this.colliderCurObjHit=null; 
     this.colliderPrevObjHit=null;
-        this.camUpdated=true; // Forces next frame update
+    this.camUpdated=true; // Forces next frame update
   }
 
   setFOV( fov ){
@@ -804,7 +804,7 @@ export class Camera{
                     this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList={};
                 }
                 if( !this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList[curQuadrant] ){
-                    console.log("trigger build master list");
+                    //console.log("trigger build master list");
                     let masterList=[];
                     let curRoomThis=this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom];
                     masterList.push( ...curRoomThis.colliderList[ 'noAxis' ] );

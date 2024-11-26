@@ -332,6 +332,7 @@ export class FileIO{
 
             envObj.geoList['InstancesObjects'][name] = instancedMesh;
             mesh.parent.add(instancedMesh);
+            mesh.visible = false;
             mesh.parent.remove(mesh);
           }else{
             // Clone the base instance; single instance
@@ -359,6 +360,7 @@ export class FileIO{
 
             envObj.geoList['InstancesObjects'][name] = instancedMesh;
             mesh.parent.add(instancedMesh);
+            mesh.visible=false;
             mesh.parent.remove(mesh);
           }
            
@@ -1455,7 +1457,8 @@ export class FileIO{
 
       Promise.all(promisList).then(() => {
         this.pxlAnim.setStateConnections( meshKey, stateConnections );
-        this.log("All animations loaded");
+        this.pxlEnv.geoList[meshKey]=curFbx;
+        this.pxlEnv.geoLoadList[meshKey]=1;
         envObj.animPostLoad(meshKey);
       }).catch((err) => {
         this.log("Error loading animations", err);

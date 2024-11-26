@@ -139,6 +139,9 @@ export default class RoomEnvironment{
 
 // Run on init room warp; reset room values
   start(){
+    if( this.booted ){
+      this.resetCamera();
+    }
     /*this.spiralizerPass.enabled=true;
     this.bloomPreState=this.pxlEnv.roomBloomPass.enabled;  
     this.pxlEnv.roomBloomPass.enabled=false;  */
@@ -180,6 +183,10 @@ export default class RoomEnvironment{
   
   setUserHeight( toHeight=1 ){
     this.pxlEnv.pxlCamera.userScale = toHeight;
+  }
+
+  resetCamera(){
+    this.pxlEnv.pxlCamera.setTransform( this.camInitPos, this.camInitLookAt );
   }
     
 // Warp Zone Portal Texture
