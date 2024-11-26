@@ -26,21 +26,25 @@ const pxlRoomRootPath = "./pxlRooms";
 
 // Current possible rooms - "CampfireEnvironment"
 const startingRoom = "CampfireEnvironment"; 
-const bootRoomList = ["CampfireEnvironment"];//, "SaltFlatsEnvironment"];
+//const startingRoom = "SaltFlatsEnvironment"; 
+const bootRoomList = ["CampfireEnvironment", "SaltFlatsEnvironment"];
+//const bootRoomList = ["SaltFlatsEnvironment"];//, "SaltFlatsEnvironment"];
 
 
 // -- -- -- -- --
-
-
-// Create the pxlNav environment manager
-const pxlNavr = new pxlNav( verbose, projectTitle, pxlRoomRootPath, startingRoom, bootRoomList );
-
-
-// -- -- -- -- --
-
 
 // Create the main page manager
 const procPages = new ProcstackPages();
+procPages.init();
+procPages.setPxlNavVersion(pxlNavVersion);
+
+// Create the pxlNav environment manager
+const pxlNavr = new pxlNav( verbose, projectTitle, pxlRoomRootPath, procPages.curRoom, bootRoomList );
+
+window.pxlNav = pxlNavr;
+// -- -- -- -- --
+
+
 
 
 // -- -- -- -- --
@@ -56,10 +60,14 @@ pageListenEvents.forEach( (e)=>{
 
 // -- -- --
 
+// Connect ProcstackPages' trigger emit function to into `pxlNav`
+procPages.bindTriggerEmits( pxlNavr.trigger.bind(pxlNavr) );
+
+// -- -- --
+
 
 function init(){
-  procPages.init();
-  procPages.setPxlNavVersion(pxlNavVersion);
+
 
   pxlNavr.bootTimer();
   pxlNavr.init();

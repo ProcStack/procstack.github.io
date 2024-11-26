@@ -11,11 +11,14 @@ export class ProcstackPages {
   constructor() {
     this.mainDiv = null;
     this.curPage = null;
+    this.curRoom = null;
+    this.curLocation = null;
     this.defaultPage = "Init";
     this.pageListing = {};
 
     this.resObjsVis = true;
     this.resBasedObjs = [];
+    this.triggerEmitFunc = null;
     // this.navBar.init();
   }
   init(){
@@ -43,14 +46,23 @@ export class ProcstackPages {
 
     this.navBarLinks.forEach( (navLink)=>{
       let linkText = navLink.getAttribute("pageName");
+      let pxlRoomName = navLink.getAttribute("pxlRoomName");
+      let pxlCameraView = navLink.getAttribute("pxlCameraView");
+      
       linkText = linkText.replace(/(?: |\/|\.|\n)/g, "");
+
+      if( linkText == pageHash ){
+        this.curRoom = navLink.getAttribute("pxlRoomName");
+        this.curLocation = navLink.getAttribute("pxlCameraView");
+      }
+
       navLink.addEventListener("click", (e)=>{
         e.preventDefault();
         if( linkText == this.curPage.id ){
           return;
         }
         window.location.hash = linkText;
-        this.changePage( linkText );
+        this.changePage( linkText, pxlRoomName, pxlCameraView );
       });
     });
 
@@ -78,6 +90,16 @@ export class ProcstackPages {
       console.log("Pong!");
     }
   }
+
+  // -- -- --
+
+  bindTriggerEmits( emitFunc ){
+    this.triggerEmitFunc = emitFunc;
+  }
+  unbindTriggerEmits(){
+    this.triggerEmitFunc = null;
+  }
+
 
   // -- -- --
   
@@ -185,12 +207,19 @@ export class ProcstackPages {
     }
   }
 
-  changePage( pageName ){
+  changePage( pageName, roomName=null, locationName=null ){
     if( pageName != this.curPage && Object.keys(this.pageListing).includes(pageName) ){
       this.toggleFader(this.curPage, false);
       this.curPage = this.pageListing[pageName];
       this.toggleFader(this.curPage, true);
       this.curPage.parentElement.scrollTop = 0;
+      if(this.triggerEmitFunc && roomName!=null){
+        if( locationName == null ){
+          locationName = "init";
+        }
+        
+        this.triggerEmitFunc( "warpToRoom", roomName, locationName );
+      }
     }
   }
   setPxlNavVersion( version ){
