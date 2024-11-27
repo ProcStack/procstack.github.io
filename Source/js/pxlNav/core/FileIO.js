@@ -1439,7 +1439,6 @@ export class FileIO{
 
     let addedGlow=0;
     let envScene=envObj.scene;
-    
     // TODO : Do new FBXLoader objects really need to be created?
     //          Sounds like the potential for a memory leak if not handled correctly
     var fbxLoader=new FBXLoader();
@@ -1451,6 +1450,9 @@ export class FileIO{
       
       groups.forEach((c,x)=>{ let curName=c.name.split("_")[0]; groupNames.push(curName); groupTypes[curName]=x; });
 
+      curFbx.traverse((c)=>{
+        this.checkForUserData( envObj, envScene, c );
+      });
 
       this.pxlAnim.initObject( meshKey, curFbx );
 

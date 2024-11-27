@@ -77,10 +77,14 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
       parentObj.rotation.set( locRot.x, locRot.y, locRot.z );
       parentObj.scale.set( locScale.x, locScale.y, locScale.z );
     }
+    
     if( this.pxlAnim && this.pxlAnim.hasClip( animKey, this.animInitCycle ) ){
       this.pxlAnim.playClip( animKey, this.animInitCycle );
     }
     
+    if( this.geoList["Scripted"].hasOwnProperty("pokinStick_geo") ){
+      this.geoList["Scripted"]["pokinStick_geo"].visible = false;
+    }
     //this.pxlEnv.pxlCamera.setStats( this.pxlCamFOV, this.pxlCamZoom, this.pxlCamAspect, this.pxlCamNearClipping );
   }
 
@@ -139,7 +143,6 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     
     this.booted=true;
     
-    console.log(this.geoList)
         
   }
 
@@ -167,7 +170,6 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     if(curMesh){
       let curMtl = curMesh.material;
     }
-
   }
   
 
