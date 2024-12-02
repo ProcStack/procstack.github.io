@@ -52,6 +52,9 @@ export class GUIManager{
     medalion:guiRoot+".svg",
     stack:guiRoot+".svg"
   };
+
+  // Loader Phrases
+  this.loaderPhrases=[ "Loading..." ];
     
   // Dynamic Styles 
   this.lableBoxSize=40; // Device Label Box Size
@@ -231,13 +234,23 @@ export class GUIManager{
 		this.mapPrompt.classList.add("fader");
 		this.mapPrompt.classList.add("visOn");
 		this.mapPrompt.innerHTML=`
-            <div id="loaderBranding" class='pxlLoaderTitle'>${this.projectTitle}</div>
+            <div id="loaderLogoBranding" class='pxlLoaderLogo'></div>
             <div class='loadStyleParent'>
               <div id='pxlLoader' class='loadStyle'></div>
               <div id='pxlLoaderBackground' class='loadStyleBackground'></div>
             </div>
+            <div id="loaderBranding" class='pxlLoaderTitle'>${this.projectTitle}</div>
+            <div id="loaderMessage" class='pxlLoaderMessage'></div>
           `;
 		document.body.appendChild(this.mapPrompt);
+
+    let loaderMsgObj=document.getElementById("loaderMessage");
+    if(loaderMsgObj){
+      
+      let loaderMsg = this.loaderPhrases[ Math.floor( Math.random()*this.loaderPhrases.length ) ];
+      loaderMsgObj.innerHTML=loaderMsg;
+    }
+
 		
 		if(this.buildGuiStatus.loadingBranding){
 			SVGUtils.svgPromise( this.branding.loader, "loaderBranding", "pxlLoaderTitle", "loadBrandingLogo");
@@ -287,6 +300,32 @@ export class GUIManager{
     }
   }
   
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- //
+
+  setLoaderPhrases( phrases, clear=true ){
+    if( phrases && phrases.length > 0 ){
+      if( clear ){
+        this.loaderPhrases = [];
+      } 
+      this.loaderPhrases = this.loaderPhrases.concat( phrases );
+
+      // Check if this function was run after the loader was created
+      //   Likely, since the loader starts on init,
+      //     Future proofing here
+      this.setLoaderObjMessage();
+    }
+  }
+
+  setLoaderObjMessage(){
+    let loaderMsgObj=document.getElementById("loaderMessage");
+    if(loaderMsgObj){
+      // I was seeing too many repeats, multi-mod that number!
+      let ranEntry = Math.floor( (Math.random()*17391.537193 * this.loaderPhrases.length) % this.loaderPhrases.length  );
+      let loaderMsg = this.loaderPhrases[ ranEntry ];
+      loaderMsgObj.innerHTML=loaderMsg;
+    }
+  }
+
   // -- -- -- -- -- -- -- -- -- -- -- -- -- //
 	
   booted(){

@@ -50,16 +50,17 @@
 /*  -- -- --  */
 
 .pxlLoaderTitle{
-	font-size:1.6em;
+	font-size:1.5em;
 	font-variant: all-small-caps;
-	letter-spacing: 3.5px;
+	letter-spacing: 3.85px;
 	color:rgba(255,255,255,0.85);
-	top: 5px;
 	position: relative;
+	top: -1.1px;
+	mix-blend-mode: difference;
+	z-index: 2;
 }
 
 .loadStyleParent{
-	height: 16px;
 	display: grid;
 }
 .loadStyle{
@@ -83,6 +84,10 @@
 	z-index: 1;
 }
 
+.pxlLoaderMessage{
+	padding-top: 1px;
+}
+
 /*  -- -- --  */
 
 .mapPromptStyle{
@@ -94,6 +99,6 @@
 	font-family: 'Raleway', sans-serif;
 	font-weight:700;
 	text-align:center;
-	width: 275px;
+	width: 350px;
 	z-index:152;
 }

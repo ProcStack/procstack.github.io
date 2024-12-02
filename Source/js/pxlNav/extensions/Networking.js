@@ -10,8 +10,9 @@
 //
 //  This module needs to be connected to the pxlNav.trigger and pxlNav.emit system.
 
+import { ExtensionBase } from "./ExtensionBase.js";
 
-export default class Networking{
+export default class Networking extends ExtensionBase {
   constructor( socketio ){
     this.status=false;
     // AccessToken is grabbed from OAuth2 authentication of the account.

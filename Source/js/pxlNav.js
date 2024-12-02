@@ -124,6 +124,8 @@ export class pxlNav{
 		this.pxlUtils = new PxlBase.Utils( this.folderDict["assetRoot"], this.mobile );
 		this.pxlFile = new PxlBase.FileIO( this.folderDict );
 
+		this.pxlExtensions = new PxlBase.Extensions();
+
 		this.pxlAudio = new PxlBase.Audio( this.pxlTimer );
 		this.pxlAutoCam = new PxlBase.AutoCamera( this.autoCam, this.mobile );
 		this.pxlAutoCam.active = false;
@@ -640,9 +642,15 @@ export class pxlNav{
 		}, 200);
 	}
 
+
+
+
 	// -- -- -- -- -- -- -- -- -- -- --
 	// -- -- -- -- -- -- -- -- -- -- --
 	// -- -- -- -- -- -- -- -- -- -- --
+
+
+	
 
 
 	step(anim=true){
@@ -766,6 +774,33 @@ export class pxlNav{
 	}
 
 	// -- -- --
+	
+	setLoaderPhrases( phraseList ){
+		this.pxlGuiDraws.setLoaderPhrases( phraseList );
+	}
+	
+	
+	// -- -- --
+	// pxlNav Extension Functions 
+
+	initExtension( extName, onFinishFn, onErrorFn ){
+		this.pxlExtensions.init( extName, onFinishFn, onErrorFn );
+	}
+
+	startExtension( extName, onFinishFn, onErrorFn ){
+		this.pxlExtensions.start( extName, onFinishFn, onErrorFn );
+	}
+
+	stopExtension( extName, onFinishFn, onErrorFn ){
+		this.pxlExtensions.stop( extName, onFinishFn, onErrorFn );
+	}
+
+	extensionStatus( extName ){
+		return this.pxlExtensions.status( extName );
+	}
+
+	// -- -- --
+	// Messaging Into (triggers) and Out-Of (subscriptions) the pxlNav Engine
 
 	trigger( eventType, eventValue=null, eventObj=null ){
 		eventType = eventType.toLowerCase();

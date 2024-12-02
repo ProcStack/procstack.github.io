@@ -4,13 +4,13 @@
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 //
 //   This is an example implementation of `pxlNav` in a project;
-//     Tieing in `ProcstackPages` to manage the pages of the site,
+//     Tieing in `ProcPages` to manage the pages of the site,
 //       Listening to / triggering events on `pxlNav`
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
 import { pxlNav, pxlNavVersion } from './pxlNav.js';
-import { ProcstackPages } from './ProcstackPages.js';
+import { ProcPages } from './ProcPages.js';
 
 
 // Console logging level
@@ -19,7 +19,7 @@ const verbose = 0
 
 // The Title of your Project
 //   This will be displayed on the 
-const projectTitle = "procstack.git.io";
+const projectTitle = "procstack.github.io";
 
 // pxlRoom folder path, available to change folder names or locations if desired
 const pxlRoomRootPath = "./pxlRooms";
@@ -34,16 +34,29 @@ const bootRoomList = ["CampfireEnvironment", "SaltFlatsEnvironment"];
 // -- -- -- -- --
 
 // Create the main page manager
-const procPages = new ProcstackPages();
+const procPages = new ProcPages();
 procPages.init();
 procPages.setPxlNavVersion(pxlNavVersion);
 
 // Create the pxlNav environment manager
 const pxlNavr = new pxlNav( verbose, projectTitle, pxlRoomRootPath, procPages.curRoom, bootRoomList );
 
-window.pxlNav = pxlNavr;
 // -- -- -- -- --
 
+
+// Set or Update the loader message
+const loaderPhrases = [
+  "...chasing the bats from the belfry...",
+  "...shuffling the deck...",
+  "...checking the air pressure...",
+  "...winding the clock...",
+  "...tuning the strings...",
+  "...ringing the quartz...",
+  "...crashing the glasses...",
+  "...sharpening the pencils...",
+];
+
+pxlNavr.setLoaderPhrases( loaderPhrases );
 
 
 
@@ -60,7 +73,7 @@ pageListenEvents.forEach( (e)=>{
 
 // -- -- --
 
-// Connect ProcstackPages' trigger emit function to into `pxlNav`
+// Connect ProcPages' trigger emit function to into `pxlNav`
 procPages.bindTriggerEmits( pxlNavr.trigger.bind(pxlNavr) );
 
 // -- -- --
