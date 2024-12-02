@@ -63,7 +63,7 @@ BODY {
     justify-self: center;
     align-content: center;
     width: 85vw;
-    max-width: 1200px;
+    max-width: 1600px;
     max-height: 800px;
 }
 
@@ -72,14 +72,31 @@ BODY {
 
 .gitPageNavBlockStyle {
     padding: 6px 0px;
-    background-color: rgba(80, 80, 80, 0.45);
+    background: linear-gradient(90deg,  rgba(20, 20, 20, 0.0), rgba(80, 80, 80, 0.45), rgba(85, 85, 85, 0.55), rgba(80, 80, 80, 0.45), rgba(20, 20, 20, 0.0) );
     border-bottom: 1px solid rgba(120, 120, 120, 0.45);
     position: fixed;
     top: 0px;
     left: 0px;
     width: 100vw;
+    z-index: 310;
 }
 
+
+
+.gitPageNavHeaderStyle {
+    letter-spacing: 3.5px;
+    font-size: 2.05em;
+    font-variant: all-small-caps;
+    color: rgba(40, 40, 40, .18);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
+    font-weight: 600;
+    position: fixed;
+    top: 1px;
+    left : 15vw;
+    z-index: 1;
+    opacity: .40;
+    pointer-events: none;
+}
 
 
 .gitPageNavStyle {
@@ -89,6 +106,8 @@ BODY {
     flex-wrap: wrap;
     justify-content: space-around;
     justify-self: center;
+    position: relative;
+    z-index: 2;
 }
 
 
@@ -121,15 +140,17 @@ BODY {
 .gitPageContentParentStyle {
     max-height: 0vh;
     overflow: hidden;
-    top: 7vh;
     position: fixed;
     width: 85vw;
-    max-width: 1200px;
-    border: 1px solid rgba(60, 60, 60, 0.6);
+    max-width: 1600px;
+    height: 100vh;
+    pointer-events: none;
+    display: grid;
+    justify-items: center;
 }
 
 .gpcpVisibleStyle {
-    max-height: 65vh;
+    max-height: 100vh;
 }
 
 .gpcpHiddenStyle {
@@ -139,14 +160,12 @@ BODY {
 /* -- -- -- */
 
 .gitPageContentStyle {
-    background-color: rgba(100, 100, 100, 0.35);
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
     padding: 10px;
     display: grid;
     place-items: baseline;
     grid-template-areas: "gitpage";
-    max-height: 65vh;
     overflow: auto;
+    max-height: 65vh;
     min-height: 16vh;
     font-size: 1.2em;
 }
@@ -174,6 +193,12 @@ BODY {
     justify-self: center;
     margin: 10px 0px 10px 0px;
 }
+
+/* -- -- -- */
+
+
+/* -- -- -- */
+
 
 /* -- -- -- */
 
@@ -278,15 +303,23 @@ BODY {
 
 
 
+/* -- -- -- */
 
 
 
-
-
+.versionStyle {
+    font-variant: all-small-caps;
+    font-size: 1.2em;
+    height: 16px;
+    overflow: hidden;
+    line-height: 14px;
+    text-decoration: none;
+}
 
 
 
 /* -- -- -- */
+
 
 .footerBarParent {
     padding : 3px;
@@ -297,22 +330,12 @@ BODY {
 }
 
 .footerBar {
-    background-color: rgba(80, 80, 80, 0.15);
     padding: 2px 10px 2px 10px;
     display: grid;
     grid-auto-flow: column;
     justify-content: space-between;
-    color: #999999;
 }
 
-.versionStyle {
-    font-variant: all-small-caps;
-    font-size: 1.2em;
-    height: 16px;
-    overflow: hidden;
-    line-height: 14px;
-    text-decoration: none;
-}
 
 .footerBar a {
     color: #999999;
@@ -333,14 +356,104 @@ BODY {
 }
 
 /* -- -- -- -- -- -- -- -- -- */
+/* -- Page Specific CSS -- -- */
+/* -- -- -- -- -- -- -- -- -- */
 
 
+.gitInitPageStyle{
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
+    background: linear-gradient(155deg, rgba(67, 55, 4, 0.407), rgba(52, 35, 3, 0), rgba(52, 35, 3, 0), rgba(52, 35, 3, 0));
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
+    justify-self: baseline;
+    pointer-events: none;
+    position: fixed;
+    top: 5vh;
+    z-index: 1;
+}
+.gitPxlNavPageStyle{
+    background-color: rgba(100, 100, 100, 0.35);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
+    border: 1px solid rgba(60, 60, 60, 0.6);
+    pointer-events: auto;
+    position: fixed;
+    top: 5vh;
+    z-index: 2;
+}
+.gitReposPageStyle{
+    background-color: rgba(100, 100, 100, 0.35);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
+    border: 1px solid rgba(60, 60, 60, 0.6);
+    pointer-events: auto;
+    max-width: 65vw;
+    position: fixed;
+    top: 5vh;
+    z-index: 3;
+}
+.gitProjectsPageStyle{
+    background-color: rgba(100, 100, 100, 0.35);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
+    border: 1px solid rgba(60, 60, 60, 0.6);
+    pointer-events: auto;
+    position: fixed;
+    bottom: 4.5vh;
+    max-height: 55vh;
+    z-index: 4;
+}
+.gitAboutMePageStyle{
+    background-color: rgba(100, 100, 100, 0.35);
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
+    border: 1px solid rgba(60, 60, 60, 0.6);
+    pointer-events: auto;
+    position: fixed;
+    top: 5vh;
+    z-index: 5;
+}
+
+/* -- -- -- -- -- -- -- -- -- */
+
+.defaultPage_footerBar{
+    background: linear-gradient(90deg, rgba(80, 80, 80, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(80, 80, 80, 0.15));
+    color: #999999;
+}
+
+.initPage_footerBar{
+    background: linear-gradient(90deg, rgba(67, 55, 4, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(67, 55, 4, 0.15));
+    color: #A96306;
+}
+
+.pxlNavPage_footerBar{
+    background: linear-gradient(90deg, rgba(80, 80, 80, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(80, 80, 80, 0.15));
+    color: #999999;
+}
+
+.repoPage_footerBar{
+    background: linear-gradient(90deg, rgba(80, 80, 80, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(80, 80, 80, 0.15));
+    color: #999999;
+}
+
+.projectsPage_footerBar{
+    background: linear-gradient(90deg, rgba(80, 80, 80, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(80, 80, 80, 0.15));
+    color: #999999;
+}
+
+.aboutMePage_footerBar{
+    background: linear-gradient(90deg, rgba(80, 80, 80, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(80, 80, 80, 0.15));
+    color: #999999;
+}
 
 
+/* -- -- -- */
 
-
-
-
+.initPage_hBarStyle{
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-around;
+    margin: 3px 0px 3px 0px;
+    height: 1px;
+    width: 65%;
+    overflow: hidden;
+    background: linear-gradient(90deg, rgba(169, 99, 6, 0.482), rgba(183, 108, 3, 0.241), rgba(28, 15, 0, 0));
+}
 
 
 

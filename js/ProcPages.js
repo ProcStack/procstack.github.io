@@ -7,7 +7,7 @@
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
-export class ProcstackPages {
+export class ProcPages {
   constructor() {
     this.mainDiv = null;
     this.curPage = null;
@@ -20,6 +20,8 @@ export class ProcstackPages {
     this.resBasedObjs = [];
     this.triggerEmitFunc = null;
     // this.navBar.init();
+
+    this.pageStyleOverrides = {};
   }
   init(){
     this.mainDiv = document.getElementById("procStackGitBlock");
@@ -29,14 +31,35 @@ export class ProcstackPages {
     this.resBasedObjs = [...document.getElementsByClassName("squashInLowRes")];
     this.contentParent = document.getElementById("gitPageContentParent");
     let linkList = [...document.getElementById("gitPageNav").children];
-    let pageDivs = [...document.getElementById("gitPageContent").children];
+    let pageDivsStyles = document.getElementsByName("gitPage");
+    let pageDivs = [...pageDivsStyles];
     let pageHash = this.getHash();
     
 
     pageDivs.forEach( (pageDiv)=>{
       this.prepFader(pageDiv);
-      this.pageListing[pageDiv.id] = pageDiv;
-      if( pageDiv.id == pageHash ){
+
+      if( pageDiv.hasAttribute("page-style") ){
+        let pageStyle = pageDiv.getAttribute("page-style");
+        pageStyle = pageStyle.split(";");
+        pageStyle.forEach( (styleStr)=>{
+          let divOverride = styleStr.split(":");
+          if( divOverride.length == 2 ){
+            this.pageStyleOverrides[ pageDiv.id ] = this.pageStyleOverrides[ pageDiv.id ] || {};
+            this.pageStyleOverrides[ pageDiv.id ][ divOverride[0] ] = divOverride[1];
+          }
+        });
+      }
+      let pageId = null;
+      if( pageDiv.hasAttribute("page-id") ){
+        pageId = pageDiv.getAttribute("page-id");
+      }else{
+        pageId = pageDiv.id;
+        pageDiv.setAttribute("page-id", pageId);
+      }
+
+      this.pageListing[ pageId ] = pageDiv;
+      if( pageId == pageHash ){
         this.curPage = pageDiv;
         this.toggleFader( this.curPage, true );
       }else{
@@ -58,7 +81,8 @@ export class ProcstackPages {
 
       navLink.addEventListener("click", (e)=>{
         e.preventDefault();
-        if( linkText == this.curPage.id ){
+        let pageId = this.curPage.getAttribute("page-id");
+        if( linkText == pageId ){
           return;
         }
         window.location.hash = linkText;
@@ -109,6 +133,62 @@ export class ProcstackPages {
   }
 
   // -- -- --
+  
+  changePage( pageName, roomName=null, locationName=null ){
+    if( pageName != this.curPage && Object.keys(this.pageListing).includes(pageName) ){
+      this.toggleFader(this.curPage, false);
+
+      // Remove previous page styles
+      if( this.curPage != null ){
+        let prevPageId = this.curPage.getAttribute("page-id");
+        if( this.pageStyleOverrides.hasOwnProperty(prevPageId) ){
+          let overrideKeys = Object.keys(this.pageStyleOverrides[prevPageId]);
+          overrideKeys.forEach( (key)=>{
+            let curObj = document.getElementById( key );
+            if( curObj && curObj.classList.contains( this.pageStyleOverrides[prevPageId][key] )) {
+              curObj.classList.remove (this.pageStyleOverrides[prevPageId][key] );
+            }
+          });
+        }
+      }
+
+      // Set current page value
+      this.curPage = this.pageListing[pageName];
+
+      // Trigger css animation to bring the new page in
+      this.toggleFader(this.curPage, true);
+
+      // Apply new page styles
+      let curPageId = this.curPage.getAttribute("page-id");
+      if( this.pageStyleOverrides.hasOwnProperty(curPageId) ){
+        let overrideKeys = Object.keys(this.pageStyleOverrides[curPageId]);
+        overrideKeys.forEach( (key)=>{
+          this.curPage.style[key] = this.pageStyleOverrides[curPageId][key];
+        });
+      }
+
+      // Correct the scroll position from previous time on the page
+      // TODO: Review; I may want to remove this. It was a fix for when all of the pages were in the same div
+      //         Since they've split out, this may not be necessary
+      this.curPage.parentElement.scrollTop = 0;
+      
+      // Set the current room and location
+      if(this.triggerEmitFunc && roomName!=null){
+        if( locationName == null ){
+          locationName = "init";
+        }
+        
+        // Trigger the room change event
+        this.triggerEmitFunc( "warpToRoom", roomName, locationName );
+      }
+    }
+  }
+
+
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+
 
   getHash(){
     let hash = window.location.hash;
@@ -204,22 +284,6 @@ export class ProcstackPages {
       obj.classList.remove("pagesVisMid");
       this.contentParent.classList.add("gpcpVisibleStyle");
       this.contentParent.classList.remove("gpcpHiddenStyle");
-    }
-  }
-
-  changePage( pageName, roomName=null, locationName=null ){
-    if( pageName != this.curPage && Object.keys(this.pageListing).includes(pageName) ){
-      this.toggleFader(this.curPage, false);
-      this.curPage = this.pageListing[pageName];
-      this.toggleFader(this.curPage, true);
-      this.curPage.parentElement.scrollTop = 0;
-      if(this.triggerEmitFunc && roomName!=null){
-        if( locationName == null ){
-          locationName = "init";
-        }
-        
-        this.triggerEmitFunc( "warpToRoom", roomName, locationName );
-      }
     }
   }
   setPxlNavVersion( version ){
