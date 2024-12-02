@@ -24,11 +24,9 @@ const projectTitle = "procstack.github.io";
 // pxlRoom folder path, available to change folder names or locations if desired
 const pxlRoomRootPath = "./pxlRooms";
 
-// Current possible rooms - "CampfireEnvironment"
+// Current possible rooms - "CampfireEnvironment", "SaltFlatsEnvironment"
 const startingRoom = "CampfireEnvironment"; 
-//const startingRoom = "SaltFlatsEnvironment"; 
 const bootRoomList = ["CampfireEnvironment", "SaltFlatsEnvironment"];
-//const bootRoomList = ["SaltFlatsEnvironment"];//, "SaltFlatsEnvironment"];
 
 
 // -- -- -- -- --
@@ -45,6 +43,7 @@ const pxlNavr = new pxlNav( verbose, projectTitle, pxlRoomRootPath, procPages.cu
 
 
 // Set or Update the loader message
+//   This will appear under the loader bar on the first screen
 const loaderPhrases = [
   "...chasing the bats from the belfry...",
   "...shuffling the deck...",
@@ -81,7 +80,7 @@ procPages.bindTriggerEmits( pxlNavr.trigger.bind(pxlNavr) );
 
 function init(){
 
-
+  // Start the timer and initilize pxlNAv
   pxlNavr.bootTimer();
   pxlNavr.init();
 
