@@ -218,17 +218,19 @@ background-color: rgba(100, 100, 100, .85);
     letter-spacing: 5px;
     font-size: 2.05em;
     font-variant: all-small-caps;
-    color: rgba(0, 0, 0, .2);
-    text-shadow: 2px 2px 5px rgba(30, 30, 30, .75);
-    font-weight: 700;
+    color: rgba(20, 20, 20, .3);
+    text-shadow: 2px 2px 3.5px rgba(175, 175, 175, 0.3);
+    font-weight: 900;
     position: fixed;
     top: 1px;
     z-index: 1;
-    opacity: .40;
+    opacity: .5;
+    display: grid;
+    grid-auto-flow: column;
     pointer-events: none;
-}
+  }
 .gpnhScreenMedia{
-  left: calc(max(3.5vw, 50vw - 700px));
+  left: calc(max(3.5vw, 50vw - 765px));
 }
 
 @media (max-width: 400px){
@@ -371,7 +373,7 @@ background-color: rgba(100, 100, 100, .85);
     display: grid;
     grid-auto-flow: column;
     user-select: none;
-    transition: color .25s, border .25s, background-color .25s, text-shadow .25s;
+    transition: color .15s, border .15s, background-color .15s, text-shadow .15s;
 }
 
 
@@ -501,6 +503,7 @@ background-color: rgba(100, 100, 100, .85);
     pointer-events: none;
     position: fixed;
     top: 6vh;
+    left: calc(max(5vw, 50vw - 900px));
     z-index: 1;
 }
 .gitPxlNavPageStyle{
