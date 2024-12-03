@@ -222,6 +222,11 @@ export class ShaderEditor {
                 ${objectShaderOptions}
               </select>
             </div>
+            <div id="gui_shaderEditorFontSize" clsss="gui_shaderEditorFontSizeStyle">
+              <span  style="font-size:.75em;margin-right:5px;">Font Size</span>
+              <span id="gui_shaderEditorFontSmaller" class="shaderEditor_settingsButton">-</span>
+              <span id="gui_shaderEditorFontLarger" class="shaderEditor_settingsButton">+</span>
+            </div>
           </div>
         </div>
         <div class="gui_shaderEditorHeaderLine"></div>
@@ -301,6 +306,14 @@ export class ShaderEditor {
     this.children.shaderSelect=document.getElementById("shaderEditor_loadShader");
     
 
+    let textSizeObj=document.getElementById("gui_shaderEditorFontSize");
+    textSizeObj.style.justifySelf="end";
+    textSizeObj.style.marginTop="2px";
+    textSizeObj.style.marginRight="3px";
+    textSizeObj.style.userSelect="none";
+    textSizeObj.style.display="flex";
+    textSizeObj.style.alignItems="center";
+
 
     let tmpThis=this;
       
@@ -309,6 +322,11 @@ export class ShaderEditor {
       };
       
       
+    let fontSizeSmallerObj=document.getElementById("gui_shaderEditorFontSmaller");
+    fontSizeSmallerObj.onclick=(e)=>{ tmpThis.shiftFontSize(-.25); };
+    let fontSizeLargerObj=document.getElementById("gui_shaderEditorFontLarger");
+    fontSizeLargerObj.onclick=(e)=>{ tmpThis.shiftFontSize(.25); };
+
     /*
       let shaderLinkList=this.pxlEnv.pxlGuiDraws.guiWindows[type].shaderList.children;
       for( let x=0; x<shaderLinkList.length; ++x){
@@ -357,6 +375,34 @@ export class ShaderEditor {
     this.mouseY=0;
     this.prevSelectStart=0;
     this.prevSelectEnd=0;
+  }
+  shiftFontSize(inc){
+    let shaderEditor = document.getElementById("gui_shaderEditorParent");
+    if( !shaderEditor ){
+      return;
+    }
+    let hasStyleStore = shaderEditor.hasAttribute("styleStore");
+    if( !hasStyleStore ){
+      shaderEditor.setAttribute("styleStore", 1.0);
+    }
+    let curSize = parseFloat( shaderEditor.getAttribute("styleStore") );
+    let newSize = curSize + inc;
+    shaderEditor.setAttribute("styleStore", newSize);
+    shaderEditor.style.fontSize = newSize + "em";
+    
+    let unisObj=document.getElementById("shaderEditor_uniformInput");
+    if( unisObj ){
+      unisObj.style.fontSize = newSize + "em";
+    }
+    let vertObj=document.getElementById("shaderEditor_vertInput");
+    if( vertObj ){
+      vertObj.style.fontSize = newSize + "em";
+    }
+    let fragObj=document.getElementById("shaderEditor_fragInput");
+    if( fragObj ){
+      fragObj.style.fontSize = newSize + "em";
+    }
+    this.resizeShaderElements();
   }
   mDownShaderMessage(e){
     this.mouseX=e.x;
@@ -850,5 +896,6 @@ export class ShaderEditor {
     if(helpDiv){
       helpDiv.style.left = this.editorWidthMinMax['max']+"vw";
     }
+
   }
 }

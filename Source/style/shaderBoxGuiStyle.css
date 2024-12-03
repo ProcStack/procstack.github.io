@@ -70,6 +70,44 @@
 
 /* -- -- -- */
 
+
+.gui_shaderEditorFontSizeStyle{
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 2px;
+  font-size: 0.85em;
+  user-select: none;
+  justify-self: end !important;
+  margin: 2px 5px 2px 1px !important;
+}
+
+.gui_shaderEditorFontSizeTextStyle{
+  font-size: 0.5em;
+}
+
+/* -- -- -- */
+
+.shaderEditor_settingsButton{
+	cursor:pointer;
+	outline:none;
+	color:#ffffff;
+	border-radius:5px;
+	border: 2px solid #ffffff;
+	background-color:rgba(0,0,0,.45);
+	font-weight: 500;
+	text-align: center;
+  padding: 0px .5em 0px .5em;
+}
+.shaderEditor_settingsButton:hover{
+	background-color:rgba(255,255,255,.65);
+}
+.shaderEditor_settingsButton:active{
+	background-color:rgba(255,255,255,1);
+	color:#000000;
+}
+
+/* -- -- -- */
+
 .gui_shaderEditorTitleParent{
 	font-size:2em;
 	font-weight:bold;
@@ -81,6 +119,7 @@
 }
 .gui_shaderEditorHeaderListStyle{
 	align-content: end;
+  margin: 2px;
 }
 .gui_shaderPickerStyle{
 	width:100%;

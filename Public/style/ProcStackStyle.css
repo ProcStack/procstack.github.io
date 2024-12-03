@@ -22,29 +22,30 @@ BODY {
 }
 
 .pagesFader{
-	transition: opacity .8s, filter .8s, max-height .8s;
+	transition: opacity .8s, filter .8s, max-height .8s, min-height .8s;
 }
 .pagesVisOn{
 	filter:alpha(opacity=100);
 	opacity:1.0;
-    max-height: min-content;
-    position: relative;
-    z-index: 2;
+  max-height: min-content;
+  position: relative;
+  z-index: 2;
 }
 
 .pagesVisMid{
 	filter:alpha(opacity=50);
 	opacity:0.25;
-    max-height: min-content;
-    position: relative;
-    z-index: 2;
+  position: relative;
+  z-index: 2;
+  height: 0px;
+  max-height: 0px;
 }
 .pagesVisOff{
 	filter:alpha(opacity=0);
 	opacity:0.0;
-    max-height: 0px;
-    position: relative;
-    z-index: 1;
+  max-height: 0px;
+  position: relative;
+  z-index: 1;
 }
 
 /*  -- -- --  */
@@ -67,35 +68,174 @@ BODY {
     max-height: 800px;
 }
 
-/*  -- -- --  */
+/*  -- -- -- -- -- -- -- -- -- -- -- -- */
 
 
 .gitPageNavBlockStyle {
-    padding: 6px 0px;
-    background: linear-gradient(90deg,  rgba(20, 20, 20, 0.0), rgba(80, 80, 80, 0.45), rgba(85, 85, 85, 0.55), rgba(80, 80, 80, 0.45), rgba(20, 20, 20, 0.0) );
-    border-bottom: 1px solid rgba(120, 120, 120, 0.45);
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    z-index: 310;
+  padding: 6px 0px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  z-index: 310;
+}
+
+/*  -- -- --  */
+
+.gitPageNav_defaultStyle {
+  background: linear-gradient(90deg,  rgba(20, 20, 20, 0.0), rgba(80, 80, 80, 0.45), rgba(85, 85, 85, 0.55), rgba(80, 80, 80, 0.45), rgba(20, 20, 20, 0.0) );
+  border-bottom: 1px solid rgba(120, 120, 120, 0.45);
+}
+
+.gitPageNav_defaultStyle a {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  background-color: rgba(110, 110, 110, .35);
+}
+
+.gitPageNav_defaultStyle a:hover {
+text-shadow: 1px 1.5px 4px #cccccc;
+background-color: rgba(180, 180, 180, .85);
+}
+
+.gitPageNav_defaultStyle a:active {
+color: #cccccc;
+text-shadow: 1px 1.5px 4px #656565;
+background-color: rgba(100, 100, 100, .85);
+}
+
+/*  -- -- --  */
+
+.gitPageNav_initStyle {
+  background: linear-gradient(90deg, rgba(53, 38, 4, 0.0), rgba(46, 33, 3, 0.45), rgba(73, 54, 9, 0.55), rgba(46, 33, 3, 0.45), rgba(53, 38, 4, 0.0));
+  border-bottom: 1px solid rgba(82, 67, 5, 0.45);
+}
+.gitPageNav_initStyle a {
+    color: #ffd093;
+    border: 1px solid rgb(82 66 3);
+    background-color: rgba(89, 54, 3, 0.35);
+}
+.gitPageNav_initStyle a:hover {
+    color: #b36f16;
+    text-shadow: 1px 1.5px 4px #454545;
+    background-color: rgba(89, 66, 8, 0.85);
+}
+.gitPageNav_initStyle a:active {
+    color: #6b420c;
+    text-shadow: 1px 1.5px 4px #151515;
+    background-color: rgba(61, 42, 6, 0.85);
 }
 
 
+/*  -- -- --  */
+
+.gitPageNav_pxlNavStyle {
+  background: linear-gradient(90deg,  rgba(20, 20, 20, 0.0), rgba(80, 80, 80, 0.45), rgba(85, 85, 85, 0.55), rgba(80, 80, 80, 0.45), rgba(20, 20, 20, 0.0) );
+  border-bottom: 1px solid rgba(120, 120, 120, 0.45);
+}
+.gitPageNav_pxlNavStyle a {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  background-color: rgba(110, 110, 110, .35);
+}
+.gitPageNav_pxlNavStyle a:hover {
+  text-shadow: 1px 1.5px 4px #cccccc;
+  background-color: rgba(180, 180, 180, .85);
+}
+.gitPageNav_pxlNavStyle a:active {
+  color: #cccccc;
+  text-shadow: 1px 1.5px 4px #656565;
+  background-color: rgba(100, 100, 100, .85);
+}
+
+/*  -- -- --  */
+
+.gitPageNav_reposStyle {
+  background: linear-gradient(90deg,  rgba(20, 20, 20, 0.0), rgba(80, 80, 80, 0.45), rgba(85, 85, 85, 0.55), rgba(80, 80, 80, 0.45), rgba(20, 20, 20, 0.0) );
+  border-bottom: 1px solid rgba(120, 120, 120, 0.45);
+}
+.gitPageNav_reposStyle a {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  background-color: rgba(110, 110, 110, .35);
+}
+.gitPageNav_reposStyle a:hover {
+  text-shadow: 1px 1.5px 4px #cccccc;
+  background-color: rgba(180, 180, 180, .85);
+}
+.gitPageNav_reposStyle a:active {
+  color: #cccccc;
+  text-shadow: 1px 1.5px 4px #656565;
+  background-color: rgba(100, 100, 100, .85);
+}
+
+/*  -- -- --  */
+
+.gitPageNav_projectsStyle {
+  background: linear-gradient(90deg, rgba(37, 111, 168, 0.0), rgba(37, 111, 168, 0.45), rgba(37, 119, 181, 0.5), rgba(37, 111, 168, 0.45), rgba(37, 111, 168, 0.0));
+  border-bottom: 1px solid rgba(17, 108, 191, 0.4);
+}
+.gitPageNav_projectsStyle a {
+  border: 1px solid rgb(119 178 223);
+  color: rgb(175 220 255);
+  background-color: rgba(32, 120, 188, 0.35);
+}
+.gitPageNav_projectsStyle a:hover {
+  text-shadow: 1px 1.5px 4px #5fb3f4;
+  background-color: rgba(22, 134, 219, 0.675);
+}
+.gitPageNav_projectsStyle a:active {
+  color: #cccccc;
+  text-shadow: 1px 1.5px 4px #4a80a9;
+  background-color: rgba(24, 77, 118, 0.592);
+}
+
+/*  -- -- --  */
+
+.gitPageNav_aboutMeStyle {
+  background: linear-gradient(90deg,  rgba(20, 20, 20, 0.0), rgba(80, 80, 80, 0.45), rgba(85, 85, 85, 0.55), rgba(80, 80, 80, 0.45), rgba(20, 20, 20, 0.0) );
+  border-bottom: 1px solid rgba(120, 120, 120, 0.45);
+}
+.gitPageNav_aboutMeStyle a {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  background-color: rgba(110, 110, 110, .35);
+}
+.gitPageNav_aboutMeStyle a:hover {
+  text-shadow: 1px 1.5px 4px #cccccc;
+  background-color: rgba(180, 180, 180, .85);
+}
+.gitPageNav_aboutMeStyle a:active {
+  color: #cccccc;
+  text-shadow: 1px 1.5px 4px #656565;
+  background-color: rgba(100, 100, 100, .85);
+}
+
+/*  -- -- --  */
+/*  -- -- --  */
 
 .gitPageNavHeaderStyle {
-    letter-spacing: 3.5px;
+    letter-spacing: 5px;
     font-size: 2.05em;
     font-variant: all-small-caps;
-    color: rgba(40, 40, 40, .18);
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
-    font-weight: 600;
+    color: rgba(0, 0, 0, .2);
+    text-shadow: 2px 2px 5px rgba(30, 30, 30, .75);
+    font-weight: 700;
     position: fixed;
     top: 1px;
-    left : 15vw;
     z-index: 1;
     opacity: .40;
     pointer-events: none;
+}
+.gpnhScreenMedia{
+  left: calc(max(3.5vw, 50vw - 700px));
+}
+
+@media (max-width: 400px){
+    .gpnhScreenMedia{
+      left: 50%;
+      transform: translateX(-50%);
+    }
 }
 
 
@@ -112,28 +252,17 @@ BODY {
 
 
 .gitPageNavStyle a {
-    text-decoration: none;
-    padding: 6px 15px 6px 15px;
-    border: 1px solid #ffffff;
-    border-radius: 6px;
-    font-size: 1.1em;
-    font-weight: 600;
-    color: #ffffff;
-    text-shadow: 1px 1.5px 4px #252525;
-    background-color: rgba(110, 110, 110, .35);
+  text-decoration: none;
+  padding: 6px 15px 6px 15px;
+  border-radius: 6px;
+  font-size: 1.1em;
+  font-weight: 600;
+  text-shadow: 1px 1.5px 4px #252525;
 }
 
 
-.gitPageNavStyle a:hover {
-    text-shadow: 1px 1.5px 4px #cccccc;
-    background-color: rgba(180, 180, 180, .85);
-}
 
-.gitPageNavStyle a:active {
-    color: #cccccc;
-    text-shadow: 1px 1.5px 4px #656565;
-    background-color: rgba(100, 100, 100, .85);
-}
+
 
 /*  -- -- --  */
 
@@ -154,7 +283,7 @@ BODY {
 }
 
 .gpcpHiddenStyle {
-    max-height: 0vh;
+    max-height: 0px;
 }
 
 /* -- -- -- */
@@ -238,8 +367,11 @@ BODY {
 }
 
 .pageLinkStyle{
+    cursor: pointer;
     display: grid;
     grid-auto-flow: column;
+    user-select: none;
+    transition: color .25s, border .25s, background-color .25s, text-shadow .25s;
 }
 
 
@@ -334,6 +466,7 @@ BODY {
     display: grid;
     grid-auto-flow: column;
     justify-content: space-between;
+    transition: color .8s, text-shadow .8s;
 }
 
 
@@ -342,6 +475,7 @@ BODY {
     text-decoration: none;
     font-weight: 400;
     text-decoration: none;
+    transition: color .8s, text-shadow .8s;
 }
 
 .footerBar a:hover {
@@ -363,11 +497,10 @@ BODY {
 .gitInitPageStyle{
     text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
     background: linear-gradient(155deg, rgba(67, 55, 4, 0.407), rgba(52, 35, 3, 0), rgba(52, 35, 3, 0), rgba(52, 35, 3, 0));
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
     justify-self: baseline;
     pointer-events: none;
     position: fixed;
-    top: 5vh;
+    top: 6vh;
     z-index: 1;
 }
 .gitPxlNavPageStyle{
@@ -376,7 +509,7 @@ BODY {
     border: 1px solid rgba(60, 60, 60, 0.6);
     pointer-events: auto;
     position: fixed;
-    top: 5vh;
+    top: 6vh;
     z-index: 2;
 }
 .gitReposPageStyle{
@@ -386,26 +519,50 @@ BODY {
     pointer-events: auto;
     max-width: 65vw;
     position: fixed;
-    top: 5vh;
+    top: 6vh;
     z-index: 3;
 }
+
+/* -- -- -- */
+
 .gitProjectsPageStyle{
-    background-color: rgba(100, 100, 100, 0.35);
+    background: linear-gradient(123deg, rgba(48, 77, 126, 0.40), rgba(28, 53, 94, 0.65), rgba(52, 83, 135, 0.40));
     text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
-    border: 1px solid rgba(60, 60, 60, 0.6);
+    border: 1px solid rgba(44, 69, 109, 0.6);
     pointer-events: auto;
     position: fixed;
     bottom: 4.5vh;
     max-height: 55vh;
     z-index: 4;
 }
+
+.gitProjectsPageStyle::-webkit-scrollbar {
+	width: 10px;
+}
+
+.gitProjectsPageStyle::-webkit-scrollbar-track {
+	background: rgba(51, 76, 161, 0.308);
+}
+
+.gitProjectsPageStyle::-webkit-scrollbar-thumb {
+	cursor: grab;
+	background-color: rgba(33, 53, 117, 0.75);
+  border: 2px solid rgba(44, 69, 109, 0.6);
+}
+.gitProjectsPageStyle::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(34, 61, 151, 0.811);
+  border: 2px solid rgba(38, 66, 112, 0.684);
+}
+
+/* -- -- -- */
+
 .gitAboutMePageStyle{
     background-color: rgba(100, 100, 100, 0.35);
     text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
     border: 1px solid rgba(60, 60, 60, 0.6);
     pointer-events: auto;
     position: fixed;
-    top: 5vh;
+    top: 6vh;
     z-index: 5;
 }
 
@@ -416,25 +573,56 @@ BODY {
     color: #999999;
 }
 
+/* -- -- -- */
+
 .initPage_footerBar{
-    background: linear-gradient(90deg, rgba(67, 55, 4, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(67, 55, 4, 0.15));
-    color: #A96306;
+  background: linear-gradient(90deg, rgba(57, 37, 4, 0.35),  rgba(34, 22, 2, 0.1), rgba(34, 22, 2, 0), rgba(34, 22, 2, 0.0), rgba(34, 22, 2, 0.1),  rgba(57, 37, 4, 0.35));
+  color: #a66817
 }
 
+.initPage_footerBar a {
+  color: #a66817;
+}
+
+.initPage_footerBar a:hover {
+  color: #b36f16;
+}
+
+.initPage_footerBar a:active {
+  color: #6b420c;
+}
+
+/* -- -- -- */
+
 .pxlNavPage_footerBar{
-    background: linear-gradient(90deg, rgba(80, 80, 80, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(80, 80, 80, 0.15));
-    color: #999999;
+  background: linear-gradient(90deg, rgba(80, 80, 80, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(80, 80, 80, 0.15));
+  color: #999999;
 }
 
 .repoPage_footerBar{
-    background: linear-gradient(90deg, rgba(80, 80, 80, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(80, 80, 80, 0.15));
-    color: #999999;
+  background: linear-gradient(90deg, rgba(80, 80, 80, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(80, 80, 80, 0.15));
+  color: #999999;
 }
 
+/* -- -- -- */
+
 .projectsPage_footerBar{
-    background: linear-gradient(90deg, rgba(80, 80, 80, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(80, 80, 80, 0.15));
-    color: #999999;
+  background: linear-gradient(90deg, rgba(0, 81, 221, 0.25),  rgba(5, 61, 158, 0.1), rgba(4, 43, 109, 0.0), rgba(4, 43, 109, 0), rgba(5, 61, 158, 0.1),  rgba(0, 81, 221, 0.25));
+  color: #000f47;
 }
+.projectsPage_footerBar a {
+  color: #000f47;
+}
+
+.projectsPage_footerBar a:hover {
+  color: #0a268b;
+}
+
+.projectsPage_footerBar a:active {
+  color: #091439;
+}
+
+/* -- -- -- */
 
 .aboutMePage_footerBar{
     background: linear-gradient(90deg, rgba(80, 80, 80, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(80, 80, 80, 0.15));
