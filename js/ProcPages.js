@@ -45,8 +45,9 @@ export class ProcPages {
         pageStyle.forEach( (styleStr)=>{
           let divOverride = styleStr.split(":");
           if( divOverride.length == 2 ){
-            this.pageStyleOverrides[ pageDiv.id ] = this.pageStyleOverrides[ pageDiv.id ] || {};
-            this.pageStyleOverrides[ pageDiv.id ][ divOverride[0] ] = divOverride[1];
+            let curId = pageDiv.getAttribute("page-id");
+            this.pageStyleOverrides[ curId ] = this.pageStyleOverrides[ curId ] || {};
+            this.pageStyleOverrides[ curId ][ divOverride[0] ] = divOverride[1];
           }
         });
       }
@@ -88,9 +89,13 @@ export class ProcPages {
         window.location.hash = linkText;
         this.changePage( linkText, pxlRoomName, pxlCameraView );
       });
+
     });
 
     window.addEventListener("resize", this.onResize.bind(this));
+
+
+    this.setStyleOverrides();
 
     // Let the dom settle for a step
     setTimeout( ()=>{
@@ -133,6 +138,27 @@ export class ProcPages {
   }
 
   // -- -- --
+
+  setStyleOverrides(){
+    if(!this.curPage){
+      return;
+    }
+
+    let curPageId = this.curPage.getAttribute("page-id");
+    if( this.pageStyleOverrides.hasOwnProperty(curPageId) ){
+      let overrideKeys = Object.keys(this.pageStyleOverrides[curPageId]);
+      overrideKeys.forEach( (key)=>{
+        let curObj = document.getElementById( key );
+        if( curObj ){
+          if( curObj.hasAttribute("pages-default-class") ){
+            let defaultClass = curObj.getAttribute("pages-default-class");
+            curObj.classList.remove( defaultClass );
+          }
+          curObj.classList.add( this.pageStyleOverrides[curPageId][key] );
+        }
+      });
+    }
+  }
   
   changePage( pageName, roomName=null, locationName=null ){
     if( pageName != this.curPage && Object.keys(this.pageListing).includes(pageName) ){
@@ -145,8 +171,14 @@ export class ProcPages {
           let overrideKeys = Object.keys(this.pageStyleOverrides[prevPageId]);
           overrideKeys.forEach( (key)=>{
             let curObj = document.getElementById( key );
-            if( curObj && curObj.classList.contains( this.pageStyleOverrides[prevPageId][key] )) {
-              curObj.classList.remove (this.pageStyleOverrides[prevPageId][key] );
+            if( curObj ){
+              if(curObj.classList.contains( this.pageStyleOverrides[prevPageId][key] )) {
+                curObj.classList.remove(this.pageStyleOverrides[prevPageId][key] );
+                if( curObj.hasAttribute("pages-default-class") ){
+                  let defaultClass = curObj.getAttribute("pages-default-class");
+                  curObj.classList.add( defaultClass );
+                }
+              }
             }
           });
         }
@@ -159,13 +191,7 @@ export class ProcPages {
       this.toggleFader(this.curPage, true);
 
       // Apply new page styles
-      let curPageId = this.curPage.getAttribute("page-id");
-      if( this.pageStyleOverrides.hasOwnProperty(curPageId) ){
-        let overrideKeys = Object.keys(this.pageStyleOverrides[curPageId]);
-        overrideKeys.forEach( (key)=>{
-          this.curPage.style[key] = this.pageStyleOverrides[curPageId][key];
-        });
-      }
+      this.setStyleOverrides();
 
       // Correct the scroll position from previous time on the page
       // TODO: Review; I may want to remove this. It was a fix for when all of the pages were in the same div
@@ -272,18 +298,27 @@ export class ProcPages {
       return;
     }
 
+    let pageDivsStyles = document.getElementsByName("gitPage");
     if( vis ){
       obj.style.display = "block";
       obj.classList.add("pagesVisMid");
       obj.classList.remove("pagesVisOn");
 
-      this.contentParent.classList.add("gpcpHiddenStyle");
-      this.contentParent.classList.remove("gpcpVisibleStyle");
+      pageDivsStyles.forEach( (pageDiv)=>{
+        pageDiv.style.maxHeight="0px";
+        pageDiv.style.minHeight="0px";
+        pageDiv.classList.add("gpcpHiddenStyle");
+        pageDiv.classList.remove("gpcpVisibleStyle");
+      });
     } else {
       obj.classList.add("pagesVisOn");
       obj.classList.remove("pagesVisMid");
-      this.contentParent.classList.add("gpcpVisibleStyle");
-      this.contentParent.classList.remove("gpcpHiddenStyle");
+      pageDivsStyles.forEach( (pageDiv)=>{
+        pageDiv.style.maxHeight = "";
+        pageDiv.style.minHeight = "";
+        pageDiv.classList.add("gpcpVisibleStyle");
+        pageDiv.classList.remove("gpcpHiddenStyle");
+      });
     }
   }
   setPxlNavVersion( version ){

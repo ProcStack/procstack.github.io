@@ -33,26 +33,26 @@
 
     <div id="procStackGitBlock" class="procStackGitBlockStyle pagesFader pagesVisOff">
         <div id="procStackGitParent" class="procStackGitParentStyle">
-            <div class="gitPageNavBlockStyle">
-                <div id="gitPageNavHeader" class="gitPageNavHeaderStyle">
+            <div id="gitPagesNavBlock"  pages-default-class="gitPageNav_defaultStyle" class="gitPageNavBlockStyle gitPageNav_defaultStyle">
+                <div id="gitPageNavHeader" class="gitPageNavHeaderStyle gpnhScreenMedia">
                   ProcStack
                 </div>
                 <div id="gitPageNav" class="gitPageNavStyle">
-                  <a href="#" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="init" pageName="Init" alt="Link to Init...">Init.</a>
+                  <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="init" pageName="Init" alt="Link to Init...">Init.</a>
                   <span> </span>
-                  <a href="#" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="init" pageName="pxlNav" alt="Some info on this git.io site's backbone">pxlNav</a>
+                  <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="init" pageName="pxlNav" alt="Some info on this git.io site's backbone">pxlNav</a>
                   <span> </span>
-                  <a href="#" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="init" pageName="Repos" alt="Info on some of my repos I like">Repos</a>
+                  <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="init" pageName="Repos" alt="Info on some of my repos I like">Repos</a>
                   <span> </span>
-                  <a href="#" class="pageLinkStyle" pxlRoomName="SaltFlatsEnvironment" pxlCameraView="init" pageName="ProjectsLinks" alt="Real world projects">Projects<span class="squashInLowRes">&nbsp;/ Links</span></a>
+                  <a class="pageLinkStyle" pxlRoomName="SaltFlatsEnvironment" pxlCameraView="init" pageName="ProjectsLinks" alt="Real world projects">Projects<span class="squashInLowRes">&nbsp;/ Links</span></a>
                   <span> </span>
-                  <a href="#" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="init" pageName="AboutMe" alt="It's ah me! Marrr.... yeah"><span class="squashInLowRes">About&nbsp;</span>Me</a>
+                  <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="init" pageName="AboutMe" alt="It's ah me! Marrr.... yeah"><span class="squashInLowRes">About&nbsp;</span>Me</a>
                   <span> </span>
                 </div>
             </div>
             <div id="gitPageContentParent" class="gitPageContentParentStyle gpcpVisibleStyle heightFader">
               <!-- -- -- -- -->
-              <div name="gitPage" page-id="Init" page-style="footerBar:initPage_footerBar" class="gitPageContentStyle gitInitPageStyle">
+              <div name="gitPage" page-id="Init" page-style="footerBar:initPage_footerBar;gitPagesNavBlock:gitPageNav_initStyle" class="gitPageContentStyle gitInitPageStyle">
                 <span class="gitPageHeaderStyle">Ahoi there!</span>
                 <div class="initPage_hBarStyle">&nbsp;</div>
                 <br>I'm <span class="textNudge">ProcStack</span>, <span class="textNudge">Trancor</span>, or <span class="textNudge">Kevin Edzenga</span>, which ever you feel like calling me!
@@ -68,7 +68,7 @@
                 <br><br>
               </div>
               <!-- -- -- -- -->
-              <div name="gitPage" page-id="pxlNav" page-style="footerBar:pxlNavPage_footerBar" class="gitPageContentStyle gitPxlNavPageStyle">
+              <div name="gitPage" page-id="pxlNav" page-style="footerBar:pxlNavPage_footerBar;gitPagesNavBlock:gitPageNav_pxlNavStyle" class="gitPageContentStyle gitPxlNavPageStyle">
                 <div class="gitPageInnerStyle">
                   <a href="https://github.com/ProcStack/procstack.github.io" target="_blank"><span class="gitPageHeaderStyle">pxlNav <span id="pxlNavPageVersion"></span></span></a>
 
@@ -121,7 +121,7 @@
                 </div>
               </div>
               <!-- -- -- -- -->
-              <div name="gitPage" page-id="Repos" page-style="footerBar:repoPage_footerBar" class="gitPageContentStyle gitReposPageStyle">
+              <div name="gitPage" page-id="Repos" page-style="footerBar:repoPage_footerBar;gitPagesNavBlock:gitPageNav_reposStyle" class="gitPageContentStyle gitReposPageStyle">
                 <div class="gitPageInnerStyle">
                   <span class="gitPageHeaderStyle">Repos to Check Out-</span>
 
@@ -156,7 +156,7 @@
                 </div>
               </div>
               <!-- -- -- -- -->
-              <div name="gitPage" page-id="ProjectsLinks" page-style="footerBar:projectsPage_footerBar" class="gitPageContentStyle gitProjectsPageStyle">
+              <div name="gitPage" page-id="ProjectsLinks" page-style="footerBar:projectsPage_footerBar;gitPagesNavBlock:gitPageNav_projectsStyle" class="gitPageContentStyle gitProjectsPageStyle">
                 <div class="gitPageInnerStyle">
                   <span class="gitPageHeaderStyle">Personal Projects / Socials / Links -</span>
 
@@ -224,7 +224,7 @@
                 </div>
               </div>
               <!-- -- -- -- -->
-              <div name="gitPage" page-id="AboutMe" page-style="footerBar:aboutMePage_footerBar" class="gitPageContentStyle gitAboutMePageStyle">
+              <div name="gitPage" page-id="AboutMe" page-style="footerBar:aboutMePage_footerBar;gitPagesNavBlock:gitPageNav_aboutMeStyle" class="gitPageContentStyle gitAboutMePageStyle">
                 <div class="gitPageInnerStyle">
                   <span class="gitPageHeaderStyle">About Me -</span>
 
@@ -296,7 +296,7 @@
 
     <canvas id="pxlNav-coreCanvas" height='1' width='1' class="pxlNavCoreCanvasStyle" ></canvas>
 
-    <script type="module" src="js/ProckStackGitio.js?v=2024-11-20"></script>
+    <script type="module" src="js/ProckStackGitio.js?v=2024-12-02"></script>
 
 
 </body>
