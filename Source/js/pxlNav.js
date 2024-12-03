@@ -119,6 +119,12 @@ export class pxlNav{
   constructor( verbose, projectTitle, pxlRoomRoot, startingRoom, roomBootList ){
     this._active = false;
 
+    this.options = {
+      loadList : ["Cloud3d", "SoftNoise", "SmoothNoise", "WarpAnimTexture"],
+      // TODO : Get these to be pxlNav options pre-boot
+      //loadList : ["Cloud3d", "SoftNoise", "SmoothNoise", "ChromaticAberration", "WarpAnimTexture", "MathFuncs"],
+    };
+
     this.verbose = verbose;
     this.projectTitle = projectTitle;
     this.startingRoom = startingRoom;
@@ -453,30 +459,37 @@ export class pxlNav{
     // -- FILE I/O & Shared Assets -- -- -- -- -- -- //
     ///////////////////////////////////////////////////
         
-        this.pxlEnv.cloud3dTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"cloud3d_lowRes.jpg");
+    if( this.options["loadList"].includes("Cloud3d") ){
+        this.pxlEnv.cloud3dTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"Noise_Cloud3d.jpg");
         this.pxlEnv.cloud3dTexture.wrapS=THREE.RepeatWrapping;
         this.pxlEnv.cloud3dTexture.wrapT=THREE.RepeatWrapping;
-        
-        this.pxlEnv.softNoiseTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"SoftNoise_512.jpg" );
+    }
+    if( this.options["loadList"].includes("SoftNoise") ){  
+        this.pxlEnv.softNoiseTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"Noise_Soft3d.jpg" );
         this.pxlEnv.softNoiseTexture.wrapS = THREE.RepeatWrapping;
         this.pxlEnv.softNoiseTexture.wrapT = THREE.RepeatWrapping;
-        
+    }
+    if( this.options["loadList"].includes("SmoothNoise") ){  
         this.pxlEnv.detailNoiseTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"Noise_UniformSmooth.jpg" );
         this.pxlEnv.detailNoiseTexture.wrapS = THREE.RepeatWrapping;
         this.pxlEnv.detailNoiseTexture.wrapT = THREE.RepeatWrapping;
-        
-        let chroAberUVTexture = this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"ChromaticAberrationUV.png");
+    }
+    if( this.options["loadList"].includes("ChromaticAberration") ){
+        let chroAberUVTexture = this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"uv_ChromaticAberration_1k.png");
         chroAberUVTexture.minFilter=THREE.LinearFilter;
         chroAberUVTexture.magFilter=THREE.LinearFilter;
         this.pxlEnv.chroAberUVTexture=chroAberUVTexture;
-        
-        this.pxlEnv.blockAnimTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"blockPortalWarp_1k.jpg");
+    }
+    if( this.options["loadList"].includes("WarpAnimTexture") ){
+        this.pxlEnv.blockAnimTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"uv_blockPortalWarp.jpg");
         this.pxlEnv.blockAnimTexture.minFilter=THREE.LinearFilter;
         this.pxlEnv.blockAnimTexture.magFilter=THREE.LinearFilter;
-
-        this.pxlEnv.mathFuncsTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"MathFuncs_512.jpg");
+    }
+    if( this.options["loadList"].includes("MathFuncs") ){
+        this.pxlEnv.mathFuncsTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"MathFuncs.jpg");
         this.pxlEnv.mathFuncsTexture.minFilter=THREE.LinearFilter;
         this.pxlEnv.mathFuncsTexture.magFilter=THREE.LinearFilter;
+    }
         
 
     ///////////////////////////////////////////////////

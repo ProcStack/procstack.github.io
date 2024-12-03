@@ -107,7 +107,8 @@ export class CookieManager{
   // Is the cookie value equal to a given input?
   isEqual(cName){ 
     if(this.hasCookie(cName)){
-      return this.readCookie(cName) == this.variableToString(eval(cName));
+      console.log(cName);
+      return this.readCookie(cName) == this.variableToString((cName));
     }
     return false;
   }
@@ -116,13 +117,15 @@ export class CookieManager{
     if(cName){
       if(this.hasCookie(cName)){
         let reg=new RegExp('(?='+this.prepend+cName+').*?((?=;)|(?=$))', 'g');
-        eval(document.cookie.match(reg)[0].replace(this.prepend,'').replace(this.sub,';'));
+        console.log("Eval Cookie has been limited, responce is: ");
+        console.log(document.cookie.match(reg)[0].replace(this.prepend,'').replace(this.sub,';'));
         return true;
       }
       return false;
     }else{
       let reg=new RegExp('(?='+this.prepend+').*?((?=;)|(?=$))', 'g');
-      document.cookie.match(reg).forEach(e=>{eval(e.replace(this.prepend,'').replace(this.sub,';'))});
+      console.log("Eval Cookie has been limited, may error.");
+      document.cookie.match(reg).forEach(e=>{e.replace(this.prepend,'').replace(this.sub,';')});
       return true;
     }
   }

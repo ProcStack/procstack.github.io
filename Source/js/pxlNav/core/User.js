@@ -71,7 +71,7 @@ export class User{
       let timeLeft=this.itemActiveTimer[0]-curTime;
       if(timeLeft<=0){
         let cmd=this.itemInactiveCmd.shift();
-        eval(cmd);
+        cmd();
         this.itemActiveTimer.shift();
         this.itemActiveList.shift();
         return true;

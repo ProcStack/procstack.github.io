@@ -1768,10 +1768,12 @@ export class GUIManager{
 
   applyCookies(){
   if(this.controlSettings){
-    this.controlSettings=eval(this.controlSettings);
+    console.log(this.controlSettings);
+    this.controlSettings=(this.controlSettings);
   }
   if(this.renderSettings){
-    this.renderSettings=eval(this.renderSettings);
+    console.log(this.renderSettings);
+    this.renderSettings=(this.renderSettings);
   }
   }
   

@@ -1434,7 +1434,9 @@ export class Environment{
       if(typeof(x)=="object"){
         x.step();
       }else if(typeof(x)=="string"){
-        eval(x);
+        console.log("Does this trigger?");
+        console.log(x);
+        //(x);
       }
     });
     

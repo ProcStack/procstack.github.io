@@ -4,14 +4,20 @@
 #### Metown USA, baby!
 
 Kevin Edzenga's web dev & shader resume site
+<br/>&nbsp;&nbsp;Made as a way to show off `pxlNav`
+### 
 
-## 
+### The Good Bits -
+*Wanna see the template or example rooms using 3d fbx files?*
+<br/>&nbsp; `./Source/pxlRooms`
 
-### Too Long; Not Gonna Read -
-*Wanna make a site with a 3d fbx file?*
-<br/>&nbsp; `./Source/pxlRooms` to look at example rooms or make a new'n.
+<br/>&nbsp;&nbsp;For `pxlNav` Documentation -
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;[pxlNav Documentation](https://github.com/ProcStack/pxlNav/tree/main/docs)
 
-<br/>&nbsp;&nbsp;Minified pxlNav & style -
+<br/>&nbsp;&nbsp;For `pxlNav` Repo with Source & Info -
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;[pxlNav Repo ](https://github.com/ProcStack/pxlNav)
+
+<br/>&nbsp;&nbsp;Minified pxlNav, style, & assets *(if desired)* -
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;`./Build`
 
 <br/>&nbsp;&nbsp;`pxlNav` dev entry point is -
@@ -19,6 +25,7 @@ Kevin Edzenga's web dev & shader resume site
 
 <br/>&nbsp;&nbsp;`procstack.github.io` public site -
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;`./docs`
+
 
 ##
 
