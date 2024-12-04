@@ -3,6 +3,23 @@
 //
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 //
+//   Note December 3rd, 2024:
+//     Well, this system has turned into a nice little bit of a page manager for my site.
+//     Hmmm, perhaps I should have make a pxlPages that could make pxlNav integration easier.
+//       But this is a general page manager... eh, whichever.
+//
+//     I just like I can set css overrides from the page divs themselves;
+//      `page-style="divId:className;divId2:className2;[...]"`
+//     Marking a div as a page with css overrides like this -
+//      `<div name="gitPage" page-id="Repos" page-style="footerBar:repoPage_footerBar;[...]" class="[...]"> [...] </div>`
+//     Then set a default class to revert if I want to with -
+//      `pages-default-class="footerBar"`
+//
+//     There is no need for yet another page manager, but I could always use a good bootstrapper for myself,
+//       And my blatently ESM ways.
+//
+// -- -- -- -- -- -- -- -- -- -- -- -- -- --
+//
 //   This is an example implementation of `pxlNav` in a project;
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
@@ -22,6 +39,7 @@ export class ProcPages {
     // this.navBar.init();
 
     this.pageStyleOverrides = {};
+    this.runningTimeouts = {};
   }
   init(){
     this.mainDiv = document.getElementById("procStackGitBlock");
@@ -168,6 +186,7 @@ export class ProcPages {
       if( this.curPage != null ){
         let prevPageId = this.curPage.getAttribute("page-id");
         if( this.pageStyleOverrides.hasOwnProperty(prevPageId) ){
+          // Iterate page css overrides and remove them to allow for the new page's styles, if they exist
           let overrideKeys = Object.keys(this.pageStyleOverrides[prevPageId]);
           overrideKeys.forEach( (key)=>{
             let curObj = document.getElementById( key );
@@ -228,6 +247,9 @@ export class ProcPages {
     this.checkNavBarSize();
   }
   
+  // TODO : So, my dingus of a butt has realized how much access `calc()` in css now has.
+  //          One of those things that grew in functionality while I didn't pay attention.
+  //        MUCH of this can be handled in purely css now, no javascript needed.
   checkNavBarSize(){
     let sw=window.innerWidth;
     let sh=window.innerHeight;
@@ -277,16 +299,29 @@ export class ProcPages {
     if( !obj ){
       return;
     }
+    let curId = obj.getAttribute("page-id");
     if( vis ){
       obj.style.display = "block";
       obj.classList.add("pagesVisOn");
       obj.classList.remove("pagesVisOff");
+
+      // Check for the display:none timeout & clear it
+      let curTimeout = this.runningTimeouts[curId];
+      if( curTimeout ){
+        clearTimeout(curTimeout);
+      }else{
+        this.runningTimeouts[curId] = null;
+      }
     } else {
       obj.classList.add("pagesVisOff");
       obj.classList.remove("pagesVisOn");
-      setTimeout( ()=>{
+
+      // Let the page fade out before hiding it
+      //   Allow the browser to handle display:none behaviour
+      let pageTimout = setTimeout( ()=>{
         obj.style.display = "none";
       }, 800);
+      this.runningTimeouts[curId] = pageTimout;
     }
   }
 

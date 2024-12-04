@@ -1193,7 +1193,7 @@ export class Environment{
           time:{ value:this.pxlTimer.msRunner },
           ratio: { value: this.pxlDevice.screenRes },
           noiseTexture: { value: this.cloud3dTexture },
-          starTexture: { value: this.pxlUtils.loadTexture(this.pxlUtils.assetRoot+"starNoise_1k.jpg") },
+          starTexture: { value: this.pxlUtils.loadTexture(this.pxlUtils.assetRoot+"uv_starNoise.jpg") },
         },
         vertexShader: this.pxlShaders.rendering.sFieldPostProcessVert(),
         fragmentShader: this.pxlShaders.rendering.sFieldPostProcessFrag(),

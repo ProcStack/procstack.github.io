@@ -1,6 +1,6 @@
 //
 //  Core pxlNav Engine
-export const pxlNavVersion = "0.0.9";
+export const pxlNavVersion = "0.0.10";
 //      Written by Kevin Edzenga 2020;2024
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -48,13 +48,6 @@ import { pxlShaders } from './pxlNav/shaders/shaders.js';
 import { VERBOSE_LEVEL } from './pxlNav/core/Types.js';
 
 
-// Bool to load the environment asset fbx file;
-//   This is the included file with test pick-ups / assets
-//     ./Public/images/assets/EnvironmentAssets.fbx
-//     ./Public/images/assets/EnvironmentAssets_mobile.fbx
-//   For further information of each item & object,
-//     See pxlNav_docScripts/docs/
-const loadEnvAssetFile = true;
 
 const pxlCore = "pxlNav-coreCanvas"; // Name of DIV in Index
 var cloud3dTexture = null;
@@ -161,6 +154,17 @@ export class pxlNav{
       "pingPong" : "Send 'ping', Get 'pong'! - pxlNav.trigger('ping');",
     };
     this.validEventsKeys = Object.keys( this.validEvents );
+
+
+
+    // Bool to load the environment asset fbx file;
+    //   This is the included file with test pick-ups / assets
+    //     ./Source/assets/EnvironmentAssets.fbx
+    //   For further information of each item & object,
+    //     See https://github.com/ProcStack/pxlNav/tree/main/docs
+    // TODO : Turning this off breaks loading, fix that
+    this.loadEnvAssetFile = true;
+
 
     this.pxlTimer = new PxlBase.Timer();
     this.pxlShaders = pxlShaders;
@@ -518,8 +522,9 @@ export class pxlNav{
             mobileSuffix="_mobile";
         }
         
-        if( loadEnvAssetFile ){
-          let sceneFile=this.folderDict["assetRoot"]+"EnvironmentAssets"+mobileSuffix+".fbx";
+        if( this.loadEnvAssetFile ){
+          //let sceneFile=this.folderDict["assetRoot"]+"EnvironmentAssets"+mobileSuffix+".fbx";
+          let sceneFile=this.folderDict["assetRoot"]+"EnvironmentAssets.fbx";
           // This is a separate fbx loaded specifically for the Environment Asset FBX
           //   It opens up the found scene objects to easier global access
           this.pxlFile.loadSceneFBX(sceneFile, textureList, transformList, this.verbose,'EnvironmentAssets',[this.pxlEnv.scene]);

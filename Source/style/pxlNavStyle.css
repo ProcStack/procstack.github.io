@@ -92,9 +92,9 @@
 
 .mapPromptStyle{
   position:fixed;
-	left:50%;
-	top:50%;
-	transform:translate(-50%,-50%);
+	left:50vw;
+  bottom: 24vh;
+	transform:translateX(-50%);
 	color:#ffffff;
 	font-family: 'Raleway', sans-serif;
 	font-weight:700;
