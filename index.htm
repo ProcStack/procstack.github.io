@@ -55,16 +55,17 @@
               <div name="gitPage" page-id="Init" page-style="footerBar:initPage_footerBar;gitPagesNavBlock:gitPageNav_initStyle" class="gitPageContentStyle gitInitPageStyle">
                 <span class="gitPageHeaderStyle">Ahoi there!</span>
                 <div class="initPage_hBarStyle">&nbsp;</div>
-                <br>I'm <span class="textNudge">ProcStack</span>, <span class="textNudge">Trancor</span>, or <span class="textNudge">Kevin Edzenga</span>, which ever you feel like calling me!
+                <br>I'm <span class="textNudge">ProcStack</span>, <span class="textNudge">Trancor</span>, and <span class="textNudge">Kevin Edzenga</span>,
+                <br>&nbsp;&nbsp;Which ever ya feel like calling me!
                 
                 <br><br><span class="textNudge">Trancor</span> is my pre-rendered visual graphics & diy builds
                 <br><span class="textNudge">ProcStack</span> is my coding & real-time graphics creations <span class="textDrinkMeAlice">('Trancor' was already taken on github)</span>
                 <br><span class="textNudge">Kevin Edzenga</span> is just ... Me.
                 
                 <br><br>Everything shown here is my personal work;
-                <br>The site code to 3d modeling, textures, shaders, to pxlNav itself.
+                <br>&nbsp;&nbsp;This site's code to it's 3d modeling, texturing, shaders, even <span class="textNudge">pxlNav</span> itself!
                 <br><span class="textNudge">Everything the light touches!</span> ...sorta.
-                <br><span class="textDrinkMeAlice">I didn't make Three.js, certainly.</span>
+                <br><span class="textDrinkMeAlice">&nbsp;&nbsp;I didn't make Three.js, certainly.</span>
                 <br><br>
               </div>
               <!-- -- -- -- -->
@@ -125,26 +126,27 @@
                 <div class="gitPageInnerStyle">
                   <span class="gitPageHeaderStyle">Repos to Check Out-</span>
 
-                  <br><br><a href='https://github.com/ProcStack/procstack.github.io' target='_blank'>procstack.github.io</a>
+                  <br><br><a href='https://github.com/ProcStack/procstack.github.io' class='gitPageRepoLinkStyle' target='_blank'>procstack.github.io</a>
                   <br>  Eyyyyy, check out pxlNav!  I guess this repo is more of an example of using pxlNav before I get it tightened up for public use.
 
-                  <br><br><a href='https://github.com/ProcStack/procPromo_ShaderPack' target='_blank'>procPromo Minecraft Shader Pack</a>
-                  <br>A shader pack written for Minecraft, used through Optifine.
-                  <br>For the pack, I developed depth based smart texture bluring, in attempts to capture the Minecraft Key or Promo art used when new updates are released.
-                  
-                  <br><br>This included developing a edge detection system using depths & surface nornals saved through differed buffers, where the actual edge detection is performed on a final render pass.
-                  
-                  <br>Having also wrote a shadow distortion & bias system as well.  Having never written a shadow shader before, or the subsequent position projections from ever shader that would sample the shadow buffer, I wrote a simple radial distortion, distance based from the player.  However there were shadow scalping everywhere.
-                  <br>Circular shadow projections, in a cubic game based around 90 degree angles.
-                  <br>I then wrote a per-axis distortion system with biasing based on distance from camera.
-                  <br>This allowed for sharp crisp shadow edges on blocks, but also with the distance based biasing, solved a lot of depth based issues.
-                  <br>Allowing me to create a shadow with little to know peter panning, little scalping, edges on surfaces parallel to the suns directional rays, all at great distances from camera.
-                  
-                  <br><br><a href='https://github.com/ProcStack/pxlVisualizer' target='_blank'>pxlVisualizer</a>
+                  <br><br><a href='https://github.com/ProcStack/procPromo_ShaderPack' class='gitPageRepoLinkStyle' target='_blank'>procPromo Minecraft Shader Pack</a>
+                  <br>A shader pack for Minecraft, used through Optifine.
+                  <br><img src='https://www.pxlmancer.com/show/procPromo/CloudPillar_2024-01-08.jpg' class='gitPageRepoImageStyle' alt='Cloud pillar!'>
+                  <span class="imageDesc innerCenter">Azure Hamlet in the Sky</span>
+                  For the pack, I developed a depth-based smart texture bluring, in attempts to capture the Minecraft Key or Promo art used when new updates are released.
+                  <br><img src='https://www.pxlmancer.com/show/procPromo/AlienFlora_2024-01-08.jpg' class='gitPageRepoImageStyle' alt='The alien fungal bloom has spread!'>
+                  <span class="imageDesc innerCenter">The spores have spread!</span>
+                  <br>I also wrote a shadow distortion & bias system as well;
+                  <br>&nbsp;&nbsp;A per-axis shadow distortion, with biasing based on distance from camera/player,
+                  <br>&nbsp;&nbsp;Also project block sides out to sample the shadow at a distance, letting shadow cascade down the side of the blocks too.
+                  <br><img src='https://www.pxlmancer.com/show/procPromo/NetherLavaLake_2024-01-10.jpg' class='gitPageRepoImageStyle' alt='A cool day in Palm Springs!'>
+                  <span class="imageDesc innerCenter">A chill day in Palm Springs</span>
+
+                  <br><br><a href='https://github.com/ProcStack/pxlVisualizer' class='gitPageRepoLinkStyle' target='_blank'>pxlVisualizer</a>
                   <br>Trippy visuals, using OpelGL and C++ through OpenFrameWorks.
                   <br>Originally written in Python for PyGame, decided it would be a fun project to learn C++ on.
                   
-                  <br><br><a href='https://github.com/ProcStack/pxlTextGenerator' target='_blank'>pxlTextGenerator</a>
+                  <br><br><a href='https://github.com/ProcStack/pxlTextGenerator' class='gitPageRepoLinkStyle' target='_blank'>pxlTextGenerator</a>
                   <br>Text to handwriting generator
                   <br>Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.net.
                   <br>Letting them write the very words written in the tome perched upon the desk.
@@ -239,7 +241,7 @@
                   <br><br>An undiagnosed something-or-another, which spawned-in with the energy only befitting a gift from the mythical Red Bull itself!
 
                   <br><br>In the past, I worked on <span class="textNudge">10</span> films, <span class="textNudge">9</span> of those at <span class="textBump">Blue Sky Studios</span>.
-                  <br>Doing <span class="textNudge">Character Simulation</span> (for hair and clothing sims) for <span class="textName">Epic</span>, <span class="textName">Rio 1</span> & <span class="textName">Rio 2</span>.
+                  <br>Doing <span class="textNudge">Character Simulation</span> (<span class="textSkew">for hair and clothing sims</span>) for <span class="textName">Epic</span>, <span class="textName">Rio 1</span> & <span class="textName">Rio 2</span>.
                   <br><span class="textNudge">Effects</span> (volume sims, particles, and some RBDs) on <span class="textName">Ice Age 4</span>. 
                   <br>Along with 5 years of <span class="textNudge">Crowds</span> development/navigation/sims in Houdini for <span class="textName">Ferdinand</span>, <span class="textName">Rio 2</span>, <span class="textName">Peanuts</span>, <span class="textName">Ice Age 5</span>, & <span class="textName">Spies In Disguise</span>.
                   <br>Being part of 2 published Siggraph papers and got an opportunity to speak at <span class="textBump">Siggraph</span> to a bunch'a peoples about camera based crowd navigation for <span class="textName">Peanuts</span>.
@@ -247,24 +249,27 @@
                   <br><br>After that was <span class="textBump">Antib0dy.Club</span> / <span class="textBump">pxlNav</span>, then a couple non-pxlNav virtual events, including a St. Jude + GCX virtual fundraiser.
                   <br>Then some xr/immersive reality work; like a couple official Instagram filters and 3 Home Environments for Oculus, among a few other things.
 
-                  <br><br><span class="imageDesc">I recently made a tool that can turn any 3d model into fabric patterns in Houdini,</span>
+                  <br><br><span class="innerCenter">I recently made a tool that can turn any 3d model into fabric patterns in Houdini,</span>
                   <img src='https://www.pxlmancer.com/show/pl_uvToFabricPattern_addedRGB_1_sm.jpg' class='gitPageImageStyle' alt='Daryll getting filleted!' >
                   <img src='https://www.pxlmancer.com/show/a04_DaryllTheDuck_A_main.jpg' class='gitPageImageStyle' alt='Daryll all done!' >
                   
-                  <br><span class="imageDesc">So I've been making custom plushies in my free time.</span>
+                  <span class="innerCenter">So I've been making custom plushies in my free time.</span>
                   <img src='https://www.pxlmancer.com/show/FrankTheFish_n_Pinky.jpg' class='gitPageImageStyle' alt='Frank the Fish on his Pinky Flamingotube!' >
                   <span class="imageDesc">Frank The Fish just chillin on his Flamingotube</span>
                   
-                  <br><br>Outside of that, I'm on'n'off working on <span class="textNudge">Graph Attention Networks</span>.
-                  <br>I made a generic/multi-purpose neuron I'm getting to figure out when and where-to each are connected.
-                  <br>Rather than a grid of numbers aligning to yield a prediction, it's a data structure which outputs a value due to the neuron connections.
+                  <br><br>Outside of that, I'm on'n'off working on <span class="textNudge">Graph Attention Network</span> artificial intelligence.
+                  <br>I've been working on a general-purpose neuron that adjusts its own connections during prediction.
+                  <br>I call it a "model-less" ai network, even though the model is just dynamically generated based on input data.
+                  <br>It's the structure that derives where the neural active regions form based on stimuli.
+
+                  <br><br>Rather than a grid of numbers aligning to yield a prediction, it's a data structure which outputs a value due to the neuron connections.
                   <br>Realistically, the output should be similar to a RNN, but with a different mental structure.
                   
                   <br><br>...Mostly they are used for "<span class="textNudge">Recommendation Systems</span>",
                   <br><span class="textItalicBox">Hey, you might know <span class="textNudge">Jim Bob McGee</span>!!</span>
                   <br>But could be used for so much more!
 
-                  <br><span class="imageDesc">So all this new AI stuff has been quite serendipitous for me!</span>
+                  <br><span class="innerCenter">So all this new AI stuff has been quite serendipitous for me!</span>
                   <img src='https://www.pxlmancer.com/show/esnLearning.gif' class='gitPageImageStyle' alt='Frank the Fish on his Pinky Flamingotube!' >
                   <span class="imageDesc innerCenter">Not a graph network, but an ESN (a RNN variant) I wrote to detect & predict motion.
                   <br>Upper left are some videos I made, upper right are it's 'levels' of learning R-G-B,
