@@ -67,7 +67,7 @@
   display: grid;
   grid-auto-flow: column;
   justify-content: space-around;
-  margin: 3px 0px 3px 0px;
+  margin: 5px 0px 3px 0px;
   height: 1px;
   width: 65%;
   overflow: hidden;
@@ -75,3 +75,6 @@
 }
 
 
+.initHeaderStyle{
+  color: #ffad49;
+}
