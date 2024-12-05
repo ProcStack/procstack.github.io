@@ -100,10 +100,10 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
     let scrollGrp = this.geoList["Scripted"]["MovingEng_grp"];
     if( scrollGrp ){
-      scrollGrp.position.z += .065;
-      let shift = 15;
-      let scrollThreshold = 177.433;
-      let scrollLimit = 177.433 - shift;
+      scrollGrp.position.z = (3.6 * this.msRunner.x) % 150.0;
+      let shift = 0;
+      let scrollThreshold = 150.0;
+      let scrollLimit = scrollThreshold - shift;
       if( scrollGrp.position.z > scrollLimit ){
         scrollGrp.position.z -= scrollLimit;
       }
