@@ -1,6 +1,6 @@
 // SVG Helper Utilities
 
-import { FileIO } from '../../pxlBase.js'; // File In / Out
+import { FileIO } from '../../core/FileIO.js'; // File In / Out
 
 export class SVGUtils {
 

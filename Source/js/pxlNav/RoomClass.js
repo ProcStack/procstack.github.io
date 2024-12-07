@@ -52,6 +52,7 @@ export default class RoomEnvironment{
     this.cameraPrevPos=new Vector3(0,0,0);
     this.cameraAimTarget=new THREE.Object3D(0,0,0);
     this.camHoldWarpPos=true;
+    this.camLocation = {};
     
     this.pxlCamFOV=(pxlDevice.mobile?80:60);
     this.pxlCamZoom=1;
@@ -318,14 +319,25 @@ export default class RoomEnvironment{
     }
   }
     
+  toCameraPos( positionName ){
+    if( this.cameraBooted && this.camLocation.hasOwnProperty( positionName ) ){
+      
+      let pos=this.camLocation[positionName]["Position"];
+      let lookAt=this.camLocation[positionName]["LookAt"];
+      if( !lookAt ){
+        lookAt=new Vector3(0,0,1);
+        lookAt.addVectors( pos, lookAt );
+      }
+
+      this.pxlEnv.pxlCamera.setTransform( this.camLocation[positionName]["Position"], this.camLocation[positionName]["LookAt"] );
+      this.setUserHeight( this.camInitPos.y );
+    }
+  }
     
   fbxPostLoad(){
 
         // Force Camera to init position with optional init look at
-        if( this.camInitPos ){
-          this.pxlEnv.pxlCamera.setTransform( this.camInitPos, this.camInitLookAt );
-          this.setUserHeight( this.camInitPos.y );
-        }
+        this.toCameraPos("Default");
 
         // Find Point light count for adjusted shadowing
         let pointLightCount = 0;

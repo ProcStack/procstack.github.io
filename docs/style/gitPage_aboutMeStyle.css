@@ -11,7 +11,7 @@
   border: 1px solid rgba(60, 60, 60, 0.6);
   pointer-events: auto;
   position: fixed;
-  top: 6vh;
+  top: 7vh;
   left: calc(min(max(2vh,(100vw - 1000px) / 10), max(50vw - 400px, 2vh)));
   max-width: calc(100vw - 6vh);
   width: calc(max(1000px, 45vw));

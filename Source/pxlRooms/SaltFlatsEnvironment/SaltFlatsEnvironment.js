@@ -46,7 +46,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     this.pxlCamFOV=(pxlDevice.mobile?80:40);
     this.pxlCamZoom=1;
     this.pxlCamAspect=1;
-    this.pxlCamNearClipping = 5;
+    this.pxlCamNearClipping = 1;
     this.pxlCamFarClipping = 10000;
 
     // this.fogColor=new THREE.Color(.3,.3,.3);

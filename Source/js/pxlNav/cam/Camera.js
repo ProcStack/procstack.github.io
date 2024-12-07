@@ -498,8 +498,12 @@ export class Camera{
         roomEnv.start();
       }
 
-      this.pxlEnv.roomRenderPass.scene=roomEnv.scene;  
-      if( roomEnv.camInitPos && roomEnv.camInitLookAt && ( !holdCamera || !this.pxlEnv.postIntro || this.hotKeyTriggered ) ){
+      this.pxlEnv.roomRenderPass.scene=roomEnv.scene;
+      if( roomEnv.camLocation.hasOwnProperty(objTarget) ){
+        let toPos = roomEnv.camLocation[objTarget]["Position"];
+        let toLookAt = roomEnv.camLocation[objTarget]["LookAt"];
+        this.setTransform( toPos, toLookAt );
+      }else if( roomEnv.camInitPos && roomEnv.camInitLookAt && ( !holdCamera || !this.pxlEnv.postIntro || this.hotKeyTriggered ) ){
         this.setTransform( roomEnv.camInitPos, roomEnv.camInitLookAt );
         this.hotKeyTriggered=false;
       }

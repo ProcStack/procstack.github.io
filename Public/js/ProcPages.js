@@ -77,7 +77,10 @@ export class ProcPages {
         pageDiv.setAttribute("page-id", pageId);
       }
 
-      this.pageListing[ pageId ] = pageDiv;
+      this.pageListing[ pageId ] = {};
+      this.pageListing[ pageId ]["obj"] = pageDiv;
+      this.pageListing[ pageId ]["room"] = null;
+      this.pageListing[ pageId ]["view"] = null;
       if( pageId == pageHash ){
         this.curPage = pageDiv;
         this.toggleFader( this.curPage, true );
@@ -90,6 +93,8 @@ export class ProcPages {
       let linkText = navLink.getAttribute("pageName");
       let pxlRoomName = navLink.getAttribute("pxlRoomName");
       let pxlCameraView = navLink.getAttribute("pxlCameraView");
+      this.pageListing[ linkText ]["room"] = pxlRoomName;
+      this.pageListing[ linkText ]["view"] = pxlCameraView;
       
       linkText = linkText.replace(/(?: |\/|\.|\n)/g, "");
 
@@ -100,8 +105,8 @@ export class ProcPages {
 
       navLink.addEventListener("click", (e)=>{
         e.preventDefault();
-        let pageId = this.curPage.getAttribute("page-id");
-        if( linkText == pageId ){
+        let curPageId = this.curPage.getAttribute("page-id");
+        if( linkText == curPageId ){
           return;
         }
         window.location.hash = linkText;
@@ -151,6 +156,14 @@ export class ProcPages {
   // -- -- --
   
   postLoad(){
+    let curPageId = this.curPage.getAttribute("page-id");
+    if( this.pageListing.hasOwnProperty(curPageId) ){
+      let curRoom = this.pageListing[curPageId]["room"];
+      let curView = this.pageListing[curPageId]["view"];
+      this.triggerEmitFunc( "warpToRoom", curRoom, curView );
+    }
+
+    // Show the gui
     this.toggleFader(this.mainDiv, true);
     
   }
@@ -204,7 +217,7 @@ export class ProcPages {
       }
 
       // Set current page value
-      this.curPage = this.pageListing[pageName];
+      this.curPage = this.pageListing[pageName]["obj"];
 
       // Trigger css animation to bring the new page in
       this.toggleFader(this.curPage, true);
