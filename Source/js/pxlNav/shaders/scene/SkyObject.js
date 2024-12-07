@@ -30,8 +30,7 @@ export function skyObjectVert(){
 // Sky Fragment Shader
 export function skyObjectFrag(){
   let ret=shaderHeader();
-  ret+=`
-     
+  ret+=`     
     uniform sampler2D diffuse;
     uniform sampler2D envDiffuse;
     uniform sampler2D noiseTexture;
@@ -60,9 +59,10 @@ export function skyObjectFrag(){
         vec4 Cd=texture2D(diffuse,uv);
         float t = time.x*.6;
         
-        vec2 nUv = fract( vec2(vUv.x*2.0, vUv.y - t*.01) );
+        vec2 nUv = ( vec2(vUv.x*0.40, vUv.y - t*.01) );
         vec3 noiseCd = texture2D( noiseTexture, nUv ).rgb;
-        nUv = fract( nUv+noiseCd.rg*(noiseCd.b-.5));
+        nUv = ( nUv+noiseCd.rg*(noiseCd.b));
+        //nUv.y *= .5;
         noiseCd = texture2D( noiseTexture, nUv ).rgb;
         noiseCd.rg = noiseCd.rg*2.0-1.0;
         
@@ -79,26 +79,26 @@ export function skyObjectFrag(){
         float blendStep = .4;
         float blend = 0.0;
         float uvShift=0.0;
-        for(int s=0; s<7; ++s){
-            uvShift = mix(noiseCd.r, noiseCd.g, noiseCd.b)*15.0;
+        for(int s=0; s<5; ++s){
+            uvShift = mix(noiseCd.r, noiseCd.g, fract(noiseCd.b+float(s)*193.5247))*15.0;
             curUV = baseUV+vec2(0.0,resUV.y*-(dist+uvShift) );
             curDepth = texture2D(envDiffuse,curUV).x ;
             curDepth = fitDepth( curDepth );
             curPerc = step( .3, (1.0-curDepth)*7.0 );
             reachDepth += min(1.0,curDepth)*curPerc;
-            blend += blendStep*curPerc;
+            blend += blendStep;
             dist+=dist*dot(noiseCd.rgb, vec3(0.0,0.0,1.0));
         }
-        reachDepth *= blend*stencil;
+        reachDepth *= blend*stencil*3.0;
         
         vec3 normPos = normalize(vLocalPos);
         normPos.y = 1.0-min(1.0,(normPos.y)*2.0);
         normPos.y = normPos.y*normPos.y*normPos.y;
         depth = clamp(reachDepth+normPos.y, 0.0, 1.0);
         
-        vec3 baseColor = fogColor+(sin(noiseCd.r*PI+t+uv.x)*.008)*max(0.0,1.0-depth);
-        baseColor = (baseColor);//+Cd.rgb*.2);
-        Cd.rgb = mix(Cd.rgb, baseColor, depth);
+        float blender = (sin(noiseCd.r*PI+t+uv.x)*.03)*max(0.0,1.0-depth);
+        vec3 baseColor = (fogColor+blender);
+        Cd.rgb = mix(Cd.rgb*1.5, baseColor, depth);
         
         gl_FragColor=Cd;
     }`;
