@@ -11,6 +11,7 @@
 
 import { pxlNav, pxlNavVersion } from './pxlNav.min.js';
 import { ProcPages } from './ProcPages.js';
+import { BlogManager } from './BlogManager.js';
 
 
 // Console logging level
@@ -35,6 +36,24 @@ const bootRoomList = ["CampfireEnvironment", "SaltFlatsEnvironment"];
 const procPages = new ProcPages();
 procPages.init();
 procPages.setPxlNavVersion(pxlNavVersion);
+
+if (window.location.hash !== "#Blog") {
+  procPages.hidePage("Blog");
+}
+
+
+// -- -- -- -- --
+
+var blogEntryListing = document.getElementById('blogEntryListing');
+var blogEntryContent = document.getElementById('blogEntryContent');
+const procBlog = new BlogManager( blogEntryListing, blogEntryContent );
+procBlog.init();
+procBlog.build();
+procBlog.showEntry(-1);
+
+
+// -- -- -- -- --
+
 
 // Create the pxlNav environment manager
 const pxlNavr = new pxlNav( verbose, projectTitle, pxlRoomRootPath, procPages.curRoom, bootRoomList );

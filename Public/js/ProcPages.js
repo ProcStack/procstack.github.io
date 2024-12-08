@@ -33,6 +33,8 @@ export class ProcPages {
     this.defaultPage = "Init";
     this.pageListing = {};
 
+    this.navBarLinks = [];
+    this.navBarObjs = {};
     this.resObjsVis = true;
     this.resBasedObjs = [];
     this.triggerEmitFunc = null;
@@ -41,10 +43,29 @@ export class ProcPages {
     this.pageStyleOverrides = {};
     this.runningTimeouts = {};
   }
+
+  hashListener() {
+    let tmpThis = this;
+    window.addEventListener("hashchange", (e) => {
+      let newHash = this.getHash();
+      if( newHash != this.curPageName){
+        if( newHash == "Blog"){
+          this.showPage("Blog");
+        }
+        this.changePage(newHash);
+      }
+    });
+  }
+
   init(){
     this.mainDiv = document.getElementById("procStackGitBlock");
     this.navBar = document.getElementById("gitPageNav");
     this.navBarLinks = [...this.navBar.getElementsByTagName("a")];
+
+    this.navBarLinks.forEach( (navLink)=>{
+      let linkText = navLink.getAttribute("pageName");
+      this.navBarObjs[linkText] = navLink;
+    });
 
     this.resBasedObjs = [...document.getElementsByClassName("squashInLowRes")];
     this.contentParent = document.getElementById("gitPageContentParent");
@@ -82,6 +103,7 @@ export class ProcPages {
       this.pageListing[ pageId ]["room"] = null;
       this.pageListing[ pageId ]["view"] = null;
       if( pageId == pageHash ){
+        this.curPageName = pageId;
         this.curPage = pageDiv;
         this.toggleFader( this.curPage, true );
       }else{
@@ -93,6 +115,9 @@ export class ProcPages {
       let linkText = navLink.getAttribute("pageName");
       let pxlRoomName = navLink.getAttribute("pxlRoomName");
       let pxlCameraView = navLink.getAttribute("pxlCameraView");
+      if( !this.pageListing.hasOwnProperty(linkText) ){
+        return;
+      }
       this.pageListing[ linkText ]["room"] = pxlRoomName;
       this.pageListing[ linkText ]["view"] = pxlCameraView;
       
@@ -119,6 +144,7 @@ export class ProcPages {
 
 
     this.setStyleOverrides();
+    this.hashListener();
 
     // Let the dom settle for a step
     setTimeout( ()=>{
@@ -217,6 +243,7 @@ export class ProcPages {
       }
 
       // Set current page value
+      this.curPageName = pageName;
       this.curPage = this.pageListing[pageName]["obj"];
 
       // Trigger css animation to bring the new page in
@@ -383,4 +410,16 @@ export class ProcPages {
     }
   }
 
+  hidePage( pageName ){
+    if( this.navBarObjs.hasOwnProperty(pageName) ){
+      let pageObj = this.navBarObjs[pageName];
+      pageObj.style.display = "none";
+    }
+  }
+  showPage( pageName ){
+    if( this.navBarObjs.hasOwnProperty(pageName) ){
+      let pageObj = this.navBarObjs[pageName];
+      pageObj.style.display = "block";
+    }
+  }
 }

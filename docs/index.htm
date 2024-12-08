@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
   <meta name='theme-color' content='#000822'>
 </head>
-    
+
 <!-- -- -- -- -->
 
 <link type="text/css" rel="stylesheet" href="style/ProcStackStyle.css">
@@ -39,15 +39,11 @@
                 </div>
                 <div id="gitPageNav" class="gitPageNavStyle">
                   <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="init" pageName="Init" alt="Link to Init...">Init.</a>
-                  <span> </span>
                   <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="pxlNav" pageName="pxlNav" alt="Some info on this git.io site's backbone">pxlNav</a>
-                  <span> </span>
                   <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="repos" pageName="Repos" alt="Info on some of my repos I like">Repos</a>
-                  <span> </span>
                   <a class="pageLinkStyle" pxlRoomName="SaltFlatsEnvironment" pxlCameraView="Default" pageName="ProjectsLinks" alt="Real world projects">Projects<span class="squashInLowRes">&nbsp;/ Links</span></a>
-                  <span> </span>
+                  <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="Default" pageName="Blog" alt="My ramblings...">Blog</a>
                   <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="aboutMe" pageName="AboutMe" alt="It's ah me! Marrr.... yeah"><span class="squashInLowRes">About&nbsp;</span>Me</a>
-                  <span> </span>
                 </div>
             </div>
             <div id="gitPageContentParent" class="gitPageContentParentStyle gpcpVisibleStyle heightFader">
@@ -226,6 +222,15 @@
                 </div>
               </div>
               <!-- -- -- -- -->
+              <div name="gitPage" page-id="Blog" page-style="footerBar:blogPage_footerBar;gitPagesNavBlock:gitPageNav_blogStyle" class="gitPageContentStyle gitBlogPageStyle">
+                <div class="gitPageInnerStyle">
+                  <span class="gitPageHeaderStyle">Blog -</span>
+                  <div id="blogEntryListing" class="blogEntryListStyle"></div>
+                  <div id="blogEntryContent" class="blogContentStyle"></div>
+                  <br><br>
+                </div>
+              </div>
+              <!-- -- -- -- -->
               <div name="gitPage" page-id="AboutMe" page-style="footerBar:aboutMePage_footerBar;gitPagesNavBlock:gitPageNav_aboutMeStyle" class="gitPageContentStyle gitAboutMePageStyle">
                 <div class="gitPageInnerStyle">
                   <span class="gitPageHeaderStyle">About Me -</span>
@@ -301,7 +306,7 @@
 
     <canvas id="pxlNav-coreCanvas" height='1' width='1' class="pxlNavCoreCanvasStyle" ></canvas>
 
-    <script type="module" src="js/ProckStackGitio.js?v=2024-12-02"></script>
+    <script type="module" src="js/ProckStackGitio.js?v=2024-12-08"></script>
 
 
 </body>
