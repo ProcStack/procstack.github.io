@@ -68,6 +68,14 @@ export class FileIO{
   // mesh = Current Object To Check For UserData Entries
   checkForUserData( envObj, envScene, mesh ){
     if( mesh.hasOwnProperty("userData") ){
+      if( mesh.hasOwnProperty("material") ){
+        if( mesh.userData.hasOwnProperty("doubleSided") && mesh.userData.doubleSided ){
+          mesh.material.side=THREE.DoubleSide;
+        }else{
+          mesh.material.side=THREE.FrontSide;
+        }
+      }
+
       // Add to Glow render pass; ran by blurComposer
       if( mesh.userData.hasOwnProperty("GlowPass") && mesh.userData.GlowPass ){
         if( !envObj.geoList['GlowPass'] ){
@@ -1476,6 +1484,10 @@ export class FileIO{
 
       curFbx.traverse((c)=>{
         this.checkForUserData( envObj, envScene, c );
+
+        if(c.userData.hasOwnProperty("doubleSided") && c.userData.doubleSided){
+          c.material.side=THREE.DoubleSide;
+        }
       });
 
       this.pxlAnim.initObject( meshKey, curFbx );

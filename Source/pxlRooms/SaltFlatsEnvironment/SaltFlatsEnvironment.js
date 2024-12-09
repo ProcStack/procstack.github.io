@@ -169,6 +169,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     let curMesh = this.pxlAnim.getMesh( animKey );
     if(curMesh){
       let curMtl = curMesh.material;
+      curMtl.side = THREE.DoubleSide;
     }
   }
   

@@ -7,6 +7,260 @@ import * as THREE from "../../js/libs/three/three.module.js";
 /////////////////////////////////////////////////////////
 
 
+export function rabbitDruidVert(){
+  let ret=shaderHeader();
+  ret+=`
+    
+    #define USE_TANGENT
+    #define USE_ENVMAP
+    #define USE_SKINNING
+
+    uniform vec2 eyeBlink;
+
+    attribute vec4 color;
+
+    #ifdef USE_TANGENT
+      attribute vec4 tangent;
+    #endif
+
+
+    varying vec2 vUv;
+    varying vec4 vCd;
+    varying vec3 vPos;
+    varying vec3 vLocalPos;
+    varying vec3 vN;
+    varying vec3 vTan;
+    varying vec3 vObjN;
+    
+
+    ${THREE.ShaderChunk[ "common" ]}
+    ${THREE.ShaderChunk[ "skinning_pars_vertex" ]}
+    ${THREE.ShaderChunk[ "shadowmap_pars_vertex" ]}
+    
+    void main(){
+        vUv=uv;
+        vCd=color;
+        
+        vec3 transformed = vec3( position );
+        vec3 objectNormal = vec3( normal );
+        vec3 objectTangent = vec3( tangent.xyz );
+        vec3 transformedNormal = objectNormal;
+
+
+        vec3 blendPos = color.rgb;
+        transformed = mix( transformed, blendPos, eyeBlink.x );
+        
+        ${THREE.ShaderChunk[ "skinbase_vertex" ]}
+        ${THREE.ShaderChunk[ "skinnormal_vertex" ]}
+        ${THREE.ShaderChunk[ "skinning_vertex" ]}
+        
+        vTan = objectTangent;
+        vObjN = objectNormal;
+
+        vN = (modelViewMatrix * vec4(normal, 0.0)).xyz;
+        vLocalPos = transformed;
+        vec4 mvPos=modelViewMatrix * vec4(transformed, 1.0);
+        gl_Position = projectionMatrix*mvPos;
+        vPos = mvPos.xyz;
+
+        ${THREE.ShaderChunk[ "worldpos_vertex" ]}
+        ${THREE.ShaderChunk[ "shadowmap_vertex" ]}
+    }`;
+  return ret;
+}
+
+
+export function rabbitDruidFrag(){
+  //let ret=shaderHeader();
+  let ret=`
+    
+    uniform vec2 time;
+    uniform sampler2D diffuseTexture;
+    uniform sampler2D areTexture;
+    uniform sampler2D noiseTexture;
+    
+    ${THREE.ShaderChunk[ "common" ]}
+    ${THREE.ShaderChunk[ "lightmap_pars_fragment" ]}
+
+    varying vec2 vUv;
+    varying vec4 vCd;
+    varying vec3 vPos;
+    varying vec3 vLocalPos;
+    varying vec3 vN;
+    varying vec3 vTan;
+    varying vec3 vObjN;
+    
+    varying float vFlicker;
+    
+    struct PointLight {
+      vec3 color;
+      float decay;
+      float distance;
+      vec3 position;
+    };
+    struct DirLight {
+      vec3 color;
+      vec3 direction;
+    };
+     
+    uniform PointLight pointLights[NUM_POINT_LIGHTS];
+    uniform DirLight directionalLights[NUM_DIR_LIGHTS];
+    
+    ${THREE.ShaderChunk[ "packing" ]}
+    
+    #if NUM_POINT_LIGHT_SHADOWS > 0
+        uniform sampler2D pointShadowMap[ NUM_POINT_LIGHT_SHADOWS ];
+        varying vec4 vPointShadowCoord[ NUM_POINT_LIGHT_SHADOWS ];
+        struct PointLightShadow {
+            float shadowBias;
+            float shadowNormalBias;
+            float shadowRadius;
+            vec2 shadowMapSize;
+            float shadowCameraNear;
+            float shadowCameraFar;
+        };
+        uniform PointLightShadow pointLightShadows[ NUM_POINT_LIGHT_SHADOWS ];
+    #endif
+    float texture2DCompare( sampler2D depths, vec2 uv, float compare ) {
+        return step( compare, unpackRGBAToDepth( texture2D( depths, uv ) ) );
+    }
+    vec2 cubeToUV( vec3 v, float texelSizeY ) {
+        vec3 absV = abs( v );
+        float scaleToCube = 1.0 / max( absV.x, max( absV.y, absV.z ) );
+        absV *= scaleToCube;
+        v *= scaleToCube * ( 1.0 - 2.0 * texelSizeY );
+        vec2 planar = v.xy;
+        float almostATexel = 1.5 * texelSizeY;
+        float almostOne = 1.0 - almostATexel;
+        if ( absV.z >= almostOne ) {
+            if ( v.z > 0.0 )
+                planar.x = 4.0 - v.x;
+        } else if ( absV.x >= almostOne ) {
+            float signX = sign( v.x );
+            planar.x = v.z * signX + 2.0 * signX;
+        } else if ( absV.y >= almostOne ) {
+            float signY = sign( v.y );
+            planar.x = v.x + 2.0 * signY + 2.0;
+            planar.y = v.z * signY - 2.0;
+        }
+        return vec2( 0.125, 0.25 ) * planar + vec2( 0.375, 0.75 );
+    }
+    float getPointShadow( sampler2D shadowMap, vec2 shadowMapSize, float shadowBias, float shadowRadius, vec4 shadowCoord, float shadowCameraNear, float shadowCameraFar ) {
+        vec2 texelSize = vec2( 1.0 ) / ( shadowMapSize * vec2( 4.0, 2.0 ) );
+        vec3 lightToPosition = shadowCoord.xyz;
+        float dp = ( length( lightToPosition ) - shadowCameraNear ) / ( shadowCameraFar - shadowCameraNear );
+         dp += shadowBias;
+        vec3 bd3D = normalize( lightToPosition );
+        #if defined( SHADOWMAP_TYPE_PCF ) || defined( SHADOWMAP_TYPE_PCF_SOFT ) || defined( SHADOWMAP_TYPE_VSM )
+            vec2 offset = vec2( - 1, 1 ) * shadowRadius * texelSize.y;
+            return (
+                texture2DCompare( shadowMap, cubeToUV( bd3D + offset.xyy, texelSize.y ), dp ) +
+                texture2DCompare( shadowMap, cubeToUV( bd3D + offset.yyy, texelSize.y ), dp ) +
+                texture2DCompare( shadowMap, cubeToUV( bd3D + offset.xyx, texelSize.y ), dp ) +
+                texture2DCompare( shadowMap, cubeToUV( bd3D + offset.yyx, texelSize.y ), dp ) +
+                texture2DCompare( shadowMap, cubeToUV( bd3D, texelSize.y ), dp ) +
+                texture2DCompare( shadowMap, cubeToUV( bd3D + offset.xxy, texelSize.y ), dp ) +
+                texture2DCompare( shadowMap, cubeToUV( bd3D + offset.yxy, texelSize.y ), dp ) +
+                texture2DCompare( shadowMap, cubeToUV( bd3D + offset.xxx, texelSize.y ), dp ) +
+                texture2DCompare( shadowMap, cubeToUV( bd3D + offset.yxx, texelSize.y ), dp )
+            ) * ( .11111111111 ) * (1.0-dp);
+        #else
+            return texture2DCompare( shadowMap, cubeToUV( bd3D, texelSize.y ), dp ) * (1.0-dp);
+        #endif
+    }
+    
+    vec3 directionToLight( sampler2D shadowMap, vec2 shadowMapSize, float shadowBias, float shadowRadius, vec4 shadowCoord, float shadowCameraNear, float shadowCameraFar  ){
+        vec2 texelSize = vec2( 1.0 ) / ( shadowMapSize * vec2( 4.0, 2.0 ) );
+        vec3 lightToPosition = shadowCoord.xyz;
+    float dp = ( length( lightToPosition ) - shadowCameraNear ) / ( shadowCameraFar - shadowCameraNear );
+     dp += shadowBias;
+        vec3 bd3D = normalize( lightToPosition );
+        vec2 offset = vec2( - 1, 1 ) * shadowRadius * texelSize.y;
+        return texture2D( pointShadowMap[0], cubeToUV( bd3D, texelSize.y )).rgb;
+    }
+        
+    
+    void main(){
+      vec4 outCd=vec4(.0, .0, .0, 1.0);
+      vec4 diffCd=texture2D(diffuseTexture,vUv);
+      vec4 areCd=texture2D(areTexture,vUv);
+      outCd = diffCd;
+      
+      vec2 animUv = vUv*.01;
+      animUv.y -= time.x*.1;
+      vec4 nCd=texture2D(noiseTexture,animUv);
+      
+      // -- -- -- //
+
+      vec4 lights = vec4(0.0, 0.0, 0.0, 1.0);
+      for(int i = 0; i < NUM_POINT_LIGHTS; i++) {
+          int shadowIndex = i;
+          vec3 lightVector = normalize(vPos - pointLights[shadowIndex].position);
+          vec3 lightInf= clamp(dot(-lightVector, vN), 0.0, 1.0) * pointLights[shadowIndex].color;
+          lightInf *=  1.0-min(1.0, length(vPos - pointLights[shadowIndex].position) * pointLights[shadowIndex].decay );
+          lights.rgb += lightInf;
+      }
+      //outCd.rgb *= lights.rgb;
+      
+      float shadowInf = 0.0;
+      float detailInf = 0.0;
+      float lShadow = 0.0;
+      int i = 0;
+      
+      // Read from Point Lights
+      //lShadow = getPointShadow( pointShadowMap[0], pointLightShadows[0].shadowMapSize, pointLightShadows[0].shadowBias, pointLightShadows[0].shadowRadius, vPointShadowCoord[0], pointLightShadows[0].shadowCameraNear, pointLightShadows[0].shadowCameraFar );
+      //shadowInf = max( lShadow, shadowInf);
+
+      
+      //outCd.rgb*=shadowInf;
+      
+      lights = vec4(0.0, 0.0, 0.0, 1.0);
+      for(int i = 0; i < NUM_DIR_LIGHTS; i++) {
+          int shadowIndex = i;
+          vec3 refTan = reflect( normalize(vLocalPos), vTan ) * (dot(normalize(vec3(.1, -0.5, .30)), vObjN));
+          refTan = normalize( refTan + vec3(.0, 0.45*(nCd.x*nCd.y*nCd.z*.5+.25) , -0.50+areCd.g) );
+          vec3 refNorm = 1.0-reflect(  vObjN, normalize(vPos) );
+          refNorm = min( refNorm, refTan );
+          //refTan = vec3(1.0, 1.0, 1.0);
+          //refNorm = vec3(1.0, 1.0, 1.0);
+          vec3 lightInf= ( max(0.0, dot(directionalLights[shadowIndex].direction, refTan * refNorm ))) * directionalLights[shadowIndex].color;
+          
+          lights.rgb += lightInf * (areCd.g*areCd.g+1.0);
+      }
+      float lMag = length( lights.rgb )*1.5;
+      outCd.rgb = mix(outCd.rgb*(1.0-(1.0-outCd.rgb)), outCd.rgb+vec3(1.0, .85, .70) * (outCd.rgb*.5+.5)*lights.rgb, lMag );
+      outCd.rgb += lights.rgb * areCd.g;
+
+      
+      // Add some ambient color to the back rim of the object
+      float d = dot( vec3(1.0, 0.0, 0.0), -vObjN )*.5+.25;
+      outCd.rgb = mix( outCd.rgb, vec3(.0, .10, .50), d*lMag);
+
+      // -- -- -- //
+
+      gl_FragColor=vec4( outCd.rgb, 1.0 );
+    }`;
+  return ret;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// -- -- -- -- -- -- -- -- -- -- --
+// -- -- -- -- -- -- -- -- -- -- --
+// -- -- -- -- -- -- -- -- -- -- --
+    
+
 export function envGroundVert(){
   let ret=shaderHeader();
   ret+=`

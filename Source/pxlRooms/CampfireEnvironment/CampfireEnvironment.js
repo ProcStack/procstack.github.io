@@ -1,5 +1,6 @@
 import * as THREE from "../../js/libs/three/three.module.js";
-import { campfireLogVert, campfireLogFrag,
+import { rabbitDruidVert, rabbitDruidFrag,
+         campfireLogVert, campfireLogFrag,
          campfireVert, campfireFrag,
          envGroundVert, envGroundFrag } from "./Shaders.js";
 import RoomEnvironment from "../../js/pxlNav/RoomClass.js";
@@ -54,6 +55,13 @@ export class CampfireEnvironment extends RoomEnvironment{
     this.fog=new THREE.FogExp2( this.fogColor, this.fogExp);
     
     this.perspectiveInstances = 160;
+
+    this.eyeBlinkInf = new THREE.Vector2(0,0);
+    this.eyeBlinkMinMaxDelay = [1.0,8.0];
+    this.eyeBlinkMinMaxRate = [ .035, 0.06 ];
+    this.eyeBlinkNext = 0;
+    this.eyeBlinkAnim = 0;
+    this.eyeBlinkRate = 0;
   }
   init(){
     super.init();
@@ -95,11 +103,34 @@ export class CampfireEnvironment extends RoomEnvironment{
     //   Cycle changes occur here as well.
     if(this.animMixer){
       this.pxlAnim.step( this.animRigName );
+      this.checkEyeBlink();
     }
 
     //this.pxlEnv.pxlCamera.setStats( this.pxlCamFOV, this.pxlCamZoom, this.pxlCamAspect, this.pxlCamNearClipping );
   }
   
+  checkEyeBlink(){
+    if( this.eyeBlinkAnim > 0 ){
+      // Decrease the eye blink animation 1 to 0
+      this.eyeBlinkAnim -= this.eyeBlinkRate;
+      // Map 0-1 to 0-1-0
+      let sawAnim = (Math.min(.5,this.eyeBlinkAnim) - Math.max(0,this.eyeBlinkAnim-.5)) * 2;
+      this.eyeBlinkInf.x = sawAnim;
+      if( this.eyeBlinkAnim <= 0 ){
+        // Add a random time until the next eye blink
+        this.eyeBlinkNext = this.msRunner.x + this.pxlUtils.randomFloat( this.eyeBlinkMinMaxDelay[0], this.eyeBlinkMinMaxDelay[1] );
+      }
+    }else{
+      this.eyeBlinkInf.x = 0;
+      if(this.msRunner.x > this.eyeBlinkNext ){
+        // Set the next blink rate, how quickly the animation goes from 1 to 0
+        this.eyeBlinkRate = this.pxlUtils.randomFloat( this.eyeBlinkMinMaxRate[0], this.eyeBlinkMinMaxRate[1] );
+        this.eyeBlinkAnim = 1;
+      }
+    }
+    this.textureList[ "RabbitDruidA" ].uniforms.eyeBlink.value = this.eyeBlinkInf;
+  }
+
   // -- -- --
   
   
@@ -207,9 +238,6 @@ export class CampfireEnvironment extends RoomEnvironment{
             this.textureList["CampfireLogs"]=logMat;
           }
           
-          // Asign Campfire Log material
-          //console.log(x)
-          //console.log(x.material)
           this.geoList['InstancesObjects'][x].material=logMat;
         }
       }
@@ -219,7 +247,6 @@ export class CampfireEnvironment extends RoomEnvironment{
     this.setUserHeight( this.camInitPos.y );
     
     
-    //console.log(this.geoList);
         
     this.booted=true;
   }
@@ -238,7 +265,6 @@ export class CampfireEnvironment extends RoomEnvironment{
       this.animInitCycle = fallback;
       this.log("No animation cycle '"+this.animInitCycle+"' found; Using '"+fallback+"' instead");
     }
-
     
     // To view the skeleton of Mr. Rabbit Druid
     //   Uncomment the following 2 lines --
@@ -249,11 +275,47 @@ export class CampfireEnvironment extends RoomEnvironment{
     let curMesh = this.pxlAnim.getMesh( animKey );
     if(curMesh){
       let curMtl = curMesh.material;
+      curMtl.side = THREE.DoubleSide;
+      let vert = curMtl.vertexShader;
+      let frag = curMtl.fragmentShader;
+      let newSkinnedMtl = this.setSkinnedMaterial( curMesh, rabbitDruidVert(), rabbitDruidFrag() );
+      this.textureList[ "RabbitDruidA" ] = newSkinnedMtl;
     }
 
-    
+    if( this.geoList["Scripted"].hasOwnProperty("pokinStick_geo") ){
+      let stickMtl = this.geoList["Scripted"]["pokinStick_geo"].material;
+      stickMtl.shininess = 0;
+    }
   }
-  
+
+  setSkinnedMaterial( bindObj, vertShader=null, fragShader=null ){
+
+    let skinnedMtlUniforms = THREE.UniformsUtils.merge(
+      [
+          THREE.UniformsLib['common'],
+          THREE.UniformsLib['lights'],
+        {
+          'diffuseTexture' : { type:'t', value: null },
+          'areTexture' : { type:'t', value: null },
+          'noiseTexture' : { type:'t', value: null },
+          'eyeBlink' : { type:'v2', value: this.eyeBlinkInf },
+          'mult': { type:'f', value:1 },
+        }
+      ]
+    );
+
+    skinnedMtlUniforms.diffuseTexture.value = bindObj.material.map;
+    skinnedMtlUniforms.areTexture.value = this.pxlUtils.loadTexture( this.assetPath+"RabbitDruidA/RabbitDruidA_lowRes_ARE.jpg" );
+    skinnedMtlUniforms.noiseTexture.value = this.cloud3dTexture;
+
+    let skinnedMaterial = this.pxlFile.pxlShaderBuilder( skinnedMtlUniforms, vertShader, fragShader );
+    skinnedMaterial.skinning = true;
+    skinnedMaterial.side = THREE.DoubleSide;
+    skinnedMaterial.lights = true;
+
+    bindObj.material = skinnedMaterial;
+    return skinnedMaterial;
+  }
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- //
   
@@ -333,8 +395,6 @@ export class CampfireEnvironment extends RoomEnvironment{
     this.textureList[ "CampfireFlame_geo" ]=campfireMtl;
   
     
-
-    
     //
     // -- -- -- 
         
@@ -343,6 +403,5 @@ export class CampfireEnvironment extends RoomEnvironment{
     // -- -- -- -- -- -- -- -- -- -- -- -- -- //
     
   }
-    
     
 }

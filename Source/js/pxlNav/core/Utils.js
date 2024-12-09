@@ -122,7 +122,15 @@ export class Utils{
     strip=strip.innerText;
     return strip;
   }
-    
+
+  // -- -- -- //
+  
+  randomFloat(min,max){
+    return Math.random()*(max-min)+min;
+  }
+
+  // -- -- -- //
+
   componentToHex(c) {
     var hex = c.toString(16);
     return hex.padStart(2,'0');
