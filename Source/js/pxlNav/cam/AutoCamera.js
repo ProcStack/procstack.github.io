@@ -428,9 +428,10 @@ export class AutoCamera{
     // this.pxlDevice.touchMouseData.netDistance;
     let blendOut=1;
     if( this.touchBlender ){
-      blendOut=Math.min(1, Math.max(0, this.pxlTimer.curMS - this.pxlDevice.touchMouseData.releaseTime - 1 )*.3);
+      // Camera rotation easing logic-
+      blendOut=Math.min(1, Math.max(0, this.pxlTimer.curMS - this.pxlDevice.touchMouseData.releaseTime ));
       blendOut*=blendOut;
-      this.pxlDevice.touchMouseData.netDistance.multiplyScalar(1-blendOut*.3);
+      this.pxlDevice.touchMouseData.netDistance.multiplyScalar(1-blendOut);
       this.touchBlender=blendOut<1;
     }else{
       this.pxlDevice.touchMouseData.netDistance.multiplyScalar(.5);
@@ -441,6 +442,7 @@ export class AutoCamera{
       (this.pxlDevice.touchMouseData.netDistance.x/this.pxlDevice.sW*2),
       0,
       'YXZ'); // Device returns YXZ for deviceOrientation
+    // Limit Up/Down looking
     let camPoseQuat=new THREE.Quaternion().clone( this.camera.quaternion );
     camPoseQuat.setFromEuler(euler);
     camPoseQuat=this.camera.quaternion.clone().multiply(camPoseQuat);

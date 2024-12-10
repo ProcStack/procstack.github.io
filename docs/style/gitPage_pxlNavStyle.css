@@ -6,9 +6,9 @@
   border: 1px solid rgba(67, 60, 21, 0.445);
   pointer-events: auto;
   max-height: 65vh;
-  max-width: calc(100vw - 5vh);
+  max-width: calc(100vw - max(5vh,5vw));
   position: fixed;
-  bottom: 4vh;
+  bottom: max(4vh,4vw);
   z-index: 2;
 }
 

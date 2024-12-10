@@ -326,9 +326,9 @@ export class QualityController{
         this.screenResPerc=val;
         this.pxlDevice.resizeRenderResolution();
         this.settings[component]=val;
-                if( this.pxlEnv.geoList['snow'] && this.pxlEnv.geoList['snow'].material ){
-                    this.pxlEnv.geoList['snow'].material.uniforms.pointScale.value = this.pxlEnv.geoList['snow'].pBaseScale * val;
-                }
+        if( this.pxlEnv.geoList['snow'] && this.pxlEnv.geoList['snow'].material ){
+            this.pxlEnv.geoList['snow'].material.uniforms.pointScale.value = this.pxlEnv.geoList['snow'].pBaseScale * val;
+        }
         break;
         
       case "fog":

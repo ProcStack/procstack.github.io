@@ -32,6 +32,7 @@ export default class RoomEnvironment{
     this.initScene=true;
     this.active=true;
     this.assetPath=assetPath+"Assets/";
+    this.mobile=pxlDevice.mobile;
     
     this.sceneFile = this.assetPath+"CampfireEnvironment.fbx";
     this.animFile = this.assetPath+"Campfire_RabbitDruidA_anim.fbx";
@@ -54,7 +55,7 @@ export default class RoomEnvironment{
     this.camHoldWarpPos=true;
     this.camLocation = {};
     
-    this.pxlCamFOV=(pxlDevice.mobile?80:60);
+    this.pxlCamFOV=(this.mobile?80:60);
     this.pxlCamZoom=1;
     this.pxlCamAspect=1;
     this.pxlCamNearClipping = 5;
@@ -322,14 +323,16 @@ export default class RoomEnvironment{
   toCameraPos( positionName ){
     if( this.cameraBooted && this.camLocation.hasOwnProperty( positionName ) ){
       
-      let pos=this.camLocation[positionName]["Position"];
-      let lookAt=this.camLocation[positionName]["LookAt"];
+      let posName = this.mobile?"PositionMobile":"Position";
+      let lookAtName = this.mobile?"LookAtMobile":"LookAt";
+      let pos=this.camLocation[ positionName ][ posName ];
+      let lookAt=this.camLocation[ positionName ][ lookAtName ];
       if( !lookAt ){
         lookAt=new Vector3(0,0,1);
         lookAt.addVectors( pos, lookAt );
       }
 
-      this.pxlEnv.pxlCamera.setTransform( this.camLocation[positionName]["Position"], this.camLocation[positionName]["LookAt"] );
+      this.pxlEnv.pxlCamera.setTransform( this.camLocation[positionName][posName], this.camLocation[positionName][lookAtName] );
       this.setUserHeight( this.camInitPos.y );
     }
   }

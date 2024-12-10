@@ -653,7 +653,16 @@ export class FileIO{
             envObj.camLocation[parentName]["Position"]=new Vector3( 0, 0, -10 );
             envObj.camLocation[parentName]["LookAt"]=new Vector3( 0, 0, 0 );
           }
-          if(c.name.includes("Position")){
+          if(c.name.includes("PositionMobile")){
+            let toPos=c.position.clone();
+            envObj.cameraBooted=true;
+            envObj.camInitPos=toPos;
+            envObj.camLocation[parentName]["PositionMobile"]=toPos;
+          }else if(c.name.includes("LookAtMobile")){
+            let toPos=c.position.clone();
+            envObj.camInitLookAt=toPos;
+            envObj.camLocation[parentName]["LookAtMobile"]=toPos;
+          }else if(c.name.includes("Position")){
             let toPos=c.position.clone();
             envObj.cameraBooted=true;
             envObj.camInitPos=toPos;
@@ -672,6 +681,21 @@ export class FileIO{
             envObj.camLocation[parentName]["ReturnLookAt"]=toPos;
           }
         });
+
+
+        // Check for missing Mobile Camera Position/LookAt
+        let locationList = Object.keys( envObj.camLocation );
+        locationList.forEach( (c)=>{
+          let curLoc = envObj.camLocation[c];
+          if( !curLoc.hasOwnProperty("PositionMobile") ){
+            curLoc["PositionMobile"] = curLoc["Position"];
+          }
+          if( !curLoc.hasOwnProperty("LookAtMobile") ){
+            curLoc["LookAtMobile"] = curLoc["LookAt"];
+          }
+        });
+
+
         //this.pxlDevice.touchMouseData.initialQuat=envObj.camera.quaternion.clone();
       }
       

@@ -5,8 +5,8 @@
   justify-self: baseline;
   pointer-events: none;
   position: fixed;
-  top: 6vh;
-  left: calc(max(5vw, 50vw - 900px));
+  top: max(6vh,6vw);
+  left: max(max(5vh,5vw), 50vw - 900px);
   z-index: 1;
   border-radius: 5px;
 }

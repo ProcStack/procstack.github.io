@@ -57,8 +57,8 @@ export class CampfireEnvironment extends RoomEnvironment{
     this.perspectiveInstances = 160;
 
     this.eyeBlinkInf = new THREE.Vector2(0,0);
-    this.eyeBlinkMinMaxDelay = [1.0,8.0];
-    this.eyeBlinkMinMaxRate = [ .035, 0.06 ];
+    this.eyeBlinkMinMaxDelay = [1.0,7.0];
+    this.eyeBlinkMinMaxRate = [ .06, 0.1 ];
     this.eyeBlinkNext = 0;
     this.eyeBlinkAnim = 0;
     this.eyeBlinkRate = 0;

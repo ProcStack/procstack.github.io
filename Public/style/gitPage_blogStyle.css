@@ -7,10 +7,10 @@
   pointer-events: auto;
   width: 75vw;
   max-height: 86vh;
-  max-width: calc(100vw - 6vh);
-  width: calc(max(1000px, 45vw));
+  max-width: calc(100vw - max(6vh,6vw));
+  width: max(1000px, 45vw);
   position: fixed;
-  top: 7vh;
+  top: max(7vh,7vw);
   z-index: 5;
 }
 

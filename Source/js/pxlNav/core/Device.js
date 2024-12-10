@@ -25,6 +25,7 @@ export class Device{
     // 'true' will be grabable over pxlNav, grabbing while clicking
     this.allowCursorSwap = false;
 
+    this.longTouchLength = .75; // Seconds to hold a tap, without moving, for long touch
     
     //this.bootTime=new Date().getTime();
     let sW=window.innerWidth;
@@ -470,9 +471,17 @@ export class Device{
     // -- -- -- -- -- -- //
     
   startTouch(e) {
+    
+    let target= e.target; // Chrome or Firefox
+    // Check if something other than the pxlCore canvas was touched
+    let runTouch = target.getAttribute && target.getAttribute("id") == this.pxlCore && this.pxlTimer.active;
+    if( !runTouch ){
+      return;
+    }
+
     this.touchScreen=true;
     var touch = e.touches[0];
-    this.mouseX = touch.pageX;
+    this.mouseX = touch.pageX;  
     this.mouseY = touch.pageY;
     this.touchMouseData.active=true;
     this.touchMouseData.mode=this.touchMouseData.button;
@@ -481,59 +490,67 @@ export class Device{
     this.touchMouseData.curDistance=new Vector2(0,0);
     this.touchMouseData.curStepDistance=new Vector2(0,0);
     this.touchMouseData.dragCount=0;
-        this.pxlAutoCam.touchBlender=false;
-        this.touchMouseData.releaseTime=this.pxlTimer.curMS;
-        let target = e.target;
-        if( target.getAttribute ){
-            let id=target.getAttribute("id");
-            if( this.objectPercList.includes( id ) ){
-                if( id == "djPlayerVolume" ){
-                    target=this.pxlAudio.djVolumeParentObj;
-                    id=target.getAttribute("id");
-                }
-                
-                let pBB=target.getBoundingClientRect();
+    this.pxlAutoCam.touchBlender=false;
+    this.touchMouseData.releaseTime=this.pxlTimer.curMS;
+    
+    let id=target.getAttribute("id");
+    if( this.objectPercList.includes( id ) ){
+      if( id == "djPlayerVolume" ){
+        target=this.pxlAudio.djVolumeParentObj;
+        id=target.getAttribute("id");
+      }
+      
+      let pBB=target.getBoundingClientRect();
 
-                this.objectPerc.active=true;
-                this.objectPerc.object=target;
-                this.objectPerc.left=pBB.left;
-                this.objectPerc.top=pBB.top;
-                this.objectPerc.width=pBB.width;
-                this.objectPerc.height=pBB.height;
-                this.objectPerc.startX= this.mouseX - pBB.left;
-                this.objectPerc.startY= this.mouseY - pBB.top;
-                this.objectPerc.percX= ( this.mouseX - this.objectPerc.left ) / this.objectPerc.width ;
-                this.objectPerc.percY= ( this.mouseY -this.objectPerc.top ) / this.objectPerc.height ;
-                this.objectPerc.offsetX=0;
-                this.objectPerc.offsetY=0;
-                this.objectPerc.offsetPercX = 0 ;
-                this.objectPerc.offsetPercY = 0 ;
-                
-                if( this.objectPercFuncList[id] ){
-                    this.objectPercFuncList[id](e);
-                }
-            }
-        }
+      this.objectPerc.active=true;
+      this.objectPerc.object=target;
+      this.objectPerc.left=pBB.left;
+      this.objectPerc.top=pBB.top;
+      this.objectPerc.width=pBB.width;
+      this.objectPerc.height=pBB.height;
+      this.objectPerc.startX= this.mouseX - pBB.left;
+      this.objectPerc.startY= this.mouseY - pBB.top;
+      this.objectPerc.percX= ( this.mouseX - this.objectPerc.left ) / this.objectPerc.width ;
+      this.objectPerc.percY= ( this.mouseY -this.objectPerc.top ) / this.objectPerc.height ;
+      this.objectPerc.offsetX=0;
+      this.objectPerc.offsetY=0;
+      this.objectPerc.offsetPercX = 0 ;
+      this.objectPerc.offsetPercY = 0 ;
+      
+      if( this.objectPercFuncList[id] ){
+        this.objectPercFuncList[id](e);
+      }
+    }
   }
 
   doTouch(e) {
+    
+    // Touch started on something other than the pxlCore canvas, ignore
+    if(!this.touchMouseData.active){
+      return;
+    }
+    
+    let target= e.target; // Chrome or Firefox
+
     var touch = e.touches[0];
     this.mouseX=touch.pageX;
     this.mouseY=touch.pageY;
     if(this.touchMouseData.active){
       this.touchMouseData.dragCount++;
-            
-            
-            if(typeof(e.touches[1]) !== 'undefined'){
-                var touchTwo = e.touches[1];
-                if( e.touches.length>1 && this.touchMouseData.dragCount>10 ){
-                    this.touchMouseData.lock=true;
-                    touch = e.touches[1];
-                    this.pxlEnv.setFogHue( [this.mouseX, this.mouseY], [touch.pageX, touch.pageY] );
-                }
-                return;
-            }
       
+      // Rotate the fog color, cause why not???
+      // TODO : "why not???" because its specific to Antibody Club,
+      //          But its fun, so I'll figure out some way to make it a bit more generic if the user wants to enable it
+      if(typeof(e.touches[1]) !== 'undefined'){
+        var touchTwo = e.touches[1];
+        if( e.touches.length>1 && this.touchMouseData.dragCount>10 ){
+          this.touchMouseData.lock=true;
+          touch = e.touches[1];
+          this.pxlEnv.setFogHue( [this.mouseX, this.mouseY], [touch.pageX, touch.pageY] );
+        }
+        return;
+      }
+
       let xyDeltaTemp=this.touchMouseData.endPos.clone();
       this.touchMouseData.endPos=new Vector2(this.mouseX,this.mouseY);
       this.touchMouseData.curDistance= this.touchMouseData.startPos.clone().sub(this.touchMouseData.endPos) ;
@@ -542,22 +559,27 @@ export class Device{
       this.touchMouseData.velocity.add(this.touchMouseData.curStepDistance).multiplyScalar(.5);
       this.touchMouseData.velocityEase.add(this.touchMouseData.curStepDistance).multiplyScalar(.5);
             
-            this.touchMouseData.netDistYPerc =  (this.touchMouseData.netDistance.y+this.touchMouseData.curDistance.y+250)/1250;
-            this.touchMouseData.curFadeOut.add( xyDeltaTemp.sub(this.touchMouseData.endPos)  );
+      this.touchMouseData.netDistYPerc =  (this.touchMouseData.netDistance.y+this.touchMouseData.curDistance.y+250)/1250;
+      this.touchMouseData.curFadeOut.add( xyDeltaTemp.sub(this.touchMouseData.endPos)  );
     }
-        
-        
-        if( this.objectPerc.active ){
-            this.objectPerc.percX = ( this.mouseX - this.objectPerc.left ) / this.objectPerc.width ;
-            this.objectPerc.percY = ( this.mouseY - this.objectPerc.top ) / this.objectPerc.height ;
-            this.objectPerc.offsetX = this.mouseX - this.objectPerc.startX ;
-            this.objectPerc.offsetY = this.mouseY - this.objectPerc.startY ;
-            this.objectPerc.offsetPercX = this.objectPerc.offsetX / this.objectPerc.width ;
-            this.objectPerc.offsetPercY = this.objectPerc.offsetY / this.objectPerc.height ;
-        }
+      
+    if( this.objectPerc.active ){
+      this.objectPerc.percX = ( this.mouseX - this.objectPerc.left ) / this.objectPerc.width ;
+      this.objectPerc.percY = ( this.mouseY - this.objectPerc.top ) / this.objectPerc.height ;
+      this.objectPerc.offsetX = this.mouseX - this.objectPerc.startX ;
+      this.objectPerc.offsetY = this.mouseY - this.objectPerc.startY ;
+      this.objectPerc.offsetPercX = this.objectPerc.offsetX / this.objectPerc.width ;
+      this.objectPerc.offsetPercY = this.objectPerc.offsetY / this.objectPerc.height ;
+    }
         
   }
   endTouch(e) {
+
+    // Touch started on something other than the pxlCore canvas, ignore
+    if(!this.touchMouseData.active){
+      return;
+    }
+
     this.touchScreen=false;
     this.touchMouseData.dragCount++;
     this.touchMouseData.dragTotal+=this.touchMouseData.dragCount;
@@ -569,19 +591,22 @@ export class Device{
     this.touchMouseData.curDistance.multiplyScalar(0);
     this.touchMouseData.curStepDistance.multiplyScalar(0);
         
-        if( this.mobile && this.touchMouseData.dragCount<10 && this.pxlTimer.curMS-this.touchMouseData.releaseTime > .5 ){
-            this.pxlCamera.itemTrigger();
-            this.touchMouseData.lock=true;
-        }
-        this.touchMouseData.releaseTime=this.pxlTimer.curMS;
-        
-        if( this.touchMouseData.lock ){
-            this.touchMouseData.lock=false;
-            return;
-        }
-        
-        this.pxlAutoCam.touchBlender=true;
-        this.pxlAutoCam.setNextTrigger();
+    /*
+      // Disabling for now, but is the overlay effect trigger when holding a long-touch
+      if( this.mobile && this.touchMouseData.dragCount<10 && this.pxlTimer.curMS-this.touchMouseData.releaseTime > this.longTouchLength ){
+        this.pxlCamera.itemTrigger();
+        this.touchMouseData.lock=true;
+      }
+        */
+      this.touchMouseData.releaseTime=this.pxlTimer.curMS;
+      
+      if( this.touchMouseData.lock ){
+          this.touchMouseData.lock=false;
+          return;
+      }
+      
+      this.pxlAutoCam.touchBlender=true;
+      this.pxlAutoCam.setNextTrigger();
         
     //let target= e.path ? e.path[0] : e.target; // Chrome or Firefox
     let target= e.target; // Chrome or Firefox
