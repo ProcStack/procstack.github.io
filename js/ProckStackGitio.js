@@ -9,14 +9,14 @@
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
-import { pxlNav, pxlNavVersion } from './pxlNav.min.js';
+import { pxlNav, pxlNavVersion, VERBOSE_LEVEL } from './pxlNav.min.js';
 import { ProcPages } from './ProcPages.js';
 import { BlogManager } from './BlogManager.js';
 
 
 // Console logging level
 //   Options are - NONE, ERROR, WARN, INFO
-const verbose = 0;
+const verbose = VERBOSE_LEVEL.ERROR;
 
 // The Title of your Project
 //   This will be displayed on the 

@@ -7,9 +7,9 @@
   border: 1px solid rgba(44, 69, 109, 0.6);
   pointer-events: auto;
   position: fixed;
-  bottom: 4.5vh;
-  max-height: 55vh;
-  max-width: calc(100vw - 5vh);
+  bottom: max(4.5vh,4.5vw);
+  max-height: 60vh;
+  max-width: calc(100vw - max(5vh,5vw));
   z-index: 4;
 }
 

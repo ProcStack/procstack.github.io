@@ -11,11 +11,11 @@
   border: 1px solid rgba(60, 60, 60, 0.6);
   pointer-events: auto;
   position: fixed;
-  top: 7vh;
-  left: calc(min(max(2vh,(100vw - 700px) / 10), max(50vw - 300px, 2vh)));
-  max-width: calc(100vw - 6vh);
+  top: max(7vh,7vw);
+  left: calc(min(max(max(2vh,2vw),(100vw - 700px) / 10), max(50vw - 300px, max(2vh,2vw))));
+  max-width: calc(100vw - max(6vh,6vw));
   width: calc(max(1000px, 45vw));
-  max-height: 85vh;
+  max-height: calc(100vh - max(7vh, 7vw) - 50px);
   z-index: 6;
 }
 

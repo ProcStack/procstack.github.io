@@ -5,10 +5,10 @@
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
   pointer-events: auto;
   max-height: 65vh;
-  max-width: calc( max(min(100vw - 5vh, 500px), min( 100vw - 5vh, 40vw + ( (1000px - 100vw)*5) )) );
+  max-width: calc( max(min(100vw - max(5vh,5vw), 500px), min( 100vw - max(5vh,5vw), 40vw + ( (1000px - 100vw)*5) )) );
   position: fixed;
-  right: calc(max(2vh, 50vw - 750px));
-  bottom: 4vh;
+  right: max(max(2vh,2vw), 50vw - 750px);
+  bottom: max(4vh,4vw);
   z-index: 3;
 }
 
