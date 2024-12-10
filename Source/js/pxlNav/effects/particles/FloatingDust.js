@@ -2,7 +2,7 @@
 import * as THREE from "../../../libs/three/three.module.js";
 
 import ParticleBase from './ParticleBase.js';
-import { dustVert, dustFrag } from '../../shaders/particles/FloatingDust.js';
+import { dustVert, dustFrag } from './shaders/FloatingDust.js';
 
 // Free floaties in the environment
 //   Dust balls & flakes

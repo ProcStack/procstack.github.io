@@ -2,7 +2,7 @@
 import * as THREE from "../../../libs/three/three.module.js";
 
 import ParticleBase from './ParticleBase.js';
-import { smokeVert, smokeFrag } from '../../shaders/particles/Smoke.js';
+import { smokeVert, smokeFrag } from './shaders/Smoke.js';
 
 // Campfire's spiralling smoke sprites
 

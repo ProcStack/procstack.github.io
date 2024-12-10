@@ -2,7 +2,7 @@
 //  -- -- -- --
 // Written by Kevin Edzenga; 2020; 2024
 
-import {shaderHeader} from "../core/ShaderHeader.js";
+import {shaderHeader} from "../../../shaders/core/ShaderHeader.js";
  
 export function emberWispsVert(){
   let ret=shaderHeader();
@@ -67,7 +67,7 @@ export function emberWispsVert(){
         vec3 pos= pOff ;
         
 
-        pos.xz=(noiseCd.rg*noiseCd.r)*(seeds.x)*emberSpread*(life*seeds.zy*(seeds.w*4.0-2.)) * 1.9;
+        pos.xz=(noiseCd.rg*noiseCd.r)*(seeds.x)*emberSpread*(life*seeds.zy*(seeds.w*4.0-2.));
         
         float yPush = ( life * (life*.5+.5))  * min(1.0,pos.y*.12) * 5.8;
         pos.xz += windForce * yPush * pos.y;

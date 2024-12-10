@@ -691,6 +691,7 @@ export class Environment{
       intensity:{type:"f",value:1.0},
       rate:{type:"f",value:.035},
     };
+    console.log(this.pxlShaders.particles)
         let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, this.pxlShaders.particles.snowVert( this.mobile ), this.pxlShaders.particles.snowFrag() );
     mtl.side=THREE.DoubleSide;
         mtl.transparent=true;

@@ -21,7 +21,7 @@ import * as core from './core.js';
 
 import * as animated from './animated.js';
 import * as objects from './objects.js';
-import * as particles from './particles.js';
+import * as particles from '../effects/particles/shaders.js';
 import * as rendering from './rendering.js';
 import * as scene from './scene.js';
 

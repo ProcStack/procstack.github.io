@@ -2,7 +2,7 @@
 //  -- -- -- --
 // Written by Kevin Edzenga; 2020; 2024
 
-import {shaderHeader} from "../core/ShaderHeader.js";
+import {shaderHeader} from "../../../shaders/core/ShaderHeader.js";
  
 ///////////////////////////////////////////////////////////
 // Snow Shaders                                         //

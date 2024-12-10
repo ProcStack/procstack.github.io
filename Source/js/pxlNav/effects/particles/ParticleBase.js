@@ -4,7 +4,7 @@
 import { Vector2, Vector3 } from "../../core/Types.js";
 import * as THREE from "../../../libs/three/three.module.js";
 
-import { dustVert, dustFrag } from '../../shaders/particles/FloatingDust.js';
+import { dustVert, dustFrag } from './shaders/FloatingDust.js';
 
 export default class ParticleBase{
   constructor( room=null, systemName='particles' ){

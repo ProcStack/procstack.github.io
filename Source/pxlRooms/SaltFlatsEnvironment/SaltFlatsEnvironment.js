@@ -26,7 +26,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
       "RabbitDruidASalt" : {
         "rig" : this.assetPath+"RabbitDruidA/RabbitDruidA_rig.fbx",
         "anim" : {
-          "Walk" : this.assetPath+"RabbitDruidA/RabbitDruidA_Walk.fbx"
+          "Walk" : this.assetPath+"RabbitDruidA/RabbidDruidA_anim_walk.fbx"
         },
         "stateConnections"  : {
           // Non existing states will be ignored and loop'ed, ie "Walk"

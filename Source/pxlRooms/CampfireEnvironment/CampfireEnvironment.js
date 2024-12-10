@@ -25,8 +25,8 @@ export class CampfireEnvironment extends RoomEnvironment{
       "RabbitDruidA" : {
         "rig" : this.assetPath+"RabbitDruidA/RabbitDruidA_rig.fbx",
         "anim" : {
-          "Sit_Idle" : this.assetPath+"RabbitDruidA/RabbitDruidA_Sit_Idle.fbx",
-          "Sit_Stoke" : this.assetPath+"RabbitDruidA/RabbitDruidA_Sit_Stoke.fbx"
+          "Sit_Idle" : this.assetPath+"RabbitDruidA/RabbidDruidA_anim_sit_idle.fbx",
+          "Sit_Stoke" : this.assetPath+"RabbitDruidA/RabbidDruidA_anim_sit_stoke.fbx"
         },
         "stateConnections"  : {
           // Non existing states will be ignored and loop'ed, ie "Walk"
@@ -89,7 +89,7 @@ export class CampfireEnvironment extends RoomEnvironment{
       this.pxlAnim.playClip( animKey, this.animInitCycle );
     }
 
-    if( this.geoList["Scripted"].hasOwnProperty("pokinStick_geo") ){
+    if( this.geoList.hasOwnProperty("Scripted") && this.geoList["Scripted"].hasOwnProperty("pokinStick_geo") ){
       this.geoList["Scripted"]["pokinStick_geo"].visible = true;
     }
 

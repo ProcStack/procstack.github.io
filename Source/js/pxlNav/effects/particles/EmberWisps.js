@@ -2,7 +2,7 @@
 import * as THREE from "../../../libs/three/three.module.js";
 
 import ParticleBase from './ParticleBase.js';
-import { emberWispsVert, emberWispsFrag } from '../../shaders/particles/EmberWisps.js';
+import { emberWispsVert, emberWispsFrag } from './shaders/EmberWisps.js';
 
 // The fire embers wisping into the air from a fire
 
