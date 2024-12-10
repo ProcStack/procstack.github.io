@@ -16,7 +16,7 @@ import { BlogManager } from './BlogManager.js';
 
 // Console logging level
 //   Options are - NONE, ERROR, WARN, INFO
-const verbose = 0
+const verbose = 0;
 
 // The Title of your Project
 //   This will be displayed on the 

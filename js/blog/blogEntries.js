@@ -6,8 +6,8 @@
 //     But that's likely overkill for a blog I'll rarely update anyway
 
 
-import { blogEntryObj as blogEntry_20241207_A } from "./2024-12-07_A.js";
-import { blogEntryObj as blogEntry_20241208_A } from "./2024-12-08_A.js";
+import { blogEntryObj as blogEntry_20241207_A } from "./2024-12-08_A.js";
+import { blogEntryObj as blogEntry_20241208_A } from "./2024-12-07_A.js";
 
 
 export const blogEntries = {
