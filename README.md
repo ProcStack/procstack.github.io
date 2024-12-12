@@ -7,7 +7,7 @@ Kevin Edzenga's web dev & shader resume site
 <br/>&nbsp;&nbsp;Made as a way to show off `pxlNav`
 ### 
 
-<img src="_show/AntibodyClub_chatImplemented.jpg" alt="procstack.github.io pxlNav environment" style="margin-left:auto;margin-right:auto;"/>
+<img src="_show/procstack.github.io_2024-12-12.jpg" alt="procstack.github.io pxlNav environment" style="margin-left:auto;margin-right:auto;"/>
 <div style="margin-left:auto;margin-right:auto;">[procstack.github.io](https://procstack.github.io/)</div>
 
 
