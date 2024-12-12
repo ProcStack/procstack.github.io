@@ -37,5 +37,6 @@ export const ANTI_ALIASING = {
 
 export const PXLNAV_OPTIONS = {
   'verbose' : VERBOSE_LEVEL.NONE,
-  'antiAliasing' : ANTI_ALIASING.LOW
+  'antiAliasing' : ANTI_ALIASING.LOW,
+  'LoadEnvAssetFile' : false
 }

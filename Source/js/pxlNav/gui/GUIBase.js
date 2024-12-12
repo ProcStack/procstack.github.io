@@ -824,7 +824,7 @@ export class GUIManager{
 		document.body.appendChild( userControlsBlock );
     this.userControlBlock.gui=userControlsBlock;
     
-    this.userControlBlock.speakerIcon = SVGUtils.svgRawPromise( `${this.guiRoot}icons/icon_userSpeaker.svg` );
+    this.userControlBlock.speakerIcon = null;//SVGUtils.svgRawPromise( `${this.guiRoot}icons/icon_userSpeaker.svg` );
   }
   
   

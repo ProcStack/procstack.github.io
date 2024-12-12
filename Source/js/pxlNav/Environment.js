@@ -121,7 +121,8 @@ export class Environment{
     this.listener=null;
     this.posted=false;
     this.postIntro=false;
-        
+    
+    this.camLocation = {};
     this.camInitPos=new THREE.Vector3(0,15,0);
     this.camInitLookAt=new THREE.Vector3(0,15,0);
     this.camThumbPos=new THREE.Vector3(0,0,0);

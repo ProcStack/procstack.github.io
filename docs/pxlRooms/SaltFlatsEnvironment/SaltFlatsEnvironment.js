@@ -2998,7 +2998,7 @@ vec4 envMapTexelToLinear(vec4 color) {
         vec4 Cd = texture2D(diffuse,vUv);
         Cd.a=1.0;
         gl_FragColor=Cd;
-    }`,t}var lo=z,Ke=b;var fx={NONE:0,ERROR:1,WARN:2,INFO:3},dx={OFF:0,LOW:1,MEDIUM:2,HIGH:3},yx={verbose:fx.NONE,antiAliasing:dx.LOW};function yh(t=!1){let e=`
+    }`,t}var lo=z,Ke=b;var fx={NONE:0,ERROR:1,WARN:2,INFO:3},dx={OFF:0,LOW:1,MEDIUM:2,HIGH:3},yx={verbose:fx.NONE,antiAliasing:dx.LOW,LoadEnvAssetFile:!1};function yh(t=!1){let e=`
     attribute vec3 color;
     attribute vec3 shading;
 

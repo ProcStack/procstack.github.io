@@ -112,6 +112,10 @@ export class pxlNav{
   constructor( options, projectTitle, pxlRoomRoot, startingRoom, roomBootList ){
     this._active = false;
 
+    // -- -- --
+
+    // Option Checks & Defaults
+
     this.options = {
       loadList : ["Cloud3d", "SoftNoise", "SmoothNoise", "WarpAnimTexture"],
       // TODO : Get these to be pxlNav options pre-boot
@@ -125,6 +129,8 @@ export class pxlNav{
         this.options[k]=PXLNAV_OPTIONS[k];
       }
     });
+
+    // -- -- --
 
     this.verbose = this.options["verbose"];
     this.projectTitle = projectTitle;
@@ -171,7 +177,7 @@ export class pxlNav{
     //   For further information of each item & object,
     //     See https://github.com/ProcStack/pxlNav/tree/main/docs
     // TODO : Turning this off breaks loading, fix that
-    this.loadEnvAssetFile = true;
+    this.loadEnvAssetFile = true; // this.options['LoadEnvAssetFile'];
 
 
     this.pxlTimer = new PxlBase.Timer();
@@ -487,7 +493,7 @@ export class pxlNav{
         this.pxlEnv.detailNoiseTexture.wrapT = THREE.RepeatWrapping;
     }
     if( this.options["loadList"].includes("ChromaticAberration") ){
-        let chroAberUVTexture = this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"uv_ChromaticAberration_1k.png");
+        let chroAberUVTexture = this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"uv_ChromaticAberration.png");
         chroAberUVTexture.minFilter=THREE.LinearFilter;
         chroAberUVTexture.magFilter=THREE.LinearFilter;
         this.pxlEnv.chroAberUVTexture=chroAberUVTexture;
