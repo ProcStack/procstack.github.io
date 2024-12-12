@@ -140,17 +140,16 @@ text-shadow: 1px 1.5px 4px #252525;
 /*  -- -- --  */
 
 .gitPageContentParentStyle {
-  max-height: 0vh;
   overflow: hidden;
   position: fixed;
-  left: 0px;
-  width: 100vw;
+  width: 85vw;
   max-width: 1600px;
   height: 100vh;
   pointer-events: none;
   display: grid;
   justify-items: center;
 }
+
 
 .gpcpVisibleStyle {
   max-height: 100vh;

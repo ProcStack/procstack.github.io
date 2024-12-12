@@ -3254,12 +3254,7 @@ vec4 envMapTexelToLinear(vec4 color) {
     varying float vFarMask;
     varying float vPitMask;
     
-    #define PI 3.1415926535897932384626
     
-    /***********************************/
-    /** Start of THREE Shader Includs **/
-    /***********************************/
-
     struct DirLight {
       vec3 color;
       vec3 direction;
@@ -3267,10 +3262,6 @@ vec4 envMapTexelToLinear(vec4 color) {
 
     uniform DirLight directionalLights[NUM_DIR_LIGHTS];
     
-    /*********************************/
-    /** End of THREE Shader Includs **/
-    /*********************************/
-
         
     // Campfire ground glow colors
     const vec3 firePitColor = vec3( .80, .50, .30);
@@ -3396,6 +3387,12 @@ vec4 envMapTexelToLinear(vec4 color) {
         // Add rocky hill sides, reduce region around campfire, remove pit itself
         Cd.rgb = mix( Cd.rgb, rockyHillCd, vRockyMask*(1.0-vPitMask)*campfireMaskInv);
         
+        // Darken the center pit
+        //   Gotta add that ash!
+        float ashMask = max(0.0, dataCd.b*vPitMask-.53);
+        ashMask = 1.0 - min( 1.0, ashMask*ashMask*3.5)*.95;
+        Cd.rgb = mix(  Cd.rrr*.4 + Cd.rgb*(.5+dirtNoise*.5), Cd.rgb, ashMask );
+        
         // -- -- --
 
         // -- -- -- -- -- -- -- --
@@ -3410,6 +3407,7 @@ vec4 envMapTexelToLinear(vec4 color) {
         }
         // Add a fake bump map to the lighting
         lights = lights*baseDirtNoise;
+        //
         Cd.rgb += Cd.rgb*lights;
         
         // -- -- --
@@ -3421,10 +3419,10 @@ vec4 envMapTexelToLinear(vec4 color) {
         float animWarpFit = max( animWarpCd.r, max(animWarpCd.g,animWarpCd.b) )*.8 -.2;
         
         // Main Pit
-        Cd.rgb += (firePitColor + firePitColor*animWarpFit) * (campfireMask*1.1-.1) * .25;
+        Cd.rgb += (firePitColor + firePitColor*animWarpFit) * (campfireMask*1.1-.1) * .25 * ashMask;
         
         // Region around Pit and Druid Rabbit
-        Cd.rgb += (fireGlowColor + fireGlowColor*animWarpFit) * vPitMask * vPitMask * .15;
+        Cd.rgb += (fireGlowColor + fireGlowColor*animWarpFit) * vPitMask * vPitMask * .15 * ashMask;
         
         // -- -- --
 
@@ -3437,6 +3435,7 @@ vec4 envMapTexelToLinear(vec4 color) {
         shade +=  length( lights ) ;
         shade *= dataCd.r;
         Cd.rgb=  mix( Cd.rgb*shade, fogColor, depth );
+        
         
         gl_FragColor=Cd;
     }`,e}function bh(){return`
@@ -3499,7 +3498,6 @@ vec4 envMapTexelToLinear(vec4 color) {
     
     varying float vFlicker;
     
-    #define PI 3.14159265358979
     
     void main(){
         float timer = time.x*0.05;
