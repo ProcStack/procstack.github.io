@@ -301,8 +301,8 @@ export class FileIO{
           let name = mesh.name;
           this.log("Generate Instance - ",name);
           
-          if( !envObj.geoList.hasOwnProperty("InstancesObjects") ){
-            envObj.geoList['InstancesObjects']={};
+          if( !envObj.geoList.hasOwnProperty("InstanceObjects") ){
+            envObj.geoList['InstanceObjects']={};
           }
           
           let curPos=mesh.position;
@@ -312,6 +312,7 @@ export class FileIO{
 
           
           if( mesh.type == "Mesh" ){
+
             const instancedMesh = new THREE.InstancedMesh(instBase.geometry, instBase.material, mesh.geometry.attributes.position.count);
             instancedMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
             instancedMesh.name = name + "Geo";
@@ -350,7 +351,7 @@ export class FileIO{
             instancedMesh.visible = true;
             instancedMesh.updateMatrix();
 
-            envObj.geoList['InstancesObjects'][name] = instancedMesh;
+            envObj.geoList['InstanceObjects'][name] = instancedMesh;
             mesh.parent.add(instancedMesh);
             mesh.visible = false;
             mesh.parent.remove(mesh);
@@ -378,7 +379,7 @@ export class FileIO{
             instancedMesh.visible=true;
             instancedMesh.updateMatrix();
 
-            envObj.geoList['InstancesObjects'][name] = instancedMesh;
+            envObj.geoList['InstanceObjects'][name] = instancedMesh;
             mesh.parent.add(instancedMesh);
             mesh.visible=false;
             mesh.parent.remove(mesh);
@@ -403,7 +404,7 @@ export class FileIO{
           dupe.material.side=curSide;
           dupe.name = name+"Geo";
             
-          envObj.geoList['InstancesObjects'][name]=dupe;
+          envObj.geoList['InstanceObjects'][name]=dupe;
           mesh.parent.add( dupe );
           */
     }

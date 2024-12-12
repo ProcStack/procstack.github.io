@@ -140,6 +140,33 @@ export class CampfireEnvironment extends RoomEnvironment{
     let particleSource = this.geoList['Scripted']['ParticleSource_loc'];
     let particleSourcePos = particleSource.position;
 
+    let instanceKeys = Object.keys( this.geoList['InstanceObjects'] ); 
+    let campefireOrder = instanceKeys.length;
+    instanceKeys = instanceKeys.filter( x => x.includes("campfireLog") );
+    if( instanceKeys.length > 0 ){
+      for( let x=0; x<instanceKeys.length; ++x ){
+        let logObj = this.geoList['InstanceObjects'][ instanceKeys[x] ];
+        if( logObj ){
+          //logObj.material.depthTest=false;
+          //logObj.material.depthWrite=false;
+          logObj.renderOrder = x+1;
+        }
+      }
+    }
+
+    let campfireObj = this.geoList['Scripted']['CampfireFlame_geo'];
+    if( campfireObj ){
+      campfireObj.renderOrder = campefireOrder;
+    }
+
+    let moonObj = this.geoList['Scripted']['Moon_geo'];
+    if( moonObj ){
+      moonObj.material.map.wrapS = THREE.ClampToEdgeWrapping;
+      moonObj.material.map.wrapT = THREE.ClampToEdgeWrapping;
+      moonObj.material.map.minFilter = THREE.NearestFilter;
+      moonObj.material.map.magFilter = THREE.NearestFilter;
+    }
+
     // build( Obj & Mtl Name, This Object, Sprite Count, Sprite Size )
     let systemName = "billowSmoke";
     let bSmoke = new BillowSmoke( this, systemName );
@@ -206,9 +233,9 @@ export class CampfireEnvironment extends RoomEnvironment{
     //  Making some shader materials for our burny burny logs.
     //    Lets get them crackling in that flame!
 
-    if(this.geoList.hasOwnProperty('InstancesObjects')){
+    if(this.geoList.hasOwnProperty('InstanceObjects')){
       
-      for( const x in this.geoList['InstancesObjects'] ){
+      for( const x in this.geoList['InstanceObjects'] ){
         if( x.includes("campfireLog") ){
           
           let logMat = null;
@@ -224,7 +251,7 @@ export class CampfireEnvironment extends RoomEnvironment{
               noiseTexture:{type:"t",value: null },
               time:{type:"f",value: this.msRunner },
               intensity:{type:"f",value:1.0},
-              rate:{type:"f",value:.035},
+              rate:{type:"f",value:.04},
             };
             logMat = this.pxlFile.pxlShaderBuilder( campfireLogUniforms, campfireLogVert(), campfireLogFrag() );
             //logMat.depthTest=true;
@@ -238,7 +265,7 @@ export class CampfireEnvironment extends RoomEnvironment{
             this.textureList["CampfireLogs"]=logMat;
           }
           
-          this.geoList['InstancesObjects'][x].material=logMat;
+          this.geoList['InstanceObjects'][x].material=logMat;
         }
       }
     }
@@ -336,11 +363,14 @@ export class CampfireEnvironment extends RoomEnvironment{
           {
             'diffuse' : { type:'t', value: null },
             'dirtDiffuse' : { type:'t', value: null },
+            'crackedDirtDiffuse' : { type:'t', value: null },
+            'hillDiffuse' : { type:'t', value: null },
+            'mossDiffuse' : { type:'t', value: null },
+            'dataDiffuse' : { type:'t', value: null },
             'mult': { type:'f', value:1 },
             'fogColor': { type:'c', value: null },
             'noiseTexture' : { type:'t', value: null },
             'uniformNoise' : { type:'t', value: null },
-            'crossNoise' : { type:'t', value: null },
           }
         ]
       );
@@ -348,9 +378,14 @@ export class CampfireEnvironment extends RoomEnvironment{
     envGroundUniforms.fogColor.value = this.fogColor;
     envGroundUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Diffuse.jpg" );
     envGroundUniforms.dirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"Dirt_Diffuse.jpg" );
+
+    envGroundUniforms.crackedDirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"CrackedDirtGround_diffuse.jpg" );
+    envGroundUniforms.hillDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"RockLayerDirtHill_diffuse.jpg" );
+    envGroundUniforms.mossDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"MossyGround_diffuse.jpg" );
+    envGroundUniforms.dataDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_dataMask.jpg" );
+
     envGroundUniforms.noiseTexture.value = this.cloud3dTexture;
     envGroundUniforms.uniformNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
-    envGroundUniforms.crossNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_NCross.jpg" );
 
     let environmentGroundMat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag(4) );
     environmentGroundMat.lights= true;
@@ -358,17 +393,26 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     envGroundUniforms.uniformNoise.value.wrapS = THREE.RepeatWrapping;
     envGroundUniforms.uniformNoise.value.wrapT = THREE.RepeatWrapping;
-    envGroundUniforms.crossNoise.value.wrapS = THREE.RepeatWrapping;
-    envGroundUniforms.crossNoise.value.wrapT = THREE.RepeatWrapping;
     envGroundUniforms.dirtDiffuse.value.wrapS = THREE.RepeatWrapping;
     envGroundUniforms.dirtDiffuse.value.wrapT = THREE.RepeatWrapping;
+    
+    envGroundUniforms.crackedDirtDiffuse.value.wrapS = THREE.RepeatWrapping;
+    envGroundUniforms.crackedDirtDiffuse.value.wrapT = THREE.RepeatWrapping;
+
+    envGroundUniforms.hillDiffuse.value.wrapS = THREE.RepeatWrapping;
+    envGroundUniforms.hillDiffuse.value.wrapT = THREE.RepeatWrapping;
+
+    envGroundUniforms.mossDiffuse.value.wrapS = THREE.RepeatWrapping;
+    envGroundUniforms.mossDiffuse.value.wrapT = THREE.RepeatWrapping;
+
+    envGroundUniforms.dataDiffuse.value.wrapS = THREE.ClampToEdgeWrapping;
+    envGroundUniforms.dataDiffuse.value.wrapT = THREE.ClampToEdgeWrapping;
 
     
     // -- -- --
     
     let campfireUniforms = THREE.UniformsUtils.merge(
       [
-          THREE.UniformsLib['lights'],
         {
           'noiseTexture' : { type:'t', value: null },
           'smoothNoiseTexture' : { type:'t', value: null },
@@ -387,6 +431,11 @@ export class CampfireEnvironment extends RoomEnvironment{
     campfireMtl.side=THREE.DoubleSide;
     campfireMtl.transparent=true;
     campfireMtl.lights= false;
+    campfireMtl.depthTest=false;
+    campfireMtl.depthWrite=false;
+    
+    campfireMtl.blending=THREE.AdditiveBlending;
+    
 
 
     // -- -- --

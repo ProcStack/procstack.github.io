@@ -36,7 +36,7 @@ export function smokeVert(){
     // Attempted de-Magic-num-ification
     float baseSpread = 110.0;
     float innerBulster = -0.110;
-    float smokeDensity = 0.60;
+    float smokeDensity = 0.25;
         
     void main(){
         vAtlas=atlas;

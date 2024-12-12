@@ -17,6 +17,8 @@
 
 import * as THREE from "../libs/three/three.module.js";
 
+import { PXLNAV_OPTIONS, ANTI_ALIASING } from "./core/Types.js";
+
 import { EffectComposer } from '../libs/three/postprocessing/EffectComposer.js';
 import { RenderPass } from '../libs/three/postprocessing/RenderPass.js';
 import { ShaderPass } from '../libs/three/postprocessing/ShaderPass.js';
@@ -30,14 +32,17 @@ import { BloomPass } from '../libs/three/postprocessing/BloomPass.js';
 // TODO : This class needs breaking up into BaseEnvironment & MainEnvironment expand
 
 
+
 export class Environment{
-  constructor( mainRoom='Default', pxlRoomName='pxlRooms', verbose, mobile ){
+  constructor( options, mainRoom='Default', pxlRoomName='pxlRooms', verbose, mobile ){
     this.verbose=verbose;
     this.engine=null;
     this.scene=null;
     this.parentGroupList={};
     this.parentGroupList[mainRoom]=[];
     this.parentNameList=[];
+    this.options=options;
+
 
     // -- -- -- --
     // TODO : Move to pxlQuality, when I finally get to that module
@@ -253,6 +258,15 @@ export class Environment{
   
   // Function required
   init(){
+
+    let optionKeys=Object.keys( this.options );
+    let defaultKeys=Object.keys( PXLNAV_OPTIONS );
+    defaultKeys.forEach( (k)=>{
+      if( !optionKeys.includes( k ) ){
+        this.options[k]=PXLNAV_OPTIONS[k];
+      }
+    });
+
     //this.setExposure( 0 );
     let subList=Object.keys( this.roomSubList );
     console.log("subList", subList);
@@ -881,12 +895,12 @@ export class Environment{
     if(exposure){
       this.pxlRenderSettings.exposure=exposure*this.pxlRenderSettings.mult;
     }
-        if(this.mapOverlayPass){
-            this.mapMotionBlurPass.uniforms.exposure.value = this.pxlRenderSettings.exposure;
-            this.mapOverlayHeavyPass.uniforms.exposure.value = this.pxlRenderSettings.exposure;
-            this.mapOverlayPass.uniforms.exposure.value = this.pxlRenderSettings.exposure;
-            this.mapOverlaySlimPass.uniforms.exposure.value = this.pxlRenderSettings.exposure;
-            //this.blurScreenMerge.uniforms.exposure.value = this.pxlRenderSettings.exposure;
+    if(this.mapOverlayPass){
+      this.mapMotionBlurPass.uniforms.exposure.value = this.pxlRenderSettings.exposure;
+      this.mapOverlayHeavyPass.uniforms.exposure.value = this.pxlRenderSettings.exposure;
+      this.mapOverlayPass.uniforms.exposure.value = this.pxlRenderSettings.exposure;
+      this.mapOverlaySlimPass.uniforms.exposure.value = this.pxlRenderSettings.exposure;
+      //this.blurScreenMerge.uniforms.exposure.value = this.pxlRenderSettings.exposure;
     }
   }
 
@@ -942,17 +956,19 @@ export class Environment{
           resUV: { value: this.pxlDevice.screenRes },
         },
         vertexShader: this.pxlShaders.core.defaultVert(),
-        fragmentShader: this.pxlShaders.rendering.directionalBlurPass( "pDiffuse", [1,0], 14, 1.8 ),
+        fragmentShader: this.pxlShaders.rendering.directionalBlurPass( "pDiffuse", [1,0], 4, 1.8 ),
         defines: {}
       } ), "tDiffuse"
     );
-    this.shaderPasses.blurXShaderPass.material.transparent = true
+    this.shaderPasses.blurXShaderPass.material.transparent = true;
     this.shaderPasses.blurXShaderPass.needsSwap = true;
+    this.shaderPasses.blurXShaderPass.enabled=false;
     this.blurComposer.addPass( this.shaderPasses.blurXShaderPass );
     
     
-    let dirBlurCopyPass = new ShaderPass(CopyShader);
-    this.blurComposer.addPass(dirBlurCopyPass);
+    this.shaderPasses.dirBlurCopyPass = new ShaderPass(CopyShader);
+    this.shaderPasses.dirBlurCopyPass.enabled=false;
+    this.blurComposer.addPass(this.shaderPasses.dirBlurCopyPass);
     
     this.shaderPasses.blurYShaderPass = new ShaderPass(
       new THREE.ShaderMaterial( {
@@ -965,11 +981,12 @@ export class Environment{
           resUV: { value: this.pxlDevice.screenRes },
         },
         vertexShader: this.pxlShaders.core.defaultVert(),
-        fragmentShader: this.pxlShaders.rendering.directionalBlurPass( "pDiffuse", [0,1], 14, 1.3 ),
+        fragmentShader: this.pxlShaders.rendering.directionalBlurPass( "pDiffuse", [0,1], 4, 1.3 ),
         defines: {}
       } ), "tDiffuse"
     );
-    this.shaderPasses.blurYShaderPass.material.transparent = true
+    this.shaderPasses.blurYShaderPass.material.transparent = true;
+    this.shaderPasses.blurYShaderPass.enabled=false;
     this.blurComposer.addPass( this.shaderPasses.blurYShaderPass );
   
     
@@ -986,12 +1003,28 @@ export class Environment{
         defines: {}
       } ), "tDiffuse"
     );
-    this.shaderPasses.scatterMixShaderPass.material.transparent = true
+    this.shaderPasses.scatterMixShaderPass.material.transparent = true;
+    this.shaderPasses.scatterMixShaderPass.enabled=false;
     this.blurComposer.addPass( this.shaderPasses.scatterMixShaderPass );
     
-    //this.blurComposer.renderToScreen=false;
-    //this.blurComposer.autoClear=true;
       
+    // Set Anti-Aliasing Quality
+    if( this.options.antiAliasing == ANTI_ALIASING.LOW){
+      this.shaderPasses.scatterMixShaderPass.enabled=true;
+    }else if( this.options.antiAliasing == ANTI_ALIASING.MEDIUM){
+      this.shaderPasses.blurXShaderPass.enabled=true;
+      this.shaderPasses.dirBlurCopyPass.enabled=true;
+      this.shaderPasses.blurYShaderPass.enabled=true;
+    }else if( this.options.antiAliasing == ANTI_ALIASING.HIGH ){
+      this.shaderPasses.blurXShaderPass.enabled=true;
+      this.shaderPasses.dirBlurCopyPass.enabled=true;
+      this.shaderPasses.blurYShaderPass.enabled=true;
+      this.shaderPasses.scatterMixShaderPass.enabled=true;
+    }
+
+
+
+
     ///////////////////////////////////////////////////
     // -- POST PROCESSING; MAIN MENU  -- -- -- -- -- //
     ///////////////////////////////////////////////////
@@ -1560,7 +1593,6 @@ export class Environment{
         
         this.roomComposer.render();
         //this.engine.render( this.roomSceneList[this.currentRoom].scene, this.pxlCamera.camera);
-                
       }
       
       if( this.pxlUser.iZoom ){
@@ -1617,7 +1649,6 @@ export class Environment{
           camera.layers.enable( this.renderLayerEnum.SKY );
           this.engine.setRenderTarget(null);
           
-          
           if(curRoom.geoList["GlowPass"]){
             curRoom.geoList["GlowPass"].forEach((g)=>{
               if( g.userData.hasOwnProperty('GlowPerc') ){
@@ -1634,7 +1665,6 @@ export class Environment{
               });
             }
           }
-          
           
           this.blurComposer.render();
           this.roomBloomPass.enabled = false;

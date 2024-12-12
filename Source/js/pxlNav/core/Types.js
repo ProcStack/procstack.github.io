@@ -26,3 +26,16 @@ export const VERBOSE_LEVEL = {
 	'WARN' : 2,
 	'INFO' : 3
 }
+
+
+export const ANTI_ALIASING = {
+  'OFF' : 0,
+  'LOW' : 1,
+  'MEDIUM' : 2,
+  'HIGH' : 3
+}
+
+export const PXLNAV_OPTIONS = {
+  'verbose' : VERBOSE_LEVEL.NONE,
+  'antiAliasing' : ANTI_ALIASING.LOW
+}

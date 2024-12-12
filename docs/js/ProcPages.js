@@ -310,7 +310,7 @@ export class ProcPages {
     }else if( !this.resObjsVis && buttonWidthAgr < navBarThreshold ){
       this.resObjsVis = true;
       this.resBasedObjs.forEach( (obj)=>{
-        obj.style.display = "block";
+        obj.style.display = "contents";
       });
     }
 

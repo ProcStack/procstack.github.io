@@ -333,7 +333,7 @@ export function finalOverlaySlimShader(){
             dProx*= dProx * proximityMult.x;
             vec3 proxCd = (vec3(.5,.5,.2)*dProx)*.5;
             Cd.rgb+=proxCd;
-            
+            Cd.r=1.0;
             Cd.a=1.0;
             gl_FragColor = Cd;
         }`;

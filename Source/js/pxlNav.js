@@ -45,8 +45,8 @@ export const pxlNavVersion = "0.0.13";
 import * as THREE from './libs/three/three.module.js';
 import * as PxlBase from './pxlNav/pxlBase.js';
 import { pxlShaders } from './pxlNav/shaders/shaders.js';
-import { VERBOSE_LEVEL } from './pxlNav/core/Types.js';
-export { VERBOSE_LEVEL };
+import { VERBOSE_LEVEL, PXLNAV_OPTIONS, ANTI_ALIASING } from './pxlNav/core/Types.js';
+export { VERBOSE_LEVEL, PXLNAV_OPTIONS, ANTI_ALIASING };
 
 
 const pxlCore = "pxlNav-coreCanvas"; // Name of DIV in Index
@@ -109,7 +109,7 @@ var sH = window.innerHeight;
  * 
  */
 export class pxlNav{
-  constructor( verbose, projectTitle, pxlRoomRoot, startingRoom, roomBootList ){
+  constructor( options, projectTitle, pxlRoomRoot, startingRoom, roomBootList ){
     this._active = false;
 
     this.options = {
@@ -117,8 +117,16 @@ export class pxlNav{
       // TODO : Get these to be pxlNav options pre-boot
       //loadList : ["Cloud3d", "SoftNoise", "SmoothNoise", "ChromaticAberration", "WarpAnimTexture", "MathFuncs"],
     };
+    this.options = Object.assign( this.options, options );
+    let optionKeys=Object.keys( this.options );
+    let defaultKeys=Object.keys( PXLNAV_OPTIONS );
+    defaultKeys.forEach( (k)=>{
+      if( !optionKeys.includes( k ) ){
+        this.options[k]=PXLNAV_OPTIONS[k];
+      }
+    });
 
-    this.verbose = verbose;
+    this.verbose = this.options["verbose"];
     this.projectTitle = projectTitle;
     this.startingRoom = startingRoom;
     if( !roomBootList.includes( startingRoom ) ){
@@ -184,7 +192,7 @@ export class pxlNav{
 
     this.pxlUser = new PxlBase.User();
 
-    this.pxlEnv = new PxlBase.Environment( this.startingRoom, pxlRoomRoot, this.verbose, this.mobile );
+    this.pxlEnv = new PxlBase.Environment( this.options, this.startingRoom, pxlRoomRoot, this.verbose, this.mobile );
     this.pxlDevice = new PxlBase.Device( projectTitle, pxlCore, this.mobile, this.autoCam );
     this.pxlCamera = new PxlBase.Camera();
     this.pxlAnim = new PxlBase.Animation( this.folderDict["assetRoot"], this.pxlTimer );

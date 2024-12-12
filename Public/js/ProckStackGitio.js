@@ -9,7 +9,7 @@
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
-import { pxlNav, pxlNavVersion, VERBOSE_LEVEL } from './pxlNav.js';
+import { pxlNav, pxlNavVersion, VERBOSE_LEVEL, PXLNAV_OPTIONS, ANTI_ALIASING } from './pxlNav.js';
 import { ProcPages } from './ProcPages.js';
 import { BlogManager } from './BlogManager.js';
 
@@ -17,6 +17,10 @@ import { BlogManager } from './BlogManager.js';
 // Console logging level
 //   Options are - NONE, ERROR, WARN, INFO
 const verbose = VERBOSE_LEVEL.ERROR;
+
+// Anti-aliasing level
+//   Options are - NONE, LOW, MEDIUM, HIGH
+const antiAliasing = ANTI_ALIASING.LOW;
 
 // The Title of your Project
 //   This will be displayed on the 
@@ -54,9 +58,12 @@ procBlog.showEntry(-1);
 
 // -- -- -- -- --
 
+let pxlNavOptions = Object.assign({},PXLNAV_OPTIONS);
+pxlNavOptions.verbose = verbose;
+pxlNavOptions.antiAliasing = antiAliasing;
 
 // Create the pxlNav environment manager
-const pxlNavr = new pxlNav( verbose, projectTitle, pxlRoomRootPath, procPages.curRoom, bootRoomList );
+const pxlNavr = new pxlNav( pxlNavOptions, projectTitle, pxlRoomRootPath, procPages.curRoom, bootRoomList );
 
 // -- -- -- -- --
 

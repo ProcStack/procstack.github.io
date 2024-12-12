@@ -5,8 +5,9 @@
   justify-self: baseline;
   pointer-events: none;
   position: fixed;
-  top: max(6vh,6vw);
-  left: max(max(5vh,5vw), 50vw - 900px);
+  top: max( 30px, max(6vh,6vw));
+  left: max(min(6vh,6vw), 50vw - 900px);
+  max-width: calc( 100vw - max(5vh,5vw) );
   z-index: 1;
   border-radius: 5px;
 }
@@ -38,19 +39,19 @@
 
 .initPage_footerBar{
   background: linear-gradient(90deg, rgba(57, 37, 4, 0.35),  rgba(34, 22, 2, 0.1), rgba(34, 22, 2, 0), rgba(34, 22, 2, 0.0), rgba(34, 22, 2, 0.1),  rgba(57, 37, 4, 0.35));
-  color: #a66817
+  color: #cc8324;
 }
 
 .initPage_footerBar a {
-  color: #a66817;
+  color: #cc8324;
 }
 
 .initPage_footerBar a:hover {
-  color: #b36f16;
+  color: #ffb95e;
 }
 
 .initPage_footerBar a:active {
-  color: #6b420c;
+  color: #dea254;
 }
 
 
