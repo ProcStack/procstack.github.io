@@ -8,7 +8,7 @@ Kevin Edzenga's web dev & shader resume site
 ### 
 
 <img src="_show/procstack.github.io_2024-12-12.jpg" alt="procstack.github.io pxlNav environment" style="margin-left:auto;margin-right:auto;"/>
-<div style="margin-left:auto;margin-right:auto;">[procstack.github.io](https://procstack.github.io/)</div>
+<div style="margin-left:auto;margin-right:auto;"><a href="https://procstack.github.io/" target="_blank">procstack.github.io</a></div>
 
 
 ### The Good Bits -
