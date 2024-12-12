@@ -7,6 +7,10 @@ Kevin Edzenga's web dev & shader resume site
 <br/>&nbsp;&nbsp;Made as a way to show off `pxlNav`
 ### 
 
+<img src="_show/AntibodyClub_chatImplemented.jpg" alt="procstack.github.io pxlNav environment" style="margin-left:auto;margin-right:auto;"/>
+<div style="margin-left:auto;margin-right:auto;">[procstack.github.io](https://procstack.github.io/)</div>
+
+
 ### The Good Bits -
 *Wanna see the template or example rooms using 3d fbx files?*
 <br/>&nbsp; `./Source/pxlRooms`
@@ -36,7 +40,7 @@ I decided to release the `pxlNav` framework for `three.js` I wrote for use in th
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;With live video feeds of our house dj and event dj, switched dynamically durring events.
 
 
-<img src="_show/10_chatImplemented.png" alt="Antib0dy.club, using pxlNav with Three.js" style="margin-left:auto;margin-right:auto;"/>
+<img src="_show/AntibodyClub_chatImplemented.jpg" alt="Antib0dy.club, using pxlNav with Three.js" style="margin-left:auto;margin-right:auto;"/>
 <div style="margin-left:auto;margin-right:auto;">(Antib0dy.Club, networking has been removed though)</div>
 
 

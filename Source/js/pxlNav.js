@@ -1,6 +1,6 @@
 //
 //  Core pxlNav Engine
-export const pxlNavVersion = "0.0.13";
+export const pxlNavVersion = "0.0.14";
 //      Written by Kevin Edzenga 2020;2024
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
