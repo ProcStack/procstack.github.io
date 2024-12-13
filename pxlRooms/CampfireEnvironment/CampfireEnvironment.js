@@ -3709,7 +3709,7 @@ vec4 envMapTexelToLinear(vec4 color) {
       outCd.a *= min(1.0,vCd.g*2.0);
       
       gl_FragColor = outCd;
-    }`,e}var ho=z,nn=b;var Sy={NONE:0,ERROR:1,WARN:2,INFO:3},Ty={OFF:0,LOW:1,MEDIUM:2,HIGH:3},Ly={verbose:Sy.NONE,antiAliasing:Ty.LOW};function Th(e=!1){let t=`
+    }`,e}var ho=z,nn=b;var Sy={NONE:0,ERROR:1,WARN:2,INFO:3},Ty={OFF:0,LOW:1,MEDIUM:2,HIGH:3},Ly={verbose:Sy.NONE,antiAliasing:Ty.LOW,LoadEnvAssetFile:!1};function Th(e=!1){let t=`
     attribute vec3 color;
     attribute vec3 shading;
 
