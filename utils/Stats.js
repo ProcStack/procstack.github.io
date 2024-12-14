@@ -92,3 +92,9 @@ class Stats{
 }
 
 module.exports = Stats;
+
+// Script being ran CLI
+if (require.main === module) {
+  let stats = new Stats();
+  
+}

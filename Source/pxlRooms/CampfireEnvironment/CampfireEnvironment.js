@@ -303,8 +303,6 @@ export class CampfireEnvironment extends RoomEnvironment{
     if(curMesh){
       let curMtl = curMesh.material;
       curMtl.side = THREE.DoubleSide;
-      let vert = curMtl.vertexShader;
-      let frag = curMtl.fragmentShader;
       let newSkinnedMtl = this.setSkinnedMaterial( curMesh, rabbitDruidVert(), rabbitDruidFrag() );
       this.textureList[ "RabbitDruidA" ] = newSkinnedMtl;
     }

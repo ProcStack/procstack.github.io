@@ -3,7 +3,10 @@
 
 
 import * as THREE from "../../js/libs/three/three.module.js";
-import { envGroundVert, envGroundFrag } from "./Shaders.js";
+import { rabbitDruidVert, rabbitDruidFrag,
+         envGroundVert, envGroundFrag,
+         salioaPlantVert, salioaPlantFrag
+ } from "./Shaders.js";
 import RoomEnvironment from "../../js/pxlNav/RoomClass.js";
 
 import { BillowSmoke, EmberWisps, FloatingDust } from '../../js/pxlNav/effects/particles.js';
@@ -38,7 +41,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
     this.animMixer = null;
     
-    this.envObjName="EnvGround_geo";
+    this.envObjName="TerraceBasin_geo";
     this.textureList={};
     this.particleList={};
     
@@ -55,6 +58,13 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     this.fog=new THREE.FogExp2( this.fogColor, this.fogExp);
     
     this.perspectiveInstances = 160;
+
+    this.eyeBlinkInf = new THREE.Vector2(0,0);
+    this.eyeBlinkMinMaxDelay = [1.0,7.0];
+    this.eyeBlinkMinMaxRate = [ .06, 0.1 ];
+    this.eyeBlinkNext = 0;
+    this.eyeBlinkAnim = 0;
+    this.eyeBlinkRate = 0;
   }
   init(){
     super.init();
@@ -96,6 +106,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     //   Cycle changes occur here as well.
     if(this.animMixer){
       this.pxlAnim.step( this.animRigName );
+      this.checkEyeBlink();
     }
 
     let scrollGrp = this.geoList["Scripted"]["MovingEng_grp"];
@@ -112,12 +123,47 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
   }
   
   // -- -- --
+
+  checkEyeBlink(){
+    if( this.eyeBlinkAnim > 0 ){
+      // Decrease the eye blink animation 1 to 0
+      this.eyeBlinkAnim -= this.eyeBlinkRate;
+      // Map 0-1 to 0-1-0
+      let sawAnim = (Math.min(.5,this.eyeBlinkAnim) - Math.max(0,this.eyeBlinkAnim-.5)) * 2;
+      this.eyeBlinkInf.x = sawAnim;
+      if( this.eyeBlinkAnim <= 0 ){
+        // Add a random time until the next eye blink
+        this.eyeBlinkNext = this.msRunner.x + this.pxlUtils.randomFloat( this.eyeBlinkMinMaxDelay[0], this.eyeBlinkMinMaxDelay[1] );
+      }
+    }else{
+      this.eyeBlinkInf.x = 0;
+      if(this.msRunner.x > this.eyeBlinkNext ){
+        // Set the next blink rate, how quickly the animation goes from 1 to 0
+        this.eyeBlinkRate = this.pxlUtils.randomFloat( this.eyeBlinkMinMaxRate[0], this.eyeBlinkMinMaxRate[1] );
+        this.eyeBlinkAnim = 1;
+      }
+    }
+    this.textureList[ "RabbitDruidA" ].uniforms.eyeBlink.value = this.eyeBlinkInf;
+  }
+
+  // -- -- --
   
   
   fbxPostLoad(){
     super.fbxPostLoad();
     
-    
+    if( this.geoList.hasOwnProperty('lights') ){
+      this.geoList['lights'].forEach( (light) => {
+        if( light.name == "dirLight_key_lit" ){
+          light.castShadow = true;
+        }else{
+          light.castShadow = false;
+        }
+      });
+    } 
+
+
+
     // Floating debris in the air
 
     let systemName = "floatingDust";
@@ -129,10 +175,16 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     
-    // Lets load in our rabbit bugger
+    let terraceObjMtl = this.textureList[ "TerraceBasin_geo" ];
+    if( terraceObjMtl ){
+      if( terraceObjMtl.uniforms.map ){
+        terraceObjMtl.uniforms.map.minFilter = THREE.LinearFilter;
+        terraceObjMtl.uniforms.map.magFilter = THREE.LinearFilter;
+        terraceObjMtl.uniforms.map.value.encoding = THREE.sRGBEncoding;
+        terraceObjMtl.uniforms.map.value.encoding = THREE.LinearEncoding;
 
-    // I'm including `Walk` at the moment until creating the pxlAnimation class
-    //   to maintain shared characters and animation across rooms
+      }
+    }
 
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -170,12 +222,44 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     if(curMesh){
       let curMtl = curMesh.material;
       curMtl.side = THREE.DoubleSide;
+      let newSkinnedMtl = this.setSkinnedMaterial( curMesh, rabbitDruidVert(), rabbitDruidFrag() );
+      this.textureList[ "RabbitDruidA" ] = newSkinnedMtl;
     }
   }
   
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- //
   
+    setSkinnedMaterial( bindObj, vertShader=null, fragShader=null ){
+  
+      let skinnedMtlUniforms = THREE.UniformsUtils.merge(
+        [
+            THREE.UniformsLib['common'],
+            THREE.UniformsLib['lights'],
+          {
+            'diffuseTexture' : { type:'t', value: null },
+            'areTexture' : { type:'t', value: null },
+            'noiseTexture' : { type:'t', value: null },
+            'eyeBlink' : { type:'v2', value: this.eyeBlinkInf },
+            'mult': { type:'f', value:1 },
+          }
+        ]
+      );
+  
+      skinnedMtlUniforms.diffuseTexture.value = bindObj.material.map;
+      skinnedMtlUniforms.areTexture.value = this.pxlUtils.loadTexture( this.assetPath+"RabbitDruidA/RabbitDruidA_lowRes_ARE.jpg" );
+      skinnedMtlUniforms.noiseTexture.value = this.cloud3dTexture;
+      skinnedMtlUniforms.noiseTexture.value = this.cloud3dTexture;
+  
+      let skinnedMaterial = this.pxlFile.pxlShaderBuilder( skinnedMtlUniforms, vertShader, fragShader );
+      skinnedMaterial.skinning = true;
+      skinnedMaterial.side = THREE.DoubleSide;
+      skinnedMaterial.lights = true;
+  
+      bindObj.material = skinnedMaterial;
+      return skinnedMaterial;
+    }
+
 
 // Build Scene and Assets
   build(){
@@ -185,22 +269,42 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
     
     let envGroundUniforms = THREE.UniformsUtils.merge(
-        [{
-          'diffuse' : { type:'t', value: null },
-          'noiseTexture' : { type:'t', value: this.cloud3dTexture },
-          'baseCd' : { type:'f', value: .1 },
+        [
+        THREE.UniformsLib[ "lights" ],
+        {
+          'noiseTexture' : { type:'t', value: null },
           'fogColor' : { type: "c", value: this.fogColor },
         }]
     )
+    envGroundUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+
     let mat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag() );
-    
     mat.side=THREE.FrontSide;
-    //mat.lights= true;
+    mat.lights= true;
+    
         
-    this.textureList[ "EnvGround_geo" ]=mat;
+    this.textureList[ "TerraceBasin_geo" ]=mat;
     
 
-    //
+    // -- -- -- 
+
+    let salioaPlanUniforms = THREE.UniformsUtils.merge(
+        [
+        THREE.UniformsLib[ "lights" ],
+        {
+          'noiseTexture' : { type:'t', value: null }
+        }]
+    )
+    salioaPlanUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+
+    let salioaMtl=this.pxlFile.pxlShaderBuilder( salioaPlanUniforms, salioaPlantVert(), salioaPlantFrag() );
+    salioaMtl.side=THREE.DoubleSide;
+    salioaMtl.lights= true;
+    
+        
+    this.textureList[ "SalioaPlant_geo" ]=salioaMtl;
+
+
     // -- -- -- 
         
     return this.pxlFile.loadRoomFBX( this, this.sceneFile, this.envObjName, this.textureList);

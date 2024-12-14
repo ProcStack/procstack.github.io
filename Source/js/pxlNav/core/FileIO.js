@@ -739,6 +739,29 @@ export class FileIO{
           let chList = []
           ch.forEach( (c,x)=>{
             this.checkForUserData( envObj, envScene, c );
+
+            if( textureList.hasOwnProperty( c.name ) ){
+              let curMap = null;
+              if( c.material.map ){
+                curMap = c.material.map;
+              }
+              c.material= textureList[ c.name ];
+
+              if( curMap ){
+                if( c.material.uniforms.hasOwnProperty("diffuse") ){
+                  c.material.uniforms.diffuse.value = curMap;
+                }
+                if( c.material.hasOwnProperty("emissiveMap") ){
+                  c.material.emissiveMap=curMap;
+                  if( c.material.emissive.r>0 ){
+                    c.material.emissiveIntensity=c.material.emissive.r;
+                  }
+                }
+              }
+              c.matrixAutoUpdate=false;
+            }
+
+
             envObj.baseInstancesNames.push( c );
             envObj.baseInstancesList[c.name]=c;
           });
@@ -776,7 +799,7 @@ export class FileIO{
             envObj.geoList['lights'].push( c );
             
             c.matrixAutoUpdate=false;
-            envScene.add(c);
+            envScene.add( c );
           }
         }
       }

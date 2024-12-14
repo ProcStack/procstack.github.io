@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js developer",
     "startPages": "node index.js dist",
+    "lineCount": "python ./utils/recursiveFileLineCounter.py",
     "bundle": "node ./packing/bundle.js",
     "bundleCss": "node ./packing/bundle_css.js",
     "live": "cross-env NODE_ENV=production node index.js",
