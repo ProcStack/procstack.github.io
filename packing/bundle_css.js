@@ -1,8 +1,8 @@
 const esbuild = require('esbuild');
 
 // Define the entry point and output file for CSS
-const cssEntryFile = '../Source/style/pxlNavStyle.css';
-const cssOutputFile = '../Build/pxlNavStyle.min.css';
+const cssEntryFile = './Source/style/pxlNavStyle.css';
+const cssOutputFile = './Build/pxlNavStyle.min.css';
 
 // Bundle and minify the CSS
 esbuild.build({

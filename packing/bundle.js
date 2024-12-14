@@ -2,9 +2,14 @@ const esbuild = require('esbuild');
 const fs = require('fs');
 const path = require('path');
 
-// Define the entry point and output file
-const entryFile = '../Source/js/pxlNav.js';
-const outputFile = '../Build/pxlNav.min.js';
+// Define pxlNav entry point and output file
+const entryFile = './Source/js/pxlNav.js';
+const outputFile = './Build/pxlNav.min.js';
+
+// Define Room entry point and output file
+const roomEntryRoot = './Source/pxlRooms/';
+const roomOutputRoot = './Build/pxlRooms/';
+
 
 function getDirectories(source) {
   return fs.readdirSync(source, { withFileTypes: true })
@@ -12,19 +17,19 @@ function getDirectories(source) {
     .map(dirent => path.join(source, dirent.name));
 }
 
-var entryFiles = {
-  '../Source/js/pxlNav.js' : '../Build/pxlNav.min.js'
-};
+var entryFiles = {}
+entryFiles[entryFile] = outputFile;
 
-let directories = getDirectories('../Source/pxlRooms');
+
+let directories = getDirectories( roomEntryRoot );
 console.log(directories);
 directories.forEach( (dir)=>{
   let roomName = dir.split('\\').pop();
   console.log(roomName);
   if( roomName != "templateRoom" ){
-    let entryFile = '../Source/pxlRooms/'+roomName+'/'+roomName+'.js';
-    let outputFile = '../Build/pxlRooms/'+roomName+'/'+roomName+'.js';
-    entryFiles[entryFile] = outputFile;
+    let roomEntryFile = roomEntryRoot+roomName+'/'+roomName+'.js';
+    let roomOutputFile = roomOutputRoot+roomName+'/'+roomName+'.js';
+    entryFiles[roomEntryFile] = roomOutputFile;
   }
 });
 

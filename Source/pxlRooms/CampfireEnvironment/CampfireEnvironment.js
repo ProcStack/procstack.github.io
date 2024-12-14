@@ -2,6 +2,7 @@ import * as THREE from "../../js/libs/three/three.module.js";
 import { rabbitDruidVert, rabbitDruidFrag,
          campfireLogVert, campfireLogFrag,
          campfireVert, campfireFrag,
+         grassClusterVert, grassClusterFrag,
          envGroundVert, envGroundFrag } from "./Shaders.js";
 import RoomEnvironment from "../../js/pxlNav/RoomClass.js";
 
@@ -435,6 +436,28 @@ export class CampfireEnvironment extends RoomEnvironment{
     campfireMtl.blending=THREE.AdditiveBlending;
     
 
+
+    // -- -- -- 
+
+    
+    let grassClusterUniforms = THREE.UniformsUtils.merge(
+        [
+        THREE.UniformsLib[ "lights" ],
+        {
+          'noiseTexture' : { type:'t', value: null },
+          'fogColor' : { type: "c", value: this.fogColor },
+        }]
+    )
+    grassClusterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+
+    let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, grassClusterVert(), grassClusterFrag() );
+    grassMat.side = THREE.FrontSide;
+    grassMat.lights = true;
+    grassMat.transparent = false;
+    
+        
+    this.textureList[ "grassClusterA_geo" ]=grassMat;
+    
 
     // -- -- --
           

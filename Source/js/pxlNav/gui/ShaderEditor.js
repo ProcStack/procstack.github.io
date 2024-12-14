@@ -323,9 +323,9 @@ export class ShaderEditor {
       
       
     let fontSizeSmallerObj=document.getElementById("gui_shaderEditorFontSmaller");
-    fontSizeSmallerObj.onclick=(e)=>{ tmpThis.shiftFontSize(-.25); };
+    fontSizeSmallerObj.onclick=(e)=>{ tmpThis.shiftFontSize(-.15); };
     let fontSizeLargerObj=document.getElementById("gui_shaderEditorFontLarger");
-    fontSizeLargerObj.onclick=(e)=>{ tmpThis.shiftFontSize(.25); };
+    fontSizeLargerObj.onclick=(e)=>{ tmpThis.shiftFontSize(.15); };
 
     /*
       let shaderLinkList=this.pxlEnv.pxlGuiDraws.guiWindows[type].shaderList.children;

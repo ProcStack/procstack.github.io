@@ -288,6 +288,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
     // -- -- -- 
 
+
     let salioaPlanUniforms = THREE.UniformsUtils.merge(
         [
         THREE.UniformsLib[ "lights" ],
