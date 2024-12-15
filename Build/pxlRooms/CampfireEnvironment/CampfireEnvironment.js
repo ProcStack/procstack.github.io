@@ -3442,7 +3442,7 @@ vec4 envMapTexelToLinear(vec4 color) {
         centerMass = 1.0-(centerMass*centerMass);
         blender =  clamp((blender * clamp((centerMass*3.5), 0.0, 1.0 ) + centerMass*(.1-nCd.y*nCd.x*nCd.z)), 0.0, 1.0 );
         Cd.rgb = mix( midEmberCd.rgb, heavyEmberCd.rgb, blender );
-        Cd.rgb = mix( baseCd.rgb, Cd.rgb, (centerMass+centerMass)*(1.0-blender) );
+        Cd.rgb = mix( baseCd.rgb, Cd.rgb, clamp((centerMass+centerMass)*(1.0-blender),0.0,1.0) );
         //Cd.rgb = vec3(blender);
         
         gl_FragColor=Cd;
