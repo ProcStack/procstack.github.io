@@ -35,7 +35,7 @@
         <div id="procStackGitParent" class="procStackGitParentStyle">
             <div id="gitPagesNavBlock"  pages-default-class="gitPageNav_defaultStyle" class="gitPageNavBlockStyle gitPageNav_defaultStyle">
                 <div id="gitPageNavHeader" class="gitPageNavHeaderStyle gpnhScreenMedia">
-                  <span class="squashInLowRes">_</span>ProcStack<span class="squashInLowRes">_</span>
+                  <span class="squashInLowRes">_ProcStack_</span>
                 </div>
                 <div id="gitPageNav" class="gitPageNavStyle">
                   <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="init" pageName="Init" alt="Link to Init...">Init.</a>
@@ -44,6 +44,10 @@
                   <a class="pageLinkStyle" pxlRoomName="SaltFlatsEnvironment" pxlCameraView="Default" pageName="ProjectsLinks" alt="Real world projects">Projects<span class="squashInLowRes">&nbsp;/ Links</span></a>
                   <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="Default" pageName="Blog" alt="My ramblings...">Blog</a>
                   <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="aboutMe" pageName="AboutMe" alt="It's ah me! Marrr.... yeah"><span class="squashInLowRes">About&nbsp;</span>Me</a>
+                  <span id="gitPageToggleDOM" class="gitPageToggleDOMStyle">
+                    <a class="pageLinkStyle" pageEvent="ToggleDOM" pageValue=1 alt="Toggle the website contents">§</a>
+                    <a class="pageLinkStyle" pageEvent="ToggleDOM" pageValue=0 alt="Toggle the website contents">¤</a>
+                  </span>
                 </div>
             </div>
             <div id="gitPageContentParent" class="gitPageContentParentStyle gpcpVisibleStyle heightFader">
@@ -76,7 +80,7 @@
 
                   <br><br>The background of this page is running '<span class="textNudge">pxlNav</span>',
                   <br>Javascript package to extend Three.js to make it more interactive / game like.
-                  <br>Originally made for a virtual event space called "Antibody Club" [defunct] during 2020 Covid lockdowns.
+                  <br>Originally made for a virtual event space named "Antibody Club" [defunct] during 2020 Covid lockdowns.
                   
                   <br><br><span class="textNudge">pxlNav</span> is a player controller + rendering set-up that brings more interactive functionality to Three.js.
                   <br>It's basically a wrapper for Three.js, using Three.js's renderer, character rig + animation features, to create something like a game engine... I guess.

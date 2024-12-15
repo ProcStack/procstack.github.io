@@ -9,9 +9,9 @@
   max-width: calc(100vw - max(5vh,5vw));
   position: fixed;
   bottom: max(4vh,4vw);
+  justify-self: center;
   z-index: 2;
 }
-
 
 .gitPxlNavPageStyle::-webkit-scrollbar {
 	width: 10px;

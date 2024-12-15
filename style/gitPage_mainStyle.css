@@ -46,6 +46,7 @@ BODY {
 
 
 
+
 /*  -- -- -- -- -- -- -- -- -- -- -- -- */
 
 
@@ -78,6 +79,9 @@ BODY {
   width: 100vw;
   z-index: 310;
 }
+
+/*  -- -- -- -- -- -- -- -- -- -- -- -- */
+
 
 
 
@@ -171,7 +175,14 @@ text-shadow: 1px 1.5px 4px #252525;
   min-height: 16vh;
   font-size: 1.2em;
   text-wrap-style: balance;
+  position: relative;
+  transition: padding .8s, max-height .8s, min-height .8s;
 }
+
+
+/* -- -- -- */
+
+
 .gitPageContentStyle a{
   color: #ccddff;
   text-decoration: none;
