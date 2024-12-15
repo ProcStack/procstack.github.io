@@ -73,6 +73,7 @@ export class GUI extends GUIManager{
   }
   
   setDependencies( pxlNav ){
+    super.setDependencies( pxlNav );
     this.ShaderEditor = new ShaderEditor( pxlNav, this );
   }
 
@@ -94,6 +95,13 @@ export class GUI extends GUIManager{
 	toggleShaderEditor(){
 		this.ShaderEditor.toggleShaderEditor();
 	}
+
+  resize( e ){
+    super.resize();
+    if( this.ShaderEditor ){
+      this.ShaderEditor.resize( e );
+    }
+  }
   
 /////////////////////////////////////////////
 // -- -- -- -- -- -- -- -- -- -- -- -- -- //

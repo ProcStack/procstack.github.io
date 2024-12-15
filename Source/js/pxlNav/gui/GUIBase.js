@@ -215,7 +215,8 @@ export class GUIManager{
     this.renderSettings=this.pxlCookie.readCookie(this.pxlUser.renderSettingsCookie);
     this.controlSettings=this.pxlCookie.readCookie(this.pxlUser.controlModeCookie);
 
-    super.setDependencies( pxlNav );
+    pxlNav.pxlDevice.subscribe( "resize", this.resize.bind(this) );
+
   }
   
   init(){

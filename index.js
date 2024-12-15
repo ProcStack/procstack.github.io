@@ -17,21 +17,22 @@ const http = require('http').Server(app);
 //app.use( express.static(path.join(__dirname, '/Build')) );
 
 if(args.length > 0 && args[0] == "dist"){
-    console.log("Booting in 'Live'")
-    console.log("Serving from: ./docs");
-    app.use( express.static(path.join(__dirname, '/docs')) );
+  console.log("Booting in 'Live'")
+  console.log("Serving from: ./docs");
+  app.use( express.static(path.join(__dirname, '/docs')) );
 }else{
-    console.log("Booting in Developer Mode");
-    console.log("Serving from: ./Public & ./Source");
-    app.use( express.static(path.join(__dirname, '/Public')) );
-    app.use( express.static(path.join(__dirname, '/Source')) );
+  console.log("Booting in Developer Mode");
+  console.log("Serving from: ./Public & ./Source");
+  app.use( express.static(path.join(__dirname, '/Public')) );
+  app.use( express.static(path.join(__dirname, '/Source')) );
 }
+//app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
 //app.use('/images', express.static(path.join(__dirname, '/Source/images')) );
 //app.use('/js', express.static(path.join(__dirname, '/Source/js')) );
 //app.use('/style', express.static(path.join(__dirname, '/Source/style')) );
 
 app.get("/", function(req,res){
-    res.redirect('/index.htm');
+  res.redirect('/index.htm');
 });
 
 

@@ -1,5 +1,5 @@
 
-.gitInitPageStyle{
+.pxlPages_woodStyle{
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
   background: linear-gradient(155deg, rgba(67, 55, 4, 0.407), rgba(52, 35, 3, 0), rgba(52, 35, 3, 0), rgba(52, 35, 3, 0));
   justify-self: baseline;
@@ -10,26 +10,25 @@
   max-width: calc( 100vw - max(5vh,5vw) );
   z-index: 1;
   border-radius: 5px;
-  overflow: hidden;
 }
 
 /* -- -- -- */
 
-.gitPageNav_initStyle {
+.pxlPagesNav_woodStyle {
   background: linear-gradient(90deg, rgba(53, 38, 4, 0.0), rgba(46, 33, 3, 0.45), rgba(73, 54, 9, 0.55), rgba(46, 33, 3, 0.45), rgba(53, 38, 4, 0.0));
   border-bottom: 1px solid rgba(82, 67, 5, 0.45);
 }
-.gitPageNav_initStyle a {
+.pxlPagesNav_woodStyle a {
   color: #ffd093;
   border: 1px solid rgb(82 66 3);
   background-color: rgba(89, 54, 3, 0.35);
 }
-.gitPageNav_initStyle a:hover {
+.pxlPagesNav_woodStyle a:hover {
   color: #b36f16;
   text-shadow: 1px 1.5px 4px #454545;
   background-color: rgba(89, 66, 8, 0.85);
 }
-.gitPageNav_initStyle a:active {
+.pxlPagesNav_woodStyle a:active {
   color: #6b420c;
   text-shadow: 1px 1.5px 4px #151515;
   background-color: rgba(61, 42, 6, 0.85);
@@ -38,20 +37,20 @@
 /* -- -- -- */
 
 
-.initPage_footerBar{
+.pxlPagesFooter_woodStyle{
   background: linear-gradient(90deg, rgba(57, 37, 4, 0.35),  rgba(34, 22, 2, 0.1), rgba(34, 22, 2, 0), rgba(34, 22, 2, 0.0), rgba(34, 22, 2, 0.1),  rgba(57, 37, 4, 0.35));
   color: #cc8324;
 }
 
-.initPage_footerBar a {
+.pxlPagesFooter_woodStyle a {
   color: #cc8324;
 }
 
-.initPage_footerBar a:hover {
+.pxlPagesFooter_woodStyle a:hover {
   color: #ffb95e;
 }
 
-.initPage_footerBar a:active {
+.pxlPagesFooter_woodStyle a:active {
   color: #dea254;
 }
 
@@ -63,20 +62,3 @@
 /* -- -- -- -- -- -- -- -- -- */
 
 
-
-
-.initPage_hBarStyle{
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: space-around;
-  margin: 5px 0px 3px 0px;
-  height: 1px;
-  width: 65%;
-  overflow: hidden;
-  background: linear-gradient(90deg, rgba(169, 99, 6, 0.482), rgba(183, 108, 3, 0.241), rgba(28, 15, 0, 0));
-}
-
-
-.initHeaderStyle{
-  color: #ffad49;
-}

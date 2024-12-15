@@ -4,6 +4,7 @@ export class ShaderEditor {
   constructor( pxlCore, guiManager ){
     
     this.active = false;
+    this.isEditing = false;
     this.name = "GLSL Editor";
     this.type = "shaderGui";
     this.pxlCore = pxlCore;
@@ -150,8 +151,15 @@ export class ShaderEditor {
       this.children.fragObj.value = frag;
     }
     
-
   }
+
+
+  
+
+  // -- -- -- -- -- -- -- -- --
+  // -- Build DOM Objects -- -- --
+  // -- -- -- -- -- -- -- -- -- -- --
+
   
   buildShaderEditor(){
     let type="shaderGui";
@@ -202,13 +210,13 @@ export class ShaderEditor {
 
     let html=`
     <div id="gui_shaderEditorParent" class="gui_shaderEditorParentStyle">
-      <div class="gui_shaderEditorHeaderBlock">
+      <div id="gui_shaderEditorHeaderBlock" class="gui_shaderEditorHeaderBlock">
       <div class="gui_shaderEditorOptionBlock">
         <div class="gui_shaderEditorTitleBlock">
-        <div class="gui_shaderEditorTitleParent">
+        <div id="gui_shaderEditorTitleParent" class="gui_shaderEditorTitleParentStyle">
             <div id="gui_shaderEditorTitle" clsss="gui_shaderEditorTitleStyle">GLSL Shader Editor</div>
             <div id="gui_shaderEditorHeaderList" clsss="gui_shaderEditorHeaderListStyle">
-              <label for="shaderEditor_loadShader" style="font-size:.75em;">Edit Shader</label>
+              <span id="gui_shaderEditorPulldownHeader" clsss="gui_shaderEditorPulldownHeaderStyle">Edit Shader</span>
               <select name="shaderEditor_loadShader" id="shaderEditor_loadShader" class="pickerStyle gui_shaderPickerStyle">
                 <option value="script_avatar" ${avatarSelected}>Avatar</option>
                 <option value="script_fog" ${fogSelected}>Fog</option>
@@ -226,6 +234,8 @@ export class ShaderEditor {
               <span  style="font-size:.75em;margin-right:5px;">Font Size</span>
               <span id="gui_shaderEditorFontSmaller" class="shaderEditor_settingsButton">-</span>
               <span id="gui_shaderEditorFontLarger" class="shaderEditor_settingsButton">+</span>
+              <span class="gui_shaderEditorOptionBarSpacer"> </span>
+              <span id="gui_shaderEditorCloseButton" class="shaderEditor_settingsButton">X</span>
             </div>
           </div>
         </div>
@@ -267,7 +277,7 @@ export class ShaderEditor {
       ${spacer}
       <span><span class="gui_boldText">Ctrl + {Up,Down,Left,Right}</span><br> - Searches for current selection in direction</span>
       ${spacer}
-      <span><span class="gui_boldText">Y</span><br> - To close the Shader Editor</span>
+      <span><span class="gui_boldText">Y</span><br> - To opn/close the Shader Editor</span>
       ${spacer}
     </div>
     `;
@@ -294,7 +304,10 @@ export class ShaderEditor {
       
     this.children.shaderParentObj=document.getElementById("shaderEditor_uniformInput").parentNode;
     this.children.shaderEditor=document.getElementById("gui_shaderEditorParent");
+    this.children.headerBar=document.getElementById("gui_shaderEditorHeaderBlock");
+    this.children.titleParentObj=document.getElementById("gui_shaderEditorTitleParent");
     this.children.titleObj=document.getElementById("gui_shaderEditorTitle");
+    this.children.pulldownHeaderObj=document.getElementById("gui_shaderEditorPulldownHeader");
     this.children.uniformsObj=document.getElementById("shaderEditor_uniformInput");
     this.children.vertObj=document.getElementById("shaderEditor_vertInput");
     this.children.fragObj=document.getElementById("shaderEditor_fragInput");
@@ -326,6 +339,8 @@ export class ShaderEditor {
     fontSizeSmallerObj.onclick=(e)=>{ tmpThis.shiftFontSize(-.15); };
     let fontSizeLargerObj=document.getElementById("gui_shaderEditorFontLarger");
     fontSizeLargerObj.onclick=(e)=>{ tmpThis.shiftFontSize(.15); };
+    let closeButtonObj = document.getElementById("gui_shaderEditorCloseButton");
+    closeButtonObj.onclick=(e)=>{ tmpThis.toggleShaderEditor(); };
 
     /*
       let shaderLinkList=this.pxlEnv.pxlGuiDraws.guiWindows[type].shaderList.children;
@@ -339,6 +354,8 @@ export class ShaderEditor {
       
     
     this.children.updateObj.addEventListener("click", ()=>{
+      this.isEditing = false;
+
       let unisObj=document.getElementById("shaderEditor_uniformInput");
       let unis=unisObj.value;
       let vertObj=document.getElementById("shaderEditor_vertInput");
@@ -358,6 +375,10 @@ export class ShaderEditor {
       //unisObj.blur();
       vertObj.blur();
       fragObj.blur();
+
+
+      // -- -- --
+
       tmpThis.guiManager.pxlNavCanvas.focus();
     });
       
@@ -376,6 +397,14 @@ export class ShaderEditor {
     this.prevSelectStart=0;
     this.prevSelectEnd=0;
   }
+
+
+
+  // -- -- -- -- -- -- -- -- --
+  // -- GUI Change Functions -- --
+  // -- -- -- -- -- -- -- -- -- -- --
+
+
   shiftFontSize(inc){
     let shaderEditor = document.getElementById("gui_shaderEditorParent");
     if( !shaderEditor ){
@@ -402,8 +431,31 @@ export class ShaderEditor {
     if( fragObj ){
       fragObj.style.fontSize = newSize + "em";
     }
-    this.resizeShaderElements();
+    setTimeout( ()=>{
+      this.resizeShaderElements();
+    }, 130);
   }
+
+
+  // -- -- --
+
+
+  updateHeaderBar(){
+    if( this.isEditing ){
+      this.children.titleParentObj.style.fontSize="2.05em";
+      this.children.titleObj.style.fontSize="1.15em";
+    }else{
+      this.children.titleParentObj.style.fontSize="1.3em";
+      this.children.titleObj.style.fontSize="1em";
+    }
+  }
+
+
+
+  // -- -- -- -- -- -- --
+  // -- Click Events - -- --
+  // -- -- -- -- -- -- -- -- --
+
   mDownShaderMessage(e){
     this.mouseX=e.x;
     this.mouseY=e.y;
@@ -447,6 +499,17 @@ export class ShaderEditor {
       this.pxlEnv.pxlGuiDraws.guiWindows["shaderGui"].dcActive=false;
     },500);
   }
+
+  // -- -- -- -- -- -- -- -- -- --
+  // -- -- -- -- -- -- -- -- -- --
+  // -- -- -- -- -- -- -- -- -- --
+
+
+
+  // -- -- -- -- -- -- -- -- --
+  // -- Key Press Processing -- --
+  // -- -- -- -- -- -- -- -- -- -- --
+
   keyShaderMessage(e){
     // Avoid held down keys
     if( e.repeat){ return false; }
@@ -781,6 +844,72 @@ export class ShaderEditor {
     return false;
   }
   //
+
+  updateShaderList(){
+    let pulldown=this.children.shaderSelect;
+    if( !pulldown ){
+      console.log("No pulldown");
+      console.log(this.gui);
+      return;
+    }
+    let editables= this.pxlEnv.roomSceneList[ this.pxlEnv.currentRoom ].getShaderList();
+
+    let keys=Object.keys( editables );
+    let html="";
+    let getSelected=this.pxlEnv.roomSceneList[ this.pxlEnv.currentRoom ].getCurrentShader()
+    keys.forEach( (k)=>{
+      let sel= k==getSelected ? " selected" : "";
+      html+=`<option value="${k}" ${sel}>${editables[k]}</option>`;
+    });
+    pulldown.innerHTML=html;
+    
+  }
+  
+
+  // -- -- -- -- -- -- -- -- --
+  // -- -- -- -- -- -- -- -- --
+  // -- -- -- -- -- -- -- -- --
+
+
+
+  // -- -- -- -- -- -- -- -- --
+  // -- Resizing Functions - -- --
+  // -- -- -- -- -- -- -- -- -- -- --
+
+  resize( e ){
+    this.resizeShaderElements();
+  }
+
+  resizeShaderElements(){
+		let bBarHeight= 0;
+		if(this.hudBottomBar){
+			bBarHeight = this.hudBottomBar.offsetHeight
+		}
+		if(this.children.headerBar){
+			bBarHeight += this.children.headerBar.offsetHeight
+		}
+
+		if( this.gui ){
+			this.gui.style.height=this.guiManager.sH-bBarHeight;
+
+			let vertTextTop = this.children.vertObj.getBoundingClientRect().top;
+			let bHeight = this.children.updateObj.getBoundingClientRect().height;
+			bHeight += 40;
+			let pHeight =  this.guiManager.sH - bHeight - vertTextTop;
+			
+			this.children.vertObj.style.maxHeight=pHeight*.4+"px";
+			this.children.vertObj.displayHeight=pHeight*.4;
+			this.children.fragObj.style.maxHeight=pHeight*.6+"px";
+			this.children.fragObj.displayHeight=pHeight*.6;
+			this.children.fieldBodyHeight=pHeight;
+		}
+  }
+
+
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  // -- Editor Side Bar Visibility Functions - -- --
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
   toggleShaderEditor( active=null ){
 		if( !this.gui ){
 			this.buildShaderEditor();
@@ -802,37 +931,16 @@ export class ShaderEditor {
 			this.guiManager.pxlNavCanvas.removeEventListener("mousedown", this.blurShaderEditor.bind(this));
 		}
 		
-		setTimeout( ()=>{
-			this.resizeShaderElements();
-		},10);
+    setTimeout( ()=>{
+      this.resizeShaderElements();
+    }, 130);
   }
 
-  updateShaderList(){
-    let pulldown=this.children.shaderSelect;
-    if( !pulldown ){
-      console.log("No pulldown");
-      console.log(this.gui);
-      return;
-    }
-    let editables= this.pxlEnv.roomSceneList[ this.pxlEnv.currentRoom ].getShaderList();
-    let pulldownVis="inline-block";
-    if( editables ){
-      let keys=Object.keys( editables );
-      let html="";
-      let getSelected=this.pxlEnv.roomSceneList[ this.pxlEnv.currentRoom ].getCurrentShader()
-      keys.forEach( (k)=>{
-        let sel= k==getSelected ? " selected" : "";
-        html+=`<option value="${k}" ${sel}>${editables[k]}</option>`;
-      });
-      pulldown.innerHTML=html;
-    }else{
-      pulldownVis="none";
-    }
-    this.children.shaderList.style.display = pulldownVis;
-    
-  }
-  
+  // -- -- --
+
   blurShaderEditor(){
+    this.isEditing=false;
+
     document.activeElement.blur()
     let fieldParent=document.getElementById("guiShaderEditorBlock");
     fieldParent.style.maxWidth = this.editorWidthMinMax['min']+"vw";
@@ -847,32 +955,19 @@ export class ShaderEditor {
       curPulldown.style.maxWidth="85px";
     }
 
+
+    this.updateHeaderBar( );
+
+    setTimeout( ()=>{
+      this.resizeShaderElements();
+    },130);
   }
   
-  resizeShaderElements(){
-		let bBarHeight= 0;
-		if(this.hudBottomBar){
-			bBarHeight = this.hudBottomBar.offsetHeight
-		}
-
-		if( this.gui ){
-			this.gui.style.height=this.guiManager.sH-bBarHeight;
-
-			let vertTextTop = this.children.vertObj.getBoundingClientRect().top;
-			let bHeight = this.children.updateObj.getBoundingClientRect().height;
-			bHeight += 40;
-			let pHeight =  this.guiManager.sH - bHeight - vertTextTop;
-			
-			this.children.vertObj.style.maxHeight=pHeight*.4+"px";
-			this.children.vertObj.displayHeight=pHeight*.4;
-			this.children.fragObj.style.maxHeight=pHeight*.6+"px";
-			this.children.fragObj.displayHeight=pHeight*.6;
-			this.children.fieldBodyHeight=pHeight;
-
-		}
-  }
+  // -- -- --
 	
   focusShaderMessage(e,area){
+    this.isEditing=true;
+
     let guiWindow=this.children;
     
     let vertSize = guiWindow.vertObj.displayHeight;
@@ -897,5 +992,10 @@ export class ShaderEditor {
       helpDiv.style.left = this.editorWidthMinMax['max']+"vw";
     }
 
+    this.updateHeaderBar();
+
+    // -- -- --
+
   }
+
 }

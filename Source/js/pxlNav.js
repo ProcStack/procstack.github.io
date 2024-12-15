@@ -160,6 +160,9 @@ export class pxlNav{
       "roomChange-Middle" : "Emitted when the room change process occurs mid transition.",
       "roomChange-End" : "Returns a [bool]; Emitted when the room change transition ends.",
       "fromRoom" : "Returns a custom object; Emitted from your Room code you choose to emit during run time.",
+      "device-keydown" : "Returns an [int]; The just pressed key.",
+      "device-keyup" : "Returns an [int]; The just released key.",
+      "device-resize" : "Returns an [{height:#,width:#}]; Height Width object of the new window size.",
       "pxlNavEventNameHere" : "Never emitted; You did some copy'pasta.",
       "" : "** NOTE : callbacks get an event object shaped -  **",
       "" : "** { 'type' : *eventName*, 'value' : *data* } **",
@@ -198,7 +201,7 @@ export class pxlNav{
 
     this.pxlUser = new PxlBase.User();
 
-    this.pxlEnv = new PxlBase.Environment( this.options, this.startingRoom, pxlRoomRoot, this.verbose, this.mobile );
+    this.pxlEnv = new PxlBase.Environment( this.options, this.startingRoom, pxlRoomRoot, this.mobile );
     this.pxlDevice = new PxlBase.Device( projectTitle, pxlCore, this.mobile, this.autoCam );
     this.pxlCamera = new PxlBase.Camera();
     this.pxlAnim = new PxlBase.Animation( this.folderDict["assetRoot"], this.pxlTimer );
@@ -943,8 +946,14 @@ export class pxlNav{
   subscribe( eventType, callbackFunc ){
     let triggerHelp = false;
     if( this.validEventsKeys.includes( eventType ) ){
-      if( eventType == "pxlNavEventNameHere" ||  eventType == "help" || eventType == "test" ){
-        console.warn("Warning : `pxlNav.subscribe( 'pxlNavEventNameHere', ... )` was used; need some help?");
+      if( eventType == "test" ){
+        console.log("Test Event : `pxlNav.subscribe( 'test', ... )` was used; subscription list -");
+      }else if( eventType == "pxlNavEventNameHere" ||  eventType == "help" ){
+        if( eventType == "pxlNavEventNameHere" ){
+          console.warn("Warning : `pxlNav.subscribe( 'pxlNavEventNameHere', ... )` was used; need some help?");
+        }else if( eventType == "help" ){
+          console.log("Help Requested : `pxlNav.subscribe( 'help', ... )` was used; Subscription items--");
+        }
 
         // developer triggered the emit help event
         //   Dump all the events and info!
@@ -954,7 +963,12 @@ export class pxlNav{
         });
 
       }else{
-        this.callbacks[eventType] = callbackFunc;
+        let eventSplit = eventType.split("-");
+        if( eventSplit[0] == "device" ){
+          this.pxlDevice.subscribe(  eventSplit[1], callbackFunc );
+        }else{
+          this.callbacks[eventType] = callbackFunc;
+        }
       }
     }else{
       console.warn("Warning : `pxlNav.subscribe( '"+eventType+"', ... )` was used; use 'help' for a list of valid events.");  
@@ -980,5 +994,4 @@ export class pxlNav{
       this.callbacks[eventType]( msg );
     }
   }
-
 }

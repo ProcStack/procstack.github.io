@@ -749,7 +749,7 @@ export function grassClusterFrag(){
         vec2 animWarpUV = (vUv-.5)*.5;
         animWarpUV += animWarpUV*min(1.0,length(vPos)*.001);
         animWarpUV = vec2(.45,  length(animWarpUV)*.04 - timer );
-        vec3 animWarpCd = texture2D(noiseTexture,animWarpUV).rgb;//*depthFade;
+        vec3 animWarpCd = texture2D(noiseTexture,animWarpUV).rgb * depthFade;
         
         
         // -- -- --

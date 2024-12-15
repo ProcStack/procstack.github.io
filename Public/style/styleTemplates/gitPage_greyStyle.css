@@ -1,0 +1,66 @@
+
+
+
+/* -- -- -- */
+
+
+
+.gitAboutMePageStyle{
+  background-color: rgba(100, 100, 100, 0.35);
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
+  border: 1px solid rgba(60, 60, 60, 0.6);
+  pointer-events: auto;
+  position: fixed;
+  top: max(7vh,7vw);
+  left: calc(min(max(max(2vh,2vw),(100vw - 700px) / 10), max(50vw - 300px, max(2vh,2vw))));
+  max-width: calc(100vw - max(6vh,6vw));
+  width: calc(max(1000px, 45vw));
+  max-height: calc(100vh - max(7vh, 7vw) - 50px);
+  z-index: 6;
+}
+
+
+/* -- -- -- */
+
+.gitPageNav_aboutMeStyle {
+  background: linear-gradient(90deg,  rgba(20, 20, 20, 0.0), rgba(80, 80, 80, 0.45), rgba(85, 85, 85, 0.55), rgba(80, 80, 80, 0.45), rgba(20, 20, 20, 0.0) );
+  border-bottom: 1px solid rgba(120, 120, 120, 0.45);
+}
+.gitPageNav_aboutMeStyle a {
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  background-color: rgba(110, 110, 110, .35);
+}
+.gitPageNav_aboutMeStyle a:hover {
+  text-shadow: 1px 1.5px 4px #cccccc;
+  background-color: rgba(180, 180, 180, .85);
+}
+.gitPageNav_aboutMeStyle a:active {
+  color: #cccccc;
+  text-shadow: 1px 1.5px 4px #656565;
+  background-color: rgba(100, 100, 100, .85);
+}
+
+/* -- -- -- */
+
+.aboutMePage_footerBar{
+  background: linear-gradient(90deg, rgba(80, 80, 80, 0.15),  rgba(70, 70, 70, 0.1), rgba(20, 20, 20, 0.0), rgba(20, 20, 20, 0.0), rgba(70, 70, 70, 0.1),  rgba(80, 80, 80, 0.15));
+  color: #999999;
+}
+
+.aboutMePage_footerBar a {
+  color: #999999;
+}
+.aboutMePage_footerBar a:hover {
+  color: #e5e5e5;
+  font-weight: 600;
+  text-shadow: 1px 1.5px 4px rgba(50,50,50,.5);
+}
+.aboutMePage_footerBar a:active {
+  color: #cccccc;
+  text-shadow: 1px 1.5px 4px rgba(50,50,50,.75);
+}
+
+/* -- -- -- */
+
+

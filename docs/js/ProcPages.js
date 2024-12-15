@@ -35,6 +35,7 @@ export class ProcPages {
 
     this.navBarLinks = [];
     this.navBarObjs = {};
+    this.toggleDomEvents = {};
     this.resObjsVis = true;
     this.resBasedObjs = [];
     this.triggerEmitFunc = null;
@@ -42,6 +43,10 @@ export class ProcPages {
 
     this.pageStyleOverrides = {};
     this.runningTimeouts = {};
+
+    this.domEventStates = {
+      'ToggleDOM' : false,
+    };
   }
 
   hashListener() {
@@ -55,6 +60,20 @@ export class ProcPages {
         this.changePage(newHash);
       }
     });
+  }
+  
+  setPxlNavVersion( version ){
+    if( version[0] != "v" ){
+      version = "v" + version;
+    }
+    let pnv = document.getElementById("pxlNavVersion");
+    if( pnv ){
+      pnv.innerText = version;
+    }
+    let pnpv = document.getElementById("pxlNavPageVersion");
+    if( pnpv ){
+      pnpv.innerText = version;
+    }
   }
 
   init(){
@@ -74,6 +93,7 @@ export class ProcPages {
     let pageDivs = [...pageDivsStyles];
     let pageHash = this.getHash();
     
+    this.findDomUserEvents();
 
     pageDivs.forEach( (pageDiv)=>{
       this.prepFader(pageDiv);
@@ -151,6 +171,64 @@ export class ProcPages {
       this.checkNavBarSize();
     });
 
+  }
+
+  findDomUserEvents(){
+    let toggleDomObjs = [...document.getElementById("gitPageToggleDOM").children];
+    toggleDomObjs.forEach( (toggleLink)=>{
+      let domEventType = toggleLink.getAttribute("pageEvent");
+      if( !this.toggleDomEvents.hasOwnProperty(domEventType) ){
+        this.toggleDomEvents[domEventType] = {};
+      }
+      
+      // Toggle event obj value to display when value is 1:true / 0:false
+      let domEventValue = parseInt( toggleLink.getAttribute("pageValue") );
+      // Flip it from 1 to true, 0 to false
+      domEventValue = !!domEventValue;
+      
+      if( domEventValue ){
+        this.toggleDomEvents[domEventType]["on"] = toggleLink;
+      }else{
+        this.toggleDomEvents[domEventType]["off"] = toggleLink;
+      }
+      if( domEventValue == this.domEventStates[domEventType] ){
+        toggleLink.style.display = "none";
+      }else{
+        toggleLink.style.display = "block";
+      }
+    });
+    
+    let toggleDomKeys = Object.keys(this.toggleDomEvents);
+    toggleDomKeys.forEach( (key)=>{
+      let curObj = this.toggleDomEvents[key];
+      if( curObj.hasOwnProperty("on") && curObj.hasOwnProperty("off") ){
+        curObj["on"].addEventListener("click", (e)=>{
+          this.toggleDomEvents[key]["on"].style.display = "none";
+          this.toggleDomEvents[key]["off"].style.display = "block";
+          this.toggleMidFader( this.mainDiv, true );
+        });
+        curObj["off"].addEventListener("click", (e)=>{
+          this.toggleDomEvents[key]["off"].style.display = "none";
+          this.toggleDomEvents[key]["on"].style.display = "block";
+          this.toggleMidFader( this.mainDiv, false );
+        });
+      }
+    });
+  }
+
+  triggerDomEvent( eventType, value ){
+    if( this.toggleDomEvents.hasOwnProperty(eventType) ){
+      let curObj = this.toggleDomEvents[eventType];
+      if( curObj.hasOwnProperty("on") && curObj.hasOwnProperty("off") ){
+        if( value ){
+          curObj["on"].style.display = "none";
+          curObj["off"].style.display = "block";
+        }else{
+          curObj["off"].style.display = "none";
+          curObj["on"].style.display = "block";
+        }
+      }
+    }
   }
 
   // -- -- --
@@ -242,6 +320,11 @@ export class ProcPages {
         }
       }
 
+      if( this.domEventStates.ToggleDOM ){
+        this.toggleMidFader( this.mainDiv, false );
+        this.triggerDomEvent("ToggleDOM", false);
+      }
+
       // Set current page value
       this.curPageName = pageName;
       this.curPage = this.pageListing[pageName]["obj"];
@@ -299,6 +382,7 @@ export class ProcPages {
       let btnWidth = navLink.offsetWidth;
       buttonWidthAgr += btnWidth;
     });
+    buttonWidthAgr += this.toggleDomEvents["ToggleDOM"]["on"].offsetWidth;
 
     let navBarWidth = this.navBar.offsetWidth * 0.9;
     let navBarThreshold = this.navBar.offsetWidth * 0.6;
@@ -375,6 +459,7 @@ export class ProcPages {
 
     let pageDivsStyles = document.getElementsByName("gitPage");
     if( vis ){
+      this.domEventStates.ToggleDOM = true;
       obj.style.display = "block";
       obj.classList.add("pagesVisMid");
       obj.classList.remove("pagesVisOn");
@@ -382,31 +467,26 @@ export class ProcPages {
       pageDivsStyles.forEach( (pageDiv)=>{
         pageDiv.style.maxHeight="0px";
         pageDiv.style.minHeight="0px";
+        pageDiv.style.padding="0px";
         pageDiv.classList.add("gpcpHiddenStyle");
         pageDiv.classList.remove("gpcpVisibleStyle");
+        
+        pageDiv.style.border = "0px";
       });
     } else {
+      this.domEventStates.ToggleDOM = false;
       obj.classList.add("pagesVisOn");
       obj.classList.remove("pagesVisMid");
       pageDivsStyles.forEach( (pageDiv)=>{
         pageDiv.style.maxHeight = "";
         pageDiv.style.minHeight = "";
+        pageDiv.style.padding = "";
         pageDiv.classList.add("gpcpVisibleStyle");
         pageDiv.classList.remove("gpcpHiddenStyle");
+
+        
+        pageDiv.style.border = "";
       });
-    }
-  }
-  setPxlNavVersion( version ){
-    if( version[0] != "v" ){
-      version = "v" + version;
-    }
-    let pnv = document.getElementById("pxlNavVersion");
-    if( pnv ){
-      pnv.innerText = version;
-    }
-    let pnpv = document.getElementById("pxlNavPageVersion");
-    if( pnpv ){
-      pnpv.innerText = version;
     }
   }
 

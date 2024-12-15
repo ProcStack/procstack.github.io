@@ -10,6 +10,7 @@
   max-width: calc( 100vw - max(5vh,5vw) );
   z-index: 1;
   border-radius: 5px;
+  overflow: hidden;
 }
 
 /* -- -- -- */

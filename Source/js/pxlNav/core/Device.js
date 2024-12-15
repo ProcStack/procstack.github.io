@@ -125,6 +125,18 @@ export class Device{
       'releaseTime':0,
     };
         
+    this.subscriptableEvents=[
+        //"touchstart",
+        //"touchmove",
+        //"touchend",
+        //"mousedown",
+        //"mousemove",
+        //"mouseup",
+        "keydown",
+        "keyup",
+        "resize"
+      ];
+    this.callbackList={};
     
     this.init();
   }
@@ -625,6 +637,9 @@ export class Device{
     // -- -- -- -- -- -- //
     
   async keyDownCall(e){
+
+    this.emit("keydown", e);
+
     //e.this.preventDefault(e)();
         if( e.ctrlKey ){
             this.controlKey=true;
@@ -686,6 +701,9 @@ export class Device{
   }
     
   async keyUpCall(e){
+
+    this.emit("keyup", e);
+
     //e.this.preventDefault(e)();
         if( e.ctrlKey ){
             this.controlKey=false;
@@ -1019,9 +1037,6 @@ export class Device{
 
     this.pxlEnv.updateCompUniforms();
     
-    this.pxlGuiDraws.resize();
-        
-        
     this.pxlEnv.roomNameList.forEach( (r)=>{
       this.pxlEnv.roomSceneList[ r ].pxlCamAspect = aspectRatio ;
       //if( r != this.pxlEnv.mainRoom){
@@ -1030,11 +1045,52 @@ export class Device{
       }
     });
         
+    // Emit the resize calculations 
+    this.emit("resize", {
+      "width" : this.mapW,
+      "height" : this.mapH,
+      "xPixelPerc" : this.screenRes.x,
+      "yPixelPerc" : this.screenRes.y,
+      "aspectRatio" : aspectRatio
+    });
         
-        if( !this.pxlTimer.active ){
-            this.pxlEnv.mapRender( false );
-        }
+    if( !this.pxlTimer.active ){
+        this.pxlEnv.mapRender( false );
+    }
     
     //this.pxlEnv.engine.render(this.pxlEnv.scene,this.pxlCamera.camera);
   }
+
+  // -- -- -- -- -- -- -- -- -- -- //
+  // -- Module Communication -- -- //
+  // -- -- -- -- -- -- -- -- -- -- //
+
+  subscribe( eventType, callbackFn ){
+    if( !this.subscriptableEvents.includes( eventType ) ){
+      console.error( "Event type not subscribable: ", eventType );
+      return;
+    }
+    if( !this.callbackList[eventType] ){
+      this.callbackList[eventType] = [];
+    }
+    this.callbackList[eventType].push( callbackFn );
+  }
+
+  unsubscribe( eventType, callbackFn ){
+    if( this.callbackList[eventType] ){
+      let index = this.callbackList[eventType].indexOf( callbackFn );
+      if( index >= 0 ){
+        this.callbackList[eventType].splice( index, 1 );
+      }
+    }
+  }
+
+  emit( eventType, data ){
+    if( this.callbackList.hasOwnProperty( eventType ) ){
+      this.callbackList[eventType].forEach( (callbackFn)=>{
+        callbackFn( data );
+      });
+    }
+  }
+
 }

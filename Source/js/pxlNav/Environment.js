@@ -17,7 +17,7 @@
 
 import * as THREE from "../libs/three/three.module.js";
 
-import { PXLNAV_OPTIONS, ANTI_ALIASING } from "./core/Types.js";
+import { PXLNAV_OPTIONS, ANTI_ALIASING, VERBOSE_LEVEL } from "./core/Types.js";
 
 import { EffectComposer } from '../libs/three/postprocessing/EffectComposer.js';
 import { RenderPass } from '../libs/three/postprocessing/RenderPass.js';
@@ -34,8 +34,7 @@ import { BloomPass } from '../libs/three/postprocessing/BloomPass.js';
 
 
 export class Environment{
-  constructor( options, mainRoom='Default', pxlRoomName='pxlRooms', verbose, mobile ){
-    this.verbose=verbose;
+  constructor( options, mainRoom='Default', pxlRoomName='pxlRooms', mobile ){
     this.engine=null;
     this.scene=null;
     this.parentGroupList={};
@@ -257,6 +256,12 @@ export class Environment{
 
   }
   
+  log( msg, level=VERBOSE_LEVEL.INFO ){
+    if( this.options.verbose > VERBOSE_LEVEL.INFO ){
+      console.log( msg );
+    }
+  }
+
   // Function required
   init(){
 
@@ -270,7 +275,6 @@ export class Environment{
 
     //this.setExposure( 0 );
     let subList=Object.keys( this.roomSubList );
-    console.log("subList", subList);
     subList.forEach( (s)=>{
         this.roomSubList[ s ].init();
     });
@@ -405,9 +409,8 @@ export class Environment{
   loadRoom(roomName){
     return new Promise( (resolve, reject) =>{
 
-      if( this.verbose>2 ){
-        console.log("Loading Room - ", roomName);
-      }
+      this.log("Loading Room - ", roomName);
+      
 
       var curImport=import(`${this.pxlRoomLclRoot}/${roomName}/${roomName}.js`);
       
@@ -525,15 +528,15 @@ export class Environment{
   //   Should see if this is still necessary
   buildRoomEnvironments(){
     
-    //this.log("Building Room Environments");
-    //this.log(this.roomNameList);
+    this.log("Building Room Environments");
+    this.log(this.roomNameList);
     let loadPromisList=[];
     
     this.roomNameList.forEach( (r)=>{
-      //if( r != this.mainRoom){
-        this.roomSceneList[ r ].init();
+      this.roomSceneList[ r ].init();
+      if( this.roomSceneList[ r ].build ){
         this.roomSceneList[ r ].build();
-      //}
+      }
     });
   }
   
