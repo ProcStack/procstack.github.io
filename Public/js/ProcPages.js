@@ -88,7 +88,6 @@ export class ProcPages {
 
     this.resBasedObjs = [...document.getElementsByClassName("squashInLowRes")];
     this.contentParent = document.getElementById("gitPageContentParent");
-    let linkList = [...document.getElementById("gitPageNav").children];
     let pageDivsStyles = document.getElementsByName("gitPage");
     let pageDivs = [...pageDivsStyles];
     let pageHash = this.getHash();
@@ -122,6 +121,7 @@ export class ProcPages {
       this.pageListing[ pageId ]["obj"] = pageDiv;
       this.pageListing[ pageId ]["room"] = null;
       this.pageListing[ pageId ]["view"] = null;
+      this.pageListing[ pageId ]["theme"] = null;
       if( pageId == pageHash ){
         this.curPageName = pageId;
         this.curPage = pageDiv;
@@ -133,6 +133,7 @@ export class ProcPages {
 
     this.navBarLinks.forEach( (navLink)=>{
       let linkText = navLink.getAttribute("pageName");
+      let pageTheme = navLink.getAttribute("pageTheme");
       let pxlRoomName = navLink.getAttribute("pxlRoomName");
       let pxlCameraView = navLink.getAttribute("pxlCameraView");
       if( !this.pageListing.hasOwnProperty(linkText) ){
@@ -140,6 +141,7 @@ export class ProcPages {
       }
       this.pageListing[ linkText ]["room"] = pxlRoomName;
       this.pageListing[ linkText ]["view"] = pxlCameraView;
+      this.pageListing[ linkText ]["theme"] = pageTheme;
       
       linkText = linkText.replace(/(?: |\/|\.|\n)/g, "");
 
@@ -264,6 +266,15 @@ export class ProcPages {
     if( this.pageListing.hasOwnProperty(curPageId) ){
       let curRoom = this.pageListing[curPageId]["room"];
       let curView = this.pageListing[curPageId]["view"];
+
+      let curTheme = this.pageListing[curPageId]["theme"];
+      if( curTheme ){
+        document.documentElement.style.setProperty('--theme-color', curTheme);
+      }else{
+        document.documentElement.style.removeProperty('--theme-color');
+      }
+
+      // Trigger pxlNav room warp
       this.triggerEmitFunc( "warpToRoom", curRoom, curView );
     }
 
@@ -328,6 +339,15 @@ export class ProcPages {
       // Set current page value
       this.curPageName = pageName;
       this.curPage = this.pageListing[pageName]["obj"];
+
+      // Set browser theme if 'pageTheme' exists on the nav bar link
+      let curTheme = this.pageListing[pageName]["theme"];
+      if( curTheme ){
+        document.documentElement.style.setProperty('--theme-color', curTheme);
+      }else{
+        document.documentElement.style.removeProperty('--theme-color');
+      }
+
 
       // Trigger css animation to bring the new page in
       this.toggleFader(this.curPage, true);
