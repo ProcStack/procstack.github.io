@@ -1,9 +1,9 @@
 
 
 .gitPxlNavPageStyle{
-  background-color: rgba(43, 37, 11, 0.58);
+  background-color: rgba(19, 38, 6, 0.51);
+  border: 1px solid rgba(32, 47, 7, 0.45);
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
-  border: 1px solid rgba(67, 60, 21, 0.445);
   pointer-events: auto;
   max-height: 65vh;
   max-width: calc(100vw - max(5vh,5vw));
@@ -18,17 +18,17 @@
 }
 
 .gitPxlNavPageStyle::-webkit-scrollbar-track {
-	background: rgba(66, 54, 14, 0.31);
+	background: rgba(27, 68, 8, 0.31);
 }
 
 .gitPxlNavPageStyle::-webkit-scrollbar-thumb {
 	cursor: grab;
-  background-color: rgb(78 66 9);
-  border: 2px solid rgba(90, 73, 6, 0.6);
+  background-color: rgb(11 72 10);
+  border: 2px solid rgba(7, 66, 4, 0.6);
 }
 .gitPxlNavPageStyle::-webkit-scrollbar-thumb:hover {
-  background-color: rgb(143, 113, 16);
-  border: 2px solid rgba(131, 107, 11, 0.636);
+  background-color: rgb(14 127 22);
+  border: 2px solid rgba(19, 173, 5, 0.6);
 }
 
 
@@ -38,25 +38,25 @@
 
 
 .gitPageNav_pxlNavStyle {
-  background: linear-gradient(90deg, rgba(30, 33, 11, 0), rgba(63, 57, 38, 0.24), rgba(80, 79, 23, 0.34), rgba(64, 54, 13, 0.24), rgba(45, 44, 12, 0));
-  border-bottom: 1px solid rgba(83, 93, 22, 0.34);
+  background: linear-gradient(90deg, rgba(23, 55, 4, 0.05), rgba(27, 57, 7, 0.24), rgba(22, 52, 6, 0.34), rgba(20, 53, 5, 0.24), rgba(5, 46, 13, 0.05));
+  border-bottom: 1px solid rgba(12, 70, 7, 0.34);
 }
 .gitPageNav_pxlNavStyle a {
-  border: 1px solid rgba(89, 75, 19, 0.94);
-  color: #b28823;
-  background-color: rgba(70, 66, 56, 0.37);
+  border: 1px solid rgba(27, 74, 28, 0.76);
+  color: #3b962d;
+  background-color: rgba(24, 72, 33, 0.37);
 }
 .gitPageNav_pxlNavStyle a:hover {
-  color: #d3b322;
-  text-shadow: 1px 1.5px 4px #55503e;
-  background-color: rgba(131, 111, 15, 0.773);
-  border: 1px solid rgba(119, 118, 28, 0.941);
+  border: 1px solid rgba(42, 157, 47, 0.94);
+  color: #44d82f;
+  background-color: rgba(53, 147, 71, 0.37);
+  text-shadow: 1px 1.5px 4px #000000;
 }
 .gitPageNav_pxlNavStyle a:active {
-  color: #8c7820;
-  text-shadow: 1px 1.5px 4px #5a5049;
-  background-color: rgba(105, 88, 28, 0.37);
-  border: 1px solid rgb(83, 73, 17);
+  border: 1px solid rgba(33, 116, 35, 0.94);
+  color: #328825;
+  background-color: rgba(24, 56, 30, 0.67);
+  text-shadow: 1px 1.5px 4px #153915;
 }
 
 
@@ -64,19 +64,19 @@
 
 
 .pxlNavPage_footerBar{
-  background: linear-gradient(90deg, rgba(174, 163, 13, 0.15), rgba(66, 77, 15, 0.1), rgba(66, 77, 15, 0.0), rgba(66, 77, 15, 0.0), rgba(66, 77, 15, 0.1),  rgba(174, 163, 13, 0.15));
-  color: #aa8735;
+  background: linear-gradient(90deg, rgba(10, 72, 8, 0.2), rgba(12, 67, 8, 0.15), rgba(18, 72, 12, 0), rgba(18, 72, 12, 0), rgba(12, 67, 8, 0.15), rgba(10, 72, 8, 0.2));
+  color: #49a532;
 }
 .pxlNavPage_footerBar a {
-  color: #aa8735;
+  color: #49a532;
 }
 .pxlNavPage_footerBar a:hover {
-  color: #cb9e35;
+  color: #15c715;
   font-weight: 600;
   text-shadow: 1px 1.5px 4px rgba(50,50,50,.5);
 }
 .pxlNavPage_footerBar a:active {
-  color: #72591d;
+  color: #186d18;
   text-shadow: 1px 1.5px 4px rgba(50,50,50,.75);
 }
 
