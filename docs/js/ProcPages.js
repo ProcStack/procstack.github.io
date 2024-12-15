@@ -175,6 +175,20 @@ export class ProcPages {
 
   }
 
+  // -- -- --
+
+  // Set browser theme if 'pageTheme' exists on the nav bar link
+  setBrowserTheme( theme ){
+    if( !theme ){
+      document.querySelector("meta[name='theme-color']").removeAttribute("content");
+      return;
+    }
+    document.querySelector("meta[name='theme-color']").setAttribute("content", theme );
+  }
+  
+  // -- -- --
+  
+
   findDomUserEvents(){
     let toggleDomObjs = [...document.getElementById("gitPageToggleDOM").children];
     toggleDomObjs.forEach( (toggleLink)=>{
@@ -218,6 +232,8 @@ export class ProcPages {
     });
   }
 
+  // -- -- --
+  
   triggerDomEvent( eventType, value ){
     if( this.toggleDomEvents.hasOwnProperty(eventType) ){
       let curObj = this.toggleDomEvents[eventType];
@@ -267,12 +283,7 @@ export class ProcPages {
       let curRoom = this.pageListing[curPageId]["room"];
       let curView = this.pageListing[curPageId]["view"];
 
-      let curTheme = this.pageListing[curPageId]["theme"];
-      if( curTheme ){
-        document.documentElement.style.setProperty('--theme-color', curTheme);
-      }else{
-        document.documentElement.style.removeProperty('--theme-color');
-      }
+      this.setBrowserTheme( this.pageListing[curPageId]["theme"] );
 
       // Trigger pxlNav room warp
       this.triggerEmitFunc( "warpToRoom", curRoom, curView );
@@ -340,13 +351,7 @@ export class ProcPages {
       this.curPageName = pageName;
       this.curPage = this.pageListing[pageName]["obj"];
 
-      // Set browser theme if 'pageTheme' exists on the nav bar link
-      let curTheme = this.pageListing[pageName]["theme"];
-      if( curTheme ){
-        document.documentElement.style.setProperty('--theme-color', curTheme);
-      }else{
-        document.documentElement.style.removeProperty('--theme-color');
-      }
+      this.setBrowserTheme( this.pageListing[pageName]["theme"] );
 
 
       // Trigger css animation to bring the new page in
