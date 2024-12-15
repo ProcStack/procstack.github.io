@@ -4,7 +4,7 @@
 
 import {shaderHeader} from "../../../shaders/core/ShaderHeader.js";
 
-export function smokeVert(){
+export function smokeVert(windDir=[8.7, 8.4]){
   let ret=shaderHeader();
   ret+=` 
     uniform sampler2D noiseTexture;
@@ -75,8 +75,8 @@ export function smokeVert(){
         // Wind -- Forces
         //   Magic numbers, yarb!
         float windInf = life * life * (life*.5+.5);
-        vec2 windDir = vec2( windInf*9.7, windInf * 8.4 );
-        pos.xz += windDir;
+        vec2 windDir = vec2( windInf*${windDir[0]}, windInf * ${windDir[1]} );
+        pos.xz += windDir + vec2(-.5, .0);
         
         
         // Alpha with cam distance inf

@@ -4,7 +4,7 @@
 
 import {shaderHeader} from "../../../shaders/core/ShaderHeader.js";
  
-export function emberWispsVert(){
+export function emberWispsVert( windDir=[-0.13, 0.15]){
   let ret=shaderHeader();
   ret+=`
         
@@ -26,12 +26,12 @@ export function emberWispsVert(){
     #define PROX 60.0
     #define LAND 10.0
     
-    const vec2 windForce = vec2(-0.135, 0.15);
+    const vec2 windForce = vec2(${windDir[0]}, ${windDir[1]});
     
     const vec3 earlyCd = vec3( 1.0, 0.7, .1 );
     const vec3 oldCd = vec3( 0.634, 0.50, 0.20 );
     const float emberSpread = 15.0;
-    const float emberFadeDistance = 0.05;
+    const float emberFadeDistance = 0.04;
     const float baseSpeed = 0.47;
     
     
@@ -57,7 +57,7 @@ export function emberWispsVert(){
         
         float rateShift = (baseSpeed*(seeds.x*.4+.6));
         float t=time.x*rate*rateShift;
-        float shiftY= mod( t+t*seeds.x+seeds.z*8.0+noiseCd.r*10.20*(seeds.y*2.0-1.0)+noiseCd.b+(-seeds.x+seeds.y)*4.0, 8.0);
+        float shiftY= mod( t+t*seeds.x+seeds.z*8.0+noiseCd.r*10.20*(seeds.y*2.0-1.0)+noiseCd.b+(-seeds.x+seeds.y)*4.0, 10.0);
         float life = 1.0-max(0.0,abs(shiftY-seeds.x*.1)*(1.0-(seeds.x*1.0)) );
         life = 1.0-((shiftY*.001-seeds.x*.2) );
         
@@ -70,7 +70,7 @@ export function emberWispsVert(){
         pos.xz=(noiseCd.rg*noiseCd.r)*(seeds.x)*emberSpread*(life*seeds.zy*(seeds.w*4.0-2.));
         
         float yPush = ( life * (life*.5+.5))  * min(1.0,pos.y*.12) * 5.8;
-        pos.xz += windForce * yPush * pos.y;
+        pos.xz += windForce * yPush * pos.y + vec2(1.25, .0);
         pos.y += yPush;
         
         
@@ -103,7 +103,7 @@ export function emberWispsVert(){
         vCd = mix( earlyCd, oldCd, cdAge )  ;
         vBrightness = 1.45;
         
-    }`;
+    } `;
   return ret;
 }
 

@@ -389,7 +389,7 @@ export class QualityController{
         let circleGateColor=.6;
     
         if( this.settings.fog==2 ){
-          this.pxlEnv.mapMotionBlurPass.enabled=true;  
+          this.pxlEnv.mapMotionBlurPass.enabled=false;  
           this.pxlEnv.mapOverlayHeavyPass.enabled=true;
           this.pxlEnv.mapOverlayPass.enabled=false;
           this.pxlEnv.mapOverlaySlimPass.enabled=false;
@@ -404,7 +404,7 @@ export class QualityController{
                     }*/
                     
         }else if( this.settings.fog==1 ){
-          this.pxlEnv.mapMotionBlurPass.enabled=true;  
+          this.pxlEnv.mapMotionBlurPass.enabled=false;  
           this.pxlEnv.mapOverlayHeavyPass.enabled=false;
           this.pxlEnv.mapOverlayPass.enabled=true;
           this.pxlEnv.mapOverlaySlimPass.enabled=false;
@@ -424,7 +424,6 @@ export class QualityController{
           portalIntensity=.4;
         }
         
-                
         if( this.settings.bloom ){
           this.pxlEnv.mapGlowPass.enabled=true;  
           this.pxlEnv.roomBloomPass.enabled=true;  
@@ -467,7 +466,6 @@ export class QualityController{
                     cVid.material.color.g=circleGateColor;
                     cVid.material.color.b=circleGateColor;
                 }
-                
                 
         this.pxlEnv.portaluserScreenIntensity.x=portalIntensity;
         //this.pxlEnv.pxlRenderSettings.mult=multVal;

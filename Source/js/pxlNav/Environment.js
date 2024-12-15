@@ -177,7 +177,7 @@ export class Environment{
     this.blurScreenMerge=null;
     this.pxlRenderSettings={
       'exposure':1.0,
-      'mult':( mobile ? 1.5 : 1.0 ),
+      'mult':( mobile ? 1.0 : 1.0 ),
       'bloomStrength':0.5,
       'bloomThresh':.6,
       'bloomRadius':.05,
@@ -944,6 +944,7 @@ export class Environment{
     });
     //this.mapWorldPosMaterial.side=THREE.DoubleSide;
     this.mapWorldPosMaterial.side=THREE.FrontSide;
+    this.mapWorldPosMaterial.name="mapWorldPosMaterial";
       
     ///////////////////////////////////////////////////
     // -- 2-Step Blur Composer  -- -- -- -- -- -- -- //
@@ -967,11 +968,13 @@ export class Environment{
     this.shaderPasses.blurXShaderPass.material.transparent = true;
     this.shaderPasses.blurXShaderPass.needsSwap = true;
     this.shaderPasses.blurXShaderPass.enabled=false;
+    this.shaderPasses.blurXShaderPass.name="blurXShaderPass";
     this.blurComposer.addPass( this.shaderPasses.blurXShaderPass );
     
     
     this.shaderPasses.dirBlurCopyPass = new ShaderPass(CopyShader);
     this.shaderPasses.dirBlurCopyPass.enabled=false;
+    this.shaderPasses.dirBlurCopyPass.name="dirBlurCopyPass";
     this.blurComposer.addPass(this.shaderPasses.dirBlurCopyPass);
     
     this.shaderPasses.blurYShaderPass = new ShaderPass(
@@ -991,6 +994,7 @@ export class Environment{
     );
     this.shaderPasses.blurYShaderPass.material.transparent = true;
     this.shaderPasses.blurYShaderPass.enabled=false;
+    this.shaderPasses.blurYShaderPass.name="blurYShaderPass";
     this.blurComposer.addPass( this.shaderPasses.blurYShaderPass );
   
     
@@ -1009,6 +1013,7 @@ export class Environment{
     );
     this.shaderPasses.scatterMixShaderPass.material.transparent = true;
     this.shaderPasses.scatterMixShaderPass.enabled=false;
+    this.shaderPasses.scatterMixShaderPass.name="scatterMixShaderPass";
     this.blurComposer.addPass( this.shaderPasses.scatterMixShaderPass );
     
       
@@ -1054,6 +1059,7 @@ export class Environment{
       } ), "tDiffuse"
     );
     this.mapMotionBlurPass.needsSwap = true;
+    this.mapMotionBlurPass.name = "mapMotionBlurPass";
     this.mapComposerMotionBlur.addPass(this.mapMotionBlurPass);
     this.mapMotionBlurPass.enabled=false;
     this.mapComposerMotionBlur.renderToScreen=false;
@@ -1081,9 +1087,11 @@ export class Environment{
       } ), "tDiffuse"
     );
     this.blurScreenMerge.needsSwap = true;
+    this.blurScreenMerge.name = "blurScreenMerge";
     this.mapComposerGlow.addPass(this.blurScreenMerge);
     
     let glowCopyPassBlur = new ShaderPass(CopyShader);
+    glowCopyPassBlur.name = "glowCopyPassBlur";
     this.mapComposerGlow.addPass(glowCopyPassBlur);
     
     //this.mapGlowPass = new UnrealBloomPass( new THREE.Vector2( this.pxlDevice.mapW*this.pxlQuality.bloomPercMult, this.pxlDevice.mapH*this.pxlQuality.bloomPercMult ), .28, 0.08, 0.13 );
@@ -1124,6 +1132,7 @@ export class Environment{
       } ), "tDiffuse"
     );
     this.mapOverlayHeavyPass.needsSwap = true;
+    this.mapOverlayHeavyPass.name = "mapOverlayHeavyPass";
 
     this.mapOverlayPass = new ShaderPass(
       new THREE.ShaderMaterial( {
@@ -1149,6 +1158,7 @@ export class Environment{
       } ), "tDiffuse"
     );
     this.mapOverlayPass.needsSwap = true;
+    this.mapOverlayPass.name = "mapOverlayPass";
     
     this.mapOverlaySlimPass = new ShaderPass(
       new THREE.ShaderMaterial( {
@@ -1172,6 +1182,7 @@ export class Environment{
       } ), "tDiffuse"
     );
     this.mapOverlaySlimPass.needsSwap = true;
+    this.mapOverlaySlimPass.name = "mapOverlaySlimPass";
 
     // -- -- -- -- -- -- -- -- -- -- //
     
@@ -1190,6 +1201,7 @@ export class Environment{
       } ), "tDiffuse"
     );
     this.mapGlowPass.needsSwap = true;
+    this.mapGlowPass.name = "mapGlowPass";
 
     // -- -- -- -- -- -- -- -- -- -- //
     
@@ -1222,6 +1234,7 @@ export class Environment{
     );
         this.pxlUser.lKingPass=this.lizardKingPass;
         this.lizardKingPass.enabled=false;
+        this.pxlUser.lKingPass.name = "lizardKingPass";
     
         // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
     this.pxlUser.sFieldPass = new ShaderPass(
@@ -1239,6 +1252,7 @@ export class Environment{
       } ), "tDiffuse"
     );
         this.pxlUser.sFieldPass.enabled=false;
+        this.pxlUser.sFieldPass.name = "sFieldPass";
     
         // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
     this.pxlUser.iZoomPass = new ShaderPass(
@@ -1256,6 +1270,7 @@ export class Environment{
       } ), "tDiffuse"
     );
         this.pxlUser.iZoomPass.enabled=false;
+        this.pxlUser.iZoomPass.name = "iZoomPass";
     
         
         
@@ -1275,6 +1290,7 @@ export class Environment{
       } ), "tDiffuse"
     );
     this.chroAberrationPass.enabled=false;
+    this.chroAberrationPass.name = "chroAberrationPass";
     this.mapComposer.addPass( this.chroAberrationPass );
     this.mapComposer.addPass( this.lizardKingPass );
     //if( !this.mobile ) {
@@ -1299,6 +1315,7 @@ export class Environment{
     );
     this.mapComposerWarpPass.needsSwap = true;
     this.mapComposerWarpPass.enabled=false;
+    this.mapComposerWarpPass.name = "mapComposerWarpPass";
     this.mapComposer.addPass( this.mapComposerWarpPass );
     
         // 8 Samples
@@ -1316,6 +1333,7 @@ export class Environment{
       } ), "tDiffuse"
     );
     this.mapBoxAAPass.enabled=false;
+    this.mapBoxAAPass.name = "mapBoxAAPass";
     this.mapComposer.addPass( this.mapBoxAAPass );
         
         // 4 samples
@@ -1333,6 +1351,7 @@ export class Environment{
       } ), "tDiffuse"
     );
     this.mapCrossAAPass.enabled=false;
+    this.mapCrossAAPass.name = "mapCrossAAPass";
     this.mapComposer.addPass( this.mapCrossAAPass );
     
     this.mapComposer.autoClear=true;
@@ -1344,6 +1363,7 @@ export class Environment{
     this.roomComposer=new EffectComposer(this.engine);
 
     this.roomRenderPass = new RenderPass(bootScene, this.pxlCamera.camera);
+    this.roomRenderPass.name = "roomRenderPass";
     this.roomComposer.addPass(this.roomRenderPass);
         
         
@@ -1362,6 +1382,7 @@ export class Environment{
     this.roomBloomPass.threshold = this.pxlRenderSettings.bloomThresh;
     this.roomBloomPass.strength = this.pxlRenderSettings.bloomStrength;
     this.roomBloomPass.radius = this.pxlRenderSettings.bloomRadius;
+    this.roomBloomPass.name = "roomBloomPass";
     this.roomComposer.addPass( this.roomBloomPass );
     
     
@@ -1383,6 +1404,8 @@ export class Environment{
       } ), "tDiffuse"
     );
     this.roomGlowPass.needsSwap = true;
+    this.roomGlowPass.name = "roomGlowPass";
+
     this.roomComposer.addPass( this.roomGlowPass );
     
     this.roomComposer.addPass( this.chroAberrationPass );

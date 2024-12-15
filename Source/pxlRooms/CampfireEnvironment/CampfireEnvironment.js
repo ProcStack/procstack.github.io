@@ -115,7 +115,7 @@ export class CampfireEnvironment extends RoomEnvironment{
       // Decrease the eye blink animation 1 to 0
       this.eyeBlinkAnim -= this.eyeBlinkRate;
       // Map 0-1 to 0-1-0
-      let sawAnim = (Math.min(.5,this.eyeBlinkAnim) - Math.max(0,this.eyeBlinkAnim-.5)) * 2;
+      let sawAnim = Math.max(0.0, (Math.min(.5,this.eyeBlinkAnim) - Math.max(0,this.eyeBlinkAnim-.5)) * 2);
       this.eyeBlinkInf.x = sawAnim;
       if( this.eyeBlinkAnim <= 0 ){
         // Add a random time until the next eye blink
@@ -138,6 +138,7 @@ export class CampfireEnvironment extends RoomEnvironment{
   fbxPostLoad(){
     super.fbxPostLoad();
     
+
     let particleSource = this.geoList['Scripted']['ParticleSource_loc'];
     let particleSourcePos = particleSource.position;
 
@@ -325,7 +326,7 @@ export class CampfireEnvironment extends RoomEnvironment{
           'areTexture' : { type:'t', value: null },
           'noiseTexture' : { type:'t', value: null },
           'eyeBlink' : { type:'v2', value: this.eyeBlinkInf },
-          'mult': { type:'f', value:1 },
+          'lightScalar': { type:'v2', value:null },
         }
       ]
     );
@@ -333,6 +334,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     skinnedMtlUniforms.diffuseTexture.value = bindObj.material.map;
     skinnedMtlUniforms.areTexture.value = this.pxlUtils.loadTexture( this.assetPath+"RabbitDruidA/RabbitDruidA_lowRes_ARE.jpg" );
     skinnedMtlUniforms.noiseTexture.value = this.cloud3dTexture;
+    skinnedMtlUniforms.lightScalar.value = this.pxlDevice.lightShift;
 
     let skinnedMaterial = this.pxlFile.pxlShaderBuilder( skinnedMtlUniforms, vertShader, fragShader );
     skinnedMaterial.skinning = true;
@@ -366,7 +368,6 @@ export class CampfireEnvironment extends RoomEnvironment{
             'hillDiffuse' : { type:'t', value: null },
             'mossDiffuse' : { type:'t', value: null },
             'dataDiffuse' : { type:'t', value: null },
-            'mult': { type:'f', value:1 },
             'fogColor': { type:'c', value: null },
             'noiseTexture' : { type:'t', value: null },
             'uniformNoise' : { type:'t', value: null },

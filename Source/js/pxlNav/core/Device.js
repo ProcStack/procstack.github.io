@@ -45,6 +45,7 @@ export class Device{
     //this.wheelDelta=0;
     
     this.gammaCorrection = new Vector3(1,1,1);
+    this.lightShift = new Vector2(1,1);
     
     this.firefox=/Firefox/i.test(navigator.userAgent);
     this.mobile=mobile;
@@ -220,35 +221,44 @@ export class Device{
   //     **Linux seems wrong, but can't find any reliable values other than `1`
   setGammaCorrection( value=null ){
     if( value != null ){ // Set from Settings Menu
-      this.gammaCorrection = new Vector3( 1/value, value, value );
+      this.gammaCorrection.x = 1/value;
+      this.gammaCorrection.y = value;
+      this.gammaCorrection.z = value;
       return;
     }
     
     // Detect based on device operating system
     let toGamma = 1.5; // Most devices will be 1 (Mobile); Fail to middle ground
+    let lightShift = 1.1; // Most devices will be 1 (Mobile); Fail to middle ground
     let shadowShift = 1.2; // Most devices will be 1 (Mobile); Fail to middle ground
     let shadowBoost = .5;
     if( window && window.navigator && window.navigator.userAgent ){
       let isWindows = window.navigator.userAgent.match(/(windows|win32|win64|wince)/i)
       if( isWindows && isWindows.length>0 ){ 
         toGamma = 2.2; // Windows
+        lightShift = 0.95;
         shadowShift = 1;
         shadowBoost = 0;
       }else{
         let isMac = window.navigator.userAgent.match(/(macintosh|macintel|macppc|mac68k|iphone|ipad|ipod)/i)
         if( isMac && isMac.length>0 ){ 
           toGamma = 1.8; // Mac
+          lightShift = 0.9;
           shadowShift = .97;
-          shadowBoost = .5;
+          shadowBoost = .1;
         }else{ 
-          toGamma = 1; // Linux / Android
-          shadowShift = .95;
-          shadowBoost = 1;
+          toGamma = 1.8; // Linux / Android
+          lightShift = 0.70;
+          shadowShift = .96;
+          shadowBoost = .1;
         }
       }
     }
     // Color space is bugging me.... Just designing for windows and adjusting for the others
-    this.gammaCorrection = new Vector3( 1/toGamma, shadowShift, shadowBoost );
+    this.gammaCorrection.x = 1/toGamma;
+    this.gammaCorrection.y = shadowShift;
+    this.gammaCorrection.z = shadowBoost;
+    this.lightShift.x = lightShift;
   }
     
   // -- -- -- -- -- -- -- -- -- -- //

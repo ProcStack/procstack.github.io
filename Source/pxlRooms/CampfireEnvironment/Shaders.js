@@ -89,6 +89,7 @@ export function rabbitDruidVert(){
     uniform sampler2D diffuseTexture;
     uniform sampler2D areTexture;
     uniform sampler2D noiseTexture;
+    uniform vec2 lightScalar;
     
       /***********************************/
       /** Start of THREE Shader Includs **/
@@ -177,11 +178,11 @@ export function rabbitDruidVert(){
           //refNorm = vec3(1.0, 1.0, 1.0);
           vec3 lightInf= ( max(0.0, dot(directionalLights[shadowIndex].direction, refTan * refNorm ))) * directionalLights[shadowIndex].color;
           
-          lights.rgb += lightInf * (areCd.g*areCd.g+1.0);
+          lights.rgb += lightInf * (areCd.g*areCd.g+lightScalar.x);
       }
       float lMag = length( lights.rgb )*1.5;
       outCd.rgb = mix(outCd.rgb*(1.0-(1.0-outCd.rgb)), outCd.rgb+vec3(1.0, .85, .70) * (outCd.rgb*.5+.5)*lights.rgb, lMag );
-      outCd.rgb += lights.rgb * areCd.g;
+      outCd.rgb += lights.rgb * areCd.g * lightScalar.x;
 
       
       // Add some ambient color to the back rim of the object
