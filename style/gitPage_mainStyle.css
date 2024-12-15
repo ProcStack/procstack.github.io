@@ -72,7 +72,7 @@ BODY {
 
 
 .gitPageNavBlockStyle {
-  padding: 6px 0px;
+  padding: 0px 0px;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -130,7 +130,7 @@ left: calc(max(3.5vw, 50vw - 765px));
 
 .gitPageNavStyle a {
 text-decoration: none;
-padding: 6px 15px 6px 15px;
+padding: 6px min(2.5vw, 15px) 6px min(2.5vw, 15px);
 border-radius: 6px;
 font-size: 1.1em;
 font-weight: 600;
