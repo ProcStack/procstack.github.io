@@ -64,19 +64,19 @@
 /* -- -- -- */
 
 
-.blogPage_footerBar{
+.pxlPagesFooter_indigoStyle{
   background: linear-gradient(90deg, rgba(71, 13, 174, 0.15),  rgba(68, 5, 105, 0.1), rgba(78, 19, 126, 0), rgba(78, 19, 126, 0), rgba(68, 5, 105, 0.1),  rgba(71, 13, 174, 0.15));
   color: #915aaa;
 }
-.blogPage_footerBar a {
+.pxlPagesFooter_indigoStyle a {
   color: #915aaa;
 }
-.blogPage_footerBar a:hover {
+.pxlPagesFooter_indigoStyle a:hover {
   color: #a437d6;
   font-weight: 600;
   text-shadow: 1px 1.5px 4px rgba(50,50,50,.5);
 }
-.blogPage_footerBar a:active {
+.pxlPagesFooter_indigoStyle a:active {
   color: #74448b;
   text-shadow: 1px 1.5px 4px rgba(50,50,50,.75);
 }
@@ -84,7 +84,7 @@
 /* -- -- -- */
 
 
-.blogSpacer{
+.pxlPagesSpacer_indigoStyle{
   height: 2px;
   width: 85%;
   background-color: rgba(59, 15, 94, 0.87);
@@ -92,13 +92,7 @@
   justify-self: center;
 }
 
-.blogEntryListStyle{
-  display: grid;
-  grid-auto-flow: column;
-  justify-items: space-around;
-}
-
-.blogEntryListingStyle{
+.pxlPagesButton_indigoStyle{
   border: 1px solid #6700fff0;
   text-decoration: none;
   color: #c6b3e9;
@@ -107,14 +101,14 @@
   margin: 3px;
   font-size: 1.1em;
 }
-.blogEntryListingStyle:hover {
+.pxlPagesButton_indigoStyle:hover {
   cursor: pointer;
   color: #ecddff;
   text-shadow: 1px 1.5px 4px #4b3e55;
   background-color: rgba(134, 60, 252, 0.395);
   border: 1px solid #743bc9f0;
 }
-.blogEntryListingStyle:active {
+.pxlPagesButton_indigoStyle:active {
   cursor: pointer;
   color: #7b62ab;
   text-shadow: 1px 1.5px 4px #51495a;

@@ -1,6 +1,6 @@
 
 
-.pxlPagesBileStyle{
+.pxlPages_blueGreyStyle{
   background-color: rgba(43, 37, 11, 0.58);
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
   border: 1px solid rgba(67, 60, 21, 0.445);
@@ -13,20 +13,20 @@
   z-index: 2;
 }
 
-.pxlPagesBileStyle::-webkit-scrollbar {
+.pxlPages_blueGreyStyle::-webkit-scrollbar {
 	width: 10px;
 }
 
-.pxlPagesBileStyle::-webkit-scrollbar-track {
+.pxlPages_blueGreyStyle::-webkit-scrollbar-track {
 	background: rgba(66, 54, 14, 0.31);
 }
 
-.pxlPagesBileStyle::-webkit-scrollbar-thumb {
+.pxlPages_blueGreyStyle::-webkit-scrollbar-thumb {
 	cursor: grab;
   background-color: rgb(78 66 9);
   border: 2px solid rgba(90, 73, 6, 0.6);
 }
-.pxlPagesBileStyle::-webkit-scrollbar-thumb:hover {
+.pxlPages_blueGreyStyle::-webkit-scrollbar-thumb:hover {
   background-color: rgb(143, 113, 16);
   border: 2px solid rgba(131, 107, 11, 0.636);
 }
@@ -37,22 +37,22 @@
 
 
 
-.gitPageNav_pxlNavStyle {
+.pxlPagesNav_blueGreyStyle {
   background: linear-gradient(90deg, rgba(30, 33, 11, 0), rgba(63, 57, 38, 0.24), rgba(80, 79, 23, 0.34), rgba(64, 54, 13, 0.24), rgba(45, 44, 12, 0));
   border-bottom: 1px solid rgba(83, 93, 22, 0.34);
 }
-.gitPageNav_pxlNavStyle a {
+.pxlPagesNav_blueGreyStyle a {
   border: 1px solid rgba(89, 75, 19, 0.94);
   color: #b28823;
   background-color: rgba(70, 66, 56, 0.37);
 }
-.gitPageNav_pxlNavStyle a:hover {
+.pxlPagesNav_blueGreyStyle a:hover {
   color: #d3b322;
   text-shadow: 1px 1.5px 4px #55503e;
   background-color: rgba(131, 111, 15, 0.773);
   border: 1px solid rgba(119, 118, 28, 0.941);
 }
-.gitPageNav_pxlNavStyle a:active {
+.pxlPagesNav_blueGreyStyle a:active {
   color: #8c7820;
   text-shadow: 1px 1.5px 4px #5a5049;
   background-color: rgba(105, 88, 28, 0.37);
@@ -63,19 +63,19 @@
 /* -- -- -- */
 
 
-.pxlNavPage_footerBar{
+.pxlPagesFooter_blueGreyStyle{
   background: linear-gradient(90deg, rgba(174, 163, 13, 0.15), rgba(66, 77, 15, 0.1), rgba(66, 77, 15, 0.0), rgba(66, 77, 15, 0.0), rgba(66, 77, 15, 0.1),  rgba(174, 163, 13, 0.15));
   color: #aa8735;
 }
-.pxlNavPage_footerBar a {
+.pxlPagesFooter_blueGreyStyle a {
   color: #aa8735;
 }
-.pxlNavPage_footerBar a:hover {
+.pxlPagesFooter_blueGreyStyle a:hover {
   color: #cb9e35;
   font-weight: 600;
   text-shadow: 1px 1.5px 4px rgba(50,50,50,.5);
 }
-.pxlNavPage_footerBar a:active {
+.pxlPagesFooter_blueGreyStyle a:active {
   color: #72591d;
   text-shadow: 1px 1.5px 4px rgba(50,50,50,.75);
 }
