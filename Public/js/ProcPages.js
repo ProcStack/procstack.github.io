@@ -492,7 +492,7 @@ export class ProcPages {
       pageDivsStyles.forEach( (pageDiv)=>{
         pageDiv.style.maxHeight="0px";
         pageDiv.style.minHeight="0px";
-        pageDiv.style.padding="0px";
+        pageDiv.style.padding="0px 10px";
         pageDiv.classList.add("gpcpHiddenStyle");
         pageDiv.classList.remove("gpcpVisibleStyle");
         

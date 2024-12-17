@@ -65,7 +65,7 @@
 
 
 .blogPage_footerBar{
-  background: linear-gradient(90deg, rgba(71, 13, 174, 0.15),  rgba(68, 5, 105, 0.1), rgba(78, 19, 126, 0), rgba(78, 19, 126, 0), rgba(68, 5, 105, 0.1),  rgba(71, 13, 174, 0.15));
+  background: linear-gradient(90deg, rgba(71, 13, 174, 0.2),  rgba(68, 5, 105, 0.15), rgba(78, 19, 126, 0), rgba(68, 5, 105, 0.15),  rgba(71, 13, 174, 0.2));
   color: #915aaa;
 }
 .blogPage_footerBar a {

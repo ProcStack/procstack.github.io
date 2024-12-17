@@ -151,7 +151,7 @@ export function rabbitDruidVert(){
           vec3 lightVector = normalize(vPos - pointLights[shadowIndex].position);
           vec3 lightInf= clamp(dot(-lightVector, vN), 0.0, 1.0) * pointLights[shadowIndex].color;
           lightInf *=  1.0-min(1.0, length(vPos - pointLights[shadowIndex].position) * pointLights[shadowIndex].decay );
-          lights.rgb += lightInf;
+          lights.rgb += lightInf*.9;
       }
       //outCd.rgb *= lights.rgb;
       
@@ -478,8 +478,8 @@ export function envGroundFrag(){
 
 
 export function campfireLogVert(){
-  //let ret=shaderHeader();
-  let ret=`
+  let ret=shaderHeader();
+  ret += `
     uniform vec2 time;
     uniform float intensity;
     uniform float rate;
@@ -511,9 +511,9 @@ export function campfireLogVert(){
         nuv.x = fract( np.x+timer );
         nuv.y = fract( np.z+timer ); 
         vec3 nCd=(texture2D(noiseTexture,nuv).rgb-.5)*10.;
-        vec3 pos = position;
+        vec4 pos = vec4(position, 1.0);
         
-        vec4 mvPos=modelViewMatrix * vec4(pos, 1.0);
+        vec4 mvPos=modelViewMatrix * pos;
         gl_Position = projectionMatrix*mvPos;
         
         vPos = pos.xyz;// mvPos.xyz;
@@ -524,8 +524,8 @@ export function campfireLogVert(){
 }
 
 export function campfireLogFrag(){
-  //let ret=shaderHeader();
-  let ret=`
+  let ret=shaderHeader();
+  ret += `
     uniform vec2 time;
     uniform float intensity;
     uniform float rate;

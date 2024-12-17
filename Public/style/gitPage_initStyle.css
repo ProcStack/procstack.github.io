@@ -39,7 +39,7 @@
 
 
 .initPage_footerBar{
-  background: linear-gradient(90deg, rgba(57, 37, 4, 0.35),  rgba(34, 22, 2, 0.1), rgba(34, 22, 2, 0), rgba(34, 22, 2, 0.0), rgba(34, 22, 2, 0.1),  rgba(57, 37, 4, 0.35));
+  background: linear-gradient(90deg, rgba(57, 37, 4, 0.35),  rgba(34, 22, 2, 0.20), rgba(34, 22, 2, 0.1), rgba(34, 22, 2, 0.20),  rgba(57, 37, 4, 0.35));
   color: #cc8324;
 }
 

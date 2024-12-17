@@ -27,12 +27,14 @@ export class CampfireEnvironment extends RoomEnvironment{
         "rig" : this.assetPath+"RabbitDruidA/RabbitDruidA_rig.fbx",
         "anim" : {
           "Sit_Idle" : this.assetPath+"RabbitDruidA/RabbidDruidA_anim_sit_idle.fbx",
-          "Sit_Stoke" : this.assetPath+"RabbitDruidA/RabbidDruidA_anim_sit_stoke.fbx"
+          "Sit_Stoke" : this.assetPath+"RabbitDruidA/RabbidDruidA_anim_sit_stoke.fbx",
+          "Sit_Look" : this.assetPath+"RabbitDruidA/RabbidDruidA_anim_sit_look.fbx"
         },
         "stateConnections"  : {
           // Non existing states will be ignored and loop'ed, ie "Walk"
-          "Sit_Idle" : ["Sit_Idle", "Sit_Stoke"],
-          "Sit_Stoke" : ["Sit_Idle"]
+          "Sit_Idle" : [ ...Array(6).fill("Sit_Idle"), ...Array(6).fill("Sit_Stoke"), ...Array(4).fill("Sit_Look")],
+          "Sit_Stoke" : ["Sit_Idle"],
+          "Sit_Look" : ["Sit_Idle"]
         }
       }
     };
@@ -81,9 +83,9 @@ export class CampfireEnvironment extends RoomEnvironment{
       let locRot = locObj.rotation.clone();
       let locScale = locObj.scale.clone();
 
-      parentObj.position.set( locPos.x, locPos.y, locPos.z );
-      parentObj.rotation.set( locRot.x, locRot.y, locRot.z );
-      parentObj.scale.set( locScale.x, locScale.y, locScale.z );
+      //parentObj.position.set( locPos.x, locPos.y, locPos.z );
+      //parentObj.rotation.set( locRot.x, locRot.y, locRot.z );
+      //parentObj.scale.set( locScale.x, locScale.y, locScale.z );
     }
 
     if( this.pxlAnim && this.pxlAnim.hasClip( animKey, this.animInitCycle ) ){
@@ -234,7 +236,6 @@ export class CampfireEnvironment extends RoomEnvironment{
     // Log replicator time!
     //  Making some shader materials for our burny burny logs.
     //    Lets get them crackling in that flame!
-
     if(this.geoList.hasOwnProperty('InstanceObjects')){
       
       for( const x in this.geoList['InstanceObjects'] ){
@@ -271,6 +272,9 @@ export class CampfireEnvironment extends RoomEnvironment{
         }
       }
     }
+
+    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
 
     // TODO : This needs to not be needed --
     this.setUserHeight( this.camInitPos.y );
@@ -356,6 +360,10 @@ export class CampfireEnvironment extends RoomEnvironment{
     
     // -- -- --
 
+    // -- -- -- -- -- -- -- -- -- -- -- --
+    // -- Environment Ground Material - -- --
+    // -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
     let envGroundUniforms = THREE.UniformsUtils.merge(
         [
           THREE.UniformsLib[ "common" ],
@@ -411,6 +419,11 @@ export class CampfireEnvironment extends RoomEnvironment{
     
     // -- -- --
     
+    // -- -- -- -- -- -- -- -- -- --
+    // -- Campfire Flame Material -- --
+    // -- -- -- -- -- -- -- -- -- -- -- --
+
+
     let campfireUniforms = THREE.UniformsUtils.merge(
       [
         {
@@ -440,7 +453,44 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     // -- -- -- 
 
-    
+
+    // -- -- -- -- -- -- -- -- -- --
+    // -- Campfire Logs Material -- --
+    // -- -- -- -- -- -- -- -- -- -- -- --
+    // TODO : Seat log isn't getting the correct instance matrix
+/*
+    //    Lets get them crackling in that flame!
+    let campfireLogUniforms={
+      // THREE.LinearFilter // THREE.NearestMipmapLinearFilter // THREE.NearestFilter // THREE.NearestMipmapNearestFilter
+      baseTexture:{type:"t",value: null },
+      midEmberTexture:{type:"t",value: null },
+      heavyEmberTexture:{type:"t",value: null },
+      dataTexture:{type:"t",value: null },
+      noiseTexture:{type:"t",value: null },
+      time:{type:"f",value: this.msRunner },
+      intensity:{type:"f",value:1.0},
+      rate:{type:"f",value:.04},
+    };
+    let logBarkMat = this.pxlFile.pxlShaderBuilder( campfireLogUniforms, campfireLogVert(), campfireLogFrag() );
+
+    //logBarkMat.depthTest=true;
+    //logBarkMat.depthWrite=true;
+
+    logBarkMat.uniforms.baseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_diffuse_charred.jpg", 4, {"magFilter":THREE.LinearFilter, "minFilter":THREE.NearestMipmapLinearFilter} );
+    logBarkMat.uniforms.midEmberTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_diffuse_charredEmberGlow.jpg", 4, {"magFilter":THREE.LinearFilter, "minFilter":THREE.NearestMipmapLinearFilter} );
+    logBarkMat.uniforms.heavyEmberTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_diffuse_emberGlow.jpg", 4, {"magFilter":THREE.LinearFilter, "minFilter":THREE.NearestMipmapLinearFilter} );
+    logBarkMat.uniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_dataMask.jpg", 4, {"magFilter":THREE.LinearFilter, "minFilter":THREE.NearestMipmapLinearFilter} );
+    logBarkMat.uniforms.noiseTexture.value = this.smoothNoiseTexture;
+*/
+
+
+    // -- -- -- 
+
+    // -- -- -- -- -- -- -- -- -- -- -- -- --
+    // -- Grass Cluster Instances Material -- --
+    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+
     let grassClusterUniforms = THREE.UniformsUtils.merge(
         [
         THREE.UniformsLib[ "lights" ],
@@ -457,14 +507,14 @@ export class CampfireEnvironment extends RoomEnvironment{
     grassMat.transparent = false;
     
         
-    this.textureList[ "grassClusterA_geo" ]=grassMat;
     
-
+    
     // -- -- --
-          
-    this.textureList[ "EnvironmentGround_geo" ]=environmentGroundMat;
-    this.textureList[ "CampfireFlame_geo" ]=campfireMtl;
-  
+    
+    this.textureList[ "EnvironmentGround_geo" ] = environmentGroundMat;
+    this.textureList[ "CampfireFlame_geo" ] = campfireMtl;
+    this.textureList[ "grassClusterA_geo" ] = grassMat;
+    
     
     //
     // -- -- -- 

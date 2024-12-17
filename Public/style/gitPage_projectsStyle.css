@@ -57,7 +57,7 @@
 /* -- -- -- */
 
 .projectsPage_footerBar{
-  background: linear-gradient(90deg, rgba(27, 88, 141, 0.25), rgba(5, 83, 158, 0.1), rgba(4, 43, 109, 0.0), rgba(4, 43, 109, 0), rgba(5, 83, 158, 0.1), rgba(27, 88, 141, 0.25));
+  background: linear-gradient(90deg, rgba(27, 88, 141, 0.25), rgba(5, 83, 158, 0.15), rgba(4, 43, 109, 0.0), rgba(5, 83, 158, 0.15), rgba(27, 88, 141, 0.25));
   color: #001f47;
 }
 .projectsPage_footerBar a {

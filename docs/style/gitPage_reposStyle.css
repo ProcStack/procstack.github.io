@@ -81,7 +81,7 @@
 /* -- -- -- */
 
 .repoPage_footerBar{
-    background: linear-gradient(90deg, rgba(20, 76, 186, 0.3), rgba(27, 63, 149, 0.1), rgba(20, 69, 186, 0), rgba(20, 69, 186, 0), rgba(27, 63, 149, 0.2), rgba(20, 76, 186, 0.3));
+    background: linear-gradient(90deg, rgba(20, 76, 186, 0.3), rgba(27, 63, 149, 0.1), rgba(20, 69, 186, 0), rgba(27, 63, 149, 0.2), rgba(20, 76, 186, 0.3));
     color: #4964f1;
 }
 .repoPage_footerBar a {
