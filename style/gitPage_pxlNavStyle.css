@@ -64,7 +64,7 @@
 
 
 .pxlNavPage_footerBar{
-  background: linear-gradient(90deg, rgba(10, 72, 8, 0.2), rgba(12, 67, 8, 0.15), rgba(18, 72, 12, 0), rgba(18, 72, 12, 0), rgba(12, 67, 8, 0.15), rgba(10, 72, 8, 0.2));
+  background: linear-gradient(90deg, rgba(10, 72, 8, 0.2), rgba(12, 67, 8, 0.15), rgba(18, 72, 12, 0), rgba(12, 67, 8, 0.15), rgba(10, 72, 8, 0.2));
   color: #49a532;
 }
 .pxlNavPage_footerBar a {
