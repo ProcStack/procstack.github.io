@@ -31,7 +31,7 @@ const enableStaticCamera = true;
 const projectTitle = "procstack.github.io";
 
 // pxlRoom folder path, available to change folder names or locations if desired
-const pxlRoomRootPath = "./pxlRooms";
+const pxlRoomRootPath = "pxlRooms";
 
 // Current possible rooms - "CampfireEnvironment", "SaltFlatsEnvironment"
 const startingRoom = "CampfireEnvironment"; 
