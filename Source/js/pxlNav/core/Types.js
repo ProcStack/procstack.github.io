@@ -37,6 +37,7 @@ export const ANTI_ALIASING = {
 
 export const PXLNAV_OPTIONS = {
   'verbose' : VERBOSE_LEVEL.NONE,
+  'pxlRoomRoot' : "./pxlRooms",
   'staticCamera' : false,
   'autoCamera' : false,
   'antiAliasing' : ANTI_ALIASING.LOW,

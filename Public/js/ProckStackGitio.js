@@ -31,7 +31,7 @@ const enableStaticCamera = true;
 const projectTitle = "procstack.github.io";
 
 // pxlRoom folder path, available to change folder names or locations if desired
-const pxlRoomRootPath = "./pxlRooms";
+const pxlRoomRootPath = "../pxlRooms";
 
 // Current possible rooms - "CampfireEnvironment", "SaltFlatsEnvironment"
 const startingRoom = "CampfireEnvironment"; 
@@ -66,9 +66,10 @@ let pxlNavOptions = Object.assign({},PXLNAV_OPTIONS);
 pxlNavOptions.verbose = verbose;
 pxlNavOptions.antiAliasing = antiAliasing;
 pxlNavOptions.staticCamera = enableStaticCamera;
+pxlNavOptions.pxlRoomRoot = pxlRoomRootPath;
 
 // Create the pxlNav environment manager
-const pxlNavEnv = new pxlNav( pxlNavOptions, projectTitle, pxlRoomRootPath, procPages.curRoom, bootRoomList );
+const pxlNavEnv = new pxlNav( pxlNavOptions, projectTitle, procPages.curRoom, bootRoomList );
 
 // -- -- -- -- --
 

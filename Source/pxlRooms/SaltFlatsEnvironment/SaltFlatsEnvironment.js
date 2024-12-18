@@ -1,7 +1,6 @@
 // WIP -- STAND IN FILE
 //   IT WILL ERROR IF YOU LOAD THIS ENVIRONMENT
 
-
 import * as THREE from "../../js/libs/three/three.module.js";
 import { rabbitDruidVert, rabbitDruidFrag,
          envGroundVert, envGroundFrag,

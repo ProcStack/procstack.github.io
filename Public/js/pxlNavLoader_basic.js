@@ -25,7 +25,7 @@ const antiAliasing = ANTI_ALIASING.LOW;
 const projectTitle = "pxlNav : Field Env.";
 
 // pxlRoom folder path, available to change folder names or locations if desired
-const pxlRoomRootPath = "./pxlRooms";
+const pxlRoomRootPath = "../pxlRooms";
 
 // Current possible rooms - "CampfireEnvironment", "SaltFlatsEnvironment", "FieldEnvironment", "VoidEnvironment"
 const bootRoomList = ["FieldEnvironment", "VoidEnvironment"];
@@ -58,10 +58,11 @@ const loaderPhrases = [
 let pxlNavOptions = Object.assign({},PXLNAV_OPTIONS);
 pxlNavOptions.verbose = verbose;
 pxlNavOptions.antiAliasing = antiAliasing;
+pxlNavOptions.pxlRoomRoot = pxlRoomRootPath;
 
 
 // Create the pxlNav environment manager
-const pxlNavEnv = new pxlNav( pxlNavOptions, projectTitle, pxlRoomRootPath, startingRoom, bootRoomList );
+const pxlNavEnv = new pxlNav( pxlNavOptions, projectTitle, startingRoom, bootRoomList );
 
 // -- -- --
 

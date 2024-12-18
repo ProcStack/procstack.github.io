@@ -1,4 +1,4 @@
-import * as THREE from "../../libs/three/three.module.js";
+import * as THREE from "../../js/libs/three/three.module.js";
 
 // If you'd like to add a custom pass to the Effect Composer (Post Processing Effects)
 //import { ShaderPass } from '../../libs  hree/examples/jsm/postprocessing/ShaderPass.js';

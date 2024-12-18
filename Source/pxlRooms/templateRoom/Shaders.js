@@ -2,8 +2,7 @@
 // Modify the shaders how you see below,
 //   A return of the shader for your required WebGL stage
 
-
-import {shaderHeader} from "../../pxlBase/shaders/core/ShaderHeader.js";
+import {shaderHeader} from "../../js/pxlNav/shaders/core/ShaderHeader.js";
 
 
 export function templateVert(){

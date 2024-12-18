@@ -20,6 +20,8 @@ function getDirectories(source) {
 var entryFiles = {}
 entryFiles[entryFile] = outputFile;
 
+var externalFiles = [];
+
 
 let directories = getDirectories( roomEntryRoot );
 console.log(directories);
@@ -29,10 +31,29 @@ directories.forEach( (dir)=>{
   if( roomName != "templateRoom" ){
     let roomEntryFile = roomEntryRoot+roomName+'/'+roomName+'.js';
     let roomOutputFile = roomOutputRoot+roomName+'/'+roomName+'.js';
+    externalFiles.push(roomName);
     entryFiles[roomEntryFile] = roomOutputFile;
   }
 });
 
+console.log(Object.entries(entryFiles))
+
+// -- -- --
+
+// Create a plugin to substitute import paths
+const pathSubstitutionPlugin = {
+  name: 'path-substitution',
+  setup(build) {
+    build.onResolve({ filter: /^\.\.\/\.\.\/libs\/three\/three\.module\.js$/ }, args => {
+      return { path: './three.module.js', external: true };
+    });
+    build.onResolve({ filter: /^\.\.\/libs\/three\/three\.module\.js$/ }, args => {
+      return { path: './three.module.js', external: true };
+    });
+  }
+};
+
+// -- -- --
 
 let promiseList = [];
 
@@ -47,8 +68,15 @@ for (const [entryFile, outputFile] of Object.entries(entryFiles)) {
     platform: 'browser', // or 'node' for Node.js
     loader: {
       '.js': 'jsx'
-    },
-    external: ['./Source/js/libs/three/three.module.js'], // Exclude 'three' from the bundle
+    },  
+    external: [
+      './Source/js/libs/three/three.module.js',
+      './Source/js/pxlRoom/CampfireEnvironment/CampfireEnvironment.js',
+      './Source/js/pxlRoom/FieldEnvironment/FieldEnvironment.js',
+      './Source/js/pxlRoom/SaltFlatsEnvironment/SaltFlatsEnvironment.js',
+      './Source/js/pxlRoom/VoidEnvironment/VoidEnvironment.js'
+    ],
+    plugins: [pathSubstitutionPlugin]
   }));
 }
 

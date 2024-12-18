@@ -69,9 +69,8 @@ var sH = window.innerHeight;
  * pxlNav - Core Engine
  *   The primary entry point for the pxlNav engine.
  * Initialize
- * @param {number} verbose - The level of verbosity for console logging, INFO(0), WARN(1), ERROR(2), NONE(3)
+ * @param {object} options - The options object for the pxlNav environment
  * @param {string} projectTitle - The title of the project
- * @param {string} pxlRoomRoot - The root folder for the room assets
  * @param {string} startingRoom - The initial room to load
  * @param {string[]} roomBootList - A list of rooms to load
  * @example
@@ -109,10 +108,14 @@ var sH = window.innerHeight;
  * 
  */
 export class pxlNav{
-  constructor( options, projectTitle, pxlRoomRoot, startingRoom, roomBootList ){
+  constructor( options, projectTitle, startingRoom, roomBootList ){
     this._active = false;
 
     // -- -- --
+    let pxlRoomRoot = "./pxlRooms";
+    if( options.hasOwnProperty("pxlRoomRoot") ){
+      pxlRoomRoot = options["pxlRoomRoot"];
+    }
 
     // Option Checks & Defaults
 
@@ -201,7 +204,7 @@ export class pxlNav{
 
     this.pxlUser = new PxlBase.User();
 
-    this.pxlEnv = new PxlBase.Environment( this.options, this.startingRoom, pxlRoomRoot, this.mobile );
+    this.pxlEnv = new PxlBase.Environment( this.options, this.startingRoom, this.mobile );
     this.pxlDevice = new PxlBase.Device( projectTitle, pxlCore, this.mobile, this.autoCam );
     this.pxlCamera = new PxlBase.Camera();
     // Disable Free-Roam camera mode if static camera is enabled

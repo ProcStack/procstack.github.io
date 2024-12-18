@@ -882,7 +882,7 @@ import*as l from"../../../Source/js/libs/three/three.module.js";function g(){ret
       outCd.a *= min(1.0,vCd.g*2.0);
       
       gl_FragColor = outCd;
-    }`,r}import*as b from"../../../Source/js/libs/three/three.module.js";var w=b.Vector2,T=b.Vector3;var ie={NONE:0,ERROR:1,WARN:2,INFO:3},ae={OFF:0,LOW:1,MEDIUM:2,HIGH:3},le={verbose:ie.NONE,staticCamera:!1,autoCamera:!1,antiAliasing:ae.LOW,LoadEnvAssetFile:!1};import*as p from"../../../Source/js/libs/three/three.module.js";import*as P from"../../../Source/js/libs/three/three.module.js";function Y(r=!1){let e=`
+    }`,r}import*as b from"./three.module.js";var w=b.Vector2,T=b.Vector3;var ie={NONE:0,ERROR:1,WARN:2,INFO:3},ae={OFF:0,LOW:1,MEDIUM:2,HIGH:3},le={verbose:ie.NONE,pxlRoomRoot:"./pxlRooms",staticCamera:!1,autoCamera:!1,antiAliasing:ae.LOW,LoadEnvAssetFile:!1};import*as p from"./three.module.js";import*as P from"../../../Source/js/libs/three/three.module.js";function Y(r=!1){let e=`
     attribute vec3 color;
     attribute vec3 shading;
 

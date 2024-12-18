@@ -446,7 +446,7 @@ import*as n from"../../../Source/js/libs/three/three.module.js";function I(){ret
         Cd.rgb=  mix( Cd.rgb, fogColor, depth );
         
         gl_FragColor=Cd;
-    }`,e}import*as w from"../../../Source/js/libs/three/three.module.js";var E=w.Vector2,b=w.Vector3;var W={NONE:0,ERROR:1,WARN:2,INFO:3},k={OFF:0,LOW:1,MEDIUM:2,HIGH:3},j={verbose:W.NONE,staticCamera:!1,autoCamera:!1,antiAliasing:k.LOW,LoadEnvAssetFile:!1};import*as f from"../../../Source/js/libs/three/three.module.js";import*as P from"../../../Source/js/libs/three/three.module.js";function A(l=!1){let e=`
+    }`,e}import*as w from"./three.module.js";var E=w.Vector2,b=w.Vector3;var W={NONE:0,ERROR:1,WARN:2,INFO:3},k={OFF:0,LOW:1,MEDIUM:2,HIGH:3},j={verbose:W.NONE,pxlRoomRoot:"./pxlRooms",staticCamera:!1,autoCamera:!1,antiAliasing:k.LOW,LoadEnvAssetFile:!1};import*as f from"./three.module.js";import*as P from"../../../Source/js/libs/three/three.module.js";function A(l=!1){let e=`
     attribute vec3 color;
     attribute vec3 shading;
 

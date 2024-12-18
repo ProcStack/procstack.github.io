@@ -320,7 +320,7 @@ import*as n from"../../../Source/js/libs/three/three.module.js";function E(){ret
         
         
         gl_FragColor=Cd;
-    }`}import*as x from"../../../Source/js/libs/three/three.module.js";var L=x.Vector2,T=x.Vector3;var W={NONE:0,ERROR:1,WARN:2,INFO:3},j={OFF:0,LOW:1,MEDIUM:2,HIGH:3},Z={verbose:W.NONE,staticCamera:!1,autoCamera:!1,antiAliasing:j.LOW,LoadEnvAssetFile:!1};import*as d from"../../../Source/js/libs/three/three.module.js";import*as C from"../../../Source/js/libs/three/three.module.js";function z(a=!1){let e=`
+    }`}import*as x from"./three.module.js";var L=x.Vector2,T=x.Vector3;var W={NONE:0,ERROR:1,WARN:2,INFO:3},j={OFF:0,LOW:1,MEDIUM:2,HIGH:3},Z={verbose:W.NONE,pxlRoomRoot:"./pxlRooms",staticCamera:!1,autoCamera:!1,antiAliasing:j.LOW,LoadEnvAssetFile:!1};import*as d from"./three.module.js";import*as C from"../../../Source/js/libs/three/three.module.js";function z(a=!1){let e=`
     attribute vec3 color;
     attribute vec3 shading;
 

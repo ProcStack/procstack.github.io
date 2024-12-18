@@ -34,13 +34,14 @@ import { BloomPass } from '../libs/three/postprocessing/BloomPass.js';
 
 
 export class Environment{
-  constructor( options, mainRoom='Default', pxlRoomName='pxlRooms', mobile ){
+  constructor( options, mainRoom='Default', mobile ){
     this.engine=null;
     this.scene=null;
     this.parentGroupList={};
     this.parentGroupList[mainRoom]=[];
     this.parentNameList=[];
     this.options=options;
+
 
 
     // -- -- -- --
@@ -52,11 +53,23 @@ export class Environment{
     this.renderInterval = 1.0 / this.fps;
     // -- -- -- --
 
+    let pxlRoomName = "Default";
+    if( this.options.hasOwnProperty("pxlRoomName") ){
+      pxlRoomName = this.options.pxlRoomName;
+    }else{
+      pxlRoomName = mainRoom;
+    }
+
     this.pxlRoomAbsRoot = pxlRoomName;
     let splitRoot = pxlRoomName.split("/");
     splitRoot.splice(0,1);
     splitRoot = splitRoot.join("/");
-    this.pxlRoomLclRoot = "../../"+pxlRoomName.split("/").pop();
+    this.pxlRoomLclRoot = pxlRoomName;
+    if( this.options.hasOwnProperty("pxlRoomRoot") ){
+      this.pxlRoomLclRoot = this.options.pxlRoomRoot;
+    }else{
+      this.pxlRoomLclRoot = "./"+pxlRoomName.split("/").pop();
+    }
     
     this.mainRoom=mainRoom; // Main environment room
     this.bootRoom=mainRoom; // Room to start pxlNav in
@@ -411,11 +424,10 @@ export class Environment{
 
       this.log("Loading Room - ", roomName);
       
-
-      var curImport=import(`${this.pxlRoomLclRoot}/${roomName}/${roomName}.js`);
+      var curImport=import(`../${this.pxlRoomLclRoot}/${roomName}/${roomName}.js`);
       
       curImport.then((module)=>{
-        let roomObj=new module[roomName]( roomName, `../${this.pxlRoomLclRoot}/${roomName}/`, this.pxlFile, this.pxlAnim, this.pxlUtils, this.pxlDevice, this, this.pxlTimer.msRunner, null, null, this.cloud3dTexture);
+        let roomObj=new module[roomName]( roomName, `./js/${this.pxlRoomLclRoot}/${roomName}/`, this.pxlFile, this.pxlAnim, this.pxlUtils, this.pxlDevice, this, this.pxlTimer.msRunner, null, null, this.cloud3dTexture);
 
         roomObj.camera=this.pxlCamera.camera;
         roomObj.scene=new THREE.Scene();
