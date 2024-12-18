@@ -22,12 +22,16 @@ const verbose = VERBOSE_LEVEL.ERROR;
 //   Options are - NONE, LOW, MEDIUM, HIGH
 const antiAliasing = ANTI_ALIASING.LOW;
 
+// Set camera to static Camera Positions
+//   Locations pulled from the 'Camera' group in the pxlRoom's FBX file
+const enableStaticCamera = true;
+
 // The Title of your Project
 //   This will be displayed on the 
 const projectTitle = "procstack.github.io";
 
 // pxlRoom folder path, available to change folder names or locations if desired
-const pxlRoomRootPath = "./pxlRooms";
+const pxlRoomRootPath = "pxlRooms";
 
 // Current possible rooms - "CampfireEnvironment", "SaltFlatsEnvironment"
 const startingRoom = "CampfireEnvironment"; 
@@ -61,9 +65,11 @@ procBlog.showEntry(-1);
 let pxlNavOptions = Object.assign({},PXLNAV_OPTIONS);
 pxlNavOptions.verbose = verbose;
 pxlNavOptions.antiAliasing = antiAliasing;
+pxlNavOptions.staticCamera = enableStaticCamera;
+pxlNavOptions.pxlRoomRoot = pxlRoomRootPath;
 
 // Create the pxlNav environment manager
-const pxlNavr = new pxlNav( pxlNavOptions, projectTitle, pxlRoomRootPath, procPages.curRoom, bootRoomList );
+const pxlNavEnv = new pxlNav( pxlNavOptions, projectTitle, procPages.curRoom, bootRoomList );
 
 // -- -- -- -- --
 
@@ -81,7 +87,7 @@ const loaderPhrases = [
   "...sharpening the pencils...",
 ];
 
-pxlNavr.setLoaderPhrases( loaderPhrases );
+pxlNavEnv.setLoaderPhrases( loaderPhrases );
 
 
 
@@ -92,14 +98,14 @@ pxlNavr.setLoaderPhrases( loaderPhrases );
 //   Non loop - pxlNavObj.subscribe("pxlNavEventNameHere", procPages.functionName.bind(procPages));
 const pageListenEvents = [ "booted", "shaderEditorVis", "roomChange-End", "fromRoom" ];
 pageListenEvents.forEach( (e)=>{
-  pxlNavr.subscribe( e, procPages.eventHandler.bind(procPages) );
+  pxlNavEnv.subscribe( e, procPages.eventHandler.bind(procPages) );
 });
 
 
 // -- -- --
 
 // Connect ProcPages' trigger emit function to into `pxlNav`
-procPages.bindTriggerEmits( pxlNavr.trigger.bind(pxlNavr) );
+procPages.bindTriggerEmits( pxlNavEnv.trigger.bind(pxlNavEnv) );
 
 // -- -- --
 
@@ -107,8 +113,8 @@ procPages.bindTriggerEmits( pxlNavr.trigger.bind(pxlNavr) );
 function init(){
 
   // Start the timer and initilize pxlNAv
-  pxlNavr.bootTimer();
-  pxlNavr.init();
+  pxlNavEnv.bootTimer();
+  pxlNavEnv.init();
 
 }
 (()=>{init()})();

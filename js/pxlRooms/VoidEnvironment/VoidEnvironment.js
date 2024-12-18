@@ -1,4 +1,4 @@
-import*as e from"../../js/three.module.js";function s(){return`
+import*as e from"../../three.module.js";function s(){return`
     #ifdef GL_FRAGMENT_PRECISION_HIGH
       precision highp float;
     #else
