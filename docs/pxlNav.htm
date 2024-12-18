@@ -1,0 +1,51 @@
+<!--
+// pxlNav Example Project - 2024
+//   By Kevin Edzenga
+// -- -- -- -- -- -- -- --
+//
+//  This is a basic example of how to use the pxlNav library.
+//  The library is loaded in the script tag at the bottom of the page.
+//    `js/pxlNavLoader_basic.js`
+//  
+//  The only needed lines for your page to run pxlNav are:
+//    ` <link type="text/css" rel="stylesheet" href="style/pxlNavStyle.css"/> `
+//    ` <canvas id="pxlNav-coreCanvas" class="pxlNavCoreCanvasStyle"></canvas> `
+//    ` <script type="module" src="js/pxlNavLoader_basic.js"></script> `
+//
+//  CommonJS requires will be supported in the future.
+//    For now, please load the library with the script/link tags.
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+</head>
+
+<!-- -- -- -- -->
+
+<link type="text/css" rel="stylesheet" href="style/pxlNavStyle.min.css"/>
+
+<!-- -- -- -- -->
+
+<body>
+  <!-- GUI page content -->
+  <div class="pxlNavExample_headerBar">
+    <span class="pxlNavExample_titleText">_pxlNav<span class="pxlNavVersion pxlNavExample_headerVersion"></span>_</span>
+  </div>
+  <div class="pxlNavExample_footerBarStyle">
+    <div class="pxlNavExample_leftFooter versionStyle">
+        <a href="https://github.com/ProcStack/pxlNav" target="_blank">[: pxlNav <span class="pxlNavVersion"></span> :]</a>
+    </div>
+    <div class="pxlNavExample_rightFooter">
+      <a href="https://procstack.github.io/">← Back to Main Site</a>
+    </div>
+  </div>
+
+  <!-- pxlNav necessary tags -->
+    <canvas id="pxlNav-coreCanvas" height='1' width='1' class="pxlNavCoreCanvasStyle" ></canvas>
+    <script type="module" src="js/pxlNavLoader_basic.js?v=2024-12-17"></script>
+
+</body>
+</html>

@@ -59,13 +59,8 @@ export class User{
     this.iZoomWarp=0;
     this.iZoomPass=null;
         
-    this.gravityRate=0;
-    this.gravityMax=5.44; // Gravity at scale of 1 / avg human(1.8 meters) * 9.8mms
-    this.gravityMPS=[.15,.05]; // Influence of M/S^2 .. I guess haha; [ Grav, Low Grav ]
   }
-  get getGravityMPS(){
-    return this.gravityMPS[this.lowGrav];
-  }
+
   checkItemWearOff(curTime){
     if(this.itemActiveList.length > 0){
       let timeLeft=this.itemActiveTimer[0]-curTime;

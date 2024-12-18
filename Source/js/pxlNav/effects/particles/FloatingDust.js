@@ -36,7 +36,14 @@ export class FloatingDust extends ParticleBase{
     mtl.side=THREE.DoubleSide;
     mtl.transparent=true;
     // mtl.blending=THREE.AdditiveBlending;
-    mtl.uniforms.atlasTexture.value = this.room.pxlUtils.loadTexture( this.atlasPath, 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
+      
+    if( this.isInternalTexture ){
+      mtl.uniforms.atlasTexture.value = this.room.pxlEnv.getAssetTexture( this.atlasPath, 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
+    }else{
+      mtl.uniforms.atlasTexture.value = this.room.pxlUtils.loadTexture( this.atlasPath, 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
+    }
+
+    //mtl.uniforms.atlasTexture.value = this.room.pxlUtils.loadTexture( this.atlasPath, 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
     mtl.uniforms.noiseTexture.value = this.room.softNoiseTexture;
     mtl.depthTest=true;
     mtl.depthWrite=false;

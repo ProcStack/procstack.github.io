@@ -672,7 +672,30 @@ export class Environment{
   }
   //%
   
-    
+  // Load the given texture file from the internal pxlNav 'assetRoot'
+  //   Default is "./assets/" from the web root.
+  //     Please pass the path to your asset folder when creating your pxlNav object.
+  // It would be best if you pass channel count and mods
+  //   But you can tell it attempts to mitigate the issue.
+    getAssetTexture( assetName, channels=null, mods=null ){
+      this.log("Get Internal Texture - ", assetName);
+      let curTexturePath = this.pxlUtils.assetRoot + assetName;
+      if(!channels){
+        let assetSplit = assetName.split(".");
+        let assetExt = assetSplit.pop().toLowerCase();
+        if( assetExt=="jpg" || assetExt=="jpeg"  ){
+          channels=3;
+        }else if( assetExt=="png" ){
+          channels=4;
+        }
+      }
+      if(!mods){
+        mods={"magFilter":THREE.LinearFilter, "minFilter":THREE.LinearFilter};
+      }
+
+      let textureRead = this.pxlUtils.loadTexture( curTexturePath, channels, mods );
+      return textureRead;
+    }
     
     
     buildSnow(){

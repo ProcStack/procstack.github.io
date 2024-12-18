@@ -204,6 +204,11 @@ export class pxlNav{
     this.pxlEnv = new PxlBase.Environment( this.options, this.startingRoom, pxlRoomRoot, this.mobile );
     this.pxlDevice = new PxlBase.Device( projectTitle, pxlCore, this.mobile, this.autoCam );
     this.pxlCamera = new PxlBase.Camera();
+    // Disable Free-Roam camera mode if static camera is enabled
+    if( this.options["staticCamera"] ){
+      this.pxlCamera.toggleMovement( false );
+    }
+
     this.pxlAnim = new PxlBase.Animation( this.folderDict["assetRoot"], this.pxlTimer );
 
     this.pxlGuiDraws = new PxlBase.GUI( this.verbose, projectTitle, this.folderDict["assetRoot"], this.folderDict["guiRoot"] );
@@ -282,7 +287,8 @@ export class pxlNav{
       })
        .finally( ()=>{
         if( this.verbose > VERBOSE_LEVEL.ERROR ){
-          console.log("pxlNavCore Promise Chain Completed; ", this.loadPercent);
+          console.log("pxlNavCore Room Build Promise-Chain Completed; ", this.loadPercent);
+          console.log("  -- Starting pxlNav in Room `"+this.pxlEnv.bootRoom+"`");
         }
         this.start();
        });
@@ -922,6 +928,14 @@ export class pxlNav{
     switch( eventType ){
       case "warptoroom":
         this.pxlCamera.warpToRoom( eventValue, true, eventObj );
+        break;
+      case "camera":
+        let curEventVal = eventValue.toLowerCase();
+        if( curEventVal == "roam" ){
+          this.pxlCamera.toggleMovement( true ); // Enable camera movement from user inputs
+        }else if( curEventVal == "static" ){
+          this.pxlCamera.toggleMovement( false ); // Prevent camera movement from user inputs
+        }
         break;
       case "ping":
         this.emit("pingPong", "pong");

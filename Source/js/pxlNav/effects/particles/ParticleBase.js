@@ -20,7 +20,8 @@ export default class ParticleBase{
     this.position = new Vector3(0,0,0);
     
     // Default atlas texture file path
-    this.atlasPath = this.room.assetPath+"sprite_dustLiquid.png";
+    this.atlasPath = "sprite_dustLiquid.png";
+    this.atlasPath = "sprite_dustAtlas.png";
   }
   
   // 'vertexCount' - Point Count
@@ -61,6 +62,8 @@ export default class ParticleBase{
     this.count = vertexCount;
     this.pscale.x = pScale * this.room.pxlEnv.pxlQuality.screenResPerc ;
     
+    this.isInternalTexture = false;
+
     let atlasPicker=null;
     // Set random/list atlas picking function as variable 
     if( randomRanges ){
@@ -165,6 +168,12 @@ export default class ParticleBase{
   // Set image path
   setAtlasPath( path ){
     this.atlasPath = path;
+    this.isInternalTexture = false;
+  }
+
+  useInternalAsset( asset ){
+    this.atlasPath = asset;
+    this.isInternalTexture = true;
   }
   
   // -- -- --
@@ -185,7 +194,11 @@ export default class ParticleBase{
     mtl.side=THREE.DoubleSide;
     mtl.transparent=true;
     // mtl.blending=THREE.AdditiveBlending;
-    mtl.uniforms.atlasTexture.value = this.room.pxlUtils.loadTexture( this.atlasPath, 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
+    if( this.isInternalTexture ){
+      mtl.uniforms.atlasTexture.value = this.room.pxlEnv.getAssetTexture( this.atlasPath, 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
+    }else{
+      mtl.uniforms.atlasTexture.value = this.room.pxlUtils.loadTexture( this.atlasPath, 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
+    }
     mtl.uniforms.noiseTexture.value = this.room.softNoiseTexture;
     mtl.depthTest=true;
     mtl.depthWrite=false;

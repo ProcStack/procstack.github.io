@@ -309,6 +309,10 @@ border: 2px solid #ffffff;
   transform: skew(10deg);
 }
 
+.textItalic{
+  font-style: italic;
+}
+
 .textBoldBox{
   font-weight: 600;
   border-radius: 6px;

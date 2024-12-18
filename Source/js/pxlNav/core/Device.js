@@ -69,7 +69,7 @@ export class Device{
     this.keyDownCount=[0,0,0];
     this.directionKeyDown=false;
     this.directionKeysPressed=[0,0,0,0];
-    this.shiftBoost=0;
+    this.shiftBoost=1;
     this.controlKey=false;
     
     this.objectPercList=[];
@@ -176,13 +176,12 @@ export class Device{
         console.log( e );
         //JSON.stringify(e.state);
     });*/
-    
     document.addEventListener("visibilitychange", function(e) {
         tmpThis.windowHidden=document.hidden ;
               
         tmpThis.directionKeysPressed=[0,0,0,0];
         tmpThis.directionKeyDown=false;
-        tmpThis.shiftBoost=0;
+        tmpThis.shiftBoost=1;
         tmpThis.pxlCamera.workerFunc("focus", !document.hidden);
         
         tmpThis.runHiddenCalcs();
@@ -274,7 +273,7 @@ export class Device{
   resetUserInput(e){
     this.directionKeysPressed=[0,0,0,0];
     this.directionKeyDown=false;
-    this.shiftBoost=0;
+    this.shiftBoost=1;
     this.mapLockCursor(false,0);
     this.pxlCamera.camJumpKey(false);
     this.pxlCamera.deviceKey("space", false);
@@ -388,10 +387,13 @@ export class Device{
       }
       
       if(lock==true){
-                this.pxlGuiDraws.pxlNavCanvas.focus();
-        this.pxlGuiDraws.pxlNavCanvas.requestPointerLock();
+        this.pxlGuiDraws.pxlNavCanvas.focus();
+        this.pxlGuiDraws.pxlNavCanvas.requestPointerLock()
+          .catch((err)=>{}); // User likely hit ESC out of the cursor lock
       }else{
-        document.exitPointerLock();
+        if( document.pointerLockElement ){
+          document.exitPointerLock();
+        }
       }
       this.cursorLockActive=lock;
     }
@@ -412,7 +414,7 @@ export class Device{
       this.touchMouseData.curDistance=new Vector2(0,0);
       this.touchMouseData.curStepDistance=new Vector2(0,0);
       this.touchMouseData.dragCount=0;
-            this.pxlAutoCam.touchBlender=false;
+      this.pxlAutoCam.touchBlender=false;
       this.setCursor("grabbing");
       this.mapLockCursor(true, e.button);
     }
@@ -655,59 +657,64 @@ export class Device{
             this.controlKey=true;
         }
     if(document.activeElement.type==undefined ){
-            //%=
-            if(false){
-            //%
-            if( e.ctrlKey || e.altKey || e.code.includes("F") ){
-                e.preventDefault();
-                return false;
-            }
-            //%=
-            }
-            //%
-            
-            if( this.pxlTimer.active){
-                let keyHit=e.keyCode || e.which;
-                //if( !this.pxlGuiDraws.howToActive ){
-                    if(keyHit==37 || keyHit==65){ // Left
-                        this.directionKeyDown=true;
-                        this.keyDownCount[0]=this.pxlQuality.fpsCounter.z;
-                        this.directionKeysPressed[0]=1;
-                        this.pxlCamera.deviceKey(0, true);
-                    }
-                    if(e.ctrlKey && keyHit==87 && this.directionKeysPressed[1]==1){
-                        e.this.preventDefault(e)();
-                    }
-                    if(keyHit==38 || keyHit==87){ // Up
-                        this.directionKeyDown=true;
-                        this.keyDownCount[1]=this.pxlQuality.fpsCounter.z;
-                        this.directionKeysPressed[1]=1;
-                        this.pxlCamera.deviceKey(1, true);
-                    }
-                    if(keyHit==39 || keyHit==68){ // Right
-                        this.directionKeyDown=true;
-                        this.keyDownCount[0]=this.pxlQuality.fpsCounter.z;
-                        this.directionKeysPressed[2]=1;
+      //%=
+      if(false){
+      //%
+      if( e.ctrlKey || e.altKey || e.code.includes("F") ){
+          e.preventDefault();
+          return false;
+      }
+      //%=
+      }
+      //%
+      
+      if( this.pxlTimer.active){
+        if( e.repeat ){
+          return;
+        }
 
-                        this.pxlCamera.deviceKey(2, true);
-                    }
-                    if(keyHit==40 || keyHit==83){ // Down
-                        this.directionKeyDown=true;
-                        this.keyDownCount[1]=this.pxlQuality.fpsCounter.z;
-                        this.directionKeysPressed[3]=1;
-                        this.pxlCamera.deviceKey(3, true);
-                    }
-                    if(keyHit==16 || keyHit==224){ // Shift
-                        this.shiftBoost=7;
-                        this.pxlCamera.deviceKey("shift", true);
-                    }
-                    if(keyHit==32){
-                        this.pxlCamera.camJumpKey(true);
-                        this.pxlCamera.deviceKey("space", true);
-                    }
-                //}
-            }
-    }
+        let keyHit=e.keyCode || e.which;
+        if(keyHit==37 || keyHit==65){ // Left
+          this.directionKeyDown=true;
+          this.keyDownCount[0]=this.pxlQuality.fpsCounter.z;
+          this.directionKeysPressed[0]=1;
+          this.pxlCamera.deviceKey(0, true);
+        }
+        if(e.ctrlKey && keyHit==87 && this.directionKeysPressed[1]==1){
+          e.this.preventDefault(e)();
+        }
+        if(keyHit==38 || keyHit==87){ // Up
+          this.directionKeyDown=true;
+          this.keyDownCount[1]=this.pxlQuality.fpsCounter.z;
+          this.directionKeysPressed[1]=1;
+          this.pxlCamera.deviceKey(1, true);
+        }
+        if(keyHit==39 || keyHit==68){ // Right
+          this.directionKeyDown=true;
+          this.keyDownCount[0]=this.pxlQuality.fpsCounter.z;
+          this.directionKeysPressed[2]=1;
+
+          this.pxlCamera.deviceKey(2, true);
+        }
+        if(keyHit==40 || keyHit==83){ // Down
+          this.directionKeyDown=true;
+          this.keyDownCount[1]=this.pxlQuality.fpsCounter.z;
+          this.directionKeysPressed[3]=1;
+          this.pxlCamera.deviceKey(3, true);
+        }
+        if(keyHit==16 || keyHit==224){ // Shift
+          this.shiftBoost=7;
+          this.pxlCamera.deviceKey("shift", true);
+        }
+        if(keyHit==32){
+          this.pxlCamera.camJumpKey(true);
+          this.pxlCamera.deviceKey("space", true);
+        }
+      }
+    }//else{
+      // pxlNav Canvas not in focus
+      //   User likely typing within a text field or other focus'ed object 
+    //}
   }
     
   async keyUpCall(e){
@@ -790,42 +797,40 @@ export class Device{
         if(keyHit==37 || keyHit==65){ // Left
           this.directionKeysPressed[0]=0;
           //this.pxlAutoCam.prevNextAutoCam(-1);
-          this.pxlAutoCam.getNextPath(false, -1);
-                    this.pxlCamera.deviceKey(0, false);
+          //this.pxlAutoCam.getNextPath(false, -1);
+          this.pxlCamera.deviceKey(0, false);
         }
         if(keyHit==38 || keyHit==87){ // Up
           this.directionKeysPressed[1]=0;
-                    if( this.pxlAutoCam.active ){
-                        this.pxlAutoCam.step(true);
-                        this.pxlCamera.deviceKey(1, false);
-                    }
+          if( this.pxlAutoCam.active ){
+              this.pxlAutoCam.step(true);
+          }
+          this.pxlCamera.deviceKey(1, false);
         }
         if(keyHit==39 || keyHit==68){ // Right
           this.directionKeysPressed[2]=0;
-          //this.pxlAutoCam.prevNextAutoCam(1);
-          this.pxlAutoCam.getNextPath(false, 1);
-                    this.pxlCamera.deviceKey(2, false);
+          this.pxlCamera.deviceKey(2, false);
         }
         if(keyHit==40 || keyHit==83){ // Down
           this.directionKeysPressed[3]=0;
-                    if( this.pxlAutoCam.active ){
-                        this.pxlAutoCam.setRoom(true);
-                        this.pxlCamera.deviceKey(3, false);
-                    }
+          if( this.pxlAutoCam.active ){
+              this.pxlAutoCam.setRoom(true);
+          }
+          this.pxlCamera.deviceKey(3, false);
         }
         if(!this.directionKeysPressed.includes(1)){
           this.directionKeyDown=false;
         }
         // Shift
         if(keyHit==16 || keyHit==224){ // Shift
-          this.shiftBoost=0;
-                    this.pxlCamera.deviceKey("shift", false);
+          this.shiftBoost=1; // Shift multiplier, 1 = normal speed
+          this.pxlCamera.deviceKey("shift", false);
           return;
         }
         // Space
         if(keyHit==32){
           this.pxlCamera.camJumpKey(false);
-                    this.pxlCamera.deviceKey("space", false);
+          this.pxlCamera.deviceKey("space", false);
           return;
         }
         

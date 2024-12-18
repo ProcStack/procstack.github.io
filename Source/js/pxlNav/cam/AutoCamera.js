@@ -86,7 +86,11 @@ export class AutoCamera{
   }
   
   step( force=false ){
-  
+    if( this.autoCamActive == null || this.active == null ){
+      this.autoCamActive = false;
+      this.active = false;
+      return true;
+    }
     if( this.active == false){ // Check active state of Auto Cam
       if( this.autoCamActive ){
         this.updateAutoCamera();

@@ -48,6 +48,7 @@ for (const [entryFile, outputFile] of Object.entries(entryFiles)) {
     loader: {
       '.js': 'jsx'
     },
+    external: ['./Source/js/libs/three/three.module.js'], // Exclude 'three' from the bundle
   }));
 }
 

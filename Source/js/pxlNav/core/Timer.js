@@ -8,6 +8,7 @@ export class Timer{
     this.fpsStats=-1;
     
 		let msTime=new Date().getTime()*.001;
+    this._bootMS=msTime;
 		this._curMS=msTime;
     this._prevMS=msTime;
     
@@ -23,6 +24,10 @@ export class Timer{
     this.step();
   }
   
+  get runtime(){
+    return this._curMS-this._bootMS;
+  }
+
   get curMS(){
       return this._curMS;
   }

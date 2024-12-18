@@ -42,6 +42,8 @@ export class QualityController{
     
     // Default Quality Settings & Benchmark Settings
     //   Numbers or Booleans ONLY; or update GuiDraw.setRadioValues()
+    // TODO : Movement settings shouldn't be on the Quality controller
+    //          "Quality" should strictly remain Render Settings
     this.settings={
       leftRight:true, // Turn, Strafe
       mouse:true, // Drag, Point

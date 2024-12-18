@@ -90,6 +90,7 @@ export default class RoomEnvironment{
     this.geoList={}
     this.glassGroup=null;
     this.glassList=[]
+    this.particleList={};
     
     this.portalList={};
     this.hoverableExists=false;
