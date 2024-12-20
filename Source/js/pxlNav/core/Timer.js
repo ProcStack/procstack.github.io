@@ -13,15 +13,19 @@ export class Timer{
     this._prevMS=msTime;
     
     this.videoFeeds=[];
+    this.booted=false;
   }
   
   // Reset pxlNav clock
   //   Benchmarking steps the timer
   init(){
-    this.prevMS=this.curMS;
-    this.msRunner.x=0;
-    this.msRunner.y=0;
-    this.step();
+    if(!this.booted){
+      this.prevMS=this.curMS;
+      this.msRunner.x=0;
+      this.msRunner.y=0;
+      this.step();
+      this.booted=true;
+    }
   }
   
   get runtime(){

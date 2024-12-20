@@ -18,6 +18,8 @@ export class FileIO{
     this.pxlAnim=null;
     this.pxlDevice=null;
     this.pxlShaders=null;
+
+    this.options={};
     
     // Turn on Verbose Logging to Javascript Console
     this.runDebugger = false;
@@ -42,6 +44,7 @@ export class FileIO{
     this.pxlAnim=pxlNav.pxlAnim;
     this.pxlDevice=pxlNav.pxlDevice;
     this.pxlShaders=pxlNav.pxlShaders;
+    this.options=pxlNav.options;
   }
 
   log(...logger){
@@ -1195,7 +1198,7 @@ export class FileIO{
                 resUV: { value: this.pxlDevice.screenRes },
               },
               vertexShader:this.pxlShaders.scene.skyObjectVert(),
-              fragmentShader:this.pxlShaders.scene.skyObjectFrag()
+              fragmentShader:this.pxlShaders.scene.skyObjectFrag( this.options.skyHaze )
             });
             c.geometry.computeFaceNormals();
             c.geometry.computeVertexNormals();

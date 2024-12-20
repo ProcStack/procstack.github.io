@@ -9,19 +9,15 @@
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
-import { pxlNav, pxlNavVersion, VERBOSE_LEVEL, PXLNAV_OPTIONS, ANTI_ALIASING } from './pxlNav.js';
+import { pxlNav, pxlNavVersion, pxlEnums, PXLNAV_OPTIONS } from './pxlNav.js';
 
 
 // Console logging level
 //   Options are - NONE, ERROR, WARN, INFO
-const verbose = VERBOSE_LEVEL.INFO;
-
-// Anti-aliasing level
-//   Options are - NONE, LOW, MEDIUM, HIGH
-const antiAliasing = ANTI_ALIASING.LOW;
+const verbose = pxlEnums.VERBOSE_LEVEL.INFO;
 
 // The Title of your Project
-//   This will be displayed on the 
+//   This will be displayed on the load bar
 const projectTitle = "pxlNav : Field Env.";
 
 // pxlRoom folder path, available to change folder names or locations if desired
@@ -31,8 +27,10 @@ const pxlRoomRootPath = "../pxlRooms";
 const bootRoomList = ["FieldEnvironment", "VoidEnvironment"];
 const startingRoom = bootRoomList[0];
 
+// -- -- --
 
-//   This will appear under the loader bar on the first screen
+// Set a list of phrases to display during the loading process
+//   The loader with randomly pick a phrase from the list
 const loaderPhrases = [
   "...chasing the bats from the belfry...",
   "...shuffling the deck...",
@@ -44,11 +42,35 @@ const loaderPhrases = [
   "...sharpening the pencils...",
 ];
 
+// -- -- --
+
+// Anti-aliasing level
+//   Options are - NONE, LOW, MEDIUM, HIGH
+const antiAliasing = pxlEnums.ANTI_ALIASING.LOW;
+
+// Shadow + Edge softness
+// Default is `BASIC` - a simple shadow edge
+//   Options are - OFF, BASIC, SOFT
+//     *Mobile devices are limited to `OFF` or `BASIC` automatically
+const shadowMapBiasing = pxlEnums.SHADOW_MAP.SOFT;
+
+// Set camera to static Camera Positions
+//   Locations pulled from the 'Camera' group in the pxlRoom's FBX file
+// Default is `false`
+const enableStaticCamera = false;
+
+// Visual effect for the sky
+// Default is `OFF`
+//  Options are - OFF, VAPOR
+const skyHaze = pxlEnums.SKY_HAZE.VAPOR;
 
 
+
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+
+
 
 // -- Below are the initialization and event handling for pxlNav
 // --   No need to edit the below code unless you're adding custom event handling
@@ -59,15 +81,16 @@ let pxlNavOptions = Object.assign({},PXLNAV_OPTIONS);
 pxlNavOptions.verbose = verbose;
 pxlNavOptions.antiAliasing = antiAliasing;
 pxlNavOptions.pxlRoomRoot = pxlRoomRootPath;
+pxlNavOptions.staticCamera = enableStaticCamera;
+pxlNavOptions.skyHaze = skyHaze;
+pxlNavOptions.shadowMapBiasing = shadowMapBiasing;
+pxlNavOptions.loaderPhrases = loaderPhrases;
+
 
 
 // Create the pxlNav environment manager
 const pxlNavEnv = new pxlNav( pxlNavOptions, projectTitle, startingRoom, bootRoomList );
 
-// -- -- --
-
-// Set or Update the loader message
-pxlNavEnv.setLoaderPhrases( loaderPhrases );
 
 // -- -- --
 

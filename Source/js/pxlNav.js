@@ -1,6 +1,6 @@
 //
 //  Core pxlNav Engine
-export const pxlNavVersion = "0.0.15";
+export const pxlNavVersion = "0.0.16";
 //      Written by Kevin Edzenga 2020;2024
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -45,8 +45,8 @@ export const pxlNavVersion = "0.0.15";
 import * as THREE from './libs/three/three.module.js';
 import * as PxlBase from './pxlNav/pxlBase.js';
 import { pxlShaders } from './pxlNav/shaders/shaders.js';
-import { VERBOSE_LEVEL, PXLNAV_OPTIONS, ANTI_ALIASING } from './pxlNav/core/Types.js';
-export { VERBOSE_LEVEL, PXLNAV_OPTIONS, ANTI_ALIASING };
+import { pxlEnums, PXLNAV_OPTIONS } from './pxlNav/core/Types.js';
+export { pxlEnums, PXLNAV_OPTIONS };
 
 
 const pxlCore = "pxlNav-coreCanvas"; // Name of DIV in Index
@@ -75,7 +75,7 @@ var sH = window.innerHeight;
  * @param {string[]} roomBootList - A list of rooms to load
  * @example
  *  // Initialize the pxlNav environment
- *  const pxlNavEnv = new pxlNav( VERBOSE_LEVEL.ERROR || 2, "My Crunkle Dunk Project", "./pxlRooms", "CampfireEnvironment", ["CampfireEnvironment", "SaltFlatsEnvironment"] );
+ *  const pxlNavEnv = new pxlNav( pxlEnums.VERBOSE_LEVEL.ERROR || 2, "My Crunkle Dunk Project", "./pxlRooms", "CampfireEnvironment", ["CampfireEnvironment", "SaltFlatsEnvironment"] );
  * @returns {pxlNav} - The pxlNav environment object
  * @example
  *  // Subscribe to events emitted from pxlNav for callback handling
@@ -228,6 +228,10 @@ export class pxlNav{
     this.pxlGuiDraws.setDependencies( this );
 
     this.pxlGuiDraws.prepLoader();
+    if( !this.options.hasOwnProperty("loaderPhrases") ){
+      this.options["loaderPhrases"] = ['...loading the pixels...'];
+    }
+    this.pxlGuiDraws.setLoaderPhrases( this.options["loaderPhrases"] );
 
     this.pxlQuality.init() // Load cookies and update settings
   }
@@ -257,6 +261,7 @@ export class pxlNav{
   // -- -- --
   
   init(){
+    this.pxlTimer.init();
 
     this.pxlEnv.boot(); // Environment Asset Prep
     this.pxlQuality.startBenchmark(); // Start benchmark timer
@@ -283,15 +288,15 @@ export class pxlNav{
         this.pxlDevice.setCursor("grab");
        })
        .catch( (err)=>{
-        if( this.verbose > VERBOSE_LEVEL.NONE ){
+        if( this.verbose > pxlEnums.VERBOSE_LEVEL.NONE ){
           console.error("Error in pxlNavCore.init(); Load level - ", err);
           console.error(err);
         }
       })
        .finally( ()=>{
-        if( this.verbose > VERBOSE_LEVEL.ERROR ){
-          console.log("pxlNavCore Room Build Promise-Chain Completed; ", this.loadPercent);
-          console.log("  -- Starting pxlNav in Room `"+this.pxlEnv.bootRoom+"`");
+        if( this.verbose > pxlEnums.VERBOSE_LEVEL.ERROR ){
+          console.log("'pxlNavCore' Room Build Promise-Chain Completed; ", this.loadPercent);
+          console.log("-- Starting pxlNav in Room `"+this.pxlEnv.bootRoom+"`");
         }
         this.start();
        });
@@ -402,14 +407,14 @@ export class pxlNav{
         this.pxlEnv.engine.debug.checkShaderErrors=true;
         //%
         
-        if( this.verbose >= VERBOSE_LEVEL.INFO ){
+        if( this.verbose >= pxlEnums.VERBOSE_LEVEL.INFO ){
             if(this.pxlEnv.engine.extensions.get('WEBGL_depth_texture')){
                 console.log("  ** WebGL Depth Texture support enabled **");
             }else{
                 console.log("  ** WebGL Depth Texture NOT supported **");
             }
-            console.log("-- Depth Composer pass currently not used, --");
-            console.log("  -- A future technology for Metal Asylum --");
+            console.log("-- Depth Composer pass currently not enabled; --");
+            console.log("--   Switching to World-Space Shader pass     --");
         }
         let bgCd=0x000000;
         let bgCdHex="#000000";
@@ -423,11 +428,12 @@ export class pxlNav{
         //this.pxlEnv.engine.outputEncoding=THREE.sRGBEncoding;
         this.pxlEnv.engine.outputEncoding=THREE.GammaEncoding;
 
-        this.pxlEnv.engine.shadowMap.enabled=true;
-        this.pxlEnv.engine.shadowMap.type=THREE.BasicShadowMap;
-        this.pxlEnv.engine.shadowMap.type=THREE.PCFScatterShadowMap;
-        //THREE.PCFScatterShadowMap;//PCFShadowMap;//PCFSoftShadowMap;
-          //this.pxlEnv.engine.shadowMap.type=THREE.PCFSoftShadowMap;
+        if(this.options.shadowMapBiasing == pxlEnums.SHADOW_MAP.OFF){
+          this.pxlEnv.engine.shadowMap.enabled=false;
+        }else{
+          this.pxlEnv.engine.shadowMap.enabled=true;
+          this.pxlEnv.engine.shadowMap.type=THREE.BasicShadowMap;
+        }
         
         
         // Build render targets for depth and world space reference
@@ -561,12 +567,16 @@ export class pxlNav{
     // -- LIGHTS -- -- -- -- -- -- -- -- -- -- -- -- //
     ///////////////////////////////////////////////////
         //Shadow Maps-
-        this.pxlEnv.engine.shadowMap.enabled=true;
-        if(this.mobile){
-            this.pxlEnv.engine.shadowMap.type=THREE.BasicShadowMap;
+        if(this.options.shadowMapBiasing == pxlEnums.SHADOW_MAP.OFF){
+          this.pxlEnv.engine.shadowMap.enabled=false;
         }else{
-            this.pxlEnv.engine.shadowMap.type=THREE.PCFSoftShadowMap;
-            //this.pxlEnv.engine.shadowMap.type=THREE.PCFSoftShadowMap;
+          this.pxlEnv.engine.shadowMap.enabled=true;
+          if(this.options.shadowMapBiasing == pxlEnums.SHADOW_MAP.BASIC || this.mobile){
+              this.pxlEnv.engine.shadowMap.type=THREE.BasicShadowMap;
+          }else if(this.options.shadowMapBiasing == pxlEnums.SHADOW_MAP.SOFT){
+              this.pxlEnv.engine.shadowMap.type=THREE.PCFSoftShadowMap;
+              //this.pxlEnv.engine.shadowMap.type=THREE.PCFSoftShadowMap;
+          }
         }
         
         // Every light is another frag level dot to matrix calculation

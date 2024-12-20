@@ -3,6 +3,7 @@
 // Written by Kevin Edzenga; 2020; 2024
 
 import {shaderHeader} from "../core/ShaderHeader.js";
+import {SKY_HAZE} from "../../core/Types.js";
  
 export function skyObjectVert(){
   let ret=shaderHeader();
@@ -19,7 +20,7 @@ export function skyObjectVert(){
         vLocalPos=position;
         
         vec3 pos = position;
-        vec4 modelViewPosition=projectionMatrix * viewMatrix * vec4(normalize(position)*camFar, 1.0);
+        vec4 modelViewPosition=projectionMatrix * vec4(mat3(viewMatrix)*normalize(pos)*camFar, 1.0);
         gl_Position = modelViewPosition;
         
         vWorldPos = modelViewPosition;
@@ -28,7 +29,7 @@ export function skyObjectVert(){
   return ret;
 }
 // Sky Fragment Shader
-export function skyObjectFrag(){
+export function skyObjectFrag( skyHazeValue=SKY_HAZE.OFF ){
   let ret=shaderHeader();
   ret+=`     
     uniform sampler2D diffuse;
@@ -71,6 +72,10 @@ export function skyObjectFrag(){
         float stencil = zFrag==1.0 ? 1.0 : 0.0;
         
         float reachDepth = 0.0 ;
+        
+  `;
+  if( skyHazeValue == SKY_HAZE.VAPOR ){
+    ret+=`
         vec2 baseUV=screenUV;
         vec2 curUV=vec2(0.0);
         float curDepth=0.0;
@@ -90,7 +95,7 @@ export function skyObjectFrag(){
             dist+=dist*dot(noiseCd.rgb, vec3(0.0,0.0,1.0));
         }
         reachDepth *= blend*stencil*3.0;
-        
+
         vec3 normPos = normalize(vLocalPos);
         normPos.y = 1.0-min(1.0,(normPos.y)*2.0);
         normPos.y = normPos.y*normPos.y*normPos.y;
@@ -99,7 +104,10 @@ export function skyObjectFrag(){
         float blender = (sin(noiseCd.r*PI+t+uv.x)*.03)*max(0.0,1.0-depth);
         vec3 baseColor = (fogColor+blender);
         Cd.rgb = mix(Cd.rgb*1.5, baseColor, depth);
-        
+
+    `;
+  }
+  ret+=`
         gl_FragColor=Cd;
     }`;
   return ret;
