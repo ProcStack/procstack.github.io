@@ -9,38 +9,68 @@
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
-import { pxlNav, pxlNavVersion, VERBOSE_LEVEL, PXLNAV_OPTIONS, ANTI_ALIASING } from './pxlNav.min.js';
+import { pxlNav, pxlNavVersion, pxlEnums, PXLNAV_OPTIONS } from './pxlNav.min.js';
 import { ProcPages } from './ProcPages.js';
 import { BlogManager } from './BlogManager.js';
 
 
 // Console logging level
 //   Options are - NONE, ERROR, WARN, INFO
-const verbose = VERBOSE_LEVEL.ERROR;
+const verbose = pxlEnums.VERBOSE_LEVEL.ERROR;
 
-// Anti-aliasing level
-//   Options are - NONE, LOW, MEDIUM, HIGH
-const antiAliasing = ANTI_ALIASING.LOW;
-
-// Set camera to static Camera Positions
-//   Locations pulled from the 'Camera' group in the pxlRoom's FBX file
-const enableStaticCamera = true;
 
 // The Title of your Project
 //   This will be displayed on the 
 const projectTitle = "procstack.github.io";
 
 // pxlRoom folder path, available to change folder names or locations if desired
-const pxlRoomRootPath = "pxlRooms";
+const pxlRoomRootPath = "./pxlRooms";
 
 // Current possible rooms - "CampfireEnvironment", "SaltFlatsEnvironment"
 const startingRoom = "CampfireEnvironment"; 
 const bootRoomList = ["CampfireEnvironment", "SaltFlatsEnvironment"];
 
+// -- -- --
+
+// Set or Update the loader message
+//   This will appear under the loader bar on the first screen
+const loaderPhrases = [
+  "...chasing the bats from the belfry...",
+  "...shuffling the deck...",
+  "...checking the air pressure...",
+  "...winding the clock...",
+  "...tuning the strings...",
+  "...ringing the quartz...",
+  "...crashing the glasses...",
+  "...sharpening the pencils...",
+];
+
+// -- -- --
+
+// Anti-aliasing level
+//   Options are - NONE, LOW, MEDIUM, HIGH
+const antiAliasing = pxlEnums.ANTI_ALIASING.LOW;
+
+// Shadow edge softness
+//   Options are - OFF, BASIC, SOFT
+//     *Mobile devices are limited to `OFF` or `BASIC` automatically
+const shadowMapBiasing = pxlEnums.SHADOW_MAP.SOFT;
+
+// Set camera to static Camera Positions
+//   Locations pulled from the 'Camera' group in the pxlRoom's FBX file
+const enableStaticCamera = true;
+
+// Visual effect for the sky
+//  Options are - OFF, VAPOR
+const skyHaze = pxlEnums.SKY_HAZE.OFF;
+
+
+
 
 // -- -- -- -- --
 
 // Create the main page manager
+//  - Not related to pxlNav -
 const procPages = new ProcPages();
 procPages.init();
 procPages.setPxlNavVersion(pxlNavVersion);
@@ -49,9 +79,10 @@ if (window.location.hash !== "#Blog") {
   procPages.hidePage("Blog");
 }
 
+// -- -- --
 
-// -- -- -- -- --
-
+// Build procstack.github.io blog entries
+//  - Not related to pxlNav -
 var blogEntryListing = document.getElementById('blogEntryListing');
 var blogEntryContent = document.getElementById('blogEntryContent');
 const procBlog = new BlogManager( blogEntryListing, blogEntryContent );
@@ -67,27 +98,13 @@ pxlNavOptions.verbose = verbose;
 pxlNavOptions.antiAliasing = antiAliasing;
 pxlNavOptions.staticCamera = enableStaticCamera;
 pxlNavOptions.pxlRoomRoot = pxlRoomRootPath;
+pxlNavOptions.skyHaze = skyHaze;
+pxlNavOptions.shadowMapBiasing = shadowMapBiasing;
+pxlNavOptions.loaderPhrases = loaderPhrases;
 
 // Create the pxlNav environment manager
 const pxlNavEnv = new pxlNav( pxlNavOptions, projectTitle, procPages.curRoom, bootRoomList );
 
-// -- -- -- -- --
-
-
-// Set or Update the loader message
-//   This will appear under the loader bar on the first screen
-const loaderPhrases = [
-  "...chasing the bats from the belfry...",
-  "...shuffling the deck...",
-  "...checking the air pressure...",
-  "...winding the clock...",
-  "...tuning the strings...",
-  "...ringing the quartz...",
-  "...crashing the glasses...",
-  "...sharpening the pencils...",
-];
-
-pxlNavEnv.setLoaderPhrases( loaderPhrases );
 
 
 
