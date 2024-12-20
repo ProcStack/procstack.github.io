@@ -45,10 +45,7 @@ const pathSubstitutionPlugin = {
   name: 'path-substitution',
   setup(build) {
     build.onResolve({ filter: /^\.\.\/\.\.\/libs\/three\/three\.module\.js$/ }, args => {
-      return { path: './three.module.js', external: true };
-    });
-    build.onResolve({ filter: /^\.\.\/libs\/three\/three\.module\.js$/ }, args => {
-      return { path: './three.module.js', external: true };
+      return { path: '../../three.module.js', external: true };
     });
   }
 };

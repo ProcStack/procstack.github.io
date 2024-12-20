@@ -215,7 +215,7 @@ export function pxlPrincipledFrag( ShaderParms, useColor, useFog, lights, shadow
           dp += shadowBias;
           vec3 bd3D = normalize( lightToPosition );
           vec2 offset = vec2( - 1, 1 ) * shadowRadius * texelSize.y;
-          return texture2D( pointShadowMap[1], cubeToUV( bd3D, texelSize.y )).rgb;
+          return texture2D( pointShadowMap[0], cubeToUV( bd3D, texelSize.y )).rgb;
       }
       `;
     }
@@ -328,12 +328,12 @@ export function pxlPrincipledFrag( ShaderParms, useColor, useFog, lights, shadow
             for( let x=0; x<pointLightCount; ++x){
                 ret+=`
                 i=${x};
-                lShadow = getPointShadow( pointShadowMap[${x}], pointLightShadows[i].shadowMapSize, pointLightShadows[i].shadowBias*.1, pointLightShadows[i].shadowRadius*.5, vPointShadowCoord[i], pointLightShadows[i].shadowCameraNear, pointLightShadows[i].shadowCameraFar );
+                lShadow = getPointShadow( pointShadowMap[${x}], pointLightShadows[i].shadowMapSize, pointLightShadows[i].shadowBias*.75, pointLightShadows[i].shadowRadius*1.65, vPointShadowCoord[i], pointLightShadows[i].shadowCameraNear, pointLightShadows[i].shadowCameraFar );
                 shadowInf = max( lShadow, shadowInf);
                 `;
             }
             ret+=`
-            shadowInf = shadowInf;//*.75+.25;
+            shadowInf = shadowInf;
             Cd.rgb*=shadowInf ${surfaceNoiseStr} ;
             `;
             if(hasSurfaceNoise){

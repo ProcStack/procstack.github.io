@@ -618,9 +618,11 @@ export function grassClusterVert(){
         
         // Running texture reads first
         float timer = (-time.x*.005);
-        vec2 waveUv = vec2( .5, uv.y*.1 + (-time.x*.005));
+        vec2 waveUv = vec2( .5, uv.y*.05 + (-time.x*.005));
         vec3 nCd = texture2D(noiseTexture,waveUv).rgb;
-        
+        waveUv = vec2( .5, uv.y*.01 + (-time.x*.015));
+        vec3 flickerCd = texture2D(noiseTexture,waveUv).rgb;
+
         vec4 noiseMaskPos = pos;
         #ifdef USE_INSTANCING
           noiseMaskPos = instanceMatrix * noiseMaskPos;
@@ -688,8 +690,10 @@ export function grassClusterVert(){
 
         //  Isolate the Point Light influence
         vCampfireInf = 1.0-min(1.0, length( vPos )*.015);
-        vCampfireInf = min( 1.0, vCampfireInf*vCampfireInf * 1.5 );
-        
+        vCampfireInf = min( 1.0, vCampfireInf*vCampfireInf * 1.85 );
+
+        float flickerInf = vCampfireInf * ( flickerCd.r * max( flickerCd.g, flickerCd.b ));
+        vCampfireInf = mix( vCampfireInf, vCampfireInf*vCampfireInf, flickerInf*flickerInf );
     }`;
   return ret;
 }

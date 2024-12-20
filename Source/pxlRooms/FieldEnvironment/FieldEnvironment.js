@@ -1,5 +1,6 @@
 import * as THREE from "../../js/libs/three/three.module.js";
-import { pxlPrincipledVert, pxlPrincipledFrag, envGroundVert, envGroundFrag } from "./Shaders.js";
+import { pxlPrincipledVert, pxlPrincipledFrag } from "../../js/pxlNav/shaders/objects/PxlPrincipled.js";
+import { envGroundVert, envGroundFrag, grassClusterVert, grassClusterFrag } from "./Shaders.js";
 
 import RoomEnvironment from "../../js/pxlNav/RoomClass.js";
 import { FloatingDust } from '../../js/pxlNav/effects/particles.js';
@@ -437,11 +438,40 @@ export class FieldEnvironment extends RoomEnvironment{
     envGroundUniforms.dirtDiffuse.value.wrapS = THREE.RepeatWrapping;
     envGroundUniforms.dirtDiffuse.value.wrapT = THREE.RepeatWrapping;
     
-		this.textureList[ "environmentGround" ]=environmentGroundMat;
     
   //
     // -- -- -- 
     
+        // -- -- -- -- -- -- -- -- -- -- -- -- --
+        // -- Grass Cluster Instances Material -- --
+        // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    
+    
+        let grassClusterUniforms = THREE.UniformsUtils.merge(
+            [
+            THREE.UniformsLib[ "lights" ],
+            THREE.UniformsLib[ "shadowmap" ],
+            {
+              'noiseTexture' : { type:'t', value: null },
+              'fogColor' : { type: "c", value: this.fogColor },
+            }]
+        )
+        grassClusterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+    
+        let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, grassClusterVert(), grassClusterFrag(1) );
+        grassMat.side = THREE.FrontSide;
+        grassMat.lights = true;
+        grassMat.transparent = false;
+        
+            
+        
+        
+        // -- -- --
+        
+        this.textureList[ "EnvGround_geo" ] = environmentGroundMat;
+        this.textureList[ "grassClusterA_geo" ] = grassMat;
+        
+        
   //
     // -- -- -- 
         

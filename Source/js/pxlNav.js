@@ -425,6 +425,7 @@ export class pxlNav{
 
         this.pxlEnv.engine.shadowMap.enabled=true;
         this.pxlEnv.engine.shadowMap.type=THREE.BasicShadowMap;
+        this.pxlEnv.engine.shadowMap.type=THREE.PCFScatterShadowMap;
         //THREE.PCFScatterShadowMap;//PCFShadowMap;//PCFSoftShadowMap;
           //this.pxlEnv.engine.shadowMap.type=THREE.PCFSoftShadowMap;
         

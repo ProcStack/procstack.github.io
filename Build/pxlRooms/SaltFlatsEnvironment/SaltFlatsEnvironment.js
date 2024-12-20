@@ -320,7 +320,7 @@ import*as n from"../../../Source/js/libs/three/three.module.js";function E(){ret
         
         
         gl_FragColor=Cd;
-    }`}import*as x from"./three.module.js";var L=x.Vector2,T=x.Vector3;var W={NONE:0,ERROR:1,WARN:2,INFO:3},j={OFF:0,LOW:1,MEDIUM:2,HIGH:3},Z={verbose:W.NONE,pxlRoomRoot:"./pxlRooms",staticCamera:!1,autoCamera:!1,antiAliasing:j.LOW,LoadEnvAssetFile:!1};import*as d from"./three.module.js";import*as C from"../../../Source/js/libs/three/three.module.js";function z(a=!1){let e=`
+    }`}import*as x from"../../three.module.js";var L=x.Vector2,T=x.Vector3;var W={NONE:0,ERROR:1,WARN:2,INFO:3},j={OFF:0,LOW:1,MEDIUM:2,HIGH:3},Z={verbose:W.NONE,pxlRoomRoot:"./pxlRooms",staticCamera:!1,autoCamera:!1,antiAliasing:j.LOW,LoadEnvAssetFile:!1};import*as d from"../../../Source/js/libs/three/three.module.js";import*as C from"../../../Source/js/libs/three/three.module.js";function z(a=!1){let e=`
     attribute vec3 color;
     attribute vec3 shading;
 
@@ -471,7 +471,7 @@ import*as n from"../../../Source/js/libs/three/three.module.js";function E(){ret
           dp += shadowBias;
           vec3 bd3D = normalize( lightToPosition );
           vec2 offset = vec2( - 1, 1 ) * shadowRadius * texelSize.y;
-          return texture2D( pointShadowMap[1], cubeToUV( bd3D, texelSize.y )).rgb;
+          return texture2D( pointShadowMap[0], cubeToUV( bd3D, texelSize.y )).rgb;
       }
       `),l+=`
     void main(){
@@ -526,10 +526,10 @@ import*as n from"../../../Source/js/libs/three/three.module.js";function E(){ret
             int i = 0;
             `;for(let c=0;c<s;++c)l+=`
                 i=${c};
-                lShadow = getPointShadow( pointShadowMap[${c}], pointLightShadows[i].shadowMapSize, pointLightShadows[i].shadowBias*.1, pointLightShadows[i].shadowRadius*.5, vPointShadowCoord[i], pointLightShadows[i].shadowCameraNear, pointLightShadows[i].shadowCameraFar );
+                lShadow = getPointShadow( pointShadowMap[${c}], pointLightShadows[i].shadowMapSize, pointLightShadows[i].shadowBias*.75, pointLightShadows[i].shadowRadius*1.65, vPointShadowCoord[i], pointLightShadows[i].shadowCameraNear, pointLightShadows[i].shadowCameraFar );
                 shadowInf = max( lShadow, shadowInf);
                 `;l+=`
-            shadowInf = shadowInf;//*.75+.25;
+            shadowInf = shadowInf;
             Cd.rgb*=shadowInf ${p} ;
             `,m&&(l+=`
               #else
