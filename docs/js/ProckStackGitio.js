@@ -9,7 +9,7 @@
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
-import { pxlNav, pxlNavVersion, pxlEnums, PXLNAV_OPTIONS } from './pxlNav.esm.js';
+import { pxlNav, pxlNavVersion, pxlEnums, PXLNAV_OPTIONS } from './pxlNav.min.js';
 import { ProcPages } from './ProcPages.js';
 import { BlogManager } from './BlogManager.js';
 
