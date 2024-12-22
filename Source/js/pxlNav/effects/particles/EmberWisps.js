@@ -1,5 +1,10 @@
 
-import * as THREE from "../../../libs/three/three.module.js";
+import {
+  AdditiveBlending,
+  DoubleSide,
+  NearestFilter,
+  NearestMipmapNearestFilter
+} from "../../../libs/three/three.module.min.js";
 
 import ParticleBase from './ParticleBase.js';
 import { emberWispsVert, emberWispsFrag } from './shaders/EmberWisps.js';
@@ -35,14 +40,14 @@ export class EmberWisps extends ParticleBase{
     };
         //let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, snowVert( true ), snowFrag() );
     let mtl = this.room.pxlFile.pxlShaderBuilder( dustUniforms, emberWispsVert(), emberWispsFrag() );
-    mtl.side=THREE.DoubleSide;
+    mtl.side=DoubleSide;
     mtl.transparent=true;
-    // mtl.blending=THREE.AdditiveBlending;
-    mtl.uniforms.atlasTexture.value = this.room.pxlUtils.loadTexture( this.atlasPath, 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
+    // mtl.blending=AdditiveBlending;
+    mtl.uniforms.atlasTexture.value = this.room.pxlUtils.loadTexture( this.atlasPath, 4, {"magFilter":NearestFilter, "minFilter":NearestMipmapNearestFilter} );
     mtl.uniforms.noiseTexture.value = this.room.softNoiseTexture;
     mtl.depthTest=true;
     mtl.depthWrite=false;
-    this.room.textureList[ this.name ]=mtl;
+    this.room.materialList[ this.name ]=mtl;
 
     super.addToScene( vertexCount, pScale, mtl, atlasRes, atlasPicks );
   }

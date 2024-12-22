@@ -1,6 +1,9 @@
 
-import { Vector2, Vector3 } from "./Types.js";
-import * as THREE from "../../libs/three/three.module.js";
+import { 
+  Vector2,
+  Vector3,
+  Quaternion
+} from "../../libs/three/three.module.min.js";
 
 // TODO : So much dependency on outside data and classes
 //          Promote as much as possible to callback subscriptions
@@ -122,7 +125,7 @@ export class Device{
       'curDistance':new Vector2(0,0), //vec2
       'curFadeOut':new Vector2(0,0), //vec2
       'curStepDistance':new Vector2(0,0), //vec2
-      'initialQuat':new THREE.Quaternion(),
+      'initialQuat':new Quaternion(),
       'releaseTime':0,
     };
         

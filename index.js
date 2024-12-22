@@ -26,7 +26,7 @@ if(args.length > 0 && args[0] == "dist"){
   app.use( express.static(path.join(__dirname, '/Public')) );
   app.use( express.static(path.join(__dirname, '/Source')) );
 }
-//app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
+app.use('/three', express.static(path.join(__dirname, '/node_modules/three')));
 //app.use('/images', express.static(path.join(__dirname, '/Source/images')) );
 //app.use('/js', express.static(path.join(__dirname, '/Source/js')) );
 //app.use('/style', express.static(path.join(__dirname, '/Source/style')) );

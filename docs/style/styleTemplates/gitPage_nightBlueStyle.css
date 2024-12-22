@@ -1,0 +1,72 @@
+
+.pxlPages_nightBlueStyle{
+  background: linear-gradient(149deg, rgba(28, 76, 178, 0.4), rgba(29, 43, 66, 0.65), rgba(28, 48, 82, 0.4));
+  border: 1px solid rgba(50, 70, 103, 0.6);
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
+  pointer-events: auto;
+  max-height: 65vh;
+  max-width: calc(max(min(100vw - max(7vh, 7vw), 500px), min(100vw - max(7vh, 7vw), 40vw + ((1000px - 100vw)* 5))));
+  position: fixed;
+  right: max(max(2vh,2vw), 50vw - 750px);
+  bottom: max(4vh,4vw);
+  z-index: 3;
+}
+
+.pxlPages_nightBlueStyle::-webkit-scrollbar {
+	width: 10px;
+}
+
+.pxlPages_nightBlueStyle::-webkit-scrollbar-track {
+	background: rgba(51, 76, 161, 0.308);
+}
+
+.pxlPages_nightBlueStyle::-webkit-scrollbar-thumb {
+	cursor: grab;
+	background-color: rgba(33, 53, 117, 0.75);
+  border: 2px solid rgba(44, 69, 109, 0.6);
+}
+.pxlPages_nightBlueStyle::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(34, 61, 151, 0.811);
+  border: 2px solid rgba(38, 66, 112, 0.684);
+}
+
+/* -- -- -- */
+
+.pxlPagesNav_nightBlueStyle {
+  background: linear-gradient(90deg, rgba(28, 30, 46, 0), rgba(27, 47, 95, 0.45), rgba(51, 62, 107, 0.55), rgba(27, 47, 95, 0.45), rgba(28, 30, 46, 0));
+  border-bottom: 1px solid rgb(58 58 153 / 45%);
+}
+.pxlPagesNav_nightBlueStyle a {
+  border: 1px solid #8086fd;
+  color: #6e86ff;
+  background-color: rgba(77, 91, 140, 0.35);
+}
+.pxlPagesNav_nightBlueStyle a:hover {
+  text-shadow: 1px 1.5px 4px #2a469b;
+  background-color: rgba(87, 112, 204, 0.532);
+}
+.pxlPagesNav_nightBlueStyle a:active {
+  color: #3d4297;
+  border: 1px solid #5156af;
+  text-shadow: 1px 1.5px 4px #18254f;
+  background-color: rgba(53, 64, 104, 0.541);
+}
+
+/* -- -- -- */
+
+.pxlPagesFooter_nightBlueStyle{
+    background: linear-gradient(90deg, rgba(20, 76, 186, 0.3), rgba(27, 63, 149, 0.1), rgba(20, 69, 186, 0), rgba(20, 69, 186, 0), rgba(27, 63, 149, 0.2), rgba(20, 76, 186, 0.3));
+    color: #4964f1;
+}
+.pxlPagesFooter_nightBlueStyle a {
+    color: #4964f1;
+}
+.pxlPagesFooter_nightBlueStyle a:hover {
+    color: #5872f7;
+    font-weight: 600;
+    text-shadow: 1px 1.5px 4px rgba(50,50,50,.5);
+}
+.pxlPagesFooter_nightBlueStyle a:active {
+    color: #324bc9;
+    text-shadow: 1px 1.5px 4px rgba(50,50,50,.75);
+}

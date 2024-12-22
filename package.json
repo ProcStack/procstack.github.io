@@ -13,6 +13,7 @@
     "bundleCss": "node ./packing/bundle_css.js",
     "live": "cross-env NODE_ENV=production node index.js",
     "build": "cross-env NODE_ENV=production webpack --config ./packing/webpack.config.js",
+    "buildDev": "cross-env NODE_ENV=development webpack --config ./packing/webpack.config.js",
     "deploy": "gh-pages -d docs"
   },
   "repository": {
@@ -39,7 +40,7 @@
     "postcss-loader": "^8.1.1",
     "regenerator-runtime": "^0.13.9",
     "rimraf": "^6.0.1",
-    "three": "^0.133.1"
+    "three": "^0.171.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
@@ -69,6 +70,8 @@
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.3.10",
     "webpack": "^5.96.1",
-    "webpack-cli": "^4.10.0"
+    "webpack-bundle-analyzer": "^4.10.2",
+    "webpack-cli": "^4.10.0",
+    "webpack-merge": "^6.0.1"
   }
 }

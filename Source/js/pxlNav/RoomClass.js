@@ -1,3 +1,4 @@
+
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 // --   Base Room Class Object File          --
 // --    -- -- -- -- -- -- -- --             --
@@ -15,12 +16,24 @@
 // --                                        --
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-import { Vector2, Vector3 } from "./core/Types.js";
-import * as THREE from "../libs/three/three.module.js";
-import { ShaderPass } from '../libs/three/postprocessing/ShaderPass.js';
+
+
+import {
+  Vector2,
+  Vector3,
+  Object3D,
+  Color,
+  FogExp2,
+  Group,
+  RepeatWrapping,
+  AmbientLight,
+  UniformsUtils,
+  UniformsLib
+} from "../libs/three/three.module.min.js";
+//import { ShaderPass } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { pxlPrincipledVert, pxlPrincipledFrag } from "./shaders/objects/PxlPrincipled.js";
 
-export default class RoomEnvironment{
+class RoomEnvironment{
   constructor( roomName='CampfireEnvironment', assetPath=null, pxlFile=null, pxlAnim=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
     this.roomName=roomName;
     this.pxlFile=pxlFile;
@@ -39,10 +52,9 @@ export default class RoomEnvironment{
     this.animClips = {};
     this.animMixer = null;
     
-    this.envObjName="environmentGround";
     // Environment Shader 
     this.spiralizerUniforms={};
-    this.textureList={};
+    this.materialList={};
     
     // Room warp data
     this.camInitPos=null;
@@ -51,7 +63,7 @@ export default class RoomEnvironment{
     this.camThumbLookAt=new Vector3(0,35,-1000);
     this.cameraBooted=false;
     this.cameraPrevPos=new Vector3(0,0,0);
-    this.cameraAimTarget=new THREE.Object3D(0,0,0);
+    this.cameraAimTarget=new Object3D(0,0,0);
     this.camHoldWarpPos=true;
     this.camLocation = {};
     
@@ -61,12 +73,12 @@ export default class RoomEnvironment{
     this.pxlCamNearClipping = 5;
     this.pxlCamFarClipping = 10000;
 
-    // this.fogColor=new THREE.Color(.3,.3,.3);
-    this.fogColor=new THREE.Color(.01,.02,.05);
+    // this.fogColor=new Color(.3,.3,.3);
+    this.fogColor=new Color(.01,.02,.05);
     this.fogExp=.0007;
-    this.fog=new THREE.FogExp2( this.fogColor, this.fogExp);
+    this.fog=new FogExp2( this.fogColor, this.fogExp);
         
-    this.userAvatarGroup=new THREE.Group();
+    this.userAvatarGroup=new Group();
     this.packedTextureMaterial=null;
     this.coreTextureMaterial=null;
     this.projectedMaterial=null;
@@ -93,6 +105,8 @@ export default class RoomEnvironment{
     this.particleList={};
     
     this.portalList={};
+
+    this.enableRaycast = false;
     this.hoverableExists=false;
     this.hoverableList=[];
     this.hoverableObj=null;
@@ -133,11 +147,11 @@ export default class RoomEnvironment{
     this.scene.fog=this.fog;
     this.scene.background = this.fogColor ;//pxlEnv.fogColor;
     this.cloud3dTexture=this.pxlEnv.cloud3dTexture;
-    this.cloud3dTexture.wrapS = THREE.RepeatWrapping;
-    this.cloud3dTexture.wrapT = THREE.RepeatWrapping;
+    this.cloud3dTexture.wrapS = RepeatWrapping;
+    this.cloud3dTexture.wrapT = RepeatWrapping;
     this.smoothNoiseTexture=this.pxlEnv.softNoiseTexture;
-    this.smoothNoiseTexture.wrapS = THREE.RepeatWrapping;
-    this.smoothNoiseTexture.wrapT = THREE.RepeatWrapping;
+    this.smoothNoiseTexture.wrapS = RepeatWrapping;
+    this.smoothNoiseTexture.wrapT = RepeatWrapping;
   }
 
 // Run on init room warp; reset room values
@@ -208,7 +222,7 @@ export default class RoomEnvironment{
     
   applyRoomPass( roomComposer=null ){
     /*if(roomComposer){
-      this.worldPosMaterial=new THREE.ShaderMaterial({
+      this.worldPosMaterial=new ShaderMaterial({
         uniforms:{
           camNear: { type:"f", value: 1 },
           camFar: { type:"f", value: 900 } // Measured in the Scene file, 885.61
@@ -216,11 +230,11 @@ export default class RoomEnvironment{
         vertexShader: worldPositionVert(),
         fragmentShader: worldPositionFrag()
       });
-      //this.worldPosMaterial.side=THREE.DoubleSide;
-      //this.worldPosMaterial.side=THREE.FrontSide;
+      //this.worldPosMaterial.side=DoubleSide;
+      //this.worldPosMaterial.side=FrontSide;
       
       this.spiralizerPass = new ShaderPass(
-        new THREE.ShaderMaterial( {
+        new ShaderMaterial( {
           uniforms: {
             tDiffuse: { value: null },
             localPos: { value: this.pxlUtils.loadTexture(this.assetPath+"SpiralizerFadeMap_1k.jpg") },
@@ -259,25 +273,25 @@ export default class RoomEnvironment{
   // Return Primary Shader Material
   getShaderList(){
     let retList={}
-    let objList=Object.keys( this.textureList );
+    let objList=Object.keys( this.materialList );
     objList.forEach( (k)=>{
       retList[k]=k
     });
     return retList;
   }
   getCurrentShader(){
-    return this.currentShader || Object.keys( this.textureList )[0];
+    return this.currentShader || Object.keys( this.materialList )[0];
   }
   readShader( objShader="", sliderVectorObj=null ){
-    if( this.currentShader!=null && this.textureList[ this.currentShader ].hasOwnProperty('uniforms')){
+    if( this.currentShader!=null && this.materialList[ this.currentShader ].hasOwnProperty('uniforms')){
       if( !sliderVectorObj ){
         sliderVectorObj=new Vector3();
       }
-      this.textureList[ this.currentShader ].uniforms.sliders.value=sliderVectorObj;
-      this.textureList[ this.currentShader ].needsUpdate=true;
+      this.materialList[ this.currentShader ].uniforms.sliders.value=sliderVectorObj;
+      this.materialList[ this.currentShader ].needsUpdate=true;
     }
     this.currentShader=objShader;
-    return this.textureList[ this.currentShader ];
+    return this.materialList[ this.currentShader ];
   }
   setShader( unis, vert, frag ){
     if( this.emitterList && this.emitterList[ this.currentShader ] ){
@@ -291,16 +305,20 @@ export default class RoomEnvironment{
       }
     }
     
-    this.textureList[ this.currentShader ].vertexShader=vert;
-    this.textureList[ this.currentShader ].fragmentShader=frag;
-    this.textureList[ this.currentShader ].needsUpdate=true;
+    this.materialList[ this.currentShader ].vertexShader=vert;
+    this.materialList[ this.currentShader ].fragmentShader=frag;
+    this.materialList[ this.currentShader ].needsUpdate=true;
   }
   //%
   
     
   castRay( isClick, mButton ){
+    if(!this.enableRaycast){
+      return;
+    }
     if( ( !isClick && !this.hoverableExists ) || ( isClick && !this.clickableExists ) ){
       //console.log("No Cickable / Hoverable Objects Found");
+      this.mouseRayHits=[];
       return;
     }
     
@@ -311,14 +329,16 @@ export default class RoomEnvironment{
       castableObjects = this.clickableList;
     }
     
+    var rayHits=[];
     if(castableObjects.length>0){
     
       let mouseScreenSpace=new Vector2( this.pxlDevice.mouseX/this.pxlDevice.sW*2-1, -this.pxlDevice.mouseY/this.pxlDevice.sH*2+1 );
       this.pxlEnv.pxlCamera.objRaycast.setFromCamera(mouseScreenSpace, this.pxlEnv.pxlCamera.camera );
-      var rayHits=[];
     
       rayHits=this.pxlEnv.pxlCamera.objRaycast.intersectObjects(castableObjects);
     }
+
+    this.mouseRayHits=rayHits;
   }
     
   toCameraPos( positionName ){
@@ -365,7 +385,7 @@ export default class RoomEnvironment{
         }
         
         
-        var ambientLight = new THREE.AmbientLight( 0x303030 ); // soft white light
+        var ambientLight = new AmbientLight( 0x303030 ); // soft white light
         //this.lightList.push( ambientLight );
         this.scene.add( ambientLight );
         
@@ -395,11 +415,11 @@ export default class RoomEnvironment{
             let curObj = this.shaderGeoList[x];
             if( curObj.userData && curObj.userData.Shader == "pxlPrincipled"){
               
-              let shaderUniforms = THREE.UniformsUtils.merge(
+              let shaderUniforms = UniformsUtils.merge(
                   [
-                    THREE.UniformsLib[ "common" ],
-                    THREE.UniformsLib[ "lights" ],
-                    THREE.UniformsLib[ "shadowmap" ],
+                    UniformsLib[ "common" ],
+                    UniformsLib[ "lights" ],
+                    UniformsLib[ "shadowmap" ],
                     {
                       'dTexture' : { type:'t', value: null },
                       'noiseTexture' : { type:'t', value: null },
@@ -433,7 +453,7 @@ export default class RoomEnvironment{
                         pxlPrincipledFrag( ShaderParms, useColor, useFog, useLights, useShadows, pointLightCount ),
                         defines
                       );
-              //mat.side=THREE.FrontSide;
+              //mat.side=FrontSide;
               mat.transparent= false;
               mat.lights= true;
               if(!useColor){
@@ -443,7 +463,7 @@ export default class RoomEnvironment{
               mat.uniforms.detailTexture.value = this.pxlEnv.detailNoiseTexture;
                   
               curObj.material=mat;
-              this.textureList[ curObj.name ] = mat;
+              this.materialList[ curObj.name ] = mat;
             }
           }
         }
@@ -454,11 +474,11 @@ export default class RoomEnvironment{
         
         
         /*
-        let envGroundUniforms = THREE.UniformsUtils.merge(
+        let envGroundUniforms = UniformsUtils.merge(
                 [
-                  THREE.UniformsLib[ "common" ],
-                  THREE.UniformsLib[ "lights" ],
-                  THREE.UniformsLib[ "shadowmap" ],
+                  UniformsLib[ "common" ],
+                  UniformsLib[ "lights" ],
+                  UniformsLib[ "shadowmap" ],
                   {
                     'diffuse' : { type:'t', value: null },
                     'dirtDiffuse' : { type:'t', value: null },
@@ -471,8 +491,8 @@ export default class RoomEnvironment{
                 ]
             );
         let textureOptions = {
-            "wrapS" : THREE.RepeatWrapping,
-            "wrapT" : THREE.RepeatWrapping,
+            "wrapS" : RepeatWrapping,
+            "wrapT" : RepeatWrapping,
         };
         envGroundUniforms.fogColor.value = this.scene.fog.color;
         envGroundUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Diffuse.jpg" );
@@ -484,14 +504,14 @@ export default class RoomEnvironment{
         let environmentGroundMat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag(1) );
         environmentGroundMat.lights= true;
         
-        envGroundUniforms.uniformNoise.value.wrapS = THREE.RepeatWrapping;
-        envGroundUniforms.uniformNoise.value.wrapT = THREE.RepeatWrapping;
-        envGroundUniforms.crossNoise.value.wrapS = THREE.RepeatWrapping;
-        envGroundUniforms.crossNoise.value.wrapT = THREE.RepeatWrapping;
-        envGroundUniforms.dirtDiffuse.value.wrapS = THREE.RepeatWrapping;
-        envGroundUniforms.dirtDiffuse.value.wrapT = THREE.RepeatWrapping;
+        envGroundUniforms.uniformNoise.value.wrapS = RepeatWrapping;
+        envGroundUniforms.uniformNoise.value.wrapT = RepeatWrapping;
+        envGroundUniforms.crossNoise.value.wrapS = RepeatWrapping;
+        envGroundUniforms.crossNoise.value.wrapT = RepeatWrapping;
+        envGroundUniforms.dirtDiffuse.value.wrapS = RepeatWrapping;
+        envGroundUniforms.dirtDiffuse.value.wrapT = RepeatWrapping;
         
-        this.textureList[ "EnvironmentGround_Geo" ]=environmentGroundMat;
+        this.materialList[ "EnvironmentGround_Geo" ]=environmentGroundMat;
         */
         
         
@@ -499,6 +519,15 @@ export default class RoomEnvironment{
     }
   
   animPostLoad( animKey, animMixers ){
+    if( this.pxlAnim.hasClip( animKey, this.animInitCycle ) ){
+      let animMixer = this.pxlAnim.getMixer( animKey );
+      this.animMixer = animMixer;
+      
+      this.pxlAnim.playClip( animKey, this.animInitCycle );
+    }else{
+      this.animInitCycle = fallback;
+      this.log("No animation cycle '"+this.animInitCycle+"' found; Using '"+fallback+"' instead");
+    }
   }
   
 // -- -- -- -- -- -- -- -- -- -- -- -- -- //
@@ -530,8 +559,8 @@ export default class RoomEnvironment{
         break;
     }
   }
-
-
-
-
 }
+
+
+
+export { RoomEnvironment };

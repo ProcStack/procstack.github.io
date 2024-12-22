@@ -2,10 +2,11 @@
 //   Camera & Scene Shaders
 //     Kevin Edzenga, 2024
 
-export { bgScreenVert, bgScreenFrag } from './scene/BGScreen.js';
+import { bgScreenVert, bgScreenFrag } from './scene/BGScreen.js';
 //export { hdrRoomVert, hdrRoomFrag } from './scene/HDRRoom.js';
 //export { skyPlaneVert, skyPlaneFrag } from './scene/SkyPlane.js';
 //export { skyPlaneNormalVert, skyPlaneNormalFrag } from './scene/SkyPlaneNormal.js';
-export { skyObjectVert, skyObjectFrag } from './scene/SkyObject.js';
+import { skyObjectVert, skyObjectFrag } from './scene/SkyObject.js';
 //export { skyTextureVert, skyTextureFrag } from './scene/SkyTexture.js';
 
+export { bgScreenVert, bgScreenFrag, skyObjectVert, skyObjectFrag };

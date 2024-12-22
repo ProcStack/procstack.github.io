@@ -1,5 +1,5 @@
-//import { Vector2, Vector3, Quaternion, Euler, Raycaster } from  "../../libs/three/three.module.js";
-importScripts("../../libs/three/three.min.js");
+//import { Vector2, Vector3, Quaternion, Euler, Raycaster } from  "three";
+importScripts("../../libs/three/three.module.min.js");
 
 const stats={
     active:true,

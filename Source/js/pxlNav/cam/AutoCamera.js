@@ -3,7 +3,12 @@
 // Currently, any mobile devices default to autocam because of apability issues for web cam / audio support
 //   This limits any projects which don't require network support
 
-import * as THREE from "../../libs/three/three.module.js";
+import {
+  Vector2,
+  Vector3,
+  Quaternion,
+  Euler
+} from "../../libs/three/three.module.min.js";
 
 export class AutoCamera{
   constructor( enabled=false ){
@@ -17,7 +22,7 @@ export class AutoCamera{
     this.pxlCamera=null;
     this.pxlEnv=null;
     this.camera=null;
-    this.netDistance=new THREE.Vector2();
+    this.netDistance=new Vector2();
 
     this.prevCamChange=0;
     this.nextCamChange=0;
@@ -298,7 +303,7 @@ export class AutoCamera{
       this.autoCamActive= setValue==null && camPathCount>0 ? !this.autoCamActive : setValue;
       this.autoCamActive = this.mobile || this.autoCamActive;
       if( !origActive && this.autoCamActive ){
-        this.netDistance= new THREE.Vector2().copy( this.pxlDevice.touchMouseData.netDistance );
+        this.netDistance= new Vector2().copy( this.pxlDevice.touchMouseData.netDistance );
       }
       this.pxlDevice.touchMouseData.netDistance.multiplyScalar(0);
       
@@ -373,8 +378,8 @@ export class AutoCamera{
     let z2 = array[nextIndex*3 + 2];
     
     // Lerp
-    let pos= new THREE.Vector3(x,y,z);//.multiplyScalar(-1);
-    let nextPos= new THREE.Vector3(x2,y2,z2);//.multiplyScalar(-1);
+    let pos= new Vector3(x,y,z);//.multiplyScalar(-1);
+    let nextPos= new Vector3(x2,y2,z2);//.multiplyScalar(-1);
 
     pos.lerp(nextPos,t_lerp);
     
@@ -417,8 +422,8 @@ export class AutoCamera{
       this.camera.up.copy( camUp  );
     }
     
-    /*let camPoseQuat=new THREE.Quaternion();
-    let euler=new THREE.Euler();
+    /*let camPoseQuat=new Quaternion();
+    let euler=new Euler();
     euler.set(0,0,180,'YXZ'); // Device returns YXZ for deviceOrientation
     camPoseQuat.setFromEuler(euler);
     camPoseQuat.normalize();
@@ -440,25 +445,25 @@ export class AutoCamera{
     }else{
       this.pxlDevice.touchMouseData.netDistance.multiplyScalar(.5);
     }
-   let euler=new THREE.Euler();
+   let euler=new Euler();
     euler.set(
       (this.pxlDevice.touchMouseData.netDistance.y/this.pxlDevice.sH*2),
       (this.pxlDevice.touchMouseData.netDistance.x/this.pxlDevice.sW*2),
       0,
       'YXZ'); // Device returns YXZ for deviceOrientation
     // Limit Up/Down looking
-    let camPoseQuat=new THREE.Quaternion().clone( this.camera.quaternion );
+    let camPoseQuat=new Quaternion().clone( this.camera.quaternion );
     camPoseQuat.setFromEuler(euler);
     camPoseQuat=this.camera.quaternion.clone().multiply(camPoseQuat);
     //camPoseQuat.multiply(poseQuat.setFromAxisAngle(viewNormal,-this.cameraPose.orientation));
     camPoseQuat.normalize();
     
-    // let smoothedQuat=new THREE.Quaternion();
+    // let smoothedQuat=new Quaternion();
         
     if( this.touchBlender ){
       camPoseQuat.slerp(this.camera.quaternion.clone(),blendOut).normalize();
     }
-    let lookAt= new THREE.Vector3(0,0,-10).applyQuaternion( camPoseQuat ).add( this.camera.position );
+    let lookAt= new Vector3(0,0,-10).applyQuaternion( camPoseQuat ).add( this.camera.position );
         
     this.camera.setRotationFromQuaternion(camPoseQuat);//smoothedQuat);
     this.camera.lookAt(lookAt);

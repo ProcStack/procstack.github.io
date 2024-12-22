@@ -14,7 +14,7 @@ import { SettingsGui } from './pxlGui/SettingsGui.js';*/
 // TODO : Remove hard coded html/css, promote to div generator class
 
 import { SVGUtils } from './guiUtils/svgUtils.js';
-import {VERBOSE_LEVEL} from '../core/Types.js';
+import {VERBOSE_LEVEL} from '../core/Enums.js';
 
 
 export class GUIManager{

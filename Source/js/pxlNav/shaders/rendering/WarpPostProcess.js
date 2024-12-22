@@ -30,6 +30,7 @@ export function warpPostProcess(){
       Cd=mix( Cd, noiseCd, blend);
       
       Cd.a=1.0;
+      Cd.r=1.0;
       gl_FragColor = Cd;
     }`;
   

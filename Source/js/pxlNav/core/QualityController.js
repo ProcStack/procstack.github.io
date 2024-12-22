@@ -1,4 +1,5 @@
-import {Vector3,VERBOSE_LEVEL} from "./Types.js";
+import { VERBOSE_LEVEL } from "./Enums.js";
+import { Vector3 } from "../../libs/three/three.module.min.js";
 
 export class QualityController{
   constructor( verbose, mobile=false, searchParms={}){

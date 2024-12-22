@@ -1,8 +1,26 @@
 // Core File IO Helper Utilities
 // -- -- -- --
 
-import { Vector2, Vector3 } from "./Types.js";
-import * as THREE from "../../libs/three/three.module.js";
+import {
+  Vector2,
+  Vector3,
+  Color,
+  Group,
+  Mesh,
+  InstancedMesh,
+  DoubleSide,
+  FrontSide,
+  BackSide,
+  DynamicDrawUsage,
+  Matrix4,
+  Quaternion,
+  Euler,
+  Box3,
+  ShaderMaterial,
+  LinearSRGBColorSpace,
+  SRGBColorSpace,
+  NoColorSpace
+} from "../../libs/three/three.module.min.js";
 import { FBXLoader } from "../../libs/three/FBXLoader.js";
 
 export class FileIO{
@@ -56,6 +74,13 @@ export class FileIO{
     }
   }
   
+  toggleDebugger( val=null ){
+    if( !val ){
+      val = !this.runDebugger;
+    }
+    this.runDebugger = val;
+  }
+
   findInDict( dict, key, def ){
     if( dict.hasOwnProperty(key) ){
       return dict[key];
@@ -73,9 +98,9 @@ export class FileIO{
     if( mesh.hasOwnProperty("userData") ){
       if( mesh.hasOwnProperty("material") ){
         if( mesh.userData.hasOwnProperty("doubleSided") && mesh.userData.doubleSided ){
-          mesh.material.side=THREE.DoubleSide;
+          mesh.material.side=DoubleSide;
         }else{
-          mesh.material.side=THREE.FrontSide;
+          mesh.material.side=FrontSide;
         }
       }
 
@@ -154,7 +179,7 @@ export class FileIO{
             g.scale.set( sc.x, sc.y, sc.z )
             //g.rotation = mesh.rotation.clone() 
             //g.scale  = mesh.scale.clone()
-            //g.material.side=THREE.FrontSide;
+            //g.material.side=FrontSide;
             //mesh.add(g);
             
             g.updateMatrix();
@@ -235,7 +260,7 @@ export class FileIO{
 
 
     if(!envObj.glassGroup){
-      let glassGrp=new THREE.Group();
+      let glassGrp=new Group();
       envObj.glassGroup=glassGrp;
       envScene.add(glassGrp);
     }
@@ -251,9 +276,9 @@ export class FileIO{
     mesh.material.specular.g = mesh.material.specular.g*.5 +.1;
     mesh.material.specular.b = mesh.material.specular.b*.5 +.1;
     
-    //mesh.material.side=THREE.FrontSide;
+    //mesh.material.side=FrontSide;
     //mesh.material.depthTest=true;
-    mesh.material.side=THREE.BackSide;
+    mesh.material.side=BackSide;
     mesh.material.depthWrite=false;
     mesh.matrixAutoUpdate=false;
     mesh.renderOrder = 1;
@@ -263,10 +288,10 @@ export class FileIO{
     let cFrontGeo = mesh.geometry.clone()
     let cFrontMat= mesh.material.clone();
     cFrontMat.copy( mesh.material );
-    let cFrontMesh = new THREE.Mesh( cFrontGeo, cFrontMat );
+    let cFrontMesh = new Mesh( cFrontGeo, cFrontMat );
     cFrontMesh.name = mesh.name+"_Front";
     cFrontMesh.material.shininess=40;
-    cFrontMesh.material.side=THREE.FrontSide;
+    cFrontMesh.material.side=FrontSide;
     cFrontMesh.matrixAutoUpdate=false;
     cFrontMesh.renderOrder = 2;
     
@@ -293,6 +318,7 @@ export class FileIO{
   //   Instancing is currently not actually instancing
   //   Object is cloned, raising ram/vram usage
   checkObjectInstancing( envObj, envScene, mesh ){
+
     if( !envObj.hasOwnProperty("baseInstancesNames") || !envObj.hasOwnProperty("baseInstancesList") ){
       return false;
     }
@@ -313,55 +339,63 @@ export class FileIO{
           let curScale=mesh.scale;
           let instBase= envObj.baseInstancesList[ mesh.userData.Instance ];
 
-          
+          //console.log(name);
+          //console.log(instBase.material);
           if( mesh.type == "Mesh" ){
 
-            const instancedMesh = new THREE.InstancedMesh(instBase.geometry, instBase.material, mesh.geometry.attributes.position.count);
-            instancedMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-            instancedMesh.name = name + "Geo";
 
-            const matrix = new THREE.Matrix4();
-            const position = new THREE.Vector3();
-            const normal = new THREE.Vector3();
-            const quaternion = new THREE.Quaternion();
-            const scale = new THREE.Vector3(1, 1, 1);
+            const matrix = new Matrix4();
+            const position = new Vector3();
+            const normal = new Vector3();
+            const quaternion = new Quaternion();
+            const scale = new Vector3(1, 1, 1);
             const hasColor = mesh.geometry.attributes.hasOwnProperty("color");
 
             // Prevent dupelicate instances
             //   Verts are split, so neighboring polygons have stacked vertices
             //     'entry' checks those dupes
             let pointRecorder = {};
-            for (let i = 0; i < mesh.geometry.attributes.position.count; i++) {
-              position.fromBufferAttribute(mesh.geometry.attributes.position, i);
+            let instanceMatricies = [];
+            for (let x = 0; x < mesh.geometry.attributes.position.count; ++x) {
+              position.fromBufferAttribute(mesh.geometry.attributes.position, x);
               let entry = position.toArray();
               entry = entry.join(",");
               if( !pointRecorder.hasOwnProperty(entry) ){
-                normal.fromBufferAttribute(mesh.geometry.attributes.normal, i);
-                let randomRot = new THREE.Euler( 0,Math.random() * 2 * Math.PI, 0);
+                normal.fromBufferAttribute(mesh.geometry.attributes.normal, x);
+                let randomRot = new Euler( 0,Math.random() * 2 * Math.PI, 0);
                 quaternion.setFromEuler(randomRot);
                 
                 let curScale = scale;
                 if( hasColor ){
-                  let curScalar = mesh.geometry.attributes.color.getX(i);
-                  curScale = new THREE.Vector3(curScalar, curScalar, curScalar);
+                  let curScalar = mesh.geometry.attributes.color.getX(x);
+                  curScale = new Vector3(curScalar, curScalar, curScalar);
                 }
                 matrix.compose(position, quaternion, curScale);
-                instancedMesh.setMatrixAt(i, matrix);
+                instanceMatricies.push( matrix.clone() );
                 pointRecorder[entry]=true;
               }
             }
+            if( instanceMatricies.length > 0 ){
+              const instancedMesh = new InstancedMesh(instBase.geometry, instBase.material, instanceMatricies.length);
+              instancedMesh.instanceMatrix.setUsage(DynamicDrawUsage);
+              instancedMesh.name = name + "Geo";
+              
+              for (let x = 0; x < instanceMatricies.length; ++x) {
+                instancedMesh.setMatrixAt( x, instanceMatricies[x] );
+              }
 
-            instancedMesh.visible = true;
-            instancedMesh.updateMatrix();
+              instancedMesh.visible = true;
+              instancedMesh.updateMatrix();
 
-            envObj.geoList['InstanceObjects'][name] = instancedMesh;
-            mesh.parent.add(instancedMesh);
+              envObj.geoList['InstanceObjects'][name] = instancedMesh;
+              mesh.parent.add(instancedMesh);
+            }
             mesh.visible = false;
             mesh.parent.remove(mesh);
           }else{
             // Clone the base instance; single instance
-            const instancedMesh = new THREE.InstancedMesh(instBase.geometry, instBase.material, 1);
-            instancedMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+            const instancedMesh = new InstancedMesh(instBase.geometry, instBase.material, 1);
+            instancedMesh.instanceMatrix.setUsage(DynamicDrawUsage);
             instancedMesh.name = name+"Geo";
 
             let altInstPlacement = false;
@@ -374,8 +408,8 @@ export class FileIO{
               instancedMesh.position.set(curPos.x,curPos.y,curPos.z);
               instancedMesh.scale.set(curScale.x,curScale.y,curScale.z);
             }else{
-              const matrix = new THREE.Matrix4();
-              matrix.compose(curPos, new THREE.Quaternion().setFromEuler(curRot), curScale);
+              const matrix = new Matrix4();
+              matrix.compose(curPos, new Quaternion().setFromEuler(curRot), curScale);
               instancedMesh.setMatrixAt(0, matrix);
             }
 
@@ -392,7 +426,7 @@ export class FileIO{
           /*
           // Dupe the base object; single dupe
           
-          let dupe=instBase.clone();//new THREE.Mesh(instBase.geometry.clone());
+          let dupe=instBase.clone();//new Mesh(instBase.geometry.clone());
           dupe.rotation.set(curRot.x,curRot.y,curRot.z);
           dupe.position.set(curPos.x,curPos.y,curPos.z);
           dupe.scale.set(curScale.x,curScale.y,curScale.z);
@@ -400,9 +434,9 @@ export class FileIO{
           dupe.visible=true;
           dupe.updateMatrix();
           
-          let curSide = THREE.FrontSide;
+          let curSide = FrontSide;
           if(instBase.userData.doubleSided){
-            curSide=THREE.DoubleSide;
+            curSide=DoubleSide;
           }
           dupe.material.side=curSide;
           dupe.name = name+"Geo";
@@ -489,7 +523,7 @@ export class FileIO{
                 if(c.name.includes("Item")){
                   if( g.name.includes("LowGravity")){
                     if(lowGravMtl==null){
-                      lowGravMtl=new THREE.ShaderMaterial({
+                      lowGravMtl=new ShaderMaterial({
                         uniforms:{
                           color:{value : c.material.emissive.clone() },
                           alphaMap:{type:'t',value : c.material.map },
@@ -501,7 +535,7 @@ export class FileIO{
                         vertexShader:this.pxlShaders.objects.itemVert(),
                         fragmentShader:this.pxlShaders.objects.itemFrag(),
                         transparent:true,
-                        side:THREE.DoubleSide,
+                        side:DoubleSide,
                         depthTest:true,
                         depthWrite:false,
                       });
@@ -511,15 +545,15 @@ export class FileIO{
                     if( lizardKingMtl==null ){
                       lizardKingMtl= c.material.clone();
                       lizardKingMtl.emissiveMap=lizardKingMtl.map;
-                      lizardKingMtl.emissive=new THREE.Color( 0x808080 );
+                      lizardKingMtl.emissive=new Color( 0x808080 );
                     }
                     c.material=lizardKingMtl;
                   }else if( g.name.includes("StarField") ){
                     //c.material.emissiveMap=c.material.map;
-                    //c.material.emissive=new THREE.Color( 0x808080 );
+                    //c.material.emissive=new Color( 0x808080 );
                   }else if( g.name.includes("InfinityZoom") ){
                     if(infinityZoomMtl==null){
-                      infinityZoomMtl=new THREE.ShaderMaterial({
+                      infinityZoomMtl=new ShaderMaterial({
                         uniforms:{
                           color:{value : c.material.map },
                           cloudNoise:{type : 't',value : this.pxlEnv.cloud3dTexture},
@@ -530,7 +564,7 @@ export class FileIO{
                         vertexShader:this.pxlShaders.core.defaultVert(),
                         fragmentShader:this.pxlShaders.objects.itemZoomFrag(),
                         transparent:true,
-                        side:THREE.DoubleSide,
+                        side:DoubleSide,
                         depthTest:true,
                         depthWrite:true,
                       });
@@ -540,7 +574,7 @@ export class FileIO{
                   this.pxlUser.itemList[g.name]=c;
                 }else if(c.name.includes("ItemBase")){
                   if(baseMtl==null){
-                    baseMtl=new THREE.ShaderMaterial({
+                    baseMtl=new ShaderMaterial({
                       uniforms:{
                         color:{value : c.material.emissive.clone() },
                         alphaMap:{type:'t',value : c.material.map },
@@ -552,7 +586,7 @@ export class FileIO{
                       vertexShader:this.pxlShaders.objects.itemBaseVert(),
                       fragmentShader:this.pxlShaders.objects.itemBaseFrag(),
                       transparent:true,
-                      side:THREE.DoubleSide,
+                      side:DoubleSide,
                       depthTest:true,
                       depthWrite:false,
                     });
@@ -594,10 +628,22 @@ export class FileIO{
  // Environment FBX Loader        //
  // -- -- -- -- -- -- -- -- -- -- //
 
-  loadRoomFBX( envObj, objPath, meshKey, textureList ){
-    if(meshKey==''){ // Prep for IsLoaded checks
+  loadRoomFBX( envObj, fbxPath = null, meshKey = null, enableLogging = false ){
+    if( enableLogging ){
+      this.runDebugger = true;
+    }else{
+      this.runDebugger = false;
+    }
+    if(meshKey==null){ // Prep for IsLoaded checks
         meshKey = envObj.roomName;
     }
+    if( !fbxPath ){
+      fbxPath = envObj.sceneFile;
+    }
+
+    let objPath = envObj.sceneFile ;
+    let materialList = envObj.materialList ;
+
     this.pxlEnv.geoLoadListComplete=0;
     this.pxlEnv.geoLoadList[meshKey]=0;
 
@@ -743,12 +789,12 @@ export class FileIO{
           ch.forEach( (c,x)=>{
             this.checkForUserData( envObj, envScene, c );
 
-            if( textureList.hasOwnProperty( c.name ) ){
+            if( materialList.hasOwnProperty( c.name ) ){
               let curMap = null;
               if( c.material.map ){
                 curMap = c.material.map;
               }
-              c.material= textureList[ c.name ];
+              c.material= materialList[ c.name ];
 
               if( curMap ){
                 if( c.material.uniforms.hasOwnProperty("diffuse") ){
@@ -834,19 +880,19 @@ export class FileIO{
             
             envObj.geoList[c.name]=c;
               
-            let curSide = THREE.FrontSide;
+            let curSide = FrontSide;
             // @ FBX - User Data; boolean, 'doubleSided'
             if(c.userData.doubleSided){
-              curSide=THREE.DoubleSide;
+              curSide=DoubleSide;
             }
             
             // Custom material shader was added to this object, apply it
-            if( textureList.hasOwnProperty( c.name ) ){
+            if( materialList.hasOwnProperty( c.name ) ){
               let curMap = null;
               if( c.material.map ){
                 curMap = c.material.map;
               }
-              c.material= textureList[ c.name ];
+              c.material= materialList[ c.name ];
 
               if( curMap ){
                 if( c.material.uniforms.hasOwnProperty("diffuse") ){
@@ -860,9 +906,8 @@ export class FileIO{
                 }
               }
               c.matrixAutoUpdate=false;
-              //c.geometry.computeFaceNormals();
               //c.geometry.computeVertexNormals();
-              //c.material.shading = THREE.SmoothShading;
+              //c.material.shading = SmoothShading;
             }else{
               let curMatList = c.material;
               if( !Array.isArray(c.material) ){
@@ -874,18 +919,17 @@ export class FileIO{
                   if( m.map && !m.emissiveMap && m.emissive.r>0 ){
                     m.emissiveMap=m.map;
                     m.emissiveIntensity=m.emissive.r;
-                    m.emissive=new THREE.Color( 0xFFFFFF );
+                    m.emissive=new Color( 0xFFFFFF );
                   }
                   m.side=curSide;
                   //m.depthWrite=true;
                   //m.depthTest=true;
-                  //m.shading = THREE.SmoothShading;
+                  //m.shading = SmoothShading;
                 });
               }
 
-              //c.geometry.computeFaceNormals();
               //c.geometry.computeVertexNormals();
-              //c.matrixAutoUpdate=false;
+              c.matrixAutoUpdate=false;
             }
            
               
@@ -911,83 +955,6 @@ export class FileIO{
         envScene.add( groups[groupId] );
       }
       
-
-      // @ Loaded Scene File - Environment Group; 'Animation'
-      if(false && groupNames.includes('Animation')){
-        let groupId = groupTypes['Animation'] ;
-        let animGroup = groups[groupId];
-        let ch = animGroup.children;
-        animGroup.frustumCulled = false;
-        this.log("Animation - ",groups[groupId]);
-        
-        envScene.add( animGroup );
-        
-        let runner = -1;
-        while(runner < ch.length-1){
-          runner++;
-          let c=ch[runner];
-          if(!c){
-            this.log("-- Error, Uncaught Animation Child --");
-            this.log("Error Entry- '"+runner+"'");
-          }
-          console.log(c)
-          this.checkForUserData( envObj, envScene, c );
-          if(c.isMesh){
-            if( c.userData.hasOwnProperty("Show") && (!c.userData.Show || c.userData.Show == 0) ){
-              c.visible = false;
-            }
-            
-            envObj.geoList[c.name]=c;
-              
-            let curSide = THREE.FrontSide;
-            
-            if(c.userData.doubleSided){
-              curSide=THREE.DoubleSide;
-            }
-            
-            if( textureList.hasOwnProperty( c.name ) ){
-              c.material= textureList[ c.name ];
-              c.matrixAutoUpdate=false;
-              continue;
-            }
-            
-            if( c.material.map ){
-              c.material.emissiveMap=c.material.map;
-              if( c.material.emissive.r>0 ){
-                c.material.emissiveIntensity=c.material.emissive.r;
-              }
-              c.material.emissive=new THREE.Color( 0xFFFFFF );
-              
-              if( !c.material.specularMap && c.material.specular.r>0 ){
-                c.material.specularMap=c.material.map;
-              }
-            }else{
-              c.material.emissive = c.material.color;
-            }
-            //c.material.depthWrite=true;
-            c.material.side=curSide;
-            //c.geometry.computeFaceNormals();
-            //c.geometry.computeVertexNormals();
-            //c.matrixAutoUpdate=false;
-            c.frustumCulled = false;
-            c.matrixAutoUpdate=true;
-            //envScene.add(c);
-              
-          }else if( c.type == "Group" ){
-            ch.push( ...c.children );
-            c.frustumCulled = false;
-          }else if(  c.type == "Bone" ){
-            //console.log(c);
-            
-            c.frustumCulled = false;
-            ch.push( ...c.children );
-          }else{
-            this.log("-- Warning, FBX Animation Bypass --");
-            this.log("Bypass Name- '"+c.name+"';\nBypass Type- '"+c.type+"'");
-          }
-        }
-      }
-      
       
       // ## Restricted to only pxlNav's build
       // @ Loaded Scene File - Environment Group; 'Glass'
@@ -997,7 +964,7 @@ export class FileIO{
         
         if( ch.length > 0 ){
             if(!envObj.glassGroup){
-                let glassGrp=new THREE.Group();
+                let glassGrp=new Group();
                 envObj.glassGroup=glassGrp;
                 envScene.add(glassGrp);
             }
@@ -1018,9 +985,9 @@ export class FileIO{
                     c.material.specular.g = c.material.specular.g*.5 +.1;
                     c.material.specular.b = c.material.specular.b*.5 +.1;
                     
-                    //c.material.side=THREE.FrontSide;
+                    //c.material.side=FrontSide;
                     //c.material.depthTest=true;
-                    c.material.side=THREE.BackSide;
+                    c.material.side=BackSide;
                     c.material.depthWrite=false;
                     c.matrixAutoUpdate=false;
                     c.renderOrder = 1;
@@ -1030,9 +997,9 @@ export class FileIO{
                     let cFrontGeo = c.geometry.clone()
                     let cFrontMat= c.material.clone();
                     cFrontMat.copy( c.material );
-                    let cFrontMesh = new THREE.Mesh( cFrontGeo, cFrontMat );
+                    let cFrontMesh = new Mesh( cFrontGeo, cFrontMat );
                     cFrontMesh.material.shininess=40;
-                    cFrontMesh.material.side=THREE.FrontSide;
+                    cFrontMesh.material.side=FrontSide;
                     cFrontMesh.matrixAutoUpdate=false;
                     cFrontMesh.renderOrder = 2;
                     
@@ -1122,11 +1089,11 @@ export class FileIO{
             
             this.checkForUserData( envObj, envScene, c );
           
-            let mtl=new THREE.MeshBasicMaterial({
+            let mtl=new MeshBasicMaterial({
               color:c.material.color.clone()
             });
-            //mtl.side=THREE.DoubleSide;  
-            mtl.side=THREE.FrontSide;
+            //mtl.side=DoubleSide;  
+            mtl.side=FrontSide;
             mtl.flatShading=true;
             c.material=mtl;
             c.matrixAutoUpdate=false;
@@ -1152,19 +1119,19 @@ export class FileIO{
             
             this.checkForUserData( envObj, envScene, c );
           
-            let mtl=new THREE.MeshLambertMaterial();
+            let mtl=new MeshLambertMaterial();
             if(c.material.map){
               let mtlMap=c.material.map.clone();
               mtl.map=mtlMap;
-              //mtl.color=new THREE.Color( 0x888888 );
+              //mtl.color=new Color( 0x888888 );
               mtl.emissiveMap=mtlMap;
               mtl.emissiveIntensity=.5;
               c.material=mtl;
             }else{
               mtl.color=c.material.color.clone();
               mtl.emissive=c.material.emissive.clone();
-              //mtl.side=THREE.DoubleSide;
-              mtl.side=THREE.FrontSide;
+              //mtl.side=DoubleSide;
+              mtl.side=FrontSide;
               mtl.flatShading=true;
               c.material=mtl;
             }
@@ -1186,7 +1153,7 @@ export class FileIO{
           let c=ch.pop();
           ch.push(...c.children);
           if(c.isMesh){
-            let curMat=new THREE.ShaderMaterial({
+            let curMat=new ShaderMaterial({
               uniforms:{
                 diffuse: { type:"t",value:c.material.map },
                 envDiffuse: { type:"t",value:null },
@@ -1200,8 +1167,7 @@ export class FileIO{
               vertexShader:this.pxlShaders.scene.skyObjectVert(),
               fragmentShader:this.pxlShaders.scene.skyObjectFrag( this.options.skyHaze )
             });
-            c.geometry.computeFaceNormals();
-            c.geometry.computeVertexNormals();
+            //c.geometry.computeVertexNormals();
             c.material = curMat;
             c.matrixAutoUpdate = false;
             c.frustumCulled = false;
@@ -1209,7 +1175,7 @@ export class FileIO{
             //c.material.depthTest=true;
             //c.material.depthWrite=true;
             envObj.geoList[ c.name ] = c;
-            envObj.textureList[ c.name ] = curMat;
+            envObj.materialList[ c.name ] = curMat;
             //envObj.shaderGeoList[c.name]=c;
             envScene.add(c);
           }
@@ -1242,19 +1208,18 @@ export class FileIO{
             let vertShader=this.pxlShaders.animated.animTextureVert();
             let fragShader=this.pxlShaders.animated.animTextureFrag();
             
-            let curMat=new THREE.ShaderMaterial({
+            let curMat=new ShaderMaterial({
               uniforms:uValues,
               vertexShader:vertShader,
               fragmentShader:fragShader,
               transparent:true,
               //depthTest:true,
               //depthWrite:true,
-              //side:THREE.DoubleSide
-              side:THREE.FrontSide
+              //side:DoubleSide
+              side:FrontSide
             });
             
-            c.geometry.computeFaceNormals();
-            c.geometry.computeVertexNormals();
+            //c.geometry.computeVertexNormals();
 
             c.material=curMat;
             
@@ -1285,7 +1250,7 @@ export class FileIO{
               speed=name.split("_")[1];
               speed=parseInt(speed)*.01;
             }
-            let curMat=new THREE.ShaderMaterial({
+            let curMat=new ShaderMaterial({
               uniforms:{
                 scrollTexture:{type : 't',value:c.material.map},
                 //cloudNoise:{type : 't',value : this.cloud3dTexture},
@@ -1297,14 +1262,13 @@ export class FileIO{
               vertexShader:this.pxlShaders.animated.scrollingTextureVert(),
               fragmentShader:this.pxlShaders.animated.scrollingTextureFrag(),
               transparent:true,
-              //side:THREE.DoubleSide,
-              side:THREE.FrontSide,
+              //side:DoubleSide,
+              side:FrontSide,
               //depthTest:true,
               //depthWrite:true
             });
             
-            c.geometry.computeFaceNormals();
-            c.geometry.computeVertexNormals();
+            //c.geometry.computeVertexNormals();
             c.material=curMat;
             
             c.matrixAutoUpdate=false;
@@ -1333,7 +1297,7 @@ export class FileIO{
           let c=ch.pop();
           ch.push(...c.children);
           if(c.isMesh){
-            let curMat=new THREE.ShaderMaterial({
+            let curMat=new ShaderMaterial({
               uniforms:{
                 camExists:{ type:'f',value:0.0 },
                 time:{ value:this.pxlTimer.msRunner },
@@ -1350,14 +1314,13 @@ export class FileIO{
               vertexShader:envObj.userScreenVert,
               fragmentShader:envObj.userScreenFrag,
               transparent:true,
-              //side:THREE.DoubleSide,
-              side:THREE.FrontSide,
+              //side:DoubleSide,
+              side:FrontSide,
               //depthTest:true,
               //depthWrite:true
             });
                         
-            c.geometry.computeFaceNormals();
-            c.geometry.computeVertexNormals();
+            //c.geometry.computeVertexNormals();
             c.material=curMat;
             
             c.matrixAutoUpdate=false;
@@ -1387,7 +1350,7 @@ export class FileIO{
             if( curChildren.length > 0 ){
               curChildren.forEach( (c)=>{
                 if(c.name.includes("Item")){
-                  let curMat=new THREE.ShaderMaterial({
+                  let curMat=new ShaderMaterial({
                       uniforms:{
                           color:{value : c.material.emissive.clone() },
                           alphaMap:{type:'t',value : c.material.map },
@@ -1399,14 +1362,14 @@ export class FileIO{
                       vertexShader:this.pxlShaders.objects.itemVert(),
                       fragmentShader:this.pxlShaders.objects.itemFrag(),
                       transparent:true,
-                      side:THREE.DoubleSide,
+                      side:DoubleSide,
                       depthTest:true,
                       depthWrite:false,
                   });
                   c.material=curMat;
                   this.pxlUser.itemList[g.name]=c;
                 }else if(c.name.includes("Base")){
-                  let curMat=new THREE.ShaderMaterial({
+                  let curMat=new ShaderMaterial({
                       uniforms:{
                           color:{value : c.material.emissive.clone() },
                           alphaMap:{type:'t',value : c.material.map },
@@ -1418,7 +1381,7 @@ export class FileIO{
                       vertexShader:this.pxlShaders.objects.itemBaseVert(),
                       fragmentShader:this.pxlShaders.objects.itemBaseFrag(),
                       transparent:true,
-                      side:THREE.DoubleSide,
+                      side:DoubleSide,
                       depthTest:true,
                       depthWrite:false,
                   });
@@ -1464,10 +1427,10 @@ export class FileIO{
             let child=curChildren.pop();
             curChildren.push(...child.children);
             if(child.isMesh){
-              let mtl=new THREE.MeshBasicMaterial();
-              mtl.color=new THREE.Color( 0xffffff );
+              let mtl=new MeshBasicMaterial();
+              mtl.color=new Color( 0xffffff );
               //mtl.map=child.material.map.clone()
-              child.material.emissive=new THREE.Color( 0x444444 );
+              child.material.emissive=new Color( 0x444444 );
               child.material.emissiveMap=child.material.map;
             
               child.matrixAutoUpdate=false;
@@ -1503,10 +1466,15 @@ export class FileIO{
 
       envObj.fbxPostLoad();
       
+      this.runDebugger = false;
     }, null, (err)=>{
       if(meshKey!=''){
         this.pxlEnv.geoLoadList[meshKey]=1;
       }
+      this.log("Error Loading FBX");
+      this.log(err);
+      
+      this.runDebugger = false;
     });
     
     return fbxLoader;
@@ -1537,8 +1505,17 @@ export class FileIO{
         this.checkForUserData( envObj, envScene, c );
 
         if(c.userData.hasOwnProperty("doubleSided") && c.userData.doubleSided){
-          c.material.side=THREE.DoubleSide;
+          c.material.side=DoubleSide;
         }
+        //if(c.material?.map){
+          //console.log(c.material.map);
+          //c.material.emissiveMap=c.material.map;
+          //c.material.emissiveIntensity=c.material.emissive.r;
+          //c.material.emissive=new Color( 0xFFFFFF );
+          //c.material.map.colorSpace = NoColorSpace;
+          //c.material.map.colorSpace = LinearSRGBColorSpace;
+          //c.material.map.colorSpace = SRGBColorSpace;
+        //}
       });
 
       this.pxlAnim.initObject( meshKey, curFbx );
@@ -1605,14 +1582,14 @@ export class FileIO{
           
           envObj.geoList[c.name]=c;
             
-          let curSide = THREE.FrontSide;
+          let curSide = FrontSide;
           
           if(c.userData.doubleSided){
-            curSide=THREE.DoubleSide;
+            curSide=DoubleSide;
           }
           
-          if( textureList.hasOwnProperty( c.name ) ){
-            c.material= textureList[ c.name ];
+          if( materialList.hasOwnProperty( c.name ) ){
+            c.material= materialList[ c.name ];
             c.matrixAutoUpdate=false;
             continue;
           }
@@ -1622,7 +1599,7 @@ export class FileIO{
             if( c.material.emissive.r>0 ){
               c.material.emissiveIntensity=c.material.emissive.r;
             }
-            c.material.emissive=new THREE.Color( 0xFFFFFF );
+            c.material.emissive=new Color( 0xFFFFFF );
             
             if( !c.material.specularMap && c.material.specular.r>0 ){
               c.material.specularMap=c.material.map;
@@ -1632,7 +1609,6 @@ export class FileIO{
           }
           //c.material.depthWrite=true;
           c.material.side=curSide;
-          //c.geometry.computeFaceNormals();
           //c.geometry.computeVertexNormals();
           //c.matrixAutoUpdate=false;
           c.frustumCulled = false;
@@ -1688,7 +1664,7 @@ export class FileIO{
       shaderOptions.defines = defines;
     }
     
-    mat=new THREE.ShaderMaterial( shaderOptions );
+    mat=new ShaderMaterial( shaderOptions );
     mat.transparent=true;
     mat.depthTest=true;
     
@@ -1725,7 +1701,7 @@ export class FileIO{
   // Used mainly for groups of objects rather than calculating bbox for an object itself
   getBBoxCentroid(curObj){
     try{
-      var objBBox=new THREE.Box3().setFromObject(curObj);
+      var objBBox=new Box3().setFromObject(curObj);
       var min=objBBox.min;
       var max=objBBox.max;
       var objCentroid=new Vector3().addVectors(max,min).multiplyScalar(.5);
@@ -1840,7 +1816,7 @@ export class FileIO{
     //       Retaining the code for future web worker management
     urlExists(url){
         var worker;
-        if( Worker ){
+        if( false && Worker ){
             worker = new Worker("js/pxlBase/webWorkers/FileWorkerIO.js");  
             //this.workerList.push( worker );
         }

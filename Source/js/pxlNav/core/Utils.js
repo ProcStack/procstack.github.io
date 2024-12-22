@@ -1,6 +1,25 @@
 
-import { Vector2, Vector3 } from "./Types.js";
-import * as THREE from "../../libs/three/three.module.js";
+import {
+  Vector2,
+  Vector3,
+  ImageLoader,
+  Texture,
+  VideoTexture,
+  CanvasTexture,
+  LinearFilter,
+  AlphaFormat,
+  RedFormat,
+  RGBAFormat,
+  RGFormat,
+  RGBFormat,
+  LuminanceFormat,
+  DepthFormat,
+  MeshBasicMaterial
+} from "../../libs/three/three.module.min.js";
+/*LinearSRGBColorSpace,
+SRGBColorSpace,
+CubeUVRefractionMapping,*/
+
 
 export class Utils{
   constructor(assetRoot="images/assets/", mobile ){
@@ -8,11 +27,11 @@ export class Utils{
     this.mobile=mobile;
     this.pxlTimer=null;
     this.verboseLoading=false;
-    this.texLoader=new THREE.ImageLoader();
+    this.texLoader=new ImageLoader();
     this.textLoaderArray=[];
     // Texture formats, use as needed
-    // THREE.ImageLoader's defauls; images load as RGBAFormat by default, and JPG as RGBAFormat
-    this.channelFormats=[ THREE.AlphaFormat, THREE.RedFormat, THREE.RGFormat, THREE.RGBFormat, THREE.RGBAFormat, THREE.LuminanceFormat, THREE.DepthFormat ];
+    // ImageLoader's defauls; images load as RGBAFormat by default, and JPG as RGBAFormat
+    this.channelFormats=[ AlphaFormat, RedFormat, RGFormat, RGBFormat, RGBAFormat, LuminanceFormat, DepthFormat ];
   }
 
   get curMS(){
@@ -248,14 +267,14 @@ export class Utils{
         return new Vector3(x,y,z);
     }
     
-  //this.channelFormats=[ THREE.AlphaFormat, THREE.RedFormat, THREE.RGFormat, THREE.RGBFormat, THREE.RGBAFormat, THREE.LuminanceFormat, THREE.DepthFormat ];
+  //this.channelFormats=[ AlphaFormat, RedFormat, RGFormat, RGBFormat, RGBAFormat, LuminanceFormat, DepthFormat ];
   loadTexture(imgPath,channels=null,mods={}){
     // ## Check how textLoaderArray textures are being handled after being disposed
     if(typeof(this.textLoaderArray[imgPath]) != "undefined"){
       texture=this.textLoaderArray[imgPath];
     }else{
-      //var texLoader=new THREE.ImageLoader(verboseLoading);
-      var texture=new THREE.Texture();
+      //var texLoader=new ImageLoader(verboseLoading);
+      var texture=new Texture();
       this.texLoader.load(imgPath,
         (tex)=>{
           if(channels!=null){
@@ -263,9 +282,9 @@ export class Utils{
           }
           texture.image=tex;
           texture.needsUpdate=true;
-          //texture.encoding=THREE.LinearEncoding;
-          //texture.encoding=THREE.sRGBEncoding;
-          //texture.mapping = THREE.CubeUVRefractionMapping;
+          //texture.encoding=LinearSRGBColorSpace;
+          //texture.encoding=SRGBColorSpace;
+          //texture.mapping = CubeUVRefractionMapping;
           if(mods.length>0){
             let keys=Object.keys(mods);
             keys.forEach((x)=>{
@@ -280,18 +299,18 @@ export class Utils{
   }
 
     getVideoTexture( videoObject ){
-        let videoTexture=new THREE.VideoTexture(videoObject);
-        videoTexture.minFilter=THREE.LinearFilter;
-        videoTexture.magFilter=THREE.LinearFilter; // faster, lower samples, THREE.NearestFilter
-        videoTexture.format=THREE.RGBFormat;
+        let videoTexture=new VideoTexture(videoObject);
+        videoTexture.minFilter=LinearFilter;
+        videoTexture.magFilter=LinearFilter; // faster, lower samples, NearestFilter
+        videoTexture.format=RGBFormat;
         
         return videoTexture;
     }
     
     getCanvasTexture( canvas ){
-        const texture = new THREE.CanvasTexture(canvas);
+        const texture = new CanvasTexture(canvas);
          
-        const material = new THREE.MeshBasicMaterial({
+        const material = new MeshBasicMaterial({
           map: texture,
         });
         return {texture, material};

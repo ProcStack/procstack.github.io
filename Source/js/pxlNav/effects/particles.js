@@ -3,8 +3,10 @@
 
 // TODO : Effects need Manager classes (ie. emitter classes)
 
-export { BillowSmoke } from './particles/BillowSmoke.js';
+import { BillowSmoke } from './particles/BillowSmoke.js';
 
-export { EmberWisps } from './particles/EmberWisps.js';
+import { EmberWisps } from './particles/EmberWisps.js';
 
-export { FloatingDust } from './particles/FloatingDust.js';
+import { FloatingDust } from './particles/FloatingDust.js';
+
+export { BillowSmoke, EmberWisps, FloatingDust };

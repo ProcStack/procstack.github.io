@@ -5,7 +5,7 @@
 // Please directly import percision headers in your room's shaders file
 //   From your room's root folder -
 //     ```
-//       import {shaderHeader} from "../../pxlBase/shaders/core/ShaderHeader.js";
+//       import { shaders } from "../../pxlNav.js";
 //     ```
 //
 //   Used with -

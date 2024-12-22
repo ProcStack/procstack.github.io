@@ -16,7 +16,7 @@ const SoundLibrary = [
 ];
 
 // Audio
-import { Vector3, Vector4 } from "../core/Types.js";
+import { Vector3, Vector4 } from "../../libs/three/three.module.min.js";
 
 export class Audio{
   constructor(){

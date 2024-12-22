@@ -1,4 +1,5 @@
-import { Vector3 } from "../core/Types.js";
+import { Vector3 } from "../../libs/three/three.module.min.js";
+
 
 export class ShaderEditor {
   constructor( pxlCore, guiManager ){

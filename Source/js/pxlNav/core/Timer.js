@@ -1,4 +1,4 @@
-import { Vector2 } from "./Types.js";
+import { Vector2 } from "../../libs/three/three.module.min.js";
 
 export class Timer{
   constructor(){

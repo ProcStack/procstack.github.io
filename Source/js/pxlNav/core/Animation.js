@@ -2,7 +2,11 @@
 // -- -- -- -- -- -- -- -- --
 // Written by Kevin Edzenga; 2024
 
-import * as THREE from "../../libs/three/three.module.js";
+import {
+  Clock,
+  AnimationMixer,
+  MeshStandardMaterial,
+} from "../../libs/three/three.module.min.js";
 
 export class Animation{
   constructor( assetPath=null, msRunner=null ){
@@ -27,7 +31,7 @@ export class Animation{
     this.objects = {};
     this.animMixer = {};
     this.msRunner=msRunner;
-    this.clock = new THREE.Clock();
+    this.clock = new Clock();
   }
   setDependencies( pxlEnv ){
     this.pxlEnv = pxlEnv;
@@ -100,11 +104,11 @@ export class Animation{
       let outDict = Object.assign({}, this.animInitEntry);
       outDict[ 'rig' ] = animRoot;
       outDict[ 'mesh' ] = bindObj;
-      this.animMixer[ animName ] = new THREE.AnimationMixer( animRoot );
+      this.animMixer[ animName ] = new AnimationMixer( animRoot );
       outDict[ 'mixer' ] = this.animMixer[ animName ];
       this.objects[ animName ] = outDict;
 
-      let skinnedMaterial = new THREE.MeshStandardMaterial( { skinning: true } );
+      let skinnedMaterial = new MeshStandardMaterial();
       skinnedMaterial.map = bindObj.material.map;
 
       bindObj.material = skinnedMaterial;

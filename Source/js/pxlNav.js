@@ -1,6 +1,6 @@
 //
 //  Core pxlNav Engine
-export const pxlNavVersion = "0.0.16";
+const pxlNavVersion = "0.0.17";
 //      Written by Kevin Edzenga 2020;2024
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -42,12 +42,39 @@ export const pxlNavVersion = "0.0.16";
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-import * as THREE from './libs/three/three.module.js';
-import * as PxlBase from './pxlNav/pxlBase.js';
-import { pxlShaders } from './pxlNav/shaders/shaders.js';
-import { pxlEnums, PXLNAV_OPTIONS } from './pxlNav/core/Types.js';
-export { pxlEnums, PXLNAV_OPTIONS };
+import {
+  WebGLRenderer,
+  Scene,
+  Color,
+  WebGLRenderTarget,
+  RGBAFormat,
+  LinearFilter,
+  RepeatWrapping,
+  DepthTexture,
+  DepthFormat,
+  UnsignedIntType,
+  UnsignedShortType,
+  BasicShadowMap,
+  PCFSoftShadowMap,
+  PerspectiveCamera,
+  AmbientLight,
+  DirectionalLight,
+  Object3D,
+  FloatType,
+  NearestFilter,
+  HalfFloatType,
+  SRGBColorSpace,
+  LinearSRGBColorSpace,
+  ColorManagement
+} from "./libs/three/three.module.min.js";
 
+import { pxlBase } from './pxlNav/pxlBase.js';
+import { pxlEnums } from './pxlNav/core/Enums.js';
+import { pxlOptions } from './pxlNav/core/Options.js';
+import { pxlShaders } from './pxlNav/shaders/shaders.js';
+import { pxlEffects } from './pxlNav/effects/effects.js';
+
+import { RoomEnvironment } from './pxlNav/RoomClass.js';
 
 const pxlCore = "pxlNav-coreCanvas"; // Name of DIV in Index
 var cloud3dTexture = null;
@@ -107,7 +134,7 @@ var sH = window.innerHeight;
  * @returns eventListenerCallback( "pingPong", "pong" )
  * 
  */
-export class pxlNav{
+class pxlNav{
   constructor( options, projectTitle, startingRoom, roomBootList ){
     this._active = false;
 
@@ -126,10 +153,10 @@ export class pxlNav{
     };
     this.options = Object.assign( this.options, options );
     let optionKeys=Object.keys( this.options );
-    let defaultKeys=Object.keys( PXLNAV_OPTIONS );
+    let defaultKeys=Object.keys( pxlOptions );
     defaultKeys.forEach( (k)=>{
       if( !optionKeys.includes( k ) ){
-        this.options[k]=PXLNAV_OPTIONS[k];
+        this.options[k]=pxlOptions[k];
       }
     });
 
@@ -186,35 +213,35 @@ export class pxlNav{
     this.loadEnvAssetFile = true; // this.options['LoadEnvAssetFile'];
 
 
-    this.pxlTimer = new PxlBase.Timer();
+    this.pxlTimer = new pxlBase.Timer();
     this.pxlShaders = pxlShaders;
-    this.pxlCookie = new PxlBase.CookieManager( projectTitle, "/" );
+    this.pxlCookie = new pxlBase.CookieManager( projectTitle, "/" );
     if( this.pxlCookie.hasCookie("forceMobile") ){
         this.mobile = pxlCookie.parseCookie("forceMobile");
     }
-    this.pxlQuality = new PxlBase.QualityController( this.verbose, this.mobile, this.uriHashParms );
-    this.pxlUtils = new PxlBase.Utils( this.folderDict["assetRoot"], this.mobile );
-    this.pxlFile = new PxlBase.FileIO( this.folderDict );
+    this.pxlQuality = new pxlBase.QualityController( this.verbose, this.mobile, this.uriHashParms );
+    this.pxlUtils = new pxlBase.Utils( this.folderDict["assetRoot"], this.mobile );
+    this.pxlFile = new pxlBase.FileIO( this.folderDict );
 
-    this.pxlExtensions = new PxlBase.Extensions();
+    this.pxlExtensions = new pxlBase.Extensions();
 
-    this.pxlAudio = new PxlBase.Audio( this.pxlTimer );
-    this.pxlAutoCam = new PxlBase.AutoCamera( this.autoCam, this.mobile );
+    this.pxlAudio = new pxlBase.Audio( this.pxlTimer );
+    this.pxlAutoCam = new pxlBase.AutoCamera( this.autoCam, this.mobile );
     this.pxlAutoCam.active = false;
 
-    this.pxlUser = new PxlBase.User();
+    this.pxlUser = new pxlBase.User();
 
-    this.pxlEnv = new PxlBase.Environment( this.options, this.startingRoom, this.mobile );
-    this.pxlDevice = new PxlBase.Device( projectTitle, pxlCore, this.mobile, this.autoCam );
-    this.pxlCamera = new PxlBase.Camera();
+    this.pxlEnv = new pxlBase.Environment( this.options, this.startingRoom, this.mobile );
+    this.pxlDevice = new pxlBase.Device( projectTitle, pxlCore, this.mobile, this.autoCam );
+    this.pxlCamera = new pxlBase.Camera();
     // Disable Free-Roam camera mode if static camera is enabled
     if( this.options["staticCamera"] ){
       this.pxlCamera.toggleMovement( false );
     }
 
-    this.pxlAnim = new PxlBase.Animation( this.folderDict["assetRoot"], this.pxlTimer );
+    this.pxlAnim = new pxlBase.Animation( this.folderDict["assetRoot"], this.pxlTimer );
 
-    this.pxlGuiDraws = new PxlBase.GUI( this.verbose, projectTitle, this.folderDict["assetRoot"], this.folderDict["guiRoot"] );
+    this.pxlGuiDraws = new pxlBase.GUI( this.verbose, projectTitle, this.folderDict["assetRoot"], this.folderDict["guiRoot"] );
     
     this.pxlQuality.setDependencies( this );
     this.pxlUtils.setDependencies( this );
@@ -385,8 +412,9 @@ export class pxlNav{
   bootEnvironment(){
     return new Promise( (resolve, reject)=>{
         // Rederer
-        this.pxlEnv.engine=new THREE.WebGLRenderer({
+        this.pxlEnv.engine=new WebGLRenderer({
             canvas: this.pxlGuiDraws.pxlNavCanvas,
+            powerPreference : "low-power",
             alpha:true,
             antialias: false,
             sortObjects:true,
@@ -394,92 +422,81 @@ export class pxlNav{
             //logarithmicDepthBuffer:true,
         });
         var options = {
-            format : THREE.RGBAFormat,
+            format : RGBAFormat,
             antialias: false,
             sortObjects:true,
             alpha:true,
-            type : /(iPad|iPhone|iPod)/g.test(navigator.userAgent) ? THREE.HalfFloatType : THREE.FloatType
+            type : /(iPad|iPhone|iPod)/g.test(navigator.userAgent) ? HalfFloatType : FloatType 
         };
         this.pxlEnv.engine.autoClear=true;
+        ColorManagement.enabled = false;
+        this.pxlEnv.engine.outputColorSpace = SRGBColorSpace;
+        //this.pxlEnv.engine.outputColorSpace = SRGBColorSpace;
         
         this.pxlEnv.engine.debug.checkShaderErrors=false;
         //%= Dev
         this.pxlEnv.engine.debug.checkShaderErrors=true;
         //%
         
-        if( this.verbose >= pxlEnums.VERBOSE_LEVEL.INFO ){
-            if(this.pxlEnv.engine.extensions.get('WEBGL_depth_texture')){
-                console.log("  ** WebGL Depth Texture support enabled **");
-            }else{
-                console.log("  ** WebGL Depth Texture NOT supported **");
-            }
-            console.log("-- Depth Composer pass currently not enabled; --");
-            console.log("--   Switching to World-Space Shader pass     --");
-        }
         let bgCd=0x000000;
         let bgCdHex="#000000";
         this.pxlEnv.engine.setClearColor(this.pxlEnv.fogColor, 0);
         //this.pxlEnv.engine.setPixelRatio(window.devicePixelRatio);
         this.pxlEnv.engine.setSize(mapW/this.pxlQuality.screenResPerc, mapH/this.pxlQuality.screenResPerc);
         this.pxlEnv.engine.setPixelRatio(1);
-        //this.pxlEnv.engine.setSize(1024, 1024);
-        //this.pxlEnv.engine.gammaOutput=true;
-        //this.pxlEnv.engine.gammaFactor=3.2;
-        //this.pxlEnv.engine.outputEncoding=THREE.sRGBEncoding;
-        this.pxlEnv.engine.outputEncoding=THREE.GammaEncoding;
 
         if(this.options.shadowMapBiasing == pxlEnums.SHADOW_MAP.OFF){
           this.pxlEnv.engine.shadowMap.enabled=false;
         }else{
           this.pxlEnv.engine.shadowMap.enabled=true;
-          this.pxlEnv.engine.shadowMap.type=THREE.BasicShadowMap;
+          this.pxlEnv.engine.shadowMap.type=BasicShadowMap;
         }
         
         
         // Build render targets for depth and world space reference
-        this.pxlEnv.scene=new THREE.Scene();
+        this.pxlEnv.scene=new Scene();
         this.pxlEnv.scene.fog=this.pxlEnv.fog;
         
-        //this.pxlEnv.scene.background = new THREE.Color(bgCdHex);
-        this.pxlEnv.scene.background = new THREE.Color(bgCdHex);//this.pxlEnv.fogColor;
-        this.pxlEnv.scene.renderTarget=new THREE.WebGLRenderTarget(sW*this.pxlQuality.screenResPerc,sH*this.pxlQuality.screenResPerc,options);
-        this.pxlEnv.scene.renderTarget.texture.format=THREE.RGBAFormat;
-        this.pxlEnv.scene.renderTarget.texture.minFilter=THREE.LinearFilter;
-        this.pxlEnv.scene.renderTarget.texture.magFilter=THREE.LinearFilter;
+        //this.pxlEnv.scene.background = new Color(bgCdHex);
+        this.pxlEnv.scene.background = new Color(bgCdHex);//this.pxlEnv.fogColor;
+        this.pxlEnv.scene.renderTarget=new WebGLRenderTarget(sW*this.pxlQuality.screenResPerc,sH*this.pxlQuality.screenResPerc,options);
+        this.pxlEnv.scene.renderTarget.texture.format=RGBAFormat;
+        this.pxlEnv.scene.renderTarget.texture.minFilter=LinearFilter;
+        this.pxlEnv.scene.renderTarget.texture.magFilter=LinearFilter;
         this.pxlEnv.scene.renderTarget.texture.generateMipmaps=false;
-        //this.pxlEnv.scene.renderTarget.texture.type=THREE.FloatType;
+        //this.pxlEnv.scene.renderTarget.texture.type=FloatType;
         this.pxlEnv.scene.renderTarget.depthBuffer=true;
-        this.pxlEnv.scene.renderTarget.depthTexture = new THREE.DepthTexture();
-        this.pxlEnv.scene.renderTarget.depthTexture.format=THREE.DepthFormat;
-        this.pxlEnv.scene.renderTarget.depthTexture.type=THREE.UnsignedIntType;
-        //this.pxlEnv.scene.renderTarget.depthTexture.type=THREE.UnsignedShortType;
-        this.pxlEnv.scene.renderWorldPos=new THREE.WebGLRenderTarget(sW*this.pxlQuality.screenResPerc,sH*this.pxlQuality.screenResPerc,options);
-        this.pxlEnv.scene.renderWorldPos.texture.format=THREE.RGBAFormat;
-        this.pxlEnv.scene.renderWorldPos.texture.minFilter=THREE.NearestFilter;
-        this.pxlEnv.scene.renderWorldPos.texture.magFilter=THREE.NearestFilter;
+        this.pxlEnv.scene.renderTarget.depthTexture = new DepthTexture();
+        this.pxlEnv.scene.renderTarget.depthTexture.format=DepthFormat;
+        this.pxlEnv.scene.renderTarget.depthTexture.type=UnsignedIntType;
+        //this.pxlEnv.scene.renderTarget.depthTexture.type=UnsignedShortType;
+        this.pxlEnv.scene.renderWorldPos=new WebGLRenderTarget(sW*this.pxlQuality.screenResPerc,sH*this.pxlQuality.screenResPerc,options);
+        this.pxlEnv.scene.renderWorldPos.texture.format=RGBAFormat;
+        this.pxlEnv.scene.renderWorldPos.texture.minFilter=NearestFilter;
+        this.pxlEnv.scene.renderWorldPos.texture.magFilter=NearestFilter;
         this.pxlEnv.scene.renderWorldPos.texture.generateMipmaps=false;
         
         options.alpha=true;
-        this.pxlEnv.scene.renderGlowTarget=new THREE.WebGLRenderTarget( parseInt(sW*this.pxlQuality.screenResPerc), parseInt(sH*this.pxlQuality.screenResPerc),options);
-        this.pxlEnv.scene.renderGlowTarget.texture.format=THREE.RGBAFormat;
+        this.pxlEnv.scene.renderGlowTarget=new WebGLRenderTarget( parseInt(sW*this.pxlQuality.screenResPerc), parseInt(sH*this.pxlQuality.screenResPerc),options);
+        this.pxlEnv.scene.renderGlowTarget.texture.format=RGBAFormat;
         this.pxlEnv.scene.renderGlowTarget.texture.generateMipmaps=false;
         
-        /*this.pxlEnv.warpZoneRenderTarget=new THREE.WebGLRenderTarget(1024,1024,options);
-        this.pxlEnv.warpZoneRenderTarget.texture.format=THREE.RGBFormat;
-        this.pxlEnv.warpZoneRenderTarget.texture.minFilter=THREE.LinearFilter;
-        this.pxlEnv.warpZoneRenderTarget.texture.magFilter=THREE.LinearFilter;
+        /*this.pxlEnv.warpZoneRenderTarget=new WebGLRenderTarget(1024,1024,options);
+        this.pxlEnv.warpZoneRenderTarget.texture.format=RGBFormat;
+        this.pxlEnv.warpZoneRenderTarget.texture.minFilter=LinearFilter;
+        this.pxlEnv.warpZoneRenderTarget.texture.magFilter=LinearFilter;
         this.pxlEnv.warpZoneRenderTarget.texture.generateMipmaps=false;*/
         
         var aspectRatio=this.pxlGuiDraws.pxlNavCanvas.width/this.pxlGuiDraws.pxlNavCanvas.height;
         // To change the near and far, see Environment .init()
-        this.pxlCamera.camera=new THREE.PerspectiveCamera( this.pxlEnv.pxlCamFOV, 1, this.pxlEnv.camNear, this.pxlEnv.camFar);
+        this.pxlCamera.camera=new PerspectiveCamera( this.pxlEnv.pxlCamFOV, 1, this.pxlEnv.camNear, this.pxlEnv.camFar);
         this.pxlAutoCam.camera=this.pxlCamera.camera;
         
-        //this.pxlEnv.listener = new THREE.AudioListener();
+        //this.pxlEnv.listener = new AudioListener();
         //this.pxlCamera.camera.add( this.pxlEnv.listener );
         
         //this.pxlCamera.camera.position.set(-20,0,15);
-        this.pxlCamera.cameraAimTarget=new THREE.Object3D();
+        this.pxlCamera.cameraAimTarget=new Object3D();
         this.pxlEnv.scene.add(this.pxlCamera.cameraAimTarget);
         this.pxlCamera.camera.target=this.pxlCamera.cameraAimTarget;
         
@@ -497,35 +514,35 @@ export class pxlNav{
     ///////////////////////////////////////////////////
         
     if( this.options["loadList"].includes("Cloud3d") ){
-        this.pxlEnv.cloud3dTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"Noise_Cloud3d.jpg");
-        this.pxlEnv.cloud3dTexture.wrapS=THREE.RepeatWrapping;
-        this.pxlEnv.cloud3dTexture.wrapT=THREE.RepeatWrapping;
+        this.pxlEnv.cloud3dTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"Noise_Cloud3d.jpg", null, {"encoding":LinearSRGBColorSpace});
+        this.pxlEnv.cloud3dTexture.wrapS=RepeatWrapping;
+        this.pxlEnv.cloud3dTexture.wrapT=RepeatWrapping;
     }
     if( this.options["loadList"].includes("SoftNoise") ){  
         this.pxlEnv.softNoiseTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"Noise_Soft3d.jpg" );
-        this.pxlEnv.softNoiseTexture.wrapS = THREE.RepeatWrapping;
-        this.pxlEnv.softNoiseTexture.wrapT = THREE.RepeatWrapping;
+        this.pxlEnv.softNoiseTexture.wrapS = RepeatWrapping;
+        this.pxlEnv.softNoiseTexture.wrapT = RepeatWrapping;
     }
     if( this.options["loadList"].includes("SmoothNoise") ){  
         this.pxlEnv.detailNoiseTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"Noise_UniformSmooth.jpg" );
-        this.pxlEnv.detailNoiseTexture.wrapS = THREE.RepeatWrapping;
-        this.pxlEnv.detailNoiseTexture.wrapT = THREE.RepeatWrapping;
+        this.pxlEnv.detailNoiseTexture.wrapS = RepeatWrapping;
+        this.pxlEnv.detailNoiseTexture.wrapT = RepeatWrapping;
     }
     if( this.options["loadList"].includes("ChromaticAberration") ){
         let chroAberUVTexture = this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"uv_ChromaticAberration.png");
-        chroAberUVTexture.minFilter=THREE.LinearFilter;
-        chroAberUVTexture.magFilter=THREE.LinearFilter;
+        chroAberUVTexture.minFilter=LinearFilter;
+        chroAberUVTexture.magFilter=LinearFilter;
         this.pxlEnv.chroAberUVTexture=chroAberUVTexture;
     }
     if( this.options["loadList"].includes("WarpAnimTexture") ){
         this.pxlEnv.blockAnimTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"uv_blockPortalWarp.jpg");
-        this.pxlEnv.blockAnimTexture.minFilter=THREE.LinearFilter;
-        this.pxlEnv.blockAnimTexture.magFilter=THREE.LinearFilter;
+        this.pxlEnv.blockAnimTexture.minFilter=LinearFilter;
+        this.pxlEnv.blockAnimTexture.magFilter=LinearFilter;
     }
     if( this.options["loadList"].includes("MathFuncs") ){
         this.pxlEnv.mathFuncsTexture=this.pxlUtils.loadTexture( this.folderDict["assetRoot"]+"MathFuncs.jpg");
-        this.pxlEnv.mathFuncsTexture.minFilter=THREE.LinearFilter;
-        this.pxlEnv.mathFuncsTexture.magFilter=THREE.LinearFilter;
+        this.pxlEnv.mathFuncsTexture.minFilter=LinearFilter;
+        this.pxlEnv.mathFuncsTexture.magFilter=LinearFilter;
     }
         
 
@@ -533,7 +550,7 @@ export class pxlNav{
     // -- GEOMETRY  -- -- -- -- -- -- -- -- -- -- -- //
     ///////////////////////////////////////////////////
         
-        var textureList, transformList;
+        var materialList, transformList;
         // deskCandleHolder
         
         var tListIdent=(parentObj=null)=>{
@@ -560,7 +577,7 @@ export class pxlNav{
           let sceneFile=this.folderDict["assetRoot"]+"EnvironmentAssets.fbx";
           // This is a separate fbx loaded specifically for the Environment Asset FBX
           //   It opens up the found scene objects to easier global access
-          this.pxlFile.loadSceneFBX(sceneFile, textureList, transformList, this.verbose,'EnvironmentAssets',[this.pxlEnv.scene]);
+          this.pxlFile.loadSceneFBX(sceneFile, materialList, transformList, this.verbose,'EnvironmentAssets',[this.pxlEnv.scene]);
         }
 
     ///////////////////////////////////////////////////
@@ -572,23 +589,23 @@ export class pxlNav{
         }else{
           this.pxlEnv.engine.shadowMap.enabled=true;
           if(this.options.shadowMapBiasing == pxlEnums.SHADOW_MAP.BASIC || this.mobile){
-              this.pxlEnv.engine.shadowMap.type=THREE.BasicShadowMap;
+              this.pxlEnv.engine.shadowMap.type=BasicShadowMap;
           }else if(this.options.shadowMapBiasing == pxlEnums.SHADOW_MAP.SOFT){
-              this.pxlEnv.engine.shadowMap.type=THREE.PCFSoftShadowMap;
-              //this.pxlEnv.engine.shadowMap.type=THREE.PCFSoftShadowMap;
+              this.pxlEnv.engine.shadowMap.type=PCFSoftShadowMap;
+              //this.pxlEnv.engine.shadowMap.type=VSMShadowMap;
           }
         }
         
         // Every light is another frag level dot to matrix calculation
         // Add at your own risk
-        var ambLight=new THREE.AmbientLight(0xffffff,.05);
+        var ambLight=new AmbientLight(0xffffff,.05);
         this.pxlEnv.lightList.push(ambLight);
         this.pxlEnv.scene.add(ambLight);
-        var dirLight=new THREE.DirectionalLight(0xffffff,.1);
+        var dirLight=new DirectionalLight(0xffffff,.1);
         dirLight.position.set(1000,550,1200);
         this.pxlEnv.lightList.push(dirLight);
         this.pxlEnv.scene.add(dirLight);
-        /*var dirLightB=new THREE.DirectionalLight(0xffffff,.05);
+        /*var dirLightB=new DirectionalLight(0xffffff,.05);
         dirLightB.position.set(-500,750,1500);
         this.pxlEnv.lightList.push(dirLightB);
         this.pxlEnv.scene.add(dirLightB); */
@@ -1023,3 +1040,15 @@ export class pxlNav{
     }
   }
 }
+
+export { 
+  pxlNavVersion, 
+  pxlNav, 
+  pxlEnums, 
+  pxlOptions,
+  RoomEnvironment,
+  pxlEffects,
+  pxlShaders,
+  pxlBase
+};
+

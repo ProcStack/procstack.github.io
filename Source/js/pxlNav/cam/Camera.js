@@ -8,7 +8,14 @@
 //
 //        TODO : Move item functions from Camera and User to an `Item` class
 
-import * as THREE from "../../libs/three/three.module.js";
+import {
+  Vector2,
+  Vector3,
+  Quaternion,
+  Raycaster,
+  Object3D,
+  Euler
+} from "../../libs/three/three.module.min.js";
 
 
 // TODO : Extend this damn monolith of a chunky boy
@@ -84,7 +91,7 @@ export class Camera{
     this.canMove=true;
     this.HDRView=false;
     
-    this.objRaycast=new THREE.Raycaster();
+    this.objRaycast=new Raycaster();
     
     // Run updateCamera
     this.camUpdated=true;
@@ -105,8 +112,8 @@ export class Camera{
     this.cameraMoveLengthMult=.1; // cameraMoveLength scalar // ## check adding multiplier to keydown movement calculations
     this.camPosBlend=.65; // Blend to previous position, easing movement
     
-    this.camRotXYZ=new THREE.Vector3(0,0,0);//new THREE.Vector3(0,0,0);
-    this.camRotPitch=new THREE.Vector2(0,0);
+    this.camRotXYZ=new Vector3(0,0,0);//new Vector3(0,0,0);
+    this.camRotPitch=new Vector2(0,0);
     this.cameraJumpActive=false;
     this.cameraAllowJump=true;
     this.cameraJumpHeight=0;
@@ -116,15 +123,15 @@ export class Camera{
     
     this.floorColliderInitialHit=false;
     this.colliderValidityChecked=true; // Value shouldn't matter, but should Room Environments not set colliderValidity, assume checked initially
-    this.nearestFloorHit=new THREE.Vector3(0,0,0);
+    this.nearestFloorHit=new Vector3(0,0,0);
     this.nearestFloorObjName=null;
-    this.nearestFloorHitPrev=new THREE.Vector3(0,0,0);
+    this.nearestFloorHitPrev=new Vector3(0,0,0);
     this.nearestFloorObjNamePrev=null;
     this.objectJumpLock=false;
     
     this.gravityActive=false;
     this.gravitySourceActive=false;
-    this.gravityDirection=new THREE.Vector3( 0, -1, 0 );
+    this.gravityDirection=new Vector3( 0, -1, 0 );
     this.gravityEaseOutRate=.80;
 
     this.jump=0;
@@ -217,21 +224,21 @@ export class Camera{
       }
     };
 
-    this.cameraPos=new THREE.Vector3(0,0,0);
-    this.cameraPrevPos=new THREE.Vector3(0,0,0);;
-    this.cameraPrevLookAt=new THREE.Vector3(0,0,0);;
-    this.cameraAim=new THREE.Vector3(0,0,1);
-    this.cameraAimTarget=new THREE.Vector3(0,0,0);;
-    this.cameraCross=new THREE.Vector3(1,0,0); // For Audio API faux 3d audio; UNUSED CURRENTLY
+    this.cameraPos=new Vector3(0,0,0);
+    this.cameraPrevPos=new Vector3(0,0,0);;
+    this.cameraPrevLookAt=new Vector3(0,0,0);;
+    this.cameraAim=new Vector3(0,0,1);
+    this.cameraAimTarget=new Vector3(0,0,0);;
+    this.cameraCross=new Vector3(1,0,0); // For Audio API faux 3d audio; UNUSED CURRENTLY
     
-    this.lookAtTargetActive=new THREE.Vector3(0,0,0);;
-    this.lookAtPerc=new THREE.Vector2(1,0);
+    this.lookAtTargetActive=new Vector3(0,0,0);;
+    this.lookAtPerc=new Vector2(1,0);
     this.lookAtLockPerc=0;
     this.lookAtLockFader=0;
     this.lookAtLockFadeRate=.01;
     
-    this.prevQuaternion=new THREE.Quaternion(); // Used in motionBlur shader calculations only
-    //this.prevWorldMatrix= new THREE.Matrix4(); // Only used if running higher quality motionBlur calculations, not needed
+    this.prevQuaternion=new Quaternion(); // Used in motionBlur shader calculations only
+    //this.prevWorldMatrix= new Matrix4(); // Only used if running higher quality motionBlur calculations, not needed
     
     this.pi=3.14159265358979;
 
@@ -507,7 +514,7 @@ export class Camera{
   }
   /**
    * Resets camera calculations to a Vector3.
-   * @param {THREE.Vector3} newPosition - The new position for the camera.
+   * @param {Vector3} newPosition - The new position for the camera.
    */
   resetCameraCalculations( newPosition ){
     this.cameraMovement[0] = 0;
@@ -557,8 +564,8 @@ export class Camera{
   /**
    * Sets the camera transform to a specific position and lookAt target.
    * For camera position changes, portals, and room warps
-   * @param {THREE.Vector3} pos - The position to set the camera.
-   * @param {THREE.Vector3} [lookAt=null] - The lookAt target.
+   * @param {Vector3} pos - The position to set the camera.
+   * @param {Vector3} [lookAt=null] - The lookAt target.
    */
   setTransform(pos, lookAt=null){ // Vector3, Vector3
     this.resetCameraCalculations(pos); // Reinitiates Camera; Forces collision detection, Kills user inputs
@@ -581,8 +588,8 @@ export class Camera{
   /**
   * Best used without a `lookAt` target to allow the object's rotation to be adopted.
   * If you just want to move the camera without rotational changes -or- to an object with a lookAt, it's better to use `setTransform`
-  * @param {THREE.Object3D} obj - The object to set the camera to.
-  * @param {THREE.Object3D|string} [lookAt=null] - The lookAt Camera Position Name or target object.
+  * @param {Object3D} obj - The object to set the camera to.
+  * @param {Object3D|string} [lookAt=null] - The lookAt Camera Position Name or target object.
   * If a string is provided, it checks for the camera position if it exists in the Room,
   *   Ussuall set in your FBX file.
   */
@@ -615,7 +622,7 @@ export class Camera{
    * Warps the camera to a specific room.
    * @param {string} roomName - The name of the room to warp to.
    * @param {boolean} [start=false] - Whether to run the room's `start()` function.
-   * @param {THREE.Object3D} [objTarget=null] - The target object in the room.
+   * @param {Object3D} [objTarget=null] - The target object in the room.
    */
   warpToRoom(roomName, start=false, objTarget=null){
     this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].stop();
@@ -906,9 +913,9 @@ export class Camera{
   /**
    * Checks for main collider interactions.
    * Ground plane, obstacles, and no terrain (If there are colliders in scene)
-   * @param {THREE.Vector3} curCamPos - The current camera position.
+   * @param {Vector3} curCamPos - The current camera position.
    * @param {Object} gravitySource - The gravity source.
-   * @returns {THREE.Vector3} - The updated camera position.
+   * @returns {Vector3} - The updated camera position.
    */
   // TODO : gravitySource should probably originate from Room's object list, but for now...
   // TODO : Collision check shouldn't run if no cam movement length aside from gravity, store floor name and collision position from prior run
@@ -927,8 +934,8 @@ export class Camera{
     if((this.cameraMoveLength>0 || this.colliderPrevObjHit==null || this.nearestFloorObjName==null) && this.cameraBooted && this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].collidersExist){
       this.colliderValidityChecked=true; // Prevent doublechecking object validity post collision detection
       
-      let castDir=new THREE.Vector3(0,-1,0);
-      let castPos=curCamPos.clone();//.add(new THREE.Vector3(0,100,0));
+      let castDir=new Vector3(0,-1,0);
+      let castPos=curCamPos.clone();//.add(new Vector3(0,100,0));
       let castHeight=1500;
       castPos.y=castHeight;
       this.objRaycast.set(castPos, castDir );
@@ -1149,8 +1156,8 @@ export class Camera{
   /**
    * Checks for room collider interactions.
    * Assuming for no walking colliders here, only Room Warp colliders
-   * @param {THREE.Vector3} curCamPos - The current camera position.
-   * @returns {THREE.Vector3} - The updated camera position.
+   * @param {Vector3} curCamPos - The current camera position.
+   * @returns {Vector3} - The updated camera position.
    */
   // TODO : Update to account for new Room Envrionments and their corresponding Collider Object Lists
   /*roomColliderCheck(curCamPos){
@@ -1175,8 +1182,8 @@ export class Camera{
     
     
     if( this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].roomWarp.length > 0 ){
-      let castDir=new THREE.Vector3(0,-1,0);
-      let castPos=curCamPos.clone();//.add(new THREE.Vector3(0,100,0));
+      let castDir=new Vector3(0,-1,0);
+      let castPos=curCamPos.clone();//.add(new Vector3(0,100,0));
       
       let castHeight=1500;
       castPos.y=castHeight;
@@ -1250,8 +1257,8 @@ export class Camera{
     
     
     //if( this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].roomWarp.length > 0 ){
-      let castDir=new THREE.Vector3(0,-1,0);
-      let castPos=curCamPos.clone();//.add(new THREE.Vector3(0,100,0));
+      let castDir=new Vector3(0,-1,0);
+      let castPos=curCamPos.clone();//.add(new Vector3(0,100,0));
       
       let castHeight=1500;
       castPos.y=castHeight;
@@ -1375,7 +1382,7 @@ export class Camera{
   /**
    * Checks if the collider is valid.
    * For GravitySource, make sure to get vector delta magnitude, not just Y delta
-   * @param {THREE.Vector3} curCamPos - The current camera position.
+   * @param {Vector3} curCamPos - The current camera position.
    * @returns {number} - The distance to the collider.
    */
   checkColliderValid( curCamPos ){
@@ -1673,23 +1680,23 @@ export class Camera{
 
   /**
    * Initializes the starting camera position.
-   * @returns {THREE.Vector3} - The initial camera position.
+   * @returns {Vector3} - The initial camera position.
    */
   initFrameCamPosition(){
     let curCamPos=this.cameraPos.clone();
     
     if(!this.cameraBooted){ // These should be set from Scene File, if not, initial values
-      this.cameraAimTarget.position.set(0, 0, 0);//.add(new THREE.Vector3(0,0,0));
-      this.cameraPrevPos=new THREE.Vector3(curCamPos.clone());
-      this.cameraPrevLookAt=new THREE.Vector3(0,0,1);
+      this.cameraAimTarget.position.set(0, 0, 0);//.add(new Vector3(0,0,0));
+      this.cameraPrevPos=new Vector3(curCamPos.clone());
+      this.cameraPrevLookAt=new Vector3(0,0,1);
     }else{
       let userMovement;
       /*if(this.pxlDevice.mobile){ // ## When Mobile is implemented, convert to this.cameraMovement
-        userMovement=new THREE.Vector3(-this.pxlDevice.touchMouseData.curDistance.x*.01,0,-this.pxlDevice.touchMouseData.curDistance.y*.01);
+        userMovement=new Vector3(-this.pxlDevice.touchMouseData.curDistance.x*.01,0,-this.pxlDevice.touchMouseData.curDistance.y*.01);
         this.cameraMoveLength=userMovement.length();
       }else{*/
-        //userMovement=new THREE.Vector3(this.cameraMovement[0],0,this.cameraMovement[1]);
-        userMovement=new THREE.Vector3((this.pxlQuality.settings.leftRight?this.cameraMovement[0]*.5:0),0,this.cameraMovement[1]);
+        //userMovement=new Vector3(this.cameraMovement[0],0,this.cameraMovement[1]);
+        userMovement=new Vector3((this.pxlQuality.settings.leftRight?this.cameraMovement[0]*.5:0),0,this.cameraMovement[1]);
         this.cameraMoveLength=userMovement.length();
       //}
       userMovement.applyQuaternion(this.camera.quaternion);
@@ -1700,7 +1707,7 @@ export class Camera{
         let minimumMoveSpeed=0.1;
         moveScalar = moveScalar>0 ? Math.max(minimumMoveSpeed,moveScalar) : Math.min(-minimumMoveSpeed,moveScalar);
       }
-      userMovement.normalize().multiply(new THREE.Vector3(1,0,1)).multiplyScalar(moveScalar);
+      userMovement.normalize().multiply(new Vector3(1,0,1)).multiplyScalar(moveScalar);
       curCamPos.add(userMovement);
       
       this.cameraMovement[0] = Math.abs(this.cameraMovement[0])<this.posRotEasingThreshold ? 0 : this.cameraMovement[0]*this.cameraMovementEase;
@@ -1716,7 +1723,7 @@ export class Camera{
       }
     }
         
-    this.cameraCross=new THREE.Vector3(1,0,0).applyQuaternion( this.camera.quaternion );
+    this.cameraCross=new Vector3(1,0,0).applyQuaternion( this.camera.quaternion );
         
     return curCamPos;
   }
@@ -1724,8 +1731,8 @@ export class Camera{
   /**
    * Updates the camera position based on gravity and collisions.
    *      Delta ( camPos + gravity direction * gravity rate ) > ( Distance camPos to Collider Hit )
-   * @param {THREE.Vector3} curCamPos - The current camera position.
-   * @returns {THREE.Vector3} - The updated camera position.
+   * @param {Vector3} curCamPos - The current camera position.
+   * @returns {Vector3} - The updated camera position.
    */
   applyGravity( curCamPos ){
     if( this.gravityActive ){
@@ -1823,25 +1830,25 @@ export class Camera{
       let dtor=0.017453292519943278; //   PI/180
       let halfSqrt=2.23606797749979; // Sqrt(5)
       
-      let camPoseQuat=new THREE.Quaternion();
+      let camPoseQuat=new Quaternion();
       
       let a=this.cameraPose.alpha*dtor+this.cameraPose.alphaOffset+2.1;
       let b=this.cameraPose.beta*dtor;
       let g=this.cameraPose.gamma*dtor;
-      let viewNormal=new THREE.Vector3(0,0,1);
-      let poseQuat=new THREE.Quaternion();
-      let initPoseQuat=new THREE.Quaternion(-halfSqrt,0,0,halfSqrt);
-      let euler=new THREE.Euler();
+      let viewNormal=new Vector3(0,0,1);
+      let poseQuat=new Quaternion();
+      let initPoseQuat=new Quaternion(-halfSqrt,0,0,halfSqrt);
+      let euler=new Euler();
       euler.set(b,a,-g,'YXZ'); // Device returns YXZ for deviceOrientation
       camPoseQuat.setFromEuler(euler);
       camPoseQuat.multiply(initPoseQuat);
       camPoseQuat.multiply(poseQuat.setFromAxisAngle(viewNormal,-this.cameraPose.orientation));
       camPoseQuat.normalize();
       
-      let smoothedQuat=new THREE.Quaternion();
-      THREE.Quaternion.slerp(this.camera.quaternion,camPoseQuat,smoothedQuat,0.35);
+      let smoothedQuat=new Quaternion();
+      Quaternion.slerp(this.camera.quaternion,camPoseQuat,smoothedQuat,0.35);
 
-      let cameraLimit = new THREE.Euler().setFromQuaternion(smoothedQuat);
+      let cameraLimit = new Euler().setFromQuaternion(smoothedQuat);
       cameraLimit.x = Math.max(-0.95 * Math.PI / 2, Math.min(0.95 * Math.PI / 2, cameraLimit.x));
       smoothedQuat.setFromEuler(cameraLimit);
 
@@ -1859,11 +1866,11 @@ export class Camera{
     if(this.cameraPose.alpha==null){ // ## Should gyro exist, don't run.  But need to allow controlled look around on mobile
       let xGrav=this.pxlDevice.gyroGravity[2];//*this.gravityRate;//*PI;
       
-      let viewNormal=new THREE.Vector3(0,0,1);
-      let poseQuat=new THREE.Quaternion();
+      let viewNormal=new Vector3(0,0,1);
+      let poseQuat=new Quaternion();
       // ## Theres a better place for this....
       this.pxlDevice.touchMouseData.velocity.y=Math.min(this.pi*500, Math.max(-this.pi*500, this.pxlDevice.touchMouseData.velocity.y));
-      let euler=new THREE.Euler();
+      let euler=new Euler();
       let camPoseQuat;
       if( this.pxlDevice.mobile ){
         euler.set(
@@ -1871,7 +1878,7 @@ export class Camera{
           (this.pxlDevice.touchMouseData.netDistance.x/this.pxlDevice.sW*2),
           0,
           'YXZ'); // Device returns YXZ for deviceOrientation
-          camPoseQuat=new THREE.Quaternion();
+          camPoseQuat=new Quaternion();
           camPoseQuat.setFromEuler(euler);
           camPoseQuat=this.pxlDevice.touchMouseData.initialQuat.clone().multiply(camPoseQuat);
           //camPoseQuat.multiply(poseQuat.setFromAxisAngle(viewNormal,-this.cameraPose.orientation));
@@ -1882,7 +1889,7 @@ export class Camera{
           0,
           'YXZ'// Device returns YXZ for deviceOrientation
         ); 
-        camPoseQuat=new THREE.Quaternion();
+        camPoseQuat=new Quaternion();
         camPoseQuat.setFromEuler(euler);
         //camPoseQuat=this.pxlDevice.touchMouseData.initialQuat.clone().multiply(camPoseQuat);
         camPoseQuat=this.camera.quaternion.clone().multiply(camPoseQuat);
@@ -1890,7 +1897,7 @@ export class Camera{
       camPoseQuat.normalize();
 
       
-      let lookAt= new THREE.Vector3(0,0,-10).applyQuaternion( camPoseQuat ).add( this.camera.position );
+      let lookAt= new Vector3(0,0,-10).applyQuaternion( camPoseQuat ).add( this.camera.position );
       this.camera.setRotationFromQuaternion(camPoseQuat);
       this.camera.lookAt(lookAt);
       this.camera.up.set( 0,1,0 );
@@ -1911,25 +1918,25 @@ export class Camera{
       }else{
         this.pxlDevice.touchMouseData.netDistance.multiplyScalar(.5);
       }
-     let euler=new THREE.Euler();
+     let euler=new Euler();
       euler.set(
         (this.pxlDevice.touchMouseData.netDistance.y/this.pxlDevice.sH*2),
         (this.pxlDevice.touchMouseData.netDistance.x/this.pxlDevice.sW*2),
         0,
         'YXZ'); // Device returns YXZ for deviceOrientation
       // Limit Up/Down looking
-      let camPoseQuat=new THREE.Quaternion().clone( this.camera.quaternion );
+      let camPoseQuat=new Quaternion().clone( this.camera.quaternion );
       camPoseQuat.setFromEuler(euler);
       camPoseQuat=this.camera.quaternion.clone().multiply(camPoseQuat);
       //camPoseQuat.multiply(poseQuat.setFromAxisAngle(viewNormal,-this.cameraPose.orientation));
       camPoseQuat.normalize();
       
-      // let smoothedQuat=new THREE.Quaternion();
+      // let smoothedQuat=new Quaternion();
           
       if( this.touchBlender ){
         camPoseQuat.slerp(this.camera.quaternion.clone(),blendOut).normalize();
       }
-      let lookAt= new THREE.Vector3(0,0,-10).applyQuaternion( camPoseQuat ).add( this.camera.position );
+      let lookAt= new Vector3(0,0,-10).applyQuaternion( camPoseQuat ).add( this.camera.position );
           
       this.camera.setRotationFromQuaternion(camPoseQuat);//smoothedQuat);
       this.camera.lookAt(lookAt);
@@ -2011,8 +2018,8 @@ export class Camera{
    */
   lowQualityUpdates(){
     if(this.HDRView){
-      let uPitch=new THREE.Vector3(0,0,-1).applyQuaternion( this.camera.quaternion );
-      let uRot=uPitch.clone().multiply(new THREE.Vector3(1,0,1)).normalize();
+      let uPitch=new Vector3(0,0,-1).applyQuaternion( this.camera.quaternion );
+      let uRot=uPitch.clone().multiply(new Vector3(1,0,1)).normalize();
       let ptr=0.1591549430918955;
       
       // Update shader uniforms -
@@ -2028,7 +2035,7 @@ export class Camera{
   midQualityUpdates(){
     // Trailing Effects; Fake Motion Blur
     if( this.pxlQuality.settings.motion ){ // Don't run blur pass if the quality setting is under 50%
-      let shaderCamRot=new THREE.Vector3(0,0,0);
+      let shaderCamRot=new Vector3(0,0,0);
       shaderCamRot.applyQuaternion(this.camera.quaternion);//.add(camOrigQuat).multiplyScalar(.5);
       this.camRotXYZ.multiplyScalar(.8).add( shaderCamRot.multiplyScalar(.2) );
       
@@ -2036,8 +2043,8 @@ export class Camera{
       if(this.pxlDevice.mobile){
         let sWHalf = sW*.5
         let sHHalf= sH*.5;
-        let  fromWorldPos=new THREE.Vector3(0,0,10);
-        let  toWorldPos=new THREE.Vector3(0,0,10);
+        let  fromWorldPos=new Vector3(0,0,10);
+        let  toWorldPos=new Vector3(0,0,10);
         //fromWorldPos.applyMatrix4( this.camera.matrixWorld.clone() ).project(this.camera);
         //toWorldPos.applyMatrix4( this.prevWorldMatrix ).project(this.camera);
         fromWorldPos.applyQuaternion( this.camera.quaternion.clone() ).project(this.camera);
@@ -2047,7 +2054,7 @@ export class Camera{
         fromWorldPos.y=-(fromWorldPos.y-1)*sHHalf;
         toWorldPos.x=(toWorldPos.x+1)*sWHalf;
         toWorldPos.y=-(toWorldPos.y-1)*sHHalf;
-        viewDirection=toWorldPos.clone().sub(fromWorldPos.clone()).multiplyScalar(.6).multiply(new THREE.Vector3(this.pxlDevice.screenRes.x,this.pxlDevice.screenRes.y,0));
+        viewDirection=toWorldPos.clone().sub(fromWorldPos.clone()).multiplyScalar(.6).multiply(new Vector3(this.pxlDevice.screenRes.x,this.pxlDevice.screenRes.y,0));
         let motionBlurMaxDist=.1;
         if(viewDirection.length>motionBlurMaxDist){
           viewDirection.normalize().multiplyScalar(motionBlurMaxDist);
@@ -2058,8 +2065,8 @@ export class Camera{
         //viewDirection=this.pxlDevice.touchMouseData.velocityEase.clone().multiplyScalar( Math.max(this.pxlDevice.screenRes.x,this.pxlDevice.screenRes.y) );
         viewDirection=this.pxlDevice.touchMouseData.velocity.clone().multiplyScalar( Math.max(this.pxlDevice.screenRes.x,this.pxlDevice.screenRes.y) );
       }
-      let toDir=new THREE.Vector2( viewDirection.x, -viewDirection.y);
-      let blurDir=new THREE.Vector2(0,0).lerpVectors( this.pxlEnv.blurDirPrev, toDir, .85 );
+      let toDir=new Vector2( viewDirection.x, -viewDirection.y);
+      let blurDir=new Vector2(0,0).lerpVectors( this.pxlEnv.blurDirPrev, toDir, .85 );
       
       // Update motionBlur direction uniforms -
       this.pxlEnv.blurDirPrev.set( this.pxlEnv.blurDirCur );
@@ -2074,7 +2081,7 @@ export class Camera{
   /**
    * Emits camera transforms to the server.
    * NETWORKING HAS BEEN REMOVED, you'll need to implement your own server-side logic.
-   * @param {THREE.Vector3} cameraPos - The camera position.
+   * @param {Vector3} cameraPos - The camera position.
    * @param {number} standingHeight - The standing height.
    * @param {boolean} [force=false] - Whether to force the emission.
    */

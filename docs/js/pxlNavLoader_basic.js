@@ -9,7 +9,7 @@
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
-import { pxlNav, pxlNavVersion, pxlEnums, PXLNAV_OPTIONS } from './pxlNav.min.js';
+import { pxlNav, pxlNavVersion, pxlEnums, PXLNAV_OPTIONS } from './pxlNav.esm.js';
 
 
 // Console logging level
@@ -24,7 +24,7 @@ const projectTitle = "pxlNav : Field Env.";
 const pxlRoomRootPath = "./pxlRooms";
 
 // Current possible rooms - "CampfireEnvironment", "SaltFlatsEnvironment", "FieldEnvironment", "VoidEnvironment"
-const bootRoomList = ["FieldEnvironment", "VoidEnvironment"];
+const bootRoomList = ["FieldEnvironment"];//, "VoidEnvironment"];
 const startingRoom = bootRoomList[0];
 
 // -- -- --

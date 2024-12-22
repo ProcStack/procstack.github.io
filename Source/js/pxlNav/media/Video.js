@@ -95,13 +95,13 @@ export class Video{
       // Textures
       let curTexture= this.pxlUtils.getVideoTexture( curObj );
             
-      let textureList= this.screenVideos[ curName ][ "texture" ] || [];
+      let materialList= this.screenVideos[ curName ][ "texture" ] || [];
       if( !this.screenVideos[ curName ][ "texture" ] ){
-        textureList=[ curTexture, curTexture ];
+        materialList=[ curTexture, curTexture ];
       }else{
-        textureList[ ~~curLand ]=curTexture;
+        materialList[ ~~curLand ]=curTexture;
       }
-      this.screenVideos[ curName ][ "texture" ]=textureList;
+      this.screenVideos[ curName ][ "texture" ]=materialList;
       
       // -- -- -- -- -- -- -- -- -- //
       // Video Objects

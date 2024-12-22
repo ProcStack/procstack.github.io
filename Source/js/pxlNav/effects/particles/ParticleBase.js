@@ -1,8 +1,16 @@
 // Base Particle Class for pxlNav
 //   Written by Kevin Edzenga; 2024
 
-import { Vector2, Vector3 } from "../../core/Types.js";
-import * as THREE from "../../../libs/three/three.module.js";
+import {
+  Points,
+  Float32BufferAttribute,
+  Vector2,
+  Vector3,
+  DoubleSide,
+  NearestFilter,
+  NearestMipmapNearestFilter,
+  BufferGeometry
+} from "../../../libs/three/three.module.min.js";
 
 import { dustVert, dustFrag } from './shaders/FloatingDust.js';
 
@@ -88,17 +96,17 @@ export default class ParticleBase{
       atlasId.push( ...atlasPicker( atlasPicks ) );
     }
 
-    let posAttribute = new THREE.Float32BufferAttribute( verts, 3 );
-    let seedAttribute = new THREE.Float32BufferAttribute( seeds, 4 );
-    let atlasAttribute = new THREE.Float32BufferAttribute( atlasId, 2 );
-    //let idAttribute = new THREE.Uint8BufferAttribute( pId, 1 ); // ## would only be 0-65536; set up vector array for ids
-    let geo = new THREE.BufferGeometry();
+    let posAttribute = new Float32BufferAttribute( verts, 3 );
+    let seedAttribute = new Float32BufferAttribute( seeds, 4 );
+    let atlasAttribute = new Float32BufferAttribute( atlasId, 2 );
+    //let idAttribute = new Uint8BufferAttribute( pId, 1 ); // ## would only be 0-65536; set up vector array for ids
+    let geo = new BufferGeometry();
     geo.setAttribute( 'position', posAttribute );
     geo.setAttribute( 'seeds', seedAttribute );
     geo.setAttribute( 'atlas', atlasAttribute );
     //geo.setAttribute( 'id', idAttribute );
 
-    let psystem = new THREE.Points( geo, atlasMtl );
+    let psystem = new Points( geo, atlasMtl );
     psystem.sortParticles = false;
     psystem.frustumCulled = false;
     this.room.scene.add( psystem );
@@ -191,19 +199,19 @@ export default class ParticleBase{
     };
         //let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, snowVert( true ), snowFrag() );
     let mtl = this.room.pxlFile.pxlShaderBuilder( dustUniforms, dustVert( lightPosArr.length ), dustFrag() );
-    mtl.side=THREE.DoubleSide;
+    mtl.side=DoubleSide;
     mtl.transparent=true;
-    // mtl.blending=THREE.AdditiveBlending;
+    // mtl.blending=AdditiveBlending;
     if( this.isInternalTexture ){
-      mtl.uniforms.atlasTexture.value = this.room.pxlEnv.getAssetTexture( this.atlasPath, 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
+      mtl.uniforms.atlasTexture.value = this.room.pxlEnv.getAssetTexture( this.atlasPath, 4, {"magFilter":NearestFilter, "minFilter":NearestMipmapNearestFilter} );
     }else{
-      mtl.uniforms.atlasTexture.value = this.room.pxlUtils.loadTexture( this.atlasPath, 4, {"magFilter":THREE.NearestFilter, "minFilter":THREE.NearestMipmapNearestFilter} );
+      mtl.uniforms.atlasTexture.value = this.room.pxlUtils.loadTexture( this.atlasPath, 4, {"magFilter":NearestFilter, "minFilter":NearestMipmapNearestFilter} );
     }
     mtl.uniforms.noiseTexture.value = this.room.softNoiseTexture;
     mtl.depthTest=true;
     mtl.depthWrite=false;
     if( setSystemMtl ){
-      this.room.textureList[ this.name ]=mtl;
+      this.room.materialList[ this.name ]=mtl;
     }
     return mtl;
   }

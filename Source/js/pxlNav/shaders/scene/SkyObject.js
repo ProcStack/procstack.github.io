@@ -3,7 +3,7 @@
 // Written by Kevin Edzenga; 2020; 2024
 
 import {shaderHeader} from "../core/ShaderHeader.js";
-import {SKY_HAZE} from "../../core/Types.js";
+import { SKY_HAZE } from '../../core/Enums.js';
  
 export function skyObjectVert(){
   let ret=shaderHeader();
@@ -58,9 +58,13 @@ export function skyObjectFrag( skyHazeValue=SKY_HAZE.OFF ){
         vec2 uv=vUv;
         vec2 screenUV=(vec2(vWorldPos.xy/vWorldPos.w))*.5+.5;
         vec4 Cd=texture2D(diffuse,uv);
+  `;
+  if( skyHazeValue == SKY_HAZE.VAPOR ){
+    ret+=`
+
         float t = time.x*.6;
-        
-        vec2 nUv = ( vec2(vUv.x*0.40, vUv.y - t*.01) );
+
+        vec2 nUv = ( vec2(vUv.x*0.230, vUv.y*.85 - t*.0065) );
         vec3 noiseCd = texture2D( noiseTexture, nUv ).rgb;
         nUv = ( nUv+noiseCd.rg*(noiseCd.b));
         //nUv.y *= .5;
@@ -73,9 +77,7 @@ export function skyObjectFrag( skyHazeValue=SKY_HAZE.OFF ){
         
         float reachDepth = 0.0 ;
         
-  `;
-  if( skyHazeValue == SKY_HAZE.VAPOR ){
-    ret+=`
+
         vec2 baseUV=screenUV;
         vec2 curUV=vec2(0.0);
         float curDepth=0.0;
@@ -89,7 +91,7 @@ export function skyObjectFrag( skyHazeValue=SKY_HAZE.OFF ){
             curUV = baseUV+vec2(0.0,resUV.y*-(dist+uvShift) );
             curDepth = texture2D(envDiffuse,curUV).x ;
             curDepth = fitDepth( curDepth );
-            curPerc = step( .3, (1.0-curDepth)*7.0 );
+            curPerc = step( .3, (1.0-curDepth)*7.00 );
             reachDepth += min(1.0,curDepth)*curPerc;
             blend += blendStep;
             dist+=dist*dot(noiseCd.rgb, vec3(0.0,0.0,1.0));
@@ -99,15 +101,21 @@ export function skyObjectFrag( skyHazeValue=SKY_HAZE.OFF ){
         vec3 normPos = normalize(vLocalPos);
         normPos.y = 1.0-min(1.0,(normPos.y)*2.0);
         normPos.y = normPos.y*normPos.y*normPos.y;
-        depth = clamp(reachDepth+normPos.y, 0.0, 1.0);
+        depth = clamp(reachDepth+normPos.y, 0.0, 1.0)*.02;
         
-        float blender = (sin(noiseCd.r*PI+t+uv.x)*.03)*max(0.0,1.0-depth);
-        vec3 baseColor = (fogColor+blender);
-        Cd.rgb = mix(Cd.rgb*1.5, baseColor, depth);
+        float fogMixer = (Cd.r+Cd.g+Cd.b)*10.5 - (fogColor.r+fogColor.g+fogColor.b) ;
+        vec3 toFogColor = mix( fogColor, Cd.rgb, step(0.0, fogMixer) );
+        float blender = (sin(noiseCd.r*PI+t+uv.x))*max(0.0,1.0-(depth+fogMixer))*.15;
+        vec3 baseColor = (toFogColor+(blender) - depth*3.0);
+        
+        Cd.rgb = mix(Cd.rgb, baseColor, depth);
 
     `;
   }
   ret+=`
+        // Convert to sRGB
+        Cd.rgb = mix( 12.92 * Cd.rgb, 1.055 * pow(Cd.rgb, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, Cd.rgb) );
+
         gl_FragColor=Cd;
     }`;
   return ret;
