@@ -447,7 +447,6 @@ export class FieldEnvironment extends RoomEnvironment{
     
 		let environmentGroundMat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag(1) );
     environmentGroundMat.lights= true;
-    console.log(environmentGroundMat)
     
     envGroundUniforms.uniformNoise.value.wrapS = RepeatWrapping;
     envGroundUniforms.uniformNoise.value.wrapT = RepeatWrapping;
