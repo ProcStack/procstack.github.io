@@ -53,7 +53,7 @@ const antiAliasing = pxlEnums.ANTI_ALIASING.LOW;
 // Default is `BASIC` - a simple shadow edge
 //   Options are - OFF, BASIC, SOFT
 //     *Mobile devices are limited to `OFF` or `BASIC` automatically
-const shadowMapBiasing = pxlEnums.SHADOW_MAP.SOFT;
+const shadowMapBiasing = pxlEnums.SHADOW_MAP.OFF;
 
 // Set camera to static Camera Positions
 //   Locations pulled from the 'Camera' group in the pxlRoom's FBX file

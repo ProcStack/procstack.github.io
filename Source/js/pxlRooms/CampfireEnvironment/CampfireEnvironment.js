@@ -5,8 +5,8 @@ import {
   LinearFilter, AdditiveBlending,
   DoubleSide, FrontSide,
   UniformsUtils, UniformsLib,
-  SRGBColorSpace, LinearSRGBColorSpace
-
+  SRGBColorSpace, LinearSRGBColorSpace,
+  AmbientLight
 } from "../../libs/three/three.module.min.js";
 
 import { RoomEnvironment, pxlEffects } from "../../pxlNav.js";
@@ -155,6 +155,11 @@ export class CampfireEnvironment extends RoomEnvironment{
     
     let particleSource = this.geoList['Scripted']['ParticleSource_loc'];
     let particleSourcePos = particleSource.position;
+
+
+    var ambientLight = new AmbientLight( 0x101010 ); // soft white light
+    this.scene.add( ambientLight );
+
 
     let campefireOrder = 0;
 

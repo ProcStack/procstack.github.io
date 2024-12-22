@@ -52,7 +52,7 @@ export class FieldEnvironment extends RoomEnvironment{
     this.pxlCamFarClipping = 10000;
 
     // this.fogColor=new Color(.3,.3,.3);
-    this.fogColor=new Color(.01,.02,.05);
+    this.fogColor=new Color(.005,.01,.025);
     this.fogExp=.0007;
     this.fog=new FogExp2( this.fogColor, this.fogExp);
         
@@ -102,18 +102,18 @@ export class FieldEnvironment extends RoomEnvironment{
 		this.warpPortalTexture=null;
 		this.warpZoneRenderTarget=null;
         
-        this.worldPosMaterial=null;
+    this.worldPosMaterial=null;
 		this.worldPosRenderTarget=null;
 		this.spiralizerPass=null;
 		
-        this.bloomPreState=false;
+    this.bloomPreState=false;
         
 		this.cloud3dTexture=null;
 		this.smoothNoiseTexture=null;
         
-        //%=
-        this.currentShader=null;
-        //%
+    //%=
+    this.currentShader=null;
+    //%
 	}
 	init(){
         this.scene.fog=this.fog;
@@ -361,6 +361,7 @@ export class FieldEnvironment extends RoomEnvironment{
               let ShaderParms = {};
               let useLights = true
               let useShadows = curObj.userData.castShadow == true || curObj.userData.receiveShadow == true
+              useShadows = false
               let useFog = true;
               
               let useColor = false;
@@ -382,7 +383,7 @@ export class FieldEnvironment extends RoomEnvironment{
                   }
                 });
               }
-
+              pointShadowLightCount=0;
               let mat=this.pxlFile.pxlShaderBuilder(
                   shaderUniforms,
                   pxlPrincipledVert( useShadows ),
@@ -421,7 +422,7 @@ export class FieldEnvironment extends RoomEnvironment{
             [
               UniformsLib[ "common" ],
               UniformsLib[ "lights" ],
-              UniformsLib[ "shadowmap" ],
+              /*UniformsLib[ "shadowmap" ],*/
               {
                 'diffuse' : { type:'t', value: null },
                 'dirtDiffuse' : { type:'t', value: null },
@@ -446,6 +447,7 @@ export class FieldEnvironment extends RoomEnvironment{
     
 		let environmentGroundMat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag(1) );
     environmentGroundMat.lights= true;
+    console.log(environmentGroundMat)
     
     envGroundUniforms.uniformNoise.value.wrapS = RepeatWrapping;
     envGroundUniforms.uniformNoise.value.wrapT = RepeatWrapping;
@@ -466,7 +468,7 @@ export class FieldEnvironment extends RoomEnvironment{
         let grassClusterUniforms = UniformsUtils.merge(
             [
             UniformsLib[ "lights" ],
-            UniformsLib[ "shadowmap" ],
+            /*UniformsLib[ "shadowmap" ],*/
             {
               'noiseTexture' : { type:'t', value: null },
               'fogColor' : { type: "c", value: this.fogColor },

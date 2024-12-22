@@ -9,7 +9,7 @@
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
-import { pxlNav, pxlNavVersion, pxlEnums, PXLNAV_OPTIONS } from './pxlNav.min.js';
+import { pxlNav, pxlNavVersion, pxlEnums, pxlOptions } from './pxlNav.esm.js';
 import { ProcPages } from './ProcPages.js';
 import { BlogManager } from './BlogManager.js';
 
@@ -62,7 +62,7 @@ const enableStaticCamera = true;
 
 // Visual effect for the sky
 //  Options are - OFF, VAPOR
-const skyHaze = pxlEnums.SKY_HAZE.OFF;
+const skyHaze = pxlEnums.SKY_HAZE.VAPOR;
 
 
 
@@ -93,7 +93,7 @@ procBlog.showEntry(-1);
 
 // -- -- -- -- --
 
-let pxlNavOptions = Object.assign({},PXLNAV_OPTIONS);
+let pxlNavOptions = Object.assign({},pxlOptions);
 pxlNavOptions.verbose = verbose;
 pxlNavOptions.antiAliasing = antiAliasing;
 pxlNavOptions.staticCamera = enableStaticCamera;

@@ -90,6 +90,20 @@ export class FileIO{
     }
   }
 
+  // -- -- --
+
+  // Convert Linear to sRGB
+  tosRGB( val ){
+    if( val <= 0.0031308 ){
+      val *= 12.92;
+    }else{
+      val = 1.055 * Math.pow(val, 1.0/2.4) - 0.055;
+    }
+    return val;
+  }
+
+  // -- -- --
+
   // Check for UserData on the Mesh
   // envObj = Environment Class Object
   // envScene = Environment ThreeJS Scene Object
@@ -368,6 +382,7 @@ export class FileIO{
                 let curScale = scale;
                 if( hasColor ){
                   let curScalar = mesh.geometry.attributes.color.getX(x);
+                  curScalar = this.tosRGB(curScalar);
                   curScale = new Vector3(curScalar, curScalar, curScalar);
                 }
                 matrix.compose(position, quaternion, curScale);
@@ -446,6 +461,7 @@ export class FileIO{
           */
     }
   }
+  
   
   
  // -- -- -- -- -- -- -- -- -- -- -- -- -- //

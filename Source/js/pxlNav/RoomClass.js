@@ -30,7 +30,6 @@ import {
   UniformsUtils,
   UniformsLib
 } from "../libs/three/three.module.min.js";
-//import { ShaderPass } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { pxlPrincipledVert, pxlPrincipledFrag } from "./shaders/objects/PxlPrincipled.js";
 
 class RoomEnvironment{

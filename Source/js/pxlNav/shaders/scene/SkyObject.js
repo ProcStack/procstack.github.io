@@ -62,12 +62,15 @@ export function skyObjectFrag( skyHazeValue=SKY_HAZE.OFF ){
   if( skyHazeValue == SKY_HAZE.VAPOR ){
     ret+=`
 
+        
+        vec3 lPos = vLocalPos;
+        lPos.y = abs(lPos.y)*0.05;
+
         float t = time.x*.6;
 
-        vec2 nUv = ( vec2(vUv.x*0.230, vUv.y*.85 - t*.0065) );
+        vec2 nUv =  vec2(vUv.x*0.20, vUv.y - t*.0065  - lPos.y );
         vec3 noiseCd = texture2D( noiseTexture, nUv ).rgb;
-        nUv = ( nUv+noiseCd.rg*(noiseCd.b));
-        //nUv.y *= .5;
+        nUv = ( nUv+noiseCd.rg*(noiseCd.b) + t*.02);
         noiseCd = texture2D( noiseTexture, nUv ).rgb;
         noiseCd.rg = noiseCd.rg*2.0-1.0;
         
@@ -87,8 +90,8 @@ export function skyObjectFrag( skyHazeValue=SKY_HAZE.OFF ){
         float blend = 0.0;
         float uvShift=0.0;
         for(int s=0; s<5; ++s){
-            uvShift = mix(noiseCd.r, noiseCd.g, fract(noiseCd.b+float(s)*193.5247))*15.0;
-            curUV = baseUV+vec2(0.0,resUV.y*-(dist+uvShift) );
+            uvShift = mix(noiseCd.r, noiseCd.g, (noiseCd.b+float(s)*193.5247))*15.0;
+            curUV = baseUV+vec2(0.0,resUV.y*-(dist+uvShift)  - t*.005 );
             curDepth = texture2D(envDiffuse,curUV).x ;
             curDepth = fitDepth( curDepth );
             curPerc = step( .3, (1.0-curDepth)*7.00 );
@@ -103,10 +106,11 @@ export function skyObjectFrag( skyHazeValue=SKY_HAZE.OFF ){
         normPos.y = normPos.y*normPos.y*normPos.y;
         depth = clamp(reachDepth+normPos.y, 0.0, 1.0)*.02;
         
-        float fogMixer = (Cd.r+Cd.g+Cd.b)*10.5 - (fogColor.r+fogColor.g+fogColor.b) ;
+        float fogMixer = (Cd.r+Cd.g+Cd.b) - (fogColor.r+fogColor.g+fogColor.b) ;
         vec3 toFogColor = mix( fogColor, Cd.rgb, step(0.0, fogMixer) );
-        float blender = (sin(noiseCd.r*PI+t+uv.x))*max(0.0,1.0-(depth+fogMixer))*.15;
-        vec3 baseColor = (toFogColor+(blender) - depth*3.0);
+        float blender = (sin(noiseCd.r*PI+t+uv.x))*max(0.0,1.0-(depth+fogMixer))*.1 ;
+        vec3 baseColor = (toFogColor-min(1.0,blender+ depth*10.0)) ;
+        
         
         Cd.rgb = mix(Cd.rgb, baseColor, depth);
 
