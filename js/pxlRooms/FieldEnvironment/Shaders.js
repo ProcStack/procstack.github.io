@@ -346,7 +346,7 @@ export function grassClusterFrag(pointLightCount){
         // -- Depth Calculations - -- --
         // -- -- -- -- -- -- -- -- -- -- --
 
-        float depth = min(1.0, gl_FragCoord.z / gl_FragCoord.w * .001 );
+        float depth = min(1.0, gl_FragCoord.z / gl_FragCoord.w * .0008 );
         float depthFade = max(0.0, 1.0-depth);
         
         // -- -- --
@@ -388,7 +388,7 @@ export function grassClusterFrag(pointLightCount){
         // -- Match Scene Tone  -- -- --
         // -- -- -- -- -- -- -- -- -- -- --
 
-        Cd.rgb=  mix( Cd.rgb * vCd.y, vFogColor, depth );
+        Cd.rgb=  mix( Cd.rgb * (vCd.y*.55+.25), vFogColor, depth );
 
 
         Cd.a=1.0;
