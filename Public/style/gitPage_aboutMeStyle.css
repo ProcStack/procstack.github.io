@@ -117,3 +117,14 @@
   max-width: 1300px;
   justify-self: center;
 }
+
+.gitPagesAboutMeReelParent{
+  width: 100%;
+  text-align: center;
+}
+
+.gitPagesAboutMeReel{
+  width: 85%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
