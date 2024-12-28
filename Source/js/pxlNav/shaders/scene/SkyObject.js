@@ -104,7 +104,7 @@ export function skyObjectFrag( skyHazeValue=SKY_HAZE.OFF ){
         vec3 normPos = normalize(vLocalPos);
         normPos.y = 1.0-min(1.0,(normPos.y)*2.0);
         normPos.y = normPos.y*normPos.y*normPos.y;
-        depth = clamp(reachDepth+normPos.y, 0.0, 1.0)*.02;
+        depth = clamp(reachDepth+normPos.y, 0.0, 1.0)*.1;
         
         float fogMixer = (Cd.r+Cd.g+Cd.b) - (fogColor.r+fogColor.g+fogColor.b) ;
         vec3 toFogColor = mix( fogColor, Cd.rgb, step(0.0, fogMixer) );

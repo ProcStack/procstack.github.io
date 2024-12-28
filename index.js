@@ -36,6 +36,12 @@ app.get("/", function(req,res){
 });
 
 
+// Handle 404 errors by serving the 404.html file
+app.use(function(req, res, next) {
+  res.status(404).sendFile(path.join(__dirname, 'Public/404.html'));
+});
+
+
 // -- -- --
 
 /* 

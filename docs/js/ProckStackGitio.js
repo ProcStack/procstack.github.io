@@ -11,6 +11,7 @@
 
 import { pxlNav, pxlNavVersion, pxlEnums, pxlOptions } from './pxlNav.esm.js';
 import { ProcPages } from './ProcPages.js';
+import { PageMetaDataObjects } from './PageMetaData.js';
 import { BlogManager } from './BlogManager.js';
 
 
@@ -72,7 +73,12 @@ const skyHaze = pxlEnums.SKY_HAZE.VAPOR;
 // Create the main page manager
 //  - Not related to pxlNav -
 const procPages = new ProcPages();
+// Set the Meta Data per page
+//   Page changes will update the meta data automatically if the page is in the list
+procPages.setPageMetaData( PageMetaDataObjects );
 procPages.init();
+
+// Trigger DOM updates of the pxlNav version displays on page
 procPages.setPxlNavVersion(pxlNavVersion);
 
 if (window.location.hash !== "#Blog") {

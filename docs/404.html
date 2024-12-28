@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Routing to page...</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #000822;
+      color: #fff;
+    }
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <br>If you are not redirected automatically, follow this <a href="/index.htm" id="linkOut">link to ---</a>.
+  <script>
+    (()=>{
+      let basePath = window.location.pathname;
+      basePath = basePath.split('/');
+      basePath = basePath.pop();
+      let redirectUrl = '/index.htm?redirect=' + encodeURIComponent(basePath + window.location.search);
+
+      let metaRedirect = document.createElement('meta');
+      metaRedirect.setAttribute('http-equiv', 'refresh');
+      metaRedirect.setAttribute('content', '0;url=' + redirectUrl);
+      document.head.appendChild(metaRedirect);
+
+      // -- -- --
+
+      let linkOut = document.getElementById('linkOut');
+      if(linkOut) {
+        linkOut.setAttribute('href', redirectUrl);
+        linkOut.innerHTML = "link to " + basePath;
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -22,7 +22,7 @@
   padding: var(--inner-padding);
   background-color: rgba(43, 9, 103, 0.45);
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
-  border-radius: 2px;
+  border: 1px solid rgba(45, 14, 125, 0.65);
   pointer-events: auto;
   overflow: auto;
   background-image: radial-gradient(200% 35% ellipse at top, rgba(43, 9, 103, 0.35), rgba(43, 9, 103, 0.0)),

@@ -19,15 +19,15 @@
 
 
 .gitAboutMePageInnerStyle{
+  width: calc(max(1000px, 45vw) - var(--inner-padding));
   max-width: calc(100vw - 6vmax - var(--inner-padding));
   max-height: calc(100vh - 15vmax - var(--inner-height-reduce));
   padding: var(--inner-padding);
   border-radius: 2px;
-  background-color: rgba(65, 65, 65, 0.3);
+  background-color: rgba(100, 100, 100, 0.1);
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
   pointer-events: auto;
   overflow: auto;
-  text-wrap: auto;
   background-image: radial-gradient(200% 35% ellipse at top, rgba(100, 100, 100, 0.35), rgba(100, 100, 100, 0.0)),
                     radial-gradient(200% 35% ellipse at bottom, rgba(100, 100, 100, 0.35), rgba(100, 100, 100, 0.0));
   background-size: 100% 100%;
@@ -105,15 +105,4 @@
 
 /* -- -- -- */
 
-.gitPageAboutMeSpacer{
-  height: 7px;
-  overflow: hidden;
-}
 
-/* -- -- -- */
-
-.gitPageAboutMeInfoStyle{
-  width:77.5%;
-  max-width: 1300px;
-  justify-self: center;
-}

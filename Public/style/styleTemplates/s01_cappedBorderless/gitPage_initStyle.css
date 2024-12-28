@@ -16,7 +16,6 @@
 
 .gitInitPageInnerStyle{
   padding: var(--inner-padding);
-  max-width: calc( 100vw - 5vmax - var(--inner-padding));
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
   justify-self: baseline;
   border-radius: 5px;
@@ -29,7 +28,6 @@
 
 .gitInitPageStyle .gitPageInnerBefore {
   content : '';
-  padding-left: 8px;
   border-radius: 5px 5px 0px 0px;
   background: transparent;
   border-width: 0px 1px 1px 1px;
