@@ -1,16 +1,49 @@
 
+/* -- -- -- */
+
+
 .gitInitPageStyle{
-  text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
-  background: linear-gradient(155deg, rgba(67, 55, 4, 0.407), rgba(52, 35, 3, 0), rgba(52, 35, 3, 0), rgba(52, 35, 3, 0));
-  justify-self: baseline;
   pointer-events: none;
   position: fixed;
-  top: max( 30px, max(6vh,6vw));
-  left: max(min(6vh,6vw), 50vw - 900px);
-  max-width: calc( 100vw - max(5vh,5vw) );
+  top: max( 30px, 6vmax);
+  left: max(6vmin, 50vw - 900px);
+  max-width: calc( 100vw - 5vmax );
   z-index: 1;
-  border-radius: 5px;
   overflow: hidden;
+}
+
+/* -- -- -- */
+
+.gitInitPageInnerStyle{
+  padding: var(--inner-padding);
+  max-width: calc( 100vw - 5vmax - var(--inner-padding));
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
+  justify-self: baseline;
+  border-radius: 5px;
+  overflow: auto;
+  background: linear-gradient(155deg, rgba(67, 55, 4, 0.407), rgba(52, 35, 3, 0), rgba(52, 35, 3, 0), rgba(52, 35, 3, 0));
+  background-image: radial-gradient(150% 50% ellipse at top left, rgba(52, 35, 3, 0.52), rgba(52, 35, 3, 0.0));
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.gitInitPageStyle .gitPageInnerBefore {
+  content : '';
+  padding-left: 8px;
+  border-radius: 5px 5px 0px 0px;
+  background: transparent;
+  border-width: 0px 1px 1px 1px;
+  border-color: #483107;
+  border-style: solid;
+  height: var(--inner-before-after-height);
+  width: 100%;
+  margin-bottom: var(--inner-before-after-margin);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gitInitPageStyle .gitPageInnerAfter {
+  display:none;
 }
 
 /* -- -- -- */

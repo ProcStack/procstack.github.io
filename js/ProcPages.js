@@ -24,6 +24,9 @@
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
+
+
+
 export class ProcPages {
   constructor() {
     this.mainDiv = null;
@@ -32,15 +35,19 @@ export class ProcPages {
     this.curLocation = null;
     this.defaultPage = "Init";
     this.pageListing = {};
+    this.metaDataObjects = {};
 
     this.navBarLinks = [];
     this.navBarObjs = {};
+    this.pageDisplayURL = [];
+    this.verifiedPages = {};
     this.toggleDomEvents = {};
     this.resObjsVis = true;
     this.resBasedObjs = [];
     this.triggerEmitFunc = null;
     // this.navBar.init();
 
+    this.lazyLoadObjs = [];
     this.pageStyleOverrides = {};
     this.runningTimeouts = {};
 
@@ -49,9 +56,10 @@ export class ProcPages {
     };
   }
 
+  // TODO : Update to support Blog post loading
   hashListener() {
     let tmpThis = this;
-    window.addEventListener("hashchange", (e) => {
+    /*window.addEventListener("hashchange", (e) => {
       let newHash = this.getHash();
       if( newHash != this.curPageName){
         if( newHash == "Blog"){
@@ -59,7 +67,40 @@ export class ProcPages {
         }
         this.changePage(newHash);
       }
+    });*/
+  }
+
+  domContentListener(){
+    let tmpThis = this;
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirectPath = urlParams.get('redirect');
+    
+      if (redirectPath) {
+        // Extract the page name
+        const pageName = redirectPath.replace('/', '').replace('.htm', '');
+        
+        // Navigate to the appropriate page
+        this.changePage(pageName);
+      }
     });
+
+    // Check for forward-back history navigation
+    window.addEventListener("popstate", (e) => {
+      let newPage = this.getPageURL();
+      if( newPage != this.curPageName ){
+
+        // Swap page content
+        this.changePage(newPage);
+
+        // Run page theming and callback functions
+        if( this.pageListing.hasOwnProperty(newPage) ){
+          this.curPage = this.pageListing[newPage]["obj"];
+          this.postLoad();
+        }
+      }
+    });
+
   }
   
   setPxlNavVersion( version ){
@@ -82,7 +123,7 @@ export class ProcPages {
     this.navBarLinks = [...this.navBar.getElementsByTagName("a")];
 
     this.navBarLinks.forEach( (navLink)=>{
-      let linkText = navLink.getAttribute("pageName");
+      let linkText = navLink.getAttribute("page-name");
       this.navBarObjs[linkText] = navLink;
     });
 
@@ -90,10 +131,35 @@ export class ProcPages {
     this.contentParent = document.getElementById("gitPageContentParent");
     let pageDivsStyles = document.getElementsByName("gitPage");
     let pageDivs = [...pageDivsStyles];
-    let pageHash = this.getHash();
+
+    // Gather verified pages before URL state changes based on query params
+    pageDivs.forEach( (pageDiv)=>{
+      let pageId = null;
+      if( pageDiv.hasAttribute("page-id") ){
+        pageId = pageDiv.getAttribute("page-id");
+      }else{
+        pageId = pageDiv.id;
+        pageDiv.setAttribute("page-id", pageId);
+      }
+
+      if( pageDiv.hasAttribute("page-url") ){
+        pageId = pageDiv.getAttribute("page-url");
+      }
+        
+      this.verifiedPages[ pageId.toLocaleLowerCase() ] = pageId;
+    });
+
+    // Rectify the URL state and set the current page
+    let pageURL = this.getPageURL();
     
+    // Find the lazy load elements
+    this.findLazyLoadElements();
+
+    // Find the dom user clickable actions
     this.findDomUserEvents();
 
+
+    // Prep the page divs
     pageDivs.forEach( (pageDiv)=>{
       this.prepFader(pageDiv);
 
@@ -109,43 +175,40 @@ export class ProcPages {
           }
         });
       }
-      let pageId = null;
-      if( pageDiv.hasAttribute("page-id") ){
-        pageId = pageDiv.getAttribute("page-id");
-      }else{
-        pageId = pageDiv.id;
-        pageDiv.setAttribute("page-id", pageId);
-      }
 
+      let pageId = pageDiv.getAttribute("page-id");
       this.pageListing[ pageId ] = {};
       this.pageListing[ pageId ]["obj"] = pageDiv;
       this.pageListing[ pageId ]["room"] = null;
       this.pageListing[ pageId ]["view"] = null;
       this.pageListing[ pageId ]["theme"] = null;
-      if( pageId == pageHash ){
+      if( pageId == pageURL ){
         this.curPageName = pageId;
         this.curPage = pageDiv;
         this.toggleFader( this.curPage, true );
       }else{
         pageDiv.style.display = "none";
       }
+
     });
 
     this.navBarLinks.forEach( (navLink)=>{
-      let linkText = navLink.getAttribute("pageName");
-      let pageTheme = navLink.getAttribute("pageTheme");
+      let linkText = navLink.getAttribute("page-name");
+      let pageTheme = navLink.getAttribute("page-theme");
       let pxlRoomName = navLink.getAttribute("pxlRoomName");
       let pxlCameraView = navLink.getAttribute("pxlCameraView");
       if( !this.pageListing.hasOwnProperty(linkText) ){
         return;
       }
+
+
       this.pageListing[ linkText ]["room"] = pxlRoomName;
       this.pageListing[ linkText ]["view"] = pxlCameraView;
       this.pageListing[ linkText ]["theme"] = pageTheme;
       
       linkText = linkText.replace(/(?: |\/|\.|\n)/g, "");
 
-      if( linkText == pageHash ){
+      if( linkText == pageURL ){
         this.curRoom = navLink.getAttribute("pxlRoomName");
         this.curLocation = navLink.getAttribute("pxlCameraView");
       }
@@ -156,7 +219,6 @@ export class ProcPages {
         if( linkText == curPageId ){
           return;
         }
-        window.location.hash = linkText;
         this.changePage( linkText, pxlRoomName, pxlCameraView );
       });
 
@@ -164,9 +226,11 @@ export class ProcPages {
 
     window.addEventListener("resize", this.onResize.bind(this));
 
+    this.updateMetaData( pageURL );
 
     this.setStyleOverrides();
     this.hashListener();
+    this.domContentListener();
 
     // Let the dom settle for a step
     setTimeout( ()=>{
@@ -186,6 +250,51 @@ export class ProcPages {
     document.querySelector("meta[name='theme-color']").setAttribute("content", theme );
   }
   
+  // -- -- --
+
+  findLazyLoadElements(){
+    let lazyLoadObjs = [...document.getElementsByClassName("lazyLoad")];
+    lazyLoadObjs.forEach( (lazyObj)=>{
+      let lazySrc = lazyObj.getAttribute("ll-src");
+      let lazyThumb = lazyObj.getAttribute("ll-thumb");
+      let lazyWidth = lazyObj.getAttribute("ll-width");
+      let lazyHeight = lazyObj.getAttribute("ll-height");
+      let lazyAlt = lazyObj.getAttribute("alt");
+      let lazyClass = lazyObj.getAttribute("class");
+      lazyClass = lazyClass.split(" ");
+      lazyClass = lazyClass.filter( (c)=>{ return c != "lazyLoad"; });
+
+      // Create the placeholder div
+      let placeholder = document.createElement('div');
+      placeholder.innerHTML = "&lt; Click to Play &gt;";
+      placeholder.classList.add('lazyLoadPlaceholder');
+      lazyClass.forEach( (c)=>{ placeholder.classList.add(c); });
+      if( lazyThumb ){
+        placeholder.style.backgroundImage = "url('"+lazyThumb+"')";
+      }
+
+      // Add click event listener to the placeholder
+      placeholder.addEventListener('click', () => {
+        let img = new Image();
+        img.src = lazySrc;
+        img.width = lazyWidth;
+        img.height = lazyHeight;
+        img.alt = lazyAlt;
+        lazyClass.forEach( (c)=>{ img.classList.add(c); });
+        img.onload = () => {
+          lazyObj.innerHTML = "";
+          lazyObj.appendChild(img);
+        };
+        // Remove the placeholder after the image starts loading
+        lazyObj.innerHTML = "";
+        lazyObj.appendChild(img);
+      });
+
+      // Append the placeholder to the lazyObj
+      lazyObj.appendChild(placeholder);
+    });
+  }
+
   // -- -- --
   
 
@@ -210,7 +319,7 @@ export class ProcPages {
       if( domEventValue == this.domEventStates[domEventType] ){
         toggleLink.style.display = "none";
       }else{
-        toggleLink.style.display = "block";
+        toggleLink.style.display = "";//"block";
       }
     });
     
@@ -316,7 +425,40 @@ export class ProcPages {
       });
     }
   }
-  
+
+  setPageMetaData( metaData ){
+    let metaDataMerge = Object.assign({}, this.metaDataObjects, metaData);
+    this.metaDataObjects = metaDataMerge;
+  }
+
+  updateMetaData( pageName ){
+    if( this.metaDataObjects.hasOwnProperty( pageName ) ){
+      let pageMetaData = this.metaDataObjects[ pageName ];
+      let metaObjs = pageMetaData.metaTagList;
+      if( metaObjs != null ){
+        let metaKeys = Object.keys(metaObjs);
+        metaKeys.forEach( (metaTags)=>{
+          let curMetaTags = metaObjs[metaTags];
+          curMetaTags.forEach( (tag)=>{
+            if( tag == "title" ){
+              document.title = pageMetaData[metaTags];
+              return;
+            }
+            let curMeta = document.querySelector("meta[name='"+tag+"']");
+            if( curMeta ){
+              curMeta.setAttribute("content", pageMetaData[metaTags]);
+            }else{
+              let newMeta = document.createElement("meta");
+              newMeta.setAttribute("name", tag);
+              newMeta.setAttribute("content", pageMetaData[metaTags]);
+              document.head.appendChild(newMeta);
+            }
+          });
+        });
+      }
+    }
+  }
+
   changePage( pageName, roomName=null, locationName=null ){
     if( pageName != this.curPage && Object.keys(this.pageListing).includes(pageName) ){
       this.toggleFader(this.curPage, false);
@@ -324,6 +466,7 @@ export class ProcPages {
       // Remove previous page styles
       if( this.curPage != null ){
         let prevPageId = this.curPage.getAttribute("page-id");
+
         if( this.pageStyleOverrides.hasOwnProperty(prevPageId) ){
           // Iterate page css overrides and remove them to allow for the new page's styles, if they exist
           let overrideKeys = Object.keys(this.pageStyleOverrides[prevPageId]);
@@ -351,6 +494,13 @@ export class ProcPages {
       this.curPageName = pageName;
       this.curPage = this.pageListing[pageName]["obj"];
 
+      // Update URL page display & history state
+      this.shiftHistoryState( pageName );
+
+      // Update Meta Data
+      this.updateMetaData( pageName );
+
+      // Set the browser theme ( also meta data )
       this.setBrowserTheme( this.pageListing[pageName]["theme"] );
 
 
@@ -382,7 +532,7 @@ export class ProcPages {
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
 
-
+  // TODO : Update for Blog post loading, in tandem with hashListener()
   getHash(){
     let hash = window.location.hash;
     hash = hash.replace("#","");
@@ -391,6 +541,80 @@ export class ProcPages {
     }
     return hash;
   }
+
+  // -- -- --
+
+  shiftHistoryState( pageName ){
+    let urlDisplay = pageName;
+    
+    if( urlDisplay.includes(".htm") ){
+      urlDisplay = urlDisplay.split(".")[0];
+    }
+
+    // Check for specific capitalization of file url names
+    let verifiedKeys = Object.keys(this.verifiedPages);
+    if( verifiedKeys.includes(urlDisplay.toLocaleLowerCase()) ){
+      urlDisplay = this.verifiedPages[urlDisplay.toLocaleLowerCase()];
+    }else{
+      // No specified page display name
+      //   Capitalize the first letter of the page name, so it looks purddy
+      if( !this.pageDisplayURL.includes(urlDisplay) ){
+        urlDisplay = urlDisplay.charAt(0).toUpperCase() + urlDisplay.slice(1);
+      }
+    }
+
+    if( !urlDisplay.includes(".htm") ){
+      urlDisplay += ".htm";
+    }
+
+    let urlFolderPath = window.location.pathname;
+    if( urlFolderPath.includes(".htm") ){
+      urlFolderPath = urlFolderPath.split("/");
+      urlFolderPath = urlFolderPath.filter( (path)=>{ return path != ""; });
+      urlFolderPath.pop();
+      urlFolderPath = urlFolderPath.join("/");
+      urlFolderPath = urlFolderPath+"/";
+    }
+    let url = window.location.origin + urlFolderPath + urlDisplay;
+    window.history.pushState({path:url}, '', url);
+
+  }
+
+  checkForRedirect(){
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectPath = urlParams.get('redirect');
+    if (redirectPath) {
+      // Extract the page name from the redirect path
+      const pageName = redirectPath.replace('/', '');
+      
+      this.shiftHistoryState(pageName);
+    }
+  }
+
+  getPageURL(){
+    let ret = this.defaultPage;
+
+    this.checkForRedirect();
+
+    // Pull base name from the url
+    let url = window.location.href;
+    let urlSplit = url.split("/");
+    let urlLast = urlSplit[urlSplit.length-1];
+    if( urlLast != "" ){
+      let urlSplitDot = urlLast.split(".");
+      let urlPage = urlSplitDot[0];
+      if( urlPage != "" ){
+        ret = urlPage;
+      }
+    }
+    if( ret.toLocaleLowerCase() == "index" ){
+      ret = this.defaultPage;
+      this.shiftHistoryState( ret );
+    }
+    return ret;
+  }
+
+
   onResize(){
     this.checkNavBarSize();
   }
@@ -450,7 +674,7 @@ export class ProcPages {
     }
     let curId = obj.getAttribute("page-id");
     if( vis ){
-      obj.style.display = "block";
+      obj.style.display = "";//"block";
       obj.classList.add("pagesVisOn");
       obj.classList.remove("pagesVisOff");
 
@@ -485,7 +709,7 @@ export class ProcPages {
     let pageDivsStyles = document.getElementsByName("gitPage");
     if( vis ){
       this.domEventStates.ToggleDOM = true;
-      obj.style.display = "block";
+      obj.style.display = "";//"block";
       obj.classList.add("pagesVisMid");
       obj.classList.remove("pagesVisOn");
 
@@ -524,7 +748,7 @@ export class ProcPages {
   showPage( pageName ){
     if( this.navBarObjs.hasOwnProperty(pageName) ){
       let pageObj = this.navBarObjs[pageName];
-      pageObj.style.display = "block";
+      pageObj.style.display = "";//"block";
     }
   }
 }

@@ -1,33 +1,80 @@
 
+/* -- -- -- */
+
 .gitReposPageStyle{
-  background: linear-gradient(149deg, rgba(28, 76, 178, 0.4), rgba(29, 43, 66, 0.65), rgba(28, 48, 82, 0.4));
-  border: 1px solid rgba(50, 70, 103, 0.6);
-  text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
-  pointer-events: auto;
   max-height: 65vh;
-  max-width: calc(max(min(100vw - max(7vh, 7vw), 500px), min(100vw - max(7vh, 7vw), 40vw + ((1000px - 100vw)* 5))));
+  max-width: calc(max(min(100vw - 7vmax, 500px), min(100vw - 7vmax, 40vw + ((1000px - 100vw)* 5))));
   position: fixed;
-  right: max(max(2vh,2vw), 50vw - 750px);
-  bottom: max(4vh,4vw);
+  right: max(2vmax, 50vw - 750px);
+  bottom: 4vmax;
+  justify-self: center;
+  justify-items: center;
   z-index: 3;
+  overflow: hidden;
 }
 
-.gitReposPageStyle::-webkit-scrollbar {
+/* -- -- -- */
+
+
+.gitReposPageInnerStyle{
+  max-height: calc( 65vh - var(--inner-height-reduce) );
+  max-width: calc(max(min(100vw - 7vmax, 500px), min(100vw - 7vmax, 40vw + ((1000px - 100vw)* 5))) - var(--inner-padding));
+  padding: var(--inner-padding);
+  border-radius: 2px;
+  background: linear-gradient(149deg, rgba(28, 76, 178, 0.4), rgba(29, 43, 66, 0.65), rgba(28, 48, 82, 0.4));
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
+  pointer-events: auto;
+  overflow: auto;
+}
+
+.gitReposPageStyle .gitPageInnerBefore {
+  content : '';
+  border-radius: 5px 5px 0px 0px;
+  background: transparent;
+  border-width: 0px 1px 1px 1px;
+  border-color: #152c52;
+  border-style: solid;
+  height: var(--inner-before-after-height);
+  width: 100%;
+  margin-bottom: var(--inner-before-after-margin);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gitReposPageStyle .gitPageInnerAfter {
+  content : '';
+  border-radius: 0px 0px 5px 5px;
+  background: transparent;
+  border-width: 1px 1px 0px 1px;
+  border-color: #152c52;
+  border-style: solid;
+  height: var(--inner-before-after-height);
+  width: 100%;
+  margin-top: var(--inner-before-after-margin);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* -- -- -- */
+
+.gitReposPageInnerStyle::-webkit-scrollbar {
+  border-radius: 2px;
 	width: 10px;
 }
 
-.gitReposPageStyle::-webkit-scrollbar-track {
+.gitReposPageInnerStyle::-webkit-scrollbar-track {
+  border-radius: 2px;
 	background: rgba(51, 76, 161, 0.308);
 }
 
-.gitReposPageStyle::-webkit-scrollbar-thumb {
+.gitReposPageInnerStyle::-webkit-scrollbar-thumb {
+  border-radius: 2px;
 	cursor: grab;
 	background-color: rgba(33, 53, 117, 0.75);
-  border: 2px solid rgba(44, 69, 109, 0.6);
 }
-.gitReposPageStyle::-webkit-scrollbar-thumb:hover {
+.gitReposPageInnerStyle::-webkit-scrollbar-thumb:hover {
+  border-radius: 2px;
 	background-color: rgba(34, 61, 151, 0.811);
-  border: 2px solid rgba(38, 66, 112, 0.684);
 }
 
 /* -- -- -- */

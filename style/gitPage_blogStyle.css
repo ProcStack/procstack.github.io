@@ -1,35 +1,84 @@
 
+/* -- -- -- */
 
 .gitBlogPageStyle{
-  background-color: rgba(43, 9, 103, 0.45);
-  text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
-  border: 1px solid rgba(45, 14, 125, 0.65);
-  pointer-events: auto;
   width: 75vw;
   max-height: 86vh;
-  max-width: calc(100vw - max(6vh,6vw));
+  max-width: calc(100vw - 6vmax);
   width: max(1000px, 45vw);
   position: fixed;
-  top: max(7vh,7vw);
+  bottom: 2vmax;
   z-index: 5;
+  overflow: hidden;
 }
 
-.gitBlogPageStyle::-webkit-scrollbar {
+/* -- -- -- */
+
+
+.gitBlogPageInnerStyle{
+  width: calc(100% - var(--inner-padding));
+  max-height: calc(86vh - var(--inner-height-reduce));
+  max-width: calc(100vw - var(--inner-padding));
+  padding: var(--inner-padding);
+  background-color: rgba(43, 9, 103, 0.45);
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
+  border-radius: 2px;
+  pointer-events: auto;
+  overflow: auto;
+  background-image: radial-gradient(200% 35% ellipse at top, rgba(43, 9, 103, 0.35), rgba(43, 9, 103, 0.0)),
+                    radial-gradient(200% 35% ellipse at bottom, rgba(43, 9, 103, 0.35), rgba(43, 9, 103, 0.0));
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.gitBlogPageStyle .gitPageInnerBefore {
+  content : '';
+  border-radius: 5px 5px 0px 0px;
+  background: transparent;
+  border-width: 0px 1px 1px 1px;
+  border-color: #2b0967;
+  border-style: solid;
+  height: var(--inner-before-after-height);
+  width: 100%;
+  margin-bottom: var(--inner-before-after-margin);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gitBlogPageStyle .gitPageInnerAfter {
+  content : '';
+  border-radius: 0px 0px 5px 5px;
+  background: transparent;
+  border-width: 1px 1px 0px 1px;
+  border-color: #2b0967;
+  border-style: solid;
+  height: var(--inner-before-after-height);
+  width: 100%;
+  margin-top: var(--inner-before-after-margin);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* -- -- -- */
+
+.gitBlogPageInnerStyle::-webkit-scrollbar {
+  border-radius: 2px;
 	width: 10px;
 }
 
-.gitBlogPageStyle::-webkit-scrollbar-track {
-	background: rgba(38, 24, 86, 0.31);
+.gitBlogPageInnerStyle::-webkit-scrollbar-track {
+  border-radius: 2px;
+	background: rgba(52, 29, 131, 0.58);
 }
 
-.gitBlogPageStyle::-webkit-scrollbar-thumb {
+.gitBlogPageInnerStyle::-webkit-scrollbar-thumb {
+  border-radius: 2px;
 	cursor: grab;
-  background-color: rgb(49 8 116);
-    border: 2px solid rgba(45, 9, 75, 0.6);
+  background-color: rgb(41 0 107);
 }
-.gitBlogPageStyle::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(65, 25, 130, 0.75);
-  border: 2px solid rgba(69, 11, 119, 0.6);
+.gitBlogPageInnerStyle::-webkit-scrollbar-thumb:hover {
+  border-radius: 2px;
+  background-color: rgba(88, 27, 186, 0.9);
 }
 
 
