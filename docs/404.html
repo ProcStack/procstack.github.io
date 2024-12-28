@@ -24,12 +24,9 @@
       let basePath = window.location.pathname;
       basePath = basePath.split('/');
       basePath = basePath.pop();
-      let redirectUrl = '/index.htm?redirect=' + encodeURIComponent(basePath + window.location.search);
+      let redirectUrl = '/index.htm?redirect=' + basePath;
 
-      let metaRedirect = document.createElement('meta');
-      metaRedirect.setAttribute('http-equiv', 'refresh');
-      metaRedirect.setAttribute('content', '0;url=' + redirectUrl);
-      document.head.appendChild(metaRedirect);
+      window.location.replace( redirectUrl );
 
       // -- -- --
 
