@@ -24,7 +24,6 @@ export function rabbitDruidVert(){
       attribute vec4 tangent;
     #endif
 
-
     varying vec2 vUv;
     varying vec4 vCd;
     varying vec3 vPos;
@@ -48,12 +47,12 @@ export function rabbitDruidVert(){
       
       vec3 transformed = vec3( position );
       vec3 objectNormal = vec3( normal );
-      vec3 objectTangent = vec3( tangent.xyz );
-      vec3 transformedNormal = objectNormal;
+      vec3 objectTangent = vec3( cross( cross( normal, vec3(.0, 1.0, .0) ), vec3(.0, 1.0, .0) ) );
+      objectTangent = normalize( objectTangent );
       
       
       vec3 blendPos = color.rgb;
-      transformed += blendPos * eyeBlink.x ;
+      transformed = mix( transformed, blendPos, eyeBlink.x );
       
       
       /***********************************/
@@ -66,16 +65,17 @@ export function rabbitDruidVert(){
       /** End of THREE Shader Includs **/
       /*********************************/
       
+      // TODO : Pullrequest this to Three.js
+      objectNormal = normalize(objectNormal);
+      objectTangent = normalize( objectTangent );
       
-      vTan = objectTangent;
-      vObjN = objectNormal;
       
-      vN = (modelViewMatrix * vec4(normal, 0.0)).xyz;
-      vLocalPos = transformed;
+      vTan =  objectTangent;
+      vN =  objectNormal;
+      vPos = transformed;
+      
       vec4 mvPos=modelViewMatrix * vec4(transformed, 1.0);
       gl_Position = projectionMatrix*mvPos;
-      vPos = mvPos.xyz;
-      
       
       }`;
       return ret;
@@ -104,10 +104,8 @@ export function rabbitDruidVert(){
     varying vec2 vUv;
     varying vec4 vCd;
     varying vec3 vPos;
-    varying vec3 vLocalPos;
     varying vec3 vN;
     varying vec3 vTan;
-    varying vec3 vObjN;
     
     varying float vFlicker;
     
@@ -140,58 +138,54 @@ export function rabbitDruidVert(){
       vec4 areCd=texture2D(areTexture,vUv);
       outCd = diffCd;
       
-      // Convert to sRGB
-      outCd.rgb = mix( 12.92 * outCd.rgb, 1.055 * pow(outCd.rgb, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, outCd.rgb) );
       
-      vec2 animUv = vUv*.01;
-      animUv.y -= time.x*.1;
+      vec2 animUv = vUv*.005;
+      animUv.y -= time.x*.05;
       vec4 nCd=texture2D(noiseTexture,animUv);
       
       // -- -- -- //
 
+      float lightContrib = 1.0-clamp( dot( vN, normalize( vPos ))*1.5, 0.0, 1.0 );
+      
       vec4 lights = vec4(0.0, 0.0, 0.0, 1.0);
-      for(int i = 0; i < NUM_POINT_LIGHTS; i++) {
-          int shadowIndex = i;
-          vec3 lightVector = normalize(vPos - pointLights[shadowIndex].position);
-          vec3 lightInf= clamp(dot(-lightVector, vN), 0.0, 1.0) * pointLights[shadowIndex].color;
-          lightInf *=  1.0-min(1.0, length(vPos - pointLights[shadowIndex].position) * pointLights[shadowIndex].decay );
-          lights.rgb += lightInf*.9;
+      int x=0;
+      for( x=0; x < NUM_POINT_LIGHTS; ++x ) {
+          vec3 lightVector = normalize( pointLights[x].position - vPos) + vec3( -0.50, .10, -0.50 ) ;
+          //vec3 refTan = vec3( (dot( normalize(lightVector)- nCd.xyz, vN )*.5+.5) * (dot(normalize(pointLights[x].position), vN)*.5+.5) );
+          vec3 refTan = reflect( normalize(lightVector) - nCd.xyz*.3, vTan );
+          //refTan = normalize( refTan + vec3(-.10, -max(nCd.x,nCd.y)*.3 , -.10) );
+          
+          vec3 lightInf=  clamp( (dot(refTan, vN )+.15)*(1.65+areCd.g*.7)+.5, 0.0, 1.0) * pointLights[x].color;
+          lights.rgb += lightInf * lightContrib;
       }
-      //outCd.rgb *= lights.rgb;
+      outCd.rgb *= lights.rgb*.8+.2;
       
       float shadowInf = 0.0;
       float detailInf = 0.0;
       float lShadow = 0.0;
-      int i = 0;
       
       // Read from Point Lights
       //lShadow = getPointShadow( pointShadowMap[0], pointLightShadows[0].shadowMapSize, pointLightShadows[0].shadowBias, pointLightShadows[0].shadowRadius, vPointShadowCoord[0], pointLightShadows[0].shadowCameraNear, pointLightShadows[0].shadowCameraFar );
       //shadowInf = max( lShadow, shadowInf);
-
-      
       //outCd.rgb*=shadowInf;
       
+      // CampFire Light Magnitude; Ambient Light Mask
+      float lMag = min(1.0, max(0.0,length( lights.rgb )-.3)*.35 + max(0.0,-vN.y));
+      
       lights = vec4(0.0, 0.0, 0.0, 1.0);
-      for(int i = 0; i < NUM_DIR_LIGHTS; i++) {
-          int shadowIndex = i;
-          vec3 refTan = reflect( normalize(vLocalPos), vTan ) * (dot(normalize(vec3(.1, -0.5, .30)), vObjN));
-          refTan = normalize( refTan + vec3(.0, 0.45*(nCd.x*nCd.y*nCd.z*.5+.25) , -0.50+areCd.g) );
-          vec3 refNorm = 1.0-reflect(  vObjN, normalize(vPos) );
-          refNorm = min( refNorm, refTan );
-          //refTan = vec3(1.0, 1.0, 1.0);
-          //refNorm = vec3(1.0, 1.0, 1.0);
-          vec3 lightInf= ( max(0.0, dot(directionalLights[shadowIndex].direction, refTan * refNorm ))) * directionalLights[shadowIndex].color;
-          
-          lights.rgb += lightInf * (areCd.g*areCd.g+lightScalar.x);
+      for( x=0; x < NUM_DIR_LIGHTS; ++x ) {
+          vec3 lightInf=  max(0.0, dot(directionalLights[x].direction, vN  )) * directionalLights[x].color ;
+          lights.rgb += lightInf ;
       }
-      float lMag = length( lights.rgb )*1.5;
-      outCd.rgb = mix(outCd.rgb*(1.0-(1.0-outCd.rgb)), outCd.rgb+vec3(1.0, .85, .70) * (outCd.rgb*.5+.5)*lights.rgb, lMag );
+      outCd.rgb = mix(outCd.rgb, outCd.rgb+vec3(1.0, .75, .75) * (outCd.rgb*.5) * lights.rgb, lMag );
       outCd.rgb += lights.rgb * areCd.g * lightScalar.x;
 
       
       // Add some ambient color to the back rim of the object
-      float d = dot( vec3(1.0, 0.0, 0.0), -vObjN )*.5+.25;
-      outCd.rgb = mix( outCd.rgb, vec3(.0, .10, .50), d*lMag);
+      float d = clamp( dot( normalize(vec3(2.80, 1.2, -1.20)), vTan )*1.+.15, 0.0, 1.0) * lightContrib * (1.0-lMag*.5);
+      // Blend light contribution areas with dot product of back facing normals; masked by light agregation
+      outCd.rgb += vec3(.0, .10, .60) * d  ;
+  
 
       // -- -- -- //
 
@@ -763,9 +757,7 @@ export function grassClusterFrag(){
         
         // -- -- --
         
-        // Convert to sRGB
-        Cd.rgb = mix( 12.92 * Cd.rgb, 1.055 * pow(Cd.rgb, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, Cd.rgb) );
-        
+
         // Match general color ambiance of scene
         Cd.rgb *= .4 + vCampfireInf*.25 * vCd.y;
         
