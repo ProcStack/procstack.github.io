@@ -135,14 +135,19 @@ export function envGroundFrag( pointLightCount ){
         
         
         vec4 lights = vec4(0.0, 0.0, 0.0, 1.0);
+        float lightTotalInf = 0.0;
         for(int i = 0; i < NUM_POINT_LIGHTS; i++) {
-            vec3 lightVector = normalize(vPos - pointLights[i].position);
-            float lightNormDot = clamp(dot(-lightVector, vN), 0.0, 1.0)*.8+.2;
+            vec3 lightVector = (vPos - pointLights[i].position);
+            float lightNormDot = clamp(dot(-normalize(lightVector), vN), 0.0, 1.0)*.8+.2;
             vec3 lightInf=  pointLights[i].color;
-            lights.rgb *= vec3( pointLights[i].color * (pointLights[i].distance * pointLights[i].decay * .001) );
+            float pointFalloff = (pointLights[i].distance * pointLights[i].decay * .001);
+            lights.rgb *= vec3( pointLights[i].color * pointFalloff );
             lights.rgb += lightInf * lightNormDot;
+            
+            lightTotalInf = lightNormDot * max( 1.0 - length(lightVector)*.002, 0.0 );
         }
         Cd.rgb *= lights.rgb;
+        lightTotalInf = max(0.0, 1.0 - (1.0-lightTotalInf)*(1.0-lightTotalInf)) * .75;
         
         float shadowInf = 0.0;
         float detailInf = 0.0;
@@ -159,7 +164,7 @@ export function envGroundFrag( pointLightCount ){
         }
         Cd.rgb += lights.rgb*baseDirtNoise;
         
-        Cd.rgb=  mix( Cd.rgb, fogColor, depth );
+        Cd.rgb=  mix( Cd.rgb, fogColor, max(0.0, depth - lightTotalInf) );
 
         
         gl_FragColor=Cd;

@@ -759,7 +759,7 @@ export function grassClusterFrag(){
         
 
         // Match general color ambiance of scene
-        Cd.rgb *= .4 + vCampfireInf*.25 * vCd.y;
+        Cd.rgb *= .23 + vCampfireInf*.25 * vCd.y;
         
         // -- -- --
         
