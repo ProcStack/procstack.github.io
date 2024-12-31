@@ -55,7 +55,7 @@ export function rabbitDruidVert(){
       
       
       vec3 blendPos = color.rgb;
-      transformed += blendPos * eyeBlink.x ;
+      transformed = mix( transformed, blendPos, eyeBlink.x );
       
       
       /***********************************/
@@ -69,17 +69,18 @@ export function rabbitDruidVert(){
       /*********************************/
       
       // TODO : Pullrequest this to Three.js
-      objectNormal = normalize( objectNormal );
+      objectNormal = normalize(objectNormal);
       objectTangent = normalize( objectTangent );
       
-      vTan = objectTangent;
-      vObjN = objectNormal;
+      
+      vTan =  objectTangent;
+      vN =  objectNormal;
+      vPos = transformed;
       
       vN = (modelViewMatrix * vec4(normal, 0.0)).xyz;
       vLocalPos = transformed;
       vec4 mvPos=modelViewMatrix * vec4(transformed, 1.0);
       gl_Position = projectionMatrix*mvPos;
-      vPos = mvPos.xyz;
       
       
       
@@ -104,7 +105,6 @@ export function rabbitDruidVert(){
     varying vec3 vLocalPos;
     varying vec3 vN;
     varying vec3 vTan;
-    varying vec3 vObjN;
     
     varying float vFlicker;
     
@@ -145,13 +145,13 @@ export function rabbitDruidVert(){
           
           lights.rgb += lightInf * (areCd.g*areCd.g+1.0);
       }
-      float lMag = length( lights.rgb )*2.5;
-      outCd.rgb = mix(outCd.rgb, outCd.rgb+(outCd.rgb*.5)*lights.rgb, lMag );
+      float lMag = length( lights.rgb );
+      outCd.rgb = mix(outCd.rgb, outCd.rgb+(outCd.rgb*.55)*lights.rgb, lMag );
       outCd.rgb += lights.rgb * areCd.g;
 
       
       // Add some ambient color to the back rim of the object
-      float d = dot( vec3(1.0, 0.0, 0.0), -vObjN )*.5+.15;
+      float d = dot( normalize(vec3(0.250, 1.0, 0.50)), -vN )*.5+.35;
       outCd.rgb = mix( outCd.rgb, vec3(.05, .18, .35), d);
 
       // -- -- -- //

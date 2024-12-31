@@ -64,7 +64,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     this.pxlCamNearClipping = 1;
     this.pxlCamFarClipping = 10000;
 
-    this.fogColor=new Color(.47,.72,.79);
+    this.fogColor=new Color(.45,.65,.72);
     this.fogExp=.0007;
     this.fog=new FogExp2( this.fogColor, this.fogExp);
     

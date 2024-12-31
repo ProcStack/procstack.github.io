@@ -45,7 +45,7 @@ export class CampfireEnvironment extends RoomEnvironment{
         },
         "stateConnections"  : {
           // Non existing states will be ignored and loop'ed, ie "Walk"
-          "Sit_Idle" : [ ...Array(6).fill("Sit_Idle"), ...Array(6).fill("Sit_Stoke"), ...Array(4).fill("Sit_Look")],
+          "Sit_Idle" : [ ...Array(6).fill("Sit_Idle"), ...Array(6).fill("Sit_Stoke"), ...Array(5).fill("Sit_Look")],
           "Sit_Stoke" : ["Sit_Idle"],
           "Sit_Look" : ["Sit_Idle"]
         }

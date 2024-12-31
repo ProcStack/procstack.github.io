@@ -334,60 +334,88 @@ export function grassClusterFrag(pointLightCount){
         
     
     void main(){
-    
-        vec4 Cd = texture2D(diffuse,vUv);
-        
-        
-        // -- -- --
-        
-        // -- -- -- -- -- -- -- -- --
-        // -- Depth Calculations - -- --
-        // -- -- -- -- -- -- -- -- -- -- --
-
-        float depth = min(1.0, gl_FragCoord.z / gl_FragCoord.w * .0008 );
+        float timer = time.x*.3;
+        vec3 pos = vPos*.0001;
+        vec2 uv = vUv;
+        float depth = min(1.0, gl_FragCoord.z / gl_FragCoord.w * .00065 );
         float depthFade = max(0.0, 1.0-depth);
+        depthFade *= depthFade*depthFade;
+        
+        //Ease patch noise, dirt / path / woods / grass
+        
+        pos = vLocalPos*.03;
+        uv.x = ( pos.x );
+        uv.y = ( pos.z ); 
+        
+        // UV & Color Noise
+        vec3 nCd=(texture2D(noiseTexture,uv).rgb);
+        uv = ( uv.yx+nCd.rg*.1 );
+        nCd= (nCd+(texture2D(noiseTexture,uv).rgb))*.5;
+        
+        vec2 detailUv = fract(abs(pos.xz*.2 + nCd.rg*nCd.b*.2));
+        float detailMult = (texture2D(dirtDiffuse,detailUv).r)*3.0 * depthFade;
+        float dirtNoise = texture2D(uniformNoise,detailUv).r;
+        float baseDirtNoise = dirtNoise;
+        dirtNoise = dirtNoise*.7+.3;
         
         
-        // -- -- --
-
-        // -- -- -- -- -- -- -- -- -- -- -- -- 
-        // -- Directional Light Influence - -- --
-        // -- -- -- -- -- -- -- -- -- -- -- -- -- --
+        // Dirt Base Color
+        vec2 dirtUv = vUv;
+        vec4 Cd = texture2D(diffuse,dirtUv) ;
+        Cd.rgb *= dirtNoise;
         
-        vec3 lights = vec3(0.0, 0.0, 0.0);
-
-        #if NUM_DIR_LIGHTS > 0
-          vec3 pos = vPos;
-          vec2 lnUv = fract( vec2( (pos.x+pos.z )*(1.0+ vCd.y*2.5) , pos.y*vCd.y ) );
-
-          for(int x = 0; x < NUM_DIR_LIGHTS; ++x) {
-              vec3 lightInf= ( max(0.0, dot(directionalLights[x].direction, reflect( normalize(pos), vLocalN ) ))) * directionalLights[x].color;
-              lights += lightInf;
-          }
-          // Add a fake bump map to the lighting
-          lights = lights*(((1.0-vCd.g)));
-          //
-        #endif
+        // Dirt Patch Color
+        dirtUv = fract(pos.xz);//vUv*20.0);
+        dirtNoise = min(1.0, texture2D(uniformNoise,dirtUv).r*.3+.7);
+        dirtUv = fract(pos.xz*.1);
+        vec3 dirtCd = texture2D(dirtDiffuse,dirtUv).rgb;
+        //dirtCd += dirtNoise*.05;
+        dirtCd *= detailMult*(1.0-depth) + depth*.65;
         
-        Cd.rgb += Cd.rgb*lights;
-
-        // -- -- --
+        
+        // Region Blending
+        vec2 unUv = uv;
+        float uniNoise = texture2D(uniformNoise,unUv).r*depthFade;
+        vec2 cnUv = pos.xz*.05;
+        float cNoise = texture2D(crossNoise,cnUv).r;
+        cNoise = cNoise*cNoise;
+        cNoise = mix( cNoise*cNoise, 1.0-(1.0-cNoise)*(1.0-cNoise), cNoise );
+        
+        Cd.rgb = mix( dirtCd, Cd.rgb, cNoise );
+        
+        
+        vec4 lights = vec4(0.0, 0.0, 0.0, 1.0);
+        float lightTotalInf = 0.0;
+        for(int i = 0; i < NUM_POINT_LIGHTS; i++) {
+            vec3 lightVector = (vPos - pointLights[i].position);
+            float lightNormDot = clamp(dot(-normalize(lightVector), vN), 0.0, 1.0)*.8+.2;
+            vec3 lightInf=  pointLights[i].color;
+            float pointFalloff = (pointLights[i].distance * pointLights[i].decay * .001);
+            lights.rgb *= vec3( pointLights[i].color * pointFalloff );
+            lights.rgb += lightInf * lightNormDot;
+            
+            lightTotalInf = lightNormDot * max( 1.0 - length(lightVector)*.002, 0.0 );
+        }
+        Cd.rgb *= lights.rgb;
+        lightTotalInf = max(0.0, 1.0 - (1.0-lightTotalInf)*(1.0-lightTotalInf)) * .75;
         
         float shadowInf = 0.0;
         float detailInf = 0.0;
         float lShadow = 0.0;
         int i = 0;
+        float dp=0.0;
+        float shadowRadius=0.0;
         
-        // -- -- -- -- -- -- -- -- --
-        // -- Match Scene Tone  -- -- --
-        // -- -- -- -- -- -- -- -- -- -- --
-
-        Cd.rgb=  mix( Cd.rgb * (vCd.y*.55+.25), vFogColor, depth );
-
-
-        Cd.a=1.0;
+        pos = vPos;
+        lights = vec4(0.0, 0.0, 0.0, 1.0);
+        for(int i = 0; i < NUM_DIR_LIGHTS; i++) {
+            vec3 lightInf= ( max(0.0, dot(directionalLights[i].direction, reflect( normalize(pos), vN ) ))) * directionalLights[i].color;
+            lights.rgb += lightInf;
+        }
+        Cd.rgb += lights.rgb*baseDirtNoise;
         
-        // -- -- --
+        Cd.rgb=  mix( Cd.rgb, fogColor, max(0.0, depth - lightTotalInf) );
+
         
         gl_FragColor=Cd;
     }`;
