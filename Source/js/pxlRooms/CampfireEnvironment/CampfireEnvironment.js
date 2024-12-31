@@ -66,7 +66,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     this.pxlCamFarClipping = 10000;
 
     // this.fogColor=new Color(.3,.3,.3);
-    this.fogColor=new Color(.01,.02,.05);
+    this.fogColor=new Color(.015,.025,.06);
     this.fogExp=.0007;
     this.fog=new FogExp2( this.fogColor, this.fogExp);
     

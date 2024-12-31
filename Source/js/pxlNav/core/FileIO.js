@@ -23,6 +23,8 @@ import {
 } from "../../libs/three/three.module.min.js";
 import { FBXLoader } from "../../libs/three/FBXLoader.js";
 
+import { COLOR_SHIFT } from "./Enums.js";
+
 export class FileIO{
   constructor( folderDict={}){
     this.pxlTimer=null;
@@ -48,6 +50,11 @@ export class FileIO{
     this.vidRoot = this.findInDict( folderDict, "vidRoot", "images/screenContent/" );
     
     this.workerList = [];
+
+    // No need for these to be in a Consts.js file yet
+    this.oneTwoPFour = 1.0/2.4;
+    this.twelvePNineTwoDiv = 1.0/12.92;
+    this.onePOFiveFiveDiv = 1.0/1.055;
   }
   
   setDependencies( pxlNav ){
@@ -92,14 +99,16 @@ export class FileIO{
 
   // -- -- --
 
-  // Convert Linear to sRGB
-  tosRGB( val ){
-    if( val <= 0.0031308 ){
-      val *= 12.92;
-    }else{
-      val = 1.055 * Math.pow(val, 1.0/2.4) - 0.055;
+  convertVertColor( meshObj, space=COLOR_SHIFT.KEEP ){
+    if (meshObj.geometry && meshObj.geometry.attributes && meshObj.geometry.attributes.color) {
+      let colors = meshObj.geometry.attributes.color;
+      for( let x=0; x<colors.count; ++x ){
+        let color = new Color().fromBufferAttribute(colors, x);
+        this.pxlUtils.convertColor(color, space);
+        colors.setXYZ(x, color.r, color.g, color.b);
+      }
+      colors.needsUpdate = true;
     }
-    return val;
   }
 
   // -- -- --
@@ -382,7 +391,6 @@ export class FileIO{
                 let curScale = scale;
                 if( hasColor ){
                   let curScalar = mesh.geometry.attributes.color.getX(x);
-                  curScalar = this.tosRGB(curScalar);
                   curScale = new Vector3(curScalar, curScalar, curScalar);
                 }
                 matrix.compose(position, quaternion, curScale);
@@ -1305,6 +1313,8 @@ export class FileIO{
         let userScreenSeed=0;
         // Run the mask layers outside shader calculations
         let maskArray=[ new Vector3(1,0,0), new Vector3(0,1,0), new Vector3(0,0,1) ]
+        // Non-included masks
+        // TODO : Add method to pass materials through to UserScreens from textureList{}
         let maskPaths=[this.assetRoot+"DJ_Vector_Masks_1.jpg", this.assetRoot+"DJ_Vector_Masks_2.jpg", this.assetRoot+"DJ_Vector_Masks_3.jpg"];
         let modMaskId=0;
         let modPathId=0;

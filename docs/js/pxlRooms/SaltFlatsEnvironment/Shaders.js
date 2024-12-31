@@ -68,6 +68,9 @@ export function rabbitDruidVert(){
       /** End of THREE Shader Includs **/
       /*********************************/
       
+      // TODO : Pullrequest this to Three.js
+      objectNormal = normalize( objectNormal );
+      objectTangent = normalize( objectTangent );
       
       vTan = objectTangent;
       vObjN = objectNormal;
@@ -121,8 +124,6 @@ export function rabbitDruidVert(){
       vec4 areCd=texture2D(areTexture,vUv);
       outCd = diffCd;
       
-      // Convert to sRGB
-      outCd.rgb = mix( 12.92 * outCd.rgb, 1.055 * pow(outCd.rgb, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, outCd.rgb) );
       
       vec2 animUv = vUv*.01;
       animUv.y -= time.x*.1;
@@ -148,8 +149,6 @@ export function rabbitDruidVert(){
       outCd.rgb = mix(outCd.rgb, outCd.rgb+(outCd.rgb*.5)*lights.rgb, lMag );
       outCd.rgb += lights.rgb * areCd.g;
 
-      // Convert to sRGB
-      outCd.rgb = mix( 12.92 * outCd.rgb, 1.055 * pow(outCd.rgb, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, outCd.rgb) );
       
       // Add some ambient color to the back rim of the object
       float d = dot( vec3(1.0, 0.0, 0.0), -vObjN )*.5+.15;
@@ -265,8 +264,6 @@ export function envGroundFrag(){
           //
         #endif
         
-        // Convert to sRGB
-        Cd.rgb = mix( 12.92 * Cd.rgb, 1.055 * pow(Cd.rgb, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, Cd.rgb) );
         
         Cd.rgb += Cd.rgb*lights;
 
@@ -283,8 +280,8 @@ export function envGroundFrag(){
 
 
 export function salioaPlantVert(){
-  //let ret=shaderHeader();
-  let ret=`
+  let ret=shaderHeader();
+  ret+=`
     uniform vec2 time;
     uniform float intensity;
     uniform float rate;
@@ -312,8 +309,9 @@ export function salioaPlantVert(){
           pos = instanceMatrix * pos;
         #endif
         
+        vPos = pos.xyz;
+
         vec4 mvPos=modelViewMatrix * pos;
-        vPos = mvPos.xyz;
         gl_Position = projectionMatrix*mvPos;
         vWorldPos = gl_Position.xyz;
     }`;
@@ -321,8 +319,8 @@ export function salioaPlantVert(){
 }
 
 export function salioaPlantFrag(){
-  //let ret=shaderHeader();
-  let ret=`
+  let ret=shaderHeader();
+  ret+=`
     uniform vec2 time;
     uniform float intensity;
     uniform float rate;
@@ -357,13 +355,12 @@ export function salioaPlantFrag(){
         
         Cd.a=1.0-min(1.0,length(vCd)*.2 - (d*0.2-0.1));
         
-        float time = time.x*.1;
-        vec2 nUv = fract( vec2( (vUv.x + vWorldPos.x+vWorldPos.z + time )*(1.0+ vCd.y*2.5) , vUv.y + vPos.z + time ) );
-        nUv.x*=.75;
-        vec3 nCd = texture2D(noiseTexture,vUv).rgb;
+        float time = -time.x*.2;
+        vec2 nUv = fract( vec2( (vUv.x + vPos.x+vPos.z + time )* (1.0+vCd.y*2.5) , vUv.y + vPos.z + time ) );
+        vec3 nCd = texture2D(noiseTexture,nUv).rgb;
         
         #if NUM_DIR_LIGHTS > 0
-          vec3 pos = vPos;
+          vec3 pos = vWorldPos;
           vec2 lnUv = fract( vec2( (pos.x+pos.z )*(1.0+ vCd.y*2.5) , pos.y*vCd.y ) );
           float lnCd = texture2D(noiseTexture,lnUv).r;
           float lightNoise = lnCd;
@@ -380,10 +377,11 @@ export function salioaPlantFrag(){
           Cd.a = min(1.0, Cd.a+length(lights)*0.5);
         #endif
         
-        Cd.rgb *= (1.0+nCd*.5);
-        Cd.a*= clamp( Cd.a * (1.75-min(nCd.r,min(nCd.g,nCd.b))), 0.0, 1.0 );
+        Cd.rgb += Cd.rgb*nCd*.5;
+        Cd.a*= clamp( Cd.a * (2.0-min(nCd.r,min(nCd.g,nCd.b))), 0.0, 1.0 );
         
         
+                        
         gl_FragColor=Cd;
     }`;
   return ret;

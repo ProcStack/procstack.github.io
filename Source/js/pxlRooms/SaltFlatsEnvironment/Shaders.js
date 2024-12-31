@@ -68,6 +68,9 @@ export function rabbitDruidVert(){
       /** End of THREE Shader Includs **/
       /*********************************/
       
+      // TODO : Pullrequest this to Three.js
+      objectNormal = normalize( objectNormal );
+      objectTangent = normalize( objectTangent );
       
       vTan = objectTangent;
       vObjN = objectNormal;
@@ -121,8 +124,6 @@ export function rabbitDruidVert(){
       vec4 areCd=texture2D(areTexture,vUv);
       outCd = diffCd;
       
-      // Convert to sRGB
-      outCd.rgb = mix( 12.92 * outCd.rgb, 1.055 * pow(outCd.rgb, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, outCd.rgb) );
       
       vec2 animUv = vUv*.01;
       animUv.y -= time.x*.1;
@@ -148,8 +149,6 @@ export function rabbitDruidVert(){
       outCd.rgb = mix(outCd.rgb, outCd.rgb+(outCd.rgb*.5)*lights.rgb, lMag );
       outCd.rgb += lights.rgb * areCd.g;
 
-      // Convert to sRGB
-      outCd.rgb = mix( 12.92 * outCd.rgb, 1.055 * pow(outCd.rgb, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, outCd.rgb) );
       
       // Add some ambient color to the back rim of the object
       float d = dot( vec3(1.0, 0.0, 0.0), -vObjN )*.5+.15;
@@ -265,8 +264,6 @@ export function envGroundFrag(){
           //
         #endif
         
-        // Convert to sRGB
-        Cd.rgb = mix( 12.92 * Cd.rgb, 1.055 * pow(Cd.rgb, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, Cd.rgb) );
         
         Cd.rgb += Cd.rgb*lights;
 

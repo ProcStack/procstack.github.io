@@ -117,8 +117,6 @@ export function skyObjectFrag( skyHazeValue=SKY_HAZE.OFF ){
     `;
   }
   ret+=`
-        // Convert to sRGB
-        Cd.rgb = mix( 12.92 * Cd.rgb, 1.055 * pow(Cd.rgb, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, Cd.rgb) );
 
         gl_FragColor=Cd;
     }`;

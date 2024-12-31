@@ -31,6 +31,7 @@ import {
 	QuaternionKeyframeTrack,
 	RepeatWrapping,
 	SRGBColorSpace,
+	LinearSRGBColorSpace,
 	ShapeUtils,
 	Skeleton,
 	SkinnedMesh,
@@ -544,12 +545,14 @@ class FBXTreeParser {
 
 		if ( materialNode.Diffuse ) {
 
-			parameters.color = ColorManagement.toWorkingColorSpace( new Color().fromArray( materialNode.Diffuse.value ), SRGBColorSpace );
+			//parameters.color = ColorManagement.toWorkingColorSpace( new Color().fromArray( materialNode.Diffuse.value ), SRGBColorSpace );
+			parameters.color = new Color().fromArray( materialNode.Diffuse.value );
 
 		} else if ( materialNode.DiffuseColor && ( materialNode.DiffuseColor.type === 'Color' || materialNode.DiffuseColor.type === 'ColorRGB' ) ) {
 
 			// The blender exporter exports diffuse here instead of in materialNode.Diffuse
-			parameters.color = ColorManagement.toWorkingColorSpace( new Color().fromArray( materialNode.DiffuseColor.value ), SRGBColorSpace );
+			//parameters.color = ColorManagement.toWorkingColorSpace( new Color().fromArray( materialNode.DiffuseColor.value ), SRGBColorSpace );
+			parameters.color = new Color().fromArray( materialNode.DiffuseColor.value );
 
 		}
 
@@ -561,12 +564,14 @@ class FBXTreeParser {
 
 		if ( materialNode.Emissive ) {
 
-			parameters.emissive = ColorManagement.toWorkingColorSpace( new Color().fromArray( materialNode.Emissive.value ), SRGBColorSpace );
+			//parameters.emissive = ColorManagement.toWorkingColorSpace( new Color().fromArray( materialNode.Emissive.value ), SRGBColorSpace );
+			parameters.emissive = new Color().fromArray( materialNode.Emissive.value );
 
 		} else if ( materialNode.EmissiveColor && ( materialNode.EmissiveColor.type === 'Color' || materialNode.EmissiveColor.type === 'ColorRGB' ) ) {
 
 			// The blender exporter exports emissive color here instead of in materialNode.Emissive
-			parameters.emissive = ColorManagement.toWorkingColorSpace( new Color().fromArray( materialNode.EmissiveColor.value ), SRGBColorSpace );
+			//parameters.emissive = ColorManagement.toWorkingColorSpace( new Color().fromArray( materialNode.EmissiveColor.value ), SRGBColorSpace );
+			parameters.emissive = new Color().fromArray( materialNode.EmissiveColor.value );
 
 		}
 
@@ -612,12 +617,14 @@ class FBXTreeParser {
 
 		if ( materialNode.Specular ) {
 
-			parameters.specular = ColorManagement.toWorkingColorSpace( new Color().fromArray( materialNode.Specular.value ), SRGBColorSpace );
+			//parameters.specular = ColorManagement.toWorkingColorSpace( new Color().fromArray( materialNode.Specular.value ), SRGBColorSpace );
+			parameters.specular = new Color().fromArray( materialNode.Specular.value );
 
 		} else if ( materialNode.SpecularColor && materialNode.SpecularColor.type === 'Color' ) {
 
 			// The blender exporter exports specular color here instead of in materialNode.Specular
-			parameters.specular = ColorManagement.toWorkingColorSpace( new Color().fromArray( materialNode.SpecularColor.value ), SRGBColorSpace );
+			//parameters.specular = ColorManagement.toWorkingColorSpace( new Color().fromArray( materialNode.SpecularColor.value ), SRGBColorSpace );
+			parameters.specular = new Color().fromArray( materialNode.SpecularColor.value );
 
 		}
 
@@ -639,11 +646,11 @@ class FBXTreeParser {
 				case 'DiffuseColor':
 				case 'Maya|TEX_color_map':
 					parameters.map = scope.getTexture( textureMap, child.ID );
-					if ( parameters.map !== undefined ) {
-
+					/*if ( parameters.map !== undefined ) {
+            console.log(parameters.map  );
 						parameters.map.colorSpace = SRGBColorSpace;
 
-					}
+					}*/
 
 					break;
 
@@ -653,11 +660,11 @@ class FBXTreeParser {
 
 				case 'EmissiveColor':
 					parameters.emissiveMap = scope.getTexture( textureMap, child.ID );
-					if ( parameters.emissiveMap !== undefined ) {
+					/*if ( parameters.emissiveMap !== undefined ) {
 
-						parameters.emissiveMap.colorSpace = SRGBColorSpace;
+						//parameters.emissiveMap.colorSpace = SRGBColorSpace;
 
-					}
+					}*/
 
 					break;
 
@@ -671,7 +678,7 @@ class FBXTreeParser {
 					if ( parameters.envMap !== undefined ) {
 
 						parameters.envMap.mapping = EquirectangularReflectionMapping;
-						parameters.envMap.colorSpace = SRGBColorSpace;
+						//parameters.envMap.colorSpace = SRGBColorSpace;
 
 					}
 
@@ -681,7 +688,7 @@ class FBXTreeParser {
 					parameters.specularMap = scope.getTexture( textureMap, child.ID );
 					if ( parameters.specularMap !== undefined ) {
 
-						parameters.specularMap.colorSpace = SRGBColorSpace;
+						//parameters.specularMap.colorSpace = SRGBColorSpace;
 
 					}
 
@@ -2369,6 +2376,7 @@ class GeometryParser {
 
 			c.fromArray( buffer, i );
 			ColorManagement.toWorkingColorSpace( c, SRGBColorSpace );
+			//ColorManagement.toWorkingColorSpace( c, LinearSRGBColorSpace );
 			c.toArray( buffer, i );
 
 		}

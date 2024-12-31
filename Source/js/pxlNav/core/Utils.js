@@ -180,54 +180,216 @@ export class Utils{
     b=parseInt(b,16);
     return [r,g,b];
   }
-    
-    stringToRgb( string, boost=null, zoFit=false ){
-        let stringColor=[255,0,0];
-        if( string ){
-            let sLength=string.length;
-            let charCode="";
-            for(let x=0; x<sLength; ++x){
-                charCode+=string[ (sLength-1-x) ].charCodeAt(0).toString(16);
-            }
+  
+  // -- -- -- //
 
-            let ccLength=charCode.length;
-            if(ccLength>6){
-                let offset=1;
-                if(string=="tussin"){
-                    offset=0;
-                }else if(string=="fexofenadine"){
-                    offset=-1;
-                }
-                let reader=Math.max(0,parseInt((ccLength-6)/2+offset));
-                charCode=charCode.substr(reader,6);
-            }
-            
-            stringColor=this.hexToRgb( charCode );
+  stringToRgb( string, boost=null, zoFit=false ){
+    let stringColor=[255,0,0];
+    if( string ){
+      let sLength=string.length;
+      let charCode="";
+      for(let x=0; x<sLength; ++x){
+        charCode+=string[ (sLength-1-x) ].charCodeAt(0).toString(16);
+      }
+
+      let ccLength=charCode.length;
+      if(ccLength>6){
+        let offset=1;
+        if(string=="tussin"){
+          offset=0;
+        }else if(string=="fexofenadine"){
+          offset=-1;
         }
-        
-        if( boost != null){
-            let maxCd=Math.max(...stringColor);
-            let minCd=Math.min(...stringColor);
-            let boostCd=maxCd*boost;
-            stringColor[0]= parseInt( Math.min(255, ((stringColor[0]-minCd) / (maxCd-minCd))*255+boostCd) );
-            stringColor[1]= parseInt( Math.min(255, ((stringColor[1]-minCd) / (maxCd-minCd))*255+boostCd) );
-            stringColor[2]= parseInt( Math.min(255, ((stringColor[2]-minCd) / (maxCd-minCd))*255+boostCd) );
-            /*
-            stringColor[0]= Math.max(0, Math.min(255, (stringColor[0]-100)*boost+100));
-            stringColor[1]= Math.max(0, Math.min(255, (stringColor[1]-100)*boost+100));
-            stringColor[2]= Math.max(0, Math.min(255, (stringColor[2]-100)*boost+100));
-            */
-        }
-        
-        if( zoFit==true ){
-            stringColor[0]=stringColor[0]/255;
-            stringColor[1]=stringColor[1]/255;
-            stringColor[2]=stringColor[2]/255;
-        }
-        
-        return stringColor;
+        let reader=Math.max(0,parseInt((ccLength-6)/2+offset));
+        charCode=charCode.substr(reader,6);
+      }
+      
+      stringColor=this.hexToRgb( charCode );
     }
     
+    if( boost != null){
+      let maxCd=Math.max(...stringColor);
+      let minCd=Math.min(...stringColor);
+      let boostCd=maxCd*boost;
+      stringColor[0]= parseInt( Math.min(255, ((stringColor[0]-minCd) / (maxCd-minCd))*255+boostCd) );
+      stringColor[1]= parseInt( Math.min(255, ((stringColor[1]-minCd) / (maxCd-minCd))*255+boostCd) );
+      stringColor[2]= parseInt( Math.min(255, ((stringColor[2]-minCd) / (maxCd-minCd))*255+boostCd) );
+      /*
+      stringColor[0]= Math.max(0, Math.min(255, (stringColor[0]-100)*boost+100));
+      stringColor[1]= Math.max(0, Math.min(255, (stringColor[1]-100)*boost+100));
+      stringColor[2]= Math.max(0, Math.min(255, (stringColor[2]-100)*boost+100));
+      */
+    }
+    
+    if( zoFit==true ){
+      stringColor[0]=stringColor[0]/255;
+      stringColor[1]=stringColor[1]/255;
+      stringColor[2]=stringColor[2]/255;
+    }
+    
+    return stringColor;
+  }
+    
+  // -- -- -- //
+
+
+  // Convert Color/Vector3 to sRGB Color Space
+  colorTosRGB( color ){
+    // Check if the colorue is a color object
+    if( typeof color == "object" ){
+      // Color Object
+      if( color.hasOwnProperty && color.hasOwnProperty("r") ){
+        color.r = this.tosRGB(color.r);
+        color.g = this.tosRGB(color.g);
+        color.b = this.tosRGB(color.b);
+      }
+      if( color.hasOwnProperty && color.hasOwnProperty("x") ){
+        color.x = this.tosRGB(color.x);
+        color.y = this.tosRGB(color.y);
+        color.z = this.tosRGB(color.z);
+      }
+      return color;
+    }
+    return color;
+  }
+
+  // Convert Linear to sRGB
+  tosRGB( val ){
+    // Convert the value per channel
+    if( val <= 0.0031308 ){
+      val *= 12.92;
+    }else{
+      val = 1.055 * Math.pow(val, this.oneTwoPFour) - 0.055;
+    }
+    return val;
+  }
+
+  // -- -- --
+
+  // Convert Color/Vector3 to Linear Color Space
+  colorToLinear( color ){
+    // Check if the colorue is a color object
+    if( typeof color == "object" ){
+      // Color Object
+      if( color.hasOwnProperty && color.hasOwnProperty("r") ){
+        color.r = this.toLinear(color.r);
+        color.g = this.toLinear(color.g);
+        color.b = this.toLinear(color.b);
+      }
+      if( color.hasOwnProperty && color.hasOwnProperty("x") ){
+        color.x = this.toLinear(color.x);
+        color.y = this.toLinear(color.y);
+        color.z = this.toLinear(color.z);
+      }
+      return color;
+    }
+    return color;
+  }
+  // Convert sRGB to Linear
+  toLinear( val ){
+    if( val <= 0.04045 ){
+      val *= this.twelvePNineTwoDiv;
+    }else{
+      val = Math.pow((val + 0.055) * this.onePOFiveFiveDiv, 2.4);
+    }
+    return val;
+  }
+
+
+  // -- -- --
+
+  gammaCorrectColor( color, gammaIn="2.2", gammaOut="1.8" ){
+    // Check if the colorue is a color object
+    if( typeof color == "object" ){
+      // Color Object
+      if( color.hasOwnProperty && color.hasOwnProperty("r") ){
+        color.r = this.gammaCorrect(color.r, gammaIn, gammaOut);
+        color.g = this.gammaCorrect(color.g, gammaIn, gammaOut);
+        color.b = this.gammaCorrect(color.b, gammaIn, gammaOut);
+      }
+      if( color.hasOwnProperty && color.hasOwnProperty("x") ){
+        color.x = this.gammaCorrect(color.x, gammaIn, gammaOut);
+        color.y = this.gammaCorrect(color.y, gammaIn, gammaOut);
+        color.z = this.gammaCorrect(color.z, gammaIn, gammaOut);
+      }
+      return color;
+    }
+    return color;
+  }
+
+  gammaCorrection( channel, gammaIn="2.2", gammaOut="1.8" ){
+    // Linearize the color
+    let linearChannel = Math.pow( channel, gammaIn );
+
+    // Apply the gamma correction
+    let channelShift = Math.pow( linearChannel, 1.0 / gammaOut );
+
+    return channelShift;
+  }
+
+  // -- -- --
+
+
+
+  // TODO : Prep & re-implement THREE.GammaFactor -> pxlNav.pxlDevice.GammaFactor
+  // TODO : pxlDevice OS detect needs to be implement for color conversion between known OS color spaces
+  convertColor( color, space=COLOR_SHIFT.KEEP ){
+    if( space == COLOR_SHIFT.KEEP ){
+      return color;
+    }
+
+    // Notes on OS Gamma levels --
+    //   Linear Gamma is 1.0
+    //   Windows default Gamma is 2.2
+    //   Mac, Linux, & Androids default Gamma is 1.8
+    //   Other Unix systems are 2.3-2.5
+
+    // Notes on Color Spaces --
+    //   sRGB & Rec.709 are the same
+    //     sRGB is more in line with how the human eye percieves color
+    //   Linear is an uncorrected color space, not data is lost between programs or devices
+    //     Linear Colors should then be converted to sRGB for display,
+    //       But not converted if the color is for Data needs
+
+    let retColor = color.clone();
+    switch (space) {
+      // Assuming color adjustments have been made with shader math --
+      case COLOR_SHIFT.sRGB_TO_LINEAR:
+        retColor = this.colorTosRGB(retColor);
+        break;
+      case COLOR_SHIFT.LINEAR_TO_sRGB:
+        retColor = this.colorToLinear(retColor);
+        break;
+
+      // TODO : These need to be checked, added for completeness, not tested
+      case COLOR_SHIFT.WINDOWS_TO_UNIX:
+        retColor = this.gammaCorrectColor(retColor, "2.2", "1.8");
+        break;
+      case COLOR_SHIFT.UNIX_TO_WINDOWS:
+        retColor = this.gammaCorrectColor(retColor, "1.8", "2.2");
+        break;
+      case COLOR_SHIFT.LINEAR_TO_WINDOWS:
+        retColor = this.gammaCorrectColor(retColor, "1.0", "2.2");
+        break;
+      case COLOR_SHIFT.WINDOWS_TO_LINEAR:
+        retColor = this.gammaCorrectColor(retColor, "2.2", "1.0");
+        break;
+      case COLOR_SHIFT.LINEAR_TO_UNIX:
+        retColor = this.gammaCorrectColor(retColor, "1.0", "1.8");
+        break;
+      case COLOR_SHIFT.UNIX_TO_LINEAR:
+        retColor = this.gammaCorrectColor(retColor, "1.8", "1.0");
+        break;
+      default:
+        break;
+    }
+
+    return retColor;
+  }
+
+
+  // -- -- -- //
+
   randomizeArray(inputArr){
     let tmpArr=[...inputArr];
     let retArr=[];
@@ -238,10 +400,10 @@ export class Utils{
     return retArr;
   }
     
-    getRandom( list, seed=1.14 ){
-        let randEl= Math.floor( Math.random( seed ) * list.length);
-        return list[ randEl ];
-    }
+  getRandom( list, seed=1.14 ){
+    let randEl= Math.floor( Math.random( seed ) * list.length);
+    return list[ randEl ];
+  }
     
   applyTransformList(curObj,transList){
     var rotate=transList["r"];
@@ -298,21 +460,21 @@ export class Utils{
     return texture;
   }
 
-    getVideoTexture( videoObject ){
-        let videoTexture=new VideoTexture(videoObject);
-        videoTexture.minFilter=LinearFilter;
-        videoTexture.magFilter=LinearFilter; // faster, lower samples, NearestFilter
-        videoTexture.format=RGBFormat;
-        
-        return videoTexture;
-    }
+  getVideoTexture( videoObject ){
+    let videoTexture=new VideoTexture(videoObject);
+    videoTexture.minFilter=LinearFilter;
+    videoTexture.magFilter=LinearFilter; // faster, lower samples, NearestFilter
+    videoTexture.format=RGBFormat;
     
-    getCanvasTexture( canvas ){
-        const texture = new CanvasTexture(canvas);
-         
-        const material = new MeshBasicMaterial({
-          map: texture,
-        });
-        return {texture, material};
-    }
+    return videoTexture;
+  }
+  
+  getCanvasTexture( canvas ){
+    const texture = new CanvasTexture(canvas);
+      
+    const material = new MeshBasicMaterial({
+      map: texture,
+    });
+    return {texture, material};
+  }
 }

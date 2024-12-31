@@ -133,8 +133,6 @@ export function envGroundFrag( pointLightCount ){
         
         Cd.rgb = mix( dirtCd, Cd.rgb, cNoise );
         
-        // Convert to sRGB
-        Cd.rgb = mix( 12.92 * Cd.rgb, 1.055 * pow(Cd.rgb, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, Cd.rgb) );
         
         vec4 lights = vec4(0.0, 0.0, 0.0, 1.0);
         for(int i = 0; i < NUM_POINT_LIGHTS; i++) {
@@ -349,10 +347,6 @@ export function grassClusterFrag(pointLightCount){
         float depth = min(1.0, gl_FragCoord.z / gl_FragCoord.w * .0008 );
         float depthFade = max(0.0, 1.0-depth);
         
-        // -- -- --
-        
-        // Convert to sRGB
-        Cd.rgb = mix( 12.92 * Cd.rgb, 1.055 * pow(Cd.rgb, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, Cd.rgb) );
         
         // -- -- --
 

@@ -431,7 +431,7 @@ class pxlNav{
         this.pxlEnv.engine.autoClear=true;
         ColorManagement.enabled = false;
         this.pxlEnv.engine.outputColorSpace = SRGBColorSpace;
-        //this.pxlEnv.engine.outputColorSpace = SRGBColorSpace;
+        //this.pxlEnv.engine.outputColorSpace = LinearSRGBColorSpace;
         
         this.pxlEnv.engine.debug.checkShaderErrors=false;
         //%= Dev

@@ -96,6 +96,7 @@ const baseConfig = {
     '../libs/three/ShaderPass.js': "./libs/three/ShaderPass.js",
     '../libs/three/UnrealBloomPass.js': "./libs/three/UnrealBloomPass.js",
     '../libs/three/CopyShader.js': "./libs/three/CopyShader.js",
+    '../../libs/three/FBXLoader.js': "./libs/three/FBXLoader.js",
   },
 };
 
