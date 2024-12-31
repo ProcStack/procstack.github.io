@@ -306,7 +306,7 @@ export function envGroundFrag(){
         
         //Ease patch noise, dirt / path / woods / grass
         
-        pos = vLocalPos*.03;
+        pos = vPos*.03;
         uv.x = ( pos.x );
         uv.y = ( pos.z ); 
         

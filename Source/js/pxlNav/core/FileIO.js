@@ -248,7 +248,7 @@ export class FileIO{
     let ret = true;
     //if( mesh.hasOwnProperty("userData") && mesh.userData.hasOwnProperty("Scripted") && mesh.userData.Scripted ){
     if( envObj.geoList.hasOwnProperty('Scripted') && envObj.geoList.Scripted.hasOwnProperty(mesh.name) ){
-      console.log(envObj.geoList.Scripted, envObj.geoList.Scripted.hasOwnProperty(mesh.name), mesh.name)
+      //console.log(envObj.geoList.Scripted, envObj.geoList.Scripted.hasOwnProperty(mesh.name), mesh.name)
       ret=false;
     }
     return ret;
@@ -362,11 +362,7 @@ export class FileIO{
           let curScale=mesh.scale;
           let instBase= envObj.baseInstancesList[ mesh.userData.Instance ];
 
-          //console.log(name);
-          //console.log(instBase.material);
           if( mesh.type == "Mesh" ){
-
-
             const matrix = new Matrix4();
             const position = new Vector3();
             const normal = new Vector3();
@@ -679,7 +675,6 @@ export class FileIO{
     var fbxLoader=new FBXLoader();
     fbxLoader.load( objPath, (curFbx)=>{
       //envScene.add(curFbx);
-      //console.log(curFbx)
       let groups=curFbx.children;
       let groupTypes={};
       let groupNames=[];
@@ -895,6 +890,7 @@ export class FileIO{
 
           let c=ch[ curObjId ];
           
+          this.log( "Cur Object - ", c.name );
           this.checkForUserData( envObj, envScene, c );
 
           if(c.isMesh){
@@ -976,7 +972,7 @@ export class FileIO{
             }
           }
         }
-        envScene.add( groups[groupId] );
+        envScene.add( ...groups[groupId].children );
       }
       
       
@@ -1055,6 +1051,7 @@ export class FileIO{
         envObj.collidersExist=colliderGroups.length>0;
         for(let x=0; x<colliderGroups.length; ++x){
           let pName=colliderGroups[x].name;
+
           let curChildren=colliderGroups[x].children;
           while(curChildren.length>0){
             let child=curChildren.pop();

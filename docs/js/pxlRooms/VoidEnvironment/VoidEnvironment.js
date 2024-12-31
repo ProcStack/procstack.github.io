@@ -5,28 +5,36 @@ import {
   Color,
   Group,
   Object3D,
+  AmbientLight,
   FogExp2,
+  RepeatWrapping,
+  UniformsUtils,
+  UniformsLib,
   FrontSide
 } from "../../libs/three/three.module.min.js";
-import { voidBaseVert, voidBaseFrag } from "./Shaders.js";
+/*ShaderMaterial*/
 
-export class VoidEnvironment{
-	constructor( roomName='Void', assetPath=null, pxlFile=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
-		this.roomName=roomName;
-		this.pxlFile=pxlFile;
-		this.pxlUtils=pxlUtils;
-		this.pxlDevice=pxlDevice;
-		this.pxlEnv=pxlEnv;
-		this.booted=false;
-		this.initScene=true;
-		this.active=true;
+import { voidBaseVert, voidBaseFrag } from "./Shaders.js";
+import { RoomEnvironment, pxlShaders, pxlEffects } from "../../pxlNav.esm.js";
+
+const pxlPrincipledVert = pxlShaders.objects.pxlPrincipledVert;
+const pxlPrincipledFrag = pxlShaders.objects.pxlPrincipledFrag;
+const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
+
+export class VoidEnvironment extends RoomEnvironment{
+  constructor( roomName='VoidEnvironment', assetPath=null, pxlFile=null, pxlAnim=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
+    super( roomName, assetPath, pxlFile, pxlAnim, pxlUtils, pxlDevice, pxlEnv, msRunner, camera, scene, cloud3dTexture );
+    
+		this.assetPath=assetPath+"Assets/";
 		this.assetPath="./js/pxlRooms/VoidEnvironment/Assets/";
+    
     this.sceneFile = this.assetPath+"VoidEnvironment.fbx";
+    //this.sceneFile = this.assetPath+"ForceField.fbx";
 		
 		// Environment Shader 
 		this.spiralizerUniforms={};
 		this.materialList={};
-		
+    
 		// Room warp data
 		this.camInitPos=null;
 		this.camInitLookAt=null;
@@ -36,14 +44,15 @@ export class VoidEnvironment{
 		this.cameraPrevPos=new Vector3(0,0,0);
 		this.cameraAimTarget=new Object3D(0,0,0);
     this.camHoldWarpPos=true;
-		this.pxlCamFOV=(pxlDevice.mobile?80:60);
+		
+    this.pxlCamFOV=(pxlDevice.mobile?80:60);
 		this.pxlCamZoom=1;
 		this.pxlCamAspect=1;
     this.pxlCamNearClipping = 5;
     this.pxlCamFarClipping = 10000;
 
     // this.fogColor=new Color(.3,.3,.3);
-    this.fogColor=new Color(0,0,0);
+    this.fogColor=new Color(.005,.01,.025);
     this.fogExp=.0007;
     this.fog=new FogExp2( this.fogColor, this.fogExp);
         
@@ -67,9 +76,21 @@ export class VoidEnvironment{
 		this.camera=camera;
 		this.autoCamPaths={};
 		this.scene=scene;
+		this.lightList={}
 		this.geoList={}
-		
+		this.glassGroup=null;
+		this.glassList=[]
+
+		this.voidBaseUniforms={};
 		this.portalList={};
+		this.hoverableExists=false;
+		this.hoverableList=[];
+    this.hoverableObj=null;
+		this.clickableExists=false;
+		this.clickableList=[];
+    this.clickableObj=null;
+    
+    
 		this.collidersExist=false;
 		this.colliderActive=false;
 		this.colliderList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] };
@@ -82,182 +103,70 @@ export class VoidEnvironment{
 		this.warpPortalTexture=null;
 		this.warpZoneRenderTarget=null;
         
-        this.worldPosMaterial=null;
+    this.worldPosMaterial=null;
 		this.worldPosRenderTarget=null;
 		this.spiralizerPass=null;
 		
-        this.bloomPreState=false;
+    this.bloomPreState=false;
         
 		this.cloud3dTexture=null;
 		this.smoothNoiseTexture=null;
         
-        //%=
-        this.currentShader=null;
-        //%
+    //%=
+    this.currentShader=null;
+    //%
 	}
 	init(){
         this.scene.fog=this.fog;
-        this.scene.background = new Color( this.fogColor );//pxlEnv.fogColor;
+        this.scene.background = this.fogColor ;//pxlEnv.fogColor;
         this.smoothNoiseTexture=this.pxlEnv.softNoiseTexture;
+        
     }
-// Run on init room warp; reset room values
-	start(){
-        /*this.spiralizerPass.enabled=true;
-        this.bloomPreState=this.pxlEnv.roomGlowPass.enabled;	
-        this.pxlEnv.roomGlowPass.enabled=false;	*/
-    }
-	
 // Per-Frame Render updates
 	step(){
 		this.runTime.x=this.msRunner.x;
-        
-        // Render world positions for composer
-        //   There must be a better way to get world positions,
-        //     The render pass must have an option for this... Or could be added hHmmMMmmm
-        /*this.scene.overrideMaterial=this.worldPosMaterial;
-        this.pxlEnv.engine.setRenderTarget(this.worldPosRenderTarget);
-        this.pxlEnv.engine.clear();
-        this.pxlEnv.engine.render( this.scene, this.camera );
-        this.scene.overrideMaterial=null;
-        this.pxlEnv.engine.setRenderTarget(null);*/
-        
 	}
-// When leaving the room
-	stop(){
-        //this.spiralizerPass.enabled=false;
-        //this.pxlEnv.roomGlowPass.enabled=this.bloomPreState;
-    }
 	
-// Runs on window resize
-    resize( sW, sH ){
-        /*if(this.worldPosRenderTarget){
-            this.worldPosRenderTarget.setSize( sW, sH );
-        }
-        if(this.spiralizerPass){
-            this.spiralizerPass.setSize( sW, sH );
-        }*/
-    }
 	
-// Warp Zone Portal Texture
-	prepPortalRender(){
-		this.geoList['intro'].visible=false;
-		this.geoList['MainRoomWarp'].visible=false;
-	}
-	cleanupPortalRender(){
-		this.geoList['intro'].visible=true;
-		this.geoList['MainRoomWarp'].visible=true;
-	}
-// Set the Room Warp Portal plane to display the render from the main room
-	setPortalTexture(texture, toRoom=null){
-		this.geoList['MainRoomWarp'].material.map=texture;
-	}
-    
-    applyRoomPass( roomComposer=null ){
-        /*if(roomComposer){
-            this.worldPosMaterial=new ShaderMaterial({
-                uniforms:{
-                    camNear: { type:"f", value: 1 },
-                    camFar: { type:"f", value: 900 } // Measured in the Scene file, 885.61
-                },
-                vertexShader: worldPositionVert(),
-                fragmentShader: worldPositionFrag()
-            });
-            //this.worldPosMaterial.side=DoubleSide;
-            //this.worldPosMaterial.side=FrontSide;
-            
-            this.spiralizerPass = new ShaderPass(
-                new ShaderMaterial( {
-                    uniforms: {
-                        tDiffuse: { value: null },
-                        localPos: { value: this.pxlUtils.loadTexture(this.assetPath+"SpiralizerFadeMap_1k.jpg") },
-                        worldPos: { value: this.worldPosRenderTarget.texture },
-                        noiseTexture: { value: this.pxlEnv.cloud3dTexture },
-                        camMat:{ value:this.camera.matrixWorld },
-                        marker: { value: new Vector3( -619.01, 67.856, 240.177) },
-                        time:{ value:this.msRunner },
-                        screenRes: { value: this.pxlDevice.screenRes },
-                    },
-                    vertexShader: cameraCalcVert(),
-                    fragmentShader: spiralizerPostProcess(),
-                    defines: {}
-                } ), "tDiffuse"
-            );
-            this.spiralizerPass.enabled=false;
-            
-            return this.spiralizerPass;
-        }*/
-    }
-	
-	getArtistInfo(){
-        return null;
-    }
-	
-	// Return Primary Shader Material
-    getShaderList(){
-        let retList={}
-        let objList=Object.keys( this.materialList );
-        objList.forEach( (k)=>{
-            retList[k]=k
-        });
-        return retList;
-    }
-    getCurrentShader(){
-        return this.currentShader || Object.keys( this.materialList )[0];
-    }
-	readShader( objShader="" ){
-        if( this.currentShader!=null && this.materialList[ this.currentShader ].hasOwnProperty('uniforms')){
-            this.materialList[ this.currentShader ].uniforms.sliders.value=new Vector3();
-            this.materialList[ this.currentShader ].needsUpdate=true;
-        }
-        this.currentShader=objShader;
-        
-		return this.materialList[ this.currentShader ];
-	}
-	setShader( unis, vert, frag ){
-		//thisObj.geoList[c.name];
-        //this.worldPosMaterial.vertexShader=vert;
-        //this.worldPosMaterial.needsUpdate=true;
-        
-        
-        this.materialList[ this.currentShader ].vertexShader=vert;
-        this.materialList[ this.currentShader ].fragmentShader=frag;
-        this.materialList[ this.currentShader ].needsUpdate=true;
-        
-	}
 	
     
+    buildDust(){
+      let vertexCount = 1200; // Point Count
+      let pScale = 11;  // Point Base Scale
+
+      let systemName = "floatingDust";
+      let dustSystem = new FloatingDust( this, systemName, 200 );
+
+      // Use a texture from the internal pxlNav asset folder
+      dustSystem.useInternalAsset( "sprite_dustAtlas.png" );
+      
+      // Generate geometry and load texture resources
+      dustSystem.build( vertexCount, pScale );
+
+      this.particleList[systemName] = dustSystem;
+    }
     
     
 	fbxPostLoad(){
-        /*
-        // Since the lights don't exist prior to loading the FBX,  the uniforms must be set here
-        this.voidBaseUniforms = {
-            'baseCd' : { type:'f', value: .1 },
-			'snowNormal' : {type:"t",value: this.pxlUtils.loadTexture( this.assetPath+"snowNormalMap.jpg" ) },
-			//'snowNormal' : {type:"t",value: this.pxlUtils.loadTexture( this.assetPath+"snowNormalWorldMap.jpg" ) },
-            'light0Cd' : { value: this.geoList['lights'][0].color.clone().multiplyScalar( this.geoList['lights'][0].intensity ) },
-            'light0Rot' : { value: new Vector3(0,0,1).applyQuaternion( this.geoList['lights'][0].quaternion ) },
-            'light1Cd' : { value: this.geoList['lights'][1].color.clone().multiplyScalar( this.geoList['lights'][1].intensity ) },
-            'light1Rot' : { value: new Vector3(0,0,1).applyQuaternion( this.geoList['lights'][1].quaternion ) },
-            'fogColor' : { type: "c", value: this.scene.fog.color },
-        };
-		this.materialList[ "VoidBase" ].uniforms=this.voidBaseUniforms;
-        this.geoList['VoidBase'].geometry.computeVertexNormals(true);
-        this.geoList['VoidBase'].geometry.computeTangents();
-        this.geoList['VoidBase'].material.shading = SmoothShading;
-        //this.geoList['VoidBase'].material.fog = true;
-        this.geoList['VoidBase'].material.needsUpdate=true;
-        */
+        //this.buildSnow();
+        this.buildDust();
         
-       /* let bgUniforms={
-			'noiseTexture' : {type:"t",value: this.cloud3dTexture },
-            'rate' : {type:"f", value:1},
-        };
-        let bgObject=this.pxlEnv.buildBackgroundObject(bgUniforms, bgScreenVert(), bgScreenFrag() );
-        bgObject.layers.set(1);
-        this.materialList[ "bgObject" ]=bgObject.material;
-        this.scene.add( bgObject );
-        this.geoList['bgObject']=bgObject;*/
+        var ambientLight = new AmbientLight( 0xf0f0f0 ); // soft white light
+        this.scene.add( ambientLight );
+        
+        // Since the lights don't exist prior to loading the FBX,  the uniforms must be set here
+        this.voidBaseUniforms['light0Cd'].value = this.geoList['lights'][0].color.clone().multiplyScalar( this.geoList['lights'][0].intensity );
+        this.voidBaseUniforms['light0Rot'].value = new Vector3(0,0,1).applyQuaternion( this.geoList['lights'][0].quaternion );
+        this.voidBaseUniforms['light1Cd'].value = this.geoList['lights'][1].color.clone().multiplyScalar( this.geoList['lights'][1].intensity );
+        this.voidBaseUniforms['light1Rot'].value = new Vector3(0,0,1).applyQuaternion( this.geoList['lights'][1].quaternion );
+        
+        this.materialList[ "VoidBase" ].uniforms=this.voidBaseUniforms;
+        this.geoList['VoidBase'].material.needsUpdate=true;
+
+
+        this.setUserHeight( 15 );
+        //this.pxlAutoCam.toggleAutoCam( );
+        this.booted=true;
     }
 	
 // -- -- -- -- -- -- -- -- -- -- -- -- -- //
@@ -265,20 +174,24 @@ export class VoidEnvironment{
 // Build Scene and Assets
 
 	build(){
-		
-        this.voidBaseUniforms = {};
+    
+        this.voidBaseUniforms = {
+          'baseCd' : { type:'f', value: .1 },
+          'snowNormal' : {type:"t",value: null },
+          'light0Cd' : { type: "c", value: new Vector3(1,1,1) },
+          'light0Rot' : { type: "c", value: new Vector3(1,1,1) },
+          'light1Cd' : { type: "c", value: new Vector3(1,1,1) },
+          'light1Rot' : { type: "c", value: new Vector3(1,1,1) },
+          'fogColor' : { type: "c", value: this.scene.fog.color }
+        };
+            
+        this.voidBaseUniforms['snowNormal'].value = this.pxlUtils.loadTexture( this.assetPath+"snowNormalMap.jpg" );
+        //'snowNormal' : {type:"t",value: this.pxlUtils.loadTexture( this.assetPath+"snowNormalWorldMap.jpg" ) },
+        let mat=this.pxlFile.pxlShaderBuilder( this.voidBaseUniforms, voidBaseVert(), voidBaseFrag() );
+        mat.side=FrontSide;
+            
+        this.materialList[ "VoidBase" ]=mat;
         
-		let mat=this.pxlFile.pxlShaderBuilder( {}, voidBaseVert(), voidBaseFrag() );
-		mat.side=FrontSide;
-        
-		this.materialList[ "VoidBase" ]=mat;
-        
-		let voidFbxLoader = this.pxlFile.loadRoomFBX( this );
-		
-	// -- -- -- -- -- -- -- -- -- -- -- -- -- //
-		
-		this.booted=true;
+        let voidFbxLoader = this.pxlFile.loadRoomFBX( this );
 	}
-    
-    
 }
