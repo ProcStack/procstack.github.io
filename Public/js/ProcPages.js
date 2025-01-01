@@ -268,6 +268,7 @@ export class ProcPages {
       let placeholder = document.createElement('div');
       placeholder.innerHTML = "&lt; Click to Play &gt;";
       placeholder.classList.add('lazyLoadPlaceholder');
+      placeholder.style.aspectRatio = lazyWidth+"/"+lazyHeight;
       lazyClass.forEach( (c)=>{ placeholder.classList.add(c); });
       if( lazyThumb ){
         placeholder.style.backgroundImage = "url('"+lazyThumb+"')";

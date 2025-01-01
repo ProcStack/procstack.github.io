@@ -365,12 +365,12 @@
                   <br><br>Outside of that, I'm on'n'off working on <span class="textNudge">Graph Attention Network</span> artificial intelligence.
                   <div class='gitPageAboutMeSpacer'></div>
                   I've been working on a general-purpose neuron that adjusts its own connections during prediction.
-                  <br>I call it a "model-less" ai network, even though the model is just dynamically generated based on input data.
+                  <br>&nbsp;&nbsp; I call it a "model-less" ai network, even though the model is just dynamically generated based on input data.
                   <br>It's the Structure which derives regions of neural activation based on stimuli, like the Butterfly Effect echoing through nature.
-                  <br>Forming a result <span class="textDrinkMeAlice">(prediction)</span> after subsiquent activations, as-though compounding ripples in a pond.
+                  <br>&nbsp;&nbsp; Forming a result <span class="textDrinkMeAlice">(prediction)</span> after subsiquent activations, as-though compounding ripples in a pond.
 
                   <br><br>Rather than a grid of numbers aligning to yield a prediction, it's a data structure which outputs a value due to the neuron connections.
-                  <br>Realistically, the output should be similar to a RNN, but with a different mental structure.
+                  <br>&nbsp;&nbsp; Realistically, the output should be similar to a RNN, but with a different mental structure.
                   
                   <br><br>
                   <div class='gitPageAboutMeInfoStyle'>
@@ -379,16 +379,44 @@
                     <br>But could be used for so much more!
                   </div>
 
-                  <br><span class="innerCenter">So all this new AI stuff has been quite serendipitous for me!</span>
-                  <img src='https://www.pxlmancer.com/show/esnLearning.gif' class='gitPageImageStyle' alt='Frank the Fish on his Pinky Flamingotube!' >
-                  <span class="imageDesc innerCenter">Not a graph network, but an ESN (a RNN variant) I wrote to detect & predict motion.
-                  <br>Upper left are some videos I made, upper right are it's 'levels' of learning R-G-B,
-                  <br>The bottom two are slices of what the brain is seeing, and then predicting.</span>
-
-                  <br><br>There has been some advancements in Graph Neural Networks (GNNs), but not quite what I'm looking for in how the neurons are structured, or that I've seen yet.
-                  <br>Intrinsic learning dang it! That meta-learning to help with the learning of the learning!
+                  <br><span class="innerCenter">So, all this new AI stuff has been quite serendipitous for me!</span>
                   
-                  <br><br>Eh, I'm rambling now...
+                  
+                  <br><br><span class="innerCenter">How about an ESN AI I wrote in the summer of 2024?
+                    <br>An ESN or Echo State Network is a type of Recurrent Neural Network (RNN) which considers time in it's prediction.
+                    <br>It thinks about past events to predict future events.
+                    <div class='gitPageAboutMeSpacer'></div>
+                    Since the brain learns on the fly, why not feed it some videos I made?
+                  </span>
+                  <div ll-src='https://pxlmancer.com/show/esnLearning.gif' ll-thumb='https://pxlmancer.com/show/esnLearning_th.png' ll-width='320' ll-height='320' class='lazyLoad gitPageImageStyle' alt='ESN Horizontal-Vertical Slice'></div>
+                  <span class="innerCenter">Upper left are some videos I made, upper right are it's 'levels' of learning R-G-B,
+                    <br>Where red are known patterns, green are the edges of the patterns, and blue are the "less likely" patterns.
+                    <div class='gitPageAboutMeSpacer'></div>
+                    Then on the bottom are two slices of the patterns the brain thinks its seeing and then predicting.</span>
+                    
+                  <br><br>
+                  <div ll-src='https://pxlmancer.com/show/learningGradients_84_opt.gif' ll-thumb='https://pxlmancer.com/show/learningGradients_84_th.jpg' ll-width='320' ll-height='320' class='lazyLoad gitPageImageStyle' alt='ESN Brain Wrinkling'></div>
+                  <span class="innerCenter">A different slice & settings for the same ESN I wrote.
+                    <div class='gitPageAboutMeSpacer'></div>
+                    Upper left is another video I made the AI is watching, upper right is the brain's prediction,
+                    <br>Lower left is a slice of the brain's learned wrinkles, lower right the brain's prediction.
+                    
+                    <br><br>With a "reservoir" of 15 times steps, you'll notice about every 15 frames the brain shifts.
+                    <br>By frame ~45, it's learned some patterns
+                    <br>The brain seems to then melt and rebuild itself to be predicting by frame ~70. 
+                    
+                    <br><br>It should be happenstance that the brain shifts when the reservoir fills,
+                    <br>Could mean I'm not correctly accounting for high p-values, outliers;
+                    <br>But it's detecting patterns in motion!</span>
+                  </span>
+                  
+                  <br><img src='https://www.pxlmancer.com/show/learningGradients_84_brainSlice.png' class='gitPageImageStyle' alt='Custom ESN Learning Gradients' >
+                  <span class="innerCenter">A slice of the ESN's brain by frame 101 of watching the X pattern video.</span>
+
+                  <br><br>If you couldn't tell by now, I'm training my AIs on my own creations.
+                  <br>A personally made AI trained on personally made images / videos / photos / code / writing training data.
+                  <br>&nbsp;&nbsp; That means I can copyright my generations, right?
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp; If I made every aspect of the AI and training data?
                   <br><br>
                 </div>
                 <div class="gitPageInnerAfter"></div>
@@ -412,7 +440,7 @@
 
     <canvas id="pxlNav-coreCanvas" height='1' width='1' class="pxlNavCoreCanvasStyle" ></canvas>
 
-    <script type="module" src="js/ProckStackGitio.js?v=2024-12-28"></script>
+    <script type="module" src="js/ProckStackGitio.js?v=2024-12-30"></script>
 
 
 </body>
