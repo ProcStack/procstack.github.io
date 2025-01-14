@@ -14,7 +14,7 @@ import {
 } from "../../libs/three/three.module.min.js";
 /*ShaderMaterial*/
 
-import { envGroundVert, envGroundFrag, grassClusterVert, grassClusterFrag } from "./Shaders.js";
+import { envGroundVert, envGroundFrag, grassClusterVert, grassClusterFrag, fishingPondVert, fishingPondFrag } from "./Shaders.js";
 import { RoomEnvironment, pxlShaders, pxlEffects } from "../../pxlNav.js";
 
 const pxlPrincipledVert = pxlShaders.objects.pxlPrincipledVert;
@@ -88,15 +88,6 @@ export class FieldEnvironment extends RoomEnvironment{
 		this.clickableExists=false;
 		this.clickableList=[];
     this.clickableObj=null;
-    
-    
-		this.collidersExist=false;
-		this.colliderActive=false;
-		this.colliderList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] };
-		this.antiColliderActive=false;
-		this.antiColliderList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] };
-		this.antiColliderTopActive=false;
-		this.antiColliderTopList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] };
 		
 		this.roomWarp=[];
 		this.warpPortalTexture=null;
@@ -481,18 +472,42 @@ export class FieldEnvironment extends RoomEnvironment{
         grassMat.transparent = false;
         
             
+        // -- -- --
         
         
+        // -- -- -- -- -- -- -- -- -- --
+        // -- Fishing Pond Material - -- --
+        // -- -- -- -- -- -- -- -- -- -- -- --
+
+
+        let fishinPondUniforms = UniformsUtils.merge(
+            [
+            UniformsLib[ "lights" ],
+            {
+              'noiseTexture' : { type:'t', value: null },
+              'fogColor' : { type: "c", value: this.fogColor },
+            }]
+        )
+        fishinPondUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+
+        let fishinPondMat=this.pxlFile.pxlShaderBuilder( fishinPondUniforms, fishingPondVert(), fishingPondFrag() );
+        fishinPondMat.side = FrontSide;
+        fishinPondMat.lights = true;
+        fishinPondMat.transparent = true;
+
+
+
         // -- -- --
         
         this.materialList[ "EnvGround_geo" ] = environmentGroundMat;
         this.materialList[ "grassClusterA_geo" ] = grassMat;
+        this.materialList[ "fishinPond_geo" ] = fishinPondMat;
         
         
   //
     // -- -- -- 
         
-		let voidFbxLoader = this.pxlFile.loadRoomFBX( this );
+		let fieldFbxLoader = this.pxlFile.loadRoomFBX( this );
 		
 	// -- -- -- -- -- -- -- -- -- -- -- -- -- //
 		

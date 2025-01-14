@@ -105,6 +105,9 @@
 	z-index:150;
 }
 .canvasCrashPromptBackgroundStyle{
+  display: grid;
+  position: absolute;
+  text-align: center;
 	transition: background-color 1s;
 	background-color:rgba(0,0,0,1);
 	position:fixed;
@@ -115,7 +118,7 @@
     display: grid;
     align-items: center;
     justify-items: center;
-	z-index:2;
+	z-index:-1; /* Error console currently out of date, leave behind for now */
 }
 .canvasCrashPromptStyle{
     cursor:default;

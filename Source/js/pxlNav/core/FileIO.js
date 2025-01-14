@@ -23,7 +23,7 @@ import {
 } from "../../libs/three/three.module.min.js";
 import { FBXLoader } from "../../libs/three/FBXLoader.js";
 
-import { COLOR_SHIFT } from "./Enums.js";
+import { COLLIDER_TYPE, COLOR_SHIFT } from "./Enums.js";
 
 export class FileIO{
   constructor( folderDict={}){
@@ -38,6 +38,7 @@ export class FileIO{
     this.pxlAnim=null;
     this.pxlDevice=null;
     this.pxlShaders=null;
+    this.pxlColliders=null;
 
     this.options={};
     
@@ -69,6 +70,7 @@ export class FileIO{
     this.pxlAnim=pxlNav.pxlAnim;
     this.pxlDevice=pxlNav.pxlDevice;
     this.pxlShaders=pxlNav.pxlShaders;
+    this.pxlColliders=pxlNav.pxlColliders;
     this.options=pxlNav.options;
   }
 
@@ -1049,6 +1051,9 @@ export class FileIO{
         
         let colliderGroups=colliderParent.children;
         envObj.collidersExist=colliderGroups.length>0;
+
+        let collisionMinMax = { min:new Vector3(0,0,0), max:new Vector3(0,0,0) };
+
         for(let x=0; x<colliderGroups.length; ++x){
           let pName=colliderGroups[x].name;
 
@@ -1073,6 +1078,7 @@ export class FileIO{
                 envObj.antiColliderTopList[ axisArray ].push(child);
               }else{
                 if( pName == "RoomWarpZone"){
+                  envObj.hasRoomWarp=true;
                   envObj.roomWarp.push(child);
                 }
                 envObj.colliderActive=true;
@@ -1084,7 +1090,23 @@ export class FileIO{
             }
           }
         }
+
+        // -- -- --
+
+        // Parse grid Vertex-Faces for collision detection
+        //   Prep barycentric coordinate dependency values
+        //     Vert-Edge lengths, Edge Dot Products, Vert-Face areas & data
+        if( envObj.hasColliderType( COLLIDER_TYPE.FLOOR ) ){
+          this.pxlColliders.prepColliders( envObj, COLLIDER_TYPE.FLOOR );
+        }else if( envObj.hasColliderType( COLLIDER_TYPE.WALL ) ){
+          this.pxlColliders.prepColliders( envObj, COLLIDER_TYPE.WALL );
+        }else if( envObj.hasColliderType( COLLIDER_TYPE.TOP ) ){
+          this.pxlColliders.prepColliders( envObj, COLLIDER_TYPE.TOP );
+        }else if( envObj.hasColliderType( COLLIDER_TYPE.ROOM ) ){
+          this.pxlColliders.prepColliders( envObj, COLLIDER_TYPE.ROOM );
+        }
       }
+      
       
       // @ Loaded Scene File - Environment Group; 'PortalExit'
       if(groupNames.indexOf('PortalExit')>-1){
@@ -1094,6 +1116,7 @@ export class FileIO{
         while(ch.length>0){
           let c=ch.pop();
           c.matrixAutoUpdate=false;
+          envObj.hasPortalExit=true;
           envObj.portalList[c.name]=c;
         }
       }  

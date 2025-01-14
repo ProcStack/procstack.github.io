@@ -1,7 +1,7 @@
 //
 //  Core pxlNav Engine
-const pxlNavVersion = "0.0.17";
-//      Written by Kevin Edzenga 2020;2024
+const pxlNavVersion = "0.0.18";
+//      Written by Kevin Edzenga 2020;2024-2025
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 // 
@@ -233,6 +233,13 @@ class pxlNav{
 
     this.pxlEnv = new pxlBase.Environment( this.options, this.startingRoom, this.mobile );
     this.pxlDevice = new pxlBase.Device( projectTitle, pxlCore, this.mobile, this.autoCam );
+    
+    // Default Grid Size 50, Collider Bounds as reference 1000.0
+    //  The reference bounds are used to scale down the grid size for smaller bbox colliders,
+    //    Helping with higher poly counts for performance
+    this.pxlColliders = new pxlBase.Colliders( this.verbose, 50, 1000.0 );
+
+
     this.pxlCamera = new pxlBase.Camera();
     // Disable Free-Roam camera mode if static camera is enabled
     if( this.options["staticCamera"] ){
@@ -243,6 +250,8 @@ class pxlNav{
 
     this.pxlGuiDraws = new pxlBase.GUI( this.verbose, projectTitle, this.folderDict["assetRoot"], this.folderDict["guiRoot"] );
     
+    // TODO : These should really be requested via pxlEnv methods, but for now...
+    //          Too many dependencies still to refactor, but it's cleaner than its ever been, so I'll take it!
     this.pxlQuality.setDependencies( this );
     this.pxlUtils.setDependencies( this );
     this.pxlFile.setDependencies( this );
@@ -251,6 +260,7 @@ class pxlNav{
     this.pxlEnv.setDependencies( this );
     this.pxlAnim.setDependencies( this );
     this.pxlDevice.setDependencies( this );
+    this.pxlColliders.setDependencies( this );
     this.pxlCamera.setDependencies( this );
     this.pxlGuiDraws.setDependencies( this );
 

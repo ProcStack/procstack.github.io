@@ -35,6 +35,17 @@ export const SHADOW_MAP = {
   'SOFT' : 2
 }
 
+// Collder internal types
+//  'FLOOR' -> `colliderX` and `colliderZ` attributes from the FBX
+export const COLLIDER_TYPE = {
+  'FLOOR' : 0, // Default ground/floor type collider
+  'WALL' : 1, // Can't walk through, even if there is 'FLOOR' beneath it
+  'TOP' : 2, // The Wall Top; Will be removed in future versions, use 'FLOOR' instead
+  'CEILING' : 3, // Not implemented yet
+  'PORTAL_WARP' : 4, // Warp to another location in the same room
+  'ROOM_WARP' : 5 // Warp to another location in a different room
+}
+
 
 // 'COLOR_SHIFT' is used in Utils.js, inturn used when loading assets through FileIO.js
 //
@@ -80,5 +91,6 @@ export const pxlEnums = {
   'ANTI_ALIASING' : ANTI_ALIASING,
   'SKY_HAZE' : SKY_HAZE,
   'SHADOW_MAP' : SHADOW_MAP,
+  'COLLIDER_TYPE' : COLLIDER_TYPE,
   'COLOR_SHIFT' : COLOR_SHIFT
 }

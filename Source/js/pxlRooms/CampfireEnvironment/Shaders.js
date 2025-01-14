@@ -294,7 +294,7 @@ export function envGroundFrag(){
         vec4 Cd = texture2D(diffuse,vUv) ;
         vec3 dataCd = texture2D(dataDiffuse,vUv).rgb ;
         
-        vec3 pos = vPos*.0001;
+        vec3 pos = vLocalPos*.0001;
         vec2 uv = vUv;
         
         // -- -- --
@@ -306,7 +306,7 @@ export function envGroundFrag(){
         
         //Ease patch noise, dirt / path / woods / grass
         
-        pos = vPos*.03;
+        pos = vLocalPos*.03;
         uv.x = ( pos.x );
         uv.y = ( pos.z ); 
         

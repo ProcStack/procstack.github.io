@@ -12,11 +12,11 @@ import {
   Vector2,
   Vector3,
   Quaternion,
-  Raycaster,
   Object3D,
   Euler
 } from "../../libs/three/three.module.min.js";
 
+import { COLLIDER_TYPE } from "../core/Enums.js";
 
 // TODO : Extend this damn monolith of a chunky boy
 //          Camera, Player Controller, Force Influence / Collision
@@ -91,7 +91,6 @@ export class Camera{
     this.canMove=true;
     this.HDRView=false;
     
-    this.objRaycast=new Raycaster();
     
     // Run updateCamera
     this.camUpdated=true;

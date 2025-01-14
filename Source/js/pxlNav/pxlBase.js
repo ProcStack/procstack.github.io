@@ -10,7 +10,9 @@ import { CookieManager } from './core/CookieManager.js'; // Local Browser Cookie
 import { Timer } from './core/Timer.js'; // Universal Timer; Used in all custom Shaders & real time animations
 import { User } from './core/User.js'; // User Status, Items, and States
 import { Device } from './core/Device.js'; // User's Machine / Device Dependencies
+import { Colliders } from './core/Colliders.js'; // Collision Detection and Management
 import { Animation } from './core/Animation.js'; // Rigging and skeletal animations mostly
+
 
 // Primary drawing and run time class
 import { Environment } from './Environment.js';
@@ -39,6 +41,6 @@ import { Video } from './media/Video.js';
 export const pxlBase = { 
   Utils, FileIO, QualityController, 
   CookieManager, Timer, User, Device, 
-  Animation, Environment, GUI, Camera, 
-  AutoCamera, Extensions, MusicUtils, 
-  Audio, Video};
+  Colliders, Animation, Environment, GUI, 
+  Camera, AutoCamera, Extensions, 
+  MusicUtils, Audio, Video };

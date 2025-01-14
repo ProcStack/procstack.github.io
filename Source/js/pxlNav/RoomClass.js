@@ -32,6 +32,8 @@ import {
 } from "../libs/three/three.module.min.js";
 import { pxlPrincipledVert, pxlPrincipledFrag } from "./shaders/objects/PxlPrincipled.js";
 
+import { COLLIDER_TYPE } from "./core/Enums.js";
+
 class RoomEnvironment{
   constructor( roomName='CampfireEnvironment', assetPath=null, pxlFile=null, pxlAnim=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
     this.roomName=roomName;
@@ -103,7 +105,6 @@ class RoomEnvironment{
     this.glassList=[]
     this.particleList={};
     
-    this.portalList={};
 
     this.enableRaycast = false;
     this.hoverableExists=false;
@@ -116,12 +117,17 @@ class RoomEnvironment{
     
     this.collidersExist=false;
     this.colliderActive=false;
+    this.colliderHashMap={};
     this.colliderList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] };
     this.antiColliderActive=false;
     this.antiColliderList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] };
     this.antiColliderTopActive=false;
     this.antiColliderTopList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] };
     
+    this.hasPortalExit=false;
+    this.portalList={};
+
+    this.hasRoomWarp=false;
     this.roomWarp=[];
     this.warpPortalTexture=null;
     this.warpZoneRenderTarget=null;
@@ -255,6 +261,10 @@ class RoomEnvironment{
     }*/
   }
   
+  getName(){
+    return this.roomName;
+  }
+
   getArtistInfo(){
     return null;
   }
@@ -338,6 +348,119 @@ class RoomEnvironment{
     }
 
     this.mouseRayHits=rayHits;
+  }
+
+  // -- -- --
+
+  hasColliders(){
+    return this.collidersExist
+  }
+
+  hasColliderType( colliderType=COLLIDER_TYPE.FLOOR ){
+    let hasCollidersOfType = false;
+    if( !this.hasColliders() ){
+      return hasCollidersOfType;
+    }
+
+    switch( colliderType ){
+      case COLLIDER_TYPE.FLOOR:
+        hasCollidersOfType = this.colliderActive;
+        break;
+      case COLLIDER_TYPE.WALL:
+        hasCollidersOfType = this.colliderActive;
+        break;
+      case COLLIDER_TYPE.TOP:
+        hasCollidersOfType = this.antiColliderTopActive;
+        break;
+      case COLLIDER_TYPE.CEILING:
+        // Not implemented yet
+        break;
+      case COLLIDER_TYPE.PORTAL_WARP:
+        hasCollidersOfType = this.hasPortalExit;
+        break;
+      case COLLIDER_TYPE.ROOM_WARP:
+        hasCollidersOfType = this.hasRoomWarp;
+        break;
+      case COLLIDER_TYPE.ITEM:
+        // Not implemented yet
+        break;
+      case COLLIDER_TYPE.SCRIPTED:
+        // Not implemented yet
+        break;
+    }
+
+    return hasCollidersOfType;
+  }
+
+  // -- -- --
+
+  getColliders( colliderType=COLLIDER_TYPE.FLOOR ){
+    let forHashing = [];
+    if( !this.hasColliders() ){
+      return forHashing;
+    }
+
+    // Kick out if the collider type is not active
+    //  ( No colliders of the given type exist )
+    if( colliderType == COLLIDER_TYPE.WALL && !this.antiColliderActive ){
+      return forHashing;
+    }else if( colliderType == COLLIDER_TYPE.TOP && !this.antiColliderTopActive ){
+      return forHashing;
+    }else if( colliderType == COLLIDER_TYPE.ROOM_WARP && !this.hasRoomWarp ){
+      return forHashing;
+    }else if( colliderType == COLLIDER_TYPE.PORTAL_WARP && !this.hasPortalExit ){
+      return forHashing;
+    }
+    
+    switch( colliderType ){
+      case COLLIDER_TYPE.FLOOR:
+        forHashing = [ 
+          ...this.colliderList['noAxis'],
+          ...this.colliderList['11'],
+          ...this.colliderList['01'],
+          ...this.colliderList['10'],
+          ...this.colliderList['00']
+        ];
+        break;
+      case COLLIDER_TYPE.WALL:
+        forHashing = [ 
+          ...this.colliderList['noAxis'],
+          ...this.colliderList['11'],
+          ...this.colliderList['01'],
+          ...this.colliderList['10'],
+          ...this.colliderList['00']
+        ];
+        break;
+      case COLLIDER_TYPE.TOP:
+        forHashing = [ 
+          ...this.antiColliderTopList['noAxis'],
+          ...this.antiColliderTopList['11'],
+          ...this.antiColliderTopList['01'],
+          ...this.antiColliderTopList['10'],
+          ...this.antiColliderTopList['00']
+        ];
+        break;
+      case COLLIDER_TYPE.CEILING:
+        // Not implemented yet
+        break;
+      case COLLIDER_TYPE.PORTAL_WARP:
+        forHashing = this.portalList;
+        break;
+      case COLLIDER_TYPE.ROOM_WARP:
+        forHashing = this.roomWarp;
+        break;
+      case COLLIDER_TYPE.ITEM:
+        // Not implemented yet
+        break;
+      case COLLIDER_TYPE.SCRIPTED:
+        // Not implemented yet
+        break;
+      default:
+        break;
+    }
+
+    //forHashing = this.colliderHashMap;
+    return forHashing;
   }
     
   toCameraPos( positionName ){

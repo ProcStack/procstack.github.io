@@ -329,49 +329,16 @@ export class Environment{
 
     //this.buildSnow();
     
-    /*
-    // Prevent Web Camera from booting 
-    if( this.pxlDevice.mobile || this.pxlAutoCam.enabled){
-        this.pxlAutoCam.toggleAutoCam();
-        this.fogMult.x = 1;
-        if( ! this.pxlAutoCam.enabled ){
-            this.pxlGuiDraws.toggleMobileWelcome(true);
-        }else{
-            this.postIntro=true;
-            this.pxlCamera.colliderValid=true;
-            this.pxlCamera.eventCheckStatus=true;
-            this.pxlCamera.colliderShiftActive=true;
-            this.pxlCamera.nearestFloorObjName="mobile";
-            this.pxlCamera.colliderCurObjHit="AudioTrigger_2";
-            this.pxlCamera.proximityScaleTrigger=true;
-            this.exposureShiftActive=true;
-            this.pxlAudio.setFadeActive( 1 );
-        }
-    }else{
-        this.pxlGuiDraws.iconEvent( "click", this.pxlGuiDraws.hudIcons.helpIcon, "help" );
-    }
-    */
-    
-    /*
-    // Prevent audio and video booting
-    setTimeout( ()=>{
-        this.pxlAudio.postBoot();
-        
-        if( this.pxlDevice.mobile ){
-          this.pxlAudio.djPlayerMuteToggle(true);
-        }
-        
-        if(this.pxlVideo){
-          this.pxlVideo.postBoot('dj');
-        }
-        
-    }, 1000);
-    */
   }
     
   postHelpIntro(){
+    // If the device is a computer, without autocam, send player details to the server
+    //   TODO : This will need to be accessible from the room object and set-up networking as an extention
     if( !this.pxlDevice.mobile && !this.pxlAutoCam.enabled ){
       this.pxlCamera.jogServerMemory();
+    
+    // If the device is a mobile, or autocam is enabled,
+    //   Trigger a valid collider to allow the camera to be placed.
     }else{
       this.pxlCamera.colliderValid=true;
       this.pxlCamera.eventCheckStatus=true;
@@ -381,6 +348,7 @@ export class Environment{
       this.pxlCamera.proximityScaleTrigger=true;
       this.exposureShiftActive=true;
       
+      // TODO : Media (audio, video, music) needs to be an setting on the pxlOptions object
       if( !this.pxlDevice.mobile ){
         this.pxlAudio.play();
         setTimeout( ()=>{
@@ -728,57 +696,6 @@ export class Environment{
       return textureRead;
     }
     
-    
-    buildSnow(){
-        //sprite = ImageUtils.loadTexture( "textures/sprites/disc.png" );
-
-    let vertexCount = 12000; // Point Count
-        let pScale = 12;  // Point Base Scale
-
-    let geo = new BufferGeometry();
-    let verts = [];
-    let seeds = [];
-    let atlasId = [];
-
-        const atlasGen=()=>{ return Math.floor( (Math.random() * 4000) % 4 )*.25; };
-
-    for( let x=0; x<vertexCount; ++x ){
-            verts.push( 0,0,0 );
-      seeds.push( (Math.random()),(Math.random()),(Math.random()*2-1), (Math.random()*.5+.5) );
-      atlasId.push( atlasGen(), atlasGen() );
-    }
-
-    let posAttribute = new Float32BufferAttribute( verts, 3 );
-    let seedAttribute = new Float32BufferAttribute( seeds, 4 );
-    let atlasAttribute = new Float32BufferAttribute( atlasId, 2 );
-    //let idAttribute = new Uint8BufferAttribute( pId, 1 ); // ## would only be 0-65536; set up vector array for ids
-    geo.setAttribute( 'position', posAttribute );
-    geo.setAttribute( 'seeds', seedAttribute );
-    geo.setAttribute( 'atlas', atlasAttribute );
-    //geo.setAttribute( 'id', idAttribute );
-        
-        let snowUniforms={
-      snowTexture:{type:"t",value: this.pxlUtils.loadTexture( this.pxlUtils.assetRoot+"snow.jpg", 1, {"encoding":LinearSRGBColorSpace, "magFilter":NearestFilter, "minFilter":NearestMipmapNearestFilter} ) },
-      pointScale:{type:"f",value: pScale*this.pxlQuality.screenResPerc },
-      intensity:{type:"f",value:1.0},
-      rate:{type:"f",value:.035},
-    };
-    console.log(this.pxlShaders.particles)
-        let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, this.pxlShaders.particles.snowVert( this.mobile ), this.pxlShaders.particles.snowFrag() );
-    mtl.side=DoubleSide;
-        mtl.transparent=true;
-        mtl.blending=AdditiveBlending;
-        mtl.depthTest=true;
-        mtl.depthWrite=false;
-
-        let snow = new Points( geo, mtl );
-        snow.sortParticles = false;
-        snow.frustumCulled = false;
-        this.scene.add( snow );
-        snow.layers.set(1);
-        snow.pBaseScale=pScale;
-        this.geoList['snow']=snow;
-    }
     
     // A screen filled plane to render outside of effect composer passes
     buildBackgroundObject( customUniforms={}, bgVert=null, bgFrag=null){

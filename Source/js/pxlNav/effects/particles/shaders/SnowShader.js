@@ -1,6 +1,6 @@
 // pxlNav Shader
 //  -- -- -- --
-// Written by Kevin Edzenga; 2020; 2024
+// Written by Kevin Edzenga; 2020; 2024-2025
 
 import {shaderHeader} from "../../../shaders/core/ShaderHeader.js";
  
@@ -8,7 +8,7 @@ import {shaderHeader} from "../../../shaders/core/ShaderHeader.js";
 // Snow Shaders                                         //
 /////////////////////////////////////////////////////////
 
-export function snowVert( mobile=false ){
+export function snowFallVert( mobile=false ){
     let colCalcs=!mobile;
   let ret=shaderHeader();
   ret+=`
@@ -204,7 +204,7 @@ export function snowVert( mobile=false ){
 
 */
 
-export function snowFrag(){
+export function snowFallFrag(){
   let ret=shaderHeader();
   ret+=`
     uniform sampler2D snowTexture;

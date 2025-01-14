@@ -197,7 +197,7 @@ export default class ParticleBase{
       rate:{type:"f",value:0.035},
       lightPos:{value:lightPosArr},
     };
-        //let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, snowVert( true ), snowFrag() );
+        //let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, snowFallVert( true ), snowFallFrag() );
     let mtl = this.room.pxlFile.pxlShaderBuilder( dustUniforms, dustVert( lightPosArr.length ), dustFrag() );
     mtl.side=DoubleSide;
     mtl.transparent=true;

@@ -38,7 +38,7 @@ export class EmberWisps extends ParticleBase{
       intensity:{type:"f",value:1.0},
       rate:{type:"f",value:5.5}
     };
-        //let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, snowVert( true ), snowFrag() );
+        //let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, snowFallVert( true ), snowFallFrag() );
     let mtl = this.room.pxlFile.pxlShaderBuilder( dustUniforms, emberWispsVert(), emberWispsFrag() );
     mtl.side=DoubleSide;
     mtl.transparent=true;
