@@ -150,6 +150,14 @@ export class Utils{
 
   // -- -- -- //
 
+  screenToNDC( x, y, width, height ){
+    let ndcX = ( x / width ) * 2 - 1;
+    let ndcY = - ( y / height ) * 2 + 1;
+    return new Vector2( ndcX, ndcY );
+  }
+  
+  // -- -- -- //
+
   componentToHex(c) {
     var hex = c.toString(16);
     return hex.padStart(2,'0');

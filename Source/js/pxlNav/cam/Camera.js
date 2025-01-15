@@ -937,7 +937,7 @@ export class Camera{
       let castPos=curCamPos.clone();//.add(new Vector3(0,100,0));
       let castHeight=1500;
       castPos.y=castHeight;
-      this.objRaycast.set(castPos, castDir );
+      
       let resetKeyDown=false;
       var rayHits=[];
       
@@ -993,17 +993,16 @@ export class Camera{
                   this.objectJumpLock=true;
               }
               
-                  pullBack=this.cameraPos.clone();
-                  pullBack.y=Math.min(curCamPos.y,pullBack.y);//+this.cameraJumpVelocity;
-                  curCamPos=pullBack;
-                  curCollisionPos=curCamPos;
-                  if(this.gravityActive){
-                      curCollisionPos.y=this.nearestFloorHitPrev.y;
-                  }else{
-                      curCollisionPos.y=this.cameraPos.y;
-                  }
+              pullBack=this.cameraPos.clone();
+              pullBack.y=Math.min(curCamPos.y,pullBack.y);//+this.cameraJumpVelocity;
+              curCamPos=pullBack;
+              curCollisionPos=curCamPos;
+              if(this.gravityActive){
+                  curCollisionPos.y=this.nearestFloorHitPrev.y;
+              }else{
+                  curCollisionPos.y=this.cameraPos.y;
+              }
                   
-              
               this.cameraJumpActive=false;
               this.cameraAllowJump=true;
               this.cameraJumpInAir=false;

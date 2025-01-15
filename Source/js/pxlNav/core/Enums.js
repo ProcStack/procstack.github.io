@@ -40,10 +40,14 @@ export const SHADOW_MAP = {
 export const COLLIDER_TYPE = {
   'FLOOR' : 0, // Default ground/floor type collider
   'WALL' : 1, // Can't walk through, even if there is 'FLOOR' beneath it
-  'TOP' : 2, // The Wall Top; Will be removed in future versions, use 'FLOOR' instead
+  'WALL_TOP' : 2, // The Wall Top; Will be removed in future versions, use 'FLOOR' instead
   'CEILING' : 3, // Not implemented yet
   'PORTAL_WARP' : 4, // Warp to another location in the same room
-  'ROOM_WARP' : 5 // Warp to another location in a different room
+  'ROOM_WARP' : 5, // Warp to another location in a different room
+  'ITEM' : 6, // Callback to item list managed by pxlNav & from Room FBX
+  'SCRIPTED' : 7, // Callback to current room on collision
+  'HOVERABLE' : 8, // Mouse hoverable, but not clickable
+  'CLICKABLE' : 9 // Mouse clickable
 }
 
 

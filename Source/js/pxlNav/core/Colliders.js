@@ -19,7 +19,6 @@ export class Colliders{
     this.delimiter = ',';
 
     this.roomColliderData = {};
-    this.collisionObjects = [];
 
     this.baseGridSize = hashGridSizing;
 
@@ -27,6 +26,7 @@ export class Colliders{
     //   This will generate potentially 20x20 grid locations
     //     This should be enough to mitigate higher poly count colliders
     this.colliderBoundsReference = colliderBoundsReference;
+
   }
   setDependencies( pxlEnv ){
     this.pxlEnv = pxlEnv;
@@ -53,15 +53,26 @@ export class Colliders{
         gridSize = this.baseGridSize;
       }
 
+      // If the user runs `prepColliders` on Hover or Clickable objects,
+      //   It's assumed the user meant to run `prepInteractables`
+      // `prepColliders` is ran internally, but can be called externally
+      if( colliderType == COLLIDER_TYPE.HOVERABLE || colliderType == COLLIDER_TYPE.CLICKABLE ){
+        this.prepInteractables( pxlRoomObj, colliderType );
+        return;
+      }
+
       let roomName = pxlRoomObj.getName();
       let collidersForHashing = pxlRoomObj.getColliders( colliderType );
-      this.collisionObjects[ roomName ] = collidersForHashing;
       // 
-      this.roomColliderData[ roomName ] = {};
-      this.roomColliderData[ roomName ][ colliderType ] = {};
-      this.roomColliderData[ roomName ][ colliderType ][ 'gridSize' ] = gridSize;
-      this.roomColliderData[ roomName ][ colliderType ][ 'faceVerts' ] = {};
-      this.roomColliderData[ roomName ][ colliderType ][ 'faceGridGroup' ] = {};
+      if( !this.roomColliderData.hasOwnProperty( roomName ) ){
+        this.roomColliderData[ roomName ] = {};
+      }
+      if( !this.roomColliderData[ roomName ].hasOwnProperty( colliderType ) ){
+        this.roomColliderData[ roomName ][ colliderType ] = {};
+        this.roomColliderData[ roomName ][ colliderType ][ 'gridSize' ] = gridSize;
+        this.roomColliderData[ roomName ][ colliderType ][ 'faceVerts' ] = {};
+        this.roomColliderData[ roomName ][ colliderType ][ 'faceGridGroup' ] = {};
+      }
 
       // Agregate vertex locations and find min/max for collider bounds
       let vertexLocations = [];
@@ -107,64 +118,116 @@ export class Colliders{
 
         //Gather occupied grid locations
         for( let x = 0; x < colliderFaceCount; ++x ){
-          let v1 = new Vector3( colliderFaceVerts[ x * 3 ], colliderFaceVerts[ (x * 3) + 1 ], colliderFaceVerts[ (x * 3) + 2 ] );
-          let v2 = new Vector3( colliderFaceVerts[ (x * 3) + 3 ], colliderFaceVerts[ (x * 3) + 4 ], colliderFaceVerts[ (x * 3) + 5 ] );
-          let v3 = new Vector3( colliderFaceVerts[ (x * 3) + 6 ], colliderFaceVerts[ (x * 3) + 7 ], colliderFaceVerts[ (x * 3) + 8 ] );
+          // Get face-vertex positions
+          //   [ [...], x1,y1,z1, x2,y2,z2, x3,y3,z3, [...] ] -> Vector3( x1, y1, z1 )
+          let v0 = new Vector3( colliderFaceVerts[ x * 3 ], colliderFaceVerts[ (x * 3) + 1 ], colliderFaceVerts[ (x * 3) + 2 ] );
+          let v1 = new Vector3( colliderFaceVerts[ (x * 3) + 3 ], colliderFaceVerts[ (x * 3) + 4 ], colliderFaceVerts[ (x * 3) + 5 ] );
+          let v2 = new Vector3( colliderFaceVerts[ (x * 3) + 6 ], colliderFaceVerts[ (x * 3) + 7 ], colliderFaceVerts[ (x * 3) + 8 ] );
 
-          let minX = Math.min(v1.x, v2.x, v3.x);
-          let maxX = Math.max(v1.x, v2.x, v3.x);
-          let minZ = Math.min(v1.z, v2.z, v3.z);
-          let maxZ = Math.max(v1.z, v2.z, v3.z);
+          // Find bounding box for the triangle
+          let minX = Math.min(v0.x, v1.x, v2.x);
+          let maxX = Math.max(v0.x, v1.x, v2.x);
+          let minZ = Math.min(v0.z, v1.z, v2.z);
+          let maxZ = Math.max(v0.z, v1.z, v2.z);
 
+          // Find the grid spances of the bounding box
           let minGridX = Math.floor(minX * gridSizeInv);
           let maxGridX = Math.floor(maxX * gridSizeInv);
           let minGridZ = Math.floor(minZ * gridSizeInv);
           let maxGridZ = Math.floor(maxZ * gridSizeInv);
 
-          // Check if the grid center is within the triangle using barycentric coordinates
+          // -- -- --
+
+          // Gather the core math required for every ray cast
+          //   The below is stored to reduce runtime calculation latency
+
+          // Edge vectors
+          let edge0 = v1.clone().sub(v0);
+          let edge1 = v2.clone().sub(v0);
+
+          // Vertex-Edge relationships
+          let dotE0E0 = edge0.dot(edge0);
+          let dotE0E1 = edge0.dot(edge1);
+          let dotE1E1 = edge1.dot(edge1);
+
+          // Calculate tiangle area ratio
+          let areaInv = 1 / (dotE0E0 * dotE1E1 - dotE0E1 * dotE0E1);
+
+          // Face-Vertex data for grid location association
+          let curColliderName = collider.name != "" ? collider.name : "collider_" + colliderBaseName;
+          let faceKey = this.getGridKey(curColliderName,"_face_", this.flattenVector3( v0 ), this.flattenVector3( v1 ), this.flattenVector3( v2 ) );
+          let faceVerts = {
+              "name" : collider.name,
+              "key" : faceKey,
+              "verts" : [ v0, v1, v2 ],
+              "edge0" : edge0,
+              "edge1" : edge1,
+              "dotE0E0" : dotE0E0,
+              "dotE0E1" : dotE0E1,
+              "dotE1E1" : dotE1E1,
+              "areaInv" : areaInv
+            };
+          this.roomColliderData[roomName][ colliderType ]['faceVerts'][faceKey] = faceVerts;
+
+          // -- -- --
+
+          // Triangle is self contained within 1 grid location
+          if( minGridX == maxGridX && minGridZ == maxGridZ ){
+            this.addFaceToGridLocation( roomName, colliderType, minGridX, minGridZ, faceKey );
+            continue;
+          }
+
+          // -- -- --
+
+          // Only used for edge-grid intersection detection
+          let edge3 = v2.clone().sub(v1);
+
+          // -- -- --
+
+          // Should no triangles be self contained within a grid location,
+          //   Check if any triangle edges clip the grid location,
+          //     If not, check if each grid center is within the triangle using barycentric coordinates
+
           for (let gx = minGridX; gx <= maxGridX; ++gx) {
             for (let gz = minGridZ; gz <= maxGridZ; ++gz) {
-              let gridCenter = new Vector3((gx + 0.5) * gridSize, 0, (gz + 0.5) * gridSize);
 
-              // Edge vectors
-              let edge0 = v2.clone().sub(v1);
-              let edge1 = v3.clone().sub(v1);
-              let origEdge = gridCenter.clone().sub(v1);
+              let gridXMin = gx * gridSize;
+              let gridXMax = (gx + 1) * gridSize;
+              let gridZMin = gz * gridSize;
+              let gridZMax = (gz + 1) * gridSize;
+              // Check if any triangle edges intersect the grid location
+              let checkEdgeIntersections = 
+                  this.isGridEdgeIntersecting( v0, edge0, gridXMin, gridXMax, gridZMin, gridZMax ) ||
+                  this.isGridEdgeIntersecting( v0, edge1, gridXMin, gridXMax, gridZMin, gridZMax ) ||
+                  this.isGridEdgeIntersecting( v1, edge3, gridXMin, gridXMax, gridZMin, gridZMax ) ;
+
+
+              if( checkEdgeIntersections ){
+                this.addFaceToGridLocation( roomName, colliderType, minGridX, minGridZ, faceKey );
+                continue;
+              }
+
+              // -- -- --
+
+              // Triangle is larger than the grid location and no edges intersect grid edges
+              //   Fallback to grid center barcentric check
+
+              let gridCenter = new Vector3((gx + 0.5) * gridSize, 0, (gz + 0.5) * gridSize);
+              
+              // Origin-Edge relationships
+              let origEdge = gridCenter.clone().sub(v0);
 
               // Vertex-Edge relationships
-              let dotE0E0 = edge0.dot(edge0);
-              let dotE0E1 = edge0.dot(edge1);
               let dotE0EOrig = edge0.dot(origEdge);
-              let dotE1E1 = edge1.dot(edge1);
               let dotE1EOrig = edge1.dot(origEdge);
 
-              // Calculate tiangle area and barycentric coordinates
-              let areaInv = 1 / (dotE0E0 * dotE1E1 - dotE0E1 * dotE0E1);
+              // Calculate barycentric coordinates
               let u = (dotE1E1 * dotE0EOrig - dotE0E1 * dotE1EOrig) * areaInv;
               let v = (dotE0E0 * dotE1EOrig - dotE0E1 * dotE0EOrig) * areaInv;
 
+              // Grid center collided with given triangle
               if (u >= 0 && v >= 0 && (u + v) < 1) {
-
-                let gridKey = this.getGridKey(gx, gz);
-
-                if (!this.roomColliderData[roomName][ colliderType ]['faceGridGroup'][gridKey]) {
-                  this.roomColliderData[roomName][ colliderType ]['faceGridGroup'][gridKey] = [];
-                }
-
-                let curColliderName = "collider_" + colliderBaseName;
-                let faceKey = this.getGridKey(curColliderName,"_face_", this.flattenVector3( v1 ), this.flattenVector3( v2 ), this.flattenVector3( v3 ) );
-                let faceVerts = {
-                    "key" : faceKey,
-                    "verts" : [ v1, v2, v3 ],
-                    "edge0" : edge0,
-                    "edge1" : edge1,
-                    "dotE0E0" : dotE0E0,
-                    "dotE0E1" : dotE0E1,
-                    "dotE1E1" : dotE1E1,
-                    "areaInv" : areaInv
-                  };
-                this.roomColliderData[roomName][ colliderType ]['faceVerts'][faceKey] = faceVerts;
-                this.roomColliderData[roomName][ colliderType ]['faceGridGroup'][gridKey].push( faceKey );
+                this.addFaceToGridLocation( roomName, colliderType, gx, gz, faceKey );
               }
             }
           }
@@ -181,12 +244,118 @@ export class Colliders{
         this.roomColliderData[ roomName ][ colliderType ][ 'faceGridGroup' ][ faceGridGroupKeys[x] ] = [ ...new Set( curEntry ) ]; // Python has ruined me, `list( set( [...] ) )`
       }
 
-      console.log( this.roomColliderData[roomName][ colliderType ]['faceGridGroup'] );
+      this.log( this.roomColliderData[roomName][ colliderType ]['faceGridGroup'] );
     }else{
-      console.log( "No colliders found for room: " + pxlRoomObj.getName() );
+      this.log( "No colliders found for room: " + pxlRoomObj.getName() );
     }
   }
   
+  // -- -- --
+
+  // Parse vert locations, calculate barcentric coordinates, and build roomColliderData dictionary
+  //   No need for grid sampling, as the likely-hood of an interactable being in the same/neighboring grid location is low
+  prepInteractables( pxlRoomObj, colliderType=COLLIDER_TYPE.HOVERABLE ){
+
+    if( !pxlRoomObj.hasColliderType( colliderType ) ) return;
+
+    let roomName = pxlRoomObj.getName();
+    let curInteractables = pxlRoomObj.getColliders( colliderType );
+
+    if( curInteractables.length == 0 ) return; // No interactables found, user may have removed objects from the scene during runtime
+
+    // Build interactable collider base data
+    if( !this.roomColliderData.hasOwnProperty( roomName ) ){
+      this.roomColliderData[ roomName ] = {};
+    }
+
+    // -- -- --
+
+    let colliderBaseName = -1;
+    curInteractables.forEach( (collider)=>{
+      colliderBaseName++;
+      let colliderFaceVerts = collider.geometry.attributes.position.array;
+      let colliderFaceCount = colliderFaceVerts.length / 3;
+
+      let curInteractableName = collider.name ;// != "" ? collider.name : "Interactable_" + colliderBaseName;
+
+      // Logic change from `prepColliders`, as interactables may be hover AND clickable
+      //   By-pass the colliderType specification
+      // If the interactable is already in the roomColliderData, skip it
+      if( this.roomColliderData[ roomName ].hasOwnProperty( curInteractableName ) ){
+        return; // the forEach `continue`
+      }
+
+      // Gather interactable collider data
+      this.roomColliderData[ roomName ][ curInteractableName ] = {};
+      this.roomColliderData[ roomName ][ curInteractableName ][ 'hoverable' ] = colliderType == COLLIDER_TYPE.HOVERABLE;
+      this.roomColliderData[ roomName ][ curInteractableName ][ 'clickable' ] = colliderType == COLLIDER_TYPE.CLICKABLE;
+      this.roomColliderData[ roomName ][ curInteractableName ][ 'gridSize' ] = this.baseGridSize; // Unused; it's for parity with other collider types
+      this.roomColliderData[ roomName ][ curInteractableName ][ 'faceVerts' ] = {};
+      this.roomColliderData[ roomName ][ curInteractableName ][ 'faceGridGroup' ] = {};
+
+      // Gather Face-Vertex data for interactable collider and barcentric coordinates
+      for( let x = 0; x < colliderFaceCount; ++x ){
+        // Get Face-Vertex positions
+        //   [ [...], x1,y1,z1, x2,y2,z2, x3,y3,z3, [...] ] -> Vector3( x1, y1, z1 )
+        let v0 = new Vector3( colliderFaceVerts[ x * 3 ], colliderFaceVerts[ (x * 3) + 1 ], colliderFaceVerts[ (x * 3) + 2 ] );
+        let v1 = new Vector3( colliderFaceVerts[ (x * 3) + 3 ], colliderFaceVerts[ (x * 3) + 4 ], colliderFaceVerts[ (x * 3) + 5 ] );
+        let v2 = new Vector3( colliderFaceVerts[ (x * 3) + 6 ], colliderFaceVerts[ (x * 3) + 7 ], colliderFaceVerts[ (x * 3) + 8 ] );
+
+        // -- -- --
+
+        // Edge vectors
+        let edge0 = v1.clone().sub(v0);
+        let edge1 = v2.clone().sub(v0);
+        let normal = edge0.clone().cross(edge1).normalize();
+
+        // Vertex-Edge relationships
+        let dotE0E0 = edge0.dot(edge0);
+        let dotE0E1 = edge0.dot(edge1);
+        let dotE1E1 = edge1.dot(edge1);
+
+        // Calculate tiangle area ratio
+        let areaInv = 1 / (dotE0E0 * dotE1E1 - dotE0E1 * dotE0E1);
+
+        // -- -- --
+
+        // Face-Vertex data for grid location association
+        let faceKey = this.getGridKey(curInteractableName,"_face_", this.flattenVector3( v0 ), this.flattenVector3( v1 ), this.flattenVector3( v2 ) );
+        let faceVerts = {
+            "key" : faceKey,
+            "verts" : [ v0, v1, v2 ],
+            "edge0" : edge0,
+            "edge1" : edge1,
+            "normal" : normal
+          };
+        this.roomColliderData[roomName][ curInteractableName ]['faceVerts'][faceKey] = faceVerts;
+      }
+    });
+  }
+
+
+  // -- -- --
+
+  // Check if line segment intersects 2d grid edge
+  //   Used for triangle edge -> grid boundary intersection detection
+  isGridEdgeIntersecting( edgeStart, edgeSegment, gridXMin, gridXMax, gridZMin, gridZMax ){
+        // Line segment parameters
+        let dx = edgeSegment.x;
+        let dz = edgeSegment.z;
+        
+        // Calculate intersection parameters for each grid boundary
+        let txMin = dx !== 0 ? (gridXMin - edgeStart.x) / dx : Infinity;
+        let txMax = dx !== 0 ? (gridXMax - edgeStart.x) / dx : -Infinity;
+        let tzMin = dz !== 0 ? (gridZMin - edgeStart.z) / dz : Infinity;
+        let tzMax = dz !== 0 ? (gridZMax - edgeStart.z) / dz : -Infinity;
+        
+        // Find intersection interval
+        let tMin = Math.max(Math.min(txMin, txMax), Math.min(tzMin, tzMax));
+        let tMax = Math.min(Math.max(txMin, txMax), Math.max(tzMin, tzMax));
+        
+        // Line intersects if tMax >= tMin and intersection occurs within segment (0 <= t <= 1)
+        return tMax >= tMin && tMax >= 0 && tMin <= 1;
+  }
+
   // -- -- --
 
   // Simple key generation
@@ -202,6 +371,22 @@ export class Colliders{
   // Round to nearest
   roundToNearest( val, nearest=.001 ){
     return Math.round( val / nearest ) * nearest;
+  }
+
+  // -- -- --
+
+  // Add face to grid location by its `facekey`
+  addFaceToGridLocation( roomName, colliderType, gridX, gridZ, faceKey ){
+    // All your keys are belong to us!
+    let gridKey = this.getGridKey(gridX, gridZ);
+
+    // Add an empty array should it not exist
+    if (!this.roomColliderData[roomName][ colliderType ]['faceGridGroup'][gridKey]) {
+      this.roomColliderData[roomName][ colliderType ]['faceGridGroup'][gridKey] = [];
+    }
+
+    // Map of grid locations to [ ..., face keys, ... ]
+    this.roomColliderData[roomName][ colliderType ]['faceGridGroup'][gridKey].push( faceKey );
   }
 
   // -- -- --
@@ -247,6 +432,8 @@ export class Colliders{
       return null;
     }
 
+    // Python really has ruined me for removing dupelicates, list( set( [...] ) )
+    //   But works!
     faceIds = [...new Set( faceIds )];
 
     let retPositions = {};
@@ -256,8 +443,6 @@ export class Colliders{
       // Face-Vertex data
       let faceVerts = roomData[ 'faceVerts' ][ faceIds[x] ];
       let v1 = faceVerts[ 'verts' ][0];
-      let v2 = faceVerts[ 'verts' ][1];
-      let v3 = faceVerts[ 'verts' ][2];
 
       // Get edge vectors
       let edge0 = faceVerts[ 'edge0' ];
@@ -276,7 +461,7 @@ export class Colliders{
       let u = (dotE1E1 * dotE0EOrigin - dotE0E1 * dotE1EOrigin) * areaInv;
       let v = (dotE0E0 * dotE1EOrigin - dotE0E1 * dotE0EOrigin) * areaInv;
 
-      if (u >= 0 && v >= 0 && (u + v) < 1) {
+      if( u >= 0 && v >= 0 && (u + v) < 1 ){
         // Intersection found
         //   Return collision position on face
         let intersectionPoint = v1.clone().add(edge0.multiplyScalar(u)).add(edge1.multiplyScalar(v));
@@ -285,7 +470,7 @@ export class Colliders{
         let dist = origin.distanceTo(intersectionPoint);
         retPositions[dist] = intersectionPoint;
 
-        if (!multiHits) {
+        if( !multiHits ){
           return intersectionPoint;
         }
       }
@@ -297,6 +482,134 @@ export class Colliders{
     let retArr = [];
     for( let x = 0; x < distKeys.length; ++x ){
       retArr.push( retPositions[ distKeys[x] ] );
+    }
+
+    return retArr;
+  }
+
+  // -- -- -- 
+
+  // objectInteractList is an array of three.js objects
+  // camera is a three.js camera object
+  // screenUV is a Vector2 of the screen position in NDC, from -1 to 1
+  //   If needed, run `pxlNav.pxlUtils.screenToNDC` to convert screen position to NDC before passing to this function
+  castInteractRay( roomName, objectInteractList=[], camera=null, screenUV=Vector2(0.0, 0.0), multiHits=true ){
+
+    // Calculate ray direction & origin
+    let cameraRay = new Vector3( 0, 0, 0 );
+    camera.getWorldDirection( cameraRay );
+    let rayOrigin = camera.position.clone();
+    
+    // Calculate frustum dimensions using FOV and aspect ratio
+    let fovRadians = camera.fov * Math.PI / 180;
+    let tanFov = Math.tan(fovRadians / 2);
+    let aspectRatio = camera.aspect;
+
+    // Calculate ray direction in camera space
+    let dirX = screenUV.x * aspectRatio * tanFov;
+    let dirY = screenUV.y * tanFov;
+    let dirZ = -1; // Forward in camera space
+
+    // Create direction vector and transform to world space
+    let rayDirection = new THREE.Vector3(dirX, dirY, dirZ)
+        .applyMatrix4(camera.matrixWorld)
+        .sub(camera.position)
+        .normalize();
+
+    // -- -- --
+
+    let retClickedObjects = {};
+
+    objectInteractList.forEach(( curObj )=>{
+      let curName = curObj.name;
+
+      // TODO : Add check for current object Face-Vertex data; build if not found
+      //if( !this.roomColliderData[ roomName ].hasOwnProperty( curName ) ){
+      //  this.prepInteractables( curObj );
+      //}
+
+      // Iterate Face-Vertex data for current object
+      let curFaceData = this.roomColliderData[ roomName ][ curName ];
+      let objFaceVerts = curFaceData[ 'faceVerts' ];
+      let faceVertKeys = Object.keys( objFaceVerts );
+      faceVertKeys.forEach(( curFaceKey )=>{
+        let curFace = objFaceVerts[ curFaceKey ];
+        let v1 = curFace[ 'verts' ][0];
+        let v2 = curFace[ 'verts' ][1];
+        let v3 = curFace[ 'verts' ][2];
+
+        // Get edge vectors
+        let edge0 = curFace[ 'edge0' ];
+        let edge1 = curFace[ 'edge1' ];
+        let normal = curFace[ 'normal' ];
+
+        // Check if ray and triangle are parallel
+        let NDotRay = normal.dot(rayDirection);
+        if( Math.abs(NDotRay) < 0.000001 ) return;  // Ray parallel to triangle
+
+        // Calculate distance from ray origin to triangle plane
+        let d = normal.dot(v1); // TODO : Verify this is the correct
+        let dist = (d - normal.dot(rayOrigin)) / NDotRay;
+
+        if( dist < 0 ) return;  // Triangle is behind ray
+
+        // Calculate intersection point
+        let intersection = rayOrigin.clone().add(rayDirection.clone().multiplyScalar( dist ));
+
+        // Calculate barycentric coordinates
+        let va = v1.clone().sub(intersection);
+        let vb = v2.clone().sub(intersection);
+        let vc = v3.clone().sub(intersection);
+
+        let na = vb.clone().cross(vc).length();
+        let nb = vc.clone().cross(va).length();
+        let nc = va.clone().cross(vb).length();
+        let total = na + nb + nc;
+
+        // Calculate barycentric coordinates
+        let u = na / total;
+        let v = nb / total;
+        let w = nc / total;
+
+        // Check if ray intersects triangle
+        if( u >= 0 && u <= 1 && v >= 0 && v <= 1 && w >= 0 && w <= 1 ) {
+          // Intersection found
+          //   Return collision position on face
+          let intersectionPoint = v1.clone().add(edge0.multiplyScalar(u)).add(edge1.multiplyScalar(v));
+
+          // Store distance for sorting
+          let dist = rayOrigin.distanceTo(intersectionPoint);
+          retClickedObjects[dist] = { 
+            'obj' : curObj,
+            'pos' : intersection
+          };
+
+          if( !multiHits ) {
+            return { 
+              'obj' : curObj,
+              'pos' : intersection
+            };
+          }
+        }
+      });
+    });
+
+    // Sort by closest intersection point to the camera
+    let distKeys = Object.keys( retClickedObjects );
+    distKeys.sort();
+    let retArr = {};
+    retArr[ 'order' ] = [];
+    retArr[ 'hits' ] = {};
+    for( let x = 0; x < distKeys.length; ++x ){
+      let curObj = retClickedObjects[ distKeys[x] ][ 'obj' ];
+      let curIntersect = retClickedObjects[ distKeys[x] ][ 'pos' ];
+      let curName = curObj.name;
+      retArr[ 'order' ].push( curObj );
+
+      if(  !retArr[ 'hits' ].hasOwnProperty( curName ) ){
+        retArr[ 'hits' ][ curName ] = [];
+      }
+      retArr[ 'hits' ][ curName ].push( curIntersect );
     }
 
     return retArr;

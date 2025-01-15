@@ -107,10 +107,10 @@ class RoomEnvironment{
     
 
     this.enableRaycast = false;
-    this.hoverableExists=false;
+    this.hasHoverables=false;
     this.hoverableList=[];
     this.hoverableObj=null;
-    this.clickableExists=false;
+    this.hasClickables=false;
     this.clickableList=[];
     this.clickableObj=null;
     
@@ -325,16 +325,16 @@ class RoomEnvironment{
     if(!this.enableRaycast){
       return;
     }
-    if( ( !isClick && !this.hoverableExists ) || ( isClick && !this.clickableExists ) ){
+    if( ( !isClick && !this.hasHoverables ) || ( isClick && !this.hasClickables ) ){
       //console.log("No Cickable / Hoverable Objects Found");
       this.mouseRayHits=[];
       return;
     }
     
     let castableObjects = []
-    if( !isClick && this.hoverableExists ) {
+    if( !isClick && this.hasHoverables ) {
       castableObjects = this.hoverableList;
-    }else if( isClick && this.clickableExists ){
+    }else if( isClick && this.hasClickables ){
       castableObjects = this.clickableList;
     }
     
@@ -369,7 +369,7 @@ class RoomEnvironment{
       case COLLIDER_TYPE.WALL:
         hasCollidersOfType = this.colliderActive;
         break;
-      case COLLIDER_TYPE.TOP:
+      case COLLIDER_TYPE.WALL_TOP:
         hasCollidersOfType = this.antiColliderTopActive;
         break;
       case COLLIDER_TYPE.CEILING:
@@ -386,6 +386,12 @@ class RoomEnvironment{
         break;
       case COLLIDER_TYPE.SCRIPTED:
         // Not implemented yet
+        break;
+      case COLLIDER_TYPE.HOVERABLE:
+        hasCollidersOfType = this.hasHoverables;
+        break;
+      case COLLIDER_TYPE.CLICKABLE:
+        hasCollidersOfType = this.hasClickables;
         break;
     }
 
@@ -404,11 +410,19 @@ class RoomEnvironment{
     //  ( No colliders of the given type exist )
     if( colliderType == COLLIDER_TYPE.WALL && !this.antiColliderActive ){
       return forHashing;
-    }else if( colliderType == COLLIDER_TYPE.TOP && !this.antiColliderTopActive ){
+    }else if( colliderType == COLLIDER_TYPE.WALL_TOP && !this.antiColliderTopActive ){
       return forHashing;
     }else if( colliderType == COLLIDER_TYPE.ROOM_WARP && !this.hasRoomWarp ){
       return forHashing;
     }else if( colliderType == COLLIDER_TYPE.PORTAL_WARP && !this.hasPortalExit ){
+      return forHashing;
+    }else if( colliderType == COLLIDER_TYPE.HOVERABLE && !this.hasHoverables ){
+      this.hoverableList=[];
+      this.hoverableObj=null;
+      this.hasClickables=false;
+      this.clickableList=[];
+      return forHashing;
+    }else if( colliderType == COLLIDER_TYPE.CLICKABLE && !this.hasClickables ){
       return forHashing;
     }
     
@@ -431,7 +445,7 @@ class RoomEnvironment{
           ...this.colliderList['00']
         ];
         break;
-      case COLLIDER_TYPE.TOP:
+      case COLLIDER_TYPE.WALL_TOP:
         forHashing = [ 
           ...this.antiColliderTopList['noAxis'],
           ...this.antiColliderTopList['11'],

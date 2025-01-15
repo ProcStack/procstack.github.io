@@ -34,7 +34,7 @@ import {
   LinearSRGBColorSpace
 } from "../libs/three/three.module.min.js";
 
-import { ANTI_ALIASING, VERBOSE_LEVEL } from "./core/Enums.js";
+import { ANTI_ALIASING, VERBOSE_LEVEL, COLLIDER_TYPE } from "./core/Enums.js";
 import { pxlOptions } from "./core/Options.js";
 
 import { EffectComposer } from '../libs/three/EffectComposer.js';
@@ -108,6 +108,7 @@ export class Environment{
     this.pxlUtils=null;
     this.pxlTimer=null;
     this.pxlAnim=null;
+    this.pxlColliders=null;
     this.pxlAutoCam=null;
     this.pxlAudio=null;
     this.pxlFile=null;
@@ -271,6 +272,7 @@ export class Environment{
     this.pxlUtils=pxlNav.pxlUtils;
     this.pxlTimer=pxlNav.pxlTimer;
     this.pxlAnim=pxlNav.pxlAnim;
+    this.pxlColliders=pxlNav.pxlColliders;
     this.pxlAutoCam=pxlNav.pxlAutoCam;
     this.pxlAudio=pxlNav.pxlAudio;
     this.pxlFile=pxlNav.pxlFile;
@@ -725,54 +727,39 @@ export class Environment{
   // In-Scene clickables
   clickUserDetect(){
     
-    if( this.roomSceneList[this.currentRoom].castRay ){
-      this.roomSceneList[this.currentRoom].castRay( true, this.pxlDevice.touchMouseData.button )
-    }
+    // Current Room Obj
+    let curRoomObj = this.roomSceneList[ this.currentRoom ];
+
+    // Cast mouse or touch position to NDC
+    let mouseScreenSpace = this.pxlUtils.screenToNDC( this.pxlDevice.mouseX, this.pxlDevice.mouseY, this.pxlDevice.sW, this.pxlDevice.sH );
     
-    if( this.pxlDevice.mobile ){ 
-        return;
+    // Get clickable objects under mouse
+    let rayHits={};
+    if( curRoomObj.hasColliderType( COLLIDER_TYPE.CLICKABLE ) ){
+      let curObjList = curRoomObj.getColliders( COLLIDER_TYPE.CLICKABLE );
+      rayHits = this.pxlColliders.castInteractRay( this.currentRoom, curObjList, this.pxlCamera.camera, mouseScreenSpace );
     }
-        
-    let objHit=null;
-    let mouseScreenSpace=new Vector2( this.pxlDevice.mouseX/this.pxlDevice.sW*2-1, -this.pxlDevice.mouseY/this.pxlDevice.sH*2+1 );
-    this.pxlCamera.objRaycast.setFromCamera(mouseScreenSpace, this.pxlCamera.camera );
-    var rayHits=[];
-    //if(this.camScreenData.screenClickable.length>0) rayHits=this.pxlCamera.objRaycast.intersectObjects(this.camScreenData.screenClickable);//this.scene.children);
-    if(this.objectClickable.length>0) rayHits=this.pxlCamera.objRaycast.intersectObjects(this.objectClickable);//this.scene.children);
-    if(rayHits.length > 0){
-      let closestHit=99999;
-      for(var x=0; x<rayHits.length;++x){
-        var obj=rayHits[x];//.object;
-        let curDist=obj.distance;
-        if(curDist<closestHit){
-          objHit=obj.object;
-          closestHit=Math.min(closestHit, curDist);
-        }
-      }
-    }
-    if(objHit){
+
+    // Get nearest object hit,
+    //   rayHits.order is an array of objects hit, in order of distance
+    if( rayHits.hasOwnProperty("order") && rayHits.order.length > 0 ){
+      let objHit = rayHits.order[0];
       this.clickableActions(objHit.name);
+      return;
     }
-        
-        
-    let promoHit=null;
-    if(this.promoClickable.length>0) rayHits=this.pxlCamera.objRaycast.intersectObjects(this.promoClickable);//this.scene.children);
-    if(rayHits.length > 0){
-      let closestHit=99999;
-      for(var x=0; x<rayHits.length;++x){
-        var obj=rayHits[x];//.object;
-        let curDist=obj.distance;
-        if(curDist<closestHit){
-          promoHit=obj.object;
-          closestHit=Math.min(closestHit, curDist);
-        }
-      }
+
+    // -- -- --
+
+    // If no clickable object hit, check for promo clickables
+    rayHits = {};
+    rayHits = this.pxlColliders.castInteractRay( this.currentRoom, this.promoClickable, this.pxlCamera.camera, mouseScreenSpace );
+
+    if(rayHits.hasOwnProperty("order") && rayHits.order.length > 0){
+      let promoHit = rayHits.order[0];
+      this.promoActions( promoHit );
     }
-    if(promoHit){
-      this.promoActions(promoHit);
-    }
-        
   }
+
   clickableActions(action=null){
     if(action == "CallToAction" && this.clickablePrevActiveObject){
       this.pxlGuiDraws.ctaBuildPopup();
@@ -794,28 +781,24 @@ export class Environment{
   // Hover over clickable
   hoverUserDetect(){
     
-    if( this.roomSceneList[this.currentRoom].castRay ){
-      this.roomSceneList[this.currentRoom].castRay( false, this.pxlDevice.touchMouseData.button )
-    }
+    // Current Room Obj
+    let curRoomObj = this.roomSceneList[ this.currentRoom ];
+
+    // Cast mouse or touch position to NDC
+    let mouseScreenSpace = this.pxlUtils.screenToNDC( this.pxlDevice.mouseX, this.pxlDevice.mouseY, this.pxlDevice.sW, this.pxlDevice.sH );
     
-    let objHit=null;
-    let mouseScreenSpace=new Vector2( this.pxlDevice.mouseX/this.pxlDevice.sW*2-1, -this.pxlDevice.mouseY/this.pxlDevice.sH*2+1 );
-    this.pxlCamera.objRaycast.setFromCamera(mouseScreenSpace, this.pxlCamera.camera );
-    var rayHits=[];
-    //if(this.camScreenData.screenClickable.length>0) rayHits=this.pxlCamera.objRaycast.intersectObjects(this.camScreenData.screenClickable);//this.scene.children);
-    if(this.objectClickable.length>0) rayHits=this.pxlCamera.objRaycast.intersectObjects(this.objectClickable);
-    if(rayHits.length > 0){
-      let closestHit=99999;
-      for(var x=0; x<rayHits.length;++x){
-        var obj=rayHits[x];//.object;
-        let curDist=obj.distance;
-        if(curDist<closestHit){
-          objHit=obj.object;
-          closestHit=Math.min(closestHit, curDist);
-        }
-      }
+    // Get hoverable objects under mouse
+    let rayHits={};
+    if( curRoomObj.hasColliderType( COLLIDER_TYPE.CLICKABLE ) || curRoomObj.hasColliderType( COLLIDER_TYPE.HOVERABLE ) ){
+      // Combine objectClickable with objectHoverable This may change
+      let curObjList = [ ...curRoomObj.getColliders( COLLIDER_TYPE.CLICKABLE ), ...curRoomObj.getColliders( COLLIDER_TYPE.HOVERABLE ) ];
+      rayHits = this.pxlColliders.castInteractRay( this.currentRoom, curObjList, this.pxlCamera.camera, mouseScreenSpace );
     }
-    if(objHit){
+
+    // Get nearest object hit,
+    //   rayHits.order is an array of objects hit, in order of distance
+    if( rayHits.hasOwnProperty("order") && rayHits.order.length > 0 ){
+      let objHit = rayHits.order[0];
       this.pxlDevice.setCursor("help");
       if(this.objectClickableObjectList[objHit.name]){
         if(this.clickablePrevActiveObject==null){
@@ -824,7 +807,7 @@ export class Environment{
         this.objectClickableObjectList[objHit.name]['Inactive'].visible=false;
         this.objectClickableObjectList[objHit.name]['Hover'].visible=true;
       }
-            return;
+      return;
     }else{
       if(this.clickablePrevActiveObject){
         this.objectClickableObjectList[this.clickablePrevActiveObject]['Inactive'].visible=true;
@@ -833,22 +816,15 @@ export class Environment{
       }
       this.pxlDevice.setCursor("grab");
     }
-       
-        
-    let promoHit=null;
-    if(this.promoClickable.length>0) rayHits=this.pxlCamera.objRaycast.intersectObjects(this.promoClickable);
-    if(rayHits.length > 0){
-      let closestHit=99999;
-      for(var x=0; x<rayHits.length;++x){
-        var obj=rayHits[x];//.object;
-        let curDist=obj.distance;
-        if(curDist<closestHit){
-          promoHit=obj.object;
-          closestHit=Math.min(closestHit, curDist);
-        }
-      }
-    }
-    if(promoHit){
+
+    // -- -- --
+
+    // If no clickable object hit, check for promo clickables
+    rayHits = {};
+    rayHits = this.pxlColliders.castInteractRay( this.currentRoom, this.promoClickable, this.pxlCamera.camera, mouseScreenSpace );
+
+    if(rayHits.hasOwnProperty("order") && rayHits.order.length > 0){
+      let promoHit = rayHits.order[0];
       this.pxlDevice.setCursor("alias");
       if(this.promoClickableObjectList[promoHit.name]){
         if(this.promoPrevActiveObject==null){

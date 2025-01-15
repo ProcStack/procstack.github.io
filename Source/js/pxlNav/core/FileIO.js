@@ -171,11 +171,11 @@ export class FileIO{
       
       //Hoverable Object
       if( mesh.userData.hasOwnProperty("Hover") && mesh.userData.Hover ){
-        envObj.hoverableExists=true;
+        envObj.hasHoverables=true;
         envObj.hoverableList.push(mesh);
       }
       if( mesh.userData.hasOwnProperty("Click") && mesh.userData.Click ){
-        envObj.clickableExists=true;
+        envObj.hasClickables=true;
         envObj.clickableList.push(mesh);
       }
       
@@ -1060,6 +1060,7 @@ export class FileIO{
           let curChildren=colliderGroups[x].children;
           while(curChildren.length>0){
             let child=curChildren.pop();
+            console.log("Collider Child - ",child.name);
             curChildren.push(...child.children);
             if(child.isMesh){
               child.visible=false;
@@ -1100,8 +1101,8 @@ export class FileIO{
           this.pxlColliders.prepColliders( envObj, COLLIDER_TYPE.FLOOR );
         }else if( envObj.hasColliderType( COLLIDER_TYPE.WALL ) ){
           this.pxlColliders.prepColliders( envObj, COLLIDER_TYPE.WALL );
-        }else if( envObj.hasColliderType( COLLIDER_TYPE.TOP ) ){
-          this.pxlColliders.prepColliders( envObj, COLLIDER_TYPE.TOP );
+        }else if( envObj.hasColliderType( COLLIDER_TYPE.WALL_TOP ) ){
+          this.pxlColliders.prepColliders( envObj, COLLIDER_TYPE.WALL_TOP );
         }else if( envObj.hasColliderType( COLLIDER_TYPE.ROOM ) ){
           this.pxlColliders.prepColliders( envObj, COLLIDER_TYPE.ROOM );
         }

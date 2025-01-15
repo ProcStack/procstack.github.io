@@ -82,10 +82,10 @@ export class FieldEnvironment extends RoomEnvironment{
 		this.glassList=[]
 		
 		this.portalList={};
-		this.hoverableExists=false;
+		this.hasHoverables=false;
 		this.hoverableList=[];
     this.hoverableObj=null;
-		this.clickableExists=false;
+		this.hasClickables=false;
 		this.clickableList=[];
     this.clickableObj=null;
 		
@@ -275,14 +275,14 @@ export class FieldEnvironment extends RoomEnvironment{
 
 
     castRay( isClick, mButton ){
-      if( ( !isClick && !this.hoverableExists ) || ( isClick && !this.clickableExists ) ){
+      if( ( !isClick && !this.hasHoverables ) || ( isClick && !this.hasClickables ) ){
         return;
       }
       
       let castableObjects = []
-      if( !isClick && this.hoverableExists ) {
+      if( !isClick && this.hasHoverables ) {
         castableObjects = this.hoverableList;
-      }else if( isClick && this.clickableExists ){
+      }else if( isClick && this.hasClickables ){
         castableObjects = this.clickableList;
       }
       
