@@ -9,6 +9,10 @@ export const pxlOptions = {
   'staticCamera' : false,
   'autoCamera' : false,
   'antiAliasing' : pxlEnums.ANTI_ALIASING.LOW,
+  'collisionScale' : {
+    'gridSize' : 50,
+    'gridReference' : 1000
+  },
   'shadowMapBiasing' : pxlEnums.SHADOW_MAP.BASIC,
   'LoadEnvAssetFile' : false,
   'skyHaze' : pxlEnums.SKY_HAZE.OFF,

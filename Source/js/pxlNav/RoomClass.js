@@ -226,7 +226,7 @@ class RoomEnvironment{
   }
   
   setUserHeight( toHeight=1 ){
-    this.pxlEnv.pxlCamera.setUserHeight( toHeight );
+    this.pxlEnv.pxlCamera.setUserHeight( toHeight, this.roomName );
   }
 
   resetCamera(){
@@ -422,7 +422,7 @@ class RoomEnvironment{
         hasCollidersOfType = this.colliderActive;
         break;
       case COLLIDER_TYPE.WALL:
-        hasCollidersOfType = this.colliderActive;
+        hasCollidersOfType = this.antiColliderActive;
         break;
       case COLLIDER_TYPE.WALL_TOP:
         hasCollidersOfType = this.antiColliderTopActive;
@@ -464,23 +464,27 @@ class RoomEnvironment{
     // Kick out if the collider type is not active
     //  ( No colliders of the given type exist )
     if( colliderType == COLLIDER_TYPE.WALL && !this.antiColliderActive ){
+      forHashing = this.antiColliderList;
       return forHashing;
     }else if( colliderType == COLLIDER_TYPE.WALL_TOP && !this.antiColliderTopActive ){
-      return forHashing;
-    }else if( colliderType == COLLIDER_TYPE.ROOM_WARP && !this.hasRoomWarp ){
+      forHashing = this.antiColliderTopList;
       return forHashing;
     }else if( colliderType == COLLIDER_TYPE.PORTAL_WARP && !this.hasPortalExit ){
+      forHashing = this.portalList;
+      return forHashing;
+    }else if( colliderType == COLLIDER_TYPE.ROOM_WARP && !this.hasRoomWarp ){
+      forHashing = this.roomWarp;
       return forHashing;
     }else if( colliderType == COLLIDER_TYPE.HOVERABLE && !this.hasHoverables ){
-      this.hoverableList=[];
-      this.hoverableObj=null;
-      this.hasClickables=false;
-      this.clickableList=[];
+      forHashing = this.hoverableList;
       return forHashing;
     }else if( colliderType == COLLIDER_TYPE.CLICKABLE && !this.hasClickables ){
+      forHashing = this.clickableList;
       return forHashing;
     }
     
+    // TODO : Quadrant hashing for colliders should be removed from pxlNav support, with new grid hashing system implemented
+    // TODO : Maya tools and FBX requirements needs updating for the new collider system
     switch( colliderType ){
       case COLLIDER_TYPE.FLOOR:
         forHashing = [ 

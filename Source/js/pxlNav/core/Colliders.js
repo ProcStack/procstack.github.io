@@ -40,9 +40,9 @@ import {
 import { VERBOSE_LEVEL, COLLIDER_TYPE } from "./Enums.js";
 
 // Some assumptions are made here, as collision meshes are ussually low poly
-//   A grid size of 50 is assumed for -+500 unit bounds
-//     This is 5x larger than the assumed grid size in my CGI program.
-//       As my collision triangles range from 5-20 Meter units in size
+//   A grid size of 100 is assumed for -+500 unit bounds
+//     This is 10x larger than the assumed grid size in my CGI program.
+//       As my collision triangles range from 20-200 Meter units in size
 //
 // Many productions assume 1 Unit as 1 Meter; 500 units is 500 meters
 //   But that isn't good when precision is an issue for "other" reasons
@@ -72,11 +72,11 @@ import { VERBOSE_LEVEL, COLLIDER_TYPE } from "./Enums.js";
 //       Then look at the console output for the found bounds and grid size adjustments
 //
 // Defaults -
-//   Grid Sizing of 50 units
+//   Grid Sizing of 100 units
 //   Reference Bounds of 500 units
 //
 export class Colliders{
-  constructor( verbose=false, hashGridSizing = 50, colliderBoundsReference = 500.0 ){
+  constructor( verbose=false, hashGridSizing = 100, colliderBoundsReference = 500.0 ){
     this.pxlEnv = null;
     this.verbose = verbose;
 
@@ -87,8 +87,9 @@ export class Colliders{
     this.baseGridSize = hashGridSizing;
 
     this.degToRad = Math.PI / 180;
+    this.epsilon = 0.00001;
 
-    // Assume a base grid size of 50 to assume for -+500 unit bounds
+    // Assume a base grid size of 100 to assume for -+500 unit bounds
     //   This will generate potentially 10x10 grid locations
     //     This should be enough to mitigate higher poly count colliders
     this.colliderBoundsReference = colliderBoundsReference;
@@ -103,6 +104,16 @@ export class Colliders{
   log( msg ){
     if( this.verbose >= VERBOSE_LEVEL.INFO ){
       console.log( msg );
+    }
+  }
+  warn( msg ){
+    if( this.verbose >= VERBOSE_LEVEL.WARN ){
+      console.warn( msg );
+    }
+  }
+  error( msg ){
+    if( this.verbose >= VERBOSE_LEVEL.ERROR ){
+      console.error( msg );
     }
   }
 
@@ -200,7 +211,6 @@ export class Colliders{
       collidersForHashing.forEach( (collider)=>{
         colliderBaseName++;
         let colliderFaceVerts = collider.geometry.attributes.position.array;
-        console.log( colliderFaceVerts );
         let colliderFaceCount = colliderFaceVerts.length / 3;
 
         //Gather occupied grid locations
@@ -212,9 +222,10 @@ export class Colliders{
           let v1 = new Vector3( colliderFaceVerts[ baseIndex + 3 ], colliderFaceVerts[ baseIndex + 4 ], colliderFaceVerts[ baseIndex + 5 ] );
           let v2 = new Vector3( colliderFaceVerts[ baseIndex + 6 ], colliderFaceVerts[ baseIndex + 7 ], colliderFaceVerts[ baseIndex + 8 ] );
 
-          if( x == 0 ){
-            console.log( baseIndex );
-            console.log( v0, v1, v2 );
+          // Perhaps degenerative or empty face
+          //   I was seeing it in some instances, so I'm checking for it
+          if( v0.length() == 0 && v1.length() == 0 && v2.length() == 0 ){
+            continue;
           }
 
           // Find bounding box for the triangle
@@ -293,6 +304,12 @@ export class Colliders{
 
           for (let gx = minGridX; gx <= maxGridX; ++gx) {
             for (let gz = minGridZ; gz <= maxGridZ; ++gz) {
+              // Add face to grid location
+              //   I was running into some issues with the grid key generation, so log all grid locations
+              //     This does add some overhead to castRay(), but it's still WAY less than checking all triangles in a mesh
+              this.addFaceToGridLocation( roomName, colliderType, gx, gz, faceKey );
+              continue;
+
 
               let gridXMin = gx * gridSize;
               let gridXMax = (gx + 1) * gridSize;
@@ -460,17 +477,19 @@ export class Colliders{
 
   // Simple key generation
   getGridKey( ...args ){
-    return args.join( this.delimiter );
+    let retVal = args.join( this.delimiter );
+    return retVal;
   }
 
   // Flatten Vector3 to a string
   flattenVector3( vec ){
-    return this.getGridKey( this.roundToNearest(vec.x), this.roundToNearest(vec.y), this.roundToNearest(vec.z) );
+    return this.getGridKey( this.toNearestStr(vec.x), this.toNearestStr(vec.y), this.toNearestStr(vec.z) );
   }
 
   // Round to nearest
-  roundToNearest( val, nearest=0.1 ){
-    return Math.round( val / nearest ) * nearest;
+  toNearestStr( val, precision=1 ){
+    let retVal = val.toFixed(precision);
+    return retVal;
   }
 
   // -- -- --
@@ -491,12 +510,116 @@ export class Colliders{
 
   // -- -- --
 
+  // Moller-Trumbore triangle ray intersection
+  //   The other ray casting methods have issues to be worked out
+  //     This is the general purpose rayCaster for now
+  castRay( roomName, origin, direction, colliderType=COLLIDER_TYPE.FLOOR, multiHits=true ){
+    
+    if( !this.roomColliderData.hasOwnProperty( roomName ) || !this.roomColliderData[ roomName ].hasOwnProperty( colliderType ) ){
+      this.error( "Room '" + roomName + "' does not have collider data for type: " + colliderType );
+      this.error( " -- Please register any collider objects with `pxlColliders.prepColliders()` or `pxlColliders.prepInteractables` first -- " );
+      return [];
+    }
+
+    let roomData = this.roomColliderData[roomName][colliderType];
+    let gridSize = roomData['gridSize'];
+    let gridSizeInv = 1 / gridSize;
+    let gridX = Math.floor(origin.x * gridSizeInv);
+    let gridZ = Math.floor(origin.z * gridSizeInv);
+    let gridKey = this.getGridKey(gridX, gridZ);
+    //console.log( origin, direction, gridKey );
+
+    
+    if (!roomData['faceGridGroup'].hasOwnProperty(gridKey)) return [];
+    let faceKeys = roomData['faceGridGroup'][gridKey];
+    //let faceKeys = Object.keys( roomData['faceVerts'] );
+
+    let hits = [];
+    let retHits = {};
+
+/*
+
+          // Edge vectors
+          let edge0 = v1.clone().sub(v0);
+          let edge1 = v2.clone().sub(v0);
+
+          // Face normal
+          let faceNormal = edge0.clone().cross(edge1);//.normalize();
+
+          // Vertex-Edge relationships
+          let dotE0E0 = edge0.dot(edge0);
+          let dotE0E1 = edge0.dot(edge1);
+          let dotE1E1 = edge1.dot(edge1);
+
+          // Calculate tiangle area ratio
+          let areaInv = 1 / (dotE0E0 * dotE1E1 - dotE0E1 * dotE0E1);
+
+          */
+
+
+    faceKeys.forEach(faceKey => {
+      let faceVerts = roomData['faceVerts'][faceKey];
+      let v0 = faceVerts['verts'][0];
+      //let v1 = faceVerts['verts'][1];
+      //let v2 = faceVerts['verts'][2];
+
+      let edge0 =  faceVerts['edge0']; // v1.clone().sub(v0);
+      let edge1 =  faceVerts['edge1']; // v2.clone().sub(v0);
+      let directionCross = direction.clone().cross(edge1);
+      let isFacing = edge0.dot( directionCross );
+
+      if( isFacing > -this.epsilon && isFacing < this.epsilon ) return; // This ray is parallel to this triangle.
+
+      let factor = 1.0 / isFacing;
+      let edgeOrig = origin.clone().sub(v0);
+      let u = factor * edgeOrig.dot( directionCross );
+
+      if( u < 0.0 || u > 1.0 ) return;
+
+      let crossOrig = edgeOrig.clone().cross(edge0);
+      let v = factor * direction.dot( crossOrig );
+
+      if( v < 0.0 || u + v > 1.0) return;
+
+      let dist = factor * edge1.dot( crossOrig );
+
+      if( dist > this.epsilon ){ // ray intersection
+        let intersectionPoint = origin.clone().add( direction.clone().multiplyScalar(dist) );
+        retHits[ dist ] = {
+          'object' : faceVerts['object'],
+          'pos' : intersectionPoint,
+          'dist' : dist
+        };
+      }
+    });
+
+    // Find closest intersection point to the origin
+    let distKeys = Object.keys( retHits );
+    distKeys.sort();
+    let retArr = [];
+    for( let x = 0; x < distKeys.length; ++x ){
+      retArr.push( retHits[ distKeys[x] ] );
+    }
+
+    // Update active face in collision helper object, if exists
+    if( roomData[ 'helper' ] ){
+      let curFace = retArr.length > 0 ? retArr[0] : -1;
+      this.setHelperActiveFace( roomName, colliderType, curFace );
+    }
+
+    return retArr;
+  }
+
+  // -- -- --
+
+  // ** Currently not 100% correct, user castRay() for now **
+  //
   // Returns array of collision positions on the collider, sorted by distance from the origin
   //   Each object in the array contains -
   // "object" : Collided Three.js object
   // "pos" : Vector3 position of the collision
   // "dist" : Distance from the origin
-  castGravityRay( roomName, origin, colliderType=COLLIDER_TYPE.FLOOR, multiHits=true, direction=new Vector3(0, -1, 0) ){
+  castGravityRay( roomName, origin, colliderType=COLLIDER_TYPE.FLOOR, multiHits=true ){
     // Check if collider type exists in the room's collider data
     if( !this.roomColliderData.hasOwnProperty( roomName ) || !this.roomColliderData[roomName].hasOwnProperty( colliderType ) ){
       return [];

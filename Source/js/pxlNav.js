@@ -243,7 +243,7 @@ class pxlNav{
     // Default Grid Size 50, Collider Bounds as reference 1000.0
     //  The reference bounds are used to scale down the grid size for smaller bbox colliders,
     //    Helping with higher poly counts for performance
-    this.pxlColliders = new pxlBase.Colliders( this.verbose, 50, 1000.0 );
+    this.pxlColliders = new pxlBase.Colliders( this.verbose, this.options["collisionScale"]["gridSize"], this.options["collisionScale"]["gridReference"] );
 
 
     this.pxlCamera = new pxlBase.Camera();

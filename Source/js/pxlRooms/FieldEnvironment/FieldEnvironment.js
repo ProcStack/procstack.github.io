@@ -397,9 +397,8 @@ export class FieldEnvironment extends RoomEnvironment{
           }
         }
         
-        this.addColliderHelper( this.geoList['colliderHelper'] );
-        
-        this.setUserHeight( 15 );
+        //this.addColliderHelper( this.geoList['colliderHelper'] );
+        this.setUserHeight( 22.5 );
         //this.pxlAutoCam.toggleAutoCam( );
         this.booted=true;
     }

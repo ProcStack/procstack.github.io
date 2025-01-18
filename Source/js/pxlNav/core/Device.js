@@ -974,8 +974,8 @@ export class Device{
         
     this.screenRes.x=1/this.mapW;
     this.screenRes.y=1/this.mapH;
-        this.screenRatio.x=this.sW/this.sH;
-        this.screenRatio.y=this.sH/this.sW;
+    this.screenRatio.x=this.sW/this.sH;
+    this.screenRatio.y=this.sH/this.sW;
 
     if(this.pxlEnv.geoList['HDRView']){
       let rU=this.mapW>this.mapH ? 1 : this.mapW/this.mapH;
@@ -985,9 +985,10 @@ export class Device{
     }
     
     this.touchMouseData.mBlurVelInf=new Vector2(2*this.screenRes.x,2*this.screenRes.y);
-        if(!this.pxlEnv.mapGlowPass){
-            return;
-        }
+    if(!this.pxlEnv.mapGlowPass){
+      return;
+    }
+    
     this.pxlEnv.scene.renderTarget.setSize(this.mapW*this.pxlQuality.bufferPercMult,this.mapH*this.pxlQuality.bufferPercMult);
     this.pxlEnv.scene.renderWorldPos.setSize(this.mapW*this.pxlQuality.bufferPercMult,this.mapH*this.pxlQuality.bufferPercMult);
     

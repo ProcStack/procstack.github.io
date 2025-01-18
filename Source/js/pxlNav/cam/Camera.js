@@ -109,6 +109,7 @@ export class Camera{
 
     // -- -- --
 
+    this.roomStandingHeight = { 'default' : this.standingHeight };
     this.standingHeightGravInfluence=0;
     this.standingMaxGravityOffset=.5; // Usage -  ( standingHeight / standingHeightGravInfluence ) * standingMaxGravityOffset
     this.maxStepHeight=.6; // Max distance (Meters) up or down, like walking up and down stairs.
@@ -384,9 +385,17 @@ export class Camera{
     this.jumpScalar=val;
   }
   // Default is 1.75
-  setUserHeight( val ){
+  setUserHeight( val, roomName="default" ){
     val = Math.max( val, 0.01 );
-    this.standingHeight=val;
+    if( !this.roomStandingHeight.hasOwnProperty(roomName) ){
+      this.roomStandingHeight[roomName]=this.standingHeight;
+    }
+    
+    if( roomName=="default" ){
+      this.standingHeight=val;
+    }
+
+    this.roomStandingHeight[roomName]=val;
   }
   // Default is 1
   setUserScale( val ){
@@ -776,7 +785,7 @@ export class Camera{
     this.camUpdated=true; // Forces next frame update
     this.hasMoved=true;
     this.hasRotated=true;
-    this.mainColliderCheck( obj.position, null );
+    this.colliderCheck( obj.position );
     this.nearestFloorObjName=null;
 
     
@@ -874,6 +883,15 @@ export class Camera{
     let standingHeight=this.getUserHeight();
     this.emitCameraTransforms( this.camera.position.clone(), standingHeight, true );
         
+    // Camera assumes the player is warping to safe ground
+    //   So it will treat the position as the nearest floor hit
+    //     This was causing initial jumping and movement to use the camera position as the floor
+    //   This will drop the player from any height to the nearest floor using gravity when warping to a room
+    // TODO : Move this to be Room specific
+    if( this.canMove ){
+      this.colliderValid=false;
+      this.hasGravity=true;
+    }
     
     this.pxlAutoCam.checkStatus();
   }
@@ -1081,12 +1099,11 @@ export class Camera{
    * Checks for main collider interactions.
    * Ground plane, obstacles, and no terrain (If there are colliders in scene)
    * @param {Vector3} curCamPos - The current camera position.
-   * @param {Object} gravitySource - The gravity source.
    * @returns {Vector3} - The updated camera position.
    */
   // TODO : gravitySource should probably originate from Room's object list, but for now...
   // TODO : Collision check shouldn't run if no cam movement length aside from gravity, store floor name and collision position from prior run
-  mainColliderCheck( curCamPos, gravitySource ){
+  colliderCheck( curCamPos ){
 
     // Check if camera is in Roam or Static mode
     if( !this.canMove ){
@@ -1107,7 +1124,7 @@ export class Camera{
 
       let castDir=new Vector3(0,-1,0);
       let castPos=curCamPos.clone();//.add(new Vector3(0,100,0));
-      let castHeight=15;
+      let castHeight= 150*this.maxStepHeight ;
       castPos.y += castHeight + this.maxStepHeight;
       
       let resetKeyDown=false;
@@ -1115,13 +1132,15 @@ export class Camera{
       
       let curQuadrant= ( ~~(castPos.x>0)+"" ) + ( ~~(castPos.z>0)+"" );
       
-      rayHits = this.pxlColliders.castGravityRay( this.pxlEnv.currentRoom, castPos, COLLIDER_TYPE.WALL );
+      if( curRoomObj.hasColliderType( COLLIDER_TYPE.WALL ) ){
+        rayHits = this.pxlColliders.castRay( this.pxlEnv.currentRoom, castPos, castDir, COLLIDER_TYPE.WALL );
+      }
       
       if(rayHits.length > 0){ // Hit a wall, check if you are standing on the wall
         // this.floorColliderInitialHit=true;
         curRoomObj.hitColliders( rayHits, COLLIDER_TYPE.WALL );
         if(this.antiColliderTopActive){
-          let rayTopHits=this.pxlColliders.castGravityRay( this.pxlEnv.currentRoom, castPos, COLLIDER_TYPE.WALL_TOP );
+          let rayTopHits=this.pxlColliders.castRay( this.pxlEnv.currentRoom, castPos, castDir, COLLIDER_TYPE.WALL_TOP );
           if( rayTopHits.length > 0 ){
             curRoomObj.hitColliders( rayTopHits, COLLIDER_TYPE.WALL_TOP );
           }
@@ -1145,14 +1164,10 @@ export class Camera{
               curCollisionPos=curHit;
             }
           }
-           let pullBack;
+
+          // Check if camera is on top of wall
+          let pullBack;
           if( !validHitCheck || ((curCamPos.y) < curCollisionPos.y && (this.nearestFloorHitPrev.y-curCollisionPos.y > (this.maxStepHeight+this.getStandingHeight()) && !this.hasGravity) && ( (curCamPos.y+this.maxStepHeight+this.getStandingHeight()) < curCollisionPos.y && this.hasGravity) ) ){
-              //objHit=null;
-              //this.movementBlocked=true;
-              /*if( !objHit ){
-                  curCamPos=this.cameraPrevPos.clone();
-              }else{
-              }*/
               
               //objHit=this.nearestFloorObjName;
               if(this.cameraMovement[0] != 0 || this.cameraMovement[1] != 0 ){
@@ -1210,25 +1225,11 @@ export class Camera{
         //castPos.y=curCamPos.y+stepUpDist;
         castPos=curCamPos.clone(); //.add(new Vector3(0,100,0));
         castPos.y += castHeight + this.maxStepHeight;
+        
                 
-        /*
-         * Being removed, leaving for any rollback needs during custom raycasting implementation
-        if( !this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList ){
-            this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList={};
-        }
-        if( !this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList[curQuadrant] ){
-            //console.log("trigger build master list");
-            let masterList=[];
-            let curRoomThis=this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom];
-            masterList.push( ...curRoomThis.colliderList[ 'noAxis' ] );
-            masterList.push( ...curRoomThis.colliderList[ curQuadrant ] );
-            masterList.push( ...curRoomThis.antiColliderTopList[ 'noAxis' ] );
-            masterList.push( ...curRoomThis.antiColliderTopList[ curQuadrant ] );
-            this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList[curQuadrant]=masterList;
-        }*/
-                
-        if( (this.colliderActive && this.antiColliderTopActive) || this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderActive  ){
-          rayHits=this.pxlColliders.castGravityRay( this.pxlEnv.currentRoom, castPos, COLLIDER_TYPE.FLOOR );
+        //if( (this.colliderActive && this.antiColliderTopActive) || this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderActive  ){
+        if( this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].hasColliders() ){
+          rayHits=this.pxlColliders.castRay( this.pxlEnv.currentRoom, castPos, castDir, COLLIDER_TYPE.FLOOR );
         }else{
           return curCamPos; // No colliders
         }
@@ -1246,28 +1247,27 @@ export class Camera{
             let curHit=obj.pos;
             //let curHit=castPos.y-obj.dist;
             //let curDist=obj.dist;
-            let curDist=curHit.distanceTo( curCamPos );
             
             let validHit=false;
             curName=obj.object.name;
             let camDist=curHit.distanceTo( curCamPos );
+
             
             validHit=camDist<this.maxStepHeight;
-            console.log(camDist);
+            //console.log(stepUpDist,camDist, obj.dist, validHit);
             if( ( this.portalList[curName] || this.roomWarpZone.includes(curName) ) && validHit){
               objHit=curName;
               curCollisionPos=curHit;
               break;
             }else if( !this.itemCheck(curName, validHit) ){
-              if(curDist<closestDist || objHit==null){
+              if(camDist<closestDist || objHit==null){
                 objHit=curName;
-                closestDist=curDist;
+                closestDist=camDist;
                 curCollisionPos=curHit;
               }
             }
           }
-                    
-                        
+          
           if( this.nearestFloorObjName==null && objHit!=null){
             this.nearestFloorHitPrev=curCollisionPos;
             this.nearestFloorObjNamePrev=objHit;
@@ -1277,10 +1277,10 @@ export class Camera{
           }
           
           //console.log(this.nearestFloorHitPrev.y-curCollisionPos.y, this.maxStepHeight+this.getStandingHeight() );
-          if( this.nearestFloorHitPrev.y-curCollisionPos.y > (this.maxStepHeight+this.getStandingHeight()) && !this.hasGravity){
+          if( (this.nearestFloorHitPrev.y-curCollisionPos.y) > (this.maxStepHeight+this.getStandingHeight()) && !this.hasGravity){
 
-            //this.nearestFloorHit=this.nearestFloorHitPrev;
-            //this.nearestFloorObjName=this.nearestFloorObjNamePrev;
+            this.nearestFloorHit=this.nearestFloorHitPrev;
+            this.nearestFloorObjName=this.nearestFloorObjNamePrev;
             
             //this.cameraMovement[0] = Math.abs(this.cameraMovement[0])<this.posRotEasingThreshold ? 0 : this.cameraMovement[0]*this.cameraMovementEase;
             //this.cameraMovement[1] = Math.abs(this.cameraMovement[1])<this.posRotEasingThreshold ? 0 : this.cameraMovement[1]*this.cameraMovementEase;
@@ -1297,10 +1297,11 @@ export class Camera{
             this.pxlDevice.touchMouseData.curFadeOut.multiplyScalar(0);
             this.pxlDevice.touchMouseData.velocity.multiplyScalar(0);
             //this.pxlDevice.touchMouseData.velocityEase.multiplyScalar(0);
-          }else{
+
+          }else{ // Player is jumping or falling
+
             this.nearestFloorHitPrev=this.nearestFloorHit;
             this.nearestFloorObjNamePrev=this.nearestFloorObjName;
-            
             
             this.nearestFloorHit=curCollisionPos;
             this.nearestFloorObjName=objHit;
@@ -1327,226 +1328,6 @@ export class Camera{
     return curCamPos;
   }
   
-  /**
-   * Checks for room collider interactions.
-   * Assuming for no walking colliders here, only Room Warp colliders
-   * @param {Vector3} curCamPos - The current camera position.
-   * @returns {Vector3} - The updated camera position.
-   */
-  // TODO : Update to account for new Room Envrionments and their corresponding Collider Object Lists
-  /*roomColliderCheck(curCamPos){
-
-
-    // Check if camera is in Roam or Static mode
-    if( !this.canMove ){
-      return curCamPos;
-    }
-
-    this.colliderValidityChecked=true; // Prevent doublechecking object validity post collision detection
-    this.colliderValid=false; // If there are no colliders, don't run event checks
-    this.colliderFail=false;
-    
-    // When rooms get collider objects, there variables must be set-
-    let camPosDupe=curCamPos.clone();
-    camPosDupe.y=0;
-    this.nearestFloorHit=camPosDupe;
-    this.nearestFloorObjName="None";
-    
-    if( !this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].roomWarp ){ return curCamPos; }
-    
-    
-    if( this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].roomWarp.length > 0 ){
-      let castDir=new Vector3(0,-1,0);
-      let castPos=curCamPos.clone();//.add(new Vector3(0,100,0));
-      
-      let castHeight=1500;
-      castPos.y=castHeight;
-      this.objRaycast.set(castPos, castDir );
-      
-      var rayHits=this.objRaycast.intersectObjects(this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].roomWarp);//scene.children);
-
-      if(rayHits.length > 0){ // Hit a wall, check if you are standing on the wall
-        this.pxlEnv.currentAudioZone=0;
-        this.warpEventTriggered( 1, this.pxlEnv.mainRoom );
-        //return true; // Room warp, kill camera calculations
-                return curCamPos;
-      }
-            
-      let minDist=curCamPos.y;
-      let minHitPos=curCamPos;
-      if(this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderActive==true){
-          if( !this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList ){
-              let masterList=[];
-              let objKeys=Object.keys( this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderList );
-              objKeys.forEach( (k)=>{
-                  masterList.push( ...this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderList[k] );
-              });
-              this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList=masterList;
-          }
-          
-          this.objRaycast.set(castPos, castDir );
-          rayHits= this.objRaycast.intersectObjects( this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList );
-
-          if(rayHits.length == 0){ // Hit a wall, check if you are standing on the wall
-              return this.cameraPrevPos.clone();
-          }else{
-              
-              rayHits.forEach( (hit)=>{
-                  let curDist=hit.dist;
-                  let curOffset=curCamPos.y-hit.pos.y;
-                  if( curDist>curCamPos.y && curOffset< curCamPos.y+this.maxStepHeight ){
-                      minDist=curDist;
-                      minHitPos=hit.pos;
-                  }
-              });
-              if( curCamPos.y<minHitPos.y){
-                  return minHitPos.clone();
-              }
-          }
-      }
-            
-    }
-    return curCamPos;
-  }*/
-    // ## Mid Dev, turning it off for now
-  roomColliderCheck(curCamPos, standingHeight){
-
-    // Check if camera is in Roam or Static mode
-    if( !this.canMove ){
-      return curCamPos;
-    }
-
-    this.colliderValidityChecked=true; // Prevent doublechecking object validity post collision detection
-    this.colliderValid=false; // If there are no colliders, don't run event checks
-    this.colliderFail=false;
-    console.log("Room Collider Check");
-    
-    // When rooms get collider objects, there variables must be set-
-    let camPosDupe=curCamPos.clone();
-    camPosDupe.y=0;
-    this.nearestFloorHit=camPosDupe;
-    this.nearestFloorObjName="None";
-    
-    //if( !this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].roomWarp ){ return curCamPos; }
-    
-    
-    //if( this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].roomWarp.length > 0 ){
-      let castDir=new Vector3(0,-1,0);
-      let castPos=curCamPos.clone();//.add(new Vector3(0,100,0));
-      
-      let castHeight=1500;
-      castPos.y=castHeight;
-      this.objRaycast.set(castPos, castDir );
-      
-      var rayHits=this.objRaycast.intersectObjects(this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].roomWarp);//scene.children);
-
-      if(rayHits.length > 0){ // Hit a wall, check if you are standing on the wall
-        this.pxlEnv.currentAudioZone=0;
-        this.warpEventTriggered( 1, this.pxlEnv.mainRoom );
-        //return true; // Room warp, kill camera calculations
-                return curCamPos;
-      }
-            
-            if(this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderActive==true){
-                if( !this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList ){
-                    let masterList=[];
-                    let objKeys=Object.keys( this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderList );
-                    objKeys.forEach( (k)=>{
-                        masterList.push( ...this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderList[k] );
-                    });
-                    this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList=masterList;
-                }
-                //console.log( this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList )
-                this.objRaycast.set(castPos, castDir );
-                rayHits= this.objRaycast.intersectObjects( this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList );
-
-                if(rayHits.length == 0){ // Hit a wall, check if you are standing on the wall
-                    let retPos=this.cameraPrevPos.clone();
-                    retPos.y=curCamPos.y;
-                    return retPos;
-                }else{
-                    let validHit=false;
-                    let blockMovement=false;
-                    let gravityEnabled=false;
-                    let minDist=99999;
-                    let minHitPos=curCamPos.clone();
-                    minHitPos.y-=this.maxStepHeight;
-                    
-                    rayHits.forEach( (hit)=>{
-                        let curDist=hit.dist;
-                        //let curOffset=curCamPos.y-hit.pos.y;
-                        let curOffset=hit.pos.y;
-                        //if( curDist>curCamPos.y && curOffset< curCamPos.y+this.maxStepHeight ){
-                        //if( curDist<minDist && curOffset< curCamPos.y+this.maxStepHeight ){
-                        if( curOffset > curCamPos.y-this.maxStepHeight && curOffset < curCamPos.y+this.maxStepHeight+standingHeight && minHitPos.y<curOffset){
-                            validHit=true;
-                            gravityEnabled=false;
-                            minDist=curDist;
-                            minHitPos=hit.pos;
-                        }else if( curOffset > curCamPos.y+this.maxStepHeight ){
-                            blockMovement=true;
-                        }else if( curOffset < curCamPos.y-this.maxStepHeight && validHit==false ){
-                            gravityEnabled=true;
-                        }
-                    });
-                    if( blockMovement ){
-                        let retPos=this.cameraPrevPos.clone();
-                        retPos.y=curCamPos.y;
-                        return retPos;
-                    }
-                    if( gravityEnabled ){
-                        this.hasGravity=true;
-                    }
-                    if( validHit ){
-                        if( curCamPos.y<minHitPos.y ){
-                            this.jumpLanding();
-                        }
-                        return minHitPos.clone();
-                    }
-                }
-            }
-            
-    //}
-    return curCamPos;
-  }
-  
-  // Collider Ray Casting Complete Failure
-  /*checkColliderFail( curCamPos ){
-        if(this.hasGravity && (curCamPos.y-this.gravityRate)< this.nearestFloorHit.y && (curCamPos.y+this.maxStepHeight)> this.nearestFloorHit.y){// && this.cameraMovement[0]!=0 && this.cameraMovement[1]!=0){
-      this.gravityRate=0;
-      this.standingHeightGravInfluence=0;
-      this.hasGravity=false;
-      curCamPos=this.nearestFloorHit.clone();
-      return curCamPos;
-    }
-    
-    if(!this.colliderFail && !this.movementBlocked){ return curCamPos; }
-    if(this.colliderFail || this.movementBlocked){
-      this.colliderFail=false;
-      
-      this.cameraMovement[0] = 0;
-      this.cameraMovement[1] = 0;
-      this.colliderValidityChecked=true; // ## Prob not needed, but will test
-      this.colliderValid=false;
-      
-      this.pxlDevice.keyDownCount[0]+=(this.pxlTimer.curMS-this.pxlDevice.keyDownCount[0])*.07;
-      this.pxlDevice.keyDownCount[1]+=(this.pxlTimer.curMS-this.pxlDevice.keyDownCount[1])*.07;
-      this.pxlDevice.touchMouseData.velocity.multiplyScalar(0);
-      this.pxlDevice.touchMouseData.velocityEase.multiplyScalar(0);
-      
-      if(this.movementBlocked){
-        this.movementBlocked=false;
-        this.hasGravity=false;
-        this.gravityRate=0;
-        this.standingHeightGravInfluence=0;
-      }
-      
-      let failPos=this.nearestFloorHit;
-      curCamPos.x=failPos.x;
-      curCamPos.z=failPos.z;
-      return curCamPos;
-    }
-  }*/
   
 ///////////////////////////////
 // Collider Event Triggers  //
@@ -1973,7 +1754,11 @@ export class Camera{
    * @returns {number} - The standing height.
    */
   getStandingHeight(){
-    return this.standingHeight * this.userScale;
+    let retHeight = this.standingHeight;
+    if( this.roomStandingHeight.hasOwnProperty(this.pxlEnv.currentRoom) ){
+      retHeight = this.roomStandingHeight[this.pxlEnv.currentRoom];
+    }
+    return retHeight * this.userScale;
   }
   
   /**
@@ -2338,17 +2123,12 @@ export class Camera{
       let standingHeight=this.getUserHeight();
       
       // Movement checks
-      if( this.hasMoved && this.canMove ){
-        // ## Create a hybrid Camera.js and Room Environment collision check system
-        if( this.pxlEnv.currentRoom == this.pxlEnv.mainRoom){
-          let gravitySource = null; // not implemented, but should be the object being used for gravity, would reside within the current Room's object list
-          let killCalculations = false;
-          cameraPos=this.mainColliderCheck( cameraPos, gravitySource );
-          //cameraPos=this.checkColliderFail( cameraPos );
-        }else{ // For external room warp zone checking
-          cameraPos=this.roomColliderCheck( cameraPos, standingHeight );
-        }
+      if( this.hasMoved || this.hasGravity ){//&& this.canMove ){
+
+        // Check if the camera is in a valid position
+        cameraPos=this.colliderCheck( cameraPos );
         
+
         // If in air, gravity grows 
         //   This only updates gravity prior to jump calculations
         // User vertical based calculations are ran in `applyGravity()`
