@@ -439,8 +439,8 @@ export class Device{
         
         this.touchMouseData.curStepDistance = this.touchMouseData.endPos.clone().sub(xyDeltaTemp) ;
         this.touchMouseData.netDistance.add( this.touchMouseData.curStepDistance.clone());
-        let curvelocity=this.touchMouseData.velocity.clone();
-        this.touchMouseData.velocity= this.touchMouseData.velocity.clone().multiplyScalar(3).add(this.touchMouseData.curStepDistance).multiplyScalar(.25);
+        //let curvelocity=this.touchMouseData.velocity.clone();
+        this.touchMouseData.velocity = this.touchMouseData.velocity.clone().multiplyScalar(3).add(this.touchMouseData.curStepDistance).multiplyScalar(.25);
 
         // ## Add into this.pxlQuality for 3rd mouse velocity reference
         /*this.touchMouseData.velocity.add(this.touchMouseData.curStepDistance).multiplyScalar(.5);
@@ -448,7 +448,7 @@ export class Device{
         this.touchMouseData.velocityEasePrev=this.touchMouseData.velocityEase.clone();
         this.touchMouseData.velocityEase=curveleaseprev.clone().add(curvelocity.add(this.touchMouseData.velocity).multiplyScalar(.5)).multiplyScalar(.5);*/
         
-        this.touchMouseData.netDistYPerc =  (this.touchMouseData.netDistance.y+this.touchMouseData.curDistance.y+250)*0.0008;
+        this.touchMouseData.netDistYPerc = (this.touchMouseData.netDistance.y+this.touchMouseData.curDistance.y+250)*0.0008;
         this.touchMouseData.curFadeOut.add( xyDeltaTemp.sub(this.touchMouseData.endPos)  );
         
       }else{
@@ -507,7 +507,7 @@ export class Device{
     }
 
     this.touchScreen=true;
-    var touch = e.touches[0];
+    let touch = e.touches[0];
     this.mouseX = touch.pageX;  
     this.mouseY = touch.pageY;
     this.touchMouseData.active=true;
@@ -559,7 +559,7 @@ export class Device{
     
     let target= e.target; // Chrome or Firefox
 
-    var touch = e.touches[0];
+    let touch = e.touches[0];
     this.mouseX=touch.pageX;
     this.mouseY=touch.pageY;
     if(this.touchMouseData.active){
@@ -569,7 +569,7 @@ export class Device{
       // TODO : "why not???" because its specific to Antibody Club,
       //          But its fun, so I'll figure out some way to make it a bit more generic if the user wants to enable it
       if(typeof(e.touches[1]) !== 'undefined'){
-        var touchTwo = e.touches[1];
+        let touchTwo = e.touches[1];
         if( e.touches.length>1 && this.touchMouseData.dragCount>10 ){
           this.touchMouseData.lock=true;
           touch = e.touches[1];
@@ -584,7 +584,7 @@ export class Device{
       this.touchMouseData.curStepDistance = this.touchMouseData.endPos.clone().sub(xyDeltaTemp) ;
       this.touchMouseData.netDistance.add( this.touchMouseData.curStepDistance.clone() );
       this.touchMouseData.velocity.add(this.touchMouseData.curStepDistance).multiplyScalar(.5);
-      this.touchMouseData.velocityEase.add(this.touchMouseData.curStepDistance).multiplyScalar(.5);
+      //this.touchMouseData.velocityEase.add(this.touchMouseData.curStepDistance).multiplyScalar(.5);
             
       this.touchMouseData.netDistYPerc =  (this.touchMouseData.netDistance.y+this.touchMouseData.curDistance.y+250)/1250;
       this.touchMouseData.curFadeOut.add( xyDeltaTemp.sub(this.touchMouseData.endPos)  );
@@ -767,7 +767,7 @@ export class Device{
         let blob=atob( dlData.split(',')[1] );
         let size=blob.length;
         let arr=new Uint8Array(size);
-        for(var x=0; x<size; ++x){
+        for(let x=0; x<size; ++x){
             arr[x]=blob.charCodeAt(x);
         }
         let cameraData=URL.createObjectURL(new Blob([arr]));
@@ -1025,13 +1025,12 @@ export class Device{
     //this.pxlEnv.engine.setPixelRatio(window.devicePixelRatio);
     //this.pxlEnv.engine.setSize(this.mapW, this.mapH);
     this.pxlEnv.engine.setSize(this.sW, this.sH);
-    var aspectRatio=this.mapW/this.mapH;
-    this.pxlCamera.camera.aspect=aspectRatio;
-    this.pxlCamera.camera.updateProjectionMatrix();
+    let aspectRatio=this.mapW/this.mapH;
+    this.pxlCamera.setAspect( aspectRatio );
         
         
-    let safeAspect=[this.sW/this.sH, this.sH/this.sW];
-        var aspectMult=[1,1];
+    let safeAspect=[ this.sW/this.sH, this.sH/this.sW ];
+    let aspectMult=[1,1];
     aspectMult[0]=(aspectRatio>safeAspect[0]) ? 1 : this.sW/(this.sH*safeAspect[0]) ;
     aspectMult[1]=(aspectRatio>safeAspect[1]) ? this.sH/(this.sW*safeAspect[1]) : 1 ;
     if(aspectMult[0]>1){
@@ -1041,17 +1040,17 @@ export class Device{
       aspectMult[0]*=1/aspectMult[1];
       aspectMult[1]=1;
     }
-        this.screenAspect.x=aspectMult[0] * (1/(.5**2+.5**2)**.5);
-        this.screenAspect.y=aspectMult[1];
-        
+
+    this.screenAspect.x=aspectMult[0] * (1/(.5**2+.5**2)**.5);
+    this.screenAspect.y=aspectMult[1];
         
         
     this.screenResDeltaPerc.x=this.sW/this.origRes.x;
     this.screenResDeltaPerc.y=this.sH/this.origRes.y;
         
-        if( this.pxlEnv.roomSubList['Lobby'] ){
-            this.pxlEnv.roomSubList['Lobby'].setShaders();
-        }
+    if( this.pxlEnv.roomSubList['Lobby'] ){
+      this.pxlEnv.roomSubList['Lobby'].setShaders();
+    }
 
     this.pxlEnv.updateCompUniforms();
     

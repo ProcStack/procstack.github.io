@@ -22,8 +22,8 @@ import {
 // TODO : Why isn't this an expanded Room class??  Why isn't there a Room class???
 
 export class TemplateEnvironment extends RoomEnvironment{
-  constructor( roomName='TemplateEnvironment', assetPath=null, pxlFile=null, pxlAnim=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
-    super( roomName, assetPath, pxlFile, pxlAnim, pxlUtils, pxlDevice, pxlEnv, msRunner, camera, scene, cloud3dTexture );
+  constructor( roomName='TemplateEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
+    super( roomName, assetPath, msRunner, camera, scene, cloud3dTexture );
     this.roomName=roomName;
     this.pxlAudio=pxlAudio; // Access to music driven data
     this.pxlFile=pxlFile; // Load assets from disk; Scene File, Images
@@ -60,7 +60,7 @@ export class TemplateEnvironment extends RoomEnvironment{
         
     // These options change the Camera's settings
     //   They are ran upon entering the room
-    this.pxlCamFOV=(this.pxlDevice.mobile?80:60); // Field Of View
+    this.pxlCamFOV={ 'PC':60, 'MOBILE':80 }; // Field Of View
     this.pxlCamZoom=1; // Zoom of Camera
     this.pxlCamAspect=1.3; // This will always be set to the aspect raio of the device, if you need the ratio of the screen
     this.pxlCamNearClipping = 2; // Geometry Z-Depth Near Clipping

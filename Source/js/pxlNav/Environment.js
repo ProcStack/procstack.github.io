@@ -160,7 +160,7 @@ export class Environment{
     this.camReturnLookAt=new Vector3(0,0,0);
     this.camLobbyPos=new Vector3(0, 15, 0);
     this.camLobbyLookAt=new Vector3(0, 15, -100);
-    this.pxlCamFOV=mobile?80:60;
+    this.pxlCamFOV={ 'PC':60, 'MOBILE':80 };
     this.pxlCamZoom=1;
     this.pxlCamAspect=1;
     this.pxlCamNearClipping = this.camNear;
@@ -416,7 +416,8 @@ export class Environment{
       /* webpackIgnore: true */
       import( curImportPath )
         .then((module)=>{
-          let roomObj=new module[roomName]( roomName, `${this.pxlRoomLclRoot}/${roomName}/`, this.pxlFile, this.pxlAnim, this.pxlUtils, this.pxlDevice, this, this.pxlTimer.msRunner, null, null, this.cloud3dTexture);
+          let roomObj=new module[roomName]( roomName, `${this.pxlRoomLclRoot}/${roomName}/`, this.pxlTimer.msRunner, null, null, this.cloud3dTexture);
+          roomObj.setDependencies( this );
 
           roomObj.camera=this.pxlCamera.camera;
           roomObj.scene=new Scene();
@@ -477,7 +478,7 @@ export class Environment{
   }
     
   newSubRoom( roomObject ){
-    this.roomSubList[ roomObject.roomName ]=roomObject;
+    this.roomSubList[ roomObject.getName() ]=roomObject;
   }
   addToRooms( obj ){
     let roomObjDict={};

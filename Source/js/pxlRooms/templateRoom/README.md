@@ -125,7 +125,7 @@
 
     // These options change the Camera's settings
     //   They are ran upon entering the room
-    this.pxlCamFOV=45;
+    this.pxlCamFOV={ 'PC':60, 'MOBILE':80 };
       - Field Of View
     this.pxlCamZoom=1;
       - Zoom of Camera

@@ -35,18 +35,19 @@ import { pxlPrincipledVert, pxlPrincipledFrag } from "./shaders/objects/PxlPrinc
 import { COLLIDER_TYPE } from "./core/Enums.js";
 
 class RoomEnvironment{
-  constructor( roomName='CampfireEnvironment', assetPath=null, pxlFile=null, pxlAnim=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
+  constructor( roomName='CampfireEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
     this.roomName=roomName;
-    this.pxlFile=pxlFile;
-    this.pxlUtils=pxlUtils;
-    this.pxlAnim=pxlAnim;
-    this.pxlDevice=pxlDevice;
-    this.pxlEnv=pxlEnv;
+    this.pxlFile=null;
+    this.pxlUtils=null;
+    this.pxlAnim=null;
+    this.pxlColliders=null;
+    this.pxlDevice=null;
+    this.pxlEnv=null;
     this.booted=false;
     this.initScene=true;
     this.active=true;
     this.assetPath=assetPath+"Assets/";
-    this.mobile=pxlDevice.mobile;
+    this.mobile=false;
     
     this.sceneFile = this.assetPath+"CampfireEnvironment.fbx";
     this.animFile = this.assetPath+"Campfire_RabbitDruidA_anim.fbx";
@@ -68,7 +69,7 @@ class RoomEnvironment{
     this.camHoldWarpPos=true;
     this.camLocation = {};
     
-    this.pxlCamFOV=(this.mobile?80:60);
+    this.pxlCamFOV={ 'PC':60, 'MOBILE':80 };
     this.pxlCamZoom=1;
     this.pxlCamAspect=1;
     this.pxlCamNearClipping = 5;
@@ -110,6 +111,7 @@ class RoomEnvironment{
     this.hasHoverables=false;
     this.hoverableList=[];
     this.hoverableObj=null;
+    
     this.hasClickables=false;
     this.clickableList=[];
     this.clickableObj=null;
@@ -141,9 +143,24 @@ class RoomEnvironment{
     this.cloud3dTexture=null;
     this.smoothNoiseTexture=null;
         
+    // Helper objects for debug visualizations
+    this.hasHelpers = false;
+    this.helperObjects = {};
+
     //%=
     this.currentShader=null;
     //%
+  }
+
+// Set pxlNav dependencies
+  setDependencies( pxlNav ){
+    this.pxlEnv = pxlNav;
+    this.pxlFile = pxlNav.pxlFile;
+    this.pxlAnim = pxlNav.pxlAnim;
+    this.pxlUtils = pxlNav.pxlUtils;
+    this.pxlDevice = pxlNav.pxlDevice;
+    this.pxlColliders = pxlNav.pxlColliders;
+    this.mobile = pxlNav.mobile;
   }
 
 // Run after all needed pxlNav services are loaded/built
@@ -172,6 +189,9 @@ class RoomEnvironment{
 // Per-Frame Render updates
   step(){
     this.runTime.x=this.msRunner.x;
+
+    // Update helper objects, if they exist
+    this.stepColliderHelper( COLLIDER_TYPE.FLOOR );
     
     //this.pxlEnv.engine.setClearColor(this.pxlEnv.fogColor, 0);
     
@@ -193,6 +213,8 @@ class RoomEnvironment{
     //this.pxlEnv.roomBloomPass.enabled=this.bloomPreState;
   }
   
+  // -- -- --
+
 // Runs on window resize
   resize( sW, sH ){
     /*if(this.worldPosRenderTarget){
@@ -204,7 +226,7 @@ class RoomEnvironment{
   }
   
   setUserHeight( toHeight=1 ){
-    this.pxlEnv.pxlCamera.userScale = toHeight;
+    this.pxlEnv.pxlCamera.setUserHeight( toHeight );
   }
 
   resetCamera(){
@@ -352,6 +374,39 @@ class RoomEnvironment{
 
   // -- -- --
 
+  hitColliders( colliderList=[], colliderType=COLLIDER_TYPE.FLOOR ){
+    if( colliderList.length == 0 ){
+      return;
+    }
+    // Implement custom-event logic in this function to handle collisions in your room
+    /* switch( colliderType ){
+      case COLLIDER_TYPE.FLOOR:
+        break;
+      case COLLIDER_TYPE.WALL:
+        break;
+      case COLLIDER_TYPE.WALL_TOP:
+        break;
+      case COLLIDER_TYPE.CEILING:
+        break;
+      case COLLIDER_TYPE.PORTAL_WARP:
+        break;
+      case COLLIDER_TYPE.ROOM_WARP:
+        break;
+      case COLLIDER_TYPE.ITEM:
+        break;
+      case COLLIDER_TYPE.SCRIPTED:
+        break;
+      case COLLIDER_TYPE.HOVERABLE:
+        break;
+      case COLLIDER_TYPE.CLICKABLE:
+        break;
+      default:
+        break;
+    } */
+  }
+
+  // -- -- --
+
   hasColliders(){
     return this.collidersExist
   }
@@ -476,6 +531,44 @@ class RoomEnvironment{
     //forHashing = this.colliderHashMap;
     return forHashing;
   }
+
+  // -- -- --
+
+  // Collider helper functions
+  addColliderHelper( colliderType=COLLIDER_TYPE.FLOOR ){
+    if( !this.hasColliders() ){
+      return;
+    }
+    if( !this.helperObjects.hasOwnProperty('colliders') ){
+      this.helperObjects['colliders'] = {};
+      this.helperObjects['colliders'][colliderType] = null;
+    }else if( !this.helperObjects['colliders'].hasOwnProperty(colliderType) ){
+      this.helperObjects['colliders'][colliderType] = null;
+    }
+
+    // This is only used to easierly reveal the helper objects to the pxlRoom
+    //   This is only for debugging purposes
+    this.helperObjects['colliders'][colliderType] = this.pxlColliders.buildHelper( this, colliderType );
+
+    if( this.helperObjects['colliders'][colliderType] ){
+      this.scene.add( this.helperObjects['colliders'][colliderType] );
+      this.hasHelpers = true;
+    }
+  }
+
+  stepColliderHelper( colliderType=COLLIDER_TYPE.FLOOR ){
+    if( !this.hasHelpers ||
+        !this.hasColliders() ||
+        !this.helperObjects.hasOwnProperty('colliders') ||
+        !this.helperObjects['colliders'].hasOwnProperty(colliderType) ){
+      return;
+    }
+
+    this.helperObjects['colliders'][colliderType].stepHelper( this, colliderType );
+  }
+
+
+  // -- -- --
     
   toCameraPos( positionName ){
     if( this.cameraBooted && this.camLocation.hasOwnProperty( positionName ) ){

@@ -2,17 +2,81 @@
 // -- -- -- -- -- -- -- -- --
 // Written by Kevin Edzenga; 2025
 //
-// Parse colliders from the FBX scene, prep collision objects, and manage collision detection 
+// Parse colliders from the FBX scene, prep collision objects, pre-calculate barycentric data, and perform collision detections.
+//
+// I looked to Three.js for ray-intercept integration, which cited -
+//   Real-Time Collision Detection, Chapter 5 - 5.1.5; by Christer Ericson;
+//     Published by Morgan Kaufmann Publishers, (c) 2005 Elsevier Inc.
+//     Page 136; 5.1.5 -
+//       https://www.r-5.org/files/books/computers/algo-list/realtime-3d/Christer_Ericson-Real-Time_Collision_Detection-EN.pdf
+//   Along with barycentric coordinates for triangle collision detection cited in Three.js from -
+//     http://www.blackpawn.com/texts/pointinpoly/default.html
+//   ( This source also cites `Real-Time Collision Detection` by Christer Ericson )
+//
+//   This was source from Three.js `closestPointToPoint()`,
+//     Linked to `getInterpolation()` & `getBarycoord()`; from `three.core.js:8504` v172
+//       https://github.com/mrdoob/three.js/blob/dev/build/three.core.js
+//     ( Since the source is split up, I'm just linking to the main file )
+//
+// I implemented a per-pxlRoom hash grid for ground collision detection, 
+//   As ray casting to all polygons in a scene is inefficient
+// While also using the logic outlined in the book as used in Three.js, I've adapted it to my needs --
+//  `Colliders.prepColliders()` and `Colliders.prepInteractables()`
+//     Are used to build the hash grid and face-vertex associations for collision detection.
+//  `Colliders.castGravityRay()` and `Colliders.castInteractRay()`
+//     Are the primary functions for collision detection.
 
 import {
   Vector2,
-  Vector3
+  Vector3,
+  BufferAttribute,
+  BufferGeometry,
+  ShaderMaterial,
+  Mesh,
+  DoubleSide,
+  AdditiveBlending
 } from "../../libs/three/three.module.min.js";
 
 import { VERBOSE_LEVEL, COLLIDER_TYPE } from "./Enums.js";
 
+// Some assumptions are made here, as collision meshes are ussually low poly
+//   A grid size of 50 is assumed for -+500 unit bounds
+//     This is 5x larger than the assumed grid size in my CGI program.
+//       As my collision triangles range from 5-20 Meter units in size
+//
+// Many productions assume 1 Unit as 1 Meter; 500 units is 500 meters
+//   But that isn't good when precision is an issue for "other" reasons
+//     Blend shapes or other deformations can be problematic with precision issues
+//   If you are using Centimeters or Inches, you may need to adjust the grid size 10x or 40x smaller
+//
+// Please pass in the appropriate grid size & reference bounds for your scene
+//   If unsure, you're grid in your cgi program of choice is a good reference
+//     Most CGI program grids are -10 to +10, split into 5 units, in X,Z
+//       Or marked every 10 units
+//     If using Blender, you have an infinite X,Y grid, with FAINTLY thicker lines every 5 units
+//       Place a 10x10 grid on the floor and use that as a reference
+//
+// Reference Bounds?
+//   This is used to adjust the grid size based on the collider bounds
+//     As productions ussually employ a set unit scale, 
+//       Scene bounds may be an after-thought
+//   By defualt, I'm using 10x the grid size as a reference.
+//   If the grid size is smaller than expected based on the bounding box,
+//     The gridSize will be adjusted to your scene automatically
+//       It will be REDUCED to match the grid-bounds ratio of the collider
+//         So setting your grid sizing higher is better than lower
+//
+// Still not sure?
+//   Leave the defaults and run pxlNav in -
+//    `pxlOptions.verbose = pxlEnums.VERBOSE_LEVEL.INFO` verbose mode
+//       Then look at the console output for the found bounds and grid size adjustments
+//
+// Defaults -
+//   Grid Sizing of 50 units
+//   Reference Bounds of 500 units
+//
 export class Colliders{
-  constructor( verbose=false, hashGridSizing = 50, colliderBoundsReference = 1000.0 ){
+  constructor( verbose=false, hashGridSizing = 50, colliderBoundsReference = 500.0 ){
     this.pxlEnv = null;
     this.verbose = verbose;
 
@@ -22,10 +86,15 @@ export class Colliders{
 
     this.baseGridSize = hashGridSizing;
 
-    // Assume a base grid size of 50 to assume for -+1000 unit bounds
-    //   This will generate potentially 20x20 grid locations
+    this.degToRad = Math.PI / 180;
+
+    // Assume a base grid size of 50 to assume for -+500 unit bounds
+    //   This will generate potentially 10x10 grid locations
     //     This should be enough to mitigate higher poly count colliders
     this.colliderBoundsReference = colliderBoundsReference;
+
+    // Debugging --
+    this.prevGridKey = "";
 
   }
   setDependencies( pxlEnv ){
@@ -53,6 +122,8 @@ export class Colliders{
         gridSize = this.baseGridSize;
       }
 
+      let gridSizeInv = 1 / gridSize;
+
       // If the user runs `prepColliders` on Hover or Clickable objects,
       //   It's assumed the user meant to run `prepInteractables`
       // `prepColliders` is ran internally, but can be called externally
@@ -69,7 +140,10 @@ export class Colliders{
       }
       if( !this.roomColliderData[ roomName ].hasOwnProperty( colliderType ) ){
         this.roomColliderData[ roomName ][ colliderType ] = {};
+        this.roomColliderData[ roomName ][ colliderType ][ 'helper' ] = null;
+        this.roomColliderData[ roomName ][ colliderType ][ 'count' ] = 0;
         this.roomColliderData[ roomName ][ colliderType ][ 'gridSize' ] = gridSize;
+        this.roomColliderData[ roomName ][ colliderType ][ 'gridSizeInv' ] = gridSizeInv;
         this.roomColliderData[ roomName ][ colliderType ][ 'faceVerts' ] = {};
         this.roomColliderData[ roomName ][ colliderType ][ 'faceGridGroup' ] = {};
       }
@@ -103,26 +177,45 @@ export class Colliders{
       let maxColliderSize = Math.abs( Math.max( colliderSize.x, colliderSize.z ) );
       let gridSizeScalar = Math.min( 1.0, maxColliderSize / this.colliderBoundsReference );
       if( gridSizeScalar < 1.0 ){
+        let origGridSize = gridSize;
         gridSize = gridSize * gridSizeScalar;
+        gridSizeInv = 1 / gridSize;
         this.roomColliderData[ roomName ][ colliderType ][ 'gridSize' ] = gridSize;
+        this.roomColliderData[ roomName ][ colliderType ][ 'gridSizeInv' ] = gridSizeInv;
+
+        // Verbose feedback to aid in adjusting grid size for users
+        this.log( "Grid size adjusted for pxlRoom: " + roomName + "; from " + origGridSize + " to " + gridSize + " units; " + gridSizeScalar + "%" );
+        this.log( "Reference bound set to: " + this.colliderBoundsReference + " units" );
+        this.log( "Total pxlRoom bounds found: " + maxColliderSize + " units" );
+      }else{
+        // Verbose feedback to aid in adjusting grid size for users
+        this.log( "-- Grid size unchanged for pxlRoom '" + roomName + "', collider bounds within reference bounds --" );
       }
+      this.log( "Collider bounds: {x:" + colliderMinMax.min.x + ", y:" + colliderMinMax.min.y + "} -to- {x:" + colliderMinMax.max.x + ", y:" + colliderMinMax.max.y +" }" );
 
       // Generate the grid map for collision detection per faces within grid locations
       //   Store the face vertices, edges, and barycentric coordinates for collision detection performance
       let colliderBaseName = -1;
+      let colliderTriCount = 0;
       collidersForHashing.forEach( (collider)=>{
         colliderBaseName++;
         let colliderFaceVerts = collider.geometry.attributes.position.array;
+        console.log( colliderFaceVerts );
         let colliderFaceCount = colliderFaceVerts.length / 3;
-        let gridSizeInv = 1 / gridSize;
 
         //Gather occupied grid locations
         for( let x = 0; x < colliderFaceCount; ++x ){
           // Get face-vertex positions
           //   [ [...], x1,y1,z1, x2,y2,z2, x3,y3,z3, [...] ] -> Vector3( x1, y1, z1 )
-          let v0 = new Vector3( colliderFaceVerts[ x * 3 ], colliderFaceVerts[ (x * 3) + 1 ], colliderFaceVerts[ (x * 3) + 2 ] );
-          let v1 = new Vector3( colliderFaceVerts[ (x * 3) + 3 ], colliderFaceVerts[ (x * 3) + 4 ], colliderFaceVerts[ (x * 3) + 5 ] );
-          let v2 = new Vector3( colliderFaceVerts[ (x * 3) + 6 ], colliderFaceVerts[ (x * 3) + 7 ], colliderFaceVerts[ (x * 3) + 8 ] );
+          let baseIndex = x * 9;
+          let v0 = new Vector3( colliderFaceVerts[ baseIndex ], colliderFaceVerts[ baseIndex + 1 ], colliderFaceVerts[ baseIndex + 2 ] );
+          let v1 = new Vector3( colliderFaceVerts[ baseIndex + 3 ], colliderFaceVerts[ baseIndex + 4 ], colliderFaceVerts[ baseIndex + 5 ] );
+          let v2 = new Vector3( colliderFaceVerts[ baseIndex + 6 ], colliderFaceVerts[ baseIndex + 7 ], colliderFaceVerts[ baseIndex + 8 ] );
+
+          if( x == 0 ){
+            console.log( baseIndex );
+            console.log( v0, v1, v2 );
+          }
 
           // Find bounding box for the triangle
           let minX = Math.min(v0.x, v1.x, v2.x);
@@ -138,12 +231,19 @@ export class Colliders{
 
           // -- -- --
 
+          colliderTriCount++;
+
+          // -- -- --
+
           // Gather the core math required for every ray cast
           //   The below is stored to reduce runtime calculation latency
 
           // Edge vectors
           let edge0 = v1.clone().sub(v0);
           let edge1 = v2.clone().sub(v0);
+
+          // Face normal
+          let faceNormal = edge0.clone().cross(edge1);//.normalize();
 
           // Vertex-Edge relationships
           let dotE0E0 = edge0.dot(edge0);
@@ -153,15 +253,18 @@ export class Colliders{
           // Calculate tiangle area ratio
           let areaInv = 1 / (dotE0E0 * dotE1E1 - dotE0E1 * dotE0E1);
 
+
           // Face-Vertex data for grid location association
           let curColliderName = collider.name != "" ? collider.name : "collider_" + colliderBaseName;
           let faceKey = this.getGridKey(curColliderName,"_face_", this.flattenVector3( v0 ), this.flattenVector3( v1 ), this.flattenVector3( v2 ) );
           let faceVerts = {
+              "object" : collider,
               "name" : collider.name,
               "key" : faceKey,
               "verts" : [ v0, v1, v2 ],
               "edge0" : edge0,
               "edge1" : edge1,
+              "normal" : faceNormal,
               "dotE0E0" : dotE0E0,
               "dotE0E1" : dotE0E1,
               "dotE1E1" : dotE1E1,
@@ -179,7 +282,7 @@ export class Colliders{
 
           // -- -- --
 
-          // Only used for edge-grid intersection detection
+          // Third edge segment is used for edge-grid intersection detection
           let edge3 = v2.clone().sub(v1);
 
           // -- -- --
@@ -241,12 +344,20 @@ export class Colliders{
       let faceGridGroupKeys = Object.keys( this.roomColliderData[ roomName ][ colliderType ][ 'faceGridGroup' ] );
       for( let x = 0; x < faceGridGroupKeys.length; ++x ){
         let curEntry = this.roomColliderData[ roomName ][ colliderType ][ 'faceGridGroup' ][ faceGridGroupKeys[x] ];
-        this.roomColliderData[ roomName ][ colliderType ][ 'faceGridGroup' ][ faceGridGroupKeys[x] ] = [ ...new Set( curEntry ) ]; // Python has ruined me, `list( set( [...] ) )`
+        this.roomColliderData[ roomName ][ colliderType ][ 'faceGridGroup' ][ faceGridGroupKeys[x] ] = [ ...new Set( curEntry ) ]; // Python has ruined me, `list( set( (...) ) )`
       }
 
-      this.log( this.roomColliderData[roomName][ colliderType ]['faceGridGroup'] );
+
+      this.roomColliderData[ roomName ][ colliderType ][ 'count' ] = colliderTriCount;
+      this.log( " -- Collider Count for " + roomName + " : " + colliderTriCount );
+
+
+      // Full dump of collider data for the room
+      //   This is for debugging purposes
+      //this.log( this.roomColliderData[roomName][ colliderType ]['faceGridGroup'] );
     }else{
-      this.log( "No colliders found for room: " + pxlRoomObj.getName() );
+      this.log( " -- No colliders found for room: " + pxlRoomObj.getName() );
+      this.log( "      If you didn't intend on including collider objects in your FBX, something went wrong. Please check your FBX for unintentional collider user-detail attributes on mainScene objects." );
     }
   }
   
@@ -291,36 +402,25 @@ export class Colliders{
       this.roomColliderData[ roomName ][ curInteractableName ][ 'clickable' ] = colliderType == COLLIDER_TYPE.CLICKABLE;
       this.roomColliderData[ roomName ][ curInteractableName ][ 'gridSize' ] = this.baseGridSize; // Unused; it's for parity with other collider types
       this.roomColliderData[ roomName ][ curInteractableName ][ 'faceVerts' ] = {};
-      this.roomColliderData[ roomName ][ curInteractableName ][ 'faceGridGroup' ] = {};
 
       // Gather Face-Vertex data for interactable collider and barcentric coordinates
       for( let x = 0; x < colliderFaceCount; ++x ){
         // Get Face-Vertex positions
         //   [ [...], x1,y1,z1, x2,y2,z2, x3,y3,z3, [...] ] -> Vector3( x1, y1, z1 )
-        let v0 = new Vector3( colliderFaceVerts[ x * 3 ], colliderFaceVerts[ (x * 3) + 1 ], colliderFaceVerts[ (x * 3) + 2 ] );
-        let v1 = new Vector3( colliderFaceVerts[ (x * 3) + 3 ], colliderFaceVerts[ (x * 3) + 4 ], colliderFaceVerts[ (x * 3) + 5 ] );
-        let v2 = new Vector3( colliderFaceVerts[ (x * 3) + 6 ], colliderFaceVerts[ (x * 3) + 7 ], colliderFaceVerts[ (x * 3) + 8 ] );
-
-        // -- -- --
+        let baseIndex = x * 9;
+        let v0 = new Vector3( colliderFaceVerts[ baseIndex ], colliderFaceVerts[ baseIndex + 1 ], colliderFaceVerts[ baseIndex + 2 ] );
+        let v1 = new Vector3( colliderFaceVerts[ baseIndex + 3 ], colliderFaceVerts[ baseIndex + 4 ], colliderFaceVerts[ baseIndex + 5 ] );
+        let v2 = new Vector3( colliderFaceVerts[ baseIndex + 6 ], colliderFaceVerts[ baseIndex + 7 ], colliderFaceVerts[ baseIndex + 8 ] );
 
         // Edge vectors
         let edge0 = v1.clone().sub(v0);
         let edge1 = v2.clone().sub(v0);
-        let normal = edge0.clone().cross(edge1).normalize();
-
-        // Vertex-Edge relationships
-        let dotE0E0 = edge0.dot(edge0);
-        let dotE0E1 = edge0.dot(edge1);
-        let dotE1E1 = edge1.dot(edge1);
-
-        // Calculate tiangle area ratio
-        let areaInv = 1 / (dotE0E0 * dotE1E1 - dotE0E1 * dotE0E1);
-
-        // -- -- --
+        let normal = edge0.clone().cross(edge1);
 
         // Face-Vertex data for grid location association
-        let faceKey = this.getGridKey(curInteractableName,"_face_", this.flattenVector3( v0 ), this.flattenVector3( v1 ), this.flattenVector3( v2 ) );
+        let faceKey = this.getGridKey(curInteractableName, "_", this.flattenVector3( v0 ), this.flattenVector3( v1 ), this.flattenVector3( v2 ) );
         let faceVerts = {
+            "object" : collider,
             "key" : faceKey,
             "verts" : [ v0, v1, v2 ],
             "edge0" : edge0,
@@ -369,7 +469,7 @@ export class Colliders{
   }
 
   // Round to nearest
-  roundToNearest( val, nearest=.001 ){
+  roundToNearest( val, nearest=0.1 ){
     return Math.round( val / nearest ) * nearest;
   }
 
@@ -391,13 +491,17 @@ export class Colliders{
 
   // -- -- --
 
-  // Returns null if no collision
-  // When 'multiHits' is false, only the first hit is returned as a vector3 position
-  // When 'multiHits' is true, return all [hits,...] vector3 positions
-  castRay( roomName, origin, colliderType=COLLIDER_TYPE.FLOOR, multiHits=true, direction=Vector3(0, -1, 0) ){
+  // Returns array of collision positions on the collider, sorted by distance from the origin
+  //   Each object in the array contains -
+  // "object" : Collided Three.js object
+  // "pos" : Vector3 position of the collision
+  // "dist" : Distance from the origin
+  castGravityRay( roomName, origin, colliderType=COLLIDER_TYPE.FLOOR, multiHits=true, direction=new Vector3(0, -1, 0) ){
+    // Check if collider type exists in the room's collider data
     if( !this.roomColliderData.hasOwnProperty( roomName ) || !this.roomColliderData[roomName].hasOwnProperty( colliderType ) ){
-      return null;
+      return [];
     }
+    
     let roomData = this.roomColliderData[ roomName ][ colliderType ];
     let gridSize = roomData[ 'gridSize' ];
     let faceGridGroup = roomData[ 'faceGridGroup' ];
@@ -422,56 +526,84 @@ export class Colliders{
     // Parse all face ids, remove dupelicates, and find the closest face to the origin
     let faceIds = [];
     for( let x = 0; x < gridKeyArr.length; ++x ){
-      if( faceGridGroup.hasOwnProperty( gridKeyArr[x] ) ){
-        faceIds = faceIds.concat( faceGridGroup[ gridKeyArr[x] ] );
+      if( faceGridGroup?.hasOwnProperty( gridKeyArr[x] ) ){
+        faceIds.push( ...faceGridGroup[ gridKeyArr[x] ] );
       }
     }
 
+    faceIds = Object.keys( roomData['faceVerts'] );
+
     // No collider faces found
     if( faceIds.length == 0 ){
-      return null;
+      return [];
     }
 
-    // Python really has ruined me for removing dupelicates, list( set( [...] ) )
-    //   But works!
+    // Python really has ruined me for removing dupelicates, `list( set( (...) ) )`
+    //   I love golfing when I can!
     faceIds = [...new Set( faceIds )];
 
     let retPositions = {};
+
+    //console.log( faceIds.length );
 
     // Find face vert arrays for the grid location
     for( let x = 0; x < faceIds.length; ++x ){
       // Face-Vertex data
       let faceVerts = roomData[ 'faceVerts' ][ faceIds[x] ];
-      let v1 = faceVerts[ 'verts' ][0];
+      let v0 = faceVerts[ 'verts' ][0];
+      let v1 = faceVerts[ 'verts' ][1];
+      let v2 = faceVerts[ 'verts' ][2];
+
 
       // Get edge vectors
-      let edge0 = faceVerts[ 'edge0' ];
-      let edge1 = faceVerts[ 'edge1' ];
-      let edgeOrigin = origin.clone().sub(v1);
+      let edgeOrigin = origin.clone().sub(v0);
+
+      let faceNormal = faceVerts[ 'normal' ];
+      //console.log( Object.keys( faceVerts ) );
+
+      let distToFace = edgeOrigin.dot( faceNormal ) / faceNormal.dot( faceNormal );
+      let projection = origin.clone().sub( faceNormal.clone().multiplyScalar( distToFace ) );
+      
+      let edge0 = v2.sub( v0 ); // faceVerts[ 'edge0' ];
+      let edge1 = v1.sub( v0 ); // faceVerts[ 'edge1' ];
+      let edgeProj = projection.clone().sub(v0);
 
       // Get Vertex-Edge relationships
-      let dotE0E0 = faceVerts[ 'dotE0E0' ];
-      let dotE0E1 = faceVerts[ 'dotE0E1' ];
-      let dotE0EOrigin = edge0.dot(edgeOrigin);
-      let dotE1E1 = faceVerts[ 'dotE1E1' ];
-      let dotE1EOrigin = edge1.dot(edgeOrigin);
+      let dotE0E0 = edge0.dot( edge0 ); // faceVerts[ 'dotE0E0' ];
+      let dotE0E1 = edge0.dot( edge1 ); // faceVerts[ 'dotE0E1' ];
+      let dotE0EOrigin = edge0.dot( edgeProj );
+      let dotE1E1 = edge1.dot( edge1 ); // faceVerts[ 'dotE1E1' ];
+      let dotE1EOrigin = edge1.dot( edgeProj );
 
       // Calculate triangle area and barycentric coordinates
-      let areaInv = faceVerts[ 'areaInv' ];
+      let areaInv = (dotE0E0 * dotE1E1 - dotE0E1 * dotE0E1); // faceVerts[ 'areaInv' ];
+      if( areaInv == 0 ) continue; // Triangle is degenerate
+      areaInv = 1 / (dotE0E0 * dotE1E1 - dotE0E1 * dotE0E1); // faceVerts[ 'areaInv' ];
       let u = (dotE1E1 * dotE0EOrigin - dotE0E1 * dotE1EOrigin) * areaInv;
       let v = (dotE0E0 * dotE1EOrigin - dotE0E1 * dotE0EOrigin) * areaInv;
 
+      //console.log( dotE0E0, dotE0E1, dotE0EOrigin, dotE1E1, dotE1EOrigin );
+      //console.log( areaInv, u, v );
       if( u >= 0 && v >= 0 && (u + v) < 1 ){
         // Intersection found
         //   Return collision position on face
-        let intersectionPoint = v1.clone().add(edge0.multiplyScalar(u)).add(edge1.multiplyScalar(v));
+        let intersectionPoint = v0.clone().add(edge0.multiplyScalar(u)).add(edge1.multiplyScalar(v));
+
+        console.log( "--", intersectionPoint );
 
         // Store distance for sorting
         let dist = origin.distanceTo(intersectionPoint);
-        retPositions[dist] = intersectionPoint;
+
+        let intersectData = {
+          "object" : faceVerts[ 'object' ],
+          "pos" : intersectionPoint,
+          "dist" : dist
+        }
+
+        retPositions[dist] = intersectData;
 
         if( !multiHits ){
-          return intersectionPoint;
+          return [intersectData];
         }
       }
     }
@@ -484,15 +616,21 @@ export class Colliders{
       retArr.push( retPositions[ distKeys[x] ] );
     }
 
+    // Update active face in collision helper object, if exists
+    if( roomData[ 'helper' ] ){
+      let curFace = retArr.length > 0 ? retArr[0] : -1;
+      this.setHelperActiveFace( roomName, colliderType, curFace );
+    }
+
     return retArr;
   }
 
   // -- -- -- 
 
-  // objectInteractList is an array of three.js objects
-  // camera is a three.js camera object
-  // screenUV is a Vector2 of the screen position in NDC, from -1 to 1
-  //   If needed, run `pxlNav.pxlUtils.screenToNDC` to convert screen position to NDC before passing to this function
+  // 'objectInteractList' is an array of Three.js objects
+  // 'camera' is a three.js camera object
+  // 'screenUV' is a Vector2 of the screen position in NDC, from -1 to 1
+  //   If needed, run `pxlNav.pxlUtils.screenToNDC( mX,mY, swX,swY )` to convert screen position to NDC before passing to this function
   castInteractRay( roomName, objectInteractList=[], camera=null, screenUV=Vector2(0.0, 0.0), multiHits=true ){
 
     // Calculate ray direction & origin
@@ -501,8 +639,8 @@ export class Colliders{
     let rayOrigin = camera.position.clone();
     
     // Calculate frustum dimensions using FOV and aspect ratio
-    let fovRadians = camera.fov * Math.PI / 180;
-    let tanFov = Math.tan(fovRadians / 2);
+    let fovRadians = camera.fov * this.degToRad;
+    let tanFov = Math.tan(fovRadians * .5);
     let aspectRatio = camera.aspect;
 
     // Calculate ray direction in camera space
@@ -511,7 +649,7 @@ export class Colliders{
     let dirZ = -1; // Forward in camera space
 
     // Create direction vector and transform to world space
-    let rayDirection = new THREE.Vector3(dirX, dirY, dirZ)
+    let rayDirection = new Vector3(dirX, dirY, dirZ)
         .applyMatrix4(camera.matrixWorld)
         .sub(camera.position)
         .normalize();
@@ -532,6 +670,7 @@ export class Colliders{
       let curFaceData = this.roomColliderData[ roomName ][ curName ];
       let objFaceVerts = curFaceData[ 'faceVerts' ];
       let faceVertKeys = Object.keys( objFaceVerts );
+      //console.log( faceVertKeys );
       faceVertKeys.forEach(( curFaceKey )=>{
         let curFace = objFaceVerts[ curFaceKey ];
         let v1 = curFace[ 'verts' ][0];
@@ -577,6 +716,8 @@ export class Colliders{
           //   Return collision position on face
           let intersectionPoint = v1.clone().add(edge0.multiplyScalar(u)).add(edge1.multiplyScalar(v));
 
+          //console.log( "--!!--", intersectionPoint );
+
           // Store distance for sorting
           let dist = rayOrigin.distanceTo(intersectionPoint);
           retClickedObjects[dist] = { 
@@ -600,6 +741,7 @@ export class Colliders{
     let retArr = {};
     retArr[ 'order' ] = [];
     retArr[ 'hits' ] = {};
+    retArr[ 'hitCount' ] = 0;
     for( let x = 0; x < distKeys.length; ++x ){
       let curObj = retClickedObjects[ distKeys[x] ][ 'obj' ];
       let curIntersect = retClickedObjects[ distKeys[x] ][ 'pos' ];
@@ -610,10 +752,215 @@ export class Colliders{
         retArr[ 'hits' ][ curName ] = [];
       }
       retArr[ 'hits' ][ curName ].push( curIntersect );
+      retArr[ 'hitCount' ]++;
     }
 
     return retArr;
   }
+
+  // -- -- -- -- -- -- -- -- -- -- --
+
+  //////////////////////////////////////////////////
+  // Helper Functions for Collider Visualization //
+  ////////////////////////////////////////////////
+
+  // Face ID To Color ID
+  //   Fit color to limit for easier visual identification
+  toColorId( faceId, limit=256 ){
+    let limitInv = 1.0 / limit;
+    let redLimit = 1.0 / (limit * limit);
+    // -- -- --
+    let redId = Math.floor( faceId * redLimit ) % limit;
+    let greenId = Math.floor( faceId * limitInv ) % limit;
+    let blueId = faceId % limit;
+    // -- -- --
+    return  [ redId*limitInv, greenId*limitInv, blueId*limitInv ];
+  }
+
+  // Generate a random color ID list for visual identification
+  //   This will shift neighboring triangles to different colors
+  getRandomColorIdList( count=64 ){
+    let colorIdList = Array.from({length: count}, (_, x) => { return x });
+    let stepSize = parseInt( Math.floor( colorIdList.length / 3 ) );
+
+    // If stepSize is even, make it odd
+    stepSize += (stepSize & 0x0001)==0 ? 1 : 0;
+
+    let randomColorIdList = [];
+    for( let x = 0; x < count; ++x ){
+      if( colorIdList.length == 0 ){ // Should never run, but just in case
+        break;
+      }else if( colorIdList.length == 1 ){
+        randomColorIdList.push( colorIdList.pop() );
+        break;
+      }
+      let curComponent = (stepSize*x) % colorIdList.length;
+      let curEntry = colorIdList.splice( curComponent , 1 );
+      randomColorIdList.push( curEntry[0] );
+    }
+    return randomColorIdList;
+  }
+
+    
+  // Display known triangles as a visual red when in the users grid
+  //  The intersected triangle will be displayed as a green triangle
+  buildHelper( roomObj, colliderType=COLLIDER_TYPE.FLOOR ){
+    let roomName = roomObj.getName();
+    let roomData = this.roomColliderData[ roomName ][ colliderType ];
+    let triCount = roomData[ 'count' ];
+
+    this.log( "Building helper for " + roomName + " with " + triCount + " triangles" );
+
+    // Create a geometry to hold all triangles
+    let geometry = new BufferGeometry();
+
+    // Arrays to hold vertices and visibility attributes
+    let vertices = [];
+    let colorId = [];
+    let visibility = [];
+
+    let colorIdList = this.getRandomColorIdList( triCount );
+
+    let colorLimit = parseInt( triCount ** .5 );
+    let posYShift = 0.1;
+
+    // Iterate through all face vertices in roomData
+    Object.keys(roomData['faceVerts']).forEach((faceKey, index) => {
+      let faceVerts = roomData['faceVerts'][faceKey]['verts'];
+
+      // Push vertices for each triangle
+      vertices.push( faceVerts[0].x, faceVerts[0].y + posYShift, faceVerts[0].z );
+      vertices.push( faceVerts[1].x, faceVerts[1].y + posYShift, faceVerts[1].z );
+      vertices.push( faceVerts[2].x, faceVerts[2].y + posYShift, faceVerts[2].z );
+
+      // Push visibility attribute for each vertex (default to 0, meaning not visible)
+      visibility.push( 0, 0, 0 );
+
+      // Set unique color for each triangle
+      let curColorId = this.toColorId( colorIdList[index], colorLimit );
+      colorId.push( ...curColorId, ...curColorId, ...curColorId );
+
+    });
+
+    // Convert arrays to Float32Array
+    let verticesArray = new Float32Array( vertices );
+    let colorIdArray = new Float32Array( colorId );
+    let visibilityArray = new Float32Array( visibility );
+
+
+    // Set attributes for geometry
+    geometry.setAttribute( 'position', new BufferAttribute( verticesArray, 3 ) );
+    geometry.setAttribute( 'colorId', new BufferAttribute( colorIdArray, 3 ) );
+    geometry.setAttribute( 'visibility', new BufferAttribute( visibilityArray, 1 ) );
+
+    // Create a material with a shader that can toggle visibility based on vertex attributes
+    let material = new ShaderMaterial({
+      uniforms: {
+      visibleFaceId: { value: -1 } // Default to -1, meaning no face is green
+      },
+      vertexShader: `
+        uniform float visibleFaceId;
+
+        attribute vec3 colorId;
+        attribute float visibility;
+
+        varying vec4 vCd;
+        varying float vVisibility;
+
+        void main() {
+          vVisibility = visibility*.5+.5;
+          
+          vCd = vec4( normalize(colorId), 0.50 ); // Pre-calculated Blue for visible face
+          if (visibleFaceId == 1.0) {
+            vCd = vec4( 0.0, 1.0, 0.0, 1.0 ); // Green for visible face
+          }
+
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        varying vec4 vCd;
+        varying float vVisibility;
+
+        void main() {
+
+          vec4 Cd = vCd;
+          //Cd.a *= vVisibility;
+          //Cd.rgb = vec3( vVisibility );
+
+          gl_FragColor = Cd;
+        }
+      `,
+    });
+
+
+    material.side = DoubleSide;
+    material.transparent = true;
+    material.depthTest = true;
+    material.depthWrite = false;
+    material.blending = AdditiveBlending;
+
+    // Create mesh and add to the scene
+    let mesh = new Mesh(geometry, material);
+    mesh.renderOrder = 2;
+
+    // Store the mesh for later use
+    this.roomColliderData[ roomName ][ colliderType ][ 'helper' ] = mesh;
+
+    return mesh;
+
+  }
+
+  // Update vertex attributes to current grid location
+  stepHelper( roomObj, colliderType=COLLIDER_TYPE.FLOOR ){
+    let roomName = roomObj.getName();
+    let roomData = this.roomColliderData[ roomName ][ colliderType ];
+    let helperMesh = roomData[ 'helper' ];
+    let faceGridGroup = roomData[ 'faceGridGroup' ];
+
+
+    // Get current grid location
+    let gridSize = roomData[ 'gridSize' ];
+    let gridSizeInv = 1 / gridSize;
+    let gridX = Math.floor(roomObj.position.x * gridSizeInv);
+    let gridZ = Math.floor(roomObj.position.z * gridSizeInv);
+    let gridKey = this.getGridKey(gridX, gridZ);
+
+    // Get all face keys in the current grid location
+    let faceKeys = faceGridGroup[gridKey];
+
+    if( this.prevGridKey == gridKey ){
+      return;
+    }
+
+    // Update face-vertex visibility attribute based on grid location
+    let geometry = helperMesh.geometry;
+    let visibility = geometry.attributes.visibility;
+    let visibilityArray = visibility.array;
+    /*for (let i = 0; i < visibilityArray.length; i++) {
+      visibilityArray[i] = 0;
+    }*/
+
+    // Set visibility to 1 for all faces in the current grid location
+    /*if (faceKeys) {
+      faceKeys.forEach((faceKey) => {
+        let faceVerts = roomData['faceVerts'][faceKey];
+        let idx = 3 * faceVerts['idx'];
+        visibilityArray[idx] = 1;
+        visibilityArray[idx + 1] = 1;
+        visibilityArray[idx + 2] = 1;
+      });
+    }*/
+  }
+
+  setHelperActiveFace( roomName, colliderType=COLLIDER_TYPE.FLOOR, faceIdx=-1 ){
+    let roomData = this.roomColliderData[ roomName ][ colliderType ];
+    let helperMesh = roomData[ 'helper' ];
+
+    let material = helperMesh.material;
+    material.uniforms.visibleFaceId.value = faceIdx;
+  }
+
 
   // -- -- -- 
   

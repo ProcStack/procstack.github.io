@@ -657,7 +657,7 @@ export class FileIO{
       this.runDebugger = false;
     }
     if(meshKey==null){ // Prep for IsLoaded checks
-        meshKey = envObj.roomName;
+        meshKey = envObj.getName();
     }
     if( !fbxPath ){
       fbxPath = envObj.sceneFile;
@@ -775,7 +775,7 @@ export class FileIO{
         let ch=groups[groupTypes['AutoCamPaths']].children;
         this.log("AutoCamPaths - ",groups[groupTypes['AutoCamPaths']]);
         
-        this.pxlAutoCam.autoCamPaths[ envObj.roomName ]=[];
+        this.pxlAutoCam.autoCamPaths[ envObj.getName() ]=[];
         while(ch.length>0){
           let g=ch.pop();
           //ch.push(...c.children);
@@ -789,7 +789,7 @@ export class FileIO{
             g.visible=false;
             g.matrixAutoUpdate=false;
             envScene.add(g);
-            this.pxlAutoCam.autoCamPaths[ envObj.roomName ].push( autoPathDict );
+            this.pxlAutoCam.autoCamPaths[ envObj.getName() ].push( autoPathDict );
           }
         }
       }
@@ -1060,7 +1060,6 @@ export class FileIO{
           let curChildren=colliderGroups[x].children;
           while(curChildren.length>0){
             let child=curChildren.pop();
-            console.log("Collider Child - ",child.name);
             curChildren.push(...child.children);
             if(child.isMesh){
               child.visible=false;
@@ -1530,7 +1529,7 @@ export class FileIO{
 
   loadAnimFBX( envObj, meshKey, rigPath, animPath, stateConnections ){
     if(meshKey==''){ // Prep for IsLoaded checks
-        meshKey = envObj.roomName;
+        meshKey = envObj.getName();
     }
     this.pxlEnv.geoLoadListComplete=0;
     this.pxlEnv.geoLoadList[meshKey]=0;

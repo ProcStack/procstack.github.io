@@ -51,12 +51,14 @@
 /*  -- -- --  */
 
 .pxlLoaderTitle{
+  line-height: 1em;
 	font-size:1.5em;
 	font-variant: all-small-caps;
+  font-family: sans-serif;
 	letter-spacing: 3.85px;
 	color:rgba(255,255,255,0.85);
 	position: relative;
-	top: -2.7px;
+	top: -2px;
 	mix-blend-mode: difference;
 	z-index: 2;
 }

@@ -22,8 +22,8 @@ const pxlPrincipledFrag = pxlShaders.objects.pxlPrincipledFrag;
 const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
 
 export class FieldEnvironment extends RoomEnvironment{
-  constructor( roomName='FieldEnvironment', assetPath=null, pxlFile=null, pxlAnim=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
-    super( roomName, assetPath, pxlFile, pxlAnim, pxlUtils, pxlDevice, pxlEnv, msRunner, camera, scene, cloud3dTexture );
+  constructor( roomName='FieldEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
+    super( roomName, assetPath, msRunner, camera, scene, cloud3dTexture );
     
 		this.assetPath=assetPath+"Assets/";
 		this.assetPath="./js/pxlRooms/FieldEnvironment/Assets/";
@@ -45,7 +45,7 @@ export class FieldEnvironment extends RoomEnvironment{
 		this.cameraAimTarget=new Object3D(0,0,0);
     this.camHoldWarpPos=true;
 		
-    this.pxlCamFOV=(pxlDevice.mobile?80:60);
+    this.pxlCamFOV={ 'PC':60, 'MOBILE':80 };
 		this.pxlCamZoom=1;
 		this.pxlCamAspect=1;
     this.pxlCamNearClipping = 5;
@@ -273,7 +273,7 @@ export class FieldEnvironment extends RoomEnvironment{
     }
     
 
-
+    // TODO : Old raycast function, needs to be updated to custom pxlCollider raycaster
     castRay( isClick, mButton ){
       if( ( !isClick && !this.hasHoverables ) || ( isClick && !this.hasClickables ) ){
         return;
@@ -397,6 +397,7 @@ export class FieldEnvironment extends RoomEnvironment{
           }
         }
         
+        this.addColliderHelper( this.geoList['colliderHelper'] );
         
         this.setUserHeight( 15 );
         //this.pxlAutoCam.toggleAutoCam( );

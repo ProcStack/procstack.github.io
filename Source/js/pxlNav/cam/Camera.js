@@ -16,7 +16,7 @@ import {
   Euler
 } from "../../libs/three/three.module.min.js";
 
-import { COLLIDER_TYPE } from "../core/Enums.js";
+import { COLLIDER_TYPE, CAMERA_EVENT } from "../core/Enums.js";
 
 // TODO : Extend this damn monolith of a chunky boy
 //          Camera, Player Controller, Force Influence / Collision
@@ -63,6 +63,9 @@ export class Camera{
     // Once click/tap is done, how much does the last velocity ease out
     //  Velocity * this.cameraEasing
     this.cameraEasing = [ .55, .45 ]; // [ PC, Mobile ]
+
+    // Touch screen sensitivity settings
+    this.touchMaxSensitivity = 500;
     
     // The jumping impulse per frame
     this.cameraJumpImpulse=[.035,.075]; // [ Grav, Low Grav ]
@@ -80,6 +83,7 @@ export class Camera{
     this.pxlTimer=null;
     this.pxlAutoCam=null;
     this.pxlEnv=null;
+    this.pxlColliders=null;
     this.pxlUser=null;
     this.pxlUtils=null;
     this.pxlDevice=null;
@@ -96,15 +100,29 @@ export class Camera{
     this.camUpdated=true;
     this.cameraBooted=false;
 
+    // Calculation triggers
+    this.hasMoved = false; // Player has moved camera, WASD or Arrow Keys
+    this.hasRotated = false; // Player clicked and dragged mouse/touch to rotate camera
+    this.hasJumped = false; // Initial Jump Trigger
+    this.hasJumpLock = false; // Held jump upon landing, jump again after delay, this is the delay notification
+    this.hasGravity = false; // Player isn't on the ground; due to jump or running off a ledge
+
+    // -- -- --
+
     this.standingHeightGravInfluence=0;
     this.standingMaxGravityOffset=.5; // Usage -  ( standingHeight / standingHeightGravInfluence ) * standingMaxGravityOffset
     this.maxStepHeight=.6; // Max distance (Meters) up or down, like walking up and down stairs.
     
-    this.walkBounce=0;
     this.walkBounceSeed=230;
+    this.walkBounceHeight = .3; // sin(walkBounce) * walkBounceHeight
+    this.walkBounce=0;
     this.walkBouncePerc=0;
+    this.walkBounceRate=.025; // Bounce rate per frame; walkBounce + walkBounceRate
+    this.walkBounceEaseIn=.03; // Ease in bouncePerc rate up to 1; perc + easeIn
+    this.walkBounceEaseOut=.95; // Ease out bouncePerc scalar; perc * easeOut
     
     this.posRotEasingThreshold=.01; // Velocity based calculations with any per frame scalar cut off value; val<posRotEasingThreshold ? 0
+
     this.cameraMovement=[0,0]; // Left/Right, Forward/Back, Jump
     this.cameraMovementEase=.85; // After key up, pre-frame rate to 0
     this.cameraMoveLength=0;
@@ -126,9 +144,7 @@ export class Camera{
     this.nearestFloorObjName=null;
     this.nearestFloorHitPrev=new Vector3(0,0,0);
     this.nearestFloorObjNamePrev=null;
-    this.objectJumpLock=false;
     
-    this.gravityActive=false;
     this.gravitySourceActive=false;
     this.gravityDirection=new Vector3( 0, -1, 0 );
     this.gravityEaseOutRate=.80;
@@ -136,7 +152,6 @@ export class Camera{
     this.jump=0;
     // TODO : Unsure if I'd rather a contant timer for all "allowed" jumps or not
     //          For now, this lock holds that the player should jump again when the timer is up
-    this.hasJumpLock=false; // Held jump upon landing, jump again after delay, this is the delay notification
     this.releaseJumpLockTime = 0;
     this.releaseJumpLockDelay = .05; // Seconds dely between repeated jumping, its less jaring with a slight delay
 
@@ -239,7 +254,11 @@ export class Camera{
     this.prevQuaternion=new Quaternion(); // Used in motionBlur shader calculations only
     //this.prevWorldMatrix= new Matrix4(); // Only used if running higher quality motionBlur calculations, not needed
     
-    this.pi=3.14159265358979;
+    this.pi=3.141592653589793238462643383279;
+    this.touchSensitivityLimits = this.touchMaxSensitivity * this.pi;
+
+    // Event callbacks
+    this.eventCallbacks={};
 
     this.init();
   }
@@ -253,6 +272,7 @@ export class Camera{
     this.pxlTimer=pxlNav.pxlTimer;
     this.pxlAutoCam=pxlNav.pxlAutoCam;
     this.pxlEnv=pxlNav.pxlEnv;
+    this.pxlColliders=pxlNav.pxlColliders;
     this.pxlUser=pxlNav.pxlUser;
     this.pxlUtils=pxlNav.pxlUtils;
     this.pxlDevice=pxlNav.pxlDevice;
@@ -261,53 +281,73 @@ export class Camera{
     this.socket=pxlNav.socket;
   }
 
+  // -- -- --
+  
+  log( msg ){
+    if( this.verbose >= VERBOSE_LEVEL.INFO ){
+      console.log( msg );
+    }
+  }
+  warn( msg ){
+    if( this.verbose >= VERBOSE_LEVEL.WARN ){
+      console.warn( msg );
+    }
+  }
+  error( msg ){
+    if( this.verbose >= VERBOSE_LEVEL.ERROR ){
+      console.error( msg );
+    }
+  }
+
+  // -- -- --
+
   /**
    * Initializes the Camera class and Camera Worker.
    */
   // TODO : Get worker implemented for whole of camera scripts
   init(){
     // Camera Service Worker - Ray Intersect Collision Detector
-    // TODO : Finish adding worker to check collision detection only
-      var worker;
-      if( false && Worker ){
-          worker = new Worker("js/pxlBase/webWorkers/CameraWorker.js");  
-          this.worker=worker;
-          //this.workerList.push( worker );
-      
-          let tmpThis=this;
-          worker.onmessage= (event) => {  
-              tmpThis.workerMessage(event.data);
-          };
-          worker.onerror= (event)=>{  
-              tmpThis.workerMessage({type:"err", data:event.data});
-          };
-          
-          // Transferables Status
-          let ab= new ArrayBuffer(1);
-          worker.postMessage(ab, [ab]); // ab.byteLength -> If transfer successful
-          this.workerTransfers=ab.byteLength==0; // Can transfer ArrayBuffers directly
-          
-          // Message Functions
-          this.workerMessage= async ( msg )=>{
-              if( msg.type == "update" ){
-                  tmpThis.updateMainValues( msg );
-              }
-          }
-          this.workerFunc= async ( type, state=null )=>{
-              tmpThis.worker.postMessage({type, state})
-          }
-          this.deviceKey= async ( key=false, state=false )=>{
-              if( typeof key == "number"){
-              }else if( typeof key == "string"){
-                  let type="key";
-                  tmpThis.worker.postMessage({type, key, state})
-              }
-          }
-          this.workerActive=true;
-          this.runMain=false;
-          
-          this.workerFunc("init");
-      }
+    // TODO : Finish adding workers to monitor the Collider class and raycasting
+    var worker;
+    if( false && Worker ){
+        worker = new Worker("js/pxlBase/webWorkers/CameraWorker.js");  
+        this.worker=worker;
+        //this.workerList.push( worker );
+    
+        let tmpThis=this;
+        worker.onmessage= (event) => {  
+            tmpThis.workerMessage(event.data);
+        };
+        worker.onerror= (event)=>{  
+            tmpThis.workerMessage({type:"err", data:event.data});
+        };
+        
+        // Transferables Status
+        let ab= new ArrayBuffer(1);
+        worker.postMessage(ab, [ab]); // ab.byteLength -> If transfer successful
+        this.workerTransfers=ab.byteLength==0; // Can transfer ArrayBuffers directly
+        
+        // Message Functions
+        this.workerMessage= async ( msg )=>{
+            if( msg.type == "update" ){
+                tmpThis.updateMainValues( msg );
+            }
+        }
+        this.workerFunc= async ( type, state=null )=>{
+            tmpThis.worker.postMessage({type, state})
+        }
+        this.deviceKey= async ( key=false, state=false )=>{
+            if( typeof key == "number"){
+            }else if( typeof key == "string"){
+                let type="key";
+                tmpThis.worker.postMessage({type, key, state})
+            }
+        }
+        this.workerActive=true;
+        this.runMain=false;
+        
+        this.workerFunc("init");
+    }
   }
   /**
    * Updates main values from worker data.
@@ -328,6 +368,122 @@ export class Camera{
       this.camUpdated=true;
   }
     
+////////////////////////////////////////////
+// Update settings externally of Camera  //
+//////////////////////////////////////////
+
+  // Allow access to alter the Camera's internal settings
+  //   Run these updates during the Room's `init()`, `start()`, or `build()` functions
+  // TODO : Allow per-Room settings to be set in the Room's FBX file or Room Class
+  // TODO : Move these to the User class when updated for pxlNav
+  //          User is currently as it was for Antibody.club, so it needs to be updated for the pxlNav module
+  
+  // Default is 1
+  setJumpScalar( val ){
+    val = Math.max( val, 0.01 );
+    this.jumpScalar=val;
+  }
+  // Default is 1.75
+  setUserHeight( val ){
+    val = Math.max( val, 0.01 );
+    this.standingHeight=val;
+  }
+  // Default is 1
+  setUserScale( val ){
+    val = Math.max( val, 0.01 );
+    this.userScale=val;
+  }
+  // Default is 1
+  setMovementScalar( val ){
+    val = Math.max( val, 0.01 );
+    this.movementScalar=val;
+  }
+  // Default is 0.85
+  setMovementEase( val ){
+    val = Math.min( 1, Math.max( val, 0.01 ) );
+    this.cameraMovementEase=val;
+  }
+
+  setPositionBlend( val ){
+    val = Math.min( 1, Math.max( val, 0.01 ) );
+    this.camPosBlend=val;
+  }
+
+  // Default is 0.1
+  setInputMovementMult( val ){
+    val = Math.max( val, 0.01 );
+    this.cameraMoveLengthMult=val;
+  }
+
+  setCameraRotateEasing( val ){
+    if( !Array.isArray(val) ){
+      if( typeof val == "number" ){
+        val=[val,val];
+        this.warn("Warning : Camera.setCameraEasing() expects an array of two numeric values, [PC Easing 0-1, Mobile Easing 0-1]; Default is [.55,.45]");
+      }else{
+        this.error("Error : Camera.setCameraEasing() unexpected values type; expecting an array of two numeric values, [PC Easing 0-1, Mobile Easing 0-1]; Default is [.55,.45]");
+      }
+    }
+    this.cameraEasing=val;
+  }
+  
+  // Touch Sensitivity should be a pixel-to-device reasonable value
+  //   Default is 500, being 500 pixels dragging range to look around
+  setTouchSensitivity( val ){
+    if(val<=0){
+      val=1;
+    }
+    this.touchMaxSensitivity=val;
+    this.touchSensitivityLimits = this.touchMaxSensitivity * this.pi;
+  }
+  
+  setGravityRate( val ){
+    if(val<=0){
+      val=1;
+    }
+    this.gravityRate=val;
+  }
+
+  // Assume 1 unit is 1 meter/second^2
+  //  But default is 2.5, so it's a bit lighter than Earth's gravity
+  setGravityMax( val ){
+    if(val<=0){
+      val=1;
+    }
+    this.gravityMax=val;
+  }
+
+  // Set walking bounce settings
+  // Default is 230
+  setWalkBounceHeight( val ){
+    if(val<=0){
+      val=0;
+    }
+    this.walkBounceHeight=val;
+  }
+  // Default is 0.025
+  setWalkBounceRate( val ){
+    if(val<=0){
+      val=0.0001;
+    }
+    this.walkBounceRate=val;
+  }
+  // Default is 0.03
+  setWalkBounceEaseIn( val ){
+    val = Math.min( 1, Math.max( val, 0.0001 ) );
+    this.walkBounceEaseIn=val;
+  }
+  // Default is 0.95
+  setWalkBounceEaseOut( val ){
+    val = Math.min( 1, Math.max( val, 0.01 ) );
+    this.walkBounceEaseOut=val;
+  }
+
+
+
+/////////////////////////
+// Main runtime loop  //
+///////////////////////
   /**
    * Main step function to update camera state.
    */
@@ -337,16 +493,15 @@ export class Camera{
     if(this.pxlDevice.directionKeyDown){
         this.updateMovement(this.pxlTimer.prevMS);
     }
-    
     if( this.runMain ){
       
       if( this.hasJumpLock && this.pxlTimer.runtime > this.releaseJumpLockTime ){
         this.hasJumpLock = false;
-        this.gravityActive = false; 
+        this.hasGravity = false; 
         this.cameraAllowJump = true;
         this.camInitJump();
       }
-      if( this.gravityActive && this.cameraJumpActive ){
+      if( this.hasGravity && this.cameraJumpActive ){
           this.camJump(this.pxlTimer.prevMS);
       }else if(this.cameraJumpVelocity>0 ){
           this.killJumpImpulse();
@@ -354,7 +509,7 @@ export class Camera{
     }
     
     // Check if camera calculations should be ran
-    this.camUpdated= this.camUpdated || this.cameraMovement[0]!=0 || this.cameraMovement[1] || this.gravityActive || this.pxlDevice.cursorLockActive;
+    this.camUpdated= this.camUpdated || this.hasMoved || this.hasRotated || this.hasGravity || this.cameraMovement[0]!=0 || this.cameraMovement[1]!=0 ;// || this.pxlDevice.cursorLockActive;
     this.updateCamera();
 
 
@@ -394,7 +549,7 @@ export class Camera{
       this.pxlDevice.touchMouseData.netDistance.x+=tankRotate*4.0;
     }
     
-        //let stillMoving=false;
+    //let stillMoving=false;
     // PC Mouse Movement
     if(this.pxlDevice.touchMouseData.velocity!=null && this.pxlDevice.mobile==0){
       if(velEaseMag<this.posRotEasingThreshold){
@@ -560,6 +715,12 @@ export class Camera{
     this.setFOV(fov);
   }
 
+  setAspect( aspect ){
+    this.camera.aspect=aspect;
+    this.camera.updateProjectionMatrix();
+    //this.camUpdated=true;
+  }
+
   /**
    * Sets the camera transform to a specific position and lookAt target.
    * For camera position changes, portals, and room warps
@@ -613,8 +774,12 @@ export class Camera{
     
     this.resetGravity();
     this.camUpdated=true; // Forces next frame update
+    this.hasMoved=true;
+    this.hasRotated=true;
     this.mainColliderCheck( obj.position, null );
     this.nearestFloorObjName=null;
+
+    
   }
   
   /**
@@ -697,8 +862,9 @@ export class Camera{
     this.pxlEnv.mapComposer.render();
     this.pxlEnv.mapComposerWarpPass.enabled=!this.pxlEnv.mapComposerWarpPass.enabled;
     this.pxlEnv.mapComposer.render();*/
-        
-    this.camera.fov=roomEnv.pxlCamFOV;
+    
+    let curFOV = roomEnv.pxlCamFOV[  this.pxlDevice.mobile ? 'MOBILE' : 'PC' ];
+    this.camera.fov=curFOV;
     this.camera.zoom=roomEnv.pxlCamZoom;
     this.camera.aspect=roomEnv.pxlCamAspect;
     this.camera.near=roomEnv.pxlCamNearClipping;
@@ -715,7 +881,8 @@ export class Camera{
     this.pxlEnv.currentRoom=roomName;
     let roomEnv=this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom];
     
-    this.camera.fov=roomEnv.pxlCamFOV;
+    let curFOV = roomEnv.pxlCamFOV[  this.pxlDevice.mobile ? 'MOBILE' : 'PC' ];
+    this.camera.fov=curFOV;
     this.camera.zoom=roomEnv.pxlCamZoom;
     this.camera.aspect=roomEnv.pxlCamAspect;
     this.camera.near=roomEnv.pxlCamNearClipping;
@@ -788,19 +955,20 @@ export class Camera{
     // Link static camera to prevent jumping as well
     if( !this.canMove ){return;}
       
-    if( !this.gravityActive && this.cameraAllowJump ){
+    if( !this.hasGravity && this.cameraAllowJump ){
       this.pxlDevice.keyDownCount[2]=this.pxlTimer.prevMS;
       
+
       this.cameraAllowJump=false; // Prevent jump spamming up stacked colliders; this may be desired for ladders
       this.cameraJumpActive=true;
       this.cameraJumpInAir=true;
       
-      this.gravityActive=true;
+      this.hasGravity=true;
       this.gravityRate=0;
       this.cameraJumpVelocity=this.cameraJumpImpulse[this.pxlUser.lowGrav] * this.userScale;
             
-      if( this.objectJumpLock ){
-          this.objectJumpLock=false;
+      if( this.hasJumpLock ){
+          this.hasJumpLock=false;
           this.nearestFloorHit=this.nearestFloorHitPrev;
       }
     }
@@ -856,13 +1024,13 @@ export class Camera{
       
       let gravityRate = this.gravityMPS[ this.pxlUser.lowGrav ];
 
-      if( this.gravityActive ){
+      if( this.hasGravity ){
         this.gravityRate = Math.min( this.gravityMax, (this.gravityRate+this.gravityMax*this.pxlTimer.msRunner.y)) * gravityRate;
       }
       if( this.gravityRate != 0 ){
         // gMult not used, testing for need
         let gMult=1;
-        if( !this.gravityActive ){
+        if( !this.hasGravity ){
           this.gravityRate=this.gravityRate>.01 ? this.gravityRate*this.gravityEaseOutRate*gravityRate : 0;
           gMult= this.gravityRate;
         }else{
@@ -895,9 +1063,9 @@ export class Camera{
       this.releaseJumpLockTime = this.pxlTimer.runtime + this.releaseJumpLockDelay;
     }
 
-    this.gravityActive=false; // Should probably name it cameraInAir
+    this.hasGravity=false; // Should probably name it cameraInAir
     this.cameraJumpVelocity=0;
-    this.cameraJumpInAir=false; // gravityActive should indicate this value; residual from logic rework
+    this.cameraJumpInAir=false; // hasGravity should indicate this value; residual from logic rework
     this.cameraJumpActive=false; // Stop running camJump function
 
     // Leave outside if for external access
@@ -930,33 +1098,33 @@ export class Camera{
     let objHit=null;
     this.movementBlocked=false;
     //if((this.cameraMoveLength>0 || this.colliderPrevObjHit==null || this.nearestFloorObjName==null) && this.cameraBooted && this.collidersExist){
-    if((this.cameraMoveLength>0 || this.colliderPrevObjHit==null || this.nearestFloorObjName==null) && this.cameraBooted && this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].collidersExist){
+    if( (this.cameraMoveLength>0 || this.colliderPrevObjHit==null || this.nearestFloorObjName==null) &&
+           this.cameraBooted && this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].collidersExist
+        ){
       this.colliderValidityChecked=true; // Prevent doublechecking object validity post collision detection
       
+      let curRoomObj = this.pxlEnv.roomSceneList[ this.pxlEnv.currentRoom ];
+
       let castDir=new Vector3(0,-1,0);
       let castPos=curCamPos.clone();//.add(new Vector3(0,100,0));
-      let castHeight=1500;
-      castPos.y=castHeight;
+      let castHeight=15;
+      castPos.y += castHeight + this.maxStepHeight;
       
       let resetKeyDown=false;
       var rayHits=[];
       
       let curQuadrant= ( ~~(castPos.x>0)+"" ) + ( ~~(castPos.z>0)+"" );
       
-      if( this.antiColliderActive){
-        rayHits=this.objRaycast.intersectObjects( [
-            ...this.antiColliderList[ 'noAxis' ],
-            ...this.antiColliderList[ curQuadrant ],
-          ]);//scene.children);
-      }
+      rayHits = this.pxlColliders.castGravityRay( this.pxlEnv.currentRoom, castPos, COLLIDER_TYPE.WALL );
       
       if(rayHits.length > 0){ // Hit a wall, check if you are standing on the wall
         // this.floorColliderInitialHit=true;
+        curRoomObj.hitColliders( rayHits, COLLIDER_TYPE.WALL );
         if(this.antiColliderTopActive){
-          let rayTopHits=this.objRaycast.intersectObjects([
-              ...this.antiColliderTopList[ 'noAxis' ],
-              ...this.antiColliderTopList[ curQuadrant ],
-            ]);//scene.children);
+          let rayTopHits=this.pxlColliders.castGravityRay( this.pxlEnv.currentRoom, castPos, COLLIDER_TYPE.WALL_TOP );
+          if( rayTopHits.length > 0 ){
+            curRoomObj.hitColliders( rayTopHits, COLLIDER_TYPE.WALL_TOP );
+          }
           
           let closestDist=-99999;
           let yPrevRef=curCamPos.y;
@@ -966,8 +1134,8 @@ export class Camera{
           for(var x=0; x<rayTopHits.length;++x){
             var obj=rayTopHits[x];
             curName=obj.object.name;
-            let curHit=obj.point;
-            let curDist=obj.distance;
+            let curHit=obj.pos;
+            let curDist=obj.dist;
             let camDist=curHit.y;//- curCamPos.y; // ## Why??
             let validHit=camDist < this.maxStepHeight;
             validHitCheck = validHitCheck ? validHitCheck : validHit;
@@ -978,7 +1146,7 @@ export class Camera{
             }
           }
            let pullBack;
-          if( !validHitCheck || ((curCamPos.y) < curCollisionPos.y && (this.nearestFloorHitPrev.y-curCollisionPos.y > (this.maxStepHeight+this.getStandingHeight()) && !this.gravityActive) && ( (curCamPos.y+this.maxStepHeight+this.getStandingHeight()) < curCollisionPos.y && this.gravityActive) ) ){
+          if( !validHitCheck || ((curCamPos.y) < curCollisionPos.y && (this.nearestFloorHitPrev.y-curCollisionPos.y > (this.maxStepHeight+this.getStandingHeight()) && !this.hasGravity) && ( (curCamPos.y+this.maxStepHeight+this.getStandingHeight()) < curCollisionPos.y && this.hasGravity) ) ){
               //objHit=null;
               //this.movementBlocked=true;
               /*if( !objHit ){
@@ -989,15 +1157,15 @@ export class Camera{
               //objHit=this.nearestFloorObjName;
               if(this.cameraMovement[0] != 0 || this.cameraMovement[1] != 0 ){
                   validHitCheck=true;
-                  this.gravityActive=false;
-                  this.objectJumpLock=true;
+                  this.hasGravity=false;
+                  this.hasJumpLock=true;
               }
               
               pullBack=this.cameraPos.clone();
               pullBack.y=Math.min(curCamPos.y,pullBack.y);//+this.cameraJumpVelocity;
               curCamPos=pullBack;
               curCollisionPos=curCamPos;
-              if(this.gravityActive){
+              if(this.hasGravity){
                   curCollisionPos.y=this.nearestFloorHitPrev.y;
               }else{
                   curCollisionPos.y=this.cameraPos.y;
@@ -1022,7 +1190,7 @@ export class Camera{
                   this.nearestFloorObjName = this.nearestFloorObjNamePrev;
                   if( Math.abs(curCamPos.y-this.nearestFloorHit.y) > (this.maxStepHeight+this.getStandingHeight()) ){
                       this.colliderValid = false;
-                      this.gravityActive = true;
+                      this.hasGravity = true;
                   }
               }else{
                   this.nearestFloorHitPrev = this.nearestFloorHit;
@@ -1039,30 +1207,35 @@ export class Camera{
         // ## Find orientation to gravitational source if any exist in Room Environment
         let stepUpDist=this.maxStepHeight+this.cameraJumpVelocity;
         let validDistRange=stepUpDist+this.maxStepHeight+this.gravityRate;
-        castPos.y=curCamPos.y+stepUpDist;
-        this.objRaycast.set(castPos, castDir );
+        //castPos.y=curCamPos.y+stepUpDist;
+        castPos=curCamPos.clone(); //.add(new Vector3(0,100,0));
+        castPos.y += castHeight + this.maxStepHeight;
                 
-                if( !this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList ){
-                    this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList={};
-                }
-                if( !this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList[curQuadrant] ){
-                    //console.log("trigger build master list");
-                    let masterList=[];
-                    let curRoomThis=this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom];
-                    masterList.push( ...curRoomThis.colliderList[ 'noAxis' ] );
-                    masterList.push( ...curRoomThis.colliderList[ curQuadrant ] );
-                    masterList.push( ...curRoomThis.antiColliderTopList[ 'noAxis' ] );
-                    masterList.push( ...curRoomThis.antiColliderTopList[ curQuadrant ] );
-                    this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList[curQuadrant]=masterList;
-                }
+        /*
+         * Being removed, leaving for any rollback needs during custom raycasting implementation
+        if( !this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList ){
+            this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList={};
+        }
+        if( !this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList[curQuadrant] ){
+            //console.log("trigger build master list");
+            let masterList=[];
+            let curRoomThis=this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom];
+            masterList.push( ...curRoomThis.colliderList[ 'noAxis' ] );
+            masterList.push( ...curRoomThis.colliderList[ curQuadrant ] );
+            masterList.push( ...curRoomThis.antiColliderTopList[ 'noAxis' ] );
+            masterList.push( ...curRoomThis.antiColliderTopList[ curQuadrant ] );
+            this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList[curQuadrant]=masterList;
+        }*/
                 
         if( (this.colliderActive && this.antiColliderTopActive) || this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderActive  ){
-                    rayHits=this.objRaycast.intersectObjects( this.pxlEnv.roomSceneList[this.pxlEnv.currentRoom].colliderMasterList[curQuadrant] );
+          rayHits=this.pxlColliders.castGravityRay( this.pxlEnv.currentRoom, castPos, COLLIDER_TYPE.FLOOR );
         }else{
           return curCamPos; // No colliders
         }
                 
         if(rayHits.length > 0){
+          curRoomObj.hitColliders( rayHits, COLLIDER_TYPE.FLOOR );
+
           this.floorColliderInitialHit=true;
           let closestDist=-99999;
           let curName;
@@ -1070,15 +1243,17 @@ export class Camera{
           
           for(let x=0; x<rayHits.length;++x){
             let obj=rayHits[x];
-            //let curHit=castPos.y-obj.distance;
-            let curDist=obj.distance;
+            let curHit=obj.pos;
+            //let curHit=castPos.y-obj.dist;
+            //let curDist=obj.dist;
+            let curDist=curHit.distanceTo( curCamPos );
             
-            let curHit=obj.point;
             let validHit=false;
             curName=obj.object.name;
             let camDist=curHit.distanceTo( curCamPos );
             
             validHit=camDist<this.maxStepHeight;
+            console.log(camDist);
             if( ( this.portalList[curName] || this.roomWarpZone.includes(curName) ) && validHit){
               objHit=curName;
               curCollisionPos=curHit;
@@ -1093,15 +1268,16 @@ export class Camera{
           }
                     
                         
-                    if( this.nearestFloorObjName==null && objHit!=null){
+          if( this.nearestFloorObjName==null && objHit!=null){
             this.nearestFloorHitPrev=curCollisionPos;
             this.nearestFloorObjNamePrev=objHit;
                         
-                        this.nearestFloorHit=curCollisionPos;
-                        this.nearestFloorObjName=objHit;
+            this.nearestFloorHit=curCollisionPos;
+            this.nearestFloorObjName=objHit;
           }
           
-          if( this.nearestFloorHitPrev.y-curCollisionPos.y > (this.maxStepHeight+this.getStandingHeight()) && !this.gravityActive){
+          //console.log(this.nearestFloorHitPrev.y-curCollisionPos.y, this.maxStepHeight+this.getStandingHeight() );
+          if( this.nearestFloorHitPrev.y-curCollisionPos.y > (this.maxStepHeight+this.getStandingHeight()) && !this.hasGravity){
 
             //this.nearestFloorHit=this.nearestFloorHitPrev;
             //this.nearestFloorObjName=this.nearestFloorObjNamePrev;
@@ -1130,7 +1306,7 @@ export class Camera{
             this.nearestFloorObjName=objHit;
             if( objHit == null ){
                 this.colliderValid=false;
-                this.gravityActive=true;
+                this.hasGravity=true;
             }
           }
         }else{
@@ -1216,11 +1392,11 @@ export class Camera{
           }else{
               
               rayHits.forEach( (hit)=>{
-                  let curDist=hit.distance;
-                  let curOffset=curCamPos.y-hit.point.y;
+                  let curDist=hit.dist;
+                  let curOffset=curCamPos.y-hit.pos.y;
                   if( curDist>curCamPos.y && curOffset< curCamPos.y+this.maxStepHeight ){
                       minDist=curDist;
-                      minHitPos=hit.point;
+                      minHitPos=hit.pos;
                   }
               });
               if( curCamPos.y<minHitPos.y){
@@ -1297,16 +1473,16 @@ export class Camera{
                     minHitPos.y-=this.maxStepHeight;
                     
                     rayHits.forEach( (hit)=>{
-                        let curDist=hit.distance;
-                        //let curOffset=curCamPos.y-hit.point.y;
-                        let curOffset=hit.point.y;
+                        let curDist=hit.dist;
+                        //let curOffset=curCamPos.y-hit.pos.y;
+                        let curOffset=hit.pos.y;
                         //if( curDist>curCamPos.y && curOffset< curCamPos.y+this.maxStepHeight ){
                         //if( curDist<minDist && curOffset< curCamPos.y+this.maxStepHeight ){
                         if( curOffset > curCamPos.y-this.maxStepHeight && curOffset < curCamPos.y+this.maxStepHeight+standingHeight && minHitPos.y<curOffset){
                             validHit=true;
                             gravityEnabled=false;
                             minDist=curDist;
-                            minHitPos=hit.point;
+                            minHitPos=hit.pos;
                         }else if( curOffset > curCamPos.y+this.maxStepHeight ){
                             blockMovement=true;
                         }else if( curOffset < curCamPos.y-this.maxStepHeight && validHit==false ){
@@ -1319,7 +1495,7 @@ export class Camera{
                         return retPos;
                     }
                     if( gravityEnabled ){
-                        this.gravityActive=true;
+                        this.hasGravity=true;
                     }
                     if( validHit ){
                         if( curCamPos.y<minHitPos.y ){
@@ -1336,10 +1512,10 @@ export class Camera{
   
   // Collider Ray Casting Complete Failure
   /*checkColliderFail( curCamPos ){
-        if(this.gravityActive && (curCamPos.y-this.gravityRate)< this.nearestFloorHit.y && (curCamPos.y+this.maxStepHeight)> this.nearestFloorHit.y){// && this.cameraMovement[0]!=0 && this.cameraMovement[1]!=0){
+        if(this.hasGravity && (curCamPos.y-this.gravityRate)< this.nearestFloorHit.y && (curCamPos.y+this.maxStepHeight)> this.nearestFloorHit.y){// && this.cameraMovement[0]!=0 && this.cameraMovement[1]!=0){
       this.gravityRate=0;
       this.standingHeightGravInfluence=0;
-      this.gravityActive=false;
+      this.hasGravity=false;
       curCamPos=this.nearestFloorHit.clone();
       return curCamPos;
     }
@@ -1360,7 +1536,7 @@ export class Camera{
       
       if(this.movementBlocked){
         this.movementBlocked=false;
-        this.gravityActive=false;
+        this.hasGravity=false;
         this.gravityRate=0;
         this.standingHeightGravInfluence=0;
       }
@@ -1399,6 +1575,9 @@ export class Camera{
   
   /**
    * Triggers an event based on the collider object.
+   * Currently supports inta-room portals, extra-room warp zones, and only 2 audio triggers.
+   * Custom triggers haven't been implemented yet,
+   *   For any custom Collider Events, use the `castray()`
    * @param {string} [checkObject=null] - The collider object to check.
    * @returns {boolean} - Whether an event was triggered.
    */
@@ -1463,7 +1642,6 @@ export class Camera{
         this.pxlAudio.setFadeActive(-1);
       //}else if(){ } // TODO : Add camera location warp pad check
       }else{
-        //console.log( this.colliderCurObjHit );
         this.pxlEnv.currentAudioZone=0;
         curExp= curExp*(1-curExposure) + this.uniformScalars.exposureUniformBase*curExposure; // ## Don't do it this way... blend, don't add offset
       }
@@ -1474,26 +1652,26 @@ export class Camera{
       // If Lobby geomtry is visible, but no longer in the Lobby, toggle visiblity
             // Runs once, at the moment of collider change
       if( this.colliderPrevObjHit=="AudioTrigger_2" && this.colliderCurObjHit!=this.colliderPrevObjHit){
-                this.proximityScaleTrigger=true; // Fade In proximity range
-                this.pxlAudio.setFadeActive(1);
+        this.proximityScaleTrigger=true; // Fade In proximity range
+        this.pxlAudio.setFadeActive(1);
       }
       
-            if( this.pxlDevice.mobile ){
-                curExp=this.colliderAdjustPerc;
-            }
-            
+      if( this.pxlDevice.mobile ){
+          curExp=this.colliderAdjustPerc;
+      }
+      
       // Set scene exposure on post-process composer passes 
       this.pxlEnv.updateCompUniforms(curExp);
             
 
       // Scale proximity visual
       if(this.proximityScaleTrigger && !this.pxlDevice.mobile && !this.pxlAutoCam.enabled ){
-          let proxMult=this.colliderAdjustPerc;
-          proxMult=1-(1-proxMult)*(1-proxMult);
-          this.pxlEnv.fogMult.x = proxMult;
-          if( !this.colliderShiftActive ){
-              this.proximityScaleTrigger=false;
-          }
+        let proxMult=this.colliderAdjustPerc;
+        proxMult=1-(1-proxMult)*(1-proxMult);
+        this.pxlEnv.fogMult.x = proxMult;
+        if( !this.colliderShiftActive ){
+          this.proximityScaleTrigger=false;
+        }
       }
       
       this.eventCheckStatus=this.colliderShiftActive;
@@ -1677,7 +1855,8 @@ export class Camera{
   }
 
   /**
-   * Initializes the starting camera position.
+   * Initializes the starting camera position per-frame.
+   *   This is ran in `updateCamera()` 
    * @returns {Vector3} - The initial camera position.
    */
   initFrameCamPosition(){
@@ -1685,8 +1864,10 @@ export class Camera{
     
     if(!this.cameraBooted){ // These should be set from Scene File, if not, initial values
       this.cameraAimTarget.position.set(0, 0, 0);//.add(new Vector3(0,0,0));
-      this.cameraPrevPos=new Vector3(curCamPos.clone());
-      this.cameraPrevLookAt=new Vector3(0,0,1);
+      this.cameraPrevPos = new Vector3(curCamPos.clone());
+      this.cameraPrevLookAt = new Vector3(0,0,1);
+      this.hasMoved = true;
+      this.hasRotated = true;
     }else{
       let userMovement;
       /*if(this.pxlDevice.mobile){ // ## When Mobile is implemented, convert to this.cameraMovement
@@ -1699,22 +1880,24 @@ export class Camera{
       //}
       userMovement.applyQuaternion(this.camera.quaternion);
       let moveScalar = this.cameraMoveLength*this.cameraMoveLengthMult;
+
       // Give some base movement to the camera
       //   This way it doesn't ramp up from 0, but from the minimum movement speed
       if( moveScalar!=0 ){
         let minimumMoveSpeed=0.1;
         moveScalar = moveScalar>0 ? Math.max(minimumMoveSpeed,moveScalar) : Math.min(-minimumMoveSpeed,moveScalar);
+        userMovement.normalize().multiply(new Vector3(1,0,1)).multiplyScalar(moveScalar);
+        curCamPos.add(userMovement);
+        
+        this.cameraMovement[0] = Math.abs(this.cameraMovement[0])<this.posRotEasingThreshold ? 0 : this.cameraMovement[0]*this.cameraMovementEase;
+        this.cameraMovement[1] = Math.abs(this.cameraMovement[1])<this.posRotEasingThreshold ? 0 : this.cameraMovement[1]*this.cameraMovementEase;
+        this.hasMoved=true;
       }
-      userMovement.normalize().multiply(new Vector3(1,0,1)).multiplyScalar(moveScalar);
-      curCamPos.add(userMovement);
-      
-      this.cameraMovement[0] = Math.abs(this.cameraMovement[0])<this.posRotEasingThreshold ? 0 : this.cameraMovement[0]*this.cameraMovementEase;
-      this.cameraMovement[1] = Math.abs(this.cameraMovement[1])<this.posRotEasingThreshold ? 0 : this.cameraMovement[1]*this.cameraMovementEase;
       
       //curCamPos=curCamPos.clone().multiplyScalar(this.camPosBlend).add(this.cameraPrevPos.clone().multiplyScalar(1-this.camPosBlend));
       // ## When GravitySource exists, apply cameraMovement offset
       //     Cam movement to Vector3( cm[0], 0, cm[1] ), rotated by Quaternion from Euler Normalize Vector (camPos - collider hit)
-      //   DON NOT USE CAMERA QUATERNION, movement doesn't align to camera orientation
+      //   DO NOT USE CAMERA QUATERNION, movement doesn't align to camera orientation
       curCamPos.y=this.cameraPos.y + this.cameraJumpVelocity;
       if( this.workerActive ){
           this.cameraJumpVelocity=0; // Additive from the worker thread
@@ -1733,7 +1916,7 @@ export class Camera{
    * @returns {Vector3} - The updated camera position.
    */
   applyGravity( curCamPos ){
-    if( this.gravityActive ){
+    if( this.hasGravity ){
       //curCamPos=this.checkColliderFail( curCamPos );
       
       let validDist=this.maxStepHeight+this.gravityRate;
@@ -1774,7 +1957,8 @@ export class Camera{
         curCamPos=this.cameraPos.clone();
         
         let fallStatus=curCamPos.y > this.nearestFloorHit.y;
-        this.gravityActive=fallStatus;
+        this.hasGravity=fallStatus;
+        this.hasMoved = this.hasMoved || fallStatus;
         this.colliderFail= !fallStatus;
         this.workerFunc("jumpLanding");
         //curCamPos=this.checkColliderFail( curCamPos );
@@ -1799,15 +1983,18 @@ export class Camera{
   getUserHeight(){
     // Add bob to movement to appear as taking steps
     let walkBounceAdd=Math.min(1, Math.abs(this.cameraMovement[1]));
-    this.walkBouncePerc=this.walkBouncePerc>=1?1:this.walkBouncePerc+.05;
-    this.walkBounce+=walkBounceAdd*.1;
-    this.walkBouncePerc=this.walkBouncePerc*.9+walkBounceAdd;
+
+    this.walkBouncePerc=this.walkBouncePerc>=1?1:this.walkBouncePerc + this.walkBounceEaseIn * walkBounceAdd;
+    this.walkBounce+=walkBounceAdd * this.walkBounceRate;
+    this.walkBouncePerc=this.walkBouncePerc * this.walkBounceEaseOut + walkBounceAdd;
+
     if(this.walkBouncePerc<.03){
       this.walkBouncePerc=0;
       this.walkBounce=0;
       this.walkBounceSeed=Math.random()*2351.3256;
     }
-    let walkBounceOffset=Math.sin(this.walkBounce*.4+this.walkBounceSeed+this.cameraMovement[1]*.2)*this.walkBouncePerc*.3;
+    //let walkBounceOffset=Math.sin(this.walkBounce*.4+this.walkBounceSeed+this.cameraMovement[1]*.2)*this.walkBouncePerc*.3;
+    let walkBounceOffset=Math.sin(this.walkBounce+this.walkBounceSeed) * this.walkBouncePerc * this.walkBounceHeight;
     
     let curStandingHeight=this.getStandingHeight() - this.standingHeightGravInfluence + walkBounceOffset;
     
@@ -1822,6 +2009,8 @@ export class Camera{
   /**
    * Applies mobile rotation to the camera.
    * Mobile currently doesn't support movement in Rooms
+   * 
+   * Currently unused; awaiting mobile-gyroscope implementation
    */
   camApplyMobileRotation(){
     if(this.cameraPose.alpha!=null){ 
@@ -1851,6 +2040,8 @@ export class Camera{
       smoothedQuat.setFromEuler(cameraLimit);
 
       this.camera.setRotationFromQuaternion(smoothedQuat);
+      
+      this.hasRotated=true;
     }
   }
 
@@ -1867,38 +2058,40 @@ export class Camera{
       let viewNormal=new Vector3(0,0,1);
       let poseQuat=new Quaternion();
       // ## Theres a better place for this....
-      this.pxlDevice.touchMouseData.velocity.y=Math.min(this.pi*500, Math.max(-this.pi*500, this.pxlDevice.touchMouseData.velocity.y));
+      this.pxlDevice.touchMouseData.velocity.y=Math.min(this.touchSensitivityLimits, Math.max(-this.touchSensitivityLimits, this.pxlDevice.touchMouseData.velocity.y));
       let euler=new Euler();
       let camPoseQuat;
       if( this.pxlDevice.mobile ){
         euler.set(
-          (this.pxlDevice.touchMouseData.netDistance.y/this.pxlDevice.sH*2),
-          (this.pxlDevice.touchMouseData.netDistance.x/this.pxlDevice.sW*2),
-          0,
-          'YXZ'); // Device returns YXZ for deviceOrientation
-          camPoseQuat=new Quaternion();
-          camPoseQuat.setFromEuler(euler);
-          camPoseQuat=this.pxlDevice.touchMouseData.initialQuat.clone().multiply(camPoseQuat);
-          //camPoseQuat.multiply(poseQuat.setFromAxisAngle(viewNormal,-this.cameraPose.orientation));
+            (this.pxlDevice.touchMouseData.netDistance.y/this.pxlDevice.sH*2),
+            (this.pxlDevice.touchMouseData.netDistance.x/this.pxlDevice.sW*2),
+            0,
+            'YXZ'
+          ); // Device returns YXZ for deviceOrientation
+        camPoseQuat=new Quaternion();
+        camPoseQuat.setFromEuler(euler);
+        camPoseQuat=this.pxlDevice.touchMouseData.initialQuat.clone().multiply(camPoseQuat);
+        //camPoseQuat.multiply(poseQuat.setFromAxisAngle(viewNormal,-this.cameraPose.orientation));
       }else{
         euler.set(
-          this.pxlDevice.touchMouseData.velocity.y*.005,
-          this.pxlDevice.touchMouseData.velocity.x*.008+xGrav,
-          0,
-          'YXZ'// Device returns YXZ for deviceOrientation
-        ); 
+            this.pxlDevice.touchMouseData.velocity.y*.005,
+            this.pxlDevice.touchMouseData.velocity.x*.008+xGrav,
+            0,
+            'YXZ'// Device returns YXZ for deviceOrientation
+          ); 
         camPoseQuat=new Quaternion();
         camPoseQuat.setFromEuler(euler);
         //camPoseQuat=this.pxlDevice.touchMouseData.initialQuat.clone().multiply(camPoseQuat);
         camPoseQuat=this.camera.quaternion.clone().multiply(camPoseQuat);
       }
       camPoseQuat.normalize();
-
       
       let lookAt= new Vector3(0,0,-10).applyQuaternion( camPoseQuat ).add( this.camera.position );
       this.camera.setRotationFromQuaternion(camPoseQuat);
       this.camera.lookAt(lookAt);
       this.camera.up.set( 0,1,0 );
+
+      this.hasRotated=true;
     }
   }
   
@@ -1918,10 +2111,11 @@ export class Camera{
       }
      let euler=new Euler();
       euler.set(
-        (this.pxlDevice.touchMouseData.netDistance.y/this.pxlDevice.sH*2),
-        (this.pxlDevice.touchMouseData.netDistance.x/this.pxlDevice.sW*2),
-        0,
-        'YXZ'); // Device returns YXZ for deviceOrientation
+          (this.pxlDevice.touchMouseData.netDistance.y/this.pxlDevice.sH*2),
+          (this.pxlDevice.touchMouseData.netDistance.x/this.pxlDevice.sW*2),
+          0,
+          'YXZ'
+        ); // Device returns YXZ for deviceOrientation
       // Limit Up/Down looking
       let camPoseQuat=new Quaternion().clone( this.camera.quaternion );
       camPoseQuat.setFromEuler(euler);
@@ -1939,6 +2133,8 @@ export class Camera{
       this.camera.setRotationFromQuaternion(camPoseQuat);//smoothedQuat);
       this.camera.lookAt(lookAt);
       this.camera.up.set( 0,1,0 );
+      
+      this.hasRotated=true;
     }
 
   /**
@@ -1969,6 +2165,8 @@ export class Camera{
         }else{
           this.camera.setRotationFromQuaternion( targetCamQuat.slerp(origCamQuat,Math.cos(this.lookAtLockPerc*pi)*.5+.5) );
         }
+
+        this.hasRotated=true;
       }
     }
   }
@@ -2106,20 +2304,26 @@ export class Camera{
    * Main update function for the camera.
    */
   updateCamera(){
-    this.updateStaticCameraRotation();
+    //this.updateStaticCameraRotation();
     //let velEaseMag=this.pxlDevice.touchMouseData.velocityEase.length();
-    let velEaseMag=this.pxlDevice.touchMouseData.velocity.length();
+    let velEaseMag = this.pxlDevice.touchMouseData.velocity.length();
+    this.hasRotated = this.hasRotated || velEaseMag > 0;
+    this.camUpdated = this.camUpdated || this.hasRotated;
+
+    // Fade out touchMouseData, likely to be removed in later versions
     this.pxlDevice.touchMouseData.curFadeOut.multiplyScalar( .7 );
-    if( this.camUpdated || velEaseMag != 0 || this.pxlDevice.touchMouseData.active){// || this.lookAtLockPerc>0 ){ // ## Not using any cam locking yet
+
+    // Check if the camera has been updated; step camera values, apply gravity, check for colliders, and interact with objects
+    if( this.camUpdated ){ // || this.pxlDevice.touchMouseData.active){// || this.lookAtLockPerc>0 ){ // ## Not using any cam locking yet
       
       // Camera checks are initiating
       this.camUpdated=false;
       
-      let stillMoving=false;
-        
+      let didUpdate=false;
         
       this.updateDeviceValues( velEaseMag );
-      this.pxlUser.localUserTurned=this.pxlDevice.touchMouseData.velocity.length() == 0;
+      // TODO : Enable when User class is updated
+      //this.pxlUser.localUserTurned=this.pxlDevice.touchMouseData.velocity.length() == 0;
       
       this.prevQuaternion.copy( this.camera.quaternion );
       //this.prevWorldMatrix.set( this.camera.matrixWorld ); // Only used if running higher quality motion blur, not needed
@@ -2129,12 +2333,12 @@ export class Camera{
       //this.camApplyMobileRotation();
 
       let cameraPos=this.initFrameCamPosition();
-            
+      
       // Appy Gravity Height Offset
       let standingHeight=this.getUserHeight();
       
       // Movement checks
-      if( this.canMove ){
+      if( this.hasMoved && this.canMove ){
         // ## Create a hybrid Camera.js and Room Environment collision check system
         if( this.pxlEnv.currentRoom == this.pxlEnv.mainRoom){
           let gravitySource = null; // not implemented, but should be the object being used for gravity, would reside within the current Room's object list
@@ -2144,7 +2348,6 @@ export class Camera{
         }else{ // For external room warp zone checking
           cameraPos=this.roomColliderCheck( cameraPos, standingHeight );
         }
-
         
         // If in air, gravity grows 
         //   This only updates gravity prior to jump calculations
@@ -2165,33 +2368,69 @@ export class Camera{
         cameraPos=this.applyGravity(cameraPos);
 
         // Check length of Camera Movement, `**.5` is the square root of the sum of the squares
-        this.pxlUser.localUserMoved= this.gravityActive || ((this.cameraMovement[0]**2 + this.cameraMovement[1]**2) ** .5) > 0;
+        // TODO : Implement when User class is updated
+        //this.pxlUser.localUserMoved= this.hasGravity || ((this.cameraMovement[0]**2 + this.cameraMovement[1]**2) ** .5) > 0;
         
             
         this.cameraPrevPos=this.cameraPos.clone();
         this.cameraPos=cameraPos.clone();
-        cameraPos.y+=standingHeight;//+this.cameraJumpHeight;
+        didUpdate = this.cameraPos.distanceTo(this.cameraPrevPos) > 0;
+        cameraPos.y+=standingHeight+this.cameraJumpHeight;
         this.camera.position.copy(cameraPos);
       }
 
-      if( this.canMove ){ 
-        // Roam Camera Mode
+      // Performing different rotation logic based on if the camera is in Roam or Static mode
+      //   Roaming orients the camera up in Y
+      //   Static keeps the camera oriented with Camera Position -to- LookAt cross product
+      //    `cross( cross( normalized(LookAt-Pos), Up), Up )`
+      if( this.hasRotated && this.canMove ){ // Roam Camera Mode
         this.updateRoamCameraRotation();
-      }else{
-        // Static Camera Mode
+        didUpdate = didUpdate || this.hasRotated;
+      }else if( this.hasRotated ){ // Static Camera Mode
         this.updateStaticCameraRotation();
+        didUpdate = didUpdate || this.hasRotated;
       }
       //this.lookAtTargetLock(); // Camera lookAt target locking
       
-      this.camera.updateMatrixWorld(); // ## Only needed for lobby geo... Fix
+      if( didUpdate ){
+        this.camera.updateMatrixWorld(); // ## Only needed for lobby geo... Fix
+        
+        this.emitCameraTransforms( cameraPos, standingHeight );
+      }
       
-      this.emitCameraTransforms( cameraPos, standingHeight );
-      
+      // Calculations completed, reset flags
+      this.hasMoved = false;
+      this.hasRotated = false;
+
       this.cameraBooted=true;
-    }else{
+
+    }/*else{
+      // TODO : User class still not updated to utilize these
       this.pxlUser.localUserMoved=false;
       this.pxlUser.localUserTurned=false;
+    }*/
+  }
+
+
+  // -- -- --
+
+  // pxlNav Callbacks
+  //   `event` should be of `pxlEnum.CAMERA_EVENT` type
+  subscribe( event, callback ){
+    if( !this.callbacks.hasOwnProperty(event) ){
+      this.callbacks[event] = [];
+    }
+    this.callbacks[event].push( callback );
+  }
+
+  emit( event, data ){
+    if( this.callbacks.hasOwnProperty(event) ){
+      this.callbacks[event].forEach( (callback) => {
+        callback( data );
+      });
     }
   }
+
+  // -- -- --
 
 }

@@ -9,7 +9,7 @@ export const VERBOSE_LEVEL = {
 	'ERROR' : 1,
 	'WARN' : 2,
 	'INFO' : 3
-}
+};
 
 // Anti-aliasing settings
 //   Low - cross kernal sampling, 1 center sample + 4 samples diangonally from center pixel
@@ -19,13 +19,13 @@ export const ANTI_ALIASING = {
   'LOW' : 1,
   'MEDIUM' : 2,
   'HIGH' : 3
-}
+};
 
 // Sky Haze settings should be passed through the pxlNav.Options
 export const SKY_HAZE = {
   'OFF' : 0,
   'VAPOR' : 1
-}
+};
 
 // Shadow edge softness, currently mapped to THREE.PCFSoftShadowMap THREE.PCFShadowMap
 // Set in pxlNav.js, used in pxlNav.Environment.js
@@ -33,7 +33,7 @@ export const SHADOW_MAP = {
   'OFF' : 0,
   'BASIC' : 1,
   'SOFT' : 2
-}
+};
 
 // Collder internal types
 //  'FLOOR' -> `colliderX` and `colliderZ` attributes from the FBX
@@ -48,7 +48,20 @@ export const COLLIDER_TYPE = {
   'SCRIPTED' : 7, // Callback to current room on collision
   'HOVERABLE' : 8, // Mouse hoverable, but not clickable
   'CLICKABLE' : 9 // Mouse clickable
-}
+};
+
+// Camera event types
+//   Subscribe to the pxlCamera object using these event types
+//    `pxlNav.pxlCamera.subscribe( CAMERA_EVENT.MOVE, function() { ... } );`
+export const CAMERA_EVENT = {
+  'MOVE' : 0,
+  'ROTATE' : 1,
+  'JUMP' : 2,
+  'FALL' : 3,
+  'LANDED' : 4,
+  'COLLISION' : 5
+};
+
 
 
 // 'COLOR_SHIFT' is used in Utils.js, inturn used when loading assets through FileIO.js
@@ -84,7 +97,7 @@ export const COLOR_SHIFT = {
   'WINDOWS_TO_LINEAR' : 6,
   'LINEAR_TO_UNIX' : 7,
   'UNIX_TO_LINEAR' : 8
-}
+};
 
 // -- -- --
 
@@ -95,6 +108,7 @@ export const pxlEnums = {
   'ANTI_ALIASING' : ANTI_ALIASING,
   'SKY_HAZE' : SKY_HAZE,
   'SHADOW_MAP' : SHADOW_MAP,
+  'CAMERA_EVENT' : CAMERA_EVENT,
   'COLLIDER_TYPE' : COLLIDER_TYPE,
   'COLOR_SHIFT' : COLOR_SHIFT
-}
+};

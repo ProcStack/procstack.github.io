@@ -841,7 +841,6 @@ export function campfireVert(){
     
   void main(){
     vUv=uv;
-    vCd = color;
     
     vN = normal;
     vCamPos = cameraPosition;
@@ -853,9 +852,10 @@ export function campfireVert(){
     camInf *= camInf*camInf;
     vInnerFlame = camInf;
     
-    
+    // Time & base noise influence
     float t = time.x * .085;
-    float inf = clamp( (pos.y-0.5), 0.0, 1.0 )*.9;
+    float nYDot = clamp( dot( normal, vec3(.0, 1.0, .0))*1.50, 0.0, 0.9 );
+    float inf = clamp( (pos.y-0.5), 0.0, 1.0 ) * nYDot;
     vec3 nInfv = noiseLayerInf * inf;
     
     // Base Shape Noise; Central spiky moving
@@ -888,6 +888,8 @@ export function campfireVert(){
     pos += shiftOffset;
     vPos = pos;
     vBBY = max( 0.0, pos.y );
+    
+    vCd = color + color*min(1.0,max(0.0,(vShift.y)*5.0));
     
     vec3 delta = pos-position;
     pos.y += color.r * inf;

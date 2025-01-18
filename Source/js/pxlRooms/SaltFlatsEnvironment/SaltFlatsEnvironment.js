@@ -24,8 +24,8 @@ import { rabbitDruidVert, rabbitDruidFrag,
 const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
 
 export class SaltFlatsEnvironment extends RoomEnvironment{
-  constructor( roomName='SaltFlatsEnvironment', assetPath=null, pxlFile=null, pxlAnim=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
-    super( roomName, assetPath, pxlFile, pxlAnim, pxlUtils, pxlDevice, pxlEnv, msRunner, camera, scene, cloud3dTexture );
+  constructor( roomName='SaltFlatsEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
+    super( roomName, assetPath, msRunner, camera, scene, cloud3dTexture );
     
     this.assetPath=assetPath+"Assets/";
 		this.assetPath="./js/pxlRooms/SaltFlatsEnvironment/Assets/";
@@ -58,7 +58,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     this.particleList={};
     
     
-    this.pxlCamFOV=(pxlDevice.mobile?80:40);
+    this.pxlCamFOV={ 'PC':40, 'MOBILE':80 };
     this.pxlCamZoom=1;
     this.pxlCamAspect=1;
     this.pxlCamNearClipping = 1;
@@ -107,7 +107,9 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     if( hasScripted && this.geoList["Scripted"].hasOwnProperty("pokinStick_geo") ){
       this.geoList["Scripted"]["pokinStick_geo"].visible = false;
     }
-    //this.pxlEnv.pxlCamera.setStats( this.pxlCamFOV, this.pxlCamZoom, this.pxlCamAspect, this.pxlCamNearClipping );
+
+    //let curFOV = this.pxlCamFOV[  this.mobile ? 'MOBILE' : 'PC' ];
+    //this.pxlEnv.pxlCamera.setStats( curFOV, this.pxlCamZoom, this.pxlCamAspect, this.pxlCamNearClipping );
   }
 
   // Per-Frame Render updates

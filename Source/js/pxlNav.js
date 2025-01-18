@@ -193,6 +193,12 @@ class pxlNav{
       "device-keydown" : "Returns an [int]; The just pressed key.",
       "device-keyup" : "Returns an [int]; The just released key.",
       "device-resize" : "Returns an [{height:#,width:#}]; Height Width object of the new window size.",
+      "camera-move" : "Returns a {'pos':vec3(),'dist':float}; Emitted when the camera moves.",
+      "camera-rotate" : "Returns a [quaternion]; Emitted when the camera rotates.",
+      "camera-jump" : "Returns a [bool]; Emitted when the camera jumps to a new position.",
+      "camera-fall" : "Returns a [bool]; Emitted when the camera starts to free-fall / gravity.",
+      "camera-landed" : "Returns a [bool]; Emitted when the camera lands from a jump / fall.",
+      "camera-collision" : "Returns a [bool]; Emitted when the camera collides with an object.",
       "pxlNavEventNameHere" : "Never emitted; You did some copy'pasta.",
       "" : "** NOTE : callbacks get an event object shaped -  **",
       "" : "** { 'type' : *eventName*, 'value' : *data* } **",
@@ -497,9 +503,11 @@ class pxlNav{
         this.pxlEnv.warpZoneRenderTarget.texture.magFilter=LinearFilter;
         this.pxlEnv.warpZoneRenderTarget.texture.generateMipmaps=false;*/
         
-        var aspectRatio=this.pxlGuiDraws.pxlNavCanvas.width/this.pxlGuiDraws.pxlNavCanvas.height;
+        // TODO : Aspect Ratio is a bit off, need to fix this
+        //var aspectRatio=this.pxlGuiDraws.pxlNavCanvas.width/this.pxlGuiDraws.pxlNavCanvas.height;
         // To change the near and far, see Environment .init()
-        this.pxlCamera.camera=new PerspectiveCamera( this.pxlEnv.pxlCamFOV, 1, this.pxlEnv.camNear, this.pxlEnv.camFar);
+        let curFOV=this.pxlEnv.pxlCamFOV[ this.pxlDevice.mobile ? 'MOBILE' : 'PC' ];
+        this.pxlCamera.camera=new PerspectiveCamera( curFOV, 1, this.pxlEnv.camNear, this.pxlEnv.camFar);
         this.pxlAutoCam.camera=this.pxlCamera.camera;
         
         //this.pxlEnv.listener = new AudioListener();
@@ -1021,6 +1029,36 @@ class pxlNav{
         let eventSplit = eventType.split("-");
         if( eventSplit[0] == "device" ){
           this.pxlDevice.subscribe(  eventSplit[1], callbackFunc );
+        }else if( eventSplit[0] == "camera" ){
+          let camEventType = pxlEnums.CAMERA_EVENT.MOVE;
+
+          // Find the camera event type
+          switch( eventSplit[1] ){
+              case "move":
+                camEventType = pxlEnums.CAMERA_EVENT.MOVE;
+                break;
+              case "rotate":
+                camEventType = pxlEnums.CAMERA_EVENT.ROTATE;
+                break;
+              case "jump":
+                camEventType = pxlEnums.CAMERA_EVENT.JUMP;
+                break;
+              case "fall":
+                camEventType = pxlEnums.CAMERA_EVENT.FALL;
+                break;
+              case "landed":
+                camEventType = pxlEnums.CAMERA_EVENT.LANDED;
+                break;
+              case "collision":
+                camEventType = pxlEnums.CAMERA_EVENT.COLLISION;
+                break;
+              default:
+                console.warn("Warning : `pxlNav.subscribe( 'camera-"+eventSplit[1]+"', ... )` was used; use 'help' for a list of valid events.");
+                break;
+            }
+
+          this.pxlCamera.subscribe( camEventType, callbackFunc );
+
         }else{
           this.callbacks[eventType] = callbackFunc;
         }

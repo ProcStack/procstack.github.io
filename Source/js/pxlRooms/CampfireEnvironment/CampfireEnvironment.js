@@ -22,8 +22,8 @@ const EmberWisps = pxlEffects.pxlParticles.EmberWisps;
 const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
 
 export class CampfireEnvironment extends RoomEnvironment{
-  constructor( roomName='CampfireEnvironment', assetPath=null, pxlFile=null, pxlAnim=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
-    super( roomName, assetPath, pxlFile, pxlAnim, pxlUtils, pxlDevice, pxlEnv, msRunner, camera, scene, cloud3dTexture );
+  constructor( roomName='CampfireEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
+    super( roomName, assetPath, msRunner, camera, scene, cloud3dTexture );
     
     //this.assetPath=assetPath+"Assets/";
 		this.assetPath="./js/pxlRooms/CampfireEnvironment/Assets/";
@@ -59,7 +59,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     this.particleList={};
     
     
-    this.pxlCamFOV=(pxlDevice.mobile?80:60);
+    this.pxlCamFOV={ 'PC':60, 'MOBILE':80 };
     this.pxlCamZoom=1;
     this.pxlCamAspect=1;
     this.pxlCamNearClipping = 1;
@@ -122,7 +122,8 @@ export class CampfireEnvironment extends RoomEnvironment{
       this.checkEyeBlink();
     }
 
-    //this.pxlEnv.pxlCamera.setStats( this.pxlCamFOV, this.pxlCamZoom, this.pxlCamAspect, this.pxlCamNearClipping );
+    //let curFOV = this.pxlCamFOV[  this.mobile ? 'MOBILE' : 'PC' ];
+    //this.pxlEnv.pxlCamera.setStats( curFOV, this.pxlCamZoom, this.pxlCamAspect, this.pxlCamNearClipping );
   }
   
   checkEyeBlink(){
