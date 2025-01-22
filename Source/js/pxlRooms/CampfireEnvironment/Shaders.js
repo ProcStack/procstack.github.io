@@ -33,12 +33,12 @@ export function rabbitDruidVert(){
     varying vec3 vObjN;
     
     /***********************************/
-    /** Start of THREE Shader Includs **/
+    /** Start of THREE Shader Includes **/
     /***********************************/
     ${ShaderChunk[ "common" ]}
     ${ShaderChunk[ "skinning_pars_vertex" ]}
     /*********************************/
-    /** End of THREE Shader Includs **/
+    /** End of THREE Shader Includes **/
     /*********************************/
     
     void main(){
@@ -56,13 +56,13 @@ export function rabbitDruidVert(){
       
       
       /***********************************/
-      /** Start of THREE Shader Includs **/
+      /** Start of THREE Shader Includes **/
       /***********************************/
       ${ShaderChunk[ "skinbase_vertex" ]}
       ${ShaderChunk[ "skinnormal_vertex" ]}
       ${ShaderChunk[ "skinning_vertex" ]}
       /*********************************/
-      /** End of THREE Shader Includs **/
+      /** End of THREE Shader Includes **/
       /*********************************/
       
       // TODO : Pullrequest this to Three.js
@@ -92,14 +92,14 @@ export function rabbitDruidVert(){
     uniform sampler2D noiseTexture;
     uniform vec2 lightScalar;
     
-      /***********************************/
-      /** Start of THREE Shader Includs **/
-      /***********************************/
+    /***********************************/
+    /** Start of THREE Shader Includes **/
+    /***********************************/
     ${ShaderChunk[ "common" ]}
     ${ShaderChunk[ "lightmap_pars_fragment" ]}
-      /*********************************/
-      /** End of THREE Shader Includs **/
-      /*********************************/
+    /*********************************/
+    /** End of THREE Shader Includes **/
+    /*********************************/
 
     varying vec2 vUv;
     varying vec4 vCd;
@@ -123,13 +123,13 @@ export function rabbitDruidVert(){
     uniform PointLight pointLights[NUM_POINT_LIGHTS];
     uniform DirLight directionalLights[NUM_DIR_LIGHTS];
     
-      /***********************************/
-      /** Start of THREE Shader Includs **/
-      /***********************************/
+    /***********************************/
+    /** Start of THREE Shader Includes **/
+    /***********************************/
     ${ShaderChunk[ "packing" ]}
-      /*********************************/
-      /** End of THREE Shader Includs **/
-      /*********************************/
+    /*********************************/
+    /** End of THREE Shader Includes **/
+    /*********************************/
     
     
     void main(){

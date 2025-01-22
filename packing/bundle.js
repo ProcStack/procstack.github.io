@@ -7,7 +7,7 @@ const entryFile = './Source/js/pxlNav.js';
 const outputFile = './Build/pxlNav.min.js';
 
 // Define Room entry point and output file
-const roomEntryRoot = './Source/pxlRooms/';
+const roomEntryRoot = './Source/js/pxlRooms/';
 const roomOutputRoot = './Build/pxlRooms/';
 
 

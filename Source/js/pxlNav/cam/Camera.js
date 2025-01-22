@@ -60,6 +60,9 @@ export class Camera{
     //   Standing Height, Jumping Height, Walking Speed, etc.
     this.userScale=1.0;
 
+    // Max distance (Meters) up or down, like walking up and down stairs.
+    this.maxStepHeight=5; 
+
     // Once click/tap is done, how much does the last velocity ease out
     //  Velocity * this.cameraEasing
     this.cameraEasing = [ .55, .45 ]; // [ PC, Mobile ]
@@ -68,7 +71,7 @@ export class Camera{
     this.touchMaxSensitivity = 500;
     
     // The jumping impulse per frame
-    this.cameraJumpImpulse=[.035,.075]; // [ Grav, Low Grav ]
+    this.cameraJumpImpulse= [ 0.045, 0.085 ];// [.035,.075]; // [ Grav, Low Grav ]
     this.cameraMaxJumpHold=[.55,1.0]; // Second; [ Grav, Low Grav ]
 
     this.gravityRate=0;
@@ -112,7 +115,6 @@ export class Camera{
     this.roomStandingHeight = { 'default' : this.standingHeight };
     this.standingHeightGravInfluence=0;
     this.standingMaxGravityOffset=.5; // Usage -  ( standingHeight / standingHeightGravInfluence ) * standingMaxGravityOffset
-    this.maxStepHeight=.6; // Max distance (Meters) up or down, like walking up and down stairs.
     
     this.walkBounceSeed=230;
     this.walkBounceHeight = .3; // sin(walkBounce) * walkBounceHeight
@@ -154,7 +156,7 @@ export class Camera{
     // TODO : Unsure if I'd rather a contant timer for all "allowed" jumps or not
     //          For now, this lock holds that the player should jump again when the timer is up
     this.releaseJumpLockTime = 0;
-    this.releaseJumpLockDelay = .05; // Seconds dely between repeated jumping, its less jaring with a slight delay
+    this.releaseJumpLockDelay = .065; // Seconds dely between repeated jumping, its less jaring with a slight delay
 
     this.runMain=true;
     this.workerActive=false;
@@ -1220,8 +1222,8 @@ export class Camera{
         }
       }else{
         // ## Find orientation to gravitational source if any exist in Room Environment
-        let stepUpDist=this.maxStepHeight+this.cameraJumpVelocity;
-        let validDistRange=stepUpDist+this.maxStepHeight+this.gravityRate;
+        let stepUpDist=this.maxStepHeight;//+this.cameraJumpVelocity;
+        let validDistRange=stepUpDist+this.getStandingHeight();
         //castPos.y=curCamPos.y+stepUpDist;
         castPos=curCamPos.clone(); //.add(new Vector3(0,100,0));
         castPos.y += castHeight + this.maxStepHeight;
@@ -1235,7 +1237,14 @@ export class Camera{
         }
                 
         if(rayHits.length > 0){
-          curRoomObj.hitColliders( rayHits, COLLIDER_TYPE.FLOOR );
+          if(rayHits.length > 1){
+            let firstDist = Math.abs( rayHits[0].pos.y-curCamPos.y );
+            if( firstDist<stepUpDist ){
+              rayHits = [ rayHits[0] ];
+            }else if( firstDist>stepUpDist && rayHits[0].pos.y > rayHits[1].pos.y && rayHits[1].pos.y > curCamPos.y-this.maxStepHeight ){
+              return curCamPos;
+            }
+          }
 
           this.floorColliderInitialHit=true;
           let closestDist=-99999;

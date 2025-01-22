@@ -24,7 +24,7 @@ basePath="/".join( basePath[ 0:(basePath.index(repoName)+1) ] )
 statPath=[ basePath+"/_show/stats/ScriptingStats_", ".txt" ]
 
 # Recursive Directories
-dirs=[ basePath+'/Source/', basePath+'/Public/' ]
+dirs=[ basePath+'/Source/' ]# , basePath+'/Public/' ]
 avoidList=[ "libs", "2024-12-07_A.js", "2024-12-08_A.js" ]
 avoidExtensions=['.psd','.gif','.png','.jpg','.fbx', '.ico', '.properties','.settings']
 

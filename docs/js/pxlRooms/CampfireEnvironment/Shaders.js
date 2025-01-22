@@ -33,12 +33,12 @@ export function rabbitDruidVert(){
     varying vec3 vObjN;
     
     /***********************************/
-    /** Start of THREE Shader Includs **/
+    /** Start of THREE Shader Includes **/
     /***********************************/
     ${ShaderChunk[ "common" ]}
     ${ShaderChunk[ "skinning_pars_vertex" ]}
     /*********************************/
-    /** End of THREE Shader Includs **/
+    /** End of THREE Shader Includes **/
     /*********************************/
     
     void main(){
@@ -56,13 +56,13 @@ export function rabbitDruidVert(){
       
       
       /***********************************/
-      /** Start of THREE Shader Includs **/
+      /** Start of THREE Shader Includes **/
       /***********************************/
       ${ShaderChunk[ "skinbase_vertex" ]}
       ${ShaderChunk[ "skinnormal_vertex" ]}
       ${ShaderChunk[ "skinning_vertex" ]}
       /*********************************/
-      /** End of THREE Shader Includs **/
+      /** End of THREE Shader Includes **/
       /*********************************/
       
       // TODO : Pullrequest this to Three.js
@@ -92,14 +92,14 @@ export function rabbitDruidVert(){
     uniform sampler2D noiseTexture;
     uniform vec2 lightScalar;
     
-      /***********************************/
-      /** Start of THREE Shader Includs **/
-      /***********************************/
+    /***********************************/
+    /** Start of THREE Shader Includes **/
+    /***********************************/
     ${ShaderChunk[ "common" ]}
     ${ShaderChunk[ "lightmap_pars_fragment" ]}
-      /*********************************/
-      /** End of THREE Shader Includs **/
-      /*********************************/
+    /*********************************/
+    /** End of THREE Shader Includes **/
+    /*********************************/
 
     varying vec2 vUv;
     varying vec4 vCd;
@@ -123,13 +123,13 @@ export function rabbitDruidVert(){
     uniform PointLight pointLights[NUM_POINT_LIGHTS];
     uniform DirLight directionalLights[NUM_DIR_LIGHTS];
     
-      /***********************************/
-      /** Start of THREE Shader Includs **/
-      /***********************************/
+    /***********************************/
+    /** Start of THREE Shader Includes **/
+    /***********************************/
     ${ShaderChunk[ "packing" ]}
-      /*********************************/
-      /** End of THREE Shader Includs **/
-      /*********************************/
+    /*********************************/
+    /** End of THREE Shader Includes **/
+    /*********************************/
     
     
     void main(){
@@ -294,7 +294,7 @@ export function envGroundFrag(){
         vec4 Cd = texture2D(diffuse,vUv) ;
         vec3 dataCd = texture2D(dataDiffuse,vUv).rgb ;
         
-        vec3 pos = vPos*.0001;
+        vec3 pos = vLocalPos*.0001;
         vec2 uv = vUv;
         
         // -- -- --
@@ -841,7 +841,6 @@ export function campfireVert(){
     
   void main(){
     vUv=uv;
-    vCd = color;
     
     vN = normal;
     vCamPos = cameraPosition;
@@ -853,9 +852,10 @@ export function campfireVert(){
     camInf *= camInf*camInf;
     vInnerFlame = camInf;
     
-    
+    // Time & base noise influence
     float t = time.x * .085;
-    float inf = clamp( (pos.y-0.5), 0.0, 1.0 )*.9;
+    float nYDot = clamp( dot( normal, vec3(.0, 1.0, .0))*1.50, 0.0, 0.9 );
+    float inf = clamp( (pos.y-0.5), 0.0, 1.0 ) * nYDot;
     vec3 nInfv = noiseLayerInf * inf;
     
     // Base Shape Noise; Central spiky moving
@@ -888,6 +888,8 @@ export function campfireVert(){
     pos += shiftOffset;
     vPos = pos;
     vBBY = max( 0.0, pos.y );
+    
+    vCd = color + color*min(1.0,max(0.0,(vShift.y)*5.0));
     
     vec3 delta = pos-position;
     pos.y += color.r * inf;

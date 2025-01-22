@@ -31,9 +31,9 @@ export function voidBaseVert(){
     
     void main(){
         vUv=uv;
-        vNormal = normalize( normalMatrix *  normal );
-        vL0Rot = normalize( normalMatrix *  light0Rot );
-        vL1Rot = normalize( normalMatrix *  light1Rot );
+        vNormal = normalize( normalMatrix * normal );
+        vL0Rot = normalize( normalMatrix * light0Rot );
+        vL1Rot = normalize( normalMatrix * light1Rot );
         vTangent = tangent;
         vAlpha=color.r;
         
@@ -160,7 +160,6 @@ export function voidBaseFrag(){
 	return ret;
 }
 */
-
 
 
 

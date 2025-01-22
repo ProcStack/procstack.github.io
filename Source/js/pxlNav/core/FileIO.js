@@ -268,7 +268,6 @@ export class FileIO{
   }
   
   checkIsGlassLiquid( envObj, envScene, mesh, matList ){
-
     let isGlass = false;
     if( mesh.userData.hasOwnProperty("isGlass") && mesh.userData.isGlass ){
       isGlass=true;
@@ -306,7 +305,7 @@ export class FileIO{
     mesh.material.side=BackSide;
     mesh.material.depthWrite=false;
     mesh.matrixAutoUpdate=false;
-    mesh.renderOrder = 1;
+    mesh.renderOrder = 1 + envObj.glassList.length;
     envObj.glassList.push(mesh);
     envObj.glassGroup.add(mesh);
     
@@ -318,7 +317,7 @@ export class FileIO{
     cFrontMesh.material.shininess=40;
     cFrontMesh.material.side=FrontSide;
     cFrontMesh.matrixAutoUpdate=false;
-    cFrontMesh.renderOrder = 2;
+    cFrontMesh.renderOrder = 1 + envObj.glassList.length;
     
     
     let curPos=mesh.position;
@@ -829,6 +828,15 @@ export class FileIO{
                 }
               }
               c.matrixAutoUpdate=false;
+            }else{
+              if( c.material.map && !c.material.emissiveMap && c.material.color.r>0 ){
+                let curMap = c.material.map;
+                c.material.emissiveMap=curMap;
+                c.material.emissiveIntensity=c.material.color.r*.4;
+                c.material.emissive= c.material.color.clone();
+                
+              }
+              
             }
 
 
@@ -879,21 +887,22 @@ export class FileIO{
       // @ Loaded Scene File - Environment Group; 'MainScene'
       if(groupNames.includes('Scene') || groupNames.includes('MainScene')){
         let groupId = groupTypes['Scene'] || groupTypes['MainScene'];
-        let ch = groups[groupId].children;
+        let ch = [...groups[groupId].children];
         this.log("MainScene - ",groups[groupId]);
 
         let curObjId = -1;
-        while( curObjId < ch.length ){
-          curObjId++;
+        while(ch.length>0){
+          //curObjId++;
           
-          if( curObjId >= ch.length ){
+          /*if( curObjId >= ch.length ){
             break;
-          }
+          }*/
 
-          let c=ch[ curObjId ];
+          let c=ch.pop();
           
           this.log( "Cur Object - ", c.name );
           this.checkForUserData( envObj, envScene, c );
+          //console.log(c)
 
           if(c.isMesh){
             if( c.userData.hasOwnProperty("Show") && (!c.userData.Show || c.userData.Show == 0) ){
@@ -967,7 +976,7 @@ export class FileIO{
                 let scriptedList = Object.keys(envObj.geoList['Scripted']);
                 //addChildren = false;
               }
-
+              //console.log("Group - ", c.name, c.children.length, addChildren);
               if( addChildren ){
                 ch.push( ...c.children );
               }

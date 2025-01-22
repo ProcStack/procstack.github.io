@@ -36,12 +36,12 @@ export function rabbitDruidVert(){
     varying vec3 vObjN;
     
     /***********************************/
-    /** Start of THREE Shader Includs **/
+    /** Start of THREE Shader Includes **/
     /***********************************/
     ${ShaderChunk[ "common" ]}
     ${ShaderChunk[ "skinning_pars_vertex" ]}
     /*********************************/
-    /** End of THREE Shader Includs **/
+    /** End of THREE Shader Includes **/
     /*********************************/
     
     void main(){
@@ -59,13 +59,13 @@ export function rabbitDruidVert(){
       
       
       /***********************************/
-      /** Start of THREE Shader Includs **/
+      /** Start of THREE Shader Includes **/
       /***********************************/
       ${ShaderChunk[ "skinbase_vertex" ]}
       ${ShaderChunk[ "skinnormal_vertex" ]}
       ${ShaderChunk[ "skinning_vertex" ]}
       /*********************************/
-      /** End of THREE Shader Includs **/
+      /** End of THREE Shader Includes **/
       /*********************************/
       
       // TODO : Pullrequest this to Three.js

@@ -7,14 +7,22 @@ import {
   Object3D,
   AmbientLight,
   FogExp2,
+  SRGBColorSpace,
   RepeatWrapping,
+  ClampToEdgeWrapping,
   UniformsUtils,
   UniformsLib,
   FrontSide
 } from "../../libs/three/three.module.min.js";
 /*ShaderMaterial*/
 
-import { envGroundVert, envGroundFrag, grassClusterVert, grassClusterFrag, fishingPondVert, fishingPondFrag } from "./Shaders.js";
+import {
+        envGroundVert, envGroundFrag,
+        grassClusterVert, grassClusterFrag,
+        creekWaterVert, creekWaterFrag,
+        pondWaterVert, pondWaterFrag,
+        pondDockVert, pondDockFrag,
+      } from "./Shaders.js";
 import { RoomEnvironment, pxlShaders, pxlEffects } from "../../pxlNav.js";
 
 const pxlPrincipledVert = pxlShaders.objects.pxlPrincipledVert;
@@ -52,7 +60,7 @@ export class FieldEnvironment extends RoomEnvironment{
     this.pxlCamFarClipping = 10000;
 
     // this.fogColor=new Color(.3,.3,.3);
-    this.fogColor=new Color(.005,.01,.025);
+    this.fogColor=new Color( 0x4a5885 );
     this.fogExp=.0007;
     this.fog=new FogExp2( this.fogColor, this.fogExp);
         
@@ -320,12 +328,21 @@ export class FieldEnvironment extends RoomEnvironment{
           }
         }
         
+        
+        if( this.geoList['pondWater_geo'] ){
+          let curObj = this.geoList['pondWater_geo'];
+          curObj.renderOrder = 2;
+        }
+        if( this.geoList['creekWater_geo'] ){
+          let curObj = this.geoList['creekWater_geo'];
+          curObj.renderOrder = 3;
+        }
+        
         //this.pxlEnv.renderLayerEnum SCENE PARTICLES GLOW
         //this.geoList['lights']
         
-        var ambientLight = new AmbientLight( 0x101010 ); // soft white light
-        this.scene.add( ambientLight );
-        
+        //var ambientLight = new AmbientLight( 0xaaaaaa ); // soft white light
+        //this.scene.add( ambientLight );
         
         
         if( this.shaderGeoList ) {
@@ -417,6 +434,10 @@ export class FieldEnvironment extends RoomEnvironment{
               {
                 'diffuse' : { type:'t', value: null },
                 'dirtDiffuse' : { type:'t', value: null },
+                'crackedDirtDiffuse' : { type:'t', value: null },
+                'hillDiffuse' : { type:'t', value: null },
+                'mossDiffuse' : { type:'t', value: null },
+                'dataTexture' : { type:'t', value: null },
                 'mult': { type:'f', value:1 },
                 'fogColor': { type:'c', value: null },
                 'noiseTexture' : { type:'t', value: null },
@@ -430,8 +451,14 @@ export class FieldEnvironment extends RoomEnvironment{
         "wrapT" : RepeatWrapping,
     };
     envGroundUniforms.fogColor.value = this.scene.fog.color;
-    envGroundUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Diffuse.jpg" );
-    envGroundUniforms.dirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"Dirt_Diffuse.jpg" );
+    envGroundUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Diffuse.jpg", null, {'encoding':SRGBColorSpace} );
+
+    envGroundUniforms.dirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"Dirt_Diffuse.jpg", null, {'encoding':SRGBColorSpace} );
+    envGroundUniforms.crackedDirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"CrackedDirtGround_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
+    envGroundUniforms.hillDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"RockLayerDirtHill_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
+    envGroundUniforms.mossDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"MossyGround_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
+    envGroundUniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Data.jpg" );
+
     envGroundUniforms.noiseTexture.value = this.cloud3dTexture;
     envGroundUniforms.uniformNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
     envGroundUniforms.crossNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_NCross.jpg" );
@@ -446,6 +473,17 @@ export class FieldEnvironment extends RoomEnvironment{
     envGroundUniforms.dirtDiffuse.value.wrapS = RepeatWrapping;
     envGroundUniforms.dirtDiffuse.value.wrapT = RepeatWrapping;
     
+    envGroundUniforms.crackedDirtDiffuse.value.wrapS = RepeatWrapping;
+    envGroundUniforms.crackedDirtDiffuse.value.wrapT = RepeatWrapping;
+
+    envGroundUniforms.hillDiffuse.value.wrapS = RepeatWrapping;
+    envGroundUniforms.hillDiffuse.value.wrapT = RepeatWrapping;
+
+    envGroundUniforms.mossDiffuse.value.wrapS = RepeatWrapping;
+    envGroundUniforms.mossDiffuse.value.wrapT = RepeatWrapping;
+
+    envGroundUniforms.dataTexture.value.wrapS = ClampToEdgeWrapping;
+    envGroundUniforms.dataTexture.value.wrapT = ClampToEdgeWrapping;
     
   //
     // -- -- -- 
@@ -480,20 +518,83 @@ export class FieldEnvironment extends RoomEnvironment{
         // -- -- -- -- -- -- -- -- -- -- -- --
 
 
-        let fishinPondUniforms = UniformsUtils.merge(
+        let pondDockUniforms = UniformsUtils.merge(
             [
             UniformsLib[ "lights" ],
             {
               'noiseTexture' : { type:'t', value: null },
+              'aoTexture' : { type:'t', value: null },
               'fogColor' : { type: "c", value: this.fogColor },
             }]
         )
-        fishinPondUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+        pondDockUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+        pondDockUniforms.aoTexture.value = this.pxlUtils.loadTexture( this.assetPath+"PondDeck_AO.jpg" );
 
-        let fishinPondMat=this.pxlFile.pxlShaderBuilder( fishinPondUniforms, fishingPondVert(), fishingPondFrag() );
-        fishinPondMat.side = FrontSide;
-        fishinPondMat.lights = true;
-        fishinPondMat.transparent = true;
+        let pondDockMat=this.pxlFile.pxlShaderBuilder( pondDockUniforms, pondDockVert(), pondDockFrag() );
+        pondDockMat.side = FrontSide;
+        pondDockMat.lights = true;
+        
+            
+        // -- -- --
+        
+        
+        // -- -- -- -- -- -- -- -- -- --
+        // -- Fishing Pond Material - -- --
+        // -- -- -- -- -- -- -- -- -- -- -- --
+
+
+        let pondWaterUniforms = UniformsUtils.merge(
+            [
+            UniformsLib[ "lights" ],
+            {
+              'dataTexture' : { type:'t', value: null },
+              'rippleTexture' : { type:'t', value: null },
+              'noiseTexture' : { type:'t', value: null },
+              'fogColor' : { type: "c", value: this.fogColor },
+              'rate': { type:'f', value:1 },
+              'intensity': { type:'f', value:1 },
+            }]
+        )
+        pondWaterUniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"PondWater_Data.jpg" );
+        pondWaterUniforms.rippleTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterRipplesA.jpg" );
+        pondWaterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+
+        let pondWaterMat=this.pxlFile.pxlShaderBuilder( pondWaterUniforms, pondWaterVert(), pondWaterFrag() );
+        pondWaterMat.side = FrontSide;
+        pondWaterMat.lights = true;
+        pondWaterMat.transparent = true;
+        pondWaterMat.frustumCulled = false;
+        
+            
+        // -- -- --
+        
+        
+        // -- -- -- -- -- -- -- -- -- --
+        // -- Fishing Pond Material - -- --
+        // -- -- -- -- -- -- -- -- -- -- -- --
+
+
+        let creekWaterUniforms = UniformsUtils.merge(
+            [
+            UniformsLib[ "lights" ],
+            {
+              'dataTexture' : { type:'t', value: null },
+              'rippleTexture' : { type:'t', value: null },
+              'noiseTexture' : { type:'t', value: null },
+              'fogColor' : { type: "c", value: this.fogColor },
+              'rate': { type:'f', value:1 },
+              'intensity': { type:'f', value:1 },
+            }]
+        )
+        creekWaterUniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"CreekWater_Data.jpg" );
+        creekWaterUniforms.rippleTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterRipplesA.jpg" );
+        creekWaterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+
+        let creekWaterMat=this.pxlFile.pxlShaderBuilder( creekWaterUniforms, creekWaterVert(), creekWaterFrag() );
+        creekWaterMat.side = FrontSide;
+        creekWaterMat.lights = true;
+        creekWaterMat.transparent = true;
+        creekWaterMat.frustumCulled = false;
 
 
 
@@ -501,13 +602,17 @@ export class FieldEnvironment extends RoomEnvironment{
         
         this.materialList[ "EnvGround_geo" ] = environmentGroundMat;
         this.materialList[ "grassClusterA_geo" ] = grassMat;
-        this.materialList[ "fishinPond_geo" ] = fishinPondMat;
+
+        this.materialList[ "pondDock_geo" ] = pondDockMat;
+        this.materialList[ "pondWater_geo" ] = pondWaterMat;
+
+        this.materialList[ "creekWater_geo" ] = creekWaterMat;
         
         
   //
     // -- -- -- 
         
-		let fieldFbxLoader = this.pxlFile.loadRoomFBX( this );
+		let fieldFbxLoader = this.pxlFile.loadRoomFBX( this );//, null, null, true );
 		
 	// -- -- -- -- -- -- -- -- -- -- -- -- -- //
 		

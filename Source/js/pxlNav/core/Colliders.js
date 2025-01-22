@@ -213,6 +213,8 @@ export class Colliders{
         let colliderFaceVerts = collider.geometry.attributes.position.array;
         let colliderFaceCount = colliderFaceVerts.length / 3;
 
+        let colliderMatrix = collider.matrixWorld;
+
         //Gather occupied grid locations
         for( let x = 0; x < colliderFaceCount; ++x ){
           // Get face-vertex positions
@@ -221,6 +223,11 @@ export class Colliders{
           let v0 = new Vector3( colliderFaceVerts[ baseIndex ], colliderFaceVerts[ baseIndex + 1 ], colliderFaceVerts[ baseIndex + 2 ] );
           let v1 = new Vector3( colliderFaceVerts[ baseIndex + 3 ], colliderFaceVerts[ baseIndex + 4 ], colliderFaceVerts[ baseIndex + 5 ] );
           let v2 = new Vector3( colliderFaceVerts[ baseIndex + 6 ], colliderFaceVerts[ baseIndex + 7 ], colliderFaceVerts[ baseIndex + 8 ] );
+
+          // Apply matrix world to face vertices
+          v0.applyMatrix4( colliderMatrix );
+          v1.applyMatrix4( colliderMatrix );
+          v2.applyMatrix4( colliderMatrix );
 
           // Perhaps degenerative or empty face
           //   I was seeing it in some instances, so I'm checking for it
@@ -536,26 +543,6 @@ export class Colliders{
 
     let hits = [];
     let retHits = {};
-
-/*
-
-          // Edge vectors
-          let edge0 = v1.clone().sub(v0);
-          let edge1 = v2.clone().sub(v0);
-
-          // Face normal
-          let faceNormal = edge0.clone().cross(edge1);//.normalize();
-
-          // Vertex-Edge relationships
-          let dotE0E0 = edge0.dot(edge0);
-          let dotE0E1 = edge0.dot(edge1);
-          let dotE1E1 = edge1.dot(edge1);
-
-          // Calculate tiangle area ratio
-          let areaInv = 1 / (dotE0E0 * dotE1E1 - dotE0E1 * dotE0E1);
-
-          */
-
 
     faceKeys.forEach(faceKey => {
       let faceVerts = roomData['faceVerts'][faceKey];

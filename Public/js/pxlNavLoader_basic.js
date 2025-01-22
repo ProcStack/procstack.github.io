@@ -25,7 +25,7 @@ const projectTitle = "pxlNav : Field Env.";
 const pxlRoomRootPath = "../pxlRooms";
 
 // Current possible rooms - "CampfireEnvironment", "SaltFlatsEnvironment", "FieldEnvironment", "VoidEnvironment"
-const bootRoomList = ["FieldEnvironment", "VoidEnvironment"];
+const bootRoomList = ["FieldEnvironment" ];//, "VoidEnvironment"];
 const startingRoom = bootRoomList[0];
 
 // -- -- --
