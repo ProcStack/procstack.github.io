@@ -48,6 +48,7 @@ export class FloatingDust extends ParticleBase{
       lightPos:{value:lightPosArr}
     };
         //let mtl = this.pxlFile.pxlShaderBuilder( snowUniforms, snowFallVert( true ), snowFallVert() );
+        console.log(proxDist);
     let mtl = this.room.pxlFile.pxlShaderBuilder( dustUniforms, dustVert( lightPosArr.length, proxDist ), dustFrag() );
     mtl.side=DoubleSide;
     mtl.transparent=true;

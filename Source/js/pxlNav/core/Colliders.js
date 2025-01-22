@@ -18,6 +18,11 @@
 //       https://github.com/mrdoob/three.js/blob/dev/build/three.core.js
 //     ( Since the source is split up, I'm just linking to the main file )
 //
+//  Couldn't get the above working 100%, so made `castRay()` for Vector Ray to Triangle collision
+//    It works with floor and interactable colliders, but slightly heavier than the other method
+//  Looked to this PDF for Moller-Trumbore Ray-Intersect, pages 4 & 5
+//    https://cadxfem.org/inf/Fast%20MinimumStorage%20RayTriangle%20Intersection.pdf
+//
 // I implemented a per-pxlRoom hash grid for ground collision detection, 
 //   As ray casting to all polygons in a scene is inefficient
 // While also using the logic outlined in the book as used in Three.js, I've adapted it to my needs --
@@ -37,7 +42,7 @@ import {
   AdditiveBlending
 } from "../../libs/three/three.module.min.js";
 
-import { VERBOSE_LEVEL, COLLIDER_TYPE } from "./Enums.js";
+import { VERBOSE_LEVEL, COLLIDER_TYPE, GEOMETRY_SIDE } from "./Enums.js";
 
 // Some assumptions are made here, as collision meshes are ussually low poly
 //   A grid size of 100 is assumed for -+500 unit bounds
@@ -518,9 +523,20 @@ export class Colliders{
   // -- -- --
 
   // Moller-Trumbore triangle ray intersection
-  //   The other ray casting methods have issues to be worked out
+  //   The other ray casting method has issues to be worked out
   //     This is the general purpose rayCaster for now
-  castRay( roomName, origin, direction, colliderType=COLLIDER_TYPE.FLOOR, multiHits=true ){
+  // Implemented to be side-non-specific, as the ray may be cast from any direction
+  //   Ray intersection for front facing or back facing triangles
+  //     ** This is assuming Three.js is using right-handed winding order **
+  //
+  // Using - Scalar Triple Product; Cramer's Rule - Determinant of a 3x3 matrix
+  //   u = (origin - v0) . (direction x edge1) / (edge0 . (direction x edge1))
+  //   v = (origin - v0) . (edge0 x direction) / (edge0 . (direction x edge1))
+  //   t = (v1 - origin) . (edge1 x direction) / (edge0 . (direction x edge1))
+  // Pages 4 & 5 -
+  //   https://cadxfem.org/inf/Fast%20MinimumStorage%20RayTriangle%20Intersection.pdf
+  //
+  castRay( roomName, origin, direction, colliderType=COLLIDER_TYPE.FLOOR, geoSide=GEOMETRY_SIDE.DOUBLE, multiHits=true ){
     
     if( !this.roomColliderData.hasOwnProperty( roomName ) || !this.roomColliderData[ roomName ].hasOwnProperty( colliderType ) ){
       this.error( "Room '" + roomName + "' does not have collider data for type: " + colliderType );
@@ -534,15 +550,23 @@ export class Colliders{
     let gridX = Math.floor(origin.x * gridSizeInv);
     let gridZ = Math.floor(origin.z * gridSizeInv);
     let gridKey = this.getGridKey(gridX, gridZ);
-    //console.log( origin, direction, gridKey );
 
-    
+    // Default checks for front and back facing triangles
+    let backFaceCheck = 1;
+    let frontFaceCheck = 1;
+    if( geoSide == GEOMETRY_SIDE.FRONT ){
+      backFaceCheck = 0;
+    }else if( geoSide == GEOMETRY_SIDE.BACK ){
+      frontFaceCheck = 0;
+    }
+
     if (!roomData['faceGridGroup'].hasOwnProperty(gridKey)) return [];
     let faceKeys = roomData['faceGridGroup'][gridKey];
     //let faceKeys = Object.keys( roomData['faceVerts'] );
 
     let hits = [];
     let retHits = {};
+
 
     faceKeys.forEach(faceKey => {
       let faceVerts = roomData['faceVerts'][faceKey];
@@ -553,22 +577,29 @@ export class Colliders{
       let edge0 =  faceVerts['edge0']; // v1.clone().sub(v0);
       let edge1 =  faceVerts['edge1']; // v2.clone().sub(v0);
       let directionCross = direction.clone().cross(edge1);
-      let isFacing = edge0.dot( directionCross );
+      let isFacing = edge0.dot( directionCross ); // Determinant of the matrix
 
-      if( isFacing > -this.epsilon && isFacing < this.epsilon ) return; // This ray is parallel to this triangle.
+      // Triangle is parallel to the ray
+      //   This allows negative facing triangles to be detected
+      if( isFacing*backFaceCheck > -this.epsilon && isFacing*frontFaceCheck < this.epsilon ) return; // This ray is parallel to this triangle.
 
-      let factor = 1.0 / isFacing;
+      // Calculate barycentric coordinates
+      
       let edgeOrig = origin.clone().sub(v0);
-      let u = factor * edgeOrig.dot( directionCross );
+      let u = edgeOrig.dot( directionCross );
 
-      if( u < 0.0 || u > 1.0 ) return;
+      if( u < 0.0 || u > isFacing ) return; // Invalid barcentric coordinate, outside of triangle
 
       let crossOrig = edgeOrig.clone().cross(edge0);
-      let v = factor * direction.dot( crossOrig );
+      let v = direction.dot( crossOrig );
 
-      if( v < 0.0 || u + v > 1.0) return;
+      if( v < 0.0 || u + v > isFacing) return; // Invalid barcentric coordinate, outside of triangle
 
-      let dist = factor * edge1.dot( crossOrig );
+      let factor = 1.0 / isFacing; // Inverted Determinant to reduce divisions, Scale factor for ray intersection
+      u *= factor;
+      v *= factor;
+
+      let dist = factor * edge1.dot( crossOrig ); // 'dist' is 't' in the Moller-Trumbore algorithm
 
       if( dist > this.epsilon ){ // ray intersection
         let intersectionPoint = origin.clone().add( direction.clone().multiplyScalar(dist) );

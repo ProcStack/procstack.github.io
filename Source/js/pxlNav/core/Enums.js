@@ -50,6 +50,15 @@ export const COLLIDER_TYPE = {
   'CLICKABLE' : 9 // Mouse clickable
 };
 
+// Geometry side types
+//   Used when casting rays to determine which side of the geometry was hit
+//     More specifics will be added as needed
+export const GEOMETRY_SIDE = {
+  'FRONT' : 0,
+  'BACK' : 1,
+  'DOUBLE' : 2
+};
+
 // Camera event types
 //   Subscribe to the pxlCamera object using these event types
 //    `pxlNav.pxlCamera.subscribe( CAMERA_EVENT.MOVE, function() { ... } );`
@@ -110,5 +119,6 @@ export const pxlEnums = {
   'SHADOW_MAP' : SHADOW_MAP,
   'CAMERA_EVENT' : CAMERA_EVENT,
   'COLLIDER_TYPE' : COLLIDER_TYPE,
+  'GEOMETRY_SIDE' : GEOMETRY_SIDE,
   'COLOR_SHIFT' : COLOR_SHIFT
 };

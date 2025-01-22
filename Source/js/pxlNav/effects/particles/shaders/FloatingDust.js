@@ -142,7 +142,7 @@ export function dustVert( lightCount, proxDistance=120 ){
         vec2 camXZ=cameraPosition.xz;
         pos.xz= mod( pos.xz-camXZ, PROX) + camXZ - PROX*.5;
         
-        float pScalar = max( 0., (1.-length(pos-cameraPosition )*PROX_INV)  );
+        float pScalar = clamp( (1.-length(pos-cameraPosition )*PROX_INV)*1.5, 0.0, 1.0  );
         float aMult = min(1.0, pScalar*3.0);
         vAlpha = (seeds.x*.5+.7) * aMult;
 
