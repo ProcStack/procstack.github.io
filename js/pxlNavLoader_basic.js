@@ -25,7 +25,7 @@ const projectTitle = "pxlNav : Field Env.";
 const pxlRoomRootPath = "./pxlRooms";
 
 // Current possible rooms - "CampfireEnvironment", "SaltFlatsEnvironment", "FieldEnvironment", "VoidEnvironment"
-const bootRoomList = ["FieldEnvironment", "VoidEnvironment"];
+const bootRoomList = ["FieldEnvironment" ];//, "VoidEnvironment"];
 const startingRoom = bootRoomList[0];
 
 // -- -- --
@@ -65,6 +65,15 @@ const enableStaticCamera = false;
 //  Options are - OFF, VAPOR
 const skyHaze = pxlEnums.SKY_HAZE.VAPOR;
 
+// Collision Detection Grid
+//   Collision objects are split into a grid for faster collision detection
+//   gridSize - The size of the grid
+//   gridReference - Grid scene reference threshold to scale `gridSize`
+const collisionScale = {
+  'gridSize' : 100,
+  'gridReference' : 1000
+};
+
 
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
@@ -81,6 +90,7 @@ const skyHaze = pxlEnums.SKY_HAZE.VAPOR;
 let pxlNavOptions = Object.assign({},pxlOptions);
 pxlNavOptions.verbose = verbose;
 pxlNavOptions.antiAliasing = antiAliasing;
+pxlNavOptions.collisionScale = collisionScale;
 pxlNavOptions.pxlRoomRoot = pxlRoomRootPath;
 pxlNavOptions.staticCamera = enableStaticCamera;
 pxlNavOptions.skyHaze = skyHaze;

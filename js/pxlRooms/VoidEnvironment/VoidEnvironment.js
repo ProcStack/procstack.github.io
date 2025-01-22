@@ -22,8 +22,8 @@ const pxlPrincipledFrag = pxlShaders.objects.pxlPrincipledFrag;
 const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
 
 export class VoidEnvironment extends RoomEnvironment{
-  constructor( roomName='VoidEnvironment', assetPath=null, pxlFile=null, pxlAnim=null, pxlUtils=null, pxlDevice=null, pxlEnv=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
-    super( roomName, assetPath, pxlFile, pxlAnim, pxlUtils, pxlDevice, pxlEnv, msRunner, camera, scene, cloud3dTexture );
+  constructor( roomName='VoidEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
+    super( roomName, assetPath, msRunner, camera, scene, cloud3dTexture );
     
 		this.assetPath=assetPath+"Assets/";
 		this.assetPath="./js/pxlRooms/VoidEnvironment/Assets/";
@@ -45,7 +45,7 @@ export class VoidEnvironment extends RoomEnvironment{
 		this.cameraAimTarget=new Object3D(0,0,0);
     this.camHoldWarpPos=true;
 		
-    this.pxlCamFOV=(pxlDevice.mobile?80:60);
+    this.pxlCamFOV={ 'PC':60, 'MOBILE':80 };
 		this.pxlCamZoom=1;
 		this.pxlCamAspect=1;
     this.pxlCamNearClipping = 5;
@@ -83,21 +83,13 @@ export class VoidEnvironment extends RoomEnvironment{
 
 		this.voidBaseUniforms={};
 		this.portalList={};
-		this.hoverableExists=false;
+		this.hasHoverables=false;
 		this.hoverableList=[];
     this.hoverableObj=null;
-		this.clickableExists=false;
+		this.hasClickables=false;
 		this.clickableList=[];
     this.clickableObj=null;
     
-    
-		this.collidersExist=false;
-		this.colliderActive=false;
-		this.colliderList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] };
-		this.antiColliderActive=false;
-		this.antiColliderList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] };
-		this.antiColliderTopActive=false;
-		this.antiColliderTopList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] };
 		
 		this.roomWarp=[];
 		this.warpPortalTexture=null;
@@ -192,6 +184,6 @@ export class VoidEnvironment extends RoomEnvironment{
             
         this.materialList[ "VoidBase" ]=mat;
         
-        let voidFbxLoader = this.pxlFile.loadRoomFBX( this );
+        let voidFbxLoader = this.pxlFile.loadRoomFBX( this, null, null, false );
 	}
 }

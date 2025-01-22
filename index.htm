@@ -102,12 +102,13 @@
                 <div class="gitPageInnerStyle gitPxlNavPageInnerStyle">
                   <span class="gitPageHeaderStyle gitPagePxlNavHeaderStyle"><a href="https://github.com/ProcStack/pxlNav" target="_blank">pxlNav <span id="pxlNavPageVersion"></span></a></span>
 
-                  <br><br><span class="gitPageHeaderStyle gitPagePxlNavHeaderStyle">Explore -</span>
+                  <br><br><span class="gitPageHeaderStyle gitPagePxlNavHeaderStyle">Explore pxlNav -</span>
                   
                   <div class="innerCenter">
-                    If you are on a computer and want to run around -
-                    <br>&nbsp;&nbsp; <a href="pxlNav_fieldEnv.htm">pxlNav Example : Field Environment</a>
-                    <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textItalic">( Note : Link will load in this tab )</span>
+                    - If you're on a computer and want to run around, click the image -
+                    <br><a href="pxlNav_fieldEnv.htm"><img src='./images/pxlNav_FieldEnv.jpg' class='gitPageImageStyle' alt='pxlNav'>
+                    pxlNav Example : Field Environment</a>
+                    <br><span class="textItalic">( Note : Link will load in this tab )</span>
                   </div>
                   <br>
                   <div class="gitPagePxlNavShortcuts">
@@ -396,23 +397,39 @@
                     
                   <br><br>
                   <div ll-src='https://pxlmancer.com/show/learningGradients_84_opt.gif' ll-thumb='https://pxlmancer.com/show/learningGradients_84_th.jpg' ll-width='320' ll-height='320' class='lazyLoad gitPageImageStyle' alt='ESN Brain Wrinkling'></div>
-                  <span class="innerCenter">A different slice & settings for the same ESN I wrote.
+                  <span class="innerCenter">Different types of slices from the same ESN, just different input video.
                     <div class='gitPageAboutMeSpacer'></div>
-                    Upper left is another video I made the AI is watching, upper right is the brain's prediction,
-                    <br>Lower left is a slice of the brain's learned wrinkles, lower right the brain's prediction.
+                    Upper left is another video I made the AI is watching, upper right is shifts in detected movement,
+                    <br>Lower left is a slice of the brain's learned wrinkles, lower right is predicted movement.</span>
+                    <div class='gitPageAboutMeSpacer'></div>
+                    Currently it doesn't use the predicted movement for anything,
+                    <br>The next step would be introducing a base image to motion-transfer / referece.
+                    <div class='gitPageAboutMeSpacer'></div>
+                    So I'm just learnin' while watching my ai learnin'!
+                    <div class='gitPageAboutMeSpacer'></div>
                     
-                    <br><br>With a "reservoir" of 15 times steps, you'll notice about every 15 frames the brain shifts.
+                    <br>With a "reservoir" of 15 times steps, you'll notice about every 15 frames the brain shifts.
                     <br>By frame ~45, it's learned some patterns
-                    <br>The brain seems to then melt and rebuild itself to be predicting by frame ~70. 
+                    <br>The brain seems to completely melt at ~75 and rebuild itself by ~95. 
                     
                     <br><br>It should be happenstance that the brain shifts when the reservoir fills,
                     <br>Could mean I'm not correctly accounting for high p-values, outliers;
-                    <br>But it's detecting patterns in motion!</span>
+                    <br>But it's detecting patterns in motion!
                   </span>
                   
                   <br><img src='https://www.pxlmancer.com/show/learningGradients_84_brainSlice.png' class='gitPageImageStyle' alt='Custom ESN Learning Gradients' >
                   <span class="innerCenter">A slice of the ESN's brain by frame 101 of watching the X pattern video.</span>
 
+                  <br>Since I didn't have a good use case for the ESN in Python,
+                  <br>&nbsp;&nbsp; I built a similar ESM through C# in Unity to operate NPC's ability to learning player habbits.
+                  <br>The logic is pretty simple, so running by CPU is fine for now,
+                  <br>&nbsp;&nbsp; I'll likely look to move it to GPU in the future, if need be.
+                  <br>I set it up to learn less often when the player is in another room.
+                  <br>&nbsp;&nbsp; Thinking that I'd want to set up a "data transfer" between characters,
+                  <br>&nbsp;&nbsp;&nbsp;&nbsp; Gossip about the player.
+                  <br>&nbsp;&nbsp; But it's just cubes and spheres in Unity at the moment.
+
+                  
                   <br><br>If you couldn't tell by now, I'm training my AIs on my own creations.
                   <br>A personally made AI trained on personally made images / videos / photos / code / writing training data.
                   <br>&nbsp;&nbsp; That means I can copyright my generations, right?
@@ -440,7 +457,7 @@
 
     <canvas id="pxlNav-coreCanvas" height='1' width='1' class="pxlNavCoreCanvasStyle" ></canvas>
 
-    <script type="module" src="js/ProckStackGitio.js?v=2024-12-30"></script>
+    <script type="module" src="js/ProckStackGitio.js?v=2025-01-22"></script>
 
 
 </body>
