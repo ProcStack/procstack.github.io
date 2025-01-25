@@ -236,9 +236,12 @@ export function envGroundFrag( pointLightCount ){
             vec3 lightVector = normalize(lightDelta);
             float lightNormDot = clamp(dot(-lightVector, vN), 0.0, 1.0);
             vec3 lightInf=  pointLights[i].color;
-            float lightDist = max( 0.0, (1.0-length( lightDelta )*.0040) );
+            float lightDist = max( 0.0, (1.0-length( lightDelta )*.0015) );
             lights *= vec3( pointLights[i].color * ( lightDist ) );
             lights += lightInf * lightNormDot;
+            //float lightDist = max( 0.0, (1.0-length( lightDelta )*.001) );
+            //float lightDist = pow( length( lightDelta ) / pointLights[i].distance, pointLights[i].decay);
+            //lights += vec3( pointLights[i].color * ( lightDist ) ) * lightInf * lightNormDot   ;
         }
         Cd.rgb *= lights;
       #endif
