@@ -56,11 +56,11 @@ export class FieldEnvironment extends RoomEnvironment{
     this.pxlCamFOV={ 'PC':60, 'MOBILE':80 };
 		this.pxlCamZoom=1;
 		this.pxlCamAspect=1;
-    this.pxlCamNearClipping = 5;
-    this.pxlCamFarClipping = 10000;
+    this.pxlCamNearClipping = 3;
+    this.pxlCamFarClipping = 12000;
 
     // this.fogColor=new Color(.3,.3,.3);
-    this.fogColor=new Color( 0x4a5885 );
+    this.fogColor=new Color( 0x48415d );
     this.fogExp=.0007;
     this.fog=new FogExp2( this.fogColor, this.fogExp);
         
@@ -117,6 +117,7 @@ export class FieldEnvironment extends RoomEnvironment{
 	init(){
         this.scene.fog=this.fog;
         this.scene.background = this.fogColor ;//pxlEnv.fogColor;
+        this.smoothNoiseTexture=this.pxlEnv.softNoiseTexture;
         
     }
 // Run on init room warp; reset room values
@@ -314,9 +315,9 @@ export class FieldEnvironment extends RoomEnvironment{
         
         if(this.geoList.hasOwnProperty('GlowPass') && this.geoList['GlowPass'].length > 0){
           this.geoList['GlowPass'].forEach((g)=>{
-            //g.layers.set( this.pxlEnv.renderLayerEnum.SCENE )
-            //g.layers.toggle( this.pxlEnv.renderLayerEnum.GLOW )
-            g.layers.set( this.pxlEnv.renderLayerEnum.GLOW )
+            //g.layers.set( this.pxlEnv.RENDER_LAYER.SCENE )
+            //g.layers.toggle( this.pxlEnv.RENDER_LAYER.GLOW )
+            g.layers.set( this.pxlEnv.RENDER_LAYER.GLOW )
           })
         }
         
@@ -337,7 +338,7 @@ export class FieldEnvironment extends RoomEnvironment{
           curObj.renderOrder = 3;
         }
         
-        //this.pxlEnv.renderLayerEnum SCENE PARTICLES GLOW
+        //this.pxlEnv.RENDER_LAYER SCENE PARTICLES GLOW
         //this.geoList['lights']
         
         //var ambientLight = new AmbientLight( 0xaaaaaa ); // soft white light

@@ -111,6 +111,8 @@ export class Utils{
     return [date, time];
   }
   
+  // -- -- -- //
+
   cleanStrict( messageString ){
     let strip=document.createElement( "div" );
     strip.innerHTML=messageString;
@@ -140,6 +142,27 @@ export class Utils{
     strip.innerHTML=messageString;
     strip=strip.innerText;
     return strip;
+  }
+
+
+  // Round to nearest
+  toNearestStr( val, precision=2 ){
+    let retVal = val.toFixed(precision);
+    return retVal;
+  }
+
+  // Round array elements to nearest
+  arrayToStr( arr, precision=2 ){
+    let retArr = [];
+    arr.forEach( (val)=>{
+      retArr.push( this.toNearestStr(val, precision) );
+    });
+    return retArr;
+  }
+
+  // Flatten array to joined string
+  flattenArrayToStr( arr, precision=2, delimiter="," ){
+    return this.arrayToStr( arr, precision ).join(delimiter);
   }
 
   // -- -- -- //

@@ -32,7 +32,7 @@ import {
 } from "../libs/three/three.module.min.js";
 import { pxlPrincipledVert, pxlPrincipledFrag } from "./shaders/objects/PxlPrincipled.js";
 
-import { COLLIDER_TYPE } from "./core/Enums.js";
+import { RENDER_LAYER, COLLIDER_TYPE } from "./core/Enums.js";
 
 class RoomEnvironment{
   constructor( roomName='CampfireEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
@@ -604,9 +604,9 @@ class RoomEnvironment{
         
         if(this.geoList.hasOwnProperty('GlowPass') && this.geoList['GlowPass'].length > 0){
           this.geoList['GlowPass'].forEach((g)=>{
-            //g.layers.set( this.pxlEnv.renderLayerEnum.SCENE )
-            //g.layers.toggle( this.pxlEnv.renderLayerEnum.GLOW )
-            g.layers.set( this.pxlEnv.renderLayerEnum.GLOW )
+            //g.layers.set( RENDER_LAYER.SCENE )
+            //g.layers.toggle( RENDER_LAYER.GLOW )
+            g.layers.set( RENDER_LAYER.GLOW )
           })
         }
         

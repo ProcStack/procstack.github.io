@@ -15,6 +15,7 @@ export function envGroundVert(){
     varying vec3 vCd;
     varying vec2 vUv;
     varying vec3 vPos;
+    varying vec3 vCamPos;
     varying vec3 vLocalPos;
     varying vec3 vN;
     varying vec3 vLocalN;
@@ -44,6 +45,7 @@ export function envGroundVert(){
         vec4 mvPos=modelViewMatrix * vec4(position, 1.0);
         gl_Position = projectionMatrix*mvPos;
         vPos = mvPos.xyz;
+        vCamPos = gl_Position.xyz;
         
       /***********************************/
       /** Start of THREE Shader Includes **/
@@ -80,6 +82,7 @@ export function envGroundFrag( pointLightCount ){
   varying vec3 vCd;
   varying vec2 vUv;
   varying vec3 vPos;
+  varying vec3 vCamPos;
   varying vec3 vLocalPos;
   varying vec3 vN;
   varying vec3 vLocalN;
@@ -98,8 +101,13 @@ export function envGroundFrag( pointLightCount ){
       vec3 direction;
     };
      
+    
+  #if NUM_POINT_LIGHTS > 0
     uniform PointLight pointLights[NUM_POINT_LIGHTS];
+  #endif
+  #if NUM_DIR_LIGHTS > 0
     uniform DirLight directionalLights[NUM_DIR_LIGHTS];
+  #endif
     
     /***********************************/
     /** Start of THREE Shader Includes **/
@@ -114,9 +122,13 @@ export function envGroundFrag( pointLightCount ){
         float timer = time.x*.3;
         vec3 pos = vLocalPos*.0001;
         vec2 uv = vUv;
-        float depth = min(1.0, gl_FragCoord.z / gl_FragCoord.w * .00035 );
-        depth = pow( depth, 1.5+depth);
-        float depthFade = max(0.0, 1.0-depth);
+
+        float screenSpaceX = abs((vCamPos.x / vCamPos.z))*.45;
+        float depth = min(1.0, max(0.0, gl_FragCoord.z) / gl_FragCoord.w  * .00015 );
+        depth = depth + ( screenSpaceX * screenSpaceX )*min(1.0, depth*2.0);
+        depth = pow( depth, 1.0-depth);
+
+        float depthFade = clamp( 2.-(depth*depth), 0.0, 1.0);
         depthFade *= depthFade*depthFade;
         
         //Ease patch noise, dirt / path / woods / grass
@@ -218,6 +230,7 @@ export function envGroundFrag( pointLightCount ){
         
         
         vec3 lights = vec3(0.0, 0.0, 0.0);
+      #if NUM_POINT_LIGHTS > 0
         for(int i = 0; i < NUM_POINT_LIGHTS; i++) {
             vec3 lightDelta = (vPos - pointLights[i].position);
             vec3 lightVector = normalize(lightDelta);
@@ -228,6 +241,7 @@ export function envGroundFrag( pointLightCount ){
             lights += lightInf * lightNormDot;
         }
         Cd.rgb *= lights;
+      #endif
         float lightMag = length( lights );
         
         float shadowInf = 0.0;
@@ -239,12 +253,14 @@ export function envGroundFrag( pointLightCount ){
         
         pos = vPos;
         lights = vec3(0.0, 0.0, 0.0);
+      #if NUM_DIR_LIGHTS > 0
         for(int i = 0; i < NUM_DIR_LIGHTS; i++) {
             vec3 lightInf= ( max(0.0, dot(directionalLights[i].direction, vN ))) * directionalLights[i].color;
             lights += lightInf;
         }
         // 'baseDirtNoise' is acting as bump map here, sorta
         Cd.rgb += lights * baseDirtNoise;
+      #endif
         
         float fogMix = clamp( depth - lightMag*(1.0-depth*1.5), 0.0, 1.0 );
         Cd.rgb =  mix( Cd.rgb, fogColor, fogMix );
@@ -414,10 +430,12 @@ export function grassClusterFrag(pointLightCount){
       vec3 direction;
     };
      
+  #if NUM_POINT_LIGHTS > 0
     uniform PointLight pointLights[NUM_POINT_LIGHTS];
-    #if NUM_DIR_LIGHTS > 0
-      uniform DirLight directionalLights[NUM_DIR_LIGHTS];
-    #endif
+  #endif
+  #if NUM_DIR_LIGHTS > 0
+    uniform DirLight directionalLights[NUM_DIR_LIGHTS];
+  #endif
     
     ${ShaderChunk[ "packing" ]}
     
@@ -741,8 +759,12 @@ export function pondDockFrag(){
       vec3 direction;
     };
 
+  #if NUM_POINT_LIGHTS > 0
     uniform PointLight pointLights[NUM_POINT_LIGHTS];
+  #endif
+  #if NUM_DIR_LIGHTS > 0
     uniform DirLight directionalLights[NUM_DIR_LIGHTS];
+  #endif
 
     /***********************************/
     /** Start of THREE Shader Includes **/
@@ -800,6 +822,7 @@ export function pondDockFrag(){
         float dp=0.0;
         float shadowRadius=0.0;
         
+      #if NUM_DIR_LIGHTS > 0
         lights = vec3(0.0, 0.0, 0.0);
         for(int i = 0; i < NUM_DIR_LIGHTS; i++) {
             vec3 lightInf= directionalLights[i].color * dot(directionalLights[i].direction, vN );
@@ -807,6 +830,7 @@ export function pondDockFrag(){
         }
 
         Cd.rgb += lights* min(vec3(1.0),(Cd.rgb)*9.0+.25) ;
+      #endif
         
         float fogMix = clamp( depth - length( lights )*(1.0-depth*1.5), 0.0, 1.0 );
         Cd.rgb =  mix( Cd.rgb, fogColor, fogMix );

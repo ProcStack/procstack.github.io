@@ -106,6 +106,7 @@ export class Environment{
     this.currentAudioZone=0;
     
     this.pxlUtils=null;
+    this.pxlEnums=null;
     this.pxlTimer=null;
     this.pxlAnim=null;
     this.pxlColliders=null;
@@ -120,13 +121,6 @@ export class Environment{
     this.pxlCamera=null;
     this.pxlGuiDraws=null;
     
-    
-    this.renderLayerEnum = {
-      "SCENE": 0,
-      "PARTICLES": 1,
-      "GLOW": 2,
-      "SKY": 3
-    }
     
     this.cloud3dTexture=null;
     this.softNoiseTexture=null;
@@ -270,6 +264,7 @@ export class Environment{
   setDependencies( pxlNav ){
     this.scene=pxlNav.scene;
     this.pxlUtils=pxlNav.pxlUtils;
+    this.pxlEnums=pxlNav.pxlEnums;
     this.pxlTimer=pxlNav.pxlTimer;
     this.pxlAnim=pxlNav.pxlAnim;
     this.pxlColliders=pxlNav.pxlColliders;
@@ -1565,13 +1560,12 @@ export class Environment{
       let curRoom=this.roomSceneList[this.currentRoom];
       if(curRoom && curRoom.booted){
         curRoom.step();
-        
-        curRoom.camera.layers.disable( this.renderLayerEnum.SKY );
+        curRoom.camera.layers.disable( this.pxlEnums.RENDER_LAYER.SKY );
         this.engine.setRenderTarget(curRoom.scene.renderTarget);
         this.engine.clear();
         this.engine.render( curRoom.scene, curRoom.camera);
         this.engine.setRenderTarget(null);
-        curRoom.camera.layers.enable( this.renderLayerEnum.SKY );
+        curRoom.camera.layers.enable( this.pxlEnums.RENDER_LAYER.SKY );
         
         if( false && this.pxlQuality.settings.fog>0 ){
           this.pxlCamera.camera.layers.disable( 1 );
@@ -1628,10 +1622,10 @@ export class Environment{
             }
           }
           
-          //this.pxlEnv.renderLayerEnum SCENE PARTICLES GLOW
-          camera.layers.disable( this.renderLayerEnum.SCENE );
-          camera.layers.disable( this.renderLayerEnum.PARTICLES );
-          camera.layers.disable( this.renderLayerEnum.SKY );
+          //this.pxlEnv.pxlEnums.RENDER_LAYER SCENE PARTICLES GLOW
+          camera.layers.disable( this.pxlEnums.RENDER_LAYER.SCENE );
+          camera.layers.disable( this.pxlEnums.RENDER_LAYER.PARTICLES );
+          camera.layers.disable( this.pxlEnums.RENDER_LAYER.SKY );
           
           this.engine.setRenderTarget(target);
           let bgCd=0x000000;
@@ -1645,9 +1639,9 @@ export class Environment{
           scene.background.g=curgb.g;
           scene.background.b=curgb.b;
           
-          camera.layers.enable( this.renderLayerEnum.SCENE );
-          camera.layers.enable( this.renderLayerEnum.PARTICLES );
-          camera.layers.enable( this.renderLayerEnum.SKY );
+          camera.layers.enable( this.pxlEnums.RENDER_LAYER.SCENE );
+          camera.layers.enable( this.pxlEnums.RENDER_LAYER.PARTICLES );
+          camera.layers.enable( this.pxlEnums.RENDER_LAYER.SKY );
           this.engine.setRenderTarget(null);
           
           if(curRoom.geoList["GlowPass"]){

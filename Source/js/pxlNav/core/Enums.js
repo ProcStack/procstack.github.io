@@ -21,6 +21,15 @@ export const ANTI_ALIASING = {
   'HIGH' : 3
 };
 
+// Render Order Layers
+export const RENDER_LAYER = {
+  "SKY": 0,
+  "SCENE": 1,
+  "PARTICLES": 2,
+  "GLOW": 3
+}
+
+
 // Sky Haze settings should be passed through the pxlNav.Options
 export const SKY_HAZE = {
   'OFF' : 0,
@@ -115,6 +124,7 @@ export const COLOR_SHIFT = {
 export const pxlEnums = {
   'VERBOSE_LEVEL' : VERBOSE_LEVEL,
   'ANTI_ALIASING' : ANTI_ALIASING,
+  'RENDER_LAYER' : RENDER_LAYER,
   'SKY_HAZE' : SKY_HAZE,
   'SHADOW_MAP' : SHADOW_MAP,
   'CAMERA_EVENT' : CAMERA_EVENT,

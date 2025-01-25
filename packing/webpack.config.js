@@ -1,4 +1,5 @@
 const path = require('path');
+const { IgnorePlugin } = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -64,6 +65,10 @@ const baseConfig = {
     new MiniCssExtractPlugin({
       filename: 'style/pxlNavStyle.css'
     }),
+    new IgnorePlugin({
+      resourceRegExp: /Environment\.js$/,
+      contextRegExp: /import\(.*\)/
+    }),
     /*new CopyWebpackPlugin({
       patterns: copyFileList,
     }),*/
@@ -88,7 +93,7 @@ const baseConfig = {
     '../../libs/three/three.module.min.js' : './libs/three/three.module.min.js',
     '../../../libs/three/three.module.min.js' : './libs/three/three.module.min.js',
     '../../../../libs/three/three.module.min.js' : './libs/three/three.module.min.js',
-    '../../three//EffectComposer.js' : './libs/three/three.module.min.js',
+    '../../three/EffectComposer.js' : './libs/three/three.module.min.js',
     './pxlNav.js' : './pxlNav.esm.js',
     '../../pxlNav.js' : '../../pxlNav.esm.js',
     '../libs/three/EffectComposer.js': "./libs/three/EffectComposer.js",

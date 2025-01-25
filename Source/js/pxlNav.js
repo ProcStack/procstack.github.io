@@ -144,8 +144,10 @@ class pxlNav{
       pxlRoomRoot = options["pxlRoomRoot"];
     }
 
-    // Option Checks & Defaults
+    // Enums object
+    this.pxlEnums = pxlEnums;
 
+    // Option Checks & Defaults
     this.options = {
       loadList : ["Cloud3d", "SoftNoise", "SmoothNoise", "WarpAnimTexture"],
       // TODO : Get these to be pxlNav options pre-boot

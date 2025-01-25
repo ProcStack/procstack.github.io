@@ -83,6 +83,7 @@ import { VERBOSE_LEVEL, COLLIDER_TYPE, GEOMETRY_SIDE } from "./Enums.js";
 export class Colliders{
   constructor( verbose=false, hashGridSizing = 100, colliderBoundsReference = 500.0 ){
     this.pxlEnv = null;
+    this.pxlUtils = null;
     this.verbose = verbose;
 
     this.delimiter = ',';
@@ -105,6 +106,7 @@ export class Colliders{
   }
   setDependencies( pxlEnv ){
     this.pxlEnv = pxlEnv;
+    this.pxlUtils = pxlEnv.pxlUtils;
   }
   log( msg ){
     if( this.verbose >= VERBOSE_LEVEL.INFO ){
@@ -495,14 +497,9 @@ export class Colliders{
 
   // Flatten Vector3 to a string
   flattenVector3( vec ){
-    return this.getGridKey( this.toNearestStr(vec.x), this.toNearestStr(vec.y), this.toNearestStr(vec.z) );
+    return this.getGridKey( this.pxlUtils.toNearestStr(vec.x), this.pxlUtils.toNearestStr(vec.y), this.pxlUtils.toNearestStr(vec.z) );
   }
 
-  // Round to nearest
-  toNearestStr( val, precision=1 ){
-    let retVal = val.toFixed(precision);
-    return retVal;
-  }
 
   // -- -- --
 

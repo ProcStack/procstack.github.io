@@ -23,13 +23,12 @@ import {
 } from "../../libs/three/three.module.min.js";
 import { FBXLoader } from "../../libs/three/FBXLoader.js";
 
-import { COLLIDER_TYPE, COLOR_SHIFT } from "./Enums.js";
-
 export class FileIO{
   constructor( folderDict={}){
     this.pxlTimer=null;
     this.pxlUtils=null;
     this.pxlQuality=null;
+    this.pxlEnums=null;
     this.pxlVideo=null;
     this.pxlCamera=null;
     this.pxlAutoCam=null;
@@ -62,6 +61,7 @@ export class FileIO{
     this.pxlTimer=pxlNav.pxlTimer;
     this.pxlUtils=pxlNav.pxlUtils;
     this.pxlQuality=pxlNav.pxlQuality;
+    this.pxlEnums=pxlNav.pxlEnums;
     this.pxlVideo=pxlNav.pxlVideo;
     this.pxlCamera=pxlNav.pxlCamera;
     this.pxlAutoCam=pxlNav.pxlAutoCam;
@@ -101,7 +101,7 @@ export class FileIO{
 
   // -- -- --
 
-  convertVertColor( meshObj, space=COLOR_SHIFT.KEEP ){
+  convertVertColor( meshObj, space=this.pxlEnums.COLOR_SHIFT.KEEP ){
     if (meshObj.geometry && meshObj.geometry.attributes && meshObj.geometry.attributes.color) {
       let colors = meshObj.geometry.attributes.color;
       for( let x=0; x<colors.count; ++x ){
@@ -364,12 +364,26 @@ export class FileIO{
           let instBase= envObj.baseInstancesList[ mesh.userData.Instance ];
 
           if( mesh.type == "Mesh" ){
-            const matrix = new Matrix4();
-            const position = new Vector3();
-            const normal = new Vector3();
-            const quaternion = new Quaternion();
-            const scale = new Vector3(1, 1, 1);
+            let matrix = new Matrix4();
+            let position = new Vector3();
+            let normal = new Vector3();
+            let quaternion = new Quaternion();
+            let scale = new Vector3(1, 1, 1);
             const hasColor = mesh.geometry.attributes.hasOwnProperty("color");
+            let userDataKeys = Object.keys( mesh.userData );
+            let userDataKeysLower = userDataKeys.map( (c)=> c.toLowerCase() );
+
+            let hasFitScale = false;
+            let minScale = 0;
+            let maxScale = 1;
+            if( userDataKeysLower.includes("minscale") ){
+              hasFitScale = true;
+              minScale = mesh.userData[ userDataKeys[ userDataKeysLower.indexOf("minscale") ] ];
+            }
+            if( userDataKeysLower.includes("maxscale") ){
+              hasFitScale = true;
+              maxScale = mesh.userData[ userDataKeys[ userDataKeysLower.indexOf("maxscale") ] ];
+            }
 
             // Prevent dupelicate instances
             //   Verts are split, so neighboring polygons have stacked vertices
@@ -379,15 +393,22 @@ export class FileIO{
             for (let x = 0; x < mesh.geometry.attributes.position.count; ++x) {
               position.fromBufferAttribute(mesh.geometry.attributes.position, x);
               let entry = position.toArray();
-              entry = entry.join(",");
+
+              // Flatten array elements to 0.01 precision joined by ","
+              entry = this.pxlUtils.flattenArrayToStr( entry );
+
               if( !pointRecorder.hasOwnProperty(entry) ){
                 normal.fromBufferAttribute(mesh.geometry.attributes.normal, x);
                 let randomRot = new Euler( 0,Math.random() * 2 * Math.PI, 0);
                 quaternion.setFromEuler(randomRot);
                 
-                let curScale = scale;
+                curScale = scale;
                 if( hasColor ){
                   let curScalar = mesh.geometry.attributes.color.getX(x);
+                  if( hasFitScale ){
+                    // Scale the object based on object parameter `minScale` & `maxScale`
+                    curScalar = minScale + (maxScale - minScale) * curScalar;
+                  }
                   curScale = new Vector3(curScalar, curScalar, curScalar);
                 }
                 matrix.compose(position, quaternion, curScale);
@@ -909,6 +930,7 @@ export class FileIO{
               c.visible = false;
             }
             
+            c.layers.set( this.pxlEnums.RENDER_LAYER.SCENE );
             envObj.geoList[c.name]=c;
               
             let curSide = FrontSide;
@@ -1105,14 +1127,14 @@ export class FileIO{
         // Parse grid Vertex-Faces for collision detection
         //   Prep barycentric coordinate dependency values
         //     Vert-Edge lengths, Edge Dot Products, Vert-Face areas & data
-        if( envObj.hasColliderType( COLLIDER_TYPE.FLOOR ) ){
-          this.pxlColliders.prepColliders( envObj, COLLIDER_TYPE.FLOOR );
-        }else if( envObj.hasColliderType( COLLIDER_TYPE.WALL ) ){
-          this.pxlColliders.prepColliders( envObj, COLLIDER_TYPE.WALL );
-        }else if( envObj.hasColliderType( COLLIDER_TYPE.WALL_TOP ) ){
-          this.pxlColliders.prepColliders( envObj, COLLIDER_TYPE.WALL_TOP );
-        }else if( envObj.hasColliderType( COLLIDER_TYPE.ROOM ) ){
-          this.pxlColliders.prepColliders( envObj, COLLIDER_TYPE.ROOM );
+        if( envObj.hasColliderType( this.pxlEnums.COLLIDER_TYPE.FLOOR ) ){
+          this.pxlColliders.prepColliders( envObj, this.pxlEnums.COLLIDER_TYPE.FLOOR );
+        }else if( envObj.hasColliderType( this.pxlEnums.COLLIDER_TYPE.WALL ) ){
+          this.pxlColliders.prepColliders( envObj, this.pxlEnums.COLLIDER_TYPE.WALL );
+        }else if( envObj.hasColliderType( this.pxlEnums.COLLIDER_TYPE.WALL_TOP ) ){
+          this.pxlColliders.prepColliders( envObj, this.pxlEnums.COLLIDER_TYPE.WALL_TOP );
+        }else if( envObj.hasColliderType( this.pxlEnums.COLLIDER_TYPE.ROOM ) ){
+          this.pxlColliders.prepColliders( envObj, this.pxlEnums.COLLIDER_TYPE.ROOM );
         }
       }
       
@@ -1149,6 +1171,7 @@ export class FileIO{
             mtl.side=FrontSide;
             mtl.flatShading=true;
             c.material=mtl;
+            c.layers.set( this.pxlEnums.RENDER_LAYER.SCENE );
             c.matrixAutoUpdate=false;
             envScene.add(c);
             //addToScene[1].add(c.clone());
@@ -1189,6 +1212,7 @@ export class FileIO{
               c.material=mtl;
             }
             
+            c.layers.set( this.pxlEnums.RENDER_LAYER.SCENE );
             c.matrixAutoUpdate=false;
             envScene.add(c);
             //addToScene[1].add(c.clone());
@@ -1224,9 +1248,9 @@ export class FileIO{
             c.material = curMat;
             c.matrixAutoUpdate = false;
             c.frustumCulled = false;
-            c.layers.set( this.pxlEnv.renderLayerEnum.SKY )
-            //c.material.depthTest=true;
-            //c.material.depthWrite=true;
+            c.layers.set( this.pxlEnums.RENDER_LAYER.SKY )
+            c.material.depthTest=true;
+            c.material.depthWrite=false;
             envObj.geoList[ c.name ] = c;
             envObj.materialList[ c.name ] = curMat;
             //envObj.shaderGeoList[c.name]=c;
