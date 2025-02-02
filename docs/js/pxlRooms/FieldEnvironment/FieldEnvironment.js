@@ -12,7 +12,8 @@ import {
   ClampToEdgeWrapping,
   UniformsUtils,
   UniformsLib,
-  FrontSide
+  FrontSide,
+  DoubleSide
 } from "../../libs/three/three.module.min.js";
 /*ShaderMaterial*/
 
@@ -32,12 +33,9 @@ const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
 export class FieldEnvironment extends RoomEnvironment{
   constructor( roomName='FieldEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
     super( roomName, assetPath, msRunner, camera, scene, cloud3dTexture );
-    
+
 		this.assetPath=assetPath+"Assets/";
-		this.assetPath="./js/pxlRooms/FieldEnvironment/Assets/";
-    
     this.sceneFile = this.assetPath+"FieldEnvironment.fbx";
-    //this.sceneFile = this.assetPath+"ForceField.fbx";
 		
 		// Environment Shader 
 		this.spiralizerUniforms={};
@@ -114,51 +112,53 @@ export class FieldEnvironment extends RoomEnvironment{
     this.currentShader=null;
     //%
 	}
+
 	init(){
-        this.scene.fog=this.fog;
-        this.scene.background = this.fogColor ;//pxlEnv.fogColor;
-        this.smoothNoiseTexture=this.pxlEnv.softNoiseTexture;
-        
-    }
+    this.scene.fog=this.fog;
+    this.scene.background = this.fogColor ;//pxlEnv.fogColor;
+    this.smoothNoiseTexture=this.pxlEnv.softNoiseTexture;
+  }
+
 // Run on init room warp; reset room values
 	start(){
-        /*this.spiralizerPass.enabled=true;
-        this.bloomPreState=this.pxlEnv.roomBloomPass.enabled;	
-        this.pxlEnv.roomBloomPass.enabled=false;	*/
-    }
+    /*this.spiralizerPass.enabled=true;
+    this.bloomPreState=this.pxlEnv.roomBloomPass.enabled;	
+    this.pxlEnv.roomBloomPass.enabled=false;	*/
+  }
 	
 // Per-Frame Render updates
 	step(){
 		this.runTime.x=this.msRunner.x;
+
+    //this.pxlEnv.engine.setClearColor(this.pxlEnv.fogColor, 0);
     
-        //this.pxlEnv.engine.setClearColor(this.pxlEnv.fogColor, 0);
-        
-        // Render world positions for composer
-        //   There must be a better way to get world positions,
-        //     The render pass must have an option for this... Or could be added hHmmMMmmm
-        /*this.scene.overrideMaterial=this.worldPosMaterial;
-        this.pxlEnv.engine.setRenderTarget(this.worldPosRenderTarget);
-        this.pxlEnv.engine.clear();
-        this.pxlEnv.engine.render( this.scene, this.camera );
-        this.scene.overrideMaterial=null;
-        this.pxlEnv.engine.setRenderTarget(null);*/
+    // Render world positions for composer
+    //   There must be a better way to get world positions,
+    //     The render pass must have an option for this... Or could be added hHmmMMmmm
+    /*this.scene.overrideMaterial=this.worldPosMaterial;
+    this.pxlEnv.engine.setRenderTarget(this.worldPosRenderTarget);
+    this.pxlEnv.engine.clear();
+    this.pxlEnv.engine.render( this.scene, this.camera );
+    this.scene.overrideMaterial=null;
+    this.pxlEnv.engine.setRenderTarget(null);*/
         
 	}
+
 // When leaving the room
 	stop(){
-        //this.spiralizerPass.enabled=false;
-        //this.pxlEnv.roomBloomPass.enabled=this.bloomPreState;
-    }
+    //this.spiralizerPass.enabled=false;
+    //this.pxlEnv.roomBloomPass.enabled=this.bloomPreState;
+  }
 	
 // Runs on window resize
-    resize( sW, sH ){
-        /*if(this.worldPosRenderTarget){
-            this.worldPosRenderTarget.setSize( sW, sH );
-        }
-        if(this.spiralizerPass){
-            this.spiralizerPass.setSize( sW, sH );
-        }*/
+  resize( sW, sH ){
+    /*if(this.worldPosRenderTarget){
+      this.worldPosRenderTarget.setSize( sW, sH );
     }
+    if(this.spiralizerPass){
+      this.spiralizerPass.setSize( sW, sH );
+    }*/
+  }
 	
 // Warp Zone Portal Texture
 	prepPortalRender(){
@@ -175,44 +175,44 @@ export class FieldEnvironment extends RoomEnvironment{
 	}
     
   applyRoomPass( roomComposer=null ){
-      /*if(roomComposer){
-          this.worldPosMaterial=new ShaderMaterial({
-              uniforms:{
-                  camNear: { type:"f", value: 1 },
-                  camFar: { type:"f", value: 900 } // Measured in the Scene file, 885.61
-              },
-              vertexShader: worldPositionVert(),
-              fragmentShader: worldPositionFrag()
-          });
-          //this.worldPosMaterial.side=DoubleSide;
-          //this.worldPosMaterial.side=FrontSide;
-          
-          this.spiralizerPass = new ShaderPass(
-              new ShaderMaterial( {
-                  uniforms: {
-                      tDiffuse: { value: null },
-                      localPos: { value: this.pxlUtils.loadTexture(this.assetPath+"SpiralizerFadeMap_1k.jpg") },
-                      worldPos: { value: this.worldPosRenderTarget.texture },
-                      noiseTexture: { value: this.pxlEnv.cloud3dTexture },
-                      camMat:{ value:this.camera.matrixWorld },
-                      marker: { value: new Vector3( -619.01, 67.856, 240.177) },
-                      time:{ value:this.msRunner },
-                      screenRes: { value: this.pxlDevice.screenRes },
-                  },
-                  vertexShader: cameraCalcVert(),
-                  fragmentShader: spiralizerPostProcess(),
-                  defines: {}
-              } ), "tDiffuse"
-          );
-          this.spiralizerPass.enabled=false;
-          
-          return this.spiralizerPass;
-      }*/
+    /*if(roomComposer){
+      this.worldPosMaterial=new ShaderMaterial({
+        uniforms:{
+          camNear: { type:"f", value: 1 },
+          camFar: { type:"f", value: 900 } // Measured in the Scene file, 885.61
+        },
+        vertexShader: worldPositionVert(),
+        fragmentShader: worldPositionFrag()
+      });
+      //this.worldPosMaterial.side=DoubleSide;
+      //this.worldPosMaterial.side=FrontSide;
+      
+      this.spiralizerPass = new ShaderPass(
+        new ShaderMaterial( {
+          uniforms: {
+            tDiffuse: { value: null },
+            localPos: { value: this.pxlUtils.loadTexture(this.assetPath+"SpiralizerFadeMap_1k.jpg") },
+            worldPos: { value: this.worldPosRenderTarget.texture },
+            noiseTexture: { value: this.pxlEnv.cloud3dTexture },
+            camMat:{ value:this.camera.matrixWorld },
+            marker: { value: new Vector3( -619.01, 67.856, 240.177) },
+            time:{ value:this.msRunner },
+            screenRes: { value: this.pxlDevice.screenRes },
+          },
+          vertexShader: cameraCalcVert(),
+          fragmentShader: spiralizerPostProcess(),
+          defines: {}
+        } ), "tDiffuse"
+      );
+      this.spiralizerPass.enabled=false;
+      
+      return this.spiralizerPass;
+    }*/
   }
 	
 	getArtistInfo(){
-        return null;
-    }
+    return null;
+  }
 	
   setFog( color ){
     // this.geoList["skySemiSphere"].material.uniforms.skyColor.value.x= this.fog.color.r*10.0 ;
@@ -225,41 +225,42 @@ export class FieldEnvironment extends RoomEnvironment{
       
 	//%=
 	// Return Primary Shader Material
-    getShaderList(){
-        let retList={}
-        let objList=Object.keys( this.materialList );
-        objList.forEach( (k)=>{
-            retList[k]=k
-        });
-        return retList;
-    }
-    getCurrentShader(){
-        return this.currentShader || Object.keys( this.materialList )[0];
-    }
+  getShaderList(){
+      let retList={}
+      let objList=Object.keys( this.materialList );
+      objList.forEach( (k)=>{
+          retList[k]=k
+      });
+      return retList;
+  }
+  getCurrentShader(){
+    return this.currentShader || Object.keys( this.materialList )[0];
+  }
+
 	readShader( objShader="" ){
-        if( this.currentShader!=null && this.materialList[ this.currentShader ].hasOwnProperty('uniforms')){
-            this.materialList[ this.currentShader ].uniforms.sliders.value=new Vector3();
-            this.materialList[ this.currentShader ].needsUpdate=true;
-        }
-        this.currentShader=objShader;
+    if( this.currentShader!=null && this.materialList[ this.currentShader ].hasOwnProperty('uniforms')){
+        this.materialList[ this.currentShader ].uniforms.sliders.value=new Vector3();
+        this.materialList[ this.currentShader ].needsUpdate=true;
+    }
+    this.currentShader=objShader;
         
 		return this.materialList[ this.currentShader ];
 	}
 	setShader( unis, vert, frag ){
-        if( this.emitterList && this.emitterList[ this.currentShader ] ){
-          if( this.emitterList[ this.currentShader ].Particles.length > 0 ){
-            this.emitterList[ this.currentShader ].Particles.forEach( (p)=>{
-              let mtl = p.material;
-              mtl.vertexShader=vert;
-              mtl.fragmentShader=frag;
-              mtl.needsUpdate=true;
-            });
-          }
-        }
-        
-        this.materialList[ this.currentShader ].vertexShader=vert;
-        this.materialList[ this.currentShader ].fragmentShader=frag;
-        this.materialList[ this.currentShader ].needsUpdate=true;
+    if( this.emitterList && this.emitterList[ this.currentShader ] ){
+      if( this.emitterList[ this.currentShader ].Particles.length > 0 ){
+        this.emitterList[ this.currentShader ].Particles.forEach( (p)=>{
+          let mtl = p.material;
+          mtl.vertexShader=vert;
+          mtl.fragmentShader=frag;
+          mtl.needsUpdate=true;
+        });
+      }
+    }
+    
+    this.materialList[ this.currentShader ].vertexShader=vert;
+    this.materialList[ this.currentShader ].fragmentShader=frag;
+    this.materialList[ this.currentShader ].needsUpdate=true;
 	}
 	//%
 	
@@ -306,119 +307,105 @@ export class FieldEnvironment extends RoomEnvironment{
     
     
 	fbxPostLoad(){
-        //this.buildSnow();
-        this.buildDust();
-        // if(this.geoList['Cobble_Walls']){
-          // console.log(this.geoList['Cobble_Walls'])
-        // }
-        if(this.geoList['ForceField']){}
-        
-        if(this.geoList.hasOwnProperty('GlowPass') && this.geoList['GlowPass'].length > 0){
-          this.geoList['GlowPass'].forEach((g)=>{
-            //g.layers.set( this.pxlEnv.RENDER_LAYER.SCENE )
-            //g.layers.toggle( this.pxlEnv.RENDER_LAYER.GLOW )
-            g.layers.set( this.pxlEnv.RENDER_LAYER.GLOW )
-          })
-        }
-        
-        if( this.geoList['Sky_EqRect_Mesh'] ){
-          let skyMtl = this.geoList['Sky_EqRect_Mesh'].material;
-          if( skyMtl.uniforms && skyMtl.uniforms.envDiffuse ){
-            skyMtl.uniforms.envDiffuse.value = this.scene.renderTarget.depthTexture;
-          }
-        }
-        
-        
-        if( this.geoList['pondWater_geo'] ){
-          let curObj = this.geoList['pondWater_geo'];
-          curObj.renderOrder = 2;
-        }
-        if( this.geoList['creekWater_geo'] ){
-          let curObj = this.geoList['creekWater_geo'];
-          curObj.renderOrder = 3;
-        }
-        
-        //this.pxlEnv.RENDER_LAYER SCENE PARTICLES GLOW
-        //this.geoList['lights']
-        
-        //var ambientLight = new AmbientLight( 0xaaaaaa ); // soft white light
-        //this.scene.add( ambientLight );
-        
-        
-        if( this.shaderGeoList ) {
-          for( const x in this.shaderGeoList){
-            let curObj = this.shaderGeoList[x];
-            if( curObj.userData && curObj.userData.Shader == "pxlPrincipled"){
-              let shaderUniforms = UniformsUtils.merge(
-                  [
-                    UniformsLib[ "common" ],
-                    UniformsLib[ "lights" ],
-                    UniformsLib[ "shadowmap" ],
-                    {
-                      'dTexture' : { type:'t', value: null },
-                      'noiseTexture' : { type:'t', value: null },
-                      'detailTexture' : { type:'t', value: null },
-                      'cdMult' : { type:'f', value: 1 },
-                      'fogColor' : { type: "c", value: this.scene.fog.color },
-                    }
-                  ]
-              )
-              var defines = {};
-              defines[ "USE_MAP" ] = "";
-              
-              let ShaderParms = {};
-              let useLights = true
-              let useShadows = curObj.userData.castShadow == true || curObj.userData.receiveShadow == true
-              useShadows = false
-              let useFog = true;
-              
-              let useColor = false;
-              if( !curObj.material.map ){
-                useColor = curObj.material.color.clone();
-              }
-              
-              // Add ShaderParms support
-              if( curObj.userData.ShaderParms && curObj.userData.ShaderParms != "" ){
-                ShaderParms = JSON.parse(curObj.userData.ShaderParms);
-              }
-              
-              // Count up the shadows
-              let pointShadowLightCount = 0;
-              if( this.lightList.hasOwnProperty("PointLight") ){
-                this.lightList.PointLight.forEach( (l)=>{
-                  if( l.castShadow ){
-                    pointShadowLightCount++;
-                  }
-                });
-              }
-              pointShadowLightCount=0;
-              let mat=this.pxlFile.pxlShaderBuilder(
-                  shaderUniforms,
-                  pxlPrincipledVert( useShadows ),
-                  pxlPrincipledFrag( ShaderParms, useColor, useFog, useLights, useShadows, pointShadowLightCount ),
-                  defines
-                );
-
-              //mat.side=FrontSide;
-              mat.transparent= false;
-              mat.lights= true;
-              if(!useColor){
-                mat.uniforms.dTexture.value = curObj.material.map;
-              }
-              mat.uniforms.noiseTexture.value = this.cloud3dTexture;
-              mat.uniforms.detailTexture.value = this.pxlEnv.detailNoiseTexture;
-                  
-              curObj.material=mat;
-              this.materialList[ curObj.name ] = mat;
-            }
-          }
-        }
-        
-        //this.addColliderHelper( this.geoList['colliderHelper'] );
-        this.setUserHeight( 22.5 );
-        //this.pxlAutoCam.toggleAutoCam( );
-        this.booted=true;
+    //this.buildSnow();
+    this.buildDust();
+    // if(this.geoList['Cobble_Walls']){
+      // console.log(this.geoList['Cobble_Walls'])
+    // }
+    if(this.geoList['ForceField']){}
+    
+    
+    if( this.geoList['pondWater_geo'] ){
+      let curObj = this.geoList['pondWater_geo'];
+      curObj.renderOrder = 2;
     }
+    if( this.geoList['creekWater_geo'] ){
+      let curObj = this.geoList['creekWater_geo'];
+      curObj.renderOrder = 3;
+    }
+    
+    //this.pxlEnv.RENDER_LAYER SCENE PARTICLES GLOW
+    //this.geoList['lights']
+    
+    var ambientLight = new AmbientLight( 0x383838 ); // soft white light
+    this.scene.add( ambientLight );
+    
+    
+    if( this.shaderGeoList ) {
+      for( const x in this.shaderGeoList){
+        let curObj = this.shaderGeoList[x];
+        if( curObj.userData && curObj.userData.Shader == "pxlPrincipled"){
+          let shaderUniforms = UniformsUtils.merge(
+            [
+              UniformsLib[ "common" ],
+              UniformsLib[ "lights" ],
+              UniformsLib[ "shadowmap" ],
+              {
+                'dTexture' : { type:'t', value: null },
+                'noiseTexture' : { type:'t', value: null },
+                'detailTexture' : { type:'t', value: null },
+                'cdMult' : { type:'f', value: 1 },
+                'fogColor' : { type: "c", value: this.scene.fog.color },
+              }
+            ]
+          )
+          var defines = {};
+          defines[ "USE_MAP" ] = "";
+          
+          let ShaderParms = {};
+          let useLights = true
+          let useShadows = curObj.userData.castShadow == true || curObj.userData.receiveShadow == true
+          useShadows = false
+          let useFog = true;
+          
+          let useColor = false;
+          if( !curObj.material.map ){
+            useColor = curObj.material.color.clone();
+          }
+          
+          // Add ShaderParms support
+          if( curObj.userData.ShaderParms && curObj.userData.ShaderParms != "" ){
+            ShaderParms = JSON.parse(curObj.userData.ShaderParms);
+          }
+          
+          // Count up the shadows
+          let pointShadowLightCount = 0;
+          if( this.lightList.hasOwnProperty("PointLight") ){
+            this.lightList.PointLight.forEach( (l)=>{
+              if( l.castShadow ){
+                pointShadowLightCount++;
+              }
+            });
+          }
+          pointShadowLightCount=0;
+          let mat=this.pxlFile.pxlShaderBuilder(
+              shaderUniforms,
+              pxlPrincipledVert( useShadows ),
+              pxlPrincipledFrag( ShaderParms, useColor, useFog, useLights, useShadows, pointShadowLightCount ),
+              defines
+            );
+
+          //mat.side=FrontSide;
+          mat.transparent= false;
+          mat.lights= true;
+          if(!useColor){
+            mat.uniforms.dTexture.value = curObj.material.map;
+          }
+          mat.uniforms.noiseTexture.value = this.cloud3dTexture;
+          mat.uniforms.detailTexture.value = this.pxlEnv.detailNoiseTexture;
+              
+          curObj.material=mat;
+          this.materialList[ curObj.name ] = mat;
+        }
+      }
+    }
+    
+    //this.addColliderHelper( this.geoList['colliderHelper'] );
+    this.setUserHeight( 22.5 );
+    //this.pxlAutoCam.toggleAutoCam( );
+    this.booted=true;
+
+  }
 	
 // -- -- -- -- -- -- -- -- -- -- -- -- -- //
 	
@@ -436,6 +423,7 @@ export class FieldEnvironment extends RoomEnvironment{
                 'dirtDiffuse' : { type:'t', value: null },
                 'crackedDirtDiffuse' : { type:'t', value: null },
                 'hillDiffuse' : { type:'t', value: null },
+                'grassDiffuse' : { type:'t', value: null },
                 'mossDiffuse' : { type:'t', value: null },
                 'dataTexture' : { type:'t', value: null },
                 'mult': { type:'f', value:1 },
@@ -456,6 +444,7 @@ export class FieldEnvironment extends RoomEnvironment{
     envGroundUniforms.dirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"Dirt_Diffuse.jpg", null, {'encoding':SRGBColorSpace} );
     envGroundUniforms.crackedDirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"CrackedDirtGround_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
     envGroundUniforms.hillDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"RockLayerDirtHill_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
+    envGroundUniforms.grassDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"GrassA_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
     envGroundUniforms.mossDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"MossyGround_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
     envGroundUniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Data.jpg" );
 
@@ -479,6 +468,9 @@ export class FieldEnvironment extends RoomEnvironment{
     envGroundUniforms.hillDiffuse.value.wrapS = RepeatWrapping;
     envGroundUniforms.hillDiffuse.value.wrapT = RepeatWrapping;
 
+    envGroundUniforms.grassDiffuse.value.wrapS = RepeatWrapping;
+    envGroundUniforms.grassDiffuse.value.wrapT = RepeatWrapping;
+
     envGroundUniforms.mossDiffuse.value.wrapS = RepeatWrapping;
     envGroundUniforms.mossDiffuse.value.wrapT = RepeatWrapping;
 
@@ -487,6 +479,43 @@ export class FieldEnvironment extends RoomEnvironment{
     
   //
     // -- -- -- 
+    
+        // -- -- -- -- -- -- -- -- -- -- -- -- --
+        // -- Grass Cluster Instances Material -- --
+        // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    
+    
+        let grassCardsAUniforms = UniformsUtils.merge(
+            [
+            UniformsLib[ "lights" ],
+            /*UniformsLib[ "shadowmap" ],*/
+            {
+              'diffuse' : { type:'t', value: null },
+              'alphaMap' : { type:'t', value: null },
+              /*'normalMap' : { type:'t', value: null },*/
+              'noiseTexture' : { type:'t', value: null },
+              'fogColor' : { type: "c", value: this.fogColor }
+            }]
+        )
+        grassCardsAUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+        grassCardsAUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_diffuse.jpg" );
+        grassCardsAUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_alpha.jpg" );
+        //grassCardsAUniforms.normalMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_normal.jpg" );
+    
+        let grassCardsMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, grassClusterVert(), grassClusterFrag( true ) );
+        grassCardsMat.side = DoubleSide;
+        grassCardsMat.lights = true;
+        grassCardsMat.transparent = false;
+        //grassCardsMat.alphaTest = .5;
+        //grassCardsMat.blending = ;
+
+        //grassCardsMat.meshSettings = {
+        //  renderOrder: 2,
+        //};
+        
+            
+        // -- -- --
+        
     
         // -- -- -- -- -- -- -- -- -- -- -- -- --
         // -- Grass Cluster Instances Material -- --
@@ -504,7 +533,7 @@ export class FieldEnvironment extends RoomEnvironment{
         )
         grassClusterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
     
-        let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, grassClusterVert(), grassClusterFrag(1) );
+        let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, grassClusterVert(), grassClusterFrag() );
         grassMat.side = FrontSide;
         grassMat.lights = true;
         grassMat.transparent = false;
@@ -523,12 +552,10 @@ export class FieldEnvironment extends RoomEnvironment{
             UniformsLib[ "lights" ],
             {
               'noiseTexture' : { type:'t', value: null },
-              'aoTexture' : { type:'t', value: null },
               'fogColor' : { type: "c", value: this.fogColor },
             }]
         )
         pondDockUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
-        pondDockUniforms.aoTexture.value = this.pxlUtils.loadTexture( this.assetPath+"PondDeck_AO.jpg" );
 
         let pondDockMat=this.pxlFile.pxlShaderBuilder( pondDockUniforms, pondDockVert(), pondDockFrag() );
         pondDockMat.side = FrontSide;
@@ -548,6 +575,7 @@ export class FieldEnvironment extends RoomEnvironment{
             UniformsLib[ "lights" ],
             {
               'dataTexture' : { type:'t', value: null },
+              'coastLineTexture' : { type:'t', value: null },
               'rippleTexture' : { type:'t', value: null },
               'noiseTexture' : { type:'t', value: null },
               'fogColor' : { type: "c", value: this.fogColor },
@@ -556,8 +584,16 @@ export class FieldEnvironment extends RoomEnvironment{
             }]
         )
         pondWaterUniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"PondWater_Data.jpg" );
-        pondWaterUniforms.rippleTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterRipplesA.jpg" );
+        pondWaterUniforms.coastLineTexture.value = this.pxlUtils.loadTexture( this.assetPath+"PondWater_CoastLine.jpg" );
+        pondWaterUniforms.rippleTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterRipples_CoastalB.jpg" );
         pondWaterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+
+
+        pondWaterUniforms.rippleTexture.value.wrapS = RepeatWrapping;
+        pondWaterUniforms.rippleTexture.value.wrapT = RepeatWrapping;
+
+        pondWaterUniforms.noiseTexture.value.wrapS = RepeatWrapping;
+        pondWaterUniforms.noiseTexture.value.wrapT = RepeatWrapping;
 
         let pondWaterMat=this.pxlFile.pxlShaderBuilder( pondWaterUniforms, pondWaterVert(), pondWaterFrag() );
         pondWaterMat.side = FrontSide;
@@ -601,18 +637,23 @@ export class FieldEnvironment extends RoomEnvironment{
         // -- -- --
         
         this.materialList[ "EnvGround_geo" ] = environmentGroundMat;
+
+        this.materialList[ "grassCardsA_geo" ] = grassCardsMat;
+
         this.materialList[ "grassClusterA_geo" ] = grassMat;
+        this.materialList[ "swampGrassA_geo" ] = grassMat;
+        this.materialList[ "tallSwampGrassA_geo" ] = grassMat;
+        this.materialList[ "catTailA_geo" ] = grassMat;
 
         this.materialList[ "pondDock_geo" ] = pondDockMat;
         this.materialList[ "pondWater_geo" ] = pondWaterMat;
 
         this.materialList[ "creekWater_geo" ] = creekWaterMat;
         
-        
   //
     // -- -- -- 
         
-		let fieldFbxLoader = this.pxlFile.loadRoomFBX( this );//, null, null, true );
+		let fieldFbxLoader = this.pxlFile.loadRoomFBX( this ); // , null, null, true );
 		
 	// -- -- -- -- -- -- -- -- -- -- -- -- -- //
 		
