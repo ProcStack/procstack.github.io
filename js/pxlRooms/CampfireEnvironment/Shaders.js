@@ -280,8 +280,9 @@ export function envGroundFrag(){
       vec3 direction;
     };
 
+    #if NUM_DIR_LIGHTS > 0
     uniform DirLight directionalLights[NUM_DIR_LIGHTS];
-    
+    #endif
         
     // Campfire ground glow colors
     const vec3 firePitColor = vec3( .80, .50, .30);
@@ -420,6 +421,7 @@ export function envGroundFrag(){
         // -- -- -- -- -- -- -- -- -- --
         
         vec3 lights = vec3(0.0, 0.0, 0.0);
+      #if NUM_DIR_LIGHTS > 0
         for(int i = 0; i < NUM_DIR_LIGHTS; i++) {
             int shadowIndex = i;
             vec3 lightInf= ( max(0.0, dot(directionalLights[shadowIndex].direction, reflect( normalize(vPos), vN ) ))*.65) * directionalLights[shadowIndex].color;
@@ -429,6 +431,7 @@ export function envGroundFrag(){
         lights = lights*baseDirtNoise;
         //
         Cd.rgb += Cd.rgb*lights;
+      #endif
         
         // -- -- --
         

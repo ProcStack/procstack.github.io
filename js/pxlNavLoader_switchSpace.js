@@ -9,7 +9,7 @@
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
-import { pxlNav, pxlNavVersion, pxlEnums, pxlOptions } from './pxlNav.esm.js';
+import { pxlNav, pxlNavVersion, pxlEnums, pxlUserSettings, pxlOptions } from './pxlNav.esm.js';
 
 
 // Console logging level
@@ -21,7 +21,13 @@ const verbose = pxlEnums.VERBOSE_LEVEL.INFO;
 const projectTitle = "pxlNav : Field Env.";
 
 // pxlRoom folder path, available to change folder names or locations if desired
-const pxlRoomRootPath = "./pxlRooms";
+const pxlRoomRootPath = "../js/pxlRooms";
+
+// Asset root path
+const pxlAssetRoot = "./pxlAssets";
+
+// Show the onboarding screen after the loading bar completes
+const showOnboarding = true;
 
 // Current possible rooms - "CampfireEnvironment", "SaltFlatsEnvironment", "FieldEnvironment", "VoidEnvironment"
 const bootRoomList = ["FieldEnvironment","VoidEnvironment"];
@@ -44,6 +50,33 @@ const loaderPhrases = [
 
 // -- -- --
 
+// User settings for the default/initial pxlNav environment
+//   These can be adjusted from your `pxlRoom` but easily set defaults here
+const userSettings = Object.assign({}, pxlUserSettings);
+userSettings['height']['standing'] = 1.75; // Standing height in units; any camera in your room's FBX will override this height once loaded
+userSettings['height']['stepSize'] = 5; // Max step height in units
+userSettings['movement']['scalar'] = 1.0; // Overall movement rate scalar
+userSettings['movement']['max'] = 10.0; // Max movement speed
+userSettings['movement']['easing'] = 0.55; // Easing rate between Step() calls
+userSettings['headBounce']['height'] = 0.3; // Bounce magnitude in units
+userSettings['headBounce']['rate'] = 0.025; // Bounce rate per Step()
+userSettings['headBounce']['easeIn'] = 0.03; // When move key is pressed, the ease into bounce; `bounce * ( boundInf + easeIn )`
+userSettings['headBounce']['easeOut'] = 0.95; // When move key is let go, the ease back to no bounce; `bounce * easeOut`
+userSettings['jump']['impulse'] = 0.75; // Jump impulse force applied to the player while holding the jump button
+userSettings['jump']['holdMax'] = 2.85; // Max influence of holding the jump button on current jump; in seconds
+userSettings['jump']['repeatDelay'] = 0.08; // Delay between jumps when holding the jump button
+userSettings['gravity']['UPS'] = 0.3; // Units per Step() per Step()
+userSettings['gravity']['Max'] = 15.5; // Max gravity rate
+
+// -- -- --
+
+// Target FPS (Frames Per Second)
+//   Default is - PC = 30  -&-  Movile = 30
+const targetFPS = {
+  'PC' : 60,
+  'Mobile' : 30
+};
+
 // Anti-aliasing level
 //   Options are - NONE, LOW, MEDIUM, HIGH
 const antiAliasing = pxlEnums.ANTI_ALIASING.LOW;
@@ -64,6 +97,14 @@ const enableStaticCamera = false;
 //  Options are - OFF, VAPOR
 const skyHaze = pxlEnums.SKY_HAZE.VAPOR;
 
+// Collision Detection Grid
+//   Collision objects are split into a grid for faster collision detection
+//   gridSize - The size of the grid
+//   gridReference - Grid scene reference threshold to scale `gridSize`
+const collisionScale = {
+  'gridSize' : 100,
+  'gridReference' : 1000
+};
 
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
@@ -79,8 +120,13 @@ const skyHaze = pxlEnums.SKY_HAZE.VAPOR;
 
 let pxlNavOptions = Object.assign({},pxlOptions);
 pxlNavOptions.verbose = verbose;
+pxlNavOptions.fps = targetFPS;
+pxlNavOptions.userSettings = userSettings;
 pxlNavOptions.antiAliasing = antiAliasing;
+pxlNavOptions.collisionScale = collisionScale;
 pxlNavOptions.pxlRoomRoot = pxlRoomRootPath;
+pxlNavOptions.pxlAssetRoot = pxlAssetRoot;
+pxlNavOptions.showOnboarding = showOnboarding;
 pxlNavOptions.staticCamera = enableStaticCamera;
 pxlNavOptions.skyHaze = skyHaze;
 pxlNavOptions.shadowMapBiasing = shadowMapBiasing;
