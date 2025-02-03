@@ -34,7 +34,7 @@ export class FieldEnvironment extends RoomEnvironment{
   constructor( roomName='FieldEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
     super( roomName, assetPath, msRunner, camera, scene, cloud3dTexture );
 
-		this.assetPath=assetPath+"Assets/";
+		this.assetPath= assetPath + "Assets/";
     this.sceneFile = this.assetPath+"FieldEnvironment.fbx";
 		
 		// Environment Shader 
@@ -623,7 +623,7 @@ export class FieldEnvironment extends RoomEnvironment{
             }]
         )
         creekWaterUniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"CreekWater_Data.jpg" );
-        creekWaterUniforms.rippleTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterRipplesA.jpg" );
+        creekWaterUniforms.rippleTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterRipples_CoastalB.jpg" );
         creekWaterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
 
         let creekWaterMat=this.pxlFile.pxlShaderBuilder( creekWaterUniforms, creekWaterVert(), creekWaterFrag() );
@@ -653,7 +653,7 @@ export class FieldEnvironment extends RoomEnvironment{
   //
     // -- -- -- 
         
-		let fieldFbxLoader = this.pxlFile.loadRoomFBX( this ); // , null, null, true );
+		let fieldFbxLoader = this.pxlFile.loadRoomFBX( this ) ;//, null, null, true );
 		
 	// -- -- -- -- -- -- -- -- -- -- -- -- -- //
 		
