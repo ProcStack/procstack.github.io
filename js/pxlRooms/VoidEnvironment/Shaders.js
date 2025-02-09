@@ -11,43 +11,20 @@ const shaderHeader = pxlShaders.core.shaderHeader;
 export function voidBaseVert(){
 	let ret=shaderHeader();
 	ret+=`
-    uniform float baseCd;
-    uniform vec3 light0Cd;
-    uniform vec3 light0Rot;
-    uniform vec3 light1Cd;
-    uniform vec3 light1Rot;
-    
     attribute vec3 color;
-    attribute vec4 tangent;
 
+    varying vec3 vLocalPos;
     varying vec2 vUv;
     varying vec3 vCd;
-    varying vec3 vView;
-    varying vec3 vL0Rot;
-    varying vec3 vL1Rot;
-    varying vec3 vNormal;
-    varying vec4 vTangent;
-    varying float vAlpha;
+    varying vec3 vN;
     
     void main(){
         vUv=uv;
-        vNormal = normalize( normalMatrix * normal );
-        vL0Rot = normalize( normalMatrix * light0Rot );
-        vL1Rot = normalize( normalMatrix * light1Rot );
-        vTangent = tangent;
-        vAlpha=color.r;
+        vN = normal;
+        vCd = color;
         
-        vec3 vertCd=vec3(baseCd);
-        vec3 flipN= normal*vec3(1,1,-1);
-        float lDot= dot(flipN, light0Rot) ;
-        vertCd += light0Cd*lDot;
-        
-        lDot= dot(flipN, light1Rot) ;
-        vertCd += light1Cd*lDot;
-        vCd=vertCd;
-        
+        vLocalPos = position;
         vec4 mvPos=modelViewMatrix * vec4(position, 1.0);
-        vView=-mvPos.xyz;
         gl_Position = projectionMatrix*mvPos;
     }`;
 	return ret;
@@ -56,110 +33,54 @@ export function voidBaseVert(){
 export function voidBaseFrag(){
 	let ret=shaderHeader();
 	ret+=`
-    uniform sampler2D snowNormal;
-    uniform float baseCd;
-    uniform vec3 light0Cd;
-    uniform vec3 light0Rot;
-    uniform vec3 light1Cd;
-    uniform vec3 light1Rot;
+        
+    uniform sampler2D noiseTexture;
+    uniform vec2 time;
     uniform vec3 fogColor;
     
+    varying vec3 vLocalPos;
     varying vec2 vUv;
     varying vec3 vCd;
-    varying vec3 vView;
-    varying vec3 vL0Rot;
-    varying vec3 vL1Rot;
-    varying vec3 vNormal;
-    varying vec4 vTangent;
-    varying float vAlpha;
-    
-    
-
-    vec3 perturbNormal2Arb( vec3 eye_pos, vec3 surf_norm ) {
-        vec2 normalScale = vec2(1.0,1.0);
-
-        vec3 q0 = vec3( dFdx( eye_pos.x ), dFdx( eye_pos.y ), dFdx( eye_pos.z ) );
-        vec3 q1 = vec3( dFdy( eye_pos.x ), dFdy( eye_pos.y ), dFdy( eye_pos.z ) );
-        vec2 st0 = dFdx( vUv.st );
-        vec2 st1 = dFdy( vUv.st );
-
-        float scale = sign( st1.t * st0.s - st0.t * st1.s );
-
-        vec3 S = normalize( ( q0 * st1.t - q1 * st0.t ) * scale );
-        vec3 T = normalize( ( - q0 * st1.s + q1 * st0.s ) * scale );
-        vec3 N = normalize( surf_norm );
-        mat3 tsn = mat3( S, T, N );
-
-        vec3 mapN = texture2D( snowNormal, vUv ).xyz * 2.0 - 1.0;
-        return ( tsn * mapN );
-    }
-    
+    varying vec3 vN;
     
     void main(){
-        vec3 nCd=texture2D(snowNormal,vUv).rgb*2.0-1.0;
-        vec3 norm = perturbNormal2Arb( vView, vNormal );
-        
-        vec3 vertCd=vec3(vCd);
-        float lDot= dot(norm, vL1Rot)*.5+.3 ;
 
-        vec4 Cd=vec4( vec3(lDot), vAlpha );
-        gl_FragColor=Cd;
-    }`;
-	return ret;
-}
-/*
-export function voidBaseVert(){
-	let ret=shaderHeader();
-	ret+=`
-    uniform float baseCd;
-    uniform vec3 light0Cd;
-    uniform vec3 light0Rot;
-    uniform vec3 light1Cd;
-    uniform vec3 light1Rot;
-    
-    attribute vec3 color;
+      float toCenter = 1.0-length( vUv-.5 )*.840;
+      float shift = clamp( (1.0-((1.0-vN.y)*.710)) * 1.0 , 0.0, 1.0 );
+      float shiftInner = 1.0 - clamp( (toCenter-.22)*.20, 0.0, 1.0 );
+      
+      // High freq noise warp--
+      vec4 Cd=vec4( texture2D(noiseTexture, vUv*3.1 + vec2( time.x * .01,  -time.x*.01) ).rgb * shift, vCd.r );
+      // Second frequency noise warp --
+      vec3 baseCd = texture2D(noiseTexture, vUv*.31 + vec2( time.x * .02,  time.x*.001) * (shift*Cd.b) - time.x*.1).rgb;
+      
+      vec2 nUv = vUv*2.4 + vec2( baseCd.r * 0.1779 + time.x*.1,  (-time.x*.002 + Cd.r + baseCd.x*2.) * .16 * max(baseCd.g, baseCd.b) );
+      vec3 nCd = texture2D(noiseTexture, nUv).rgb;
+      
+      
+      float cdScalar = clamp( ( length(min(Cd.rgb,nCd-.61)) - 0.2) * 3.274, 0.0,1.0) * shiftInner  ;
 
-    varying vec3 vCd;
-    varying float vAlpha;
-    
-    void main(){
-        vAlpha=color.r;
-        
-        
-        vec3 vertCd=vec3(baseCd);
-        float lDot= dot(normal, light0Rot) ;
-        vertCd += light0Cd*lDot;
-        
-        lDot= dot(normal, light1Rot) ;
-        vertCd += light1Cd*lDot;
-        vertCd = max(vec3(0.0), min(vec3(1.0), vertCd ));
-        
-        vCd=vertCd;
-        
-        vec4 mvPos=viewMatrix * vec4(position, 1.0);
-        gl_Position = projectionMatrix*mvPos;
+      // -- -- --
+      
+      Cd.rgb = min( vec3( clamp( max(Cd.z, (Cd.r)*shift )+.5, 0.0, 1. ) ), (1.0-nCd*.2) );
+      Cd.rgb = min( Cd.rgb, length(baseCd)*.3+(1.-shift*.4) );
+      
+      
+      // -- -- --
+      
+      float depth = gl_FragCoord.z / gl_FragCoord.w *.0003;
+      Cd.rgb=  mix( Cd.rgb, fogColor, depth );
+      
+      cdScalar = ( cdScalar * shift )  * cdScalar;
+      Cd.a =   Cd.a + cdScalar  * Cd.a;
+      Cd.a =  clamp( (Cd.a*Cd.a)*1.5, 0.0, 1.0);
+      
+
+      gl_FragColor=Cd;
     }`;
 	return ret;
 }
 
-export function voidBaseFrag(){
-	let ret=shaderHeader();
-	ret+=`
-    uniform vec3 fogColor;
-    
-    varying vec3 vCd;
-    varying float vAlpha;
-    
-    void main(){
-        vec4 Cd=vec4( vCd, vAlpha );
-
-        float depth = gl_FragCoord.z / gl_FragCoord.w *.0003;
-        Cd.rgb=  mix( Cd.rgb, fogColor, depth );
-        gl_FragColor=Cd;
-    }`;
-	return ret;
-}
-*/
 
 
 

@@ -1,5 +1,5 @@
-// ProcStack.Git.io Javascript
-//  Written by Kevin Edzenga; 2024
+// pxlNav v0.0.18 -  Javascript Launcher
+//  Written by Kevin Edzenga; 2024,2025
 //
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 //
@@ -10,36 +10,33 @@
 //
 
 import { pxlNav, pxlNavVersion, pxlEnums, pxlUserSettings, pxlOptions } from './pxlNav.esm.js'; // v0.20
-import { ProcPages } from './ProcPages.js';
-import { PageMetaDataObjects } from './PageMetaData.js';
-import { BlogManager } from './BlogManager.js';
 
 
 // Console logging level
 //   Options are - NONE, ERROR, WARN, INFO
-const verbose = pxlEnums.VERBOSE_LEVEL.ERROR;
-
+const verbose = pxlEnums.VERBOSE_LEVEL.INFO;
 
 // The Title of your Project
-//   This will be displayed on the 
-const projectTitle = "procstack.github.io";
+//   This will be displayed on the load bar
+const projectTitle = "pxlNav : The Outlet";
 
 // pxlRoom folder path, available to change folder names or locations if desired
 const pxlRoomRootPath = "../js/pxlRooms";
 
 // Asset root path
-const pxlAssetRoot = "../js/pxlAssets";
+const pxlAssetRoot = "./js/pxlAssets";
 
 // Show the onboarding screen after the loading bar completes
-const showOnboarding = false;
+const showOnboarding = true;
 
-// Current possible rooms - "CampfireEnvironment", "SaltFlatsEnvironment"
-const bootRoomList = ["CampfireEnvironment", "SaltFlatsEnvironment"];
+// Current possible rooms - "OutletEnvironment", "VoidEnvironment"
+const bootRoomList = ["OutletEnvironment", "VoidEnvironment"];
+const startingRoom = bootRoomList[0];
 
 // -- -- --
 
-// Set or Update the loader message
-//   This will appear under the loader bar on the first screen
+// Set a list of phrases to display during the loading process
+//   The loader with randomly pick a phrase from the list
 const loaderPhrases = [
   "...chasing the bats from the belfry...",
   "...shuffling the deck...",
@@ -76,24 +73,27 @@ userSettings['gravity']['Max'] = 15.5; // Max gravity rate
 // Target FPS (Frames Per Second)
 //   Default is - PC = 30  -&-  Movile = 30
 const targetFPS = {
-  'PC' : 45,
-  'Mobile' : 20
+  'PC' : 60,
+  'Mobile' : 30
 };
 
 // Anti-aliasing level
 //   Options are - NONE, LOW, MEDIUM, HIGH
 const antiAliasing = pxlEnums.ANTI_ALIASING.LOW;
 
-// Shadow edge softness
+// Shadow + Edge softness
+// Default is `BASIC` - a simple shadow edge
 //   Options are - OFF, BASIC, SOFT
 //     *Mobile devices are limited to `OFF` or `BASIC` automatically
 const shadowMapBiasing = pxlEnums.SHADOW_MAP.SOFT;
 
 // Set camera to static Camera Positions
 //   Locations pulled from the 'Camera' group in the pxlRoom's FBX file
-const enableStaticCamera = true;
+// Default is `false`
+const enableStaticCamera = false;
 
 // Visual effect for the sky
+// Default is `OFF`
 //  Options are - OFF, VAPOR
 const skyHaze = pxlEnums.SKY_HAZE.VAPOR;
 
@@ -107,36 +107,17 @@ const collisionScale = {
 };
 
 
-// -- -- -- -- --
 
-// Create the main page manager
-//  - Not related to pxlNav -
-const procPages = new ProcPages();
-// Set the Meta Data per page
-//   Page changes will update the meta data automatically if the page is in the list
-procPages.setPageMetaData( PageMetaDataObjects );
-procPages.init();
-
-// Trigger DOM updates of the pxlNav version displays on page
-procPages.setPxlNavVersion(pxlNavVersion);
-
-if (window.location.hash !== "#Blog") {
-  procPages.hidePage("Blog");
-}
-
-// -- -- --
-
-// Build procstack.github.io blog entries
-//  - Not related to pxlNav -
-var blogEntryListing = document.getElementById('blogEntryListing');
-var blogEntryContent = document.getElementById('blogEntryContent');
-const procBlog = new BlogManager( blogEntryListing, blogEntryContent );
-procBlog.init();
-procBlog.build();
-procBlog.showEntry(-1);
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
 
 
-// -- -- -- -- --
+
+// -- Below are the initialization and event handling for pxlNav
+// --   No need to edit the below code unless you're adding custom event handling
+
+// -- Prepare pxlNav options --
 
 let pxlNavOptions = Object.assign({},pxlOptions);
 pxlNavOptions.verbose = verbose;
@@ -152,36 +133,51 @@ pxlNavOptions.skyHaze = skyHaze;
 pxlNavOptions.shadowMapBiasing = shadowMapBiasing;
 pxlNavOptions.loaderPhrases = loaderPhrases;
 
+
+
 // Create the pxlNav environment manager
-const pxlNavEnv = new pxlNav( pxlNavOptions, projectTitle, procPages.curRoom, bootRoomList );
+const pxlNavEnv = new pxlNav( pxlNavOptions, projectTitle, startingRoom, bootRoomList );
 
 
-
-
-// -- -- -- -- --
-
+// -- -- --
 
 // Subscribe to events emitted from pxlNav for callback handling
 //   Non loop - pxlNavObj.subscribe("pxlNavEventNameHere", procPages.functionName.bind(procPages));
+
+/* Uncomment to add custom event handling */
+/*
 const pageListenEvents = [ "booted", "shaderEditorVis", "roomChange-End", "fromRoom" ];
 pageListenEvents.forEach( (e)=>{
   pxlNavEnv.subscribe( e, procPages.eventHandler.bind(procPages) );
 });
+*/
 
 
 // -- -- --
 
-// Connect ProcPages' trigger emit function to into `pxlNav`
-procPages.bindTriggerEmits( pxlNavEnv.trigger.bind(pxlNavEnv) );
 
-// -- -- --
-
-
-function init(){
-
+function pxlNav_init(){
   // Start the timer and initilize pxlNAv
   pxlNavEnv.bootTimer();
   pxlNavEnv.init();
 
+  // -- -- --
+
+  // -- Add pxlNav versioning to the page --
+  // Set the version number
+  //   Remove this section if you are using this file as a template
+  let version = pxlNavVersion;
+  if( version[0] != "v" ){
+    version = "v" + version;
+  }
+  let pnv = [...document.getElementsByClassName("pxlNavVersion")];
+  pnv.forEach(curPNV => {
+    curPNV.innerText = version;
+  });
+  // -- End of versioning --
+
 }
-(()=>{init()})();
+
+window.addEventListener('load', function() {
+  pxlNav_init();
+});
