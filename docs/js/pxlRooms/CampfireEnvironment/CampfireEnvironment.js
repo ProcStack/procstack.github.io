@@ -1,5 +1,5 @@
 import {
-  Color, FogExp2, Vector2,
+  Color, FogExp2, Vector2, Vector3,
   RepeatWrapping, ClampToEdgeWrapping,
   NearestFilter, NearestMipmapLinearFilter,
   LinearFilter, AdditiveBlending,
@@ -25,8 +25,8 @@ export class CampfireEnvironment extends RoomEnvironment{
   constructor( roomName='CampfireEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
     super( roomName, assetPath, msRunner, camera, scene, cloud3dTexture );
     
-    //this.assetPath=assetPath+"Assets/";
-		this.assetPath="./js/pxlRooms/CampfireEnvironment/Assets/";
+    this.assetPath=assetPath+"Assets/";
+		//this.assetPath="./pxlRooms/CampfireEnvironment/Assets/";
     
     this.sceneFile = this.assetPath+"CampfireEnvironment.fbx";
 
@@ -63,7 +63,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     this.pxlCamZoom=1;
     this.pxlCamAspect=1;
     this.pxlCamNearClipping = 1;
-    this.pxlCamFarClipping = 10000;
+    this.pxlCamFarClipping = 5000;
 
     // this.fogColor=new Color(.3,.3,.3);
     this.fogColor=new Color(.015,.025,.06);
@@ -149,6 +149,130 @@ export class CampfireEnvironment extends RoomEnvironment{
   }
 
   // -- -- --
+
+
+  buildBillowSmoke( particleSourcePos ){
+    // build( Obj & Mtl Name, This Object, Sprite Count, Sprite Size )
+    let systemName = "billowSmoke";
+    let bSmoke = new BillowSmoke( this, systemName );
+    //
+    bSmoke.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
+    bSmoke.setPosition( particleSourcePos );
+
+    let bSmokeSettings = bSmoke.getSettings();
+    bSmokeSettings["vertCount"] = 600;
+    bSmokeSettings["pScale"] = 56;
+    bSmokeSettings["pOpacity"] = .4;
+    //bSmokeSettings["fadeOutScalar"] = opacityRolloff;
+    bSmokeSettings["additiveBlend"] = false;
+  
+    bSmokeSettings["windDir"].x = -14.6;
+    bSmokeSettings["windDir"].z = 13.6;
+    //bSmokeSettings["offsetPos"] = particleSourcePos;
+    //bSmokeSettings["wanderInf"] = wanderInfluence;
+    //bSmokeSettings["wanderFrequency"] = wanderFrequency;
+    //
+    // Bit arbitrary the numbers I'm picking here.
+    //   It's creating a weighted choise of which atlas texture I want to use.
+    // If you look at `./CampfireEnvironment/Assets/"sprite_dustLiquid.png` you'll see an 4x4 grid of puff balls.
+    //   I'm avoiding the top left corner, and less choices from the bottom right corner.
+    //     *Note* : OpenGL texture coordinates (0,0) start at the bottom left corner of the image.
+    // Then the 4s, 2s, and 3s are just how many times I want to repeat that specific atlas texture.
+    //   The repeating is like asking for more of that specific texture option to be picted more often.
+    // ie- bSmoke.dupeArray([0.5,0.25],2) -becomes- [ [0.5,0.25], [0.5,0.25] ]
+    let  billowAtlasPicks = [...bSmoke.dupeArray([0.5,0.0],2), ...bSmoke.dupeArray([0.5,0.25],2),
+                            ...bSmoke.dupeArray([0.5,0.5],3), ...bSmoke.dupeArray([0.5,0.75],3),
+                            ...bSmoke.dupeArray([0.75,0.75],4), ...bSmoke.dupeArray([0.75,0.5],3),
+                            ...bSmoke.dupeArray([0.75,0.25],2), ...bSmoke.dupeArray([0.75,0.25],2) ];
+    bSmokeSettings["atlasPicks"] = billowAtlasPicks;
+
+    // bSmoke.build( Particle Count (50),  Particle Scale (56),  Atlas Resolution (4, 8, square only[4x4,8x8]), Atlas Picks [ [0-1,0-1],[#,#] ... ] )
+    bSmoke.build( bSmokeSettings );
+
+    this.particleList[systemName] = bSmoke;
+  }
+
+
+
+  buildEmberWisps( particleSourcePos ){
+    
+    let systemName = "emberWisps";
+    let eWisps = new EmberWisps( this, systemName );
+    this.particleList[systemName] = eWisps;
+    //
+    
+    eWisps.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
+
+    
+    let emberSettings = eWisps.getSettings();
+    emberSettings["vertCount"] = 30;
+    emberSettings["pScale"] = 10;
+    //emberSettings["fadeOutScalar"] = opacityRolloff;
+    emberSettings["additiveBlend"] = true;
+  
+    emberSettings["windDir"].x = -0.14;
+    emberSettings["windDir"].z = 0.15;
+    //emberSettings["offsetPos"] = particleSourcePos;
+    //emberSettings["wanderInf"] = wanderInfluence;
+    //emberSettings["wanderFrequency"] = wanderFrequency;
+
+    //
+    let emberAtlasPicks=eWisps.elementDuplicator([ [0.0,0.75], [0.0,0.5], [0.25,0.75], [0.25,0.5] ],4);
+    emberSettings["atlasPicks"] = emberAtlasPicks;
+
+    eWisps.build( emberSettings );
+
+    eWisps.points.renderOrder = 6;
+
+    eWisps.points.renderOrder = 2;
+  }
+
+
+
+
+  buildDust(){
+    if( this.mobile ) return;
+  
+    // -- -- --
+  
+    let systemName = "floatingDust";
+    let dustSystem = new FloatingDust( this, systemName );
+  
+    let dustSystemSettings = dustSystem.getSettings();
+    dustSystemSettings["vertCount"] = 800; // Point Count
+    dustSystemSettings["pScale"] = 7.0;  // Point Base Scale
+    dustSystemSettings["pOpacity"] = .6;  // Overall Opacity
+    dustSystemSettings["proxDist"] = 380;  // Proximity Distance from Camera
+    dustSystemSettings["fadeOutScalar"] = 1.9;  // Distance-opacity falloff multiplier
+    dustSystemSettings["additiveBlend"] = true;
+  
+    dustSystemSettings["windDir"] = new Vector3( -0.9, 0.25, -1 ); // Constant direction flow
+    dustSystemSettings["wanderInf"] = 0.50; // How much the particle sways
+    dustSystemSettings["wanderFrequency"] = 2.30; // How frequent the sway happens
+    
+  
+    dustSystemSettings["atlasPicks"] = [
+      ...dustSystem.dupeArray([0.0,0.],4), ...dustSystem.dupeArray([0.25,0.],4),
+      ...dustSystem.dupeArray([0.0,0.25],4), ...dustSystem.dupeArray([0.25,0.25],4),
+      ...dustSystem.dupeArray([0.0,0.5],2), ...dustSystem.dupeArray([0.25,0.5],2),
+      ...dustSystem.dupeArray([0.0,0.75],3), ...dustSystem.dupeArray([0.25,0.75],3)
+    ];
+  
+    // Use a texture from the internal `pxlAsset` folder; ( RGB, Alpha )
+    //dustSystem.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
+  
+    // Generate geometry and load texture resources
+    dustSystem.build( dustSystemSettings );
+  
+    this.particleList[systemName] = dustSystem;
+  }
+
+
+
+
+
+  // -- -- --
+
   
   
   fbxPostLoad(){
@@ -160,7 +284,6 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     var ambientLight = new AmbientLight( 0x101010 ); // soft white light
     this.scene.add( ambientLight );
-
 
     let campefireOrder = 0;
 
@@ -193,58 +316,20 @@ export class CampfireEnvironment extends RoomEnvironment{
       moonObj.material.map.magFilter = NearestFilter;
     }
 
-    // build( Obj & Mtl Name, This Object, Sprite Count, Sprite Size )
-    let systemName = "billowSmoke";
-    let bSmoke = new BillowSmoke( this, systemName );
-    this.particleList[systemName] = bSmoke;
-    //
-    let atlasPath = this.assetPath+"sprite_dustLiquid.png";
-    bSmoke.setAtlasPath( atlasPath );
-    bSmoke.setPosition( particleSourcePos );
+    // Add Billowing Smoke
+    this.buildBillowSmoke( particleSourcePos );
 
-    //
-    // Bit arbitrary the numbers I'm picking here.
-    //   It's creating a weighted choise of which atlas texture I want to use.
-    // If you look at `./CampfireEnvironment/Assets/"sprite_dustLiquid.png` you'll see an 4x4 grid of puff balls.
-    //   I'm avoiding the top left corner, and less choices from the bottom right corner.
-    //     *Note* : OpenGL texture coordinates (0,0) start at the bottom left corner of the image.
-    // Then the 4s, 2s, and 3s are just how many times I want to repeat that specific atlas texture.
-    //   The repeating is like asking for more of that specific texture option to be picted more often.
-    // ie- bSmoke.dupeArray([0.5,0.25],2) -becomes- [ [0.5,0.25], [0.5,0.25] ]
-    let  billowAtlasPicks = [...bSmoke.dupeArray([0.0,0.0],4), ...bSmoke.dupeArray([0.25,0.0],4),
-                            ...bSmoke.dupeArray([0.5,0.0],2), ...bSmoke.dupeArray([0.5,0.25],2),
-                            ...bSmoke.dupeArray([0.5,0.5],2), ...bSmoke.dupeArray([0.5,0.75],2),
-                            ...bSmoke.dupeArray([0.75,0.75],4), ...bSmoke.dupeArray([0.75,0.25],3),
-                            ...bSmoke.dupeArray([0.75,0.25],3) ];
-
-    // bSmoke.build( Particle Count (50),  Particle Scale (56),  Atlas Resolution (4, 8, square only[4x4,8x8]), Atlas Picks [ [0-1,0-1],[#,#] ... ] )
-    bSmoke.build( 600, 56, 4, billowAtlasPicks );
     
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     
-    // Quick buggers zippin out of the flame-ola
 
-    systemName = "emberWisps";
-    let eWisps = new EmberWisps( this, systemName );
-    this.particleList[systemName] = eWisps;
-    //
-    atlasPath = this.assetPath+"sprite_dustLiquid.png"
-    eWisps.setAtlasPath( atlasPath );
-    eWisps.setPosition( particleSourcePos );
-    //
-    let emberAtlasPicks=eWisps.elementDuplicator([ [0.0,0.75], [0.0,0.5], [0.25,0.75], [0.25,0.5] ],4);
-    eWisps.build( 30, 5, 4, emberAtlasPicks );
-    
+    // Quick buggers zippin out of the flame-ola
+    this.buildEmberWisps( particleSourcePos );
+
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     
     // Floating debris in the air
-
-    systemName = "floatingDust";
-    this.particleList[systemName] = new FloatingDust( this, systemName );
-    atlasPath = this.assetPath+"sprite_dustFloaters.png"
-    this.particleList[systemName].setAtlasPath( atlasPath );
-    this.particleList[systemName].build( 1000, 7 );
-    
+    this.buildDust();
     
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     
@@ -298,12 +383,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 
-    // TODO : This needs to not be needed --
-    this.setUserHeight( this.camInitPos.y );
-    
-    
         
-    this.booted=true;
   }
 
 
@@ -464,7 +544,6 @@ export class CampfireEnvironment extends RoomEnvironment{
     
     campfireMtl.blending=AdditiveBlending;
     
-
 
     // -- -- -- 
 

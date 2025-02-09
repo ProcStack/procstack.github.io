@@ -238,11 +238,11 @@ text-shadow: 1px 1.5px 4px #252525;
 
 .gitPageImageStyle{
   width: 70vw;
-  max-width: 800px;
+  max-width: 1100px;
   height: auto;
   display: grid;
   justify-self: center;
-  margin: 10px 0px 10px 0px;
+  margin: 5px 0px 5px 0px;
 }
 
 
