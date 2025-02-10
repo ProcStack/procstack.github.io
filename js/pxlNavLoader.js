@@ -30,7 +30,7 @@ const pxlAssetRoot = "./js/pxlAssets";
 const showOnboarding = true;
 
 // Current possible rooms - "OutletEnvironment", "VoidEnvironment"
-const bootRoomList = ["OutletEnvironment", "VoidEnvironment"];
+const bootRoomList = ["OutletEnvironment"];//, "VoidEnvironment"];
 const startingRoom = bootRoomList[0];
 
 // -- -- --

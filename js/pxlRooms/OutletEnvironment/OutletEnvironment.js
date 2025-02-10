@@ -80,7 +80,7 @@ buildDust(){
   let particleOpacity = .6;  // Overall Opacity
   let opacityRolloff = 1.9;  // Distance-opacity falloff multiplier
 
-  let windDirection = new Vector3( -0.9, 0.25, -7 ); // Constant direction flow
+  let windDirection = new Vector3( 8.218, 0.406, -7.812 ); // Constant direction flow
   let wanderInfluence = 0.80; // How much the particle sways
   let wanderFrequency = 2.30; // How frequent the sway happens
 
@@ -216,7 +216,6 @@ buildDust(){
       {
         'diffuse' : { type:'t', value: null },
         'alphaMap' : { type:'t', value: null },
-        /*'normalMap' : { type:'t', value: null },*/
         'noiseTexture' : { type:'t', value: null },
         'fogColor' : { type: "c", value: this.fogColor }
       }]
@@ -224,7 +223,6 @@ buildDust(){
     grassCardsAUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
     grassCardsAUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_diffuse.jpg" );
     grassCardsAUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_alpha.jpg" );
-    //grassCardsAUniforms.normalMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_normal.jpg" );
 
     let grassCardsMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert(), instPlantsFrag( true, true ) );
     grassCardsMat.side = DoubleSide;
@@ -416,7 +414,7 @@ buildDust(){
   //
     // -- -- -- 
         
-		let fieldFbxLoader = this.pxlFile.loadRoomFBX( this ) ;//, null, null, true );
+		let fieldFbxLoader = this.pxlFile.loadRoomFBX( this );//, null, null, true );
 		
 	// -- -- -- -- -- -- -- -- -- -- -- -- -- //
 		
