@@ -93,6 +93,10 @@ const shadowMapBiasing = pxlEnums.SHADOW_MAP.SOFT;
 //   Locations pulled from the 'Camera' group in the pxlRoom's FBX file
 const enableStaticCamera = true;
 
+// If using static cameras, allow the user to rotate the camera
+//  Default is `false`
+const allowStaticRotation = false;
+
 // Visual effect for the sky
 //  Options are - OFF, VAPOR
 const skyHaze = pxlEnums.SKY_HAZE.VAPOR;
@@ -148,6 +152,7 @@ pxlNavOptions.pxlRoomRoot = pxlRoomRootPath;
 pxlNavOptions.pxlAssetRoot = pxlAssetRoot;
 pxlNavOptions.showOnboarding = showOnboarding;
 pxlNavOptions.staticCamera = enableStaticCamera;
+pxlNavOptions.allowStaticRotation = allowStaticRotation;
 pxlNavOptions.skyHaze = skyHaze;
 pxlNavOptions.shadowMapBiasing = shadowMapBiasing;
 pxlNavOptions.loaderPhrases = loaderPhrases;
