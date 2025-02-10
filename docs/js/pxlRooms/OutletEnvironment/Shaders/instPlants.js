@@ -135,13 +135,14 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false ){
     const float DepthScalar = .0001;
     const float ScreenWarpColorFix = 3.521;
     const float ShadowTighten = 2.94;
+    const float FogDepthMult = 0.05;
   `;
   if( addShimmer ){
     ret+=`
   // Shimmer Settings --
   //   Mid-to-long distance ambient movement in grass + foliage
-    const float ShimmerInf = 1.0;
-    const float ShimmerBrightness = .74;
+    const float ShimmerInf = 0.40;
+    const float ShimmerBrightness = .4;
     const float ShimmerStartMul = 42.0;
     const float ShimmerStartRolloff = 1.30;
     const float ShimmerEndMult = 4.5;
@@ -244,7 +245,7 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false ){
         float gInf = min( 1.0, max( 0.0, 1.0-depth * ShimmerEndMult ) * ShimmerEndRolloff );
         float shimmerInf = ( 1.0 - min(1.0, max( 0.0, 1.0-depth * ShimmerStartMul * ShimmerBrightness ) * ShimmerStartRolloff )) * gInf;
         
-        float timer = time.x*1.85 + .02*(vCd.y) + vPos.z*.001*vCd.y*vCd.z;
+        float timer = time.x*(1.85+vCd.x*1.1) + .2*(vCd.y) + vPos.z*.01*vCd.y*vCd.z;
         
         float vertlightInf = (sin(vCd.x+timer*(1.0+vCd.y*.001))*.4*ShimmerInf+(1.00-ShimmerInf*.2))  * min( 1.0, vCd.x*ShadowTighten );
         vertlightInf = min(1.0, (ShimmerInf) - (1.0-vertlightInf) );
@@ -332,9 +333,15 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false ){
         Cd.rgb = Cd.rgb * (vCd.z*.25*(1.0-gCd)-depth*.1+.45) * (vCd.x*depthFade + 1.0-gCd*depthFade);
       `;
     }
+    if( addShimmer ){
+    ret+=`
+        Cd.rgb = mix( Cd.rgb, vec3( gCd*3.4 ), depth );
+      `;
+    }
     ret+=`
         
-        float fogMix =  clamp( depth * (depth*4.501+1.5)  - lightMag*(1.0-depth*1.), 0.0, 1.0 ) ;
+
+        float fogMix =  clamp( depth * (depth*4.501+1.5)  - lightMag*(1.0-depth * FogDepthMult), 0.0, 1.0 ) ;
         
         vec3 toFogColor = fogColor * (gCd*.4 + .7 + gInf*.3);
         Cd.rgb=  mix( Cd.rgb, toFogColor, fogMix );
