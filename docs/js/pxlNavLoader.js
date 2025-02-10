@@ -92,6 +92,10 @@ const shadowMapBiasing = pxlEnums.SHADOW_MAP.SOFT;
 // Default is `false`
 const enableStaticCamera = false;
 
+// If using static cameras, allow the user to rotate the camera
+//  Default is `false`
+const allowStaticRotation = false;
+
 // Visual effect for the sky
 // Default is `OFF`
 //  Options are - OFF, VAPOR
@@ -102,7 +106,7 @@ const skyHaze = pxlEnums.SKY_HAZE.VAPOR;
 //   gridSize - The size of the grid
 //   gridReference - Grid scene reference threshold to scale `gridSize`
 const collisionScale = {
-  'gridSize' : 100,
+  'gridSize' : 150,
   'gridReference' : 1000
 };
 
@@ -129,6 +133,7 @@ pxlNavOptions.pxlRoomRoot = pxlRoomRootPath;
 pxlNavOptions.pxlAssetRoot = pxlAssetRoot;
 pxlNavOptions.showOnboarding = showOnboarding;
 pxlNavOptions.staticCamera = enableStaticCamera;
+pxlNavOptions.allowStaticRotation = allowStaticRotation;
 pxlNavOptions.skyHaze = skyHaze;
 pxlNavOptions.shadowMapBiasing = shadowMapBiasing;
 pxlNavOptions.loaderPhrases = loaderPhrases;

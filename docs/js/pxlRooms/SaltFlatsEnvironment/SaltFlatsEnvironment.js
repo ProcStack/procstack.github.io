@@ -3,6 +3,7 @@
 
 import {
   Vector2,
+  Vector3,
   Color,
   FogExp2,
   UniformsUtils,
@@ -28,7 +29,6 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     super( roomName, assetPath, msRunner, camera, scene, cloud3dTexture );
     
     this.assetPath=assetPath+"Assets/";
-		this.assetPath="./js/pxlRooms/SaltFlatsEnvironment/Assets/";
     
     this.sceneFile = this.assetPath+"SaltFlatsEnvironment.fbx";
     this.animInitCycle = "Walk";
@@ -82,9 +82,9 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
   }
 
   start(){
-    if( this.booted ){
+    /*if( this.booted ){
       this.resetCamera();
-    }
+    }*/
     let animKey = this.animRigName;
     let hasScripted = this.geoList.hasOwnProperty( 'Scripted' );
     if( this.geoList.hasOwnProperty( animKey ) && hasScripted && this.geoList["Scripted"].hasOwnProperty( "Offset_loc" )  ){
@@ -114,7 +114,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
   // Per-Frame Render updates
   step(){
-    super.step();
+    //super.step();
 
     // When the Druid Rabbit finishes loading, we'll step the animation here
     //   Cycle changes occur here as well.
@@ -161,6 +161,47 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
   }
 
   // -- -- --
+    
+
+  buildDust(){
+    if( this.mobile ) return;
+  
+    // -- -- --
+  
+    let systemName = "floatingDust";
+    let dustSystem = new FloatingDust( this, systemName );
+  
+    let dustSystemSettings = dustSystem.getSettings();
+    dustSystemSettings["vertCount"] = 800; // Point Count
+    dustSystemSettings["pScale"] = 7.0;  // Point Base Scale
+    dustSystemSettings["pOpacity"] = .6;  // Overall Opacity
+    dustSystemSettings["proxDist"] = 380;  // Proximity Distance from Camera
+    dustSystemSettings["fadeOutScalar"] = 1.9;  // Distance-opacity falloff multiplier
+    dustSystemSettings["additiveBlend"] = true;
+  
+    dustSystemSettings["windDir"] = new Vector3( -0.9, 0.25, -1 ); // Constant direction flow
+    dustSystemSettings["wanderInf"] = 0.50; // How much the particle sways
+    dustSystemSettings["wanderFrequency"] = 2.30; // How frequent the sway happens
+    
+  
+    dustSystemSettings["atlasPicks"] = [
+      ...dustSystem.dupeArray([0.0,0.],4), ...dustSystem.dupeArray([0.25,0.],4),
+      ...dustSystem.dupeArray([0.0,0.25],4), ...dustSystem.dupeArray([0.25,0.25],4),
+      ...dustSystem.dupeArray([0.0,0.5],2), ...dustSystem.dupeArray([0.25,0.5],2),
+      ...dustSystem.dupeArray([0.0,0.75],3), ...dustSystem.dupeArray([0.25,0.75],3)
+    ];
+  
+    // Use a texture from the internal `pxlAsset` folder; ( RGB, Alpha )
+    //dustSystem.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
+  
+    // Generate geometry and load texture resources
+    dustSystem.build( dustSystemSettings );
+  
+    this.particleList[systemName] = dustSystem;
+  }
+
+
+  // -- -- --
   
   
   fbxPostLoad(){
@@ -180,12 +221,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
     // Floating debris in the air
 
-    let systemName = "floatingDust";
-    this.particleList[systemName] = new FloatingDust( this, systemName );
-    let atlasPath = this.assetPath+"sprite_dustLiquid.png"
-
-    this.particleList[systemName].setAtlasPath( atlasPath );
-    this.particleList[systemName].build( 1000, 10, 120, [-40,-10,0], [0.0, 5.0], [[.25,0],[.25,.25]], false );
+    this.buildDust();
     
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     
