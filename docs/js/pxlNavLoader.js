@@ -3,10 +3,6 @@
 //
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 //
-//   This is an example implementation of `pxlNav` in a project;
-//     Tieing in `ProcPages` to manage the pages of the site,
-//       Listening to / triggering events on `pxlNav`
-//   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
 import { pxlNav, pxlNavVersion, pxlEnums, pxlUserSettings, pxlOptions } from './pxlNav.esm.js'; // v0.20

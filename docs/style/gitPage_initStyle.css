@@ -27,7 +27,7 @@
   background-repeat: no-repeat;
 }
 
-.gitInitPageStyle .gitPageInnerBefore {
+.gitInitPageStyle #pxlPagesInnerBefore {
   content : '';
   padding-left: 8px;
   border-radius: 5px 5px 0px 0px;
@@ -42,7 +42,7 @@
   margin-right: auto;
 }
 
-.gitInitPageStyle .gitPageInnerAfter {
+.gitInitPageStyle #pxlPagesInnerAfter {
   display:none;
 }
 

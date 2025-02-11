@@ -1,0 +1,108 @@
+
+export const pageListingData = {
+  'name' : '',
+  'media' : [
+    {
+      'type' : 'manualLoad',
+      'src' : 'https://pxlmancer.com/show/esnLearning.gif',
+      'thumb' : '../pages/aboutMe/images/esnLearning_th.png',
+      'width' : 320,
+      'height' : 320,
+      'alt' : "ESN Horizontal-Vertical Slice",
+      'caption' : ["Upper left are some videos I made, upper right are it's 'levels' of learning R-G-B,",
+          "<br>Where red are known patterns, green are the edges of the patterns, and blue are the 'less likely' patterns.",
+          "<div class='gitPageAboutMeSpacer'></div>",
+          "Then on the bottom are two slices of the patterns the brain thinks its seeing and then predicting."
+        ]
+    },
+    {
+      'type' : 'manualLoad',
+      'src' : 'https://pxlmancer.com/show/learningGradients_84_opt.gif',
+      'thumb' : '../pages/aboutMe/images/learningGradients_84_th.jpg',
+      'width' : 320,
+      'height' : 320,
+      'alt' : "ESN Horizontal-Vertical Slice",
+      'caption' : ["Different types of slices from the same ESN, just different input video."]
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/aboutMe/images/learningGradients_84_brainSlice.png',
+      'alt' : "Custom ESN Learning Gradients",
+      'caption' : ["A slice of the ESN's brain by frame 101 of watching the X pattern video."]
+    }
+  ],
+  'content' : `
+    <br>
+    <br>Outside of that, I'm on'n'off working on <span class="textNudge">Graph Attention Network</span> artificial intelligence.
+    <div class='gitPageAboutMeSpacer'></div>
+    I've been working on a general-purpose neuron that adjusts its own connections during prediction.
+    <br>&nbsp;&nbsp; I call it a "model-less" ai network, even though the model is just dynamically generated based on input data.
+    <br>It's the Structure which derives regions of neural activation based on stimuli, like the Butterfly Effect echoing through nature.
+    <br>&nbsp;&nbsp; Forming a result <span class="textDrinkMeAlice">(prediction)</span> after subsiquent activations, as-though compounding ripples in a pond.
+
+    <br><br>Rather than a grid of numbers aligning to yield a prediction, it's a data structure which outputs a value due to the neuron connections.
+    <br>&nbsp;&nbsp; Realistically, the output should be similar to a Recurrent Neural Network (RNN), but with a different mental structure.
+    
+    <br>
+    <br>
+    <div class='gitPageAboutMeInfoStyle'>
+      ...Mostly they are used for "<span class="textNudge">Recommendation Systems</span>",
+      <br><span class="textItalicBox">Hey, you might know <span class="textNudge">Jim Bob McGee</span>!!</span>
+      <br>But could be used for so much more!
+    </div>
+
+    <br><span class="innerCenter">So, all this new AI stuff has been quite serendipitous for me!</span>
+    
+    
+    <br>
+    <br><span class="innerCenter">How about an ESN AI I wrote in the summer of 2024?
+      <br>An ESN or Echo State Network is a type of RNN which considers time in it's prediction.
+      <br>It thinks about past events to predict future events.
+      <div class='gitPageAboutMeSpacer'></div>
+      Since the brain learns on the fly, why not feed it some videos I made?
+    </span>
+    
+    
+                  <div class='gitPageAboutMeSpacer'></div>
+    
+    <br>
+    <br><span class="innerCenter">
+      <div class='gitPageAboutMeSpacer'></div>
+      Upper left is another video I made the AI is watching, upper right is shifts in detected movement,
+      <br>Lower left is a slice of the brain's learned wrinkles, lower right is predicted movement.</span>
+      <div class='gitPageAboutMeSpacer'></div>
+      Currently it doesn't use the predicted movement for anything,
+      <br>The next step would be introducing a base image to motion-transfer / referece.
+      <div class='gitPageAboutMeSpacer'></div>
+      So I'm just learnin' while watching my ai learnin'!
+      <div class='gitPageAboutMeSpacer'></div>
+      
+      <br>With a "reservoir" of 15 times steps, you'll notice about every 15 frames the brain shifts.
+      <br>By frame ~45, it's learned some patterns
+      <br>The brain seems to completely melt at ~75 and rebuild itself by ~95. 
+      
+      <br><br>It should be happenstance that the brain shifts when the reservoir fills,
+      <br>Could mean I'm not correctly accounting for high p-values, outliers;
+      <br>But it's detecting patterns in motion!
+    </span>
+    
+                  <div class='gitPageAboutMeSpacer'></div>
+
+
+    <br>Since I didn't have a good use case for the ESN in Python,
+    <br>&nbsp;&nbsp; I built a similar ESM through C# in Unity to operate NPC's ability to learning player habbits.
+    <br>The logic is pretty simple, so running by CPU is fine for now,
+    <br>&nbsp;&nbsp; I'll likely look to move it to GPU in the future, if need be.
+    <br>I set it up to learn less often when the player is in another room.
+    <br>&nbsp;&nbsp; Thinking that I'd want to set up a "data transfer" between characters,
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Gossip about the player.
+    <br>&nbsp;&nbsp; But it's just cubes and spheres in Unity at the moment.
+
+    
+    <br><br>If you couldn't tell by now, I'm training my AIs on my own creations.
+    <br>A personally made AI trained on personally made images / videos / photos / code / writing training data.
+    <br>&nbsp;&nbsp; That means I can copyright my generations, right?
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; If I made every aspect of the AI and training data?
+    <br><br>
+  `,
+};

@@ -34,7 +34,7 @@
   background-repeat: no-repeat;
 }
 
-.gitAboutMePageStyle .gitPageInnerBefore {
+.gitAboutMePageStyle #pxlPagesInnerBefore {
   content : '';
   border-radius: 5px 5px 0px 0px;
   background: transparent;
@@ -48,7 +48,7 @@
   margin-right: auto;
 }
 
-.gitAboutMePageStyle .gitPageInnerAfter {
+.gitAboutMePageStyle #pxlPagesInnerAfter {
   content : '';
   border-radius: 0px 0px 5px 5px;
   background: transparent;

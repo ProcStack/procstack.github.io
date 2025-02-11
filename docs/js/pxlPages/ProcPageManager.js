@@ -1,5 +1,5 @@
 // Page Management For Some Git.io Example Site To Show Off pxlNav Cause I Couldn't Come Up With A Better Idea v0.0.1
-//  Written by Kevin Edzenga; 2024
+//  Written by Kevin Edzenga; 2024,2025
 //
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 //
@@ -24,10 +24,7 @@
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
-
-
-
-export class ProcPages {
+export class ProcPageManager {
   constructor() {
     this.mainDiv = null;
     this.curPage = null;
@@ -35,7 +32,36 @@ export class ProcPages {
     this.curLocation = null;
     this.defaultPage = "Init";
     this.pageListing = {};
-    this.metaDataObjects = {};
+
+    this.faderTimeout = 850;
+
+    this.defaultPageListing = {
+      "booted" : false,
+      'obj' : null,
+      'pageData' : null,
+      'room' : null,
+      'view' : null,
+      'theme' : null
+    };
+
+    this.parentObjectData = {
+      "parent" : {
+        "name" : "pxlPagesContentParent",
+        "obj" : null
+      },
+      "before" : {
+        "name" : "pxlPagesInnerBefore",
+        "obj" : null
+      },
+      "body" : {
+        "name" : "pxlPageContentBlock",
+        "obj" : null
+      },
+      "after" : {
+        "name" : "pxlPagesInnerAfter",
+        "obj" : null
+      }
+    };
 
     this.navBarLinks = [];
     this.navBarObjs = {};
@@ -47,7 +73,6 @@ export class ProcPages {
     this.triggerEmitFunc = null;
     // this.navBar.init();
 
-    this.lazyLoadObjs = [];
     this.pageStyleOverrides = {};
     this.runningTimeouts = {};
 
@@ -95,6 +120,7 @@ export class ProcPages {
 
         // Run page theming and callback functions
         if( this.pageListing.hasOwnProperty(newPage) ){
+          this.curPageName = newPage;
           this.curPage = this.pageListing[newPage]["obj"];
           this.postLoad();
         }
@@ -118,70 +144,67 @@ export class ProcPages {
   }
 
   init(){
-    this.mainDiv = document.getElementById("procStackGitBlock");
+    this.mainDiv = document.getElementById("procPagesMainBlock");
     this.navBar = document.getElementById("gitPageNav");
-    this.navBarLinks = [...this.navBar.getElementsByTagName("a")];
 
+    // Find divs used to parent page content to
+    let parentDivKeys = Object.keys(this.parentObjectData);
+    parentDivKeys.forEach( (key)=>{
+      let parentObj = document.getElementById( this.parentObjectData[key]["name"] );
+      if( parentObj ){
+        this.parentObjectData[key]["obj"] = parentObj;
+      }
+    });
+
+    // Gather the nav bar links
+    this.navBarLinks = [...this.navBar.getElementsByTagName("a")];
     this.navBarLinks.forEach( (navLink)=>{
       let linkText = navLink.getAttribute("page-name");
       this.navBarObjs[linkText] = navLink;
     });
 
+    // When the page gets too narrow,
+    //   Hide some of the gui elements,
+    //     Like sections of link names
     this.resBasedObjs = [...document.getElementsByClassName("squashInLowRes")];
-    this.contentParent = document.getElementById("gitPageContentParent");
-    let pageDivsStyles = document.getElementsByName("gitPage");
-    let pageDivs = [...pageDivsStyles];
+    let pageListingKeys = Object.keys(this.pageListing);
 
     // Gather verified pages before URL state changes based on query params
-    pageDivs.forEach( (pageDiv)=>{
-      let pageId = null;
-      if( pageDiv.hasAttribute("page-id") ){
-        pageId = pageDiv.getAttribute("page-id");
-      }else{
-        pageId = pageDiv.id;
-        pageDiv.setAttribute("page-id", pageId);
-      }
-
-      if( pageDiv.hasAttribute("page-url") ){
-        pageId = pageDiv.getAttribute("page-url");
-      }
-        
+    pageListingKeys.forEach( (pageKey)=>{
+      let pageId = this.pageListing[pageKey]['pageData']["page"];
       this.verifiedPages[ pageId.toLocaleLowerCase() ] = pageId;
     });
 
     // Rectify the URL state and set the current page
     let pageURL = this.getPageURL();
     
-    // Find the lazy load elements
-    this.findLazyLoadElements();
-
     // Find the dom user clickable actions
     this.findDomUserEvents();
 
 
     // Prep the page divs
-    pageDivs.forEach( (pageDiv)=>{
+    pageListingKeys.forEach( (pageKey)=>{
+      let curPage = this.pageListing[pageKey];
+      let curPageData = curPage["pageData"];
+      let pageId = curPageData["page"];
+      let pageDiv = curPage["obj"];
       this.prepFader(pageDiv);
 
-      if( pageDiv.hasAttribute("page-style") ){
-        let pageStyle = pageDiv.getAttribute("page-style");
-        pageStyle = pageStyle.split(";");
-        pageStyle.forEach( (styleStr)=>{
-          let divOverride = styleStr.split(":");
-          if( divOverride.length == 2 ){
-            let curId = pageDiv.getAttribute("page-id");
-            this.pageStyleOverrides[ curId ] = this.pageStyleOverrides[ curId ] || {};
-            this.pageStyleOverrides[ curId ][ divOverride[0] ] = divOverride[1];
+      if( curPage.hasOwnProperty("styleOverrides") ){
+        let styleOverrides = Object.keys(curPage["styleOverrides"]);
+        styleOverrides.forEach( (styleKey)=>{
+          if( !this.pageStyleOverrides.hasOwnProperty(pageKey) ){
+            this.pageStyleOverrides[pageKey] = {};
           }
+          this.pageStyleOverrides[pageKey][styleKey] = curPage["styleOverrides"][styleKey];
         });
       }
 
-      let pageId = pageDiv.getAttribute("page-id");
-      this.pageListing[ pageId ] = {};
+      if( !this.pageListing.hasOwnProperty( pageId ) ){
+        this.pageListing[ pageId ] = Object.assign({}, this.defaultPageListing);
+      }
+
       this.pageListing[ pageId ]["obj"] = pageDiv;
-      this.pageListing[ pageId ]["room"] = null;
-      this.pageListing[ pageId ]["view"] = null;
-      this.pageListing[ pageId ]["theme"] = null;
       if( pageId == pageURL ){
         this.curPageName = pageId;
         this.curPage = pageDiv;
@@ -215,7 +238,7 @@ export class ProcPages {
 
       navLink.addEventListener("click", (e)=>{
         e.preventDefault();
-        let curPageId = this.curPage.getAttribute("page-id");
+        let curPageId = this.curPageName;
         if( linkText == curPageId ){
           return;
         }
@@ -226,11 +249,17 @@ export class ProcPages {
 
     window.addEventListener("resize", this.onResize.bind(this));
 
-    this.updateMetaData( pageURL );
+    this.updateDocumentMetaData( pageURL );
 
     this.setStyleOverrides();
     this.hashListener();
     this.domContentListener();
+
+    // Final init steps
+    if( !this.pageListing[ this.curPageName ]["booted"] ){
+      this.pageListing[ this.curPageName ].booted = true;
+      this.parentObjectData["body"]["obj"].appendChild( this.curPage );
+    }
 
     // Let the dom settle for a step
     setTimeout( ()=>{
@@ -244,57 +273,14 @@ export class ProcPages {
   // Set browser theme if 'pageTheme' exists on the nav bar link
   setBrowserTheme( theme ){
     if( !theme ){
-      document.querySelector("meta[name='theme-color']").removeAttribute("content");
+      document.querySelector("meta[name='theme-color']").removeAttribute("body");
       return;
     }
-    document.querySelector("meta[name='theme-color']").setAttribute("content", theme );
+    document.querySelector("meta[name='theme-color']").setAttribute("body", theme );
   }
   
   // -- -- --
 
-  findLazyLoadElements(){
-    let lazyLoadObjs = [...document.getElementsByClassName("lazyLoad")];
-    lazyLoadObjs.forEach( (lazyObj)=>{
-      let lazySrc = lazyObj.getAttribute("ll-src");
-      let lazyThumb = lazyObj.getAttribute("ll-thumb");
-      let lazyWidth = lazyObj.getAttribute("ll-width");
-      let lazyHeight = lazyObj.getAttribute("ll-height");
-      let lazyAlt = lazyObj.getAttribute("alt");
-      let lazyClass = lazyObj.getAttribute("class");
-      lazyClass = lazyClass.split(" ");
-      lazyClass = lazyClass.filter( (c)=>{ return c != "lazyLoad"; });
-
-      // Create the placeholder div
-      let placeholder = document.createElement('div');
-      placeholder.innerHTML = "&lt; Click to Play &gt;";
-      placeholder.classList.add('lazyLoadPlaceholder');
-      placeholder.style.aspectRatio = lazyWidth+"/"+lazyHeight;
-      lazyClass.forEach( (c)=>{ placeholder.classList.add(c); });
-      if( lazyThumb ){
-        placeholder.style.backgroundImage = "url('"+lazyThumb+"')";
-      }
-
-      // Add click event listener to the placeholder
-      placeholder.addEventListener('click', () => {
-        let img = new Image();
-        img.src = lazySrc;
-        img.width = lazyWidth;
-        img.height = lazyHeight;
-        img.alt = lazyAlt;
-        lazyClass.forEach( (c)=>{ img.classList.add(c); });
-        img.onload = () => {
-          lazyObj.innerHTML = "";
-          lazyObj.appendChild(img);
-        };
-        // Remove the placeholder after the image starts loading
-        lazyObj.innerHTML = "";
-        lazyObj.appendChild(img);
-      });
-
-      // Append the placeholder to the lazyObj
-      lazyObj.appendChild(placeholder);
-    });
-  }
 
   // -- -- --
   
@@ -388,7 +374,8 @@ export class ProcPages {
   // -- -- --
   
   postLoad(){
-    let curPageId = this.curPage.getAttribute("page-id");
+    
+    let curPageId = this.curPageName;
     if( this.pageListing.hasOwnProperty(curPageId) ){
       let curRoom = this.pageListing[curPageId]["room"];
       let curView = this.pageListing[curPageId]["view"];
@@ -411,9 +398,10 @@ export class ProcPages {
       return;
     }
 
-    let curPageId = this.curPage.getAttribute("page-id");
-    if( this.pageStyleOverrides.hasOwnProperty(curPageId) ){
-      let overrideKeys = Object.keys(this.pageStyleOverrides[curPageId]);
+    let curPageId = this.curPageName;
+    let pageListing = this.pageListing[curPageId];
+    if( pageListing && pageListing["pageData"].hasOwnProperty("styleOverrides") ){
+      let overrideKeys = Object.keys( pageListing["pageData"]["styleOverrides"] );
       overrideKeys.forEach( (key)=>{
         let curObj = document.getElementById( key );
         if( curObj ){
@@ -421,20 +409,55 @@ export class ProcPages {
             let defaultClass = curObj.getAttribute("pages-default-class");
             curObj.classList.remove( defaultClass );
           }
-          curObj.classList.add( this.pageStyleOverrides[curPageId][key] );
+          curObj.classList.add( pageListing["pageData"]["styleOverrides"][key] );
         }
       });
     }
   }
 
-  setPageMetaData( metaData ){
-    let metaDataMerge = Object.assign({}, this.metaDataObjects, metaData);
-    this.metaDataObjects = metaDataMerge;
+
+  addPageListing( pageData ){
+    let pageKeys = Object.keys( pageData );
+    let listingKeys = Object.keys( this.pageListing );
+    pageKeys.forEach( (pageKey)=>{
+      if( !listingKeys.includes(pageKey) ){
+        this.pageListing[pageKey] = Object.assign({}, this.defaultPageListing);
+      }
+      
+      this.pageListing[pageKey][ "pageData" ] = pageData[pageKey];
+      if( pageData[pageKey].hasOwnProperty("metaData") ){
+        this.pageListing[pageKey][ "metaData" ] = pageData[pageKey].metaData;
+      }
+
+      let pageObj = pageData[pageKey].buildPage();
+      this.pageListing[pageKey][ "obj" ] = pageObj;
+    });
+
   }
 
-  updateMetaData( pageName ){
-    if( this.metaDataObjects.hasOwnProperty( pageName ) ){
-      let pageMetaData = this.metaDataObjects[ pageName ];
+  setPageMetaData( pageName, metaData ){
+    if( this.pageListing.hasOwnProperty(pageName) ){
+      let pageObj = this.pageListing[pageName];
+      pageObj["metaData"] = metaData;
+    }
+  }
+
+  getMetaData( pageName ){
+    if( this.pageListing.hasOwnProperty(pageName) ){
+      let pageObj = this.pageListing[pageName];
+      return pageObj["metaData"];
+    }
+  }
+
+  updateDocumentMetaData( pageName ){
+    if( !this.pageListing.hasOwnProperty(pageName) ){
+      return;
+    }
+
+    let pageObj = this.pageListing[pageName];
+    if( pageObj.hasOwnProperty("metaData") ){
+      let pageMetaData = pageObj["metaData"];
+
       let metaObjs = pageMetaData.metaTagList;
       if( metaObjs != null ){
         let metaKeys = Object.keys(metaObjs);
@@ -446,12 +469,16 @@ export class ProcPages {
               return;
             }
             let curMeta = document.querySelector("meta[name='"+tag+"']");
+            let curContent = pageMetaData[metaTags];
+            if( tag == "keywords" && curContent != "" && typeof(curContent) == "object" ){
+              curContent = curContent.join(", ");
+            }
             if( curMeta ){
-              curMeta.setAttribute("content", pageMetaData[metaTags]);
+              curMeta.setAttribute("body", curContent);
             }else{
               let newMeta = document.createElement("meta");
               newMeta.setAttribute("name", tag);
-              newMeta.setAttribute("content", pageMetaData[metaTags]);
+              newMeta.setAttribute("body", curContent);
               document.head.appendChild(newMeta);
             }
           });
@@ -463,19 +490,18 @@ export class ProcPages {
   changePage( pageName, roomName=null, locationName=null ){
     if( pageName != this.curPage && Object.keys(this.pageListing).includes(pageName) ){
       this.toggleFader(this.curPage, false);
-
       // Remove previous page styles
       if( this.curPage != null ){
-        let prevPageId = this.curPage.getAttribute("page-id");
-
-        if( this.pageStyleOverrides.hasOwnProperty(prevPageId) ){
+        let prevPageListing = this.pageListing[ this.curPageName ];
+        if( prevPageListing && prevPageListing["pageData"].hasOwnProperty("styleOverrides") ){
           // Iterate page css overrides and remove them to allow for the new page's styles, if they exist
-          let overrideKeys = Object.keys(this.pageStyleOverrides[prevPageId]);
+          let curOverrides = prevPageListing["pageData"]["styleOverrides"];
+          let overrideKeys = Object.keys( curOverrides );
           overrideKeys.forEach( (key)=>{
             let curObj = document.getElementById( key );
             if( curObj ){
-              if(curObj.classList.contains( this.pageStyleOverrides[prevPageId][key] )) {
-                curObj.classList.remove(this.pageStyleOverrides[prevPageId][key] );
+              if(curObj.classList.contains( curOverrides )) {
+                curObj.classList.remove( curOverrides );
                 if( curObj.hasAttribute("pages-default-class") ){
                   let defaultClass = curObj.getAttribute("pages-default-class");
                   curObj.classList.add( defaultClass );
@@ -492,14 +518,20 @@ export class ProcPages {
       }
 
       // Set current page value
+      let pageListing = this.pageListing[pageName];
       this.curPageName = pageName;
-      this.curPage = this.pageListing[pageName]["obj"];
+      this.curPage = pageListing["obj"];
+
+      if( !pageListing.booted ){
+        this.pageListing[pageName].booted = true;
+        this.parentObjectData["body"]["obj"].appendChild( this.curPage );
+      }
 
       // Update URL page display & history state
       this.shiftHistoryState( pageName );
 
       // Update Meta Data
-      this.updateMetaData( pageName );
+      this.updateDocumentMetaData( pageName );
 
       // Set the browser theme ( also meta data )
       this.setBrowserTheme( this.pageListing[pageName]["theme"] );
@@ -514,7 +546,9 @@ export class ProcPages {
       // Correct the scroll position from previous time on the page
       // TODO: Review; I may want to remove this. It was a fix for when all of the pages were in the same div
       //         Since they've split out, this may not be necessary
-      this.curPage.parentElement.scrollTop = 0;
+      if( this.curPage.parentElement ){
+        this.curPage.parentElement.scrollTop = 0;
+      }
       
       // Set the current room and location
       if(this.triggerEmitFunc && roomName!=null){
@@ -673,7 +707,8 @@ export class ProcPages {
     if( !obj ){
       return;
     }
-    let curId = obj.getAttribute("page-id");
+    
+    let curId = this.curPageName;
     if( vis ){
       obj.style.display = "";//"block";
       obj.classList.add("pagesVisOn");
@@ -683,9 +718,10 @@ export class ProcPages {
       let curTimeout = this.runningTimeouts[curId];
       if( curTimeout ){
         clearTimeout(curTimeout);
-      }else{
-        this.runningTimeouts[curId] = null;
       }
+
+      this.runningTimeouts[curId] = null;
+
     } else {
       obj.classList.add("pagesVisOff");
       obj.classList.remove("pagesVisOn");
