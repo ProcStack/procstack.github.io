@@ -13,17 +13,30 @@ const metaDataInput = {
 const pageContentObject = {
   'page' : 'Init',
   'title' : 'Welcome.',
+  'layout' : 'single',
+  'extras' : { 
+    'before-hooks' : true, 
+    'after-hooks' : true 
+  },
   'header' : '',
   'subHeader' : '',
-  'pageStyles' : ['gitPageContentStyle', 'gitInitPageStyle'],
+  'pageStyles' : {
+    'block' : ['procPagesContentStyle', 'gitInitPageStyle'],
+    'parent' : [ 'procPagesParentStyle', 'gitInitPageParentStyle' ],
+    'header' : [ 'procPagesHeaderStyle' ],
+    'inner' : [ 'procPagesLayoutTripleStyle' ],
+    'content' : [ 'procPagesScrollbarStyle', 'gitInitPageWidthStyle' ],
+    'media' : [ 'procPagesScrollbarStyle' ]
+  },
   'styleOverrides' : {
-    'gitPagesNavBlock' : 'gitPageNav_initStyle',
+    'procPagesNavBlock' : 'procPagesNav_initStyle',
     'footerBar' : 'initPage_footerBar'
   },
   'sections' : [
     {
-      'name' : 'Ahoi there!',
+      'name' : '',
       'content' : `
+<span class="procPagesHeaderStyle initHeaderStyle">Ahoi there!</span>
 <div class="initPage_hBarStyle">&nbsp;</div>
 <br>I'm <span class="textNudge">ProcStack</span>, <span class="textNudge">Trancor</span>, and <span class="textNudge">Kevin Edzenga</span>,
 <br>&nbsp;&nbsp;Which ever ya feel like calling me!

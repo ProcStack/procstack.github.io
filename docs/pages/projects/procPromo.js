@@ -1,29 +1,32 @@
 
 export const pageListingData = {
-  'name' : 'procPromo Minecraft Shader Pack',
+  'name' : 'procPromo<span class="hideOnMobile">&nbsp;Shader Pack</span>',
+  'navGroup' : 'Repos to Check Out',
   'media' : [
     {
       'type' : 'image',
       'src' : '../pages/projects/images/CloudPillar_2024-01-08.jpg',
       'alt' : 'A Minecraft cloud pillar in procPromo',
+      'style' : 'procPagesImageStyle',
       'caption' : ["Cloud pillar!"]
     },
     {
       'type' : 'image',
       'src' : '../pages/projects/images/AlienFlora_2024-01-08.jpg',
       'alt' : 'The alien fungal bloom has spread!',
+      'style' : 'procPagesImageStyle',
       'caption' : ["The spores have spread!"]
     },
     {
       'type' : 'image',
       'src' : '../pages/projects/images/NetherLavaLake_2024-01-10.jpg',
       'alt' : 'A cool day in Minecraft Palm Springs!',
+      'style' : 'procPagesImageStyle',
       'caption' : ["A chill day in Palm Springs"]
     },
   ],
   'content' : `
-    <br>
-    <br><a href='https://github.com/ProcStack/procPromo_ShaderPack' class='gitPageRepoLinkStyle' target='_blank'>procPromo Minecraft Shader Pack</a>
+    <a href='https://github.com/ProcStack/procPromo_ShaderPack' class='procPagesRepoLinkStyle' target='_blank'>procPromo Minecraft Shader Pack</a>
     <br>A shader pack for Minecraft, used through Optifine.
 
     <br>

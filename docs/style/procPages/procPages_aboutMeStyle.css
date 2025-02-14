@@ -2,12 +2,11 @@
 /* -- -- -- */
 
 .gitAboutMePageStyle{
+  max-width: calc(100vw - 6vmax - var(--inner-padding));
+  max-height: calc(min(91vh, 100vh - 7vmax - var(--inner-height-reduce)));
   position: fixed;
   bottom: 4vmin;
   left: calc(min(max(2vmax,(100vw - 700px) / 10), max(50vw - 300px, 2vmax)));
-  max-width: calc(100vw - 6vmax);
-  width: calc(max(1000px, 45vw));
-  max-height: calc(min(91vh, 100vh - 7vmax));
   justify-self: center;
   justify-items: center;
   z-index: 6;
@@ -16,17 +15,44 @@
 
 /* -- -- -- */
 
+.gitAboutMePage-sectionNavButtonStyle{
+  color: rgba(237, 237, 237, 0.9);
+  text-shadow: 1.5px 1.5px 4px rgba(37, 37, 37, 0.632);
+  background-color: rgba(86, 86, 86, 0.37);
+  border-color: rgba(213, 213, 213, 0.5);
+  border-style: solid;
+}
+.gitAboutMePage-sectionNavButtonStyle:hover{
+  color: rgb(255, 255, 255);
+  text-shadow: 1.5px 1.5px 4px rgba(37, 37, 37, 0.821);
+  background-color: rgba(118, 118, 118, 0.6);
+  border-color: rgba(227, 227, 227, 0.85);
+}
+.gitAboutMePage-sectionNavButtonStyle:active{
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 1.5px 1.5px 4px rgba(37, 37, 37, 0.927);
+  background-color: rgba(86, 86, 86, 0.723);
+  border-color: rgba(247, 246, 246, 0.9);
+}
+
+.gitAboutMePage-sectionNavButtonAvtiveStyle{
+  color: #ffffff;
+  text-shadow: 1.5px 1.5px 4px rgba(37, 37, 37, 0.632);
+  background-color: rgba(98, 98, 98, 0.886);
+  border-color: rgba(220, 220, 220, 0.83);
+  border-style: solid;
+}
+
+/* -- -- -- */
 
 
-.gitAboutMePageInnerStyle{
-  max-width: calc(100vw - 6vmax - var(--inner-padding));
-  max-height: calc(min(91vh, 100vh - 7vmax - var(--inner-height-reduce)));
+.gitAboutMePageParentStyle{
   padding: var(--inner-padding);
   border-radius: 2px;
   background-color: rgba(65, 65, 65, 0.3);
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
   pointer-events: auto;
-  overflow: auto;
+  overflow: hidden;
   text-wrap: auto;
   background-image: radial-gradient(200% 35% ellipse at top, rgba(100, 100, 100, 0.35), rgba(100, 100, 100, 0.0)),
                     radial-gradient(200% 35% ellipse at bottom, rgba(100, 100, 100, 0.35), rgba(100, 100, 100, 0.0));
@@ -34,7 +60,7 @@
   background-repeat: no-repeat;
 }
 
-.gitAboutMePageStyle #pxlPagesInnerBefore {
+.gitAboutMePageStyle .procPagesInnerBefore {
   content : '';
   border-radius: 5px 5px 0px 0px;
   background: transparent;
@@ -48,7 +74,7 @@
   margin-right: auto;
 }
 
-.gitAboutMePageStyle #pxlPagesInnerAfter {
+.gitAboutMePageStyle .procPagesInnerAfter {
   content : '';
   border-radius: 0px 0px 5px 5px;
   background: transparent;
@@ -64,23 +90,28 @@
 
 /* -- -- -- */
 
-.gitPageNav_aboutMeStyle {
+.procPagesNav_aboutMeStyle {
   background: linear-gradient(90deg,  rgba(20, 20, 20, 0.0), rgba(80, 80, 80, 0.45), rgba(85, 85, 85, 0.55), rgba(80, 80, 80, 0.45), rgba(20, 20, 20, 0.0) );
   border-bottom: 1px solid rgba(120, 120, 120, 0.45);
 }
-.gitPageNav_aboutMeStyle a {
+.procPagesNav_aboutMeStyle a {
   border: 1px solid #ffffff;
   color: #ffffff;
   background-color: rgba(110, 110, 110, .35);
 }
-.gitPageNav_aboutMeStyle a:hover {
+.procPagesNav_aboutMeStyle a:hover {
   text-shadow: 1px 1.5px 4px #cccccc;
   background-color: rgba(180, 180, 180, .85);
 }
-.gitPageNav_aboutMeStyle a:active {
+.procPagesNav_aboutMeStyle a:active {
   color: #cccccc;
   text-shadow: 1px 1.5px 4px #656565;
   background-color: rgba(100, 100, 100, .85);
+}
+
+.procPagesNav_aboutMeActiveStyle a {
+  text-shadow: 1px 1.5px 4px #cccccc;
+  background-color: rgba(180, 180, 180, .85);
 }
 
 /* -- -- -- */
@@ -105,26 +136,15 @@
 
 /* -- -- -- */
 
-.gitPageAboutMeSpacer{
+.procPagesAboutMeSpacer{
   height: 7px;
   overflow: hidden;
 }
 
 /* -- -- -- */
 
-.gitPageAboutMeInfoStyle{
+.procPagesAboutMeInfoStyle{
   width:77.5%;
   max-width: 1300px;
   justify-self: center;
-}
-
-.gitPagesAboutMeReelParent{
-  width: 100%;
-  text-align: center;
-}
-
-.gitPagesAboutMeReel{
-  width: 85%;
-  height: auto;
-  aspect-ratio: 16 / 9;
 }

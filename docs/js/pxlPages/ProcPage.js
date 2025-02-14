@@ -14,17 +14,31 @@ export class ProcPage {
     this.footer = contentObject.footer || "";
     this.pageStyles = contentObject.pageStyles || "";
     this.styleOverrides = contentObject.styleOverrides || {};
+    this.initialSection = contentObject.initialSection || 0;
+
+    this.layoutTypes = ['single', 'triple', 'vertical'];
+    this.layout = 'triple';
+    if( contentObject.hasOwnProperty('layout') && this.layoutTypes.includes(contentObject.layout) ){
+      this.layout = contentObject.layout;
+    }
 
     this.pageObject = null;
     this.pageContent = {};
+    this.prevSection = null;
+    this.pageSectionsObject = null;
+    this.mediaViewObject = null;
 
     // -- -- --
 
     this.defaultSectionData = {
       'isLoaded' : false,
+      'isActive' : false,
       'name' : '',
+      'navGroup' : '',
       'content' : '',
-      'media' : []
+      'media' : [],
+      'header' : null,
+      'objects' : []
     };
 
     this.validMediaTypes = ['image', 'manualLoad', 'video', 'audio', 'youtube'];
@@ -46,12 +60,27 @@ export class ProcPage {
     if( contentObject.hasOwnProperty('sections') ){
       let sectionKeys = Object.keys(contentObject[ 'sections' ]);
       sectionKeys.forEach( sectionKey => {
-        let sectionContent = Object.assign({}, this.defaultSectionData, contentObject[ 'sections' ][ sectionKey ]);
-        this.addSection( sectionKey, sectionContent );
+        if( Array.isArray(contentObject[ 'sections' ][ sectionKey ]) ){
+          contentObject[ 'sections' ][ sectionKey ].forEach(( sectionContent )=>{
+            this.addSection( sectionKey, sectionContent );
+          });
+        }else if( typeof( contentObject[ 'sections' ][ sectionKey ] ) == 'object' ){
+          let sectionContent = Object.assign({}, this.defaultSectionData, contentObject[ 'sections' ][ sectionKey ]);
+          this.addSection( sectionKey, sectionContent );
+        }
       });
     }
   }
 
+  // -- -- --
+
+  getDefaultData(){
+    return Object.assign({}, this.defaultSectionData);
+  }
+  getDefaultMedia(){
+    return Object.assign({}, this.defaultMediaData);
+  }
+  
   // -- -- --
 
   setMetaData( metaData ){
@@ -75,14 +104,9 @@ export class ProcPage {
     delete this.sectionData[sectionName];
   }
 
-  // -- -- --
-
-  getDefaultData(){
-    return Object.assign({}, this.defaultSectionData);
-  }
-  getDefaultMedia(){
-    return Object.assign({}, this.defaultMediaData);
-  }
+// -- -- -- -- -- -- -- -- -- --
+// -- Page Section Helpers  - -- --
+// -- -- -- -- -- -- -- -- -- -- -- --
 
   getSection( sectionName ){
     return this.sectionData[sectionName];
@@ -102,7 +126,24 @@ export class ProcPage {
     this.sectionData[sectionName].name = sectionTitle;
   }
 
-  buildImages( sectionName, imageList ){
+// -- -- -- -- -- -- -- --
+// -- Media Helpers  -- -- --
+// -- -- -- -- -- -- -- -- -- --
+
+  // Apply style to media objects if specified
+  applyStyle( mediaData, obj ){
+    if( mediaData.hasOwnProperty('style') ){
+      if( typeof mediaData.style == 'string' && mediaData.style != '' ){
+        obj.classList.add(mediaData.style);
+      } else if( Array.isArray(mediaData.style) ){
+        mediaData.style.forEach( (c)=>{ obj.classList.add(c); });
+      }
+    }
+  }
+
+  // -- -- --
+
+  addImages( sectionName, imageList ){
     if( !this.sectionTitles.includes( sectionName ) ){
       this.addSection( sectionName, {} );
     }
@@ -122,20 +163,15 @@ export class ProcPage {
     });
   }
 
-  // -- -- --
 
   buildImage( mediaData ){
     let img = document.createElement('img');
     img.src = mediaData.src;
     img.alt = mediaData.alt;
-    img.classList.add('mediaImage');
-    if( mediaData.style ){
-      if( typeof mediaData.style == 'string' ){
-        img.classList.add(mediaData.style);
-      } else if( Array.isArray(mediaData.style) ){
-        mediaData.style.forEach( (c)=>{ img.classList.add(c); });
-      }
-    }
+    img.classList.add('procPagesMediaImage');
+    
+    this.applyStyle( mediaData, img );
+
     return img;
   }
 
@@ -152,22 +188,35 @@ export class ProcPage {
 
     let manualSrc = mediaData.src;
     let manualThumb = mediaData.thumb || '';
-    let manualWidth = mediaData.width || 320;
-    let manualHeight = mediaData.height || 240;
     let manualAlt = mediaData.alt || '';
     let manualClass = mediaData.style || [];
+    let manualWidth = null;
+    let manualHeight = null;
+    let manualAspectRatio = 1;
 
     let manualObj = document.createElement('div');
     manualObj.classList.add('manualLoadImage');
-    manualObj.style.width = manualWidth+"px";
-    manualObj.style.height = manualHeight+"px";
+    if( mediaData.hasOwnProperty('width') ){
+      manualObj.style.width = manualWidth+"px";
+    }
+    if( mediaData.hasOwnProperty('height') ){
+      manualObj.style.height = manualHeight+"px";
+    }
     
     
     // Create the placeholder div
     let placeholder = document.createElement('div');
     placeholder.innerHTML = "&lt; Click to Play &gt;";
     placeholder.classList.add('manualLoadPlaceholder');
-    placeholder.style.aspectRatio = manualWidth+"/"+manualHeight;
+    
+    if( mediaData.hasOwnProperty('aspectRatio') ){
+      placeholder.style.aspectRatio = mediaData.aspectRatio;
+    }
+    
+    if( typeof manualClass == 'string' ){
+      manualClass = manualClass=='' ? [] : [ manualClass ];
+    }
+
     manualClass.forEach( (c)=>{ placeholder.classList.add(c); });
     if( manualThumb || manualThumb != '' ){
       placeholder.style.backgroundImage = "url('"+manualThumb+"')";
@@ -189,6 +238,9 @@ export class ProcPage {
       manualObj.innerHTML = "";
       manualObj.appendChild(img);
     });
+
+    // Add the style classes to the manualObj
+    this.applyStyle( mediaData, manualObj );
 
     // Append the placeholder to the manualObj
     manualObj.appendChild(placeholder);
@@ -212,8 +264,28 @@ export class ProcPage {
     if( !this.validMediaTypes.includes(videoData.type) ){
       videoData.type = 'video';
     }
+    
+    let videoObject = this.buildVideoEmbed( videoData );
+
+
     this.sectionData[sectionName].media.push( videoData );
-    this.buildVideoEmbed( sectionName, videoData );
+  }
+
+  buildVideoEmbed( mediaData ){
+    let vidSrc = mediaData.src;
+    let vidAlt = mediaData.alt;
+
+    let vidEmbed = document.createElement('video');
+    vidEmbed.src = vidSrc;
+    vidEmbed.alt = vidAlt;
+    vidEmbed.loop = true;
+    vidEmbed.controls = true;
+    //vidEmbed.classList.add('procPagesMediaVideo');
+
+    this.applyStyle( mediaData, vidEmbed );
+  
+    return vidEmbed;
+
   }
 
   // -- -- --
@@ -238,15 +310,24 @@ export class ProcPage {
   }
 
   buildYoutubeEmbed( mediaData ){
+    //let embedParent = document.createElement('div');
+    //this.applyStyle( mediaData, embedParent );
+    
     let vidId = mediaData.src;
     let ytEmbed = document.createElement('iframe');
     ytEmbed.src = "https://www.youtube-nocookie.com/embed/"+vidId;
     ytEmbed.title = mediaData.alt;
-    ytEmbed.frameborder = 0;
+    ytEmbed.setAttribute( "frameborder", 0 );
     ytEmbed.allow = "encrypted-media; picture-in-picture; web-share";
-    ytEmbed.referrerpolicy = "strict-origin-when-cross-origin";
-    ytEmbed.allowfullscreen = true;
+    ytEmbed.setAttribute( "referrerpolicy", "strict-origin-when-cross-origin" );
+    ytEmbed.setAttribute( "allowfullscreen", true );
+
+    //embedParent.appendChild( ytEmbed );
+
+    this.applyStyle( mediaData, ytEmbed );
+
     return ytEmbed;
+    //return embedParent;
   }
 
   // -- -- --
@@ -261,7 +342,7 @@ export class ProcPage {
         media = this.buildManualLoad( mediaData );
         break;
       case 'video':
-        media = this.buildVideo( mediaData );
+        media = this.buildVideoEmbed( mediaData );
         break;
       case 'audio':
         media = this.buildAudio( mediaData );
@@ -278,77 +359,329 @@ export class ProcPage {
 
 
 
-  // -- -- --
+// -- -- -- -- -- -- -- --
+// -- Page Building  -- -- --
+// -- -- -- -- -- -- -- -- -- --
 
-
+  
   buildPage(){
+
+    let setPageType = "block";
     let pageContent = document.createElement('div');
-    pageContent.classList.add('pageContent');
-    this.pageStyles.forEach(( style )=>{ pageContent.classList.add(style) });
-    
+    pageContent.classList.add('procPagesContentStyle');
+    if( this.pageStyles.hasOwnProperty( setPageType ) && Array.isArray( this.pageStyles[ setPageType ] ) ){
+      this.pageStyles[ setPageType ].forEach(( style )=>{ pageContent.classList.add(style) });
+    }
+    this.applyPageStyle( 'block', pageContent );
+
+    // -- -- --
+
+    setPageType = "before";
+    if( this.pageStyles.hasOwnProperty( setPageType ) && Array.isArray( this.pageStyles[ setPageType ] ) ){
+      let pageBeforeBody = document.createElement('div');
+      this.pageStyles[ setPageType ].forEach(( style )=>{ pageBeforeBody.classList.add(style) });
+      pageContent.appendChild( pageBeforeBody );
+    }
+
+    // -- -- --
+
+    setPageType = "parent";
+    let pageInnerContent = document.createElement('div');
+    pageInnerContent.classList.add('procPagesInnerStyle');
+    this.applyPageStyle( 'parent', pageInnerContent );
+    pageContent.appendChild( pageInnerContent );
+
+    // -- -- --
+
+    setPageType = "after";
+    if( this.pageStyles.hasOwnProperty( setPageType ) && Array.isArray( this.pageStyles[ setPageType ] ) ){
+      let pageAfterBody = document.createElement('div');
+      this.pageStyles[ setPageType ].forEach(( style )=>{ pageAfterBody.classList.add(style) });
+      pageContent.appendChild( pageAfterBody );
+    }
+
+
+    // -- -- -- -- -- -- -- -- -- --
+
+
     let curId = this.id;
     if( !curId || curId == '' ){
       curId = this.idPrefix + this.page;
       this.id = curId;
     }
-    pageContent.id = curId;
+    pageInnerContent.id = curId;
     
-    let pageHeader = document.createElement('div');
-    pageHeader.classList.add('pageHeader');
-    pageHeader.innerHTML = this.header;
-    pageContent.appendChild( pageHeader );
-    this.pageContent['header'] = pageHeader;
+    if( this.header != '' ){
+      let pageHeader = document.createElement('div');
+      pageHeader.classList.add('procPageHeader');
+      pageHeader.innerHTML = this.header;
 
-    let pageSubHeader = document.createElement('div');
-    pageSubHeader.classList.add('pageSubHeader');
-    pageSubHeader.innerHTML = this.subHeader;
-    pageContent.appendChild( pageSubHeader );
-    this.pageContent['subHeader'] = pageSubHeader
+      this.applyPageStyle( 'header', pageHeader );
+
+      pageInnerContent.appendChild( pageHeader );
+    }
+
+    if( this.subHeader != '' ){
+      let pageSubHeader = document.createElement('div');
+      pageSubHeader.classList.add('procPageSubHeader');
+      pageSubHeader.innerHTML = this.subHeader;
+
+      this.applyPageStyle( 'subHeader', pageSubHeader );
+
+      pageInnerContent.appendChild( pageSubHeader );
+    }
 
     let pageSections = document.createElement('div');
-    pageSections.classList.add('pageSections');
-    this.sectionTitles.forEach( sectionTitle => {
-      let sectionData = this.sectionData[sectionTitle];
-      let section = this.buildSection( sectionTitle, sectionData );
-      pageSections.appendChild( section );
-    });
-    pageContent.appendChild( pageSections );
-    this.pageContent['sections'] = pageSections;
+    pageSections.classList.add('procPageSections');
 
-    let pageFooter = document.createElement('div');
-    pageFooter.classList.add('pageFooter');
-    pageFooter.innerHTML = this.footer;
-    pageContent.appendChild( pageFooter );
-    this.pageContent['footer'] = pageFooter;
+    this.applyPageStyle( 'inner', pageSections );
 
+    pageInnerContent.appendChild( pageSections );
+    this.pageSectionsObject = pageSections;
+
+    // -- -- -- -- -- --
+
+    let pageSectionList;
+    if( this.layout != 'single' ){
+      pageSectionList = document.createElement('div');
+      pageSectionList.classList.add('procPageSectionList');
+      pageSections.appendChild( pageSectionList );
+    }
+
+    // -- -- --
+
+    let pageContentView = document.createElement('div');
+    if( this.layout != 'single' ){
+      pageContentView.classList.add('procPageContentView');
+    }
+    
+    this.applyPageStyle( 'content', pageContentView );
+
+    pageSections.appendChild( pageContentView );
+
+    // -- -- --
+
+    let pageMediaView;
+    if( this.layout != 'single' ){
+      pageMediaView = document.createElement('div');
+      pageMediaView.classList.add('procPageMediaView');
+      
+      this.applyPageStyle( 'media', pageMediaView );
+
+      pageSections.appendChild( pageMediaView );
+      this.mediaViewObject = pageMediaView;
+    }
+
+    // -- -- --
+
+    if( this.layout == 'single' ){
+      let curKey = Object.keys( this.sectionTitles )[0];
+      let curSectionData = this.sectionData[curKey];
+      this.buildSinglePageSection( curSectionData, pageContentView);
+    }else{
+      let sectionTitles = [];
+      if( Array.isArray(this.sectionTitles) ){
+        sectionTitles = this.sectionTitles;
+      }else if( typeof this.sectionTitles == 'object' ){
+        sectionTitles = Object.keys(this.sectionTitles);
+      }
+
+      // Add the sections to the page
+      sectionTitles.forEach( sectionTitle => {
+
+        let sectionData = this.sectionData[sectionTitle];
+
+        let sectionContentBlock = document.createElement('div');
+        sectionContentBlock.classList.add('procPageSectionContentStyle');
+        sectionContentBlock.id = sectionTitle;
+        
+        this.applyPageStyle( 'sectionNav', sectionContentBlock );
+
+        pageContentView.appendChild( sectionContentBlock );
+    
+        // Build Nav-Content-Media page layout sections
+        let builtObjs = this.buildTriplePageSection( sectionData, pageSectionList, sectionContentBlock, pageMediaView);
+
+
+        if( !this.sectionData[sectionTitle].hasOwnProperty('objects') ){
+          this.sectionData[sectionTitle].objects = [];
+        }
+
+        this.sectionData[sectionTitle].header = builtObjs['nav'];
+
+        if( builtObjs['content'].length > 0 ){
+          this.sectionData[sectionTitle].objects.push( ...builtObjs['content'] );
+        }
+
+        this.sectionData[sectionTitle].objects = builtObjs.content;
+
+        if( builtObjs.hasOwnProperty('nav') ){
+            builtObjs['nav'].addEventListener('click', ()=>{ this.activateSection(sectionTitle); });
+        }
+
+        //pageSections.appendChild( section );
+
+      });
+
+      // Turn on the first section to display
+      this.activateSection( this.initialSection );
+
+    }
+
+
+    // -- -- --
+
+    if( this.footer != '' ){
+      let pageContentAfter = document.createElement('div');
+      pageContentAfter.classList.add('procPageContentAfterStyle');
+      pageContentAfter.innerHTML = this.footer;
+      pageInnerContent.appendChild( pageContentAfter );
+    }
+
+    // -- -- --
+    
     this.pageObject = pageContent;
 
     return pageContent;
   }
 
-  buildSection( sectionTitle, sectionData ){
-    let section = document.createElement('div');
-    section.classList.add('ProcPageSectionStyle');
-    section.id = sectionTitle;
 
-    let sectionTitleDiv = document.createElement('div');
-    sectionTitleDiv.classList.add('sectionTitle');
-    sectionTitleDiv.innerHTML = sectionData.name;
-    section.appendChild( sectionTitleDiv );
+  deactivateSection( sectionName ){
+    this.sectionData[ sectionName ].isActive = false;
+    this.sectionData[ sectionName] .header.classList.remove('procPagesNavActive');
+    if( this.pageStyles.hasOwnProperty('sectionNavButtonActive') && Array.isArray( this.pageStyles['sectionNavButtonActive'] ) ){
+      this.pageStyles['sectionNavButtonActive'].forEach(( style )=>{
+          this.sectionData[ sectionName ].header.classList.remove( style );
+      });
+    }
+    
+    // Triple Layout Section
+    if( this.layout == "triple" && this.sectionData[ sectionName ].media.length == 0 ){
+      this.pageSectionsObject.classList.remove('procPageNoMediaStyle');
+      this.mediaViewObject.style.display = "";
+    }
 
-    let sectionContent = document.createElement('div');
-    sectionContent.classList.add('ProcPageContentStyle');
-    sectionContent.innerHTML = sectionData.content;
-    section.appendChild( sectionContent );
-
-    let sectionMedia = document.createElement('div');
-    sectionMedia.classList.add('ProcPageMediaStyle');
-    sectionData.media.forEach( mediaData => {
-      let media = this.buildMedia( mediaData );
-      sectionMedia.appendChild( media );
+    this.sectionData[ sectionName ].objects.forEach(( obj )=>{
+      obj.classList.remove('procPagesSectionActive');
+      obj.classList.remove('pagesVisOn');
+      obj.classList.add('pagesVisOff');
     });
-    section.appendChild( sectionMedia );
-
-    return section;
   }
+
+  activateSection( sectionName ){
+
+    if( Number.isInteger(sectionName) ){
+      sectionName = this.sectionTitles[sectionName];
+    }
+
+    if( this.prevSection != null ){
+      this.deactivateSection( this.prevSection );
+    }
+
+    this.prevSection = sectionName;
+    this.sectionData[ sectionName ].isActive = true;
+    this.sectionData[ sectionName ].header.classList.add( 'procPagesNavActive' );
+    if( this.pageStyles.hasOwnProperty('sectionNavButtonActive') && Array.isArray( this.pageStyles['sectionNavButtonActive'] ) ){
+      this.pageStyles['sectionNavButtonActive'].forEach(( style )=>{
+        this.sectionData[ sectionName ].header.classList.add( style );
+      });
+    }
+
+
+    // Triple Layout Section
+    if( this.layout == "triple" && this.sectionData[ sectionName ].media.length == 0 ){
+      this.pageSectionsObject.classList.add('procPageNoMediaStyle');
+      this.mediaViewObject.style.display = "none";
+    }
+
+
+    this.sectionData[ sectionName ].objects.forEach(( obj )=>{
+      obj.classList.add('procPagesSectionActive');
+      obj.classList.add('pagesVisOn');
+      obj.classList.remove('pagesVisOff');
+    });
+  }
+
+
+  // -- -- --
+
+  // TODO - Implement Vertical Page Layout
+  buildVerticalPage(){
+    this.buildHorizontalPage();
+  }
+
+
+  // -- -- --
+
+  buildSinglePageSection( sectionData, sectionContentParent ){
+    if( sectionData.content != '' ){
+      let sectionContentDiv = document.createElement('div');
+      sectionContentDiv.classList.add('procPagesInnerContentStyle');
+      sectionContentDiv.innerHTML = sectionData.content;
+      this.applyPageStyle( 'sectionContent', sectionContentDiv );
+
+      sectionContentParent.appendChild( sectionContentDiv );
+    }
+  }
+
+  buildTriplePageSection( sectionData, sectionList, sectionContentParent, mediaContentParent ){
+    let ret = {
+      'nav' : null,
+      'content' : []
+    };
+
+
+    if( sectionData.name != '' ){
+      let sectionTitleDiv = document.createElement('div');
+      sectionTitleDiv.classList.add('procPagesNavSectionStyle');
+      sectionTitleDiv.classList.add('procPagesButtonStyle');
+      sectionTitleDiv.classList.add('procPagesSectionNavColor');
+      
+      let styleType = "navStyle";
+      if( sectionData.hasOwnProperty( styleType ) && Array.isArray( sectionData[ styleType ] ) ){
+        sectionData[ styleType ].forEach(( style )=>{ style!=''&&sectionTitleDiv.classList.add(style) });
+      }
+      
+      sectionTitleDiv.innerHTML = sectionData.name;
+
+      this.applyPageStyle( 'sectionNavButton', sectionTitleDiv );
+      
+      sectionList.appendChild( sectionTitleDiv );
+      ret['nav'] = sectionTitleDiv;
+    }
+
+    if( sectionData.content != '' ){
+      let sectionContentDiv = document.createElement('div');
+      sectionContentDiv.classList.add('procPagesInnerContentStyle');
+      sectionContentDiv.innerHTML = sectionData.content;
+      sectionContentDiv.classList.add('pagesVisOff');
+      this.applyPageStyle( 'sectionContent', sectionContentDiv );
+
+      sectionContentParent.appendChild( sectionContentDiv );
+      ret['content'].push( sectionContentDiv );
+    }
+
+    if( sectionData.media.length > 0 ){
+      let sectionMedia = document.createElement('div');
+      sectionMedia.classList.add('procPagesMediaListStyle');
+      sectionData.media.forEach( mediaData => {
+        let media = this.buildMedia( mediaData );
+        this.applyPageStyle( 'sectionMedia', media );
+        sectionMedia.appendChild( media );
+      });
+      sectionMedia.classList.add('pagesVisOff');
+      mediaContentParent.appendChild( sectionMedia );
+      ret['content'].push( sectionMedia );
+    }
+    return ret;
+  }
+
+  // -- -- --
+
+  applyPageStyle( styleType, obj ){
+    if( this.pageStyles.hasOwnProperty( styleType ) && Array.isArray( this.pageStyles[ styleType ] ) ){
+      this.pageStyles[ styleType ].forEach(( style )=>{ style!=''&&obj.classList.add(style) });
+    }
+  }
+
 }

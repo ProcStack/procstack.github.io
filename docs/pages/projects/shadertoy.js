@@ -1,6 +1,8 @@
 
 export const pageListingData = {
   'name' : 'Shadertoy',
+  'navGroup' : "The One'Offs",
+  'navStyle' : ['hideOnMobile'],
   'media' : [],
   'content' : `
     See some of my shaders at <a href='https://www.shadertoy.com/user/trancor' class="textBump" target='_blank'>Trancor</a>

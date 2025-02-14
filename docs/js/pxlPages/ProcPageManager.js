@@ -11,7 +11,7 @@
 //     I just like I can set css overrides from the page divs themselves;
 //      `page-style="divId:className;divId2:className2;[...]"`
 //     Marking a div as a page with css overrides like this -
-//      `<div name="gitPage" page-id="Repos" page-style="footerBar:repoPage_footerBar;[...]" class="[...]"> [...] </div>`
+//      `<div name="procPages" page-id="Repos" page-style="footerBar:repoPage_footerBar;[...]" class="[...]"> [...] </div>`
 //     Then set a default class to revert if I want to with -
 //      `pages-default-class="footerBar"`
 //
@@ -33,6 +33,8 @@ export class ProcPageManager {
     this.defaultPage = "Init";
     this.pageListing = {};
 
+    this.versionReplace = '';
+
     this.faderTimeout = 850;
 
     this.defaultPageListing = {
@@ -45,20 +47,8 @@ export class ProcPageManager {
     };
 
     this.parentObjectData = {
-      "parent" : {
-        "name" : "pxlPagesContentParent",
-        "obj" : null
-      },
-      "before" : {
-        "name" : "pxlPagesInnerBefore",
-        "obj" : null
-      },
       "body" : {
-        "name" : "pxlPageContentBlock",
-        "obj" : null
-      },
-      "after" : {
-        "name" : "pxlPagesInnerAfter",
+        "name" : "pxlPagesContentParent",
         "obj" : null
       }
     };
@@ -128,24 +118,30 @@ export class ProcPageManager {
     });
 
   }
+
+  setVersion( version ){
+    this.versionReplace = version;
+  }
   
-  setPxlNavVersion( version ){
+  setPxlNavVersion( version=null ){
+    if( version == null ){
+      version = this.versionReplace;
+    }
     if( version[0] != "v" ){
       version = "v" + version;
     }
-    let pnv = document.getElementById("pxlNavVersion");
-    if( pnv ){
-      pnv.innerText = version;
-    }
-    let pnpv = document.getElementById("pxlNavPageVersion");
-    if( pnpv ){
-      pnpv.innerText = version;
-    }
+    let pnv = [...document.getElementsByClassName("pxlNavVersion")];
+    pnv.forEach(curPNV => {
+      if( !curPNV.hasAttribute("versionAdded") ){
+        curPNV.setAttribute("versionAdded", version);
+        curPNV.innerText = version;
+      }
+    });
   }
 
   init(){
     this.mainDiv = document.getElementById("procPagesMainBlock");
-    this.navBar = document.getElementById("gitPageNav");
+    this.navBar = document.getElementById("procPagesNav");
 
     // Find divs used to parent page content to
     let parentDivKeys = Object.keys(this.parentObjectData);
@@ -286,7 +282,7 @@ export class ProcPageManager {
   
 
   findDomUserEvents(){
-    let toggleDomObjs = [...document.getElementById("gitPageToggleDOM").children];
+    let toggleDomObjs = [...document.getElementById("procPagesToggleDOM").children];
     toggleDomObjs.forEach( (toggleLink)=>{
       let domEventType = toggleLink.getAttribute("pageEvent");
       if( !this.toggleDomEvents.hasOwnProperty(domEventType) ){
@@ -543,6 +539,9 @@ export class ProcPageManager {
       // Apply new page styles
       this.setStyleOverrides();
 
+      // Check for missing version entries after a built page
+      this.setPxlNavVersion();
+
       // Correct the scroll position from previous time on the page
       // TODO: Review; I may want to remove this. It was a fix for when all of the pages were in the same div
       //         Since they've split out, this may not be necessary
@@ -743,36 +742,35 @@ export class ProcPageManager {
       return;
     }
 
-    let pageDivsStyles = document.getElementsByName("gitPage");
+    let pageDiv = this.pageListing[this.curPageName]["obj"];
     if( vis ){
       this.domEventStates.ToggleDOM = true;
       obj.style.display = "";//"block";
       obj.classList.add("pagesVisMid");
       obj.classList.remove("pagesVisOn");
 
-      pageDivsStyles.forEach( (pageDiv)=>{
-        pageDiv.style.maxHeight="0px";
-        pageDiv.style.minHeight="0px";
-        pageDiv.style.padding="0px 10px";
-        pageDiv.classList.add("gpcpHiddenStyle");
-        pageDiv.classList.remove("gpcpVisibleStyle");
-        
-        pageDiv.style.border = "0px";
-      });
-    } else {
+      pageDiv.style.maxHeight="0px";
+      pageDiv.style.minHeight="0px";
+      pageDiv.style.padding="0px 10px";
+      pageDiv.classList.add("gpcpHiddenStyle");
+      pageDiv.classList.remove("gpcpVisibleStyle");
+      
+      pageDiv.style.border = "0px";
+
+    }else{
       this.domEventStates.ToggleDOM = false;
       obj.classList.add("pagesVisOn");
       obj.classList.remove("pagesVisMid");
-      pageDivsStyles.forEach( (pageDiv)=>{
-        pageDiv.style.maxHeight = "";
-        pageDiv.style.minHeight = "";
-        pageDiv.style.padding = "";
-        pageDiv.classList.add("gpcpVisibleStyle");
-        pageDiv.classList.remove("gpcpHiddenStyle");
 
-        
-        pageDiv.style.border = "";
-      });
+      pageDiv.style.maxHeight = "";
+      pageDiv.style.minHeight = "";
+      pageDiv.style.padding = "";
+      pageDiv.classList.add("gpcpVisibleStyle");
+      pageDiv.classList.remove("gpcpHiddenStyle");
+
+      
+      pageDiv.style.border = "";
+
     }
   }
 

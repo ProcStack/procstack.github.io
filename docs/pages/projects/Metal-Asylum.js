@@ -1,10 +1,12 @@
 
 export const pageListingData = {
   'name' : 'Metal-Asylum.Net',
+  'navGroup' : 'Personal Projects',
+  'navStyle' : ['hideOnMobile'],
   'media' : [],
   'content' : `
-    <br><div class="gitPageProjectsHeaderStyle"><a href='http://www.metal-asylum.net' class="textBump" target='_blank'>Metal-Asylum.net</a></div>
-    <div class="gitPageProjectsDescriptionStyle">My main site - an earlier version of <span class="textNudge">pxlNav</span>,
+    <div class="procPagesProjectsHeaderStyle"><a href='http://www.metal-asylum.net' class="textBump" target='_blank'>Metal-Asylum.net</a></div>
+    <div class="procPagesProjectsDescriptionStyle">My main site - an earlier version of <span class="textNudge">pxlNav</span>,
       <br>But this time you can walk around and jump - Best on desktop
       
       <br><br>It changes every couple'a years, never quite getting to a state of being “done,” yet always a shotgun blast of different dev work.

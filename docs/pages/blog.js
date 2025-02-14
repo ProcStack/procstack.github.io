@@ -16,9 +16,25 @@ const pageContentObject = {
   'title' : 'Blog',
   'header' : '',
   'subHeader' : '',
-  'pageStyles' : ['gitPageContentStyle', 'gitBlogPageStyle'],
+  'pageStyles' : {
+    'block' : ['procPagesContentStyle', 'gitBlogPageStyle'],
+    'before' : [ 'procPagesInnerBefore' ],
+    'parent' : [ 'procPagesParentStyle', 'gitBlogPageParentStyle' ],
+    'header' : [ 'procPagesHeaderStyle' ],
+    'subHeader' : [ '' ],
+    'inner' : [ 'procPagesLayoutTripleStyle' ],
+    'sectionHeader' : [ '' ],
+    'sectionNav' : [ '' ],
+    'sectionNavButton' : [ 'gitBlogPage-sectionNavButtonStyle' ],
+    'sectionNavButtonActive' : [ 'gitBlogPage-sectionNavButtonAvtiveStyle' ],
+    'sectionContent' : [ '' ],
+    'sectionMedia' : [ '' ],
+    'content' : [ 'gitBlogPageScrollbarStyle' ],
+    'media' : [ 'gitBlogPageScrollbarStyle' ],
+    'after' : [ 'procPagesInnerAfter' ]
+  },
   'styleOverrides' : {
-    'gitPagesNavBlock' : 'gitPageNav_blogStyle',
+    'procPagesNavBlock' : 'procPagesNav_blogStyle',
     'footerBar' : 'blogPage_footerBar'
   },
   'sections' : [

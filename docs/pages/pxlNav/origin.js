@@ -1,21 +1,23 @@
 
 export const pageListingData = {
-  'name' : '',
+  'name' : 'Origin',
   'media' : [
     {
       'type' : 'youtube',
       'src' : '_vzqZ2sNjaw',
-      'alt' : 'Huge holiday party thank you video'
+      'alt' : 'Huge holiday party thank you video',
+      'style' : 'procPagesMediaStyle'
     },
     {
       'type' : 'image',
       'src' : '../pages/pxlNav/images/Antib0dyClub_10_chatImplemented.jpg',
       'alt' : 'Chat features in Antibody Club',
+      'style' : 'procPagesImageStyle',
       'caption' : ["Antibody Club [defunct] - Showing some of the, now removed, network features."]
     }
   ],
   'content' : `
-    <div class="gitPagePxlNavSmallDescStyle">
+    <div class="procPagesPxlNavSmallDescStyle">
       Originally <span class="textNudge">pxlNav</span> was made for a virtual event space named "Antibody Club" [defunct] during 2020 Covid lockdowns.
       <br>Hosted virtual events, album releases, dj sets, & holiday parties while we couldn't in meat space.
 
@@ -38,10 +40,10 @@ export const pageListingData = {
       <br>Websites are just there, anywhere, and can be turned into apps easily these days.
       <br>So why not?
     </div>
-    <div class="gitPagePxlNavEndNoteStyle">
+    <div class="procPagesPxlNavEndNoteStyle">
       During the run of Antibody Club (2020), I had a helping hand on a couple shaders, camera animations, and some other odds'n'ends. 
       <br>Much of which has been updated since, wanted to give my thanks never-the-less!
-      <div class="gitPagePxlNavSpacer"></div>
+      <div class="procPagesPxlNavSpacer"></div>
       So, I'd be remiss if I didn't mention <span class="textNudge">Michael Lee</span> & <span class="textNudge">Charles Wang</span> for helping on Antibody Club / pxlNav.
     </div>
   `,

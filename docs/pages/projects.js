@@ -29,36 +29,54 @@ const pageContentObject = {
   'header' : 'Repos / Projects / Socials',
   'subHeader' : '',
   'footer' : `
-    <span class="gitPageHeaderStyle">Socials-</span>
     <div class="socialsLinkStyle">
+      <span class="procPagesHeaderNoPadStyle">Socials-</span>
       <a href='https://www.youtube.com/@trancorwd' class="textBump" target='_blank'>YouTube</a>
       <a href='https://instagram.com/trancor.diy' class="textBump" target='_blank'>Instagram</a>
-      <a href='https://github.com/ProcStack' class="textBump" target='_blank'>GitHub (you're there baby!)</a>
+      <a href='https://github.com/ProcStack' class="textBump" target='_blank'>GitHub</a>
     </div>
   `,
-  'pageStyles' : ['gitPageContentStyle', 'gitProjectsPageStyle'],
+  'pageStyles' : {
+    'block' : ['procPagesContentStyle', 'gitProjectsPageStyle'],
+    'before' : [ 'procPagesInnerBefore' ],
+    'parent' : [ 'procPagesParentStyle', 'gitProjectsPageParentStyle' ],
+    'header' : [ 'procPagesHeaderStyle' ],
+    'subHeader' : [ '' ],
+    'inner' : [ 'procPagesLayoutTripleStyle' ],
+    'sectionHeader' : [ '' ],
+    'sectionNav' : [ '' ],
+    'sectionNavButton' : [ 'gitProjectsPage-sectionNavButtonStyle' ],
+    'sectionNavButtonActive' : [ 'gitProjectsPage-sectionNavButtonAvtiveStyle' ],
+    'sectionContent' : [ '' ],
+    'sectionMedia' : [ '' ],
+    'content' : [ 'gitProjectsPageScrollbarStyle' ],
+    'media' : [ 'gitProjectsPageScrollbarStyle' ],
+    'after' : [ 'procPagesInnerAfter' ]
+  },
   'styleOverrides' : {
-    'gitPagesNavBlock' : 'gitPageNav_projectsStyle',
+    'procPagesNavBlock' : 'procPagesNav_projectsStyle',
     'footerBar' : 'projectsPage_footerBar'
   },
-  'sections' : {
-    "Repos to Check Out" : [
+  'navGroupOrder' : [
+    "Repos to Check Out",
+    "Personal Projects",
+    "The One'Offs"
+  ],
+  'initialSection' : 1,
+  'sections' : [
         psghioData,
         procPromoData,
         pxlVisData,
-        pxlTextGenData
-      ],
-    "Personal Projects" : [
+        pxlTextGenData,
+
         metalAsylumData,
         pxlmancerData,
         neurousNetData,
-        pxlCamData
-      ],
-    "The One'Offs" : [
+        pxlCamData,
+
         shadertoyData,
         dwitterData
-      ],
-  }
+  ]
 }
 // -- -- --
 

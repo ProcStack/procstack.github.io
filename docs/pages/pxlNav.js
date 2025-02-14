@@ -20,15 +20,31 @@ const pageContentObject = {
   'page' : 'pxlNav',
   'title' : 'pxlNav Breakdown',
   'header' : '<a href="https://github.com/ProcStack/pxlNav" target="_blank">pxlNav <span class="pxlNavVersion"></span></a>',
-  'subHeader' : `A javascript player controller & room manager for Three.js
-    <br><div class="gitPagePxlNavShortcuts">
-      <span>Hit <span class="textBoldBox">P</span> on your keyboard to pause the background.</span>
-      <span>Hit <span class="textBoldBox">Y</span> to open the <span class="textNudge">GLSL Shader Editor</span>.</span>
+  'subHeader' : `<span>A <span class='procPagesHideWhenThin'>javascript </span>player controller & room manager<span class='procPagesHideWhenThin'>&nbsp;for Three.js</span></span>
+    <br><div class="procPagesPxlNavShortcuts procPagesHideWhenThin">
+      <span>Hit <span class="textBoldBox">P</span> to pause the background</span>
+      <span>Hit <span class="textBoldBox">Y</span> to open the <span class="textNudge">Shader Editor</span></span>
     </div>
   `,
-  'pageStyles' : ['gitPageContentStyle', 'gitPxlNavPageStyle'],
+  'pageStyles' : {
+    'block' : ['procPagesContentStyle', 'gitPxlNavPageStyle'],
+    'before' : [ 'procPagesInnerBefore' ],
+    'parent' : [ 'procPagesParentStyle', 'gitPxlNavPageParentStyle', 'gitPxlNavPageScrollbarStyle' ],
+    'header' : [ 'procPagesHeaderStyle' ],
+    'subHeader' : [ '' ],
+    'inner' : [ 'procPagesLayoutTripleStyle' ],
+    'sectionHeader' : [ '' ],
+    'sectionNav' : [ '' ],
+    'sectionNavButton' : [ 'gitPxlNav-sectionNavButtonStyle' ],
+    'sectionNavButtonActive' : [ 'gitPxlNav-sectionNavButtonAvtiveStyle' ],
+    'sectionContent' : [ '' ],
+    'sectionMedia' : [ '' ],
+    'content' : [ 'gitPxlNavPageScrollbarStyle' ],
+    'media' : [ 'gitPxlNavPageScrollbarStyle' ],
+    'after' : [ 'procPagesInnerAfter' ]
+  },
   'styleOverrides' : {
-    'gitPagesNavBlock' : 'gitPageNav_pxlNavStyle',
+    'procPagesNavBlock' : 'procPagesNav_pxlNavStyle',
     'footerBar' : 'pxlNavPage_footerBar'
   },
   'sections' : [

@@ -1,15 +1,16 @@
 <!--
-// Frayed Fables - 2024
+// ProcStack.Github.io - 2024,2025
 // By Kevin Edzenga
-// Kevin@Frayed-Fables.com
+// Kevin@Metal-Asylum.Net
 //
 // --
 // 
-// Thanks for viewing the source code for Unkempt Threads!
+// Thanks for viewing the source code for procstack.github.io!
 //   If you have any questions, feel free to reach out to me at the email above.
-// If you are viewing this page through your browser,
-//   You may view the source code on my GitHub page at:
 //
+// If you'd rather see the source code on the repo -
+//   https://github.com/ProcStack/procstack.github.io/tree/main/docs
+//     For page content, see `./pages`
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -75,22 +76,21 @@
     
 <!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
 <!-- Primary site & `pxlPages` Implementation  -- -->
-<!--   For page content, see `./js/pages`  -- -->
-<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
+<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
     <div id="procPagesMainBlock" class="procPagesMainBlockStyle pagesFader pagesVisOff">
         <div id="procStackGitParent" class="procStackGitParentStyle">
-            <div id="gitPagesNavBlock"  pages-default-class="gitPageNav_defaultStyle" class="gitPageNavBlockStyle gitPageNav_defaultStyle">
-                <div id="gitPageNavHeader" class="gitPageNavHeaderStyle gpnhScreenMedia">
+            <div id="procPagesNavBlock"  pages-default-class="procPagesNav_defaultStyle" class="procPagesNavBlockStyle procPagesNav_defaultStyle">
+                <div id="procPagesNavHeader" class="procPagesNavHeaderStyle gpnhScreenMedia">
                   <span class="squashInLowRes">_ProcStack_</span>
                 </div>
-                <div id="gitPageNav" class="gitPageNavStyle">
+                <div id="procPagesNav" class="procPagesNavStyle">
                   <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="init" page-theme="#6b420c" page-name="Init" alt="Link to Init...">Init.</a>
                   <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="pxlNav" page-theme="#186d18" page-name="pxlNav" alt="Some info on this git.io site's backbone">pxlNav</a>
                   <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="repos" page-theme="#3d4297" page-name="MakingOf" alt="The gears & servos">Making<span class="squashInLowRes"> Of</span>...</a>
-                  <a class="pageLinkStyle" pxlRoomName="SaltFlatsEnvironment" pxlCameraView="default" page-theme="#184d76" page-name="ProjectsLinks" alt="Real world projects">Projects<span class="squashInLowRes">&nbsp;/ Links</span></a>
+                  <a class="pageLinkStyle" pxlRoomName="SaltFlatsEnvironment" pxlCameraView="default" page-theme="#184d76" page-name="ProjectsLinks" alt="Real world projects"><span class="squashInLowRes">Repos /&nbsp;</span>Projects</a>
                   <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="default" page-theme="##3a1c69" page-name="Blog" alt="My ramblings...">Blog</a>
                   <a class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="aboutMe" page-theme="#656565" page-name="AboutMe" alt="It's ah me! Marrr.... yeah"><span class="squashInLowRes">About&nbsp;</span>Me</a>
-                  <span id="gitPageToggleDOM" class="gitPageToggleDOMStyle">
+                  <span id="procPagesToggleDOM" class="procPagesToggleDOMStyle">
                     <a class="pageLinkStyle" pageEvent="ToggleDOM" pageValue=1 alt="Toggle the website contents">§</a>
                     <a class="pageLinkStyle" pageEvent="ToggleDOM" pageValue=0 alt="Toggle the website contents">¤</a>
                   </span>
@@ -101,9 +101,6 @@
             
             <div id="pxlPagesContentBlock" class="pxlPagesContentBlockStyle gpcpVisibleStyle heightFader">
               <div id="pxlPagesContentParent" class="pxlPagesContentParentStyle">
-                <div id="pxlPagesInnerBefore"></div>
-                <div id="pxlPageContentBlock"></div>
-                <div id="pxlPagesInnerAfter"></div>
               </div>
             </div>
             
@@ -112,7 +109,7 @@
             <div class="footerBarParent">
                 <div id="footerBar" pages-default-class="defaultPage_footerBar" class="footerBar defaultPage_footerBar">
                     <div class="leftFooter versionStyle">
-                        <a href="https://github.com/ProcStack/pxlNav" target="_blank">[: pxlNav <span id="pxlNavVersion"></span> :]</a>
+                        <a href="https://github.com/ProcStack/pxlNav" target="_blank">[: pxlNav <span class="pxlNavVersion"></span> :]</a>
                     </div>
                     <div>
                     </div>

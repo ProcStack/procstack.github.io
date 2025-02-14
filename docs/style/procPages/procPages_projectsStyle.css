@@ -4,9 +4,7 @@
 .gitProjectsPageStyle{
   position: fixed;
   bottom: 3.5vmax;
-  max-height: 60vh;
-  width: max(50%, 1600px);
-  max-width: calc(100vw - 5vmax);
+  max-width: var(--procPage-width);
   justify-self: center;
   justify-items: center;
   z-index: 4;
@@ -15,13 +13,71 @@
 
 /* -- -- -- */
 
+.gitProjectsPage-sectionNavButtonStyle{
+  color: rgba(232, 246, 255, 0.96);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(33, 81, 116, 0.46);
+  border-color: rgba(84, 203, 255, 0.46);
+}
+.gitProjectsPage-sectionNavButtonStyle:hover{
+  color: rgb(196, 231, 255);
+  text-shadow: 1.5px 1.5px 4px #252525d6;
+  background-color: rgba(77, 142, 194, 0.37);
+  border-color: rgba(29, 193, 243, 0.74);
+}
+.gitProjectsPage-sectionNavButtonStyle:active{
+  color: rgba(130, 205, 255, 0.95);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(41, 79, 107, 0.37);
+  border-color: rgba(25, 175, 220, 0.84);
+}
 
-.gitProjectsPageInnerStyle{
+.gitProjectsPage-sectionNavButtonAvtiveStyle{
+  color: #ffffff;
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(48, 120, 171, 0.88);
+  border-color: rgba(84, 204, 255, 0.645);
+}
+
+/* -- -- -- */
+
+.gitProjectsPageScrollbarStyle::-webkit-scrollbar {
+  border-radius: 2px;
+	width: 10px;
+}
+
+.gitProjectsPageScrollbarStyle::-webkit-scrollbar-track {
+  border-radius: 2px;
+	background: rgba(23, 72, 108, 0.25);
+}
+
+.gitProjectsPageScrollbarStyle::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+	cursor: grab;
+  background-color: rgba(30, 71, 118, 0.9);
+}
+.gitProjectsPageScrollbarStyle::-webkit-scrollbar-thumb:hover {
+  border-radius: 2px;
+	background-color: rgba(43, 109, 185, 0.8);
+}
+
+/* -- -- -- */
+
+
+
+
+@media screen and (max-width: 600px){
+  .hideOnMobile{
+    display: none;
+  }
+}
+
+
+/* -- -- -- */
+
+.gitProjectsPageParentStyle{
   display: grid;
   grid-auto-flow: row;
-  justify-items: center;
-  max-height: calc( 60vh - var(--inner-height-reduce) );
-  max-width: calc(100vw - 5vmax - var(--inner-padding));
   padding: var(--inner-padding);
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
   border-radius: 2px;
@@ -29,14 +85,14 @@
   background-image: radial-gradient(150% 75% ellipse at top, rgba(62, 95, 117, 0.9), rgba(62, 95, 117, 0)), 
                     radial-gradient(150% 75% ellipse at bottom, rgba(59, 81, 107, 0.8), rgba(59, 81, 107, 0));
   pointer-events: auto;
-  overflow: auto;
+  overflow: hidden;
 }
 
-.gitProjectsPageInnerStyle a{
+.gitProjectsPageParentStyle a{
   color: #9eceff;
 }
 
-.gitProjectsPageStyle #pxlPagesInnerBefore {
+.gitProjectsPageStyle .procPagesInnerBefore {
   content : '';
   border-radius: 5px 5px 0px 0px;
   background: transparent;
@@ -50,7 +106,7 @@
   margin-right: auto;
 }
 
-.gitProjectsPageStyle #pxlPagesInnerAfter {
+.gitProjectsPageStyle .procPagesInnerAfter {
   content : '';
   border-radius: 0px 0px 5px 5px;
   background: transparent;
@@ -64,50 +120,35 @@
   margin-right: auto;
 }
 
-/* -- -- -- */
-
-.gitProjectsPageInnerStyle::-webkit-scrollbar {
-  border-radius: 2px;
-	width: 10px;
-}
-
-.gitProjectsPageInnerStyle::-webkit-scrollbar-track {
-  border-radius: 2px;
-	background: rgba(23, 72, 108, 0.25);
-}
-
-.gitProjectsPageInnerStyle::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-	cursor: grab;
-  background-color: rgba(30, 71, 118, 0.9);
-}
-.gitProjectsPageInnerStyle::-webkit-scrollbar-thumb:hover {
-  border-radius: 2px;
-	background-color: rgba(43, 109, 185, 0.8);
-}
 
 /* -- -- -- */
 
-/* -- -- -- */
-
-.gitPageNav_projectsStyle {
+.procPagesNav_projectsStyle {
   background: linear-gradient(90deg, rgba(37, 111, 168, 0.0), rgba(37, 111, 168, 0.45), rgba(37, 119, 181, 0.5), rgba(37, 111, 168, 0.45), rgba(37, 111, 168, 0.0));
   border-bottom: 1px solid rgba(17, 108, 191, 0.4);
 }
-.gitPageNav_projectsStyle a {
+.procPagesNav_projectsStyle a {
   border: 1px solid rgb(119 178 223);
   color: rgb(175 220 255);
   background-color: rgba(32, 120, 188, 0.35);
 }
-.gitPageNav_projectsStyle a:hover {
+.procPagesNav_projectsStyle a:hover {
   text-shadow: 1px 1.5px 4px #5fb3f4;
   background-color: rgba(22, 134, 219, 0.675);
 }
-.gitPageNav_projectsStyle a:active {
+.procPagesNav_projectsStyle a:active {
   color: #cccccc;
   text-shadow: 1px 1.5px 4px #4a80a9;
   background-color: rgba(24, 77, 118, 0.592);
 }
+
+.procPagesNav_projectsActiveStyle a {
+  text-shadow: 1px 1.5px 4px #5fb3f4;
+  background-color: rgba(22, 134, 219, 0.675);
+}
+
+
+
 
 /* -- -- -- */
 
@@ -132,20 +173,20 @@
 /* -- -- -- */
 
 
-.gitPageProjectsHeaderStyle{
+.procPagesProjectsHeaderStyle{
   width:90%;
   max-width: 1400px;
 }
-.gitPageProjectsDescriptionStyle{
+.procPagesProjectsDescriptionStyle{
   width:85%;
   max-width: 1300px;
 }
-.gitPageProjectsSmallDescStyle{
+.procPagesProjectsSmallDescStyle{
   width:65%;
   max-width: 800px;
 }
 
-.gitPageProjectsSpacer{
+.procPagesProjectsSpacer{
   height: 7px;
   overflow: hidden;
 }
@@ -153,4 +194,6 @@
 .socialsLinkStyle {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
+  padding-top: 1px;
 }

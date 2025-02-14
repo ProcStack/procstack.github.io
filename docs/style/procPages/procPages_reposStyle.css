@@ -2,11 +2,9 @@
 /* -- -- -- */
 
 .gitReposPageStyle{
-  max-height: 65vh;
-  max-width: calc(max(min(100vw - 7vmax, 500px), min(100vw - 7vmax, 40vw + ((1000px - 100vw)* 5))));
   position: fixed;
-  right: max(2vmax, 50vw - 750px);
   bottom: 4vmax;
+  width: var(--procPage-width);
   justify-self: center;
   justify-items: center;
   z-index: 3;
@@ -15,19 +13,67 @@
 
 /* -- -- -- */
 
+.gitReposPage-sectionNavButtonStyle{
+  color: rgb(168 197 255);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(12, 55, 113, 0.71);
+  border-color: rgb(51 61 186);
+}
+.gitReposPage-sectionNavButtonStyle:hover{
+  color: rgb(231 239 255);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(21, 67, 189, 0.71);
+  border-color: rgb(59 74 255);
+}
+.gitReposPage-sectionNavButtonStyle:active{
+  color: rgb(184 204 245);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(3, 29, 97, 0.71);
+  border-color: rgb(36 51 232);
+}
 
-.gitReposPageInnerStyle{
-  max-height: calc( 65vh - var(--inner-height-reduce) );
-  max-width: calc(max(min(100vw - 7vmax, 500px), min(100vw - 7vmax, 40vw + ((1000px - 100vw)* 5))) - var(--inner-padding));
+.gitReposPage-sectionNavButtonAvtiveStyle{
+  color: rgb(231 239 255);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(21, 67, 189, 0.71);
+  border-color: rgb(59 74 255);
+}
+
+/* -- -- -- */
+
+.gitReposPageScrollbarStyle::-webkit-scrollbar {
+  border-radius: 2px;
+	width: 10px;
+}
+
+.gitReposPageScrollbarStyle::-webkit-scrollbar-track {
+  border-radius: 2px;
+	background: rgba(51, 76, 161, 0.308);
+}
+
+.gitReposPageScrollbarStyle::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+	cursor: grab;
+	background-color: rgba(33, 53, 117, 0.75);
+}
+.gitReposPageScrollbarStyle::-webkit-scrollbar-thumb:hover {
+  border-radius: 2px;
+	background-color: rgba(34, 61, 151, 0.811);
+}
+
+/* -- -- -- */
+
+.gitReposPageParentStyle{
+  height : 65vh;
   padding: var(--inner-padding);
   border-radius: 2px;
   background: linear-gradient(149deg, rgba(28, 76, 178, 0.4), rgba(29, 43, 66, 0.65), rgba(28, 48, 82, 0.4));
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
   pointer-events: auto;
-  overflow: auto;
+  overflow: hidden;
 }
 
-.gitReposPageStyle #pxlPagesInnerBefore {
+.gitReposPageStyle .procPagesInnerBefore {
   content : '';
   border-radius: 5px 5px 0px 0px;
   background: transparent;
@@ -41,7 +87,7 @@
   margin-right: auto;
 }
 
-.gitReposPageStyle #pxlPagesInnerAfter {
+.gitReposPageStyle .procPagesInnerAfter {
   content : '';
   border-radius: 0px 0px 5px 5px;
   background: transparent;
@@ -57,66 +103,40 @@
 
 /* -- -- -- */
 
-.gitReposPageInnerStyle::-webkit-scrollbar {
-  border-radius: 2px;
-	width: 10px;
-}
 
-.gitReposPageInnerStyle::-webkit-scrollbar-track {
-  border-radius: 2px;
-	background: rgba(51, 76, 161, 0.308);
-}
-
-.gitReposPageInnerStyle::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-	cursor: grab;
-	background-color: rgba(33, 53, 117, 0.75);
-}
-.gitReposPageInnerStyle::-webkit-scrollbar-thumb:hover {
-  border-radius: 2px;
-	background-color: rgba(34, 61, 151, 0.811);
-}
-
-/* -- -- -- */
-
-.gitPageNav_reposStyle {
+.procPagesNav_reposStyle {
   background: linear-gradient(90deg, rgba(28, 30, 46, 0), rgba(27, 47, 95, 0.45), rgba(51, 62, 107, 0.55), rgba(27, 47, 95, 0.45), rgba(28, 30, 46, 0));
   border-bottom: 1px solid rgb(58 58 153 / 45%);
 }
-.gitPageNav_reposStyle a {
+.procPagesNav_reposStyle a {
   border: 1px solid #8086fd;
   color: #6e86ff;
   background-color: rgba(77, 91, 140, 0.35);
 }
-.gitPageNav_reposStyle a:hover {
+.procPagesNav_reposStyle a:hover {
   text-shadow: 1px 1.5px 4px #2a469b;
   background-color: rgba(87, 112, 204, 0.532);
 }
-.gitPageNav_reposStyle a:active {
+.procPagesNav_reposStyle a:active {
   color: #3d4297;
   border: 1px solid #5156af;
   text-shadow: 1px 1.5px 4px #18254f;
   background-color: rgba(53, 64, 104, 0.541);
 }
 
+.procPagesNav_reposActiveStyle a {
+  text-shadow: 1px 1.5px 4px #2a469b;
+  background-color: rgba(87, 112, 204, 0.532);
+}
 
 /* -- -- -- */
 
-.gitPageRepoLinkStyle{
+.procPagesRepoLinkStyle{
   margin-bottom: 3px;
   font-size: 1.2em;
 }
-.gitPageRepoLinkStyle::before {
-  content: "";
-  display: block;
-  justify-self: center;
-  width: 80%;
-  height: 1px;
-  background-color: rgba(120, 120, 120, 0.35);
-  margin: 10px 0px 5px 0px;
-}
 
-.gitPageRepoImageStyle{
+.procPagesRepoImageStyle{
   width: calc(max(40vw,500px));
   max-width: calc( max(min(100vw - 7vh, 480px), min( 100vw - 7vh, 40vw + ( (1000px - 100vw)*5) )) );
   height: auto;

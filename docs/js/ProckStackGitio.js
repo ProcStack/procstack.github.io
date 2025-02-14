@@ -76,7 +76,7 @@ userSettings['gravity']['Max'] = 15.5; // Max gravity rate
 // Target FPS (Frames Per Second)
 //   Default is - PC = 30  -&-  Movile = 30
 const targetFPS = {
-  'PC' : 45,
+  'PC' : 30,
   'Mobile' : 20
 };
 
@@ -116,6 +116,7 @@ const collisionScale = {
 // Create the main page manager
 //  - Not related to pxlNav -
 const procPages = new ProcPageManager();
+procPages.setVersion( pxlNavVersion );
 // Set the Meta Data per page
 //   Page changes will update the meta data automatically if the page is in the list
 //procPages.setPageMetaData( ProcPageMetaData );

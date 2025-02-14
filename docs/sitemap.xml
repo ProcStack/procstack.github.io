@@ -24,7 +24,7 @@
     <loc>https://procstack.github.io/MakingOf.htm</loc>
     <lastmod>2025-02-10</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
       <image:title>Making Of procstack.github.io</image:title>
@@ -44,7 +44,7 @@
     <loc>https://procstack.github.io/Blog.htm</loc>
     <lastmod>2025-02-10</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
       <image:title>ProcStack's Blog</image:title>
@@ -54,7 +54,7 @@
     <loc>https://procstack.github.io/AboutMe.htm</loc>
     <lastmod>2025-02-10</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
       <image:title>About ProcStack</image:title>

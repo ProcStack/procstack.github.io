@@ -1,9 +1,9 @@
 
 export const pageListingData = {
-  'name' : "What's <span class='textNudge'>pxlNav</span>?",
+  'name' : "What's&nbsp;<span class='textNudge'>pxlNav</span>?",
   'media' : [],
   'content' : `
-    <div class="gitPagePxlNavDescriptionStyle">
+    <div class="procPagesPxlNavDescriptionStyle">
       <br>The background of this page is running '<span class="textNudge">pxlNav</span>',
       <br>Javascript package to extend Three.js to make it more interactive / game like.
       

@@ -1,40 +1,37 @@
 
 export const pageListingData = {
-  'name' : '',
+  'name' : 'AI Dev',
   'media' : [
     {
-      'type' : 'manualLoad',
-      'src' : 'https://pxlmancer.com/show/esnLearning.gif',
-      'thumb' : '../pages/aboutMe/images/esnLearning_th.png',
-      'width' : 320,
-      'height' : 320,
+      'type' : 'video',
+      'src' : '../pages/aboutMe/images/esnLearning.webm',
       'alt' : "ESN Horizontal-Vertical Slice",
+      'style' : 'procPagesImageStyle',
       'caption' : ["Upper left are some videos I made, upper right are it's 'levels' of learning R-G-B,",
           "<br>Where red are known patterns, green are the edges of the patterns, and blue are the 'less likely' patterns.",
-          "<div class='gitPageAboutMeSpacer'></div>",
+          "<div class='procPagesAboutMeSpacer'></div>",
           "Then on the bottom are two slices of the patterns the brain thinks its seeing and then predicting."
         ]
     },
     {
-      'type' : 'manualLoad',
-      'src' : 'https://pxlmancer.com/show/learningGradients_84_opt.gif',
-      'thumb' : '../pages/aboutMe/images/learningGradients_84_th.jpg',
-      'width' : 320,
-      'height' : 320,
+      'type' : 'video',
+      'src' : '../pages/aboutMe/images/learningGradients_84.webm',
       'alt' : "ESN Horizontal-Vertical Slice",
+      'style' : 'procPagesImageStyle',
       'caption' : ["Different types of slices from the same ESN, just different input video."]
     },
     {
       'type' : 'image',
       'src' : '../pages/aboutMe/images/learningGradients_84_brainSlice.png',
       'alt' : "Custom ESN Learning Gradients",
+      'style' : 'procPagesImageStyle',
       'caption' : ["A slice of the ESN's brain by frame 101 of watching the X pattern video."]
     }
   ],
   'content' : `
     <br>
     <br>Outside of that, I'm on'n'off working on <span class="textNudge">Graph Attention Network</span> artificial intelligence.
-    <div class='gitPageAboutMeSpacer'></div>
+    <div class='procPagesAboutMeSpacer'></div>
     I've been working on a general-purpose neuron that adjusts its own connections during prediction.
     <br>&nbsp;&nbsp; I call it a "model-less" ai network, even though the model is just dynamically generated based on input data.
     <br>It's the Structure which derives regions of neural activation based on stimuli, like the Butterfly Effect echoing through nature.
@@ -45,7 +42,7 @@ export const pageListingData = {
     
     <br>
     <br>
-    <div class='gitPageAboutMeInfoStyle'>
+    <div class='procPagesAboutMeInfoStyle'>
       ...Mostly they are used for "<span class="textNudge">Recommendation Systems</span>",
       <br><span class="textItalicBox">Hey, you might know <span class="textNudge">Jim Bob McGee</span>!!</span>
       <br>But could be used for so much more!
@@ -58,24 +55,24 @@ export const pageListingData = {
     <br><span class="innerCenter">How about an ESN AI I wrote in the summer of 2024?
       <br>An ESN or Echo State Network is a type of RNN which considers time in it's prediction.
       <br>It thinks about past events to predict future events.
-      <div class='gitPageAboutMeSpacer'></div>
+      <div class='procPagesAboutMeSpacer'></div>
       Since the brain learns on the fly, why not feed it some videos I made?
     </span>
     
     
-                  <div class='gitPageAboutMeSpacer'></div>
+                  <div class='procPagesAboutMeSpacer'></div>
     
     <br>
     <br><span class="innerCenter">
-      <div class='gitPageAboutMeSpacer'></div>
+      <div class='procPagesAboutMeSpacer'></div>
       Upper left is another video I made the AI is watching, upper right is shifts in detected movement,
       <br>Lower left is a slice of the brain's learned wrinkles, lower right is predicted movement.</span>
-      <div class='gitPageAboutMeSpacer'></div>
+      <div class='procPagesAboutMeSpacer'></div>
       Currently it doesn't use the predicted movement for anything,
       <br>The next step would be introducing a base image to motion-transfer / referece.
-      <div class='gitPageAboutMeSpacer'></div>
+      <div class='procPagesAboutMeSpacer'></div>
       So I'm just learnin' while watching my ai learnin'!
-      <div class='gitPageAboutMeSpacer'></div>
+      <div class='procPagesAboutMeSpacer'></div>
       
       <br>With a "reservoir" of 15 times steps, you'll notice about every 15 frames the brain shifts.
       <br>By frame ~45, it's learned some patterns
@@ -86,7 +83,7 @@ export const pageListingData = {
       <br>But it's detecting patterns in motion!
     </span>
     
-                  <div class='gitPageAboutMeSpacer'></div>
+                  <div class='procPagesAboutMeSpacer'></div>
 
 
     <br>Since I didn't have a good use case for the ESN in Python,

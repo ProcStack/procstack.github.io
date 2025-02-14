@@ -15,15 +15,52 @@ const pageContentObject = {
   'title' : 'Making Of ProcStack.GitHub.io',
   'header' : 'Making Of...',
   'subHeader' : '',
-  'pageStyles' : ['gitPageContentStyle', 'gitReposPageStyle'],
+  'pageStyles' : {
+    'block' : [ 'procPagesContentStyle', 'gitReposPageStyle' ],
+    'before' : [ 'procPagesInnerBefore' ],
+    'parent' : [ 'procPagesParentStyle', 'gitReposPageParentStyle' ],
+    'header' : [ 'procPagesHeaderStyle' ],
+    'subHeader' : [ '' ],
+    'inner' : [ 'procPagesLayoutTripleStyle' ],
+    'sectionHeader' : [ '' ],
+    'sectionNav' : [ '' ],
+    'sectionNavButton' : [ 'gitReposPage-sectionNavButtonStyle' ],
+    'sectionNavButtonActive' : [ 'gitReposPage-sectionNavButtonAvtiveStyle' ],
+    'sectionContent' : [ '' ],
+    'sectionMedia' : [ '' ],
+    'content' : [ 'gitReposPageScrollbarStyle' ],
+    'media' : [ 'gitReposPageScrollbarStyle' ],
+    'after' : [ 'procPagesInnerAfter' ]
+  },
   'styleOverrides' : {
-    'gitPagesNavBlock' : 'gitPageNav_reposStyle',
+    'procPagesNavBlock' : 'procPagesNav_reposStyle',
     'footerBar' : 'repoPage_footerBar'
   },
   'sections' : [
     {
-      'name' : 'stand in',
-      'media' : [],
+      'name' : 'Making of ProcStack.GitHub.io',
+      'media' : [
+        {
+          'type' : 'video',
+          'src' : '../pages/makingOf/images/logTextureGrid.webm',
+          'alt' : 'Logs made with a custom Texturing Houdini tool ',
+          'style' : 'procPagesImageStyle',
+        },
+        {
+          'type' : 'image',
+          'src' : '../pages/makingOf/images/stressTesting.jpg',
+          'alt' : 'Stress testing rabbit druid rigs',
+          'style' : 'procPagesImageStyle',
+          'caption' : ["Always stress test your rigs"]
+        },
+        {
+          'type' : 'image',
+          'src' : '../pages/makingOf/images/rabbitDruid_pokeBarrel.jpg',
+          'alt' : 'Druid rabbit pokin dah barrel',
+          'style' : 'procPagesImageStyle',
+          'caption' : ["POKE DAH BARREL!"]
+        },
+      ],
       'content' : 'stand in'
     },
   ]

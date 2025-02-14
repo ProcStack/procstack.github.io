@@ -5,17 +5,20 @@ export const pageListingData = {
     {
       'type' : 'image',
       'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_Coastline_sm.jpg',
-      'alt' : 'The Outlet coastline'
+      'alt' : 'The Outlet coastline',
+      'style' : 'procPagesImageStyle'
     },
     {
       'type' : 'image',
       'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_CatTails_sm.jpg',
-      'alt' : 'The water-side cattails'
+      'alt' : 'The water-side cattails',
+      'style' : 'procPagesImageStyle'
     },
     {
       'type' : 'image',
       'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_The_Dock_sm.jpg',
-      'alt' : 'Overview of the foothills next to the Outlet'
+      'alt' : 'Overview of the foothills next to the Outlet',
+      'style' : 'procPagesImageStyle'
     }
   ],
   'content' : `

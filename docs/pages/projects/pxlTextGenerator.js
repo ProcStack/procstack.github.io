@@ -1,22 +1,25 @@
 
 export const pageListingData = {
-  'name' : '',
+  'name' : 'pxlTextGenerator',
+  'navGroup' : 'Repos to Check Out',
   'media' : [
     {
       'type' : 'image',
       'src' : '../pages/projects/images/pxlTextGenerator_characterBuilder.jpg',
       'alt' : 'Character selector & builder',
+      'style' : 'procPagesImageStyle',
       'caption' : ["Character selector & builder"]
     },
     {
       'type' : 'image',
       'src' : '../pages/projects/images/pxlTextGenerator_pageView.jpg',
       'alt' : 'Page builder with alphabet',
+      'style' : 'procPagesImageStyle',
       'caption' : ["Page builder using your selected characters"]
     }
   ],
   'content' : `
-    <a href='https://github.com/ProcStack/pxlTextGenerator' class='gitPageRepoLinkStyle' target='_blank'>pxlTextGenerator</a>
+    <a href='https://github.com/ProcStack/pxlTextGenerator' class='procPagesRepoLinkStyle' target='_blank'>pxlTextGenerator</a>
     
     <br>
     <br>Text to handwriting generator

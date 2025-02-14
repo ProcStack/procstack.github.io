@@ -1,12 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
-@import 'gitPage_mainStyle.css'; /* Load css order issue mitigation */
-@import 'gitPage_initStyle.css';
-@import 'gitPage_pxlNavStyle.css';
-@import 'gitPage_reposStyle.css';
-@import 'gitPage_projectsStyle.css';
-@import 'gitPage_blogStyle.css';
-@import 'gitPage_aboutMeStyle.css';
+@import 'procPages.css';
 
 
 
@@ -14,23 +8,23 @@
 
 
 
-.gitPageNav_defaultStyle {
+.procPagesNav_defaultStyle {
   background: linear-gradient(90deg,  rgba(20, 20, 20, 0.0), rgba(80, 80, 80, 0.45), rgba(85, 85, 85, 0.55), rgba(80, 80, 80, 0.45), rgba(20, 20, 20, 0.0) );
   border-bottom: 1px solid rgba(120, 120, 120, 0.45);
 }
 
-.gitPageNav_defaultStyle a {
+.procPagesNav_defaultStyle a {
   border: 1px solid #ffffff;
   color: #ffffff;
   background-color: rgba(110, 110, 110, .35);
 }
 
-.gitPageNav_defaultStyle a:hover {
+.procPagesNav_defaultStyle a:hover {
 text-shadow: 1px 1.5px 4px #cccccc;
 background-color: rgba(180, 180, 180, .85);
 }
 
-.gitPageNav_defaultStyle a:active {
+.procPagesNav_defaultStyle a:active {
 color: #cccccc;
 text-shadow: 1px 1.5px 4px #656565;
 background-color: rgba(100, 100, 100, .85);

@@ -20,9 +20,25 @@ const pageContentObject = {
   'title' : 'About Me; Kevin Edzenga',
   'header' : 'About Me',
   'subHeader' : '',
-  'pageStyles' : ['gitPageContentStyle', 'gitAboutMePageStyle'],
+  'pageStyles' : {
+    'block' : ['procPagesContentStyle', 'gitAboutMePageStyle'],
+    'before' : [ 'procPagesInnerBefore' ],
+    'parent' : [ 'procPagesParentStyle', 'gitAboutMePageParentStyle' ],
+    'header' : [ 'procPagesHeaderStyle' ],
+    'subHeader' : [ '' ],
+    'inner' : [ 'procPagesLayoutTripleStyle' ],
+    'sectionHeader' : [ '' ],
+    'sectionNav' : [ '' ],
+    'sectionNavButton' : [ 'gitAboutMePage-sectionNavButtonStyle' ],
+    'sectionNavButtonActive' : [ 'gitAboutMePage-sectionNavButtonAvtiveStyle' ],
+    'sectionContent' : [ '' ],
+    'sectionMedia' : [ '' ],
+    'content' : [ 'procPagesScrollbarStyle' ],
+    'media' : [ 'procPagesScrollbarStyle' ],
+    'after' : [ 'procPagesInnerAfter' ]
+  },
   'styleOverrides' : {
-    'gitPagesNavBlock' : 'gitPageNav_aboutMeStyle',
+    'procPagesNavBlock' : 'procPagesNav_aboutMeStyle',
     'footerBar' : 'aboutMePage_footerBar'
   },
   'sections' : [
