@@ -8,7 +8,7 @@ import { pageListingData as pxlTextGenData } from './projects/pxlTextGenerator.j
 
 import { pageListingData as metalAsylumData } from './projects/Metal-Asylum.js';
 import { pageListingData as pxlmancerData } from './projects/pxlmancer.js';
-import { pageListingData as neurousNetData } from './projects/neurousNet.js';
+import { pageListingData as neurousNetData } from './projects/NeurousNet.js';
 import { pageListingData as pxlCamData } from './projects/pxlCam.js';
 import { pageListingData as shadertoyData } from './projects/shadertoy.js';
 import { pageListingData as dwitterData } from './projects/dwitter.js';

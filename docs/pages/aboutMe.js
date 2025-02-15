@@ -1,7 +1,7 @@
 import { PageMetaData } from '../js/pxlPages/PageMetaData.js';
 import { ProcPage } from '../js/pxlPages/ProcPage.js';
 
-import { pageListingData as aiDevData } from './aboutMe/aiDev.js';
+import { pageListingData as aiDevData } from './aboutMe/aidev.js';
 import { pageListingData as filmWorkData } from './aboutMe/filmWork.js';
 import { pageListingData as plushiesData } from './aboutMe/plushies.js';
 import { pageListingData as whoAmIData } from './aboutMe/whoAmI.js';
