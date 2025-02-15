@@ -4,14 +4,14 @@
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 //
 //   This is an example implementation of `pxlNav` in a project;
-//     Tieing in `ProcPages` to manage the pages of the site,
+//     Tieing in `ProcPageManager` to manage the pages of the site,
 //       Listening to / triggering events on `pxlNav`
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
 import { pxlNav, pxlNavVersion, pxlEnums, pxlUserSettings, pxlOptions } from './pxlNav.esm.js'; // v0.20
-import { ProcPages } from './ProcPages.js';
-import { PageMetaDataObjects } from './PageMetaData.js';
+import { ProcPageManager } from './pxlPages/ProcPageManager.js';
+import { pageListing } from '../pages/pageListing.js';
 import { BlogManager } from './BlogManager.js';
 
 
@@ -76,7 +76,7 @@ userSettings['gravity']['Max'] = 15.5; // Max gravity rate
 // Target FPS (Frames Per Second)
 //   Default is - PC = 30  -&-  Movile = 30
 const targetFPS = {
-  'PC' : 45,
+  'PC' : 30,
   'Mobile' : 20
 };
 
@@ -115,30 +115,29 @@ const collisionScale = {
 
 // Create the main page manager
 //  - Not related to pxlNav -
-const procPages = new ProcPages();
+const procPages = new ProcPageManager();
+procPages.setVersion( pxlNavVersion );
 // Set the Meta Data per page
 //   Page changes will update the meta data automatically if the page is in the list
-procPages.setPageMetaData( PageMetaDataObjects );
+//procPages.setPageMetaData( ProcPageMetaData );
+procPages.addPageListing( pageListing );
 procPages.init();
 
 // Trigger DOM updates of the pxlNav version displays on page
 procPages.setPxlNavVersion(pxlNavVersion);
 
-if (window.location.hash !== "#Blog") {
-  procPages.hidePage("Blog");
-}
-
 // -- -- --
 
 // Build procstack.github.io blog entries
 //  - Not related to pxlNav -
+/*
 var blogEntryListing = document.getElementById('blogEntryListing');
 var blogEntryContent = document.getElementById('blogEntryContent');
 const procBlog = new BlogManager( blogEntryListing, blogEntryContent );
 procBlog.init();
 procBlog.build();
 procBlog.showEntry(-1);
-
+*/
 
 // -- -- -- -- --
 

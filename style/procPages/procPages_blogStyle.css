@@ -4,8 +4,7 @@
 .gitBlogPageStyle{
   width: 75vw;
   max-height: 86vh;
-  max-width: calc(100vw - 6vmax);
-  width: max(1000px, 45vw);
+  max-width: var(--procPage-width);
   position: fixed;
   bottom: 2vmax;
   z-index: 5;
@@ -14,24 +13,73 @@
 
 /* -- -- -- */
 
+.gitBlogPage-sectionNavButtonStyle{
+  color: rgba(80, 210, 90, 0.8);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(15, 79, 20, 0.37);
+  border-color: rgba(25, 220, 30, 0.5);
+}
+.gitBlogPage-sectionNavButtonStyle:hover{
+  color: rgba(80, 210, 90, 0.9);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(15, 79, 20, 0.37);
+  border-color: rgba(25, 220, 30, 0.5);
+}
+.gitBlogPage-sectionNavButtonStyle:active{
+  color: rgba(80, 210, 90, 0.85);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(15, 79, 20, 0.37);
+  border-color: rgba(25, 220, 30, 0.5);
+}
 
-.gitBlogPageInnerStyle{
-  width: calc(100% - var(--inner-padding));
+.gitBlogPage-sectionNavButtonAvtiveStyle{
+  color: rgb(231 239 255);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(21, 67, 189, 0.71);
+  border-color: rgb(59 74 255);
+}
+
+/* -- -- -- */
+
+.gitBlogPageScrollbarStyle::-webkit-scrollbar {
+  border-radius: 2px;
+	width: 10px;
+}
+
+.gitBlogPageScrollbarStyle::-webkit-scrollbar-track {
+  border-radius: 2px;
+	background: rgba(52, 29, 131, 0.58);
+}
+
+.gitBlogPageScrollbarStyle::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+	cursor: grab;
+  background-color: rgb(41 0 107);
+}
+.gitBlogPageScrollbarStyle::-webkit-scrollbar-thumb:hover {
+  border-radius: 2px;
+  background-color: rgba(88, 27, 186, 0.9);
+}
+
+
+/* -- -- -- */
+
+.gitBlogPageParentStyle{
   max-height: calc(86vh - var(--inner-height-reduce));
-  max-width: calc(100vw - var(--inner-padding));
+  max-width: calc(100vw - var(--screen-padding));
   padding: var(--inner-padding);
   background-color: rgba(43, 9, 103, 0.45);
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
   border-radius: 2px;
   pointer-events: auto;
-  overflow: auto;
+  overflow: hidden;
   background-image: radial-gradient(200% 35% ellipse at top, rgba(43, 9, 103, 0.35), rgba(43, 9, 103, 0.0)),
                     radial-gradient(200% 35% ellipse at bottom, rgba(43, 9, 103, 0.35), rgba(43, 9, 103, 0.0));
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 
-.gitBlogPageStyle .gitPageInnerBefore {
+.gitBlogPageStyle .procPagesInnerBefore {
   content : '';
   border-radius: 5px 5px 0px 0px;
   background: transparent;
@@ -45,7 +93,7 @@
   margin-right: auto;
 }
 
-.gitBlogPageStyle .gitPageInnerAfter {
+.gitBlogPageStyle .procPagesInnerAfter {
   content : '';
   border-radius: 0px 0px 5px 5px;
   background: transparent;
@@ -61,54 +109,35 @@
 
 /* -- -- -- */
 
-.gitBlogPageInnerStyle::-webkit-scrollbar {
-  border-radius: 2px;
-	width: 10px;
-}
 
-.gitBlogPageInnerStyle::-webkit-scrollbar-track {
-  border-radius: 2px;
-	background: rgba(52, 29, 131, 0.58);
-}
-
-.gitBlogPageInnerStyle::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-	cursor: grab;
-  background-color: rgb(41 0 107);
-}
-.gitBlogPageInnerStyle::-webkit-scrollbar-thumb:hover {
-  border-radius: 2px;
-  background-color: rgba(88, 27, 186, 0.9);
-}
-
-
-/* -- -- -- */
-/*  -- -- --  */
-
-
-
-.gitPageNav_blogStyle {
+.procPagesNav_blogStyle {
   background: linear-gradient(90deg, rgba(78, 19, 126, 0), rgba(95, 55, 163, 0.45), rgba(93, 50, 133, 0.55), rgba(101, 52, 193, 0.45), rgba(78, 19, 126, 0));
   border-bottom: 1px solid rgba(82, 38, 194, 0.45);
 }
-.gitPageNav_blogStyle a {
+.procPagesNav_blogStyle a {
   border: 1px solid #6700fff0;
   color: #ab8ae7;
   background-color: rgba(97, 48, 176, 0.37);
 }
-.gitPageNav_blogStyle a:hover {
+.procPagesNav_blogStyle a:hover {
   color: #b781ff;
   text-shadow: 1px 1.5px 4px #4b3e55;
   background-color: rgba(134, 60, 252, 0.395);
   border: 1px solid #743bc9f0;
 }
-.gitPageNav_blogStyle a:active {
+.procPagesNav_blogStyle a:active {
   color: #7b62ab;
   text-shadow: 1px 1.5px 4px #51495a;
   background-color: rgba(58, 28, 105, 0.37);
   border: 1px solid #500fb1f0;
 }
 
+.procPagesNav_blogActiveStyle a {
+  color: #b781ff;
+  text-shadow: 1px 1.5px 4px #4b3e55;
+  background-color: rgba(134, 60, 252, 0.395);
+  border: 1px solid #743bc9f0;
+}
 
 /* -- -- -- */
 
