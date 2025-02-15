@@ -658,7 +658,7 @@ export class ProcPage {
   buildSinglePageSection( sectionData, sectionContentParent ){
     if( sectionData.content != '' ){
       let sectionContentDiv = document.createElement('div');
-      sectionContentDiv.classList.add('procPagesInnerContentStyle');
+      sectionContentDiv.classList.add('procPagesInnerContentSingleStyle');
       sectionContentDiv.innerHTML = sectionData.content;
       this.applyPageStyle( 'sectionContent', sectionContentDiv );
 

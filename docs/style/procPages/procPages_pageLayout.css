@@ -3,6 +3,7 @@
   font-size: 1.25em;
   font-weight: 600;
   text-shadow: 1.5px 1.5px 4px rgba(60, 60, 60, .35);
+  padding-left: 8px;
 }
 
 .procPageSubHeader{
@@ -129,6 +130,10 @@
 }
 
 /* -- -- -- */
+
+.procPagesInnerContentSingleStyle{
+  margin: 5px;
+}
 
 .procPagesInnerContentStyle{
   margin: 5px;
