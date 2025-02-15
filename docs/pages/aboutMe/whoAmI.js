@@ -10,10 +10,14 @@ export const pageListingData = {
     }
   ],
   'content' : `
-    <br><br>I think I'm a '<span class="textNudge">Technical Artist</span>' (when doing real-time work) or a '<span class="textNudge">Technical Director</span>' (on films) or a '<span class="textNudge">Creative Technologist</span>' (for immersive)...
-    <br><span class="textDrinkMeAlice"><span class="textItalicBox">So I says, blue M&M, red M&M, they all wind up the same color in the end.</span> - <span class="textNudge">Homer</span> ... <span class="textDrinkMeAlice">Simpson</span></span>
+    <div class='procPagesAboutMeInfoStyle'>
+      I think I'm a '<span class="textNudge">Technical Artist</span>' (when doing real-time work) or a '<span class="textNudge">Technical Director</span>' (on films) or a '<span class="textNudge">Creative Technologist</span>' (for immersive)...
+    </div>
+    <br>
+    <div class="textItalicBox">So I says, blue M&M, red M&M, they all wind up the same color in the end.</div>
+    <div class="textDrinkMeAlice innerTextEnd"> - <span class="textNudge">Homer</span> ... <span class="textDrinkMeAlice">Simpson</span></div>
     
-    <br><br>
+    <br>
     <div class='procPagesAboutMeInfoStyle'>
       Ya know... I don't really know what I am.
       <div class='procPagesAboutMeSpacer'></div>

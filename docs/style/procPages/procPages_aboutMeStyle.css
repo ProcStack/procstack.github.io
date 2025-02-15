@@ -6,7 +6,6 @@
   max-height: calc(min(91vh, 100vh - 7vmax - var(--inner-height-reduce)));
   position: fixed;
   bottom: 4vmin;
-  left: calc(min(max(2vmax,(100vw - 700px) / 10), max(50vw - 300px, 2vmax)));
   justify-self: center;
   justify-items: center;
   z-index: 6;
@@ -144,7 +143,7 @@
 /* -- -- -- */
 
 .procPagesAboutMeInfoStyle{
-  width:77.5%;
+  width:85.5%;
   max-width: 1300px;
   justify-self: center;
 }

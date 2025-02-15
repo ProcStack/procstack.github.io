@@ -152,12 +152,12 @@ export class ProcPageManager {
       }
     });
 
-    // Gather the nav bar links
-    this.navBarLinks = [...this.navBar.getElementsByTagName("a")];
-    this.navBarLinks.forEach( (navLink)=>{
-      let linkText = navLink.getAttribute("page-name");
-      this.navBarObjs[linkText] = navLink;
-    });
+    // Rectify the URL state and set the current page
+    let pageURL = this.getPageURL();
+    this.curPageName = pageURL;
+    
+    // Find the dom user clickable actions
+    this.findDomUserEvents();
 
     // When the page gets too narrow,
     //   Hide some of the gui elements,
@@ -165,17 +165,23 @@ export class ProcPageManager {
     this.resBasedObjs = [...document.getElementsByClassName("squashInLowRes")];
     let pageListingKeys = Object.keys(this.pageListing);
 
+    // Gather the nav bar links
+    this.navBarLinks = [...this.navBar.getElementsByTagName("a")];
+    this.navBarLinks.forEach( (navLink)=>{
+      let linkText = navLink.getAttribute("page-name");
+      this.navBarObjs[linkText] = navLink;
+      // Show page link if directly linked to it
+      if( linkText != pageURL && this.pageListing.hasOwnProperty(linkText) && !this.pageListing[linkText].pageData.visible ){
+        navLink.style.display = "none";
+      }
+    });
+
     // Gather verified pages before URL state changes based on query params
     pageListingKeys.forEach( (pageKey)=>{
       let pageId = this.pageListing[pageKey]['pageData']["page"];
       this.verifiedPages[ pageId.toLocaleLowerCase() ] = pageId;
     });
 
-    // Rectify the URL state and set the current page
-    let pageURL = this.getPageURL();
-    
-    // Find the dom user clickable actions
-    this.findDomUserEvents();
 
 
     // Prep the page divs
@@ -213,12 +219,14 @@ export class ProcPageManager {
 
     this.navBarLinks.forEach( (navLink)=>{
       let linkText = navLink.getAttribute("page-name");
-      let pageTheme = navLink.getAttribute("page-theme");
       let pxlRoomName = navLink.getAttribute("pxlRoomName");
       let pxlCameraView = navLink.getAttribute("pxlCameraView");
       if( !this.pageListing.hasOwnProperty(linkText) ){
         return;
       }
+
+
+      let pageTheme = this.pageListing[ linkText ]["pageData"]["theme"];
 
 
       this.pageListing[ linkText ]["room"] = pxlRoomName;
@@ -256,6 +264,8 @@ export class ProcPageManager {
       this.pageListing[ this.curPageName ].booted = true;
       this.parentObjectData["body"]["obj"].appendChild( this.curPage );
     }
+
+    //this.runHidePages();
 
     // Let the dom settle for a step
     setTimeout( ()=>{
@@ -496,8 +506,8 @@ export class ProcPageManager {
           overrideKeys.forEach( (key)=>{
             let curObj = document.getElementById( key );
             if( curObj ){
-              if(curObj.classList.contains( curOverrides )) {
-                curObj.classList.remove( curOverrides );
+              if( curOverrides.hasOwnProperty( key ) && curObj.classList.contains( curOverrides[key] ) ){
+                curObj.classList.remove( curOverrides[key] );
                 if( curObj.hasAttribute("pages-default-class") ){
                   let defaultClass = curObj.getAttribute("pages-default-class");
                   curObj.classList.add( defaultClass );
@@ -586,14 +596,12 @@ export class ProcPageManager {
     }
 
     // Check for specific capitalization of file url names
-    let verifiedKeys = Object.keys(this.verifiedPages);
-    if( verifiedKeys.includes(urlDisplay.toLocaleLowerCase()) ){
-      urlDisplay = this.verifiedPages[urlDisplay.toLocaleLowerCase()];
-    }else{
-      // No specified page display name
-      //   Capitalize the first letter of the page name, so it looks purddy
-      if( !this.pageDisplayURL.includes(urlDisplay) ){
-        urlDisplay = urlDisplay.charAt(0).toUpperCase() + urlDisplay.slice(1);
+    let verifiedKeys = Object.keys(this.pageListing);
+
+    for( let x=0; x<verifiedKeys.length; ++x ){
+      if( urlDisplay.toLowerCase() == verifiedKeys[x].toLowerCase() ){
+        urlDisplay = verifiedKeys[x];
+        break;
       }
     }
 
@@ -641,7 +649,7 @@ export class ProcPageManager {
         ret = urlPage;
       }
     }
-    if( ret.toLocaleLowerCase() == "index" ){
+    if( ret.toLowerCase() == "index" ){
       ret = this.defaultPage;
       this.shiftHistoryState( ret );
     }
@@ -773,6 +781,17 @@ export class ProcPageManager {
 
     }
   }
+
+  /*runHidePages(){
+    let pageListingKeys = Object.keys(this.pageListing);
+    pageListingKeys.forEach( (pageKey)=>{
+      let curPage = this.pageListing[pageKey];
+      console.log(curPage)
+      //if( curPage["obj"] != this.curPage ){
+      //  curPage["obj"].style.display = "none";
+      //}
+    });
+  }*/
 
   hidePage( pageName ){
     if( this.navBarObjs.hasOwnProperty(pageName) ){

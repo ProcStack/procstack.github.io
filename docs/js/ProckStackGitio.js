@@ -126,10 +126,6 @@ procPages.init();
 // Trigger DOM updates of the pxlNav version displays on page
 procPages.setPxlNavVersion(pxlNavVersion);
 
-if (window.location.hash !== "#Blog") {
-  procPages.hidePage("Blog");
-}
-
 // -- -- --
 
 // Build procstack.github.io blog entries

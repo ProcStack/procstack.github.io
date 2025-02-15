@@ -30,7 +30,8 @@ export const pageListingData = {
     <br>A shader pack for Minecraft, used through Optifine.
 
     <br>
-    <br>For the pack, I developed a depth-based smart texture bluring, in attempts to capture the Minecraft Key or Promo art used when new updates are released.
+    <br>I developed a depth-based texture bluring, similar to Smart Blue in Photoshop,
+    <br>&nbsp;&nbsp;In attempts to capture the Minecraft Key or Promo art used when new updates are released.
     
     <br>
     <br>I also wrote a shadow distortion & bias system as well;

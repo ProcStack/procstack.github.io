@@ -2,7 +2,26 @@
 export const pageListingData = {
   'name' : 'pxlCam',
   'navGroup' : 'Personal Projects',
-  'media' : [],
+  'media' : [
+    {
+      'type' : 'image',
+      'src' : '../pages/projects/images/pxlCam_treeStump.jpg',
+      'alt' : 'Trippy tree stump',
+      'style' : 'procPagesImageStyle'
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/projects/images/pxlCam_fungi.jpg',
+      'alt' : 'Fungi on a log',
+      'style' : 'procPagesImageStyle'
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/projects/images/pxlCam_treeBark.jpg',
+      'alt' : 'Funky tree bark',
+      'style' : 'procPagesImageStyle'
+    },
+  ],
   'content' : `
       <div class="procPagesProjectsHeaderStyle"><a href='https://pxlmancer.com/gl/pxlCam' class="textBump" target='_blank'>pxlCam</a></div>
       <div class="procPagesProjectsDescriptionStyle">  <span class="textNudge">*Use on phone!!*</span>

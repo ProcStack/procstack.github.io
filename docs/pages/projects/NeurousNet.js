@@ -2,7 +2,14 @@
 export const pageListingData = {
   'name' : 'Neurous Net',
   'navGroup' : 'Personal Projects',
-  'media' : [],
+  'media' : [
+    {
+      'type' : 'image',
+      'src' : '../pages/projects/images/neurousnet.jpg',
+      'alt' : 'Swirling particles',
+      'style' : 'procPagesImageStyle'
+    },
+  ],
   'content' : `
     <div class="procPagesProjectsHeaderStyle"><a href='http://www.neurous.net' class="textBump" target='_blank'>Neurous.net</a></div>
     <div class="procPagesProjectsDescriptionStyle">  <span class="textNudge">*More fun on phone!*</span>

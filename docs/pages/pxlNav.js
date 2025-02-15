@@ -19,13 +19,9 @@ const metaDataInput = {
 const pageContentObject = {
   'page' : 'pxlNav',
   'title' : 'pxlNav Breakdown',
+  'theme' : '#186d18',
   'header' : '<a href="https://github.com/ProcStack/pxlNav" target="_blank">pxlNav <span class="pxlNavVersion"></span></a>',
-  'subHeader' : `<span>A <span class='procPagesHideWhenThin'>javascript </span>player controller & room manager<span class='procPagesHideWhenThin'>&nbsp;for Three.js</span></span>
-    <br><div class="procPagesPxlNavShortcuts procPagesHideWhenThin">
-      <span>Hit <span class="textBoldBox">P</span> to pause the background</span>
-      <span>Hit <span class="textBoldBox">Y</span> to open the <span class="textNudge">Shader Editor</span></span>
-    </div>
-  `,
+  'subHeader' : `<span>A <span class='procPagesHideWhenThin'>javascript </span>player controller & room manager<span class='procPagesHideWhenThin'>&nbsp;for Three.js</span></span>`,
   'pageStyles' : {
     'block' : ['procPagesContentStyle', 'gitPxlNavPageStyle'],
     'before' : [ 'procPagesInnerBefore' ],

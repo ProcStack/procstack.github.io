@@ -313,7 +313,6 @@ text-shadow: 1px 1.5px 4px #252525;
   padding: 3px 3px 0px 3px;
 }
 
-
 .pageLinkStyle{
   cursor: pointer;
   display: grid;
@@ -331,6 +330,10 @@ text-shadow: 1px 1.5px 4px #252525;
   margin-bottom: 5px;
 }
 
+.selfCenter{
+  justify-self: center;
+}
+
 .innerCenter{
   text-align: center;    /* justify-self: center; */
   display: block;
@@ -338,6 +341,11 @@ text-shadow: 1px 1.5px 4px #252525;
 
 .innerEnd{
   text-align: end;
+}
+
+.innerTextEnd{
+  text-align: end;
+  width: 90%;
 }
 
 
@@ -361,7 +369,7 @@ text-shadow: 1px 1.5px 4px #252525;
 }
 
 .textSkew{
-  transform: skew(10deg);
+  transform: skew(-6deg, 0deg);
 }
 
 .textItalic{
@@ -380,6 +388,10 @@ text-shadow: 1px 1.5px 4px #252525;
   border-radius: 6px;
   background-color: rgba(110,110,110,0.5);
   padding: 2px 6px 2px 6px;
+  max-width: 65%;
+  justify-self: center;
+  text-align: center;
+  text-wrap-style: balance;
 }
 
 .textInblockQuote{

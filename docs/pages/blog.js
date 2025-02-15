@@ -14,6 +14,7 @@ const pageContentObject = {
   'visible' : false,
   'page' : 'Blog',
   'title' : 'Blog',
+  'theme' : '#3a1c69',
   'header' : '',
   'subHeader' : '',
   'pageStyles' : {

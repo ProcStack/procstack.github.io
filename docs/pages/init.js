@@ -13,6 +13,7 @@ const metaDataInput = {
 const pageContentObject = {
   'page' : 'Init',
   'title' : 'Welcome.',
+  'theme' : '#6b420c',
   'layout' : 'single',
   'extras' : { 
     'before-hooks' : true, 

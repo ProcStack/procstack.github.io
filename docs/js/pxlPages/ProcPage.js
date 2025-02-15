@@ -4,7 +4,7 @@
 export class ProcPage {
   constructor( contentObject ){
     this.metaData = contentObject.metaData || {};
-    this.visible = contentObject.visible ? contentObject.visible : true;
+    this.visible = contentObject.hasOwnProperty('visible') ? contentObject.visible : true;
     this.id = contentObject.id || null;
     this.idPrefix = contentObject.idPrefix || "pxlPage_";
     this.page = contentObject.page || "Default";
@@ -266,6 +266,7 @@ export class ProcPage {
     }
     
     let videoObject = this.buildVideoEmbed( videoData );
+    videoData.object = videoObject;
 
 
     this.sectionData[sectionName].media.push( videoData );
@@ -354,6 +355,17 @@ export class ProcPage {
         console.error("Unknown media type: "+mediaData.type);
         break;
     }
+
+    mediaData.object = media;
+
+    if( mediaData.hasOwnProperty('href') && mediaData.href != '' ){
+      let mediaLink = document.createElement('a');
+      mediaLink.href = mediaData.href;
+      mediaLink.target = "_blank";
+      mediaLink.appendChild( media );
+      media = mediaLink;
+    }
+
     return media;
   }
 
@@ -556,9 +568,13 @@ export class ProcPage {
     }
     
     // Triple Layout Section
-    if( this.layout == "triple" && this.sectionData[ sectionName ].media.length == 0 ){
-      this.pageSectionsObject.classList.remove('procPageNoMediaStyle');
-      this.mediaViewObject.style.display = "";
+    if( this.layout == "triple" ){
+      if( this.sectionData[ sectionName ].media.length == 0 ){
+        this.pageSectionsObject.classList.remove('procPageNoMediaStyle');
+        this.mediaViewObject.style.display = "";
+      }else if( this.sectionData[ sectionName ].media.length == 1 ){
+        this.mediaViewObject.style.alignContent = "";
+      }
     }
 
     this.sectionData[ sectionName ].objects.forEach(( obj )=>{
@@ -566,6 +582,9 @@ export class ProcPage {
       obj.classList.remove('pagesVisOn');
       obj.classList.add('pagesVisOff');
     });
+
+    this.stopSectionMedia( sectionName );
+
   }
 
   activateSection( sectionName ){
@@ -589,9 +608,13 @@ export class ProcPage {
 
 
     // Triple Layout Section
-    if( this.layout == "triple" && this.sectionData[ sectionName ].media.length == 0 ){
-      this.pageSectionsObject.classList.add('procPageNoMediaStyle');
-      this.mediaViewObject.style.display = "none";
+    if( this.layout == "triple" ){
+      if( this.sectionData[ sectionName ].media.length == 0 ){
+        this.pageSectionsObject.classList.add('procPageNoMediaStyle');
+        this.mediaViewObject.style.display = "none";
+      }else if(this.sectionData[ sectionName ].media.length == 1){
+        this.mediaViewObject.style.alignContent = "center";
+      }
     }
 
 
@@ -599,6 +622,25 @@ export class ProcPage {
       obj.classList.add('procPagesSectionActive');
       obj.classList.add('pagesVisOn');
       obj.classList.remove('pagesVisOff');
+    });
+  }
+
+
+  // -- -- --
+
+  stopSectionMedia( sectionName=null ){
+    if( sectionName == null ){
+      sectionName = this.prevSection;
+    }
+
+    if( !this.sectionData.hasOwnProperty( sectionName ) ){
+      return;
+    }
+    
+    this.sectionData[ sectionName ].media.forEach(( mediaData )=>{
+      if( mediaData.type == 'video' ){
+        mediaData.object.pause();
+      }
     });
   }
 
@@ -668,6 +710,28 @@ export class ProcPage {
         let media = this.buildMedia( mediaData );
         this.applyPageStyle( 'sectionMedia', media );
         sectionMedia.appendChild( media );
+
+        if( mediaData.hasOwnProperty('caption') ){
+          let innerHtml = '';
+          if( typeof mediaData.caption == 'string' && mediaData.caption != '' ){
+            innerHtml = mediaData.caption;
+          }else if( Array.isArray(mediaData.caption) && mediaData.caption.length > 0 ){
+            innerHtml = mediaData.caption.join('<br>');
+          }
+          if( innerHtml != '' ){
+            let captionParent = document.createElement('div');
+            captionParent.classList.add('procPagesMediaCaptionParentStyle');
+
+            let caption = document.createElement('div');
+            caption.classList.add('procPagesMediaCaptionStyle');
+            caption.innerHTML = innerHtml;
+
+            captionParent.appendChild( caption );
+            sectionMedia.appendChild( captionParent );
+          }
+        }else if( sectionData.media.length > 1 ){
+          media.classList.add('procPagesMediaPad');
+        }
       });
       sectionMedia.classList.add('pagesVisOff');
       mediaContentParent.appendChild( sectionMedia );

@@ -2,6 +2,7 @@ import { PageMetaData } from '../js/pxlPages/PageMetaData.js';
 import { ProcPage } from '../js/pxlPages/ProcPage.js';
 
 import { pageListingData as aiDevData } from './aboutMe/aiDev.js';
+import { pageListingData as filmWorkData } from './aboutMe/filmWork.js';
 import { pageListingData as plushiesData } from './aboutMe/plushies.js';
 import { pageListingData as whoAmIData } from './aboutMe/whoAmI.js';
 
@@ -18,6 +19,7 @@ const metaDataInput = {
 const pageContentObject = {
   'page' : 'AboutMe',
   'title' : 'About Me; Kevin Edzenga',
+  'theme' : '#656565',
   'header' : 'About Me',
   'subHeader' : '',
   'pageStyles' : {
@@ -43,6 +45,7 @@ const pageContentObject = {
   },
   'sections' : [
     whoAmIData,
+    filmWorkData,
     plushiesData,
     aiDevData
   ]

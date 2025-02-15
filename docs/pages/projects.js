@@ -27,6 +27,7 @@ const pageContentObject = {
   'page' : 'ProjectsLinks',
   'title' : 'Repos / Projects / Socials',
   'header' : 'Repos / Projects / Socials',
+  'theme' : '#184d76',
   'subHeader' : '',
   'footer' : `
     <div class="socialsLinkStyle">

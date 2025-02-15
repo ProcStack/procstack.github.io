@@ -7,10 +7,9 @@ export const pageListingData = {
       'src' : '../pages/aboutMe/images/esnLearning.webm',
       'alt' : "ESN Horizontal-Vertical Slice",
       'style' : 'procPagesImageStyle',
-      'caption' : ["Upper left are some videos I made, upper right are it's 'levels' of learning R-G-B,",
-          "<br>Where red are known patterns, green are the edges of the patterns, and blue are the 'less likely' patterns.",
-          "<div class='procPagesAboutMeSpacer'></div>",
-          "Then on the bottom are two slices of the patterns the brain thinks its seeing and then predicting."
+      'caption' : ["Upper left are videos I made, upper right are 'rates' of learning R-G-B,",
+          "Red shows known patterns, green are parent edges, & blue are 'less likely' patterns.",
+          "The bottom are two slices; what the brain thinks its seeing & then predicting."
         ]
     },
     {
@@ -18,7 +17,10 @@ export const pageListingData = {
       'src' : '../pages/aboutMe/images/learningGradients_84.webm',
       'alt' : "ESN Horizontal-Vertical Slice",
       'style' : 'procPagesImageStyle',
-      'caption' : ["Different types of slices from the same ESN, just different input video."]
+      'caption' : ["Different slices from the same ESN, with different input video.",
+        "Upper left is a video I made the AI's watching, upper right is detecting movement;",
+        "Lower left is the brain's wrinkles, lower right is predicted movement."
+      ]
     },
     {
       'type' : 'image',
@@ -29,8 +31,7 @@ export const pageListingData = {
     }
   ],
   'content' : `
-    <br>
-    <br>Outside of that, I'm on'n'off working on <span class="textNudge">Graph Attention Network</span> artificial intelligence.
+    Outside of that, I'm on'n'off working on <span class="textNudge">Graph Attention Network</span> artificial intelligence.
     <div class='procPagesAboutMeSpacer'></div>
     I've been working on a general-purpose neuron that adjusts its own connections during prediction.
     <br>&nbsp;&nbsp; I call it a "model-less" ai network, even though the model is just dynamically generated based on input data.
@@ -63,10 +64,6 @@ export const pageListingData = {
                   <div class='procPagesAboutMeSpacer'></div>
     
     <br>
-    <br><span class="innerCenter">
-      <div class='procPagesAboutMeSpacer'></div>
-      Upper left is another video I made the AI is watching, upper right is shifts in detected movement,
-      <br>Lower left is a slice of the brain's learned wrinkles, lower right is predicted movement.</span>
       <div class='procPagesAboutMeSpacer'></div>
       Currently it doesn't use the predicted movement for anything,
       <br>The next step would be introducing a base image to motion-transfer / referece.
