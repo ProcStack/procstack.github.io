@@ -168,7 +168,11 @@ export class ProcPage {
     let img = document.createElement('img');
     img.src = mediaData.src;
     img.alt = mediaData.alt;
-    img.classList.add('procPagesMediaImage');
+    if( this.layout == 'vertical' ){
+      img.classList.add('procPagesVerticalLockMediaImage');
+    }else{
+      img.classList.add('procPagesMediaImage');
+    }
     
     this.applyStyle( mediaData, img );
 
@@ -378,9 +382,15 @@ export class ProcPage {
   
   buildPage(){
 
-    let setPageType = "block";
     let pageContent = document.createElement('div');
     pageContent.classList.add('procPagesContentStyle');
+    if( this.layout == 'triple' ){
+      pageContent.classList.add('procPagesPlacementTripleStyle');
+    }else if( this.layout == 'vertical' ){
+      pageContent.classList.add('procPagesPlacementVerticalStyle');
+      pageContent.classList.add('procPagesLockVertical');
+    }
+    let setPageType = "block";
     if( this.pageStyles.hasOwnProperty( setPageType ) && Array.isArray( this.pageStyles[ setPageType ] ) ){
       this.pageStyles[ setPageType ].forEach(( style )=>{ pageContent.classList.add(style) });
     }
@@ -399,7 +409,9 @@ export class ProcPage {
 
     setPageType = "parent";
     let pageInnerContent = document.createElement('div');
-    pageInnerContent.classList.add('procPagesInnerStyle');
+    if(this.layout == 'triple'){
+      pageInnerContent.classList.add('procPagesInnerStyle');
+    }
     this.applyPageStyle( 'parent', pageInnerContent );
     pageContent.appendChild( pageInnerContent );
 
@@ -443,12 +455,15 @@ export class ProcPage {
       pageInnerContent.appendChild( pageSubHeader );
     }
 
-    let pageSections = document.createElement('div');
-    pageSections.classList.add('procPageSections');
+    let pageSections = pageInnerContent;
+    if( false && this.layout == 'triple' ){
+      pageSections = document.createElement('div');
+      pageSections.classList.add('procPageSections');
 
-    this.applyPageStyle( 'inner', pageSections );
+      this.applyPageStyle( 'inner', pageSections );
 
-    pageInnerContent.appendChild( pageSections );
+      pageInnerContent.appendChild( pageSections );
+    }
     this.pageSectionsObject = pageSections;
 
     // -- -- -- -- -- --
@@ -456,20 +471,16 @@ export class ProcPage {
     let pageSectionList;
     if( this.layout != 'single' ){
       pageSectionList = document.createElement('div');
-      pageSectionList.classList.add('procPageSectionList');
+      if( this.layout == 'triple' ){
+        pageSectionList.classList.add('procPageSectionList');
+      }else if( this.layout == 'vertical' ){
+        pageSectionList.classList.add('procPageVerticalLockSectionList');
+      }
+
+      this.applyPageStyle( 'sectionNavList', pageSectionList );
+
       pageSections.appendChild( pageSectionList );
     }
-
-    // -- -- --
-
-    let pageContentView = document.createElement('div');
-    if( this.layout != 'single' ){
-      pageContentView.classList.add('procPageContentView');
-    }
-    
-    this.applyPageStyle( 'content', pageContentView );
-
-    pageSections.appendChild( pageContentView );
 
     // -- -- --
 
@@ -485,6 +496,20 @@ export class ProcPage {
     }
 
     // -- -- --
+
+    let pageContentView = document.createElement('div');
+    if( this.layout == 'triple' ){
+      pageContentView.classList.add('procPageContentView');
+    }else if( this.layout == 'vertical' ){
+      pageContentView.classList.add('procPageVerticalLockContentView');
+    }
+    
+    this.applyPageStyle( 'content', pageContentView );
+
+    pageSections.appendChild( pageContentView );
+
+    // -- -- --
+
 
     if( this.layout == 'single' ){
       let curKey = Object.keys( this.sectionTitles )[0];
@@ -567,15 +592,25 @@ export class ProcPage {
       });
     }
     
-    // Triple Layout Section
-    if( this.layout == "triple" ){
-      if( this.sectionData[ sectionName ].media.length == 0 ){
+    let mediaLength = this.sectionData[ sectionName ].media.length;
+    if( this.layout == "triple" ){ // Triple Layout Section
+      if( mediaLength == 0 ){
         this.pageSectionsObject.classList.remove('procPageNoMediaStyle');
         this.mediaViewObject.style.display = "";
-      }else if( this.sectionData[ sectionName ].media.length == 1 ){
+      }else if( mediaLength == 1 ){
         this.mediaViewObject.style.alignContent = "";
+        this.mediaViewObject.style.height = "";
+      }
+    }else if( this.layout == "vertical" ){ // Vertical locked layout
+      if( mediaLength == 0 ){
+        this.pageSectionsObject.classList.remove('procPageNoMediaLockVerticalStyle');
+        this.mediaViewObject.style.display = "";
+      }else if( mediaLength == 1 ){
+        this.mediaViewObject.style.alignContent = "";
+        this.mediaViewObject.style.height = "";
       }
     }
+
 
     this.sectionData[ sectionName ].objects.forEach(( obj )=>{
       obj.classList.remove('procPagesSectionActive');
@@ -607,13 +642,25 @@ export class ProcPage {
     }
 
 
-    // Triple Layout Section
-    if( this.layout == "triple" ){
+    // Modify page's media display
+    //   Vertical center single media
+    //   Hide media area if no media exists for the current section
+    let mediaLength = this.sectionData[ sectionName ].media.length;
+    if( this.layout == "triple" ){ // Triple Layout Section
       if( this.sectionData[ sectionName ].media.length == 0 ){
         this.pageSectionsObject.classList.add('procPageNoMediaStyle');
         this.mediaViewObject.style.display = "none";
       }else if(this.sectionData[ sectionName ].media.length == 1){
         this.mediaViewObject.style.alignContent = "center";
+        this.mediaViewObject.style.height = "auto";
+      }
+    }else if( this.layout == "vertical" ){ // Vertical locked layout
+      if( mediaLength == 0 ){
+        this.pageSectionsObject.classList.add('procPageNoMediaLockVerticalStyle');
+        this.mediaViewObject.style.display = "none";
+      }else if( mediaLength == 1 ){
+        this.mediaViewObject.style.alignContent = "center";
+        this.mediaViewObject.style.height = "auto";
       }
     }
 
@@ -622,6 +669,7 @@ export class ProcPage {
       obj.classList.add('procPagesSectionActive');
       obj.classList.add('pagesVisOn');
       obj.classList.remove('pagesVisOff');
+      obj.scrollTop = 0;
     });
   }
 
@@ -675,7 +723,11 @@ export class ProcPage {
 
     if( sectionData.name != '' ){
       let sectionTitleDiv = document.createElement('div');
-      sectionTitleDiv.classList.add('procPagesNavSectionStyle');
+      if( this.layout == 'triple' ){
+        sectionTitleDiv.classList.add('procPagesNavSectionStyle');
+      }else if( this.layout == 'vertical' ){
+        sectionTitleDiv.classList.add('procPagesVerticalLockNavSectionStyle');
+      }
       sectionTitleDiv.classList.add('procPagesButtonStyle');
       sectionTitleDiv.classList.add('procPagesSectionNavColor');
       
@@ -722,9 +774,12 @@ export class ProcPage {
             let captionParent = document.createElement('div');
             captionParent.classList.add('procPagesMediaCaptionParentStyle');
 
+            this.applyPageStyle( 'sectionCaption', captionParent );
+
             let caption = document.createElement('div');
             caption.classList.add('procPagesMediaCaptionStyle');
             caption.innerHTML = innerHtml;
+
 
             captionParent.appendChild( caption );
             sectionMedia.appendChild( captionParent );
@@ -741,6 +796,7 @@ export class ProcPage {
   }
 
   // -- -- --
+
 
   applyPageStyle( styleType, obj ){
     if( this.pageStyles.hasOwnProperty( styleType ) && Array.isArray( this.pageStyles[ styleType ] ) ){

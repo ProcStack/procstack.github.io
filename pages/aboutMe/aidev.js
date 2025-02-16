@@ -6,7 +6,7 @@ export const pageListingData = {
       'type' : 'video',
       'src' : '../pages/aboutMe/images/esnLearning.webm',
       'alt' : "ESN Horizontal-Vertical Slice",
-      'style' : 'procPagesImageStyle',
+      'style' : ['procPagesMediaStyle', 'procPagesLimitWidthStyle', 'setAspectRatio_1'],
       'caption' : ["Upper left are videos I made, upper right are 'rates' of learning R-G-B,",
           "Red shows known patterns, green are parent edges, & blue are 'less likely' patterns.",
           "The bottom are two slices; what the brain thinks its seeing & then predicting."
@@ -16,7 +16,7 @@ export const pageListingData = {
       'type' : 'video',
       'src' : '../pages/aboutMe/images/learningGradients_84.webm',
       'alt' : "ESN Horizontal-Vertical Slice",
-      'style' : 'procPagesImageStyle',
+      'style' : ['procPagesMediaStyle', 'procPagesLimitWidthStyle', 'setAspectRatio_1'],
       'caption' : ["Different slices from the same ESN, with different input video.",
         "Upper left is a video I made the AI's watching, upper right is detecting movement;",
         "Lower left is the brain's wrinkles, lower right is predicted movement."
@@ -26,7 +26,7 @@ export const pageListingData = {
       'type' : 'image',
       'src' : '../pages/aboutMe/images/learningGradients_84_brainSlice.png',
       'alt' : "Custom ESN Learning Gradients",
-      'style' : 'procPagesImageStyle',
+      'style' : ['procPagesImageStyle', 'procPagesLimitWidthStyle', 'setAspectRatio_1'],
       'caption' : ["A slice of the ESN's brain by frame 101 of watching the X pattern video."]
     }
   ],
@@ -84,7 +84,7 @@ export const pageListingData = {
 
 
     <br>Since I didn't have a good use case for the ESN in Python,
-    <br>&nbsp;&nbsp; I built a similar ESM through C# in Unity to operate NPC's ability to learning player habbits.
+    <br>&nbsp;&nbsp; I built a similar ESN through C# in Unity to operate NPC's ability to learning player habbits.
     <br>The logic is pretty simple, so running by CPU is fine for now,
     <br>&nbsp;&nbsp; I'll likely look to move it to GPU in the future, if need be.
     <br>I set it up to learn less often when the player is in another room.

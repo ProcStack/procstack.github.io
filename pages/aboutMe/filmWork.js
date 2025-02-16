@@ -6,7 +6,7 @@ export const pageListingData = {
       'type' : 'youtube',
       'src' : 'er4E9K_4jpU',
       'alt' : 'Blue Sky Studios film reel',
-      'style' : 'procPagesMediaStyle'
+      'style' : ['procPagesMediaStyle', 'procPagesLimitWidthStyle']
     }
   ],
   'content' : `

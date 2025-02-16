@@ -43,7 +43,6 @@ export const pageListingData = {
       <br>
     <div class="procPagesPxlNavEndNoteStyle">
       During the run of Antibody Club (2020), I had a helping hand on a couple shaders, camera animations, and some other odds'n'ends. 
-      <br>Much of which has been updated since, wanted to give my thanks never-the-less!
       <div class="procPagesPxlNavSpacer"></div>
       So, I'd be remiss if I didn't mention <span class="textNudge">Michael Lee</span> & <span class="textNudge">Charles Wang</span> for helping on Antibody Club / pxlNav.
     </div>

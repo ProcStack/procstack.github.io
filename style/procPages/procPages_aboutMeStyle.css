@@ -2,14 +2,13 @@
 /* -- -- -- */
 
 .gitAboutMePageStyle{
-  max-width: calc(100vw - 6vmax - var(--inner-padding));
-  max-height: calc(min(91vh, 100vh - 7vmax - var(--inner-height-reduce)));
-  position: fixed;
-  bottom: 4vmin;
   justify-self: center;
   justify-items: center;
   z-index: 6;
   overflow: hidden;
+  position: fixed;
+  left: max(0px, calc(45vw - 700px));
+  bottom: 2.5vmin;
 }
 
 /* -- -- -- */
@@ -42,11 +41,22 @@
   border-style: solid;
 }
 
+.gitAboutMePage-sectionNavListStyle{
+  background-color: rgba(59, 59, 59, 0.16);
+}
+
+.gitAboutMePage-sectionCaptionStyle{
+  background: linear-gradient(90deg, rgba(59, 59, 59, 0.0) 10%, rgba(59, 59, 59, 0.5) 35%, rgba(59, 59, 59, 0.5) 65%, rgba(59, 59, 59, 0.0) 90%);
+}
+
 /* -- -- -- */
 
 
 .gitAboutMePageParentStyle{
-  padding: var(--inner-padding);
+  width: min(100vw, 1100px);
+  height: calc(90vh - 36px);
+  display: grid;
+  grid-auto-flow: row;
   border-radius: 2px;
   background-color: rgba(65, 65, 65, 0.3);
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
@@ -146,4 +156,9 @@
   width:85.5%;
   max-width: 1300px;
   justify-self: center;
+}
+
+
+.setAspectRatio_1{
+  aspect-ratio: 1;
 }

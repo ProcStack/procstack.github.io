@@ -1,5 +1,6 @@
 
 .procPageHeader{
+  grid-area: pageHeader;
   font-size: 1.25em;
   font-weight: 600;
   text-shadow: 1.5px 1.5px 4px rgba(60, 60, 60, .35);
@@ -7,10 +8,14 @@
 }
 
 .procPageSubHeader{
+  grid-area: pageSubHeader;
   padding: 0px 10px 5px 10px;
   font-size: 1.05em;
 }
 
+.procPageContentAfterStyle{
+  grid-area: pageAfter;
+}
 
 /* -- -- -- */
 
@@ -63,7 +68,6 @@
   width: 100%;
   height: auto;
   aspect-ratio: 16 / 9;
-  padding: 3px 0px;
 }
 
 /* -- -- -- */
@@ -72,16 +76,21 @@
 .procPageContentView{
   grid-area: pageContent;
   overflow: auto;
-  max-width: var(--procPage-width);
+  max-width: var(--procPage-mobile-width);
+}
+
+.procPageVerticalLockContentView{
+  grid-area: pageContent;
+  overflow: auto;
+  /*max-width: var(--procPage-mobile-width);*/
 }
 
 .procPageMediaView{
   grid-area: media;
   height: 100%;
   overflow: auto;
-  max-width: var(--procPage-width);
+  /*max-width: var(--procPage-mobile-width);*/
   display: grid;
-  padding: 3px;
 }
 
 /* When the screen is less than 1000px wide */
@@ -100,33 +109,71 @@
   background-color: rgba(59, 59, 59, 0.16);
   height: max-content;
   width: 100%;
-  max-width: var(--procPage-width);
+  max-width: var(--procPage-mobile-width);
 }
 
-/* -- -- -- */
-
-.procPagesInnerStyle{
-  width: min(1600px, calc(100vw - 6vmax));
+.procPageVerticalLockSectionList{
+  grid-area: sectionNav;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  grid-gap: 3px;
+  justify-items: center;
+  justify-content: space-around;
+  justify-self: center;
+  border: solid 1px rgba(130, 130, 130, 0.51);
+  border-width: 1px 0px;
+  padding: 6px 0px;
+  background-color: rgba(59, 59, 59, 0.16);
+  height: max-content;
+  width: 100%;
+  max-width: var(--procPage-mobile-width);
 }
+
 
 /* -- -- -- */
 
 
 .procPagesLayoutTripleStyle{
-  height : min(90vh - 36px - 15vmax, max(55vh, calc(100vh - clamp(100vw - 600px, 1vh, 55vh))));
+  height : max(55vh, calc(97vh - 36px - 7vmax - clamp(100vw - 600px, 1vh, 55vh)));
   display: grid;
   overflow: hidden;
   grid-template-areas:
+    "pageHeader"
+    "pageSubHeader"
     "sectionNav"
     "media"
-    "pageContent";
-    grid-template-columns: max-content 55% auto;
+    "pageContent"
+    "pageAfter";
+    grid-template-rows: max-content max-content max-content 40% auto max-content;
+}
+.procPagesLockVertical{
+  display: grid;
+  overflow: hidden;
+  grid-template-areas:
+    "pageHeader"
+    "pageSubHeader"
+    "sectionNav"
+    "media"
+    "pageContent"
+    "pageAfter";
+    grid-template-rows: max-content max-content max-content 40% auto max-content;
 }
 
 /* When there is no Media on a "Triple Layout" page */
 .procPageNoMediaStyle{
     grid-template-rows: min-content max-content;
     grid-template-columns: auto;
+}
+
+.procPageNoMediaLockVerticalStyle{
+  grid-template-rows: min-content max-content;
+  grid-template-columns: auto;
+}
+/* -- -- -- */
+
+.procPagesLimitWidthStyle{
+  width: min(100%, 850px) !important;
 }
 
 /* -- -- -- */
@@ -156,17 +203,71 @@
   padding: 2px;
 }
 
+.procPagesPlacementTripleStyle{
+  position: fixed;
+  bottom: 1.5vmax;
+}
+
+.procPagesPlacementVerticalStyle{
+  position: fixed;
+  bottom: 1.5vmax;
+}
+
+.procPagesInnerStyle{
+  width: min(1600px, calc(100vw - 2vmax));
+}
+
 /* -- -- -- */
 
+.procPagesMediaImage{
+  width: min(98%, 850px) !important;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+.procPagesVerticalLockMediaImage{
+  width: min(98%, 850px);
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+/* -- -- -- */
 
 /* When the screen is 1000px wide or more */
 @media screen and (min-width: 1000px) {
+
+  .procPagesMediaImage{
+    width: 100% !important;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .procPagesPlacementTripleStyle{
+    position: fixed;
+    bottom: 3.5vmax;
+  }
+
+
+  .procPagesInnerStyle{
+    width: calc(100vw - 2vmax);
+  }
 
   .procPageContentView{
     grid-area: pageContent;
     overflow: auto;
     max-width: var(--procPage-width);
     padding: 4px;
+  }
+
+  .procPageMediaView{
+    grid-area: media;
+    height: 100%;
+    overflow: auto;
+    /*max-width: var(--procPage-width);*/
+    display: grid;
   }
 
   .procPageSectionList{
@@ -177,24 +278,34 @@
     align-content: baseline;
     grid-gap: 4px;
     padding: 4px;
+    border-width: 1px 0px 0px 0px;
     margin-right: 2px;
     height: auto;
+    width: 100%;
+    max-width: var(--procPage-width);
   }
 
   /* -- -- -- */
 
   .procPagesLayoutTripleStyle{
-    height : min(90vh - 36px - 15vmax, max(55vh, calc(100vh - clamp(100vw - 600px, 1vh, 55vh))));
     display: grid;
     overflow: hidden;
     grid-template-areas:
-      "sectionNav pageContent media";
-      grid-template-columns: max-content auto 55%;
+      "pageHeader pageHeader pageHeader"
+      "pageSubHeader pageSubHeader pageSubHeader"
+      "sectionNav pageContent media"
+      "pageAfter pageAfter pageAfter";
+    grid-template-columns: max-content auto 55%;
+    grid-template-rows: max-content max-content auto max-content;
   }
 
   .procPageNoMediaStyle{
-    grid-template-columns: max-content auto;
-    grid-template-rows: auto;
+    grid-template-areas:
+      "pageHeader pageHeader pageHeader"
+      "pageSubHeader pageSubHeader pageSubHeader"
+      "sectionNav pageContent pageContent"
+      "pageAfter pageAfter pageAfter";
+    grid-template-rows: max-content max-content auto;
   }
 }
 
@@ -214,12 +325,6 @@
   justify-self: center;
 }
 
-.procPagesMediaImage{
-    width: 100%;
-    height: auto;
-    margin: 0 auto;
-    display: block;
-}
 
 .manualLoadImage{
     width: 90%;

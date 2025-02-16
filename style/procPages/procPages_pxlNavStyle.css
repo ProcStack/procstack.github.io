@@ -2,9 +2,7 @@
 /* -- -- -- */
 
 .gitPxlNavPageStyle{
-  position: fixed;
-  bottom: 4vmax;
-  width: var(--procPage-width);
+  /*width: var(--procPage-width);*/
   justify-self: center;
   justify-items: center;
   z-index: 2;
@@ -40,6 +38,22 @@
 }
 .gitPxlNav-sectionNavButtonAvtiveStyle:hover{
   color: rgb(166 255 174);
+}
+
+.gitPxlNav-sectionNavListStyle{
+  background-color: rgba(41, 79, 17, 0.28);
+  border-color: rgba(46, 102, 10, 0.85);
+}
+
+@media screen and (min-width: 1000px) {
+  .gitPxlNav-sectionNavListStyle{
+    background: linear-gradient(0deg, rgba(41, 79, 17, 0), rgba(41, 79, 17, 0.28));
+    border-color: rgba(46, 102, 10, 0.85);
+  }
+}
+
+.gitPxlNav-sectionCaptionStyle{
+  background: linear-gradient(90deg, rgba(41, 79, 17, 0.0) 0%, rgba(41, 79, 17, 0.5) 25%, rgba(41, 79, 17, 0.5) 75%, rgba(41, 79, 17, 0.0) 100%);
 }
 
 /* -- -- -- */
