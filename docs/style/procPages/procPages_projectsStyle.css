@@ -2,9 +2,6 @@
 /* -- -- -- */
 
 .gitProjectsPageStyle{
-  position: fixed;
-  bottom: 3.5vmax;
-  max-width: var(--procPage-width);
   justify-self: center;
   justify-items: center;
   z-index: 4;
@@ -37,6 +34,22 @@
   text-shadow: 1.5px 1.5px 4px #252525;
   background-color: rgba(48, 120, 171, 0.88);
   border-color: rgba(84, 204, 255, 0.645);
+}
+
+.gitProjectsPage-sectionNavListStyle{
+  background-color: rgba(72, 134, 199, 0.15);
+  border-color: rgba(40, 121, 205, 0.83);
+}
+
+@media screen and (min-width: 1000px) {
+  .gitProjectsPage-sectionNavListStyle{
+    background: linear-gradient(0deg, rgba(72, 134, 199, 0.0), rgba(72, 134, 199, 0.65));
+    border-color: rgba(40, 121, 205, 0.83);
+  }
+}
+
+.gitProjectsPage-sectionCaptionStyle{
+  background: linear-gradient(90deg, rgba(72, 134, 199, 0.0) 0%, rgba(72, 134, 199, 0.5) 25%, rgba(72, 134, 199, 0.5) 75%, rgba(72, 134, 199, 0.0) 100%);
 }
 
 /* -- -- -- */

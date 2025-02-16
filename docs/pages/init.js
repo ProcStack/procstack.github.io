@@ -25,7 +25,7 @@ const pageContentObject = {
     'block' : ['procPagesContentStyle', 'gitInitPageStyle'],
     'parent' : [ 'procPagesParentStyle', 'gitInitPageParentStyle' ],
     'header' : [ 'procPagesHeaderStyle' ],
-    'inner' : [ 'procPagesLayoutTripleStyle' ],
+    'inner' : [],
     'content' : [ 'procPagesScrollbarStyle', 'gitInitPageWidthStyle' ],
     'media' : [ 'procPagesScrollbarStyle' ]
   },

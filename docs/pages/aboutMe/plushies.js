@@ -6,27 +6,27 @@ export const pageListingData = {
       'type' : 'image',
       'src' : '../pages/aboutMe/images/plushies_YearReview_2024_Overview.jpg',
       'alt' : "The plushies I made in 2024",
-      'style' : 'procPagesImageStyle',
+      'style' : ['procPagesImageStyle', 'procPagesLimitWidthStyle'],
       'caption' : ["My 2024 year in plushies!"],
     },
     {
       'type' : 'image',
       'src' : '../pages/aboutMe/images/pl_uvToFabricPattern.jpg',
       'alt' : "Houdini screenshot of Daryll getting flattened",
-      'style' : 'procPagesImageStyle'
+      'style' : ['procPagesImageStyle', 'procPagesLimitWidthStyle']
     },
     {
       'type' : 'image',
       'src' : '../pages/aboutMe/images/a04_DaryllTheDuck_A_main.jpg',
       'alt' : "Daryll the 'Rubber Duckie'",
-      'style' : 'procPagesImageStyle',
+      'style' : ['procPagesImageStyle', 'procPagesLimitWidthStyle'],
       'caption' : ["Daryll all done!"],
     },
     {
       'type' : 'image',
       'src' : '../pages/aboutMe/images/FrankTheFish_n_Pinky.jpg',
       'alt' : "Frank the Fish on his Pinky Flamingotube!",
-      'style' : 'procPagesImageStyle',
+      'style' : ['procPagesImageStyle', 'procPagesLimitWidthStyle'],
       'caption' : ["Frank The Fish chillin' out on his Flamingotube"]
     }
   ],
