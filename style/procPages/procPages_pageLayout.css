@@ -75,20 +75,23 @@
 
 .procPageContentView{
   grid-area: pageContent;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   max-width: var(--procPage-mobile-width);
 }
 
 .procPageVerticalLockContentView{
   grid-area: pageContent;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   /*max-width: var(--procPage-mobile-width);*/
 }
 
 .procPageMediaView{
   grid-area: media;
   height: 100%;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   /*max-width: var(--procPage-mobile-width);*/
   display: grid;
 }
@@ -157,7 +160,7 @@
     "media"
     "pageContent"
     "pageAfter";
-    grid-template-rows: max-content max-content max-content 40% auto max-content;
+  grid-template-rows: max-content max-content max-content calc(25% + min(40%, 100vw / 3)) auto max-content;
 }
 
 /* When there is no Media on a "Triple Layout" page */
@@ -265,7 +268,8 @@
   .procPageMediaView{
     grid-area: media;
     height: 100%;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     /*max-width: var(--procPage-width);*/
     display: grid;
   }
