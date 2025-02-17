@@ -173,15 +173,17 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
   
     let dustSystemSettings = dustSystem.getSettings();
     dustSystemSettings["vertCount"] = 800; // Point Count
-    dustSystemSettings["pScale"] = 7.0;  // Point Base Scale
-    dustSystemSettings["pOpacity"] = .6;  // Overall Opacity
-    dustSystemSettings["proxDist"] = 380;  // Proximity Distance from Camera
-    dustSystemSettings["fadeOutScalar"] = 1.9;  // Distance-opacity falloff multiplier
+    dustSystemSettings["pScale"] = 5.5;  // Point Base Scale
+    dustSystemSettings["pOpacity"] = .85;  // Overall Opacity
+    dustSystemSettings["proxDist"] = 300;  // Proximity Distance from Camera
+    dustSystemSettings["fadeOutScalar"] = 3.0;  // Distance-opacity falloff multiplier
     dustSystemSettings["additiveBlend"] = true;
   
-    dustSystemSettings["windDir"] = new Vector3( -0.9, 0.25, -1 ); // Constant direction flow
-    dustSystemSettings["wanderInf"] = 0.50; // How much the particle sways
-    dustSystemSettings["wanderFrequency"] = 2.30; // How frequent the sway happens
+    dustSystemSettings["offsetPos"] = new Vector3( -200.0, 15.0, 0.0 ); // Offset center of the system
+    dustSystemSettings["windDir"] = new Vector3( -0.0, 0.25, 10.0 ); // Constant direction flow
+    dustSystemSettings["wanderInf"] = 0.5; // How much the particle sways
+    dustSystemSettings["wanderRate"] = 1.85; // Wander noise rate
+    dustSystemSettings["wanderFrequency"] = 2.80; // How frequent the sway happens
     
   
     dustSystemSettings["atlasPicks"] = [
@@ -192,7 +194,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     ];
   
     // Use a texture from the internal `pxlAsset` folder; ( RGB, Alpha )
-    //dustSystem.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
+    dustSystem.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
   
     // Generate geometry and load texture resources
     dustSystem.build( dustSystemSettings );

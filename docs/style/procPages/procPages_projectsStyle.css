@@ -8,32 +8,45 @@
   overflow: hidden;
 }
 
+.gitProjectsPageStyle a{
+  color: rgb(158, 206, 255);
+}
+.gitProjectsPageStyle a:hover{
+  color: rgb(216, 235, 255);
+}
+
 /* -- -- -- */
 
 .gitProjectsPage-sectionNavButtonStyle{
-  color: rgba(232, 246, 255, 0.96);
+  color: rgba(186, 228, 255, 0.92);
   text-shadow: 1.5px 1.5px 4px #252525;
-  background-color: rgba(33, 81, 116, 0.46);
+  background-color: rgba(33, 81, 116, 0.15);
   border-color: rgba(84, 203, 255, 0.46);
 }
 .gitProjectsPage-sectionNavButtonStyle:hover{
-  color: rgb(196, 231, 255);
-  text-shadow: 1.5px 1.5px 4px #252525d6;
-  background-color: rgba(77, 142, 194, 0.37);
-  border-color: rgba(29, 193, 243, 0.74);
+  color: rgb(234, 246, 255);
+  text-shadow: 1.5px 1.5px 4px rgba(37, 37, 37, 0.839);
+  background-color: rgba(89, 140, 182, 0.37);
+  border-color: rgba(29, 193, 243, 0.84);
 }
 .gitProjectsPage-sectionNavButtonStyle:active{
   color: rgba(130, 205, 255, 0.95);
   text-shadow: 1.5px 1.5px 4px #252525;
-  background-color: rgba(41, 79, 107, 0.37);
-  border-color: rgba(25, 175, 220, 0.84);
+  background-color: rgba(50, 79, 101, 0.37);
+  border-color: rgba(25, 175, 220, 0.90);
+}
+.gitProjectsPage-sectionNavButtonBackgroundStyle{
+  background: linear-gradient(90deg, rgba(74, 127, 165, 0.68), rgba(94, 98, 101, 0.04));
 }
 
-.gitProjectsPage-sectionNavButtonAvtiveStyle{
-  color: #ffffff;
+.gitProjectsPage-sectionNavButtonActiveStyle{
+  color: #ffffff !important;
   text-shadow: 1.5px 1.5px 4px #252525;
-  background-color: rgba(48, 120, 171, 0.88);
-  border-color: rgba(84, 204, 255, 0.645);
+  background-color: rgba(48, 120, 171, 0.88) !important;
+  border-color: rgba(84, 204, 255, 0.645) !important;
+}
+.gitProjectsPage-sectionNavButtonActiveStyle:hover{
+  background-color: rgba(53, 129, 183, 0.934);
 }
 
 .gitProjectsPage-sectionNavListStyle{
@@ -43,7 +56,7 @@
 
 @media screen and (min-width: 1000px) {
   .gitProjectsPage-sectionNavListStyle{
-    background: linear-gradient(0deg, rgba(72, 134, 199, 0.0), rgba(72, 134, 199, 0.65));
+    background: linear-gradient(-45deg, rgba(72, 134, 199, 0.0), rgba(72, 134, 199, 0.35));
     border-color: rgba(40, 121, 205, 0.83);
   }
 }
@@ -52,7 +65,13 @@
   background: linear-gradient(90deg, rgba(72, 134, 199, 0.0) 0%, rgba(72, 134, 199, 0.5) 25%, rgba(72, 134, 199, 0.5) 75%, rgba(72, 134, 199, 0.0) 100%);
 }
 
+.gitProjectsPage-headerLine{
+  background: linear-gradient(90deg, rgba(33, 162, 228, 0.4) 0%, rgba(33, 162, 228, 0) 100%);
+}
+
+
 /* -- -- -- */
+
 
 .gitProjectsPageScrollbarStyle::-webkit-scrollbar {
   border-radius: 2px;
@@ -89,6 +108,7 @@
 /* -- -- -- */
 
 .gitProjectsPageParentStyle{
+  max-width: min(100vw, 1600px);
   display: grid;
   grid-auto-flow: row;
   padding: var(--inner-padding);
@@ -113,7 +133,7 @@
   border-color: #3e5f75;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 100%;
+  width: 99%;
   margin-bottom: var(--inner-before-after-margin);
   margin-left: auto;
   margin-right: auto;
@@ -127,7 +147,7 @@
   border-color: #3e5f75;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 100%;
+  width: 99%;
   margin-top: var(--inner-before-after-margin);
   margin-left: auto;
   margin-right: auto;
@@ -155,9 +175,9 @@
   background-color: rgba(24, 77, 118, 0.592);
 }
 
-.procPagesNav_projectsActiveStyle a {
-  text-shadow: 1px 1.5px 4px #5fb3f4;
-  background-color: rgba(22, 134, 219, 0.675);
+.procPagesNav_projectsActiveStyle {
+  text-shadow: 1px 1.5px 4px #405e74 !important;
+  background-color: rgba(22, 134, 219, 0.85) !important;
 }
 
 

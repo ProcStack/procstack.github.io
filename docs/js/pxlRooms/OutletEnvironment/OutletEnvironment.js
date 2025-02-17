@@ -74,13 +74,13 @@ export class OutletEnvironment extends RoomEnvironment{
 buildDust(){
   if( this.mobile ) return;
 
-  let vertexCount = 800; // Point Count
-  let pScale = 8.5;  // Point Base Scale
+  let vertexCount = 600; // Point Count
+  let pScale = 8.0;  // Point Base Scale
   let visibleDistance = 380;  // Proximity Distance from Camera
-  let particleOpacity = .6;  // Overall Opacity
+  let particleOpacity = .55;  // Overall Opacity
   let opacityRolloff = 1.9;  // Distance-opacity falloff multiplier
 
-  let windDirection = new Vector3( 8.218, 0.406, -7.812 ); // Constant direction flow
+  let windDirection = new Vector3(  5.218, 0.406, -10.812 ); // Constant direction flow
   let wanderInfluence = 0.80; // How much the particle sways
   let wanderFrequency = 2.30; // How frequent the sway happens
 

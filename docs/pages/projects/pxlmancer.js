@@ -42,7 +42,7 @@ export const pageListingData = {
     
     <div class="procPagesProjectsSpacer"></div>
 
-    <br><br>&nbsp;&nbsp; A little tid-bit, <span class='textNudge'>pxlmancer.com</span> is the origin of my '<span class='textNudge'>pxl</span>' namespace for my projects.
+    <br>&nbsp;&nbsp; A little tid-bit, <span class='textNudge'>pxlmancer.com</span> is the origin of my '<span class='textNudge'>pxl</span>' namespace for my projects.
     <br>It's my indicator of a codebase with a visual output; such as pxlNav, pxlVisualizer, pxlTextGenerator, etc.
     <br><br>More about pxlmancer.com on <a href='https://imgur.com/gallery/8lSW1' target='_blank'>Imgur</a>!
     

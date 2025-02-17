@@ -266,6 +266,7 @@ export class ProcPageManager {
     }
 
     //this.runHidePages();
+    this.activateNavButton( this.curPageName );
 
     // Let the dom settle for a step
     setTimeout( ()=>{
@@ -493,6 +494,28 @@ export class ProcPageManager {
     }
   }
 
+  activateNavButton( pageName ){
+    let navKeys = Object.keys(this.navBarObjs);
+    navKeys.forEach( (navKey)=>{
+      if( navKey == null ) return;
+
+      let curNav = this.navBarObjs[navKey];
+      if( this.pageListing.hasOwnProperty(navKey) ){
+        let pageData = this.pageListing[navKey]["pageData"];
+        if( navKey == pageName ){
+          console.log(pageData);
+          if( pageData.hasOwnProperty("activeNavButton") && Array.isArray(pageData["activeNavButton"]) ){
+            pageData["activeNavButton"].forEach( (activeNavButton)=>{ curNav.classList.add(activeNavButton); });
+          }
+        }else{
+          if( pageData.hasOwnProperty("activeNavButton") && Array.isArray(pageData["activeNavButton"]) ){
+            pageData["activeNavButton"].forEach( (activeNavButton)=>{ curNav.classList.remove(activeNavButton); });
+          }
+        }
+      }
+    });
+  }
+
   changePage( pageName, roomName=null, locationName=null ){
     if( pageName != this.curPage && Object.keys(this.pageListing).includes(pageName) ){
       this.toggleFader(this.curPage, false);
@@ -545,6 +568,9 @@ export class ProcPageManager {
 
       // Trigger css animation to bring the new page in
       this.toggleFader(this.curPage, true);
+
+      //Activate nav button
+      this.activateNavButton( pageName );
 
       // Apply new page styles
       this.setStyleOverrides();

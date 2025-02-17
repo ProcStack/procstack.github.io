@@ -4,7 +4,7 @@ import { ProcPage } from '../js/pxlPages/ProcPage.js';
 import { pageListingData as aiDevData } from './aboutMe/aidev.js';
 import { pageListingData as filmWorkData } from './aboutMe/filmWork.js';
 import { pageListingData as plushiesData } from './aboutMe/plushies.js';
-import { pageListingData as whoAmIData } from './aboutMe/whoAmI.js';
+import { pageListingData as whatAmIData } from './aboutMe/whatAmI.js';
 
 const metaDataInput = {
   'page': 'AboutMe',
@@ -20,6 +20,7 @@ const pageContentObject = {
   'page' : 'AboutMe',
   'title' : 'About Me; Kevin Edzenga',
   'theme' : '#656565',
+  'activeNavButton' : [ 'procPagesNav_aboutMeActiveStyle' ],
   'layout' : 'vertical',
   'header' : 'About Me',
   'subHeader' : '',
@@ -34,7 +35,7 @@ const pageContentObject = {
     'sectionNavList' : [ 'gitAboutMePage-sectionNavListStyle' ],
     'sectionNav' : [],
     'sectionNavButton' : [ 'gitAboutMePage-sectionNavButtonStyle' ],
-    'sectionNavButtonActive' : [ 'gitAboutMePage-sectionNavButtonAvtiveStyle' ],
+    'sectionNavButtonActive' : [ 'gitAboutMePage-sectionNavButtonActiveStyle' ],
     'sectionContent' : [],
     'sectionMedia' : [],
     'sectionCaption' : [ 'gitAboutMePage-sectionCaptionStyle' ],
@@ -47,7 +48,7 @@ const pageContentObject = {
     'footerBar' : 'aboutMePage_footerBar'
   },
   'sections' : [
-    whoAmIData,
+    whatAmIData,
     filmWorkData,
     plushiesData,
     aiDevData

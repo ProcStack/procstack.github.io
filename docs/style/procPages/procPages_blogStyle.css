@@ -29,12 +29,15 @@
   background-color: rgba(15, 79, 20, 0.37);
   border-color: rgba(25, 220, 30, 0.5);
 }
+.gitBlogPage-sectionNavButtonBackgroundStyle{
+  background: linear-gradient(90deg, rgba(86, 86, 86, 0.7), rgba(86, 86, 86, 0.0));
+}
 
-.gitBlogPage-sectionNavButtonAvtiveStyle{
-  color: rgb(231 239 255);
+.gitBlogPage-sectionNavButtonActiveStyle{
+  color: rgb(231 239 255) !important;
   text-shadow: 1.5px 1.5px 4px #252525;
-  background-color: rgba(21, 67, 189, 0.71);
-  border-color: rgb(59 74 255);
+  background-color: rgba(21, 67, 189, 0.71) !important;
+  border-color: rgb(59 74 255) !important;
 }
 
 .gitBlogPage-sectionNavListStyle{
@@ -43,7 +46,7 @@
 
 @media screen and (min-width: 1000px) {
   .gitBlogPage-sectionNavListStyle{
-    background: linear-gradient(0deg, rgba(59, 59, 59, 0.0), rgba(59, 59, 59, 0.56));
+    background: linear-gradient(-45deg, rgba(59, 59, 59, 0.0), rgba(59, 59, 59, 0.56));
   }
 }
 
@@ -51,7 +54,13 @@
   background: linear-gradient(90deg, rgba(72, 134, 199, 0.0) 0%, rgba(72, 134, 199, 0.5) 25%, rgba(72, 134, 199, 0.5) 75%, rgba(72, 134, 199, 0.0) 100%);
 }
 
+.gitBlogPage-headerLine{
+  background: linear-gradient(90deg, rgb(167 167 167 / 38%) 0%, rgb(111 111 111 / 0%) 100%);
+}
+
+
 /* -- -- -- */
+
 
 .gitBlogPageScrollbarStyle::-webkit-scrollbar {
   border-radius: 2px;
@@ -99,7 +108,7 @@
   border-color: #2b0967;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 100%;
+  width: 99%;
   margin-bottom: var(--inner-before-after-margin);
   margin-left: auto;
   margin-right: auto;
@@ -113,7 +122,7 @@
   border-color: #2b0967;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 100%;
+  width: 99%;
   margin-top: var(--inner-before-after-margin);
   margin-left: auto;
   margin-right: auto;
@@ -144,11 +153,11 @@
   border: 1px solid #500fb1f0;
 }
 
-.procPagesNav_blogActiveStyle a {
-  color: #b781ff;
+.procPagesNav_blogActiveStyle {
+  color: #b781ff !important;
   text-shadow: 1px 1.5px 4px #4b3e55;
-  background-color: rgba(134, 60, 252, 0.395);
-  border: 1px solid #743bc9f0;
+  background-color: rgba(134, 60, 252, 0.395) !important;
+  border: 1px solid #743bc9f0 !important;
 }
 
 /* -- -- -- */

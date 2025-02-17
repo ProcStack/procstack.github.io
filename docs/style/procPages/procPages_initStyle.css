@@ -42,7 +42,7 @@
   border-color: #483107;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 100%;
+  width: 99%;
   margin-bottom: var(--inner-before-after-margin);
   margin-left: auto;
   margin-right: auto;
@@ -64,9 +64,10 @@
   background-color: rgba(89, 54, 3, 0.35);
 }
 .procPagesNav_initStyle a:hover {
-  color: #b36f16;
+  color: #d38c2f;
   text-shadow: 1px 1.5px 4px #454545;
   background-color: rgba(89, 66, 8, 0.85);
+  border-color: #744d1a;
 }
 .procPagesNav_initStyle a:active {
   color: #6b420c;
@@ -74,11 +75,13 @@
   background-color: rgba(61, 42, 6, 0.85);
 }
 
-.procPagesNav_initActiveStyle a {
-  color: #b36f16;
+.procPagesNav_initActiveStyle {
+  color: #ffad49 !important;
   text-shadow: 1px 1.5px 4px #454545;
-  background-color: rgba(89, 66, 8, 0.85);
+  background-color: rgba(89, 66, 8, 0.85) !important;
+  border-color: #744d1a !important;
 }
+
 /* -- -- -- */
 
 

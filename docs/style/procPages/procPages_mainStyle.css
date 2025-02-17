@@ -233,12 +233,11 @@ text-shadow: 1px 1.5px 4px #252525;
     display: grid;
     grid-auto-flow: column;
     justify-content: center;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 7px 5px 7px;
     max-width: 950px;
     font-size: 1.1em;
     font-weight: 600;
     border-radius: 0px;
-    width: 100%;
     overflow: hidden;
     border-width: 1px 0px 1px 0px;
   }
@@ -333,6 +332,10 @@ text-shadow: 1px 1.5px 4px #252525;
   font-size: 1.2em;
   font-weight: 600;
   padding: 3px 3px 0px 3px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content auto;
+  align-items: baseline;
 }
 
 .pageLinkStyle{
@@ -427,6 +430,10 @@ text-shadow: 1px 1.5px 4px #252525;
 }
 
 
+.procPagesSpacer{
+  height: 7px;
+  overflow: hidden;
+}
 
 .oneOffsBlockStyle{
   display: grid;

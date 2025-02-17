@@ -237,18 +237,18 @@ export class CampfireEnvironment extends RoomEnvironment{
   
     let systemName = "floatingDust";
     let dustSystem = new FloatingDust( this, systemName );
-  
     let dustSystemSettings = dustSystem.getSettings();
-    dustSystemSettings["vertCount"] = 800; // Point Count
-    dustSystemSettings["pScale"] = 7.0;  // Point Base Scale
-    dustSystemSettings["pOpacity"] = .6;  // Overall Opacity
-    dustSystemSettings["proxDist"] = 380;  // Proximity Distance from Camera
-    dustSystemSettings["fadeOutScalar"] = 1.9;  // Distance-opacity falloff multiplier
-    dustSystemSettings["additiveBlend"] = true;
+    dustSystemSettings["vertCount"] = 900; // Point Count
+    dustSystemSettings["pScale"] = 8.5;  // Point Base Scale
+    dustSystemSettings["pOpacity"] = .95;  // Overall Opacity
+    dustSystemSettings["proxDist"] = 220;  // Proximity Distance from Camera
+    dustSystemSettings["fadeOutScalar"] = 1.2;  // Distance-opacity falloff multiplier
+    dustSystemSettings["additiveBlend"] = false;
   
-    dustSystemSettings["windDir"] = new Vector3( -0.9, 0.25, -1 ); // Constant direction flow
+    dustSystemSettings["offsetPos"] = new Vector3( -10.0, 5.0, 10.0 ); // Offset center of the system
+    dustSystemSettings["windDir"] = new Vector3( -4.4, 0.25, 4.8 ); // Constant direction flow
     dustSystemSettings["wanderInf"] = 0.50; // How much the particle sways
-    dustSystemSettings["wanderFrequency"] = 2.30; // How frequent the sway happens
+    dustSystemSettings["wanderFrequency"] = 2.80; // How frequent the sway happens
     
   
     dustSystemSettings["atlasPicks"] = [

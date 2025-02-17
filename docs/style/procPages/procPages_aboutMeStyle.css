@@ -33,7 +33,7 @@
   border-color: rgba(247, 246, 246, 0.9);
 }
 
-.gitAboutMePage-sectionNavButtonAvtiveStyle{
+.gitAboutMePage-sectionNavButtonActiveStyle{
   color: #ffffff;
   text-shadow: 1.5px 1.5px 4px rgba(37, 37, 37, 0.632);
   background-color: rgba(98, 98, 98, 0.886);
@@ -46,7 +46,11 @@
 }
 
 .gitAboutMePage-sectionCaptionStyle{
-  background: linear-gradient(90deg, rgba(59, 59, 59, 0.0) 10%, rgba(59, 59, 59, 0.5) 35%, rgba(59, 59, 59, 0.5) 65%, rgba(59, 59, 59, 0.0) 90%);
+  background: linear-gradient(90deg, rgba(80, 80, 80, 0.0) 10%, rgba(80, 80, 80, 0.5) 35%, rgba(80, 80, 80, 0.5) 65%, rgba(80, 80, 80, 0.0) 90%);
+}
+
+.gitAboutMePage-headerLine{
+  background: linear-gradient(90deg, rgb(167 167 167 / 38%) 0%, rgb(111 111 111 / 0%) 100%);
 }
 
 /* -- -- -- */
@@ -77,7 +81,7 @@
   border-color: #5d5d5d;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 100%;
+  width: 99%;
   margin-bottom: var(--inner-before-after-margin);
   margin-left: auto;
   margin-right: auto;
@@ -91,7 +95,7 @@
   border-color: #5d5d5d;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 100%;
+  width: 99%;
   margin-top: var(--inner-before-after-margin);
   margin-left: auto;
   margin-right: auto;
@@ -118,9 +122,9 @@
   background-color: rgba(100, 100, 100, .85);
 }
 
-.procPagesNav_aboutMeActiveStyle a {
-  text-shadow: 1px 1.5px 4px #cccccc;
-  background-color: rgba(180, 180, 180, .85);
+.procPagesNav_aboutMeActiveStyle {
+  text-shadow: 1px 1.5px 4px #3e3e3e !important;
+  background-color: rgb(158 158 158 / 63%) !important;
 }
 
 /* -- -- -- */
