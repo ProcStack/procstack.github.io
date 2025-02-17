@@ -15,6 +15,7 @@ export class ProcPage {
     this.pageStyles = contentObject.pageStyles || "";
     this.styleOverrides = contentObject.styleOverrides || {};
     this.initialSection = contentObject.initialSection || 0;
+    this.activeNavButton = contentObject.activeNavButton || [];
 
     this.layoutTypes = ['single', 'triple', 'vertical'];
     this.layout = 'triple';
@@ -22,6 +23,7 @@ export class ProcPage {
       this.layout = contentObject.layout;
     }
 
+    this.navButton = null;
     this.pageObject = null;
     this.pageContent = {};
     this.prevSection = null;
@@ -455,6 +457,14 @@ export class ProcPage {
       pageInnerContent.appendChild( pageSubHeader );
     }
 
+    if( this.hasPageStyle( 'headerLine' ) ){
+      let headerLineObj = document.createElement('div');
+      headerLineObj.classList.add('procPagesHeaderLine');
+      this.applyPageStyle( 'headerLine', headerLineObj );
+      pageInnerContent.appendChild( headerLineObj );
+    }
+
+
     let pageSections = pageInnerContent;
     if( false && this.layout == 'triple' ){
       pageSections = document.createElement('div');
@@ -530,7 +540,13 @@ export class ProcPage {
 
         let sectionContentBlock = document.createElement('div');
         sectionContentBlock.classList.add('procPageSectionContentStyle');
+        sectionContentBlock.classList.add('pagesVisOff');
         sectionContentBlock.id = sectionTitle;
+        
+        if( sectionData.hasOwnProperty( 'contentStyle' ) && Array.isArray( sectionData.contentStyle ) ){
+          sectionData.contentStyle.forEach(( style )=>{ style!=''&&sectionContentBlock.classList.add(style) });
+        }
+
         
         this.applyPageStyle( 'sectionNav', sectionContentBlock );
 
@@ -550,6 +566,7 @@ export class ProcPage {
           this.sectionData[sectionTitle].objects.push( ...builtObjs['content'] );
         }
 
+        builtObjs.content.push( sectionContentBlock );
         this.sectionData[sectionTitle].objects = builtObjs.content;
 
         if( builtObjs.hasOwnProperty('nav') ){
@@ -722,6 +739,7 @@ export class ProcPage {
 
 
     if( sectionData.name != '' ){
+
       let sectionTitleDiv = document.createElement('div');
       if( this.layout == 'triple' ){
         sectionTitleDiv.classList.add('procPagesNavSectionStyle');
@@ -739,8 +757,16 @@ export class ProcPage {
       sectionTitleDiv.innerHTML = sectionData.name;
 
       this.applyPageStyle( 'sectionNavButton', sectionTitleDiv );
-      
-      sectionList.appendChild( sectionTitleDiv );
+      if( this.hasPageStyle('sectionNavButtonBackground') ){
+        let buttonBgObj = document.createElement('div');
+        buttonBgObj.classList.add('procPagesSectionNavButtonBackground');
+        this.applyPageStyle( 'sectionNavButtonBackground', buttonBgObj );
+        buttonBgObj.appendChild( sectionTitleDiv );
+        sectionList.appendChild( buttonBgObj );
+      }else{
+        sectionList.appendChild( sectionTitleDiv );
+      }
+
       ret['nav'] = sectionTitleDiv;
     }
 
@@ -802,6 +828,10 @@ export class ProcPage {
     if( this.pageStyles.hasOwnProperty( styleType ) && Array.isArray( this.pageStyles[ styleType ] ) ){
       this.pageStyles[ styleType ].forEach(( style )=>{ style!=''&&obj.classList.add(style) });
     }
+  }
+
+  hasPageStyle( styleType ){
+    return this.pageStyles.hasOwnProperty( styleType );
   }
 
 }

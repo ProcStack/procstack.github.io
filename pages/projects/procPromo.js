@@ -26,7 +26,7 @@ export const pageListingData = {
     },
   ],
   'content' : `
-    <a href='https://github.com/ProcStack/procPromo_ShaderPack' class='procPagesRepoLinkStyle' target='_blank'>procPromo Minecraft Shader Pack</a>
+    <a href='https://github.com/ProcStack/procPromo_ShaderPack' class='procPagesRepoLinkStyle' target='_blank'>procPromo Shader Pack</a>
     <br>A shader pack for Minecraft, used through Optifine.
 
     <br>

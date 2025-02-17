@@ -13,6 +13,7 @@ export const pageListingData = {
   'content' : `
     <a href='https://github.com/ProcStack/pxlVisualizer' class='procPagesRepoLinkStyle' target='_blank'>pxlVisualizer</a>
     <br>Trippy visuals, using OpelGL and C++ through OpenFrameWorks in 2019.
+    <br>
     <br>Originally written in Python for PyGame, decided it would be a fun project to learn C++ on.
   `,
 };

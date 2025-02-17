@@ -1,7 +1,15 @@
 
 export const pageListingData = {
   'name' : "What's&nbsp;<span class='textNudge'>pxlNav</span>?",
-  'media' : [],
+  'media' : [
+    {
+      'type' : 'image',
+      'src' : '../pages/makingOf/images/whatIs_theOutlet.jpg',
+      'alt' : 'Showing The Outlet environment in Houdini',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["Using Houdini as my level editor for <a href='Outlet.htm' target='_blank' alt='Outlet Environment' class='textBump'>The Outlet</a>"]
+    }
+  ],
   'content' : `
     The background of this page is running '<span class="textNudge">pxlNav</span>',
     <br>Javascript package to extend Three.js to make it more interactive / game like.

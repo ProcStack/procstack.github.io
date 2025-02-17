@@ -9,7 +9,7 @@
 
 .procPageSubHeader{
   grid-area: pageSubHeader;
-  padding: 0px 10px 5px 10px;
+  padding: 0px 10px 0px 10px;
   font-size: 1.05em;
 }
 
@@ -138,17 +138,18 @@
 
 
 .procPagesLayoutTripleStyle{
-  height : max(55vh, calc(97vh - 36px - 7vmax - clamp(100vw - 600px, 1vh, 55vh)));
+  height : max(60vh, calc(97vh - 36px - 7vmax - clamp(100vw - 600px, 1vh, 60vh)));
   display: grid;
   overflow: hidden;
   grid-template-areas:
     "pageHeader"
     "pageSubHeader"
+    "headerLine"
     "sectionNav"
     "media"
     "pageContent"
     "pageAfter";
-    grid-template-rows: max-content max-content max-content 40% auto max-content;
+    grid-template-rows: max-content max-content max-content max-content 40% auto max-content;
 }
 .procPagesLockVertical{
   display: grid;
@@ -156,11 +157,12 @@
   grid-template-areas:
     "pageHeader"
     "pageSubHeader"
+    "headerLine"
     "sectionNav"
     "media"
     "pageContent"
     "pageAfter";
-  grid-template-rows: max-content max-content max-content calc(25% + min(40%, 100vw / 3)) auto max-content;
+  grid-template-rows: max-content max-content max-content max-content calc(25% + min(40%, 100vw / 3)) auto max-content;
 }
 
 /* When there is no Media on a "Triple Layout" page */
@@ -173,10 +175,22 @@
   grid-template-rows: min-content max-content;
   grid-template-columns: auto;
 }
+
+/* -- -- -- */
+
+.procPagesHeaderLine{
+  grid-area: headerLine;
+  display: none;
+}
+
 /* -- -- -- */
 
 .procPagesLimitWidthStyle{
   width: min(100%, 850px) !important;
+}
+
+.procPagesNarrowWidthStyle{
+  width: min(100%, 550px) !important;
 }
 
 /* -- -- -- */
@@ -186,15 +200,25 @@
 }
 
 .procPagesInnerContentStyle{
-  margin: 5px;
-  padding: 15px;
+  padding: 0px 10px;
 }
+
+.procPagesCenterContent{
+  display: block;
+  padding-top: 4px;
+}
+
+/* -- -- -- */
+
+.procPagesSectionNavButtonBackground{
+  width: 100%;
+}
+
 
 /* -- -- -- */
 
 .procPagesMediaCaptionParentStyle{
   background: linear-gradient(90deg, rgba(25, 25, 25, .0) 0%, rgba(80, 80, 80, .5) 25%, rgba(80, 80, 80, .5) 75%, rgba(25, 25, 25, .0) 100%);
-  padding-bottom: 6px;
 }
 
 .procPagesMediaCaptionStyle{
@@ -241,6 +265,13 @@
 /* When the screen is 1000px wide or more */
 @media screen and (min-width: 1000px) {
 
+  .procPagesCenterContent{
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    height: 100%;
+  }
+
   .procPagesMediaImage{
     width: 100% !important;
     height: auto;
@@ -250,7 +281,7 @@
 
   .procPagesPlacementTripleStyle{
     position: fixed;
-    bottom: 3.5vmax;
+    bottom: 1.5vmax;
   }
 
 
@@ -258,6 +289,16 @@
     width: calc(100vw - 2vmax);
   }
 
+  .procPagesHeaderLine{
+    grid-area: headerLine;
+    display: block;
+    height: 1px;
+    overflow: hidden;
+    background-color: rgba(242, 242, 242, 0.541);
+    width: 84%;
+    margin: 2px 0px 4.5px 2px;
+  }
+  
   .procPageContentView{
     grid-area: pageContent;
     overflow: auto;
@@ -281,7 +322,6 @@
     justify-items: center;
     align-content: baseline;
     grid-gap: 4px;
-    padding: 4px;
     border-width: 1px 0px 0px 0px;
     margin-right: 2px;
     height: auto;
@@ -297,19 +337,21 @@
     grid-template-areas:
       "pageHeader pageHeader pageHeader"
       "pageSubHeader pageSubHeader pageSubHeader"
+      "headerLine headerLine headerLine"
       "sectionNav pageContent media"
       "pageAfter pageAfter pageAfter";
     grid-template-columns: max-content auto 55%;
-    grid-template-rows: max-content max-content auto max-content;
+    grid-template-rows: max-content max-content max-content auto max-content;
   }
 
   .procPageNoMediaStyle{
     grid-template-areas:
       "pageHeader pageHeader pageHeader"
       "pageSubHeader pageSubHeader pageSubHeader"
+      "headerLine headerLine headerLine"
       "sectionNav pageContent pageContent"
       "pageAfter pageAfter pageAfter";
-    grid-template-rows: max-content max-content auto;
+    grid-template-rows: max-content max-content max-content auto max-content;
   }
 }
 
