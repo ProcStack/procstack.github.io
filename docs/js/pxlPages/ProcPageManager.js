@@ -503,7 +503,6 @@ export class ProcPageManager {
       if( this.pageListing.hasOwnProperty(navKey) ){
         let pageData = this.pageListing[navKey]["pageData"];
         if( navKey == pageName ){
-          console.log(pageData);
           if( pageData.hasOwnProperty("activeNavButton") && Array.isArray(pageData["activeNavButton"]) ){
             pageData["activeNavButton"].forEach( (activeNavButton)=>{ curNav.classList.add(activeNavButton); });
           }
