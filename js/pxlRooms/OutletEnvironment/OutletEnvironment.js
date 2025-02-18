@@ -32,6 +32,7 @@ import { RoomEnvironment, pxlShaders, pxlEffects } from "../../pxlNav.esm.js";
 const pxlPrincipledVert = pxlShaders.objects.pxlPrincipledVert;
 const pxlPrincipledFrag = pxlShaders.objects.pxlPrincipledFrag;
 const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
+const HeightMapSpawner = pxlEffects.pxlParticles.HeightMap;
 
 export class OutletEnvironment extends RoomEnvironment{
   constructor( roomName='OutletEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
@@ -117,6 +118,64 @@ buildDust(){
   this.particleList[systemName] = dustSystem;
 }
 
+builBugs(){
+  if( this.mobile ) return;
+
+  let vertexCount = 500; // Point Count
+  let pScale = 10.0;  // Point Base Scale
+  let visibleDistance = 400;  // Proximity Distance from Camera
+  let particleOpacity = 1.0;  // Overall Opacity
+  let opacityRolloff = 0.9;  // Distance-opacity falloff multiplier
+
+  let jumpHeightMult = 17.0; // How high the bugs jump
+  let wanderInfluence = 0.85; // How much the particle sways
+  let wanderFrequency = 3.50; // How frequent the sway happens
+
+  // -- -- --
+
+  let systemName = "grassBugs";
+  let grassBugsSystem = new HeightMapSpawner( this, systemName );
+
+  let grassBugsSettings = grassBugsSystem.getSettings();
+  grassBugsSettings["vertCount"] = vertexCount;
+  grassBugsSettings["pScale"] = pScale;
+  grassBugsSettings["pOpacity"] = particleOpacity;
+  grassBugsSettings["proxDist"] = visibleDistance;
+  grassBugsSettings["fadeOutScalar"] = opacityRolloff;
+  grassBugsSettings["additiveBlend"] = false;
+
+  grassBugsSettings["jumpHeightMult"] = jumpHeightMult;
+  grassBugsSettings["wanderInf"] = wanderInfluence;
+  grassBugsSettings["wanderFrequency"] = wanderFrequency;
+  
+  grassBugsSettings["atlasPicks"] = [
+    ...grassBugsSystem.dupeArray([0.0,0.],4), ...grassBugsSystem.dupeArray([0.25,0.],4),
+    ...grassBugsSystem.dupeArray([0.50,0.],4), ...grassBugsSystem.dupeArray([0.75,0.],4),
+    ...grassBugsSystem.dupeArray([0.50,0.25],4), ...grassBugsSystem.dupeArray([0.75,0.25],4),
+    ...grassBugsSystem.dupeArray([0.50,0.5],2), ...grassBugsSystem.dupeArray([0.75,0.5],2),
+    ...grassBugsSystem.dupeArray([0.50,0.75],3), ...grassBugsSystem.dupeArray([0.75,0.75],3)
+  ];
+
+  // Use a texture from the internal `pxlAsset` folder; ( RGB, Alpha )
+  grassBugsSystem.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
+
+
+  // Set height map
+  grassBugsSystem.setHeightMapPath( this.assetPath+"bug_heightMap.jpg" );
+
+  // Set spawn map
+  grassBugsSystem.setSpawnMapPath( this.assetPath+"bug_spawnMap.jpg" );
+
+  let bugObj = null;
+  if( this.geoList['Scripted'] && this.geoList['Scripted']['bugParticles_loc'] ){
+    bugObj = this.geoList['Scripted']['bugParticles_loc'];
+  }
+
+  // Generate geometry and load texture resources
+  grassBugsSystem.build( grassBugsSettings, bugObj );
+  this.particleList[systemName] = grassBugsSystem;
+}
+
 
 // -- -- -- -- -- -- -- -- -- --
 // -- Post FBX Load & Build - -- --
@@ -127,6 +186,9 @@ buildDust(){
 
     // Add some floating dust particles around the camera
     this.buildDust();
+
+    // Add some bugs jumping in the grass
+    this.builBugs();
     
     // Adding a basic ambient light
     var ambientLight = new AmbientLight( 0x383838 ); // soft white light
@@ -414,7 +476,7 @@ buildDust(){
   //
     // -- -- -- 
         
-		let fieldFbxLoader = this.pxlFile.loadRoomFBX( this );//, null, null, true );
+		let fieldFbxLoader = this.pxlFile.loadRoomFBX( this );// , null, null, true );
 		
 	// -- -- -- -- -- -- -- -- -- -- -- -- -- //
 		
