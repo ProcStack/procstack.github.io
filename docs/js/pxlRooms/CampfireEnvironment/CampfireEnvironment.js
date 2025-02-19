@@ -674,6 +674,7 @@ export class CampfireEnvironment extends RoomEnvironment{
       {
         'rgbMap' : { type:'t', value: null },
         'alphaMap' : { type:'t', value: null },
+        'intensity' : { type: "f", value: 0.75 },
         'noiseTexture' : { type:'t', value: null },
         'fogColor' : { type: "c", value: this.fogColor }
       }]

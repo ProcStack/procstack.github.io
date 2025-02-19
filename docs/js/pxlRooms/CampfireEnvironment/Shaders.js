@@ -51,6 +51,7 @@ export function rgbaMapFrag( settings ){
   ret +=`
     uniform sampler2D rgbMap;
     uniform sampler2D alphaMap;
+    uniform float intensity;
     uniform vec3 fogColor;
 
     varying vec2 vUv;
@@ -80,15 +81,15 @@ export function rgbaMapFrag( settings ){
       float screenSpaceX = abs((vCamPos.x / vCamPos.z))*.45;
       float depth = min(1.0, max(0.0, gl_FragCoord.z / gl_FragCoord.w * DepthScalar )) * step( .930, gl_FragCoord.z );
       depth = depth + ( screenSpaceX * screenSpaceX )*min( 1.0, depth * ScreenWarpColorFix );
-      depth = min(1.0, pow( depth, 1.0-depth) );
+      depth = min(1.0, pow( depth, 1.0-depth*.65) );
       
       vec4 outCd = vec4( Cd, alpha );
       float gCd = luma( Cd.rgb );
 
-      float fogMix =  clamp( depth * (depth*2.2501), 0.0, 0.85 ) ;
+      float fogMix =  clamp( depth * (depth*2.501), 0.0, 0.8 ) ;
       
       vec3 toFogColor = fogColor * (gCd*.4 + .7 );
-      outCd.rgb=  mix( outCd.rgb, toFogColor, fogMix );
+      outCd.rgb=  mix( outCd.rgb * intensity, toFogColor, fogMix );
       
       
       gl_FragColor = outCd;
