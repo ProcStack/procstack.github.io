@@ -1,10 +1,106 @@
 
 import { ShaderChunk } from "../../libs/three/three.module.min.js";
 import { pxlShaders }  from "../../pxlNav.esm.js";
+
+import { instPlantsVert, instPlantsFrag } from "./Shaders/instPlants.js";
+
+export { instPlantsVert, instPlantsFrag };
+
 const shaderHeader = pxlShaders.core.shaderHeader;
 
+export function rgbaMapVert(){
+  let ret=shaderHeader();
+  ret+=`
+    varying vec2 vUv;
+    varying vec3 vN;
+    varying vec3 vCamPos;
+
+    void main(){
+
+      vUv=uv;
+      vN=normal;
+
+      vec4 pos = vec4( position, 1.0 );
+
+      // Shift position to Instance position-
+      #ifdef USE_INSTANCING
+        pos = instanceMatrix * pos;
+      #endif
+
+      vec4 mvPos=modelViewMatrix * pos;
+      gl_Position = projectionMatrix*mvPos;
+      vCamPos = gl_Position.xyz;
+    }
+  `;
+  return ret;
+}
+
+export function rgbaMapFrag( settings ){
+  let defaults = {
+    'depthScalar' : .005,
+  }
+  let shaderSettings = Object.assign( defaults, settings );
+
+  let ret=`
+  // Plants surface settings --
+    const float DepthScalar = ${shaderSettings.depthScalar};
+    const float ScreenWarpColorFix = 3.521;
+    const float FogDepthMult = 0.05;
+  `;
+  ret += shaderHeader();
+  ret +=`
+    uniform sampler2D rgbMap;
+    uniform sampler2D alphaMap;
+    uniform vec3 fogColor;
+
+    varying vec2 vUv;
+    varying vec3 vCamPos;
+
+    // -- -- --
+    
+    // Human Eye Adjusted Luminance
+    //   https://en.wikipedia.org/wiki/Grayscale
+    float luma(vec3 color) {
+      return dot( color, vec3(0.2126, 0.7152, 0.0722) );
+    }
+      
+      
+    // -- -- --
+    
+    void main(){
+        
+      float alpha=texture2D( alphaMap, vUv ).r;
+
+      if( alpha < 0.2 ){
+        discard;
+      }
+      
+      vec3 Cd=texture2D( rgbMap, vUv ).rgb;
+      
+      float screenSpaceX = abs((vCamPos.x / vCamPos.z))*.45;
+      float depth = min(1.0, max(0.0, gl_FragCoord.z / gl_FragCoord.w * DepthScalar )) * step( .930, gl_FragCoord.z );
+      depth = depth + ( screenSpaceX * screenSpaceX )*min( 1.0, depth * ScreenWarpColorFix );
+      depth = min(1.0, pow( depth, 1.0-depth) );
+      
+      vec4 outCd = vec4( Cd, alpha );
+      float gCd = luma( Cd.rgb );
+
+      float fogMix =  clamp( depth * (depth*2.2501), 0.0, 0.85 ) ;
+      
+      vec3 toFogColor = fogColor * (gCd*.4 + .7 );
+      outCd.rgb=  mix( outCd.rgb, toFogColor, fogMix );
+      
+      
+      gl_FragColor = outCd;
+    }
+  `;
+  return ret;
+}
+
+
+
 ///////////////////////////////////////////////////////////
-// Snow Shaders                                         //
+// Rabbit Druit Shaders                                 //
 /////////////////////////////////////////////////////////
 
 
@@ -120,8 +216,12 @@ export function rabbitDruidVert(){
       vec3 direction;
     };
      
+  #if NUM_POINT_LIGHTS > 0
     uniform PointLight pointLights[NUM_POINT_LIGHTS];
+  #endif
+  #if NUM_DIR_LIGHTS > 0
     uniform DirLight directionalLights[NUM_DIR_LIGHTS];
+  #endif
     
     /***********************************/
     /** Start of THREE Shader Includes **/
@@ -146,9 +246,10 @@ export function rabbitDruidVert(){
       // -- -- -- //
 
       float lightContrib = 1.0-clamp( dot( vN, normalize( vPos ))*1.5, 0.0, 1.0 );
-      
-      vec4 lights = vec4(0.0, 0.0, 0.0, 1.0);
+  
+      vec3 lights = vec3(0.0, 0.0, 0.0);
       int x=0;
+    #if NUM_POINT_LIGHTS > 0
       for( x=0; x < NUM_POINT_LIGHTS; ++x ) {
           vec3 lightVector = normalize( pointLights[x].position - vPos) + vec3( -0.50, .10, -0.50 ) ;
           //vec3 refTan = vec3( (dot( normalize(lightVector)- nCd.xyz, vN )*.5+.5) * (dot(normalize(pointLights[x].position), vN)*.5+.5) );
@@ -156,9 +257,10 @@ export function rabbitDruidVert(){
           //refTan = normalize( refTan + vec3(-.10, -max(nCd.x,nCd.y)*.3 , -.10) );
           
           vec3 lightInf=  clamp( (dot(refTan, vN )+.15)*(1.65+areCd.g*.7)+.5, 0.0, 1.0) * pointLights[x].color;
-          lights.rgb += lightInf * lightContrib;
+          lights += lightInf * lightContrib;
       }
-      outCd.rgb *= lights.rgb*.8+.2;
+      outCd.rgb *= lights*.8+.2;
+    #endif
       
       float shadowInf = 0.0;
       float detailInf = 0.0;
@@ -170,15 +272,17 @@ export function rabbitDruidVert(){
       //outCd.rgb*=shadowInf;
       
       // CampFire Light Magnitude; Ambient Light Mask
-      float lMag = min(1.0, max(0.0,length( lights.rgb )-.3)*.35 + max(0.0,-vN.y));
+      float lMag = min(1.0, max(0.0,length( lights )-.3)*.35 + max(0.0,-vN.y));
       
-      lights = vec4(0.0, 0.0, 0.0, 1.0);
+    #if NUM_DIR_LIGHTS > 0
+      lights = vec3(0.0, 0.0, 0.0);
       for( x=0; x < NUM_DIR_LIGHTS; ++x ) {
           vec3 lightInf=  max(0.0, dot(directionalLights[x].direction, vN  )) * directionalLights[x].color ;
-          lights.rgb += lightInf ;
+          lights += lightInf ;
       }
-      outCd.rgb = mix(outCd.rgb, outCd.rgb+vec3(1.0, .75, .75) * (outCd.rgb*.5) * lights.rgb, lMag );
-      outCd.rgb += lights.rgb * areCd.g * lightScalar.x;
+      outCd.rgb = mix(outCd.rgb, outCd.rgb+vec3(1.0, .75, .75) * (outCd.rgb*.5) * lights, lMag );
+      outCd.rgb += lights * areCd.g * lightScalar.x;
+    #endif
 
       
       // Add some ambient color to the back rim of the object
@@ -793,8 +897,9 @@ export function grassClusterFrag(){
         // -- Campfire Flicker  -- --
         // -- -- -- -- -- -- -- -- -- --
 
+        float fogMix =  clamp( depth * (depth*2.2501), 0.0, 0.85 ) ;
         Cd.rgb += Cd.rgb * (animWarpCd.r*3.0+.20) * vCampfireInf;
-        Cd.rgb=  mix( Cd.rgb, vFogColor, depth );
+        Cd.rgb=  mix( Cd.rgb, vFogColor, fogMix );
         Cd.a=1.0;
         
         // -- -- --

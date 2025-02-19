@@ -145,6 +145,8 @@ builBugs(){
   grassBugsSettings["additiveBlend"] = false;
 
   grassBugsSettings["jumpHeightMult"] = jumpHeightMult;
+  grassBugsSettings["offsetPos"].y = .1 ;
+  
   grassBugsSettings["wanderInf"] = wanderInfluence;
   grassBugsSettings["wanderFrequency"] = wanderFrequency;
   
