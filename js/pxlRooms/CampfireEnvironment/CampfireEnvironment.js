@@ -9,17 +9,20 @@ import {
   AmbientLight
 } from "../../libs/three/three.module.min.js";
 
-import { RoomEnvironment, pxlEffects } from "../../pxlNav.esm.js";
+import { RoomEnvironment, pxlShaders, pxlEffects } from "../../pxlNav.esm.js";
 
 import { rabbitDruidVert, rabbitDruidFrag,
          campfireLogVert, campfireLogFrag,
          campfireVert, campfireFrag,
+         instPlantsVert, instPlantsFrag,
          grassClusterVert, grassClusterFrag,
-         envGroundVert, envGroundFrag } from "./Shaders.js";
+         envGroundVert, envGroundFrag,
+         rgbaMapVert, rgbaMapFrag } from "./Shaders.js";
 
 const BillowSmoke = pxlEffects.pxlParticles.BillowSmoke;
 const EmberWisps = pxlEffects.pxlParticles.EmberWisps;
 const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
+const DefaultVert = pxlShaders.core.defaultVert;
 
 export class CampfireEnvironment extends RoomEnvironment{
   constructor( roomName='CampfireEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
@@ -67,7 +70,7 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     // this.fogColor=new Color(.3,.3,.3);
     this.fogColor=new Color(.015,.025,.06);
-    this.fogExp=.0007;
+    this.fogExp=.0055;
     this.fog=new FogExp2( this.fogColor, this.fogExp);
     
     this.perspectiveInstances = 160;
@@ -595,18 +598,113 @@ export class CampfireEnvironment extends RoomEnvironment{
     )
     grassClusterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg", null, {'encoding':SRGBColorSpace} );
 
+
     let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, grassClusterVert(), grassClusterFrag() );
     grassMat.side = FrontSide;
     grassMat.lights = true;
     grassMat.transparent = false;
     
         
+    // -- -- -- 
+
+    // -- -- -- -- -- -- -- -- -- -- -- -- --
+    // -- Grass Cluster Instances Material -- --
+    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+
+    let grassCardsAUniforms = UniformsUtils.merge(
+      [
+      UniformsLib[ "lights" ],
+      /*UniformsLib[ "shadowmap" ],*/
+      {
+        'diffuse' : { type:'t', value: null },
+        'alphaMap' : { type:'t', value: null },
+        'noiseTexture' : { type:'t', value: null },
+        'intensity' : { type: "f", value: 2.2 },
+        'fogColor' : { type: "c", value: this.fogColor }
+      }]
+    )
+    grassCardsAUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+    grassCardsAUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_diffuse.jpg" );
+    grassCardsAUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_alpha.jpg" );
+
+
+    let grassCardSettings = {
+      'depthScalar': 0.0025,
+    }
+
+    let grassCardsMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert(), instPlantsFrag( true, true, grassCardSettings ) );
+    grassCardsMat.side = DoubleSide;
+    grassCardsMat.lights = true;
+    grassCardsMat.transparent = false;
+    //grassCardsMat.alphaTest = .5;
+    //grassCardsMat.blending = ;
+    
+        
+    
+    // -- -- --
+
+    // -- -- -- -- -- -- -- -- -- -- -- -- --
+    // -- Grass Cluster Instances Material -- --
+    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+/*
+    let grassClusterCardsUniforms = UniformsUtils.merge(
+        [
+        UniformsLib[ "lights" ],
+        {
+          'diffuse' : { type:'t', value: null },
+          'alphaMap' : { type:'t', value: null },
+          'fogColor' : { type: "c", value: this.fogColor },
+        }]
+    )
+    //grassClusterCardsUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg", null, {'encoding':SRGBColorSpace} );
+    grassClusterCardsUniforms.rgbaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassClusterA_cards_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
+    grassClusterCardsUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassClusterA_cards_mask.jpg" );
+
+    let grassFlatMat=this.pxlFile.pxlShaderBuilder( grassClusterCardsUniforms, rgbaMapVert(), rgbaMapFrag() );
+    grassFlatMat.side = DoubleSide;
+    grassFlatMat.lights = true;
+    grassFlatMat.transparent = false;
+    */
+    let grassClusterCardsUniforms = UniformsUtils.merge(
+      [
+      UniformsLib[ "lights" ],
+      /*UniformsLib[ "shadowmap" ],*/
+      {
+        'rgbMap' : { type:'t', value: null },
+        'alphaMap' : { type:'t', value: null },
+        'noiseTexture' : { type:'t', value: null },
+        'fogColor' : { type: "c", value: this.fogColor }
+      }]
+    )
+    grassClusterCardsUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+    grassClusterCardsUniforms.rgbMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassClusterA_cards_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
+    grassClusterCardsUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassClusterA_cards_mask.jpg" );
+
+    let grassLODSettings = {
+      'depthScalar': 0.005,
+    }
+
+    let grassFlatMat=this.pxlFile.pxlShaderBuilder( grassClusterCardsUniforms, rgbaMapVert(), rgbaMapFrag( grassLODSettings ) );
+    grassFlatMat.side = DoubleSide;
+    grassFlatMat.lights = true;
+    grassFlatMat.transparent = false;
+    //grassFlatMat.alphaTest = .5;
+    //grassFlatMat.blending = ;
+        
     
     // -- -- --
     
     this.materialList[ "EnvironmentGround_geo" ] = environmentGroundMat;
     this.materialList[ "CampfireFlame_geo" ] = campfireMtl;
-    this.materialList[ "grassClusterA_geo" ] = grassMat;
+    this.materialList[ "grassClusterA_lod0_geo" ] = grassMat;
+    this.materialList[ "grassClusterA_lod1_geo" ] = grassMat;
+    this.materialList[ "grassClusterA_lod2_geo" ] = grassFlatMat;
+    //this.materialList[ "mushroomA_lod0_geo" ] = grassMat;
+    //this.materialList[ "mushroomA_lod1_geo" ] = grassMat;
+    this.materialList[ "grassCardsA_lod0_geo" ] = grassCardsMat;
+    this.materialList[ "grassCardsA_lod1_geo" ] = grassCardsMat;
     
     
     //
