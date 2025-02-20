@@ -25,6 +25,7 @@ export function rgbaMapVert(){
       // Shift position to Instance position-
       #ifdef USE_INSTANCING
         pos = instanceMatrix * pos;
+        vN =  mat3(instanceMatrix) * normal ;
       #endif
 
       vec4 mvPos=modelViewMatrix * pos;
@@ -37,7 +38,7 @@ export function rgbaMapVert(){
 
 export function rgbaMapFrag( settings ){
   let defaults = {
-    'depthScalar' : .005,
+    'depthScalar' : .004,
   }
   let shaderSettings = Object.assign( defaults, settings );
 
@@ -55,6 +56,7 @@ export function rgbaMapFrag( settings ){
     uniform vec3 fogColor;
 
     varying vec2 vUv;
+    varying vec3 vN;
     varying vec3 vCamPos;
 
     // -- -- --
@@ -86,14 +88,17 @@ export function rgbaMapFrag( settings ){
       vec4 outCd = vec4( Cd, alpha );
       float gCd = luma( Cd.rgb );
 
-      float fogMix =  clamp( depth * (depth*2.501), 0.0, 0.8 ) ;
+      float fogMix =  clamp( depth * (depth*2.501+.1), 0.1, 0.8 ) ;
       
       vec3 toFogColor = fogColor * (gCd*.4 + .7 );
-      outCd.rgb=  mix( outCd.rgb * intensity, toFogColor, fogMix );
+      
+      float shade = (abs(dot( vN, normalize(vCamPos) ))*.3+.7 ) * intensity;
+      outCd.rgb=  mix( outCd.rgb * shade, toFogColor, fogMix );
       
       
       gl_FragColor = outCd;
     }
+  
   `;
   return ret;
 }
@@ -320,6 +325,9 @@ export function rabbitDruidVert(){
 export function envGroundVert(){
   let ret=shaderHeader();
   ret+=`
+    attribute vec3 color;
+
+    varying vec3 vCd;
     varying vec2 vUv;
     varying vec3 vPos;
     varying vec3 vLocalPos;
@@ -331,7 +339,8 @@ export function envGroundVert(){
     varying float vPitMask;
     
     void main(){
-        vUv=uv;
+        vCd = color;
+        vUv = uv;
         
         vLocalPos = (modelMatrix * vec4(position,1.0)).xyz;
         vN = (modelViewMatrix * vec4(normal, 0.0)).xyz;
@@ -363,11 +372,13 @@ export function envGroundFrag(){
     uniform sampler2D crackedDirtDiffuse;
     uniform sampler2D hillDiffuse;
     uniform sampler2D mossDiffuse;
+    uniform sampler2D grassDiffuse;
     uniform sampler2D dataDiffuse;
 
     uniform vec2 time;
     uniform vec3 fogColor;
     
+    varying vec3 vCd;
     varying vec2 vUv;
     varying vec3 vPos;
     varying vec3 vLocalPos;
@@ -436,8 +447,6 @@ export function envGroundFrag(){
         
         vec3 nCd=(texture2D(noiseTexture,uv).rgb);
         vec3 animCd=(texture2D(noiseTexture,uv).rgb);
-        //uv = ( uv.yx+nCd.rg*.1 );
-        //nCd= (nCd+(texture2D(noiseTexture,uv).rgb))*.5;
         
         // -- -- --
         
@@ -449,9 +458,8 @@ export function envGroundFrag(){
         
         
         // Set campfire pit mask and distance hill masking
-        float campfireMask = (dataCd.b * vPitMask);
+        float campfireMask = (vCd.r * vPitMask);
         float campfireMaskInv = 1.0 - campfireMask;
-        float hillMask = (dataCd.b * vFarMask); // --
         
         // -- -- --
         
@@ -463,11 +471,12 @@ export function envGroundFrag(){
         //   Helps curvature disrupt noticable tiling
         // Masking the fire pit since there is too much variation in normals
         
-        vec2 subUv = fract( pos.xz*1.5 + vLocalN.xz*campfireMaskInv*baseDirtNoise );
+        vec2 subUv = ( pos.xz*2.5  );
         
         // Read world-uv'ed textures
         vec3 crackDirtCd = texture2D(crackedDirtDiffuse,subUv).rgb ;
-        vec3 mossCd = texture2D(mossDiffuse,subUv*1.1).rgb ;
+        vec3 mossCd = texture2D(mossDiffuse,subUv).rgb ;
+        vec3 grassCd = texture2D(grassDiffuse,subUv).rgb ;
         
         // Shift the rocky hill texture so it reads it more horizontally
         vec2 hillLayerUv = fract( vec2( subUv.x, subUv.y + vLocalPos.y*.1*campfireMaskInv ) );
@@ -507,16 +516,18 @@ export function envGroundFrag(){
         Cd.rgb = mix( dirtCd, Cd.rgb*dirtNoise, cNoise );
         
         // Add moss
-        float mossMix = clamp( dataCd.g + mossCd.g*step(0.01,dataCd.g), 0.0, 1.0);
-        Cd.rgb = mix( Cd.rgb, mossCd, mossMix);
+        float mossMix = dataCd.g;
+        float mossGrassMix = max(0.0,mossMix*mossMix-mossMix*.35);
+        vec3 mossGrassCd = mix( mossCd, grassCd, mossGrassMix ) * (depthFade*depthFade * 0.6 + 0.2);
+        Cd.rgb = mix( Cd.rgb, mossGrassCd, mossMix);
         
         // Add rocky hill sides, reduce region around campfire, remove pit itself
-        Cd.rgb = mix( Cd.rgb, rockyHillCd, vRockyMask*(1.0-vPitMask)*campfireMaskInv);
+        float rockMask = dataCd.r * vRockyMask *campfireMaskInv * (1.0-vPitMask);
+        Cd.rgb = mix( Cd.rgb, rockyHillCd, rockMask);
         
         // Darken the center pit
         //   Gotta add that ash!
-        float ashMask = max(0.0, dataCd.b*vPitMask-.53);
-        ashMask = 1.0 - min( 1.0, ashMask*ashMask*3.5)*.95;
+        float ashMask = 1.0 - clamp( min(1.0,vCd.r*1.1)*vPitMask*.92, 0.0, .85 );
         Cd.rgb = mix(  Cd.rrr*.4 + Cd.rgb*(.5+dirtNoise*.5), Cd.rgb, ashMask );
         
         // -- -- --
@@ -558,10 +569,10 @@ export function envGroundFrag(){
         // -- Final shading and fog color - -- --
         // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-        float shade = clamp(dot(vN, reflect( normalize(vPos), vN ))+depthFade, 0.0, 1.0 );
+        float shade = clamp(dot(vN, reflect( normalize(vPos), vN )) + depthFade, 0.0, 1.0 );
         shade = max( lights.r, shade * (1.0 - (vFarMask*.1+max(0.0,depth-.1))) );
         shade +=  length( lights ) ;
-        shade *= dataCd.r;
+        shade *= dataCd.b*.35+.65;
         Cd.rgb=  mix( Cd.rgb*shade, fogColor, depth );
         
         
