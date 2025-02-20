@@ -473,6 +473,7 @@ export class CampfireEnvironment extends RoomEnvironment{
             'crackedDirtDiffuse' : { type:'t', value: null },
             'hillDiffuse' : { type:'t', value: null },
             'mossDiffuse' : { type:'t', value: null },
+            'grassDiffuse' : { type:'t', value: null },
             'dataDiffuse' : { type:'t', value: null },
             'fogColor': { type:'c', value: null },
             'noiseTexture' : { type:'t', value: null },
@@ -488,6 +489,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     envGroundUniforms.crackedDirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"CrackedDirtGround_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
     envGroundUniforms.hillDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"RockLayerDirtHill_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
     envGroundUniforms.mossDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"MossyGround_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
+    envGroundUniforms.grassDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"GrassA_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
     envGroundUniforms.dataDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_dataMask.jpg", null, {'encoding':SRGBColorSpace} );
 
     envGroundUniforms.noiseTexture.value = this.cloud3dTexture;
@@ -507,9 +509,10 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     envGroundUniforms.hillDiffuse.value.wrapS = RepeatWrapping;
     envGroundUniforms.hillDiffuse.value.wrapT = RepeatWrapping;
-
     envGroundUniforms.mossDiffuse.value.wrapS = RepeatWrapping;
     envGroundUniforms.mossDiffuse.value.wrapT = RepeatWrapping;
+    envGroundUniforms.grassDiffuse.value.wrapS = RepeatWrapping;
+    envGroundUniforms.grassDiffuse.value.wrapT = RepeatWrapping;
 
     envGroundUniforms.dataDiffuse.value.wrapS = ClampToEdgeWrapping;
     envGroundUniforms.dataDiffuse.value.wrapT = ClampToEdgeWrapping;
@@ -674,7 +677,7 @@ export class CampfireEnvironment extends RoomEnvironment{
       {
         'rgbMap' : { type:'t', value: null },
         'alphaMap' : { type:'t', value: null },
-        'intensity' : { type: "f", value: 0.75 },
+        'intensity' : { type: "f", value: 0.7 },
         'noiseTexture' : { type:'t', value: null },
         'fogColor' : { type: "c", value: this.fogColor }
       }]
@@ -684,7 +687,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     grassClusterCardsUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassClusterA_cards_mask.jpg" );
 
     let grassLODSettings = {
-      'depthScalar': 0.005,
+      'depthScalar': 0.004,
     }
 
     let grassFlatMat=this.pxlFile.pxlShaderBuilder( grassClusterCardsUniforms, rgbaMapVert(), rgbaMapFrag( grassLODSettings ) );
