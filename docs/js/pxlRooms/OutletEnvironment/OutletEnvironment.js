@@ -309,7 +309,12 @@ builBugs(){
     grassCardsAUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_diffuse.jpg" );
     grassCardsAUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_alpha.jpg" );
 
-    let grassCardsMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert(), instPlantsFrag( true, true ) );
+    let grassCardSettings = {
+      'buildAlpha' : true,
+      'addShimmer' : true
+    }
+
+    let grassCardsMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert(), instPlantsFrag( grassCardSettings ) );
     grassCardsMat.side = DoubleSide;
     grassCardsMat.lights = true;
     grassCardsMat.transparent = false;

@@ -154,7 +154,6 @@ export class ProcPageManager {
 
     // Rectify the URL state and set the current page
     let pageURL = this.getPageURL();
-    this.curPageName = pageURL;
     
     // Find the dom user clickable actions
     this.findDomUserEvents();
@@ -182,6 +181,15 @@ export class ProcPageManager {
       this.verifiedPages[ pageId.toLocaleLowerCase() ] = pageId;
     });
 
+
+    // -- Error check; user put in a bad URL --
+    if( !pageListingKeys.hasOwnProperty( pageURL ) ){
+      pageURL = this.defaultPage;
+      this.shiftHistoryState( pageURL );
+      this.updateDocumentMetaData( pageURL );
+    }
+
+    this.curPageName = pageURL;
 
 
     // Prep the page divs
@@ -216,6 +224,7 @@ export class ProcPageManager {
       }
 
     });
+
 
     this.navBarLinks.forEach( (navLink)=>{
       let linkText = navLink.getAttribute("page-name");
