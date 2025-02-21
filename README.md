@@ -10,8 +10,8 @@ Kevin Edzenga's web dev & shader resume site
  - Listening to 'pxlNav' using callbacks to have the page elements respond to `pxlNav` events
 ### 
 
-<img src="_show/procstack.github.io_2024-12-12.jpg" alt="procstack.github.io pxlNav environment" style="margin-left:auto;margin-right:auto;"/>
-<div style="margin-left:auto;margin-right:auto;"><a href="https://procstack.github.io/" target="_blank">procstack.github.io</a></div>
+<img src="_show/procstack.github.io_2025-02-21.jpg" alt="procstack.github.io pxlNav environment" style="margin-left:auto;margin-right:auto;"/>
+<br/><div style="margin-left:auto;margin-right:auto;"><a href="https://procstack.github.io/" target="_blank">procstack.github.io</a></div>
 
 
 ### The Good Bits -
