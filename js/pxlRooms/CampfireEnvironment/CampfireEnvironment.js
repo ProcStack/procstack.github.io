@@ -654,10 +654,13 @@ export class CampfireEnvironment extends RoomEnvironment{
 
 
     let grassCardSettings = {
+      'buildAlpha' : true,
+      'addShimmer' : true,
+      'addCampfire' : true,
       'depthScalar': 0.0025,
     }
 
-    let grassCardsMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert(), instPlantsFrag( true, true, grassCardSettings ) );
+    let grassCardsMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert(), instPlantsFrag( grassCardSettings ) );
     grassCardsMat.side = DoubleSide;
     grassCardsMat.lights = true;
     grassCardsMat.transparent = false;

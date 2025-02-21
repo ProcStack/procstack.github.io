@@ -5,7 +5,7 @@ export const pageListingData = {
     {
       'type' : 'image',
       'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_Coastline_sm.jpg',
-      'href' : 'https://procstack.github.io/Outlet.htm',
+      'href' : 'Outlet.htm',
       'alt' : 'The Outlet coastline',
       'style' : 'procPagesImageStyle',
       'caption' : ["An overlook of the Outlet"]
@@ -14,7 +14,7 @@ export const pageListingData = {
     {
       'type' : 'image',
       'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_CatTails_sm.jpg',
-      'href' : 'https://procstack.github.io/Outlet.htm',
+      'href' : 'Outlet.htm',
       'alt' : 'The water-side cattails',
       'style' : 'procPagesImageStyle'
     },

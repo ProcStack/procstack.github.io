@@ -128,16 +128,23 @@ export function instPlantsVert(){
   return ret;
 }
 
-export function instPlantsFrag( buildAlpha=false, addShimmer=false ){
+export function instPlantsFrag( settings={} ){
+
+  let defaults = {
+    'buildAlpha' : false,
+    'addShimmer' : false,
+    'depthScalar' : .0001,
+  }
+  let shaderSettings = Object.assign( defaults, settings );
 
   let ret=`
   // Plants surface settings --
-    const float DepthScalar = .0001;
+    const float DepthScalar = ${shaderSettings.depthScalar};
     const float ScreenWarpColorFix = 3.521;
     const float ShadowTighten = 2.94;
     const float FogDepthMult = 0.05;
   `;
-  if( addShimmer ){
+  if( shaderSettings.addShimmer ){
     ret+=`
   // Shimmer Settings --
   //   Mid-to-long distance ambient movement in grass + foliage
@@ -161,7 +168,7 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false ){
 
     uniform sampler2D diffuse;
   `;
-  if( buildAlpha ){
+  if( shaderSettings.buildAlpha ){
     ret+=`
     uniform sampler2D alphaMap;
     `;
@@ -213,7 +220,7 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false ){
     
         vec4 Cd = texture2D(diffuse,vUv);
         `;
-        if( buildAlpha ){
+        if( shaderSettings.buildAlpha ){
           ret+=`
           float Alpha = texture2D(alphaMap,vUv).r;
 
@@ -239,7 +246,7 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false ){
         //depthFade *= depthFade*depthFade;
         
         `;
-    if( addShimmer ){
+    if( shaderSettings.addShimmer ){
       ret+=`
 
         float gInf = min( 1.0, max( 0.0, 1.0-depth * ShimmerEndMult ) * ShimmerEndRolloff );
@@ -323,7 +330,7 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false ){
 
         float gCd = luma( Cd.rgb );
     `;
-    if( addShimmer ){
+    if( shaderSettings.addShimmer ){
       ret+=`
         Cd.rgb = Cd.rgb * (vCd.z*.15*(1.0-(gCd*gInf*2.0))-depth*1.1+.45) * (vCd.x*depthFade + 0.9-gCd*depthFade);
       `;
@@ -333,7 +340,7 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false ){
         Cd.rgb = Cd.rgb * (vCd.z*.25*(1.0-gCd)-depth*.1+.45) * (vCd.x*depthFade + 1.0-gCd*depthFade);
       `;
     }
-    if( addShimmer ){
+    if( shaderSettings.addShimmer ){
     ret+=`
         Cd.rgb = mix( Cd.rgb, vec3( gCd*3.4 ), depth );
       `;

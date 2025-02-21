@@ -21,7 +21,6 @@ export function instPlantsVert(){
     
     varying vec3 vPos;
     varying vec3 vCamPos;
-    varying vec3 vWorldPos;
     varying vec2 vUv;
     varying vec3 vN;
     varying vec3 vLocalN;
@@ -128,9 +127,12 @@ export function instPlantsVert(){
   return ret;
 }
 
-export function instPlantsFrag( buildAlpha=false, addShimmer=false, settings={} ){
+export function instPlantsFrag( settings={} ){
 
   let defaults = {
+    'buildAlpha' : false,
+    'addShimmer' : false,
+    'addCampfire' : false,
     'depthScalar' : .0001,
   }
   let shaderSettings = Object.assign( defaults, settings );
@@ -142,7 +144,7 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false, settings={} 
     const float ShadowTighten = 2.94;
     const float FogDepthMult = 0.05;
   `;
-  if( addShimmer ){
+  if( shaderSettings.addShimmer ){
     ret+=`
   // Shimmer Settings --
   //   Mid-to-long distance ambient movement in grass + foliage
@@ -166,7 +168,7 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false, settings={} 
 
     uniform sampler2D diffuse;
   `;
-  if( buildAlpha ){
+  if( shaderSettings.buildAlpha ){
     ret+=`
     uniform sampler2D alphaMap;
     `;
@@ -176,7 +178,6 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false, settings={} 
     
     varying vec3 vPos;
     varying vec3 vCamPos;
-    varying vec3 vWorldPos;
     varying vec2 vUv;
     varying vec3 vN;
     varying vec3 vLocalN;
@@ -218,7 +219,7 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false, settings={} 
     
         vec4 Cd = texture2D(diffuse,vUv);
         `;
-        if( buildAlpha ){
+        if( shaderSettings.buildAlpha ){
           ret+=`
           float Alpha = texture2D(alphaMap,vUv).r;
 
@@ -244,7 +245,7 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false, settings={} 
         depthFade *= depthFade*depthFade;
         
         `;
-    if( addShimmer ){
+    if( shaderSettings.addShimmer ){
       ret+=`
 
         float gInf = min( 1.0, max( 0.0, 1.0-depth * ShimmerEndMult ) * ShimmerEndRolloff );
@@ -266,20 +267,25 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false, settings={} 
         
         // -- -- --
         
+    `;
+    if( shaderSettings.addCampfire ){
+      ret+=`
         // -- -- -- -- -- -- -- -- -- -- -- -- --
         // -- Animated Radial Campfire Flicker -- --
         // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
         
         // Animated Noise UVs of the campefire flicker on the ground
-        timer = (-time.x*.02);
+        timer = (-time.x*.015);
         vec2 animWarpUV = (vUv-.5)*.5;
-        animWarpUV += animWarpUV*min(1.0,length(vPos)*.001);
-        animWarpUV = vec2(.45,  length(animWarpUV)*.04 - timer );
-        vec3 animWarpCd = texture2D(noiseTexture,animWarpUV).rgb * depthFade;
-        
+        animWarpUV += animWarpUV*min(1.0,length(vPos)*.0005);
+        animWarpUV = vec2(.45,  length(animWarpUV)*.01 - timer );
+        vec3 animWarpCd = texture2D(noiseTexture,animWarpUV).rgb *  min(1.0, depthFade*depthFade*1.3 ) + max(0.0, 0.5-depthFade)*.15;
+
         // -- -- --
 
-
+      `;
+    }
+    ret+=`
         // -- -- -- -- -- -- -- -- -- -- 
         // -- Point Light Influence - -- --
         // -- -- -- -- -- -- -- -- -- -- -- --
@@ -288,7 +294,7 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false, settings={} 
         float lightMag = 0.0;
       #if NUM_POINT_LIGHTS > 0
         for(int i = 0; i < NUM_POINT_LIGHTS; i++) {
-            vec3 lightDelta = (vWorldPos - pointLights[i].position);
+            vec3 lightDelta = (vPos - pointLights[i].position);
             vec3 lightVector = normalize(lightDelta);
             
             // Calculate distance attenuation
@@ -342,7 +348,7 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false, settings={} 
 
         float gCd = luma( Cd.rgb );
     `;
-    if( addShimmer ){
+    if( shaderSettings.addShimmer ){
       ret+=`
         Cd.rgb = Cd.rgb * intensity * (vCd.z*.15*(1.0-(gCd*gInf*2.0))-depth*1.1+.45) * (vCd.x*depthFade + 0.9-gCd*depthFade);
       `;
@@ -352,17 +358,24 @@ export function instPlantsFrag( buildAlpha=false, addShimmer=false, settings={} 
         Cd.rgb = Cd.rgb * intensity * (vCd.z*.25*(1.0-gCd)-depth*.1+.45) * (vCd.x*depthFade + 1.0-gCd*depthFade);
       `;
     }
-    if( addShimmer ){
+    if( shaderSettings.addShimmer ){
     ret+=`
         Cd.rgb = mix( Cd.rgb, vec3( gCd*3.4 ), depth );
       `;
     }
-    ret+=`
-        
-        // Campfire Flicker
-        Cd.rgb += Cd.rgb * (animWarpCd.r*.65) * clamp( 1.2 - min(1.0, length( vPos )*0.01), 0.0, 1.0 ) * intensity;
-        
+    if( shaderSettings.addCampfire ){
+      ret+=`
+      
+        // -- -- --
 
+        // Add Campfire Flicker
+        Cd.rgb += Cd.rgb * (animWarpCd.r*.65) * clamp( 1.2 - min(1.0, length( vPos )*0.01), 0.0, 1.0 ) * intensity;
+
+        // -- -- --
+
+      `;
+    }
+    ret+=`
         float fogMix =  clamp( depth * (depth*2.2501)  - lightMag*(1.0-depth * FogDepthMult), 0.0, 0.85 ) ;
         
         vec3 toFogColor = fogColor * (gCd*.4 + .7 + gInf*.3);
