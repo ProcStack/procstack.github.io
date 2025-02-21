@@ -99,8 +99,9 @@ export const pageListingData = {
       <br>&nbsp;&nbsp;&nbsp;&nbsp; How I'm devloping it, at least.
 
       <br>
-      <br>Rather than a field of numbers aligning to yield a prediction,
+      <br><span class="innerCenter">Rather than a field of numbers aligning to yield a prediction,
       <br>&nbsp;&nbsp; It's the structure of neural connections which manipulates the data.
+      </span>
       <br>
       <br>I've been going in a direction that should yield a similar result to a RNN, but with a different mental structure.
       <br>&nbsp;&nbsp; With that general-purpose neuron, I can provide text, images, audio histograms, etc. to the network.
@@ -116,7 +117,7 @@ export const pageListingData = {
       <br><span class="textNudge">How about an <span class="textNudge">Echo State Network</span> (<span class="textNudge">ESN</span>) AI I wrote in the summer of 2024?</span>
       <br>
       <br><span class="innerCenter">An ESN is a type of RNN,
-        <br>which considers time in it's prediction.
+        <br>Which considers time in it's prediction.
         <br>It thinks about past events to predict future events.
         <div class='procPagesAboutMeSpacer'></div>
       </span>
