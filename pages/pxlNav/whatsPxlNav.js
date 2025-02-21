@@ -4,10 +4,19 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'image',
-      'src' : '../pages/makingOf/images/whatIs_theOutlet.jpg',
+      'src' : '../pages/pxlNav/images/whatIs_theOutlet.jpg',
       'alt' : 'Showing The Outlet environment in Houdini',
       'style' : 'procPagesImageStyle',
       'caption' : ["Using Houdini as my level editor for <a href='Outlet.htm' target='_blank' alt='Outlet Environment' class='textBump'>The Outlet</a>"]
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/pxlNav/images/userDetails.jpg',
+      'alt' : 'Showing User Details in different CGI programs',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["Add custom User Details to objects in your 3d modeling software,",
+        "Allowing <span class='textNudge'>pxlNav</span> to better understand your FBX file."
+      ]
     }
   ],
   'content' : `
