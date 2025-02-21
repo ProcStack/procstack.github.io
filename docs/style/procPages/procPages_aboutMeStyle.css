@@ -7,9 +7,10 @@
   z-index: 6;
   overflow: hidden;
   position: fixed;
-  left: max(0px, calc(45vw - 700px));
+  left: max(0px, calc(min(15vw, max(0px, 100vw - 1250px) / 4.5)));
   bottom: 2.5vmin;
 }
+
 
 /* -- -- -- */
 
@@ -31,6 +32,12 @@
   text-shadow: 1.5px 1.5px 4px rgba(37, 37, 37, 0.927);
   background-color: rgba(86, 86, 86, 0.723);
   border-color: rgba(247, 246, 246, 0.9);
+}
+
+@media screen and (max-width: 500px) {
+  .gitAboutMePage-sectionNavButtonStyle{
+    width: 100%;
+  }
 }
 
 .gitAboutMePage-sectionNavButtonActiveStyle{
@@ -58,7 +65,7 @@
 
 .gitAboutMePageParentStyle{
   width: min(100vw, 1100px);
-  height: calc(90vh - 36px);
+  height: calc(92vh - 36px);
   display: grid;
   grid-auto-flow: row;
   border-radius: 2px;
@@ -154,6 +161,12 @@
   overflow: hidden;
 }
 
+.procPagesAboutMeBar{
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba(80, 80, 80, 0.0) 0%, rgba(130, 130, 130, 0.95) 25%, rgba(130, 130, 130, 0.95) 75%, rgba(80, 80, 80, 0.0) 100%);
+  overflow: hidden;
+}
+
 /* -- -- -- */
 
 .procPagesAboutMeInfoStyle{
@@ -165,4 +178,8 @@
 
 .setAspectRatio_1{
   aspect-ratio: 1;
+}
+
+.setAspectRatio_2_1{
+  aspect-ratio: 2 / 1;
 }

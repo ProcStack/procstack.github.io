@@ -27,13 +27,12 @@ export const pageListingData = {
       'type' : 'image',
       'src' : '../pages/aboutMe/images/FrankTheFish_n_Pinky.jpg',
       'alt' : "Frank the Fish on his Pinky Flamingotube!",
-      'style' : ['procPagesImageStyle', 'procPagesLimitWidthStyle'],
-      'caption' : ["Frank The Fish chillin' out on his Flamingotube"]
+      'style' : ['procPagesImageStyle', 'procPagesLimitWidthStyle']
     }
   ],
   'content' : `
     <div class='procPagesAboutMeInfoStyle'>
-      In the summer last year,
+      In late-spring of 2024,
       <br>&nbsp;&nbsp; I made a tool to turn any 3d model into a fabric pattern in Houdini.
       <br>&nbsp;&nbsp; It'll show me the ammount of stretch in a design, let me label the panels, add notches to neighboring panels, and more!
       

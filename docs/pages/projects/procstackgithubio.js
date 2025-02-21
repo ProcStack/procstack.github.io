@@ -2,6 +2,7 @@
 export const pageListingData = {
   'name' : 'procstack.github.io',
   'navGroup' : 'Repos to Check Out',
+  'navStyle' : ['hideOnMobile'],
   'media' : [],
   'content' : `
     <a href='https://github.com/ProcStack/procstack.github.io' class='procPagesRepoLinkStyle' target='_blank'>procstack.github.io github repository</a>

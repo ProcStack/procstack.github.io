@@ -105,7 +105,6 @@
   grid-gap: 3px;
   justify-items: center;
   justify-content: space-around;
-  justify-self: center;
   border: solid 1px rgba(130, 130, 130, 0.51);
   border-width: 1px 0px;
   padding: 6px 0px;
@@ -133,6 +132,12 @@
   max-width: var(--procPage-mobile-width);
 }
 
+@media screen and (max-width: 500px) {
+  .procPageVerticalLockSectionList{
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+}
 
 /* -- -- -- */
 
@@ -162,7 +167,7 @@
     "media"
     "pageContent"
     "pageAfter";
-  grid-template-rows: max-content max-content max-content max-content calc(25% + min(40%, 100vw / 3)) auto max-content;
+  grid-template-rows: max-content max-content max-content max-content calc(25% + min(30%, 100vw / 3.5)) auto max-content;
 }
 
 /* When there is no Media on a "Triple Layout" page */
@@ -211,7 +216,7 @@
 /* -- -- -- */
 
 .procPagesSectionNavButtonBackground{
-  width: 100%;
+  width: auto;
 }
 
 
@@ -227,7 +232,7 @@
   justify-self: center;
   transform: skew(-7deg, 0deg);
   text-align: center;
-  padding: 2px;
+  padding: 2px 2px 12px 2px;
 }
 
 .procPagesPlacementTripleStyle{
@@ -263,6 +268,7 @@
 /* -- -- -- */
 
 /* When the screen is 1000px wide or more */
+
 @media screen and (min-width: 1000px) {
 
   .procPagesCenterContent{
@@ -285,6 +291,9 @@
   }
 
 
+  .procPagesSectionNavButtonBackground{
+    width: 100%;
+  }
   .procPagesInnerStyle{
     width: calc(100vw - 2vmax);
   }
@@ -316,19 +325,27 @@
   }
 
   .procPageSectionList{
-    grid-area: sectionNav;
     display: grid;
     grid-auto-flow: row;
-    justify-items: center;
     align-content: baseline;
+    justify-self: baseline;
     grid-gap: 4px;
     border-width: 1px 0px 0px 0px;
     margin-right: 2px;
     height: auto;
-    width: 100%;
     max-width: var(--procPage-width);
   }
 
+  @media screen and (max-width: 600px) {
+    .procPagesSectionNavButtonBackground{
+      width: 100%;
+    }
+    .procPageSectionList{
+      display: grid;
+      grid-template-columns: auto auto;
+      justify-self: baseline;
+    }
+  }
   /* -- -- -- */
 
   .procPagesLayoutTripleStyle{

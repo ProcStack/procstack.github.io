@@ -90,7 +90,14 @@ buildDust(){
   let systemName = "floatingDust";
   let dustSystem = new FloatingDust( this, systemName );
 
+  // -- -- --
+
+  // Request the settings object from the particle system
+  //   If you log this object, you can see all the settings you can adjust
+  // This is optional, as the default settings is created for you
+  //   If you don't pass one to the `build()` function
   let dustSystemSettings = dustSystem.getSettings();
+  
   dustSystemSettings["vertCount"] = vertexCount;
   dustSystemSettings["pScale"] = pScale;
   dustSystemSettings["pOpacity"] = particleOpacity;
@@ -109,8 +116,22 @@ buildDust(){
     ...dustSystem.dupeArray([0.0,0.75],3), ...dustSystem.dupeArray([0.25,0.75],3)
   ];
 
-  // Use a texture from the internal `pxlAsset` folder; ( RGB, Alpha )
-  //dustSystem.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
+  // -- -- --
+
+  // Texturing the particles -
+
+  // For a RGB + Alpha texture, use the second parameter for the Alpha map -
+  //  dustSystem.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
+  // For a RGBA texture, leave the second parameter empty -
+  //  dustSystem.setAtlasPath( "sprite_dustLiquid.png" );
+
+  // When no pathing, just a name, is passed to `setAtlasPath()`
+  //   It will read the texture from the internal `./pxlAsset` folder
+  //     Set on your `pxlOptions` object when building `new pxlNav( pxlOptions, ... )`
+  // If you pass a path, it will look in the path you provide, like the room's asset folder -
+  //  dustSystem.setAtlasPath( this.assetPath + "/customSpriteAtlas.png" );
+  
+  // -- -- --
 
   // Generate geometry and load texture resources
   dustSystem.build( dustSystemSettings );

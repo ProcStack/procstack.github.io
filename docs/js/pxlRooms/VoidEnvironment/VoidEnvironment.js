@@ -60,25 +60,47 @@ export class VoidEnvironment extends RoomEnvironment{
   buildDust(){
     let vertexCount = 800; // Point Count
     let particleScale = 9.5;  // Point Base Scale
+    let particleOpacity = .5;  // Point Transparency
     let proxDistance = 315; // Distance particles are visible
     let windDir = new Vector3( 0, -10, 0 ); // Wind Direction
     
+    // -- -- --
 
     let systemName = "floatingDust";
     let dustSystem = new FloatingDust( this, systemName, true );
 
+    // -- -- --
+
+    // Request the settings object from the particle system
+    //   If you log this object, you can see all the settings you can adjust
+    // This is optional, as the default settings is created for you
+    //   If you don't pass one to the `build()` function
     let dustData = dustSystem.getSettings();
+
     dustData["vertCount"] = vertexCount;
     dustData["pScale"] = particleScale;
     dustData["proxDist"] = proxDistance;
     dustData["windDir"] = windDir;
     dustData["additiveBlend"] = true;
-    dustData["pOpacity"] = .5;
+    dustData["pOpacity"] = particleOpacity;
 
-    // Use a texture from the internal `pxlAsset` folder
-    //dustSystem.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
-    //dustSystem.setAtlasPath( "sprite_dustLiquid.png" );
+    // -- -- --
+
+    // Texturing the particles -
+
+    // For a RGB + Alpha texture, use the second parameter for the Alpha map -
+    //  dustSystem.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
+    // For a RGBA texture, leave the second parameter empty -
+    //  dustSystem.setAtlasPath( "sprite_dustLiquid.png" );
+
+    // When no pathing, just a name, is passed to `setAtlasPath()`
+    //   It will read the texture from the internal `./pxlAsset` folder
+    //     Set on your `pxlOptions` object when building `new pxlNav( pxlOptions, ... )`
+    // If you pass a path, it will look in the path you provide, like the room's asset folder -
+    //  dustSystem.setAtlasPath( this.assetPath + "/customSpriteAtlas.png" );
     
+    // -- -- --
+
     // Generate geometry and load texture resources
     dustSystem.build( dustData );
 
