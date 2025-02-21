@@ -209,12 +209,6 @@ text-shadow: 1px 1.5px 4px #252525;
   border-width: 1px;
 }
 
-@media screen and (max-width: 500px) {
-  .procPagesNavSectionStyle{
-    padding: 1px 4px 1px 4px;
-  }
-}
-
 .procPagesVerticalLockNavSectionStyle{
   display: grid;
   grid-auto-flow: column;
@@ -226,6 +220,15 @@ text-shadow: 1px 1.5px 4px #252525;
   border-radius: 6px;
   overflow: hidden;
   border-width: 1px;
+}
+
+@media screen and (max-width: 500px) {
+  .procPagesVerticalLockNavSectionStyle{
+    padding: 2px 4px 2px 4px;
+  }
+  .procPagesNavSectionStyle{
+    padding: 2px 4px 2px 4px;
+  }
 }
 
 @media screen and (min-width: 1000px) {

@@ -749,10 +749,6 @@ export class ProcPage {
       sectionTitleDiv.classList.add('procPagesButtonStyle');
       sectionTitleDiv.classList.add('procPagesSectionNavColor');
       
-      let styleType = "navStyle";
-      if( sectionData.hasOwnProperty( styleType ) && Array.isArray( sectionData[ styleType ] ) ){
-        sectionData[ styleType ].forEach(( style )=>{ style!=''&&sectionTitleDiv.classList.add(style) });
-      }
       
       sectionTitleDiv.innerHTML = sectionData.name;
 
@@ -761,9 +757,21 @@ export class ProcPage {
         let buttonBgObj = document.createElement('div');
         buttonBgObj.classList.add('procPagesSectionNavButtonBackground');
         this.applyPageStyle( 'sectionNavButtonBackground', buttonBgObj );
+
+        let styleType = "navStyle";
+        if( sectionData.hasOwnProperty( styleType ) && Array.isArray( sectionData[ styleType ] ) ){
+          sectionData[ styleType ].forEach(( style )=>{ style!=''&&buttonBgObj.classList.add(style) });
+        }
+
         buttonBgObj.appendChild( sectionTitleDiv );
         sectionList.appendChild( buttonBgObj );
       }else{
+
+        let styleType = "navStyle";
+        if( sectionData.hasOwnProperty( styleType ) && Array.isArray( sectionData[ styleType ] ) ){
+          sectionData[ styleType ].forEach(( style )=>{ style!=''&&sectionTitleDiv.classList.add(style) });
+        }
+
         sectionList.appendChild( sectionTitleDiv );
       }
 

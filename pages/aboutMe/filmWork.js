@@ -34,12 +34,6 @@ export const pageListingData = {
       I was part of 2 published Siggraph papers and was allowed the opportunity to speak at <span class="textBump">Siggraph 2015</span>.
       <br>The talk was to a decently full hall about camera based crowd navigation for <span class="textName">Peanuts</span>.
       </span>
-
-      <br>
-      <br>After all that I shifted gears to be the tech lead + fullstack dev on our small team for <span class="textBump">Antib0dy.Club</span> / <span class="textBump">pxlNav</span> in 2020.
-      <br>Then a couple non-pxlNav virtual events, including a St. Jude + GCX virtual fundraiser, where I worked on WebSocket networking + chat room management between Unreal Engine and our server.
-      <div class='procPagesAboutMeSpacer'></div>
-      <br>Intermixed with some xr/immersive reality work; like a couple official Instagram filters and 3 Home Environments for Meta's Oculus headset, among a few other things.
       <br>
       <br>
     </div>
