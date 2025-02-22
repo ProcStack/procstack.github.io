@@ -28,6 +28,8 @@ export class ProcPage {
     this.pageContent = {};
     this.prevSection = null;
     this.pageSectionsObject = null;
+    this.pageSectionListObject = null;
+    this.pageContentView = null;
     this.mediaViewObject = null;
 
     // -- -- --
@@ -40,7 +42,8 @@ export class ProcPage {
       'content' : '',
       'media' : [],
       'header' : null,
-      'objects' : []
+      'objects' : [],
+      'mediaObjects' : []
     };
 
     this.validMediaTypes = ['image', 'manualLoad', 'video', 'audio', 'youtube'];
@@ -478,9 +481,8 @@ export class ProcPage {
 
     // -- -- -- -- -- --
 
-    let pageSectionList;
     if( this.layout != 'single' ){
-      pageSectionList = document.createElement('div');
+      let pageSectionList = document.createElement('div');
       if( this.layout == 'triple' ){
         pageSectionList.classList.add('procPageSectionList');
       }else if( this.layout == 'vertical' ){
@@ -490,6 +492,7 @@ export class ProcPage {
       this.applyPageStyle( 'sectionNavList', pageSectionList );
 
       pageSections.appendChild( pageSectionList );
+      this.pageSectionListObject = pageSectionList;
     }
 
     // -- -- --
@@ -517,6 +520,7 @@ export class ProcPage {
     this.applyPageStyle( 'content', pageContentView );
 
     pageSections.appendChild( pageContentView );
+    this.pageContentView = pageContentView;
 
     // -- -- --
 
@@ -525,57 +529,10 @@ export class ProcPage {
       let curKey = Object.keys( this.sectionTitles )[0];
       let curSectionData = this.sectionData[curKey];
       this.buildSinglePageSection( curSectionData, pageContentView);
+      this.sectionData[curKey].isLoaded = true;
     }else{
-      let sectionTitles = [];
-      if( Array.isArray(this.sectionTitles) ){
-        sectionTitles = this.sectionTitles;
-      }else if( typeof this.sectionTitles == 'object' ){
-        sectionTitles = Object.keys(this.sectionTitles);
-      }
 
-      // Add the sections to the page
-      sectionTitles.forEach( sectionTitle => {
-
-        let sectionData = this.sectionData[sectionTitle];
-
-        let sectionContentBlock = document.createElement('div');
-        sectionContentBlock.classList.add('procPageSectionContentStyle');
-        sectionContentBlock.classList.add('pagesVisOff');
-        sectionContentBlock.id = sectionTitle;
-        
-        if( sectionData.hasOwnProperty( 'contentStyle' ) && Array.isArray( sectionData.contentStyle ) ){
-          sectionData.contentStyle.forEach(( style )=>{ style!=''&&sectionContentBlock.classList.add(style) });
-        }
-
-        
-        this.applyPageStyle( 'sectionNav', sectionContentBlock );
-
-        pageContentView.appendChild( sectionContentBlock );
-    
-        // Build Nav-Content-Media page layout sections
-        let builtObjs = this.buildTriplePageSection( sectionData, pageSectionList, sectionContentBlock, pageMediaView);
-
-
-        if( !this.sectionData[sectionTitle].hasOwnProperty('objects') ){
-          this.sectionData[sectionTitle].objects = [];
-        }
-
-        this.sectionData[sectionTitle].header = builtObjs['nav'];
-
-        if( builtObjs['content'].length > 0 ){
-          this.sectionData[sectionTitle].objects.push( ...builtObjs['content'] );
-        }
-
-        builtObjs.content.push( sectionContentBlock );
-        this.sectionData[sectionTitle].objects = builtObjs.content;
-
-        if( builtObjs.hasOwnProperty('nav') ){
-            builtObjs['nav'].addEventListener('click', ()=>{ this.activateSection(sectionTitle); });
-        }
-
-        //pageSections.appendChild( section );
-
-      });
+      this.buildSectionNav( this.pageSectionListObject );
 
       // Turn on the first section to display
       this.activateSection( this.initialSection );
@@ -598,6 +555,184 @@ export class ProcPage {
 
     return pageContent;
   }
+
+  // -- -- --
+
+  buildSectionNav( sectionNav ){
+
+    let sectionTitles = [];
+    if( Array.isArray(this.sectionTitles) ){
+      sectionTitles = this.sectionTitles;
+    }else if( typeof this.sectionTitles == 'object' ){
+      sectionTitles = Object.keys(this.sectionTitles);
+    }
+
+    sectionTitles.forEach(( sectionName )=>{
+
+      let sectionData = this.sectionData[sectionName];
+
+      if( sectionData.name != '' ){
+        let sectionTitleDiv = document.createElement('div');
+        if( this.layout == 'triple' ){
+          sectionTitleDiv.classList.add('procPagesNavSectionStyle');
+        }else if( this.layout == 'vertical' ){
+          sectionTitleDiv.classList.add('procPagesVerticalLockNavSectionStyle');
+        }
+        sectionTitleDiv.classList.add('procPagesButtonStyle');
+        sectionTitleDiv.classList.add('procPagesSectionNavColor');
+        
+        
+        sectionTitleDiv.innerHTML = sectionData.name;
+
+        this.applyPageStyle( 'sectionNavButton', sectionTitleDiv );
+        if( this.hasPageStyle('sectionNavButtonBackground') ){
+          let buttonBgObj = document.createElement('div');
+          buttonBgObj.classList.add('procPagesSectionNavButtonBackground');
+          this.applyPageStyle( 'sectionNavButtonBackground', buttonBgObj );
+
+          let styleType = "navStyle";
+          if( sectionData.hasOwnProperty( styleType ) && Array.isArray( sectionData[ styleType ] ) ){
+            sectionData[ styleType ].forEach(( style )=>{ style!=''&&buttonBgObj.classList.add(style) });
+          }
+
+          buttonBgObj.appendChild( sectionTitleDiv );
+          sectionNav.appendChild( buttonBgObj );
+        }else{
+
+          let styleType = "navStyle";
+          if( sectionData.hasOwnProperty( styleType ) && Array.isArray( sectionData[ styleType ] ) ){
+            sectionData[ styleType ].forEach(( style )=>{ style!=''&&sectionTitleDiv.classList.add(style) });
+          }
+
+          sectionNav.appendChild( sectionTitleDiv );
+        }
+        
+        this.sectionData[sectionName].header = sectionTitleDiv;
+
+        // Handle click events for the section nav buttons
+        sectionTitleDiv.addEventListener('click', (e)=>{
+          e.preventDefault();
+          this.activateSection(sectionName);
+        });
+
+      }
+    });
+  }
+
+  // -- -- --
+
+  buildSection( sectionName ){
+    if( !this.sectionData.hasOwnProperty( sectionName ) ){
+      console.error("Section '"+sectionName+"' does not exist.");
+      return;
+    }
+    let sectionTitles = [];
+    if( Array.isArray(this.sectionTitles) ){
+      sectionTitles = this.sectionTitles;
+    }else if( typeof this.sectionTitles == 'object' ){
+      sectionTitles = Object.keys(this.sectionTitles);
+    }
+
+    // Add the sections to the page
+
+    let sectionData = this.sectionData[sectionName];
+
+    let sectionContentBlock = document.createElement('div');
+    sectionContentBlock.classList.add('procPageSectionContentStyle');
+    sectionContentBlock.classList.add('pagesVisOff');
+    sectionContentBlock.id = sectionName;
+    
+    if( sectionData.hasOwnProperty( 'contentStyle' ) && Array.isArray( sectionData.contentStyle ) ){
+      sectionData.contentStyle.forEach(( style )=>{ style!=''&&sectionContentBlock.classList.add(style) });
+    }
+
+    
+    this.applyPageStyle( 'sectionNav', sectionContentBlock );
+
+    this.pageContentView.appendChild( sectionContentBlock );
+
+    // Build Nav-Content-Media page layout sections
+    let builtObjs = this.buildTriplePageSection( sectionData, sectionContentBlock, this.mediaViewObject );
+
+
+    if( !this.sectionData[sectionName].hasOwnProperty('objects') ){
+      this.sectionData[sectionName].objects = [];
+    }
+
+    if( builtObjs['content'].length > 0 ){
+      this.sectionData[sectionName].objects.push( ...builtObjs['content'] );
+    }
+
+    builtObjs.content.push( sectionContentBlock );
+    this.sectionData[sectionName].objects = builtObjs.content;
+
+    if( builtObjs['media'].length > 0 ){
+      this.sectionData[sectionName].mediaObjects.push( ...builtObjs['media'] );
+      this.sectionData[sectionName].mediaObjects.push( ...builtObjs['media'] );
+    }
+
+    //pageSections.appendChild( section );
+
+    this.sectionData[sectionName].isLoaded = true;
+
+  }
+
+  activateSection( sectionName ){
+
+    if( Number.isInteger(sectionName) ){
+      sectionName = this.sectionTitles[sectionName];
+    }
+
+    if( this.prevSection != null ){
+      this.deactivateSection( this.prevSection );
+    }
+
+    this.prevSection = sectionName;
+    this.sectionData[ sectionName ].isActive = true;
+
+    if( this.sectionData[ sectionName ].isLoaded == false ){
+      this.buildSection( sectionName );
+    }
+
+    this.sectionData[ sectionName ].header.classList.add( 'procPagesNavActive' );
+    if( this.pageStyles.hasOwnProperty('sectionNavButtonActive') && Array.isArray( this.pageStyles['sectionNavButtonActive'] ) ){
+      this.pageStyles['sectionNavButtonActive'].forEach(( style )=>{
+        this.sectionData[ sectionName ].header.classList.add( style );
+      });
+    }
+
+
+    // Modify page's media display
+    //   Vertical center single media
+    //   Hide media area if no media exists for the current section
+    let mediaLength = this.sectionData[ sectionName ].media.length;
+    if( this.layout == "triple" ){ // Triple Layout Section
+      if( this.sectionData[ sectionName ].media.length == 0 ){
+        this.pageSectionsObject.classList.add('procPageNoMediaStyle');
+        this.mediaViewObject.style.display = "none";
+      }else if(this.sectionData[ sectionName ].media.length == 1){
+        this.mediaViewObject.style.alignContent = "center";
+        this.mediaViewObject.style.height = "auto";
+      }
+    }else if( this.layout == "vertical" ){ // Vertical locked layout
+      if( mediaLength == 0 ){
+        this.pageSectionsObject.classList.add('procPageNoMediaLockVerticalStyle');
+        this.mediaViewObject.style.display = "none";
+      }else if( mediaLength == 1 ){
+        this.mediaViewObject.style.alignContent = "center";
+        this.mediaViewObject.style.height = "auto";
+      }
+    }
+
+
+    this.sectionData[ sectionName ].objects.forEach(( obj )=>{
+      obj.classList.add('procPagesSectionActive');
+      obj.classList.add('pagesVisOn');
+      obj.classList.remove('pagesVisOff');
+      obj.scrollTop = 0;
+    });
+  }
+
 
 
   deactivateSection( sectionName ){
@@ -637,57 +772,6 @@ export class ProcPage {
 
     this.stopSectionMedia( sectionName );
 
-  }
-
-  activateSection( sectionName ){
-
-    if( Number.isInteger(sectionName) ){
-      sectionName = this.sectionTitles[sectionName];
-    }
-
-    if( this.prevSection != null ){
-      this.deactivateSection( this.prevSection );
-    }
-
-    this.prevSection = sectionName;
-    this.sectionData[ sectionName ].isActive = true;
-    this.sectionData[ sectionName ].header.classList.add( 'procPagesNavActive' );
-    if( this.pageStyles.hasOwnProperty('sectionNavButtonActive') && Array.isArray( this.pageStyles['sectionNavButtonActive'] ) ){
-      this.pageStyles['sectionNavButtonActive'].forEach(( style )=>{
-        this.sectionData[ sectionName ].header.classList.add( style );
-      });
-    }
-
-
-    // Modify page's media display
-    //   Vertical center single media
-    //   Hide media area if no media exists for the current section
-    let mediaLength = this.sectionData[ sectionName ].media.length;
-    if( this.layout == "triple" ){ // Triple Layout Section
-      if( this.sectionData[ sectionName ].media.length == 0 ){
-        this.pageSectionsObject.classList.add('procPageNoMediaStyle');
-        this.mediaViewObject.style.display = "none";
-      }else if(this.sectionData[ sectionName ].media.length == 1){
-        this.mediaViewObject.style.alignContent = "center";
-        this.mediaViewObject.style.height = "auto";
-      }
-    }else if( this.layout == "vertical" ){ // Vertical locked layout
-      if( mediaLength == 0 ){
-        this.pageSectionsObject.classList.add('procPageNoMediaLockVerticalStyle');
-        this.mediaViewObject.style.display = "none";
-      }else if( mediaLength == 1 ){
-        this.mediaViewObject.style.alignContent = "center";
-        this.mediaViewObject.style.height = "auto";
-      }
-    }
-
-
-    this.sectionData[ sectionName ].objects.forEach(( obj )=>{
-      obj.classList.add('procPagesSectionActive');
-      obj.classList.add('pagesVisOn');
-      obj.classList.remove('pagesVisOff');
-      obj.scrollTop = 0;
-    });
   }
 
 
@@ -731,52 +815,11 @@ export class ProcPage {
     }
   }
 
-  buildTriplePageSection( sectionData, sectionList, sectionContentParent, mediaContentParent ){
+  buildTriplePageSection( sectionData, sectionContentParent, sectionMediaParent ){
     let ret = {
-      'nav' : null,
-      'content' : []
+      'content' : [],
+      'media' : []
     };
-
-
-    if( sectionData.name != '' ){
-
-      let sectionTitleDiv = document.createElement('div');
-      if( this.layout == 'triple' ){
-        sectionTitleDiv.classList.add('procPagesNavSectionStyle');
-      }else if( this.layout == 'vertical' ){
-        sectionTitleDiv.classList.add('procPagesVerticalLockNavSectionStyle');
-      }
-      sectionTitleDiv.classList.add('procPagesButtonStyle');
-      sectionTitleDiv.classList.add('procPagesSectionNavColor');
-      
-      
-      sectionTitleDiv.innerHTML = sectionData.name;
-
-      this.applyPageStyle( 'sectionNavButton', sectionTitleDiv );
-      if( this.hasPageStyle('sectionNavButtonBackground') ){
-        let buttonBgObj = document.createElement('div');
-        buttonBgObj.classList.add('procPagesSectionNavButtonBackground');
-        this.applyPageStyle( 'sectionNavButtonBackground', buttonBgObj );
-
-        let styleType = "navStyle";
-        if( sectionData.hasOwnProperty( styleType ) && Array.isArray( sectionData[ styleType ] ) ){
-          sectionData[ styleType ].forEach(( style )=>{ style!=''&&buttonBgObj.classList.add(style) });
-        }
-
-        buttonBgObj.appendChild( sectionTitleDiv );
-        sectionList.appendChild( buttonBgObj );
-      }else{
-
-        let styleType = "navStyle";
-        if( sectionData.hasOwnProperty( styleType ) && Array.isArray( sectionData[ styleType ] ) ){
-          sectionData[ styleType ].forEach(( style )=>{ style!=''&&sectionTitleDiv.classList.add(style) });
-        }
-
-        sectionList.appendChild( sectionTitleDiv );
-      }
-
-      ret['nav'] = sectionTitleDiv;
-    }
 
     if( sectionData.content != '' ){
       let sectionContentDiv = document.createElement('div');
@@ -823,8 +866,9 @@ export class ProcPage {
         }
       });
       sectionMedia.classList.add('pagesVisOff');
-      mediaContentParent.appendChild( sectionMedia );
+      sectionMediaParent.appendChild( sectionMedia );
       ret['content'].push( sectionMedia );
+      ret['media'].push( sectionMedia );
     }
     return ret;
   }
