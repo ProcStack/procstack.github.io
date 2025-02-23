@@ -133,7 +133,7 @@ left: calc(max(3.5vw, 50vw - 765px));
 /* -- -- -- */
 
 .procPagesNavStyle {
-  width: 60vw;
+  width: 100vw;
   max-width: 950px;
   display: flex;
   flex-wrap: wrap;

@@ -692,7 +692,7 @@ export class ProcPageManager {
 
 
   onResize(){
-    this.checkNavBarSize();
+    //this.checkNavBarSize();
   }
   
   // TODO : So, my dingus of a butt has realized how much access `calc()` in css now has.
