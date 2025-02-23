@@ -11,6 +11,12 @@ export const pageListingData = {
     },
     {
       'type' : 'image',
+      'src' : '../pages/projects/images/pxlCam_trainTracks.jpg',
+      'alt' : 'Train track edges',
+      'style' : 'procPagesImageStyle'
+    },
+    {
+      'type' : 'image',
       'src' : '../pages/projects/images/pxlCam_fungi.jpg',
       'alt' : 'Fungi on a log',
       'style' : 'procPagesImageStyle'
@@ -19,6 +25,12 @@ export const pageListingData = {
       'type' : 'image',
       'src' : '../pages/projects/images/pxlCam_treeBark.jpg',
       'alt' : 'Funky tree bark',
+      'style' : 'procPagesImageStyle'
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/projects/images/pxlCam_empireStateBuilding.jpg',
+      'alt' : 'Tweaked Empire State Building',
       'style' : 'procPagesImageStyle'
     },
   ],

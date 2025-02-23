@@ -55,21 +55,24 @@ export const pageListingData = {
       <br>I starting my dive into AI in 2008 writing a Boid / Crowds system for my thesis in art college.
       <br>&nbsp;&nbsp; An insane Mel script particle expression + 3d animation cycles in Maya haha.
       <br>Then did Boid movement, navigation, & obstacle detection in animated films for 5 years, using Houdini.
-      <div class='procPagesAboutMeSpacer'></div>
+      <br>
+      <br>Then dove into Style-Transfer AI & Long Short-Term Memory (LSTM) training in 2019-2020,
+      <br>&nbsp;&nbsp; But been developing different multi-media AI structures since then.
+      
+      <br>
+      <br><div class='procPagesAboutMeBar'></div>
+
       <br>In 2015 I decided I'd make my own machine learning AI crammed into a Jetson TK1 by the end of 2026.
       <br>&nbsp;&nbsp; Which evolved into a deep learning AI crammed into, likely, a Jetson Nano.
       <br>See if I can make something that can learn without being connected to the internet.
       <br>
-      <br>Then dove into Style-Transfer AI & Long Short-Term Memory (LSTM) training in 2019-2020,
-      <br>&nbsp;&nbsp; But been developing different multi-media AI structures since then.
 
-      <br>
       <br><span class="innerCenter">
         You could guess,
         <br>All the recent AI stuff has been quite serendipitous for my creations!
       </span>
 
-      <br><div class='procPagesAboutMeBar'></div>
+      <div class='procPagesAboutMeSpacer'></div>
       
       <br>For my 2026 goal, I've been exploring <span class="textNudge">Graph Attention Network</span> (<span class="textNudge">GAT</span>) artificial intelligence.
       <br>&nbsp;&nbsp; This is a type of neural network that considers the relationships between data points.
@@ -79,6 +82,7 @@ export const pageListingData = {
       <br>These days, the common path for <span class="textNudge">Artificial General Intelligence</span> (<span class="textNudge">AGI</span>) has been through Transformer Networks,
       &nbsp;which is a type of <span class="textNudge">Recurrent Neural Network</span> (<span class="textNudge">RNN</span>)
       <br>&nbsp;&nbsp; With a lot of added specialized layers to handle different types of data / media.
+      <br>
       <br>I honestly believe GATs can be used for AGI, but I'm biased.
       <br>&nbsp;&nbsp; Since Boids operate like a GAT's Graph Nodes, but with easier gradient descent when sampling sparse fields.
       
@@ -92,8 +96,10 @@ export const pageListingData = {
 
       <br>I've been working on a general-purpose neuron that adjusts its own connections during prediction;
       <br>&nbsp;&nbsp; So the same system could learn my voice on the fly, as well as sensor signals connected to the Jetson computer.
+      <br>
       <br>Since it's the Structure in a GAT that causes regions of neural activation based on stimuli, like the Butterfly Effect echoing through nature.
       <br>&nbsp;&nbsp; It forms a result <span class="textDrinkMeAlice">(prediction)</span> after subsiquent activations, as-though compounding ripples in a pond.
+      <br>
       <br>That structure can be saved out as a model,
       <br>&nbsp;&nbsp; But it's not a 'model' in the traditional sense of tensor weights & biases.
       <br>&nbsp;&nbsp;&nbsp;&nbsp; How I'm devloping it, at least.
@@ -107,7 +113,8 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; With that general-purpose neuron, I can provide text, images, audio histograms, etc. to the network.
       &nbsp; It'll then create connections from initial data points, sample the differences, then pass the 'prediction' forward and 'back' in the chain, and adjust the connections based on their revisit to the same data in the current 'prediction'.
       <br>&nbsp;&nbsp; Relying on localized regions of sub-networks to recurrently process the data
-      <br>Self-taught descrimination of attention between neurons;
+      <br>
+      <br>It should be self-taught descrimination of attention between neurons;
       <br>&nbsp;&nbsp; Like in the human brain.
       <br><div class="textSkew">&nbsp;&nbsp;&nbsp;&nbsp; (When the purple circles go red in the GAT video above)</div>
       
@@ -132,7 +139,7 @@ export const pageListingData = {
         So I'm just learnin' while watching my ai learnin'!
         <div class='procPagesAboutMeSpacer'></div>
         
-        <br>I had the "reservoir" set to 15 times steps, you'll notice about every 15 frames the brain shifts.
+        <br>In the videos, I had the "reservoir" set to 15 times steps, you'll notice about every 15 frames the brain shifts.
         <br>By frame ~45, it's learned some patterns
         <br>The brain seems to completely melt at ~75 & rebuild itself by ~95. 
         
