@@ -5,7 +5,7 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'image',
-      'src' : '../pages/projects/images/tvKid.png',
+      'src' : '../pages/projects/images/tvKid.webp',
       'alt' : 'TV was king!',
       'style' : 'procPagesImageStyle',
       'caption' : ["vv Watch the timelapse of me making 'TV Kid' in Pxlmancer vv"]
@@ -18,7 +18,7 @@ export const pageListingData = {
     },
     {
       'type' : 'image',
-      'src' : '../pages/projects/images/kitty.jpg',
+      'src' : '../pages/projects/images/kitty.webp',
       'alt' : 'Digital drawing a friends cat',
       'style' : 'procPagesImageStyle',
       'caption' : ["...of course, the cat tax..."]

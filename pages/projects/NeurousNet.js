@@ -5,7 +5,7 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'image',
-      'src' : '../pages/projects/images/neurousnet.jpg',
+      'src' : '../pages/projects/images/neurousnet.webp',
       'alt' : 'Swirling particles',
       'style' : 'procPagesImageStyle'
     },

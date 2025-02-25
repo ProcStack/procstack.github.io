@@ -4,13 +4,13 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'youtube',
-      'src' : '_vzqZ2sNjaw',
+      'src' : '_vzqZ2sNjaw?si=RDEV72-mVmd1qWla',
       'alt' : 'Huge holiday party thank you video',
       'style' : 'procPagesMediaStyle'
     },
     {
       'type' : 'image',
-      'src' : '../pages/pxlNav/images/Antib0dyClub_10_chatImplemented.jpg',
+      'src' : '../pages/pxlNav/images/Antib0dyClub_10_chatImplemented.webp',
       'alt' : 'Chat features in Antibody Club',
       'style' : 'procPagesImageStyle',
       'caption' : ["Antibody Club [defunct] - Showing some of the, now removed, network features."]

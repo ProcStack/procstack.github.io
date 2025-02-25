@@ -4,7 +4,7 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'image',
-      'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_Coastline_sm.jpg',
+      'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_Coastline_sm.webp',
       'href' : 'Outlet.htm',
       'alt' : 'The Outlet coastline',
       'style' : 'procPagesImageStyle',
@@ -13,14 +13,14 @@ export const pageListingData = {
     },
     {
       'type' : 'image',
-      'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_CatTails_sm.jpg',
+      'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_CatTails_sm.webp',
       'href' : 'Outlet.htm',
       'alt' : 'The water-side cattails',
       'style' : 'procPagesImageStyle'
     },
     {
       'type' : 'image',
-      'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_The_Dock_sm.jpg',
+      'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_The_Dock_sm.webp',
       'href' : 'Outlet.htm',
       'alt' : 'Overview of the foothills next to the Outlet',
       'style' : 'procPagesImageStyle'

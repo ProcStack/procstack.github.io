@@ -5,14 +5,14 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'image',
-      'src' : '../pages/projects/images/pxlTextGenerator_characterBuilder.jpg',
+      'src' : '../pages/projects/images/pxlTextGenerator_characterBuilder.webp',
       'alt' : 'Character selector & builder',
       'style' : 'procPagesImageStyle',
       'caption' : ["Character selector & builder"]
     },
     {
       'type' : 'image',
-      'src' : '../pages/projects/images/pxlTextGenerator_pageView.jpg',
+      'src' : '../pages/projects/images/pxlTextGenerator_pageView.webp',
       'alt' : 'Page builder with alphabet',
       'style' : 'procPagesImageStyle',
       'caption' : ["Page builder using your selected characters"]

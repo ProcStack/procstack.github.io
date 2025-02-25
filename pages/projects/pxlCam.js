@@ -5,31 +5,31 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'image',
-      'src' : '../pages/projects/images/pxlCam_treeStump.jpg',
+      'src' : '../pages/projects/images/pxlCam_treeStump.webp',
       'alt' : 'Trippy tree stump',
       'style' : 'procPagesImageStyle'
     },
     {
       'type' : 'image',
-      'src' : '../pages/projects/images/pxlCam_trainTracks.jpg',
+      'src' : '../pages/projects/images/pxlCam_trainTracks.webp',
       'alt' : 'Train track edges',
       'style' : 'procPagesImageStyle'
     },
     {
       'type' : 'image',
-      'src' : '../pages/projects/images/pxlCam_fungi.jpg',
+      'src' : '../pages/projects/images/pxlCam_fungi.webp',
       'alt' : 'Fungi on a log',
       'style' : 'procPagesImageStyle'
     },
     {
       'type' : 'image',
-      'src' : '../pages/projects/images/pxlCam_treeBark.jpg',
+      'src' : '../pages/projects/images/pxlCam_treeBark.webp',
       'alt' : 'Funky tree bark',
       'style' : 'procPagesImageStyle'
     },
     {
       'type' : 'image',
-      'src' : '../pages/projects/images/pxlCam_empireStateBuilding.jpg',
+      'src' : '../pages/projects/images/pxlCam_empireStateBuilding.webp',
       'alt' : 'Tweaked Empire State Building',
       'style' : 'procPagesImageStyle'
     },
