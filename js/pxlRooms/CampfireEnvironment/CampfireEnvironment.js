@@ -225,7 +225,7 @@ export class CampfireEnvironment extends RoomEnvironment{
 
   buildEmberWisps( particleSourcePos ){
     
-    let systemName = "emberWisps";
+    let systemName = "campfireEmberWisps";
     let eWisps = new EmberWisps( this, systemName );
     this.particleList[systemName] = eWisps;
     //
