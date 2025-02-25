@@ -1,3 +1,25 @@
+// pxlNav Example :: `Campfire` Environment
+//   Created by Kevin Edzenga; 2024,2025
+// -- -- -- -- -- -- -- -- -- -- -- -- -- --
+//
+// This room is a more complex example of a pxlNav room.
+//   It uses many custom shaders, particle systems, and animations.
+//
+// If you are looking for a simple example to look at first,
+//   See the `Void Environment` in the `pxlRooms` folder.
+//     It has a single custom shader, a simple pxlNav particle system, and no animations.
+//
+// What's in this room?
+//  - A custom shader for the Rabbit Druid character
+//      Mostly for simple ORM map & campefire flicker
+//  - A custom shader for the Campfire Flame
+//      Using vertex-colors to move UVs, and a noise texture to flicker
+//  - A custom shader for the Campfire Logs
+//      Mixing different emeber glow textures with a noise texture
+//  - A custom shader for the ground, grass, shrubs, and plants
+//
+
+
 import {
   Color, FogExp2, Vector2, Vector3,
   RepeatWrapping, ClampToEdgeWrapping,
@@ -130,6 +152,10 @@ export class CampfireEnvironment extends RoomEnvironment{
   }
   
   checkEyeBlink(){
+    if( !this.materialList.hasOwnProperty( "RabbitDruidA" ) ){
+      return;
+    }
+
     if( this.eyeBlinkAnim > 0 ){
       // Decrease the eye blink animation 1 to 0
       this.eyeBlinkAnim -= this.eyeBlinkRate;
@@ -462,6 +488,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     skinnedMaterial.skinning = true;
     skinnedMaterial.side = DoubleSide;
     skinnedMaterial.lights = true;
+
 
     bindObj.material = skinnedMaterial;
     return skinnedMaterial;

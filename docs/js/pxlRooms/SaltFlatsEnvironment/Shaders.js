@@ -213,13 +213,12 @@ export function envGroundVert(){
 export function envGroundFrag(){
   let ret=shaderHeader();
   ret+=`
-        
     uniform sampler2D diffuse;
     uniform sampler2D noiseTexture;
         
     uniform vec2 time;
     uniform vec3 fogColor;
-    
+     
     varying vec2 vUv;
     varying vec3 vPos;
     varying vec3 vN;
@@ -236,15 +235,20 @@ export function envGroundFrag(){
     #endif
     
     void main(){
-        float timer = time.x*.3;
+        float timer = time.x*.01;
         vec3 pos = vPos*0.006666666666666; // Loop point is 150 units
         vec2 uv = vUv;
-        float depth = min(1.0, gl_FragCoord.z / gl_FragCoord.w * .00065 );
-        float depthFade = max(0.0, 1.0-depth);
+        float depth = min(1.0, gl_FragCoord.z / gl_FragCoord.w * .0035 );
+        float depthFade = max(0.0, min(1.0, 1.1-depth ));
         depthFade *= depthFade*depthFade;
+        
+        float crystalGlow = max(0.0,vCd.b-.25);
         
         // Initial color read
         vec4 Cd = texture2D(diffuse,vUv);
+        
+        vec2 nUv = fract( vec2( (pos.x+pos.z + timer*crystalGlow )*(1.0+ vCd.g*2.5) , pos.y*vCd.g ) );
+        float nCd = texture2D(noiseTexture,nUv).r;
         
         // -- -- -- -- -- -- -- --
         // -- Direction Lights  -- --
@@ -252,22 +256,22 @@ export function envGroundFrag(){
 
         vec3 lights = vec3(0.0, 0.0, 0.0);
         #if NUM_DIR_LIGHTS > 0
-          vec2 nUv = fract( vec2( (pos.x+pos.z )*(1.0+ vCd.y*2.5) , pos.y*vCd.y ) );
-          float lightNoise = texture2D(noiseTexture,nUv).r;
 
           for(int x = 0; x < NUM_DIR_LIGHTS; ++x) {
               vec3 lightInf= ( max(0.0, dot(directionalLights[x].direction, reflect( normalize(vPos), vN ) ))) * directionalLights[x].color;
               lights += lightInf;
           }
-          // Add a fake bump map to the lighting
-          lights = lights*(lightNoise*.5*((1.0-vCd.g)*.5+.5)+.5);
-          //
+          
+          lights = lights*(((1.0-vCd.g-vCd.r)*.5+.5)+ .5);
         #endif
         
+        lights = mix( vec3(0.0), lights, nCd*vCd.g*.75 + vCd.r*.35 );
         
-        Cd.rgb += Cd.rgb*lights;
-
-        Cd.a=1.0;
+        // Add blue lighting around some of the crystals
+        lights += vec3( 0.4038, 0.643, 0.779 ) * (crystalGlow * nCd  );
+        
+        Cd.rgb += Cd.rgb * lights * (depthFade*.5+.5) ;
+        
         gl_FragColor=Cd;
     }`;
   return ret;

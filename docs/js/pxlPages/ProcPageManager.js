@@ -181,9 +181,9 @@ export class ProcPageManager {
       this.verifiedPages[ pageId.toLocaleLowerCase() ] = pageId;
     });
 
-
+    
     // -- Error check; user put in a bad URL --
-    if( !pageListingKeys.hasOwnProperty( pageURL ) ){
+    if( !pageListingKeys.includes( pageURL ) ){
       pageURL = this.defaultPage;
       this.shiftHistoryState( pageURL );
       this.updateDocumentMetaData( pageURL );
