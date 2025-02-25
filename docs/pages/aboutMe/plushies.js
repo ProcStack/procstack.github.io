@@ -4,28 +4,28 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'image',
-      'src' : '../pages/aboutMe/images/plushies_YearReview_2024_Overview.jpg',
+      'src' : '../pages/aboutMe/images/plushies_YearReview_2024_Overview.webp',
       'alt' : "The plushies I made in 2024",
       'style' : ['procPagesImageStyle', 'procPagesLimitWidthStyle'],
       'caption' : ["My 2024 year in plushies!"],
     },
     {
       'type' : 'image',
-      'src' : '../pages/aboutMe/images/pl_uvToFabricPattern.jpg',
+      'src' : '../pages/aboutMe/images/pl_uvToFabricPattern.webp',
       'alt' : "Houdini screenshot of Daryll getting flattened",
       'style' : ['procPagesImageStyle', 'procPagesLimitWidthStyle'],
       'caption' : ["My Houdini tool to turn 3d models into fabric patterns"],
     },
     {
       'type' : 'image',
-      'src' : '../pages/aboutMe/images/a04_DaryllTheDuck_A_main.jpg',
+      'src' : '../pages/aboutMe/images/a04_DaryllTheDuck_A_main.webp',
       'alt' : "Daryll the 'Rubber Duckie'",
       'style' : ['procPagesImageStyle', 'procPagesLimitWidthStyle'],
       'caption' : ["Daryll all done!"],
     },
     {
       'type' : 'image',
-      'src' : '../pages/aboutMe/images/FrankTheFish_n_Pinky.jpg',
+      'src' : '../pages/aboutMe/images/FrankTheFish_n_Pinky.webp',
       'alt' : "Frank the Fish on his Pinky Flamingotube!",
       'style' : ['procPagesImageStyle', 'procPagesLimitWidthStyle']
     }

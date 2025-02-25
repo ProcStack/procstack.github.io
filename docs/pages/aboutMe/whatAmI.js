@@ -4,7 +4,7 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'youtube',
-      'src' : 'trt9dGUYevs',
+      'src' : 'trt9dGUYevs?si=FyyFhAOe5is6UM8H',
       'alt' : 'Technical Art Reel 2024',
       'style' : ['procPagesMediaStyle', 'procPagesLimitWidthStyle'], 
     }

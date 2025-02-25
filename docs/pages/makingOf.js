@@ -6,7 +6,7 @@ const metaDataInput = {
   'title': "The Making of ProcStack's GitHub Portfolio",
   'description': "The making of 'procstack.github.io' by Kevin Edzenga",
   'keywords': ['ProcStack', 'Kevin Edzenga', 'Making Of', 'Portfolio', 'GitHub', 'Houdini', 'Maya', 'Photoshop', 'Web Development', 'Web', 'JavaScript', 'HTML', 'CSS'],
-  'image': 'https://procstack.github.io/images/ProcStack_th.jpg',
+  'image': 'https://procstack.github.io/images/ProcStack_th.webp',
   'url': 'MakingOf.htm'
 };
 
@@ -54,14 +54,14 @@ const pageContentObject = {
         },
         {
           'type' : 'image',
-          'src' : '../pages/makingOf/images/stressTesting.jpg',
+          'src' : '../pages/makingOf/images/stressTesting.webp',
           'alt' : 'Stress testing rabbit druid rigs',
           'style' : 'procPagesImageStyle',
           'caption' : ["Always stress test your rigs"]
         },
         {
           'type' : 'image',
-          'src' : '../pages/makingOf/images/rabbitDruid_pokeBarrel.jpg',
+          'src' : '../pages/makingOf/images/rabbitDruid_pokeBarrel.webp',
           'alt' : 'Druid rabbit pokin dah barrel',
           'style' : 'procPagesImageStyle',
           'caption' : ["POKE DAH BARREL!"]

@@ -277,11 +277,6 @@ export class ProcPageManager {
     //this.runHidePages();
     this.activateNavButton( this.curPageName );
 
-    // Let the dom settle for a step
-    setTimeout( ()=>{
-      this.checkNavBarSize();
-    });
-
   }
 
   // -- -- --
@@ -691,46 +686,8 @@ export class ProcPageManager {
   }
 
 
-  onResize(){
-    //this.checkNavBarSize();
-  }
+  onResize(){}
   
-  // TODO : So, my dingus of a butt has realized how much access `calc()` in css now has.
-  //          One of those things that grew in functionality while I didn't pay attention.
-  //        MUCH of this can be handled in purely css now, no javascript needed.
-  checkNavBarSize(){
-    let sw=window.innerWidth;
-    let sh=window.innerHeight;
-
-    let buttonWidthAgr = 0;
-    this.navBarLinks.forEach( (navLink)=>{
-      let btnWidth = navLink.offsetWidth;
-      buttonWidthAgr += btnWidth;
-    });
-    buttonWidthAgr += this.toggleDomEvents["ToggleDOM"]["on"].offsetWidth;
-
-    let navBarWidth = this.navBar.offsetWidth * 0.9;
-    let navBarThreshold = this.navBar.offsetWidth * 0.6;
-    if( this.resObjsVis && buttonWidthAgr > navBarWidth ){
-      this.resObjsVis = false;
-      this.resBasedObjs.forEach( (obj)=>{
-        obj.style.display = "none";
-      });
-    }else if( !this.resObjsVis && buttonWidthAgr < navBarThreshold ){
-      this.resObjsVis = true;
-      this.resBasedObjs.forEach( (obj)=>{
-        obj.style.display = "contents";
-      });
-    }
-
-    // Adjust menu padding on thin screens
-    let targetWidth = 60;
-    if( sw < 1000 ){
-      let sidePadding = 1.0-Math.max(0.0, (sw * 0.001)*2.0-1.0);
-      targetWidth += sidePadding * 40;
-    }
-    this.navBar.style.width = targetWidth + "vw";
-  }
 
   prepFader( obj ){
     if( typeof(obj)=="string" ){
