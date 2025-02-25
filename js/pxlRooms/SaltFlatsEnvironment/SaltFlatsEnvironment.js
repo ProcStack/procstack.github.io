@@ -1,5 +1,23 @@
-// WIP -- STAND IN FILE
-//   IT WILL ERROR IF YOU LOAD THIS ENVIRONMENT
+// pxlNav Example :: `Campfire` Environment
+//   Created by Kevin Edzenga; 2024,2025
+// -- -- -- -- -- -- -- -- -- -- -- -- -- --
+//
+// This room is a more complex example of a pxlNav room.
+//   It uses many custom shaders, particle systems, and animations.
+//
+// If you are looking for a simple example to look at first,
+//   See the `Void Environment` in the `pxlRooms` folder.
+//     It has a single custom shader, a simple pxlNav particle system, and no animations.
+//
+// What's in this room?
+//  - Per-frame updates in `step()`
+//      Looping the background movement
+//      Run the Rabbit Druid's animation
+//  - A custom shader for the Rabbit Druid character
+//      Mostly for fog, and eye blinking animation
+//  - A custom shader for the environment ground
+//  - Some instanced crystals and the ground itself
+
 
 import {
   Vector2,
@@ -82,9 +100,6 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
   }
 
   start(){
-    /*if( this.booted ){
-      this.resetCamera();
-    }*/
     let animKey = this.animRigName;
     let hasScripted = this.geoList.hasOwnProperty( 'Scripted' );
     if( this.geoList.hasOwnProperty( animKey ) && hasScripted && this.geoList["Scripted"].hasOwnProperty( "Offset_loc" )  ){
@@ -107,9 +122,6 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     if( hasScripted && this.geoList["Scripted"].hasOwnProperty("pokinStick_geo") ){
       this.geoList["Scripted"]["pokinStick_geo"].visible = false;
     }
-
-    //let curFOV = this.pxlCamFOV[  this.mobile ? 'MOBILE' : 'PC' ];
-    //this.pxlEnv.pxlCamera.setStats( curFOV, this.pxlCamZoom, this.pxlCamAspect, this.pxlCamNearClipping );
   }
 
   // Per-Frame Render updates

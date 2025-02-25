@@ -1,6 +1,25 @@
 // pxlNav Example :: `The Outlet` Environment
+//   Created by Kevin Edzenga; 2024,2025
+// -- -- -- -- -- -- -- -- -- -- -- -- -- --
 //
-// A more complex example of a custom room environment for the pxlNav framework
+// This room is a more complex example of a pxlNav room.
+//   It uses many custom shaders and particle systems.
+//
+// If you are looking for a simple example to look at first,
+//   See the `Void Environment` in the `pxlRooms` folder.
+//     It has a single custom shader, a simple pxlNav particle system, and no animations.
+//
+// What's in this room?
+//  - Custom shaders for the environment ground, water, plants, and more.
+//      The ground shader mixes different textures using a data map
+//      The water shader has a coast-line data texture which creates frag ripples
+//      The plants shader uses vertex-color to add wind sway
+//  - Custom particle systems for floating dust and bugs.
+//      The dust floats around the camera
+//      The bugs are height-mapped & spawn-mapped to the ground
+//  - A custom shader for the water-way, with a coast-line texture and ripples
+//
+
 
 import {
   Vector2,

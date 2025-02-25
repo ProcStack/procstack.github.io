@@ -127,6 +127,14 @@ export function instPlantsVert(){
   return ret;
 }
 
+
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+
+
 export function instPlantsFrag( settings={} ){
 
   let defaults = {
