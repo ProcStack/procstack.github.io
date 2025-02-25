@@ -136,8 +136,8 @@ export function rabbitDruidFrag(){
       vec4 nCd=texture2D(noiseTexture,animUv);
       
       // -- -- -- //
-
-      float lightContrib = 1.0-clamp( dot( vN, normalize( vPos ))*1.5, 0.0, 1.0 );
+      vec3 reflectNorm = reflect( normalize(vPos), vN );
+      float lightContrib = 1.0-clamp( dot( reflectNorm, vTan)*.5, 0.0, 1.0 );
       float lMag = 0.0;
   
       vec3 lights = vec3(0.0, 0.0, 0.0);
@@ -145,9 +145,7 @@ export function rabbitDruidFrag(){
     #if NUM_POINT_LIGHTS > 0
       for( x=0; x < NUM_POINT_LIGHTS; ++x ) {
           vec3 lightVector = normalize( pointLights[x].position - vPos) + vec3( -0.50, .10, -0.50 ) ;
-          //vec3 refTan = vec3( (dot( normalize(lightVector)- nCd.xyz, vN )*.5+.5) * (dot(normalize(pointLights[x].position), vN)*.5+.5) );
           vec3 refTan = reflect( normalize(lightVector) - nCd.xyz*.3, vTan );
-          //refTan = normalize( refTan + vec3(-.10, -max(nCd.x,nCd.y)*.3 , -.10) );
           
           vec3 lightInf=  clamp( (dot(refTan, vN )+.15)*(1.65+areCd.g*.7)+.5, 0.0, 1.0) * pointLights[x].color;
           lights += lightInf * lightContrib;
