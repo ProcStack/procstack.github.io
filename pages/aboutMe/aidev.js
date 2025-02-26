@@ -56,8 +56,12 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; An insane Mel script particle expression + 3d animation cycles in Maya haha.
       <br>Then did Boid movement, navigation, & obstacle detection in animated films for 5 years, using Houdini.
       <br>
-      <br>Then dove into Style-Transfer AI & Long Short-Term Memory (LSTM) training in 2019-2020,
-      <br>&nbsp;&nbsp; But been developing different multi-media AI structures since then.
+      <br>I dove into Style-Transfer AI & Long Short-Term Memory (LSTM) training in 2019-2020,
+      <br>&nbsp;&nbsp; Training an LSTM on my voice to understand what I said.
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; LSTMs are not the right type of AI for that,
+      <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Heck if I knew, yet it worked.
+      <br>
+      <br>Since then, I've been developing different personal multi-media AI structures.
       
       <br>
       <br><div class='procPagesAboutMeBar'></div>
@@ -72,13 +76,16 @@ export const pageListingData = {
         <br>All the recent AI stuff has been quite serendipitous for my creations!
       </span>
 
-      <div class='procPagesAboutMeSpacer'></div>
+      <br><div class='procPagesAboutMeBar'></div>
       
       <br>For my 2026 goal, I've been exploring <span class="textNudge">Graph Attention Network</span> (<span class="textNudge">GAT</span>) artificial intelligence.
-      <br>&nbsp;&nbsp; This is a type of neural network that considers the relationships between data points.
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; Best for predicting connected ideas / things / data within a system.
-      
+      &nbsp;As GATs allow me to treat 'concepts' as 'objects', rather than sections of words or pixels as a tensor or 'concept'.
       <br>
+      <br><span class="innerCenter">
+        GATs are a type of neural network that considers the relationships between data points.
+        <br>Best for predicting connections between ideas / things / data in a system.
+      </span>
+      
       <br>These days, the common path for <span class="textNudge">Artificial General Intelligence</span> (<span class="textNudge">AGI</span>) has been through Transformer Networks,
       &nbsp;which is a type of <span class="textNudge">Recurrent Neural Network</span> (<span class="textNudge">RNN</span>)
       <br>&nbsp;&nbsp; With a lot of added specialized layers to handle different types of data / media.
@@ -160,6 +167,7 @@ export const pageListingData = {
       <br>&nbsp;&nbsp;&nbsp;&nbsp; Gossip about the player.
       <br>&nbsp;&nbsp; But it's just cubes and spheres in Unity at the moment.
 
+      <br><br><div class='procPagesAboutMeBar'></div>
       
       <br>
       <br>If you couldn't tell, I'm training my AIs on my own works.
