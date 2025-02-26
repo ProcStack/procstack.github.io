@@ -9,7 +9,7 @@ export const pageListingData = {
       'style' : ['procPagesMediaStyle', 'procPagesNarrowWidthStyle'],
       'caption' : ["Generative connections in a dynamic Graph Attention Network (GAT);",
           "Finding connections between a block of text I wrote up.",
-          "So the network is creating connections between 'usage rules' of different words.",
+          "The network is creating connections between 'usage rules' of different words.",
         ]
     },
     {
@@ -18,8 +18,9 @@ export const pageListingData = {
       'alt' : "ESN Horizontal-Vertical Slice",
       'style' : ['procPagesMediaStyle', 'procPagesNarrowWidthStyle', 'setAspectRatio_2_1'],
       'caption' : ["A vertical slice of horizontal movement in my Echo State Network (ESN) brain.",
-          "Since brains are multi-dimensional, I'm showing a 2D slice of a single dimension.",
-          "So it's a little hard to desribe the slice's movement haha."
+          "I'm showing a 2D slice of a single motion dimension.",
+          "The repeating gray tones are 'relative' movement,",
+          "Lik a 'motion offset' found in similar prior frames.",
       ]
     },
     {
@@ -52,63 +53,64 @@ export const pageListingData = {
   ],
   'content' : `
     <div class='procPagesAboutMeInfoStyle'>
-      <br>I starting my dive into AI in 2008 writing a Boid / Crowds system for my thesis in art college.
-      <br>&nbsp;&nbsp; An insane Mel script particle expression + 3d animation cycles in Maya haha.
-      <br>Then did Boid movement, navigation, & obstacle detection in animated films for 5 years, using Houdini.
+      <br>I starting my dive into AI in 2008 writing a Boid / Crowd system for my thesis while in art college, School of Visual Arts.
+      <br>&nbsp;&nbsp; It was an insane particle script + 3d animation cycles in Maya haha.
+      <br>Then I did Boid movement, navigation, & obstacle detection in animated films for 5 years at Blue Sky Studios, using Houdini.
       <br>
-      <br>Then dove into Style-Transfer AI & Long Short-Term Memory (LSTM) training in 2019-2020,
-      <br>&nbsp;&nbsp; But been developing different multi-media AI structures since then.
+      <br>I dove into Style-Transfer AI & Long Short-Term Memory (LSTM) training in 2019-2020.
+      <br>&nbsp;&nbsp; Since then, I've been developing different multi-media AI structures in my spare time.
       
       <br>
       <br><div class='procPagesAboutMeBar'></div>
 
-      <br>In 2015 I decided I'd make my own machine learning AI crammed into a Jetson TK1 by the end of 2026.
-      <br>&nbsp;&nbsp; Which evolved into a deep learning AI crammed into, likely, a Jetson Nano.
-      <br>See if I can make something that can learn without being connected to the internet.
+      <br>In 2015 I decided I'd cram a machine learning AI into a single-board computer, a Jetson TK1, by the end of 2026.
+      <br>&nbsp;&nbsp; Something that could understand what I say,
+      <br>&nbsp;&nbsp; Through vision, understand an object simply went out of frame.
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; Yet knows if it looks over, the object is still there;
+      <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Long Term Attention'
+      <br>
+      <br>At the end of 2023, this evolved into a deep learning AI crammed into, likely, a Jetson Nano.
+      <br>&nbsp;&nbsp; As something to infer what I mean from what I say,
+      <br>&nbsp;&nbsp; Or give thoughts on what it saw or heard in the world around it.
+      <br>
+      <br>I'd be happy to make something that can understand what I say and can give a <span class='textItalic'>semi</span> coherent response without an internet connection.
+      <br>
+      <br>I'm yet to begin on the core of the AI, as I'm still testing different structures.
       <br>
 
       <br><span class="innerCenter">
         You could guess,
-        <br>All the recent AI stuff has been quite serendipitous for my creations!
+        <br>All the recent AI stuff has been quite serendipitous for my creation!
       </span>
 
-      <div class='procPagesAboutMeSpacer'></div>
+      <br><div class='procPagesAboutMeBar'></div>
       
       <br>For my 2026 goal, I've been exploring <span class="textNudge">Graph Attention Network</span> (<span class="textNudge">GAT</span>) artificial intelligence.
-      <br>&nbsp;&nbsp; This is a type of neural network that considers the relationships between data points.
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; Best for predicting connected ideas / things / data within a system.
-      
+      &nbsp;As GATs allow me to treat 'concepts' as 'objects', rather than sections of words/pixels as a tensor or 'piece of a concept'.
       <br>
-      <br>These days, the common path for <span class="textNudge">Artificial General Intelligence</span> (<span class="textNudge">AGI</span>) has been through Transformer Networks,
-      &nbsp;which is a type of <span class="textNudge">Recurrent Neural Network</span> (<span class="textNudge">RNN</span>)
-      <br>&nbsp;&nbsp; With a lot of added specialized layers to handle different types of data / media.
-      <br>
-      <br>I honestly believe GATs can be used for AGI, but I'm biased.
-      <br>&nbsp;&nbsp; Since Boids operate like a GAT's Graph Nodes, but with easier gradient descent when sampling sparse fields.
+      <br><span class="innerCenter">
+        GATs are a type of neural network that considers the relationships between data points.
+        <br>As a type of Graph Neural Network (GNN),
+        <br>Its best for predicting connections between ideas / things / data in a system.
+      </span>
       
-      <br><br><div class='procPagesAboutMeInfoStyle'>
-        GATs are commonly used for "<span class="textNudge">Recommendation Systems</span>",
+      <br><div class='procPagesAboutMeInfoStyle'>
+        GNNs are commonly used for "<span class="textNudge">Recommendation Systems</span>",
         <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textItalicBox">Hey, you might know <span class="textNudge">Jim Bob McGee</span>!!</span>
         <br>&nbsp;&nbsp; But GATs could be used for so much more!
       </div>
 
-      <br><div class='procPagesAboutMeBar'></div>
-
       <br>I've been working on a general-purpose neuron that adjusts its own connections during prediction;
       <br>&nbsp;&nbsp; So the same system could learn my voice on the fly, as well as sensor signals connected to the Jetson computer.
       <br>
-      <br>Since it's the Structure in a GAT that causes regions of neural activation based on stimuli, like the Butterfly Effect echoing through nature.
+      <br>Since its the Structure in a GAT that causes regions of neural activation based on stimuli,
       <br>&nbsp;&nbsp; It forms a result <span class="textDrinkMeAlice">(prediction)</span> after subsiquent activations, as-though compounding ripples in a pond.
-      <br>
-      <br>That structure can be saved out as a model,
-      <br>&nbsp;&nbsp; But it's not a 'model' in the traditional sense of tensor weights & biases.
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; How I'm devloping it, at least.
 
       <br>
       <br><span class="innerCenter">Rather than a field of numbers aligning to yield a prediction,
       <br>&nbsp;&nbsp; It's the structure of neural connections which manipulates the data.
       </span>
-      <br>
+      
       <br>I've been going in a direction that should yield a similar result to a RNN, but with a different mental structure.
       <br>&nbsp;&nbsp; With that general-purpose neuron, I can provide text, images, audio histograms, etc. to the network.
       &nbsp; It'll then create connections from initial data points, sample the differences, then pass the 'prediction' forward and 'back' in the chain, and adjust the connections based on their revisit to the same data in the current 'prediction'.
@@ -124,7 +126,7 @@ export const pageListingData = {
       <br><span class="textNudge">How about an <span class="textNudge">Echo State Network</span> (<span class="textNudge">ESN</span>) AI I wrote in the summer of 2024?</span>
       <br>
       <br><span class="innerCenter">An ESN is a type of RNN,
-        <br>Which considers time in it's prediction.
+        <br>Which considers time in its prediction.
         <br>It thinks about past events to predict future events.
         <div class='procPagesAboutMeSpacer'></div>
       </span>
@@ -133,19 +135,19 @@ export const pageListingData = {
       
       <br>
         <div class='procPagesAboutMeSpacer'></div>
-        Currently I'm not using my ESN's predicted movement for anything,
+        Currently I'm not using my ESN's predicted movement for anything in python,
         <br>The next step would be introducing a base image to motion-transfer / reference.
         <div class='procPagesAboutMeSpacer'></div>
         So I'm just learnin' while watching my ai learnin'!
         <div class='procPagesAboutMeSpacer'></div>
         
         <br>In the videos, I had the "reservoir" set to 15 times steps, you'll notice about every 15 frames the brain shifts.
-        <br>By frame ~45, it's learned some patterns
+        <br>By frame ~45, it's learned some patterns in the X video.
         <br>The brain seems to completely melt at ~75 & rebuild itself by ~95. 
         
         <br><br>It should be happenstance that the brain shifts when the reservoir fills;
         <br>The brain should shift, but the 15-frame fill might be a bug in my logic,
-        <br>&nbsp;&nbsp; Or maybe it's just a coincidence ::shrugs::
+        <br>&nbsp;&nbsp; Or maybe its just a coincidence ::shrugs::
         <br>But it's detecting patterns in motion!
       </span>
       
@@ -158,8 +160,9 @@ export const pageListingData = {
       <br>I set it up to learn less often when the player is in another area of the map.
       <br>&nbsp;&nbsp; Thinking that I'd want to set up a "data transfer" between characters,
       <br>&nbsp;&nbsp;&nbsp;&nbsp; Gossip about the player.
-      <br>&nbsp;&nbsp; But it's just cubes and spheres in Unity at the moment.
+      <br>&nbsp;&nbsp; But its just cubes and spheres in Unity at the moment.
 
+      <br><br><div class='procPagesAboutMeBar'></div>
       
       <br>
       <br>If you couldn't tell, I'm training my AIs on my own works.
