@@ -52,14 +52,16 @@ export const pageListingData = {
   ],
   'content' : `
     <div class='procPagesAboutMeInfoStyle'>
-      <br>I starting my dive into AI in 2008 writing a Boid / Crowds system for my thesis in art college.
-      <br>&nbsp;&nbsp; An insane Mel script particle expression + 3d animation cycles in Maya haha.
-      <br>Then did Boid movement, navigation, & obstacle detection in animated films for 5 years, using Houdini.
+      <br>I starting my dive into AI in 2008 writing a Boid / Crowd system for my thesis while in art college, School of Visual Arts.
+      <br>&nbsp;&nbsp; It was an insane Mel script particle expression + 3d animation cycles in Maya haha.
+      <br>Then I did Boid movement, navigation, & obstacle detection in animated films for 5 years at Blue Sky Studios, using Houdini.
       <br>
       <br>I dove into Style-Transfer AI & Long Short-Term Memory (LSTM) training in 2019-2020,
-      <br>&nbsp;&nbsp; Training an LSTM on my voice to understand what I said.
+      <br>&nbsp;&nbsp; Training a LSTM on my voice to understand what I said.
       <br>&nbsp;&nbsp;&nbsp;&nbsp; LSTMs are not the right type of AI for that,
-      <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Heck if I knew, yet it worked.
+      <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Heck if I knew, yet it worked!
+      <br>This showed that specific data & structure aren't as important as people "deemed" a specific type of AI to be.
+      <br>&nbsp;&nbsp; It also showed I had a lot to learn about AI.
       <br>
       <br>Since then, I've been developing different personal multi-media AI structures.
       
@@ -67,8 +69,17 @@ export const pageListingData = {
       <br><div class='procPagesAboutMeBar'></div>
 
       <br>In 2015 I decided I'd make my own machine learning AI crammed into a Jetson TK1 by the end of 2026.
-      <br>&nbsp;&nbsp; Which evolved into a deep learning AI crammed into, likely, a Jetson Nano.
-      <br>See if I can make something that can learn without being connected to the internet.
+      <br>&nbsp;&nbsp; Something to understand what I say,
+      <br>&nbsp;&nbsp; Something to know when it needs a charge and go to a QI pad on its own.
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; Building a 3d depth map of the room to navigate to the charger.
+      <br>
+      <br>This evolved into a deep learning AI crammed into, likely, a Jetson Nano.
+      <br>&nbsp;&nbsp; As something to infer what I mean.
+      <br>&nbsp;&nbsp; Give thoughts on what it sees and hears.
+      <br>&nbsp;&nbsp; To 'daydream' using noise data as a way to generate new ideas or question itself.
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; 'Noise' generated from it's networks, not random noise.
+      <br>
+      <br>To see if I can make something that can learn without being connected to the internet.
       <br>
 
       <br><span class="innerCenter">
