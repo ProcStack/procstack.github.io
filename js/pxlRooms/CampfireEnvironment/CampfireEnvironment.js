@@ -152,7 +152,8 @@ export class CampfireEnvironment extends RoomEnvironment{
   }
   
   checkEyeBlink(){
-    if( !this.materialList.hasOwnProperty( "RabbitDruidA" ) ){
+    let curMesh = this.pxlAnim.getMesh( this.animRigName );
+    if( !curMesh || !curMesh.hasOwnProperty("morphTargetInfluences") || curMesh.morphTargetInfluences.length == 0 ){
       return;
     }
 
@@ -160,7 +161,7 @@ export class CampfireEnvironment extends RoomEnvironment{
       // Decrease the eye blink animation 1 to 0
       this.eyeBlinkAnim -= this.eyeBlinkRate;
       // Map 0-1 to 0-1-0
-      let sawAnim = Math.max(0.0, (Math.min(.5,this.eyeBlinkAnim) - Math.max(0,this.eyeBlinkAnim-.5)) * 2);
+      let sawAnim = (Math.min(.5,this.eyeBlinkAnim) - Math.max(0,this.eyeBlinkAnim-.5)) * 2;
       this.eyeBlinkInf.x = sawAnim;
       if( this.eyeBlinkAnim <= 0 ){
         // Add a random time until the next eye blink
@@ -174,7 +175,8 @@ export class CampfireEnvironment extends RoomEnvironment{
         this.eyeBlinkAnim = 1;
       }
     }
-    this.materialList[ "RabbitDruidA" ].uniforms.eyeBlink.value = this.eyeBlinkInf;
+    
+    curMesh.morphTargetInfluences[0] = this.eyeBlinkInf.x;
   }
 
   // -- -- --
@@ -473,7 +475,6 @@ export class CampfireEnvironment extends RoomEnvironment{
           'diffuseTexture' : { type:'t', value: null },
           'areTexture' : { type:'t', value: null },
           'noiseTexture' : { type:'t', value: null },
-          'eyeBlink' : { type:'v2', value: this.eyeBlinkInf },
           'lightScalar': { type:'v2', value:null },
         }
       ]

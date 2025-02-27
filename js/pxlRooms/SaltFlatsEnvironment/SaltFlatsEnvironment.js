@@ -151,6 +151,11 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
   // -- -- --
 
   checkEyeBlink(){
+    let curMesh = this.pxlAnim.getMesh( this.animRigName );
+    if( !curMesh || !curMesh.hasOwnProperty("morphTargetInfluences") || curMesh.morphTargetInfluences.length == 0 ){
+      return;
+    }
+
     if( this.eyeBlinkAnim > 0 ){
       // Decrease the eye blink animation 1 to 0
       this.eyeBlinkAnim -= this.eyeBlinkRate;
@@ -169,7 +174,8 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
         this.eyeBlinkAnim = 1;
       }
     }
-    this.materialList[ "RabbitDruidA" ].uniforms.eyeBlink.value = this.eyeBlinkInf;
+    
+    curMesh.morphTargetInfluences[0] = this.eyeBlinkInf.x;
   }
 
   // -- -- --
@@ -231,10 +237,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
       });
     } 
 
-
-
     // Floating debris in the air
-
     this.buildDust();
     
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -250,16 +253,13 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
       }
     }
 
-
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-
 
     // TODO : This needs to not be needed --
     //this.setUserHeight( this.camInitPos.y );
     
     this.booted=true;
-    
-        
+      
   }
 
 
@@ -294,35 +294,34 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- //
   
-    setSkinnedMaterial( bindObj, vertShader=null, fragShader=null ){
-  
-      let skinnedMtlUniforms = UniformsUtils.merge(
-        [
-            UniformsLib['common'],
-            UniformsLib['lights'],
-          {
-            'diffuseTexture' : { type:'t', value: null },
-            'areTexture' : { type:'t', value: null },
-            'noiseTexture' : { type:'t', value: null },
-            'eyeBlink' : { type:'v2', value: this.eyeBlinkInf },
-            'mult': { type:'f', value:1 },
-          }
-        ]
-      );
-  
-      skinnedMtlUniforms.diffuseTexture.value = bindObj.material.map;
-      skinnedMtlUniforms.areTexture.value = this.pxlUtils.loadTexture( this.assetPath+"RabbitDruidA/RabbitDruidA_lowRes_ARE.jpg" );
-      skinnedMtlUniforms.noiseTexture.value = this.cloud3dTexture;
-      skinnedMtlUniforms.noiseTexture.value = this.cloud3dTexture;
-  
-      let skinnedMaterial = this.pxlFile.pxlShaderBuilder( skinnedMtlUniforms, vertShader, fragShader );
-      skinnedMaterial.skinning = true;
-      skinnedMaterial.side = DoubleSide;
-      skinnedMaterial.lights = true;
-  
-      bindObj.material = skinnedMaterial;
-      return skinnedMaterial;
-    }
+  setSkinnedMaterial( bindObj, vertShader=null, fragShader=null ){
+
+    let skinnedMtlUniforms = UniformsUtils.merge(
+      [
+          UniformsLib['common'],
+          UniformsLib['lights'],
+        {
+          'diffuseTexture' : { type:'t', value: null },
+          'areTexture' : { type:'t', value: null },
+          'noiseTexture' : { type:'t', value: null },
+          'mult': { type:'f', value:1 },
+        }
+      ]
+    );
+
+    skinnedMtlUniforms.diffuseTexture.value = bindObj.material.map;
+    skinnedMtlUniforms.areTexture.value = this.pxlUtils.loadTexture( this.assetPath+"RabbitDruidA/RabbitDruidA_lowRes_ARE.jpg" );
+    skinnedMtlUniforms.noiseTexture.value = this.cloud3dTexture;
+    skinnedMtlUniforms.noiseTexture.value = this.cloud3dTexture;
+
+    let skinnedMaterial = this.pxlFile.pxlShaderBuilder( skinnedMtlUniforms, vertShader, fragShader );
+    skinnedMaterial.skinning = true;
+    skinnedMaterial.side = DoubleSide;
+    skinnedMaterial.lights = true;
+
+    bindObj.material = skinnedMaterial;
+    return skinnedMaterial;
+  }
 
 
 // Build Scene and Assets

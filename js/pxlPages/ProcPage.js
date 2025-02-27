@@ -388,6 +388,8 @@ export class ProcPage {
   buildPage(){
 
     let pageContent = document.createElement('div');
+    
+    pageContent.classList.add("gpcpVisibleStyle");
     pageContent.classList.add('procPagesContentStyle');
     if( this.layout == 'triple' ){
       pageContent.classList.add('procPagesPlacementTripleStyle');
@@ -663,7 +665,9 @@ export class ProcPage {
       this.sectionData[sectionName].objects.push( ...builtObjs['content'] );
     }
 
+    
     builtObjs.content.push( sectionContentBlock );
+    sectionContentBlock.classList.add('pagesVisOn');
     this.sectionData[sectionName].objects = builtObjs.content;
 
     if( builtObjs['media'].length > 0 ){
@@ -723,7 +727,6 @@ export class ProcPage {
         this.mediaViewObject.style.height = "auto";
       }
     }
-
 
     this.sectionData[ sectionName ].objects.forEach(( obj )=>{
       obj.classList.add('procPagesSectionActive');

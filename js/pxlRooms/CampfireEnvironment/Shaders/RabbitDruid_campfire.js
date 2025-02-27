@@ -36,6 +36,9 @@ export function rabbitDruidVert(){
     /** Start of THREE Shader Includes **/
     /***********************************/
     ${ShaderChunk[ "common" ]}
+    //-- -- --//
+    ${ShaderChunk[ "morphtarget_pars_vertex" ]}
+    //-- -- --//
     ${ShaderChunk[ "skinning_pars_vertex" ]}
     /*********************************/
     /** End of THREE Shader Includes **/
@@ -51,15 +54,17 @@ export function rabbitDruidVert(){
       objectTangent = normalize( objectTangent );
       
       
-      vec3 blendPos = color.rgb;
-      transformed = mix( transformed, blendPos, eyeBlink.x );
-      
-      
       /***********************************/
       /** Start of THREE Shader Includes **/
       /***********************************/
+      ${ShaderChunk[ "morphnormal_vertex" ]}
+      //-- -- --//
+      ${ShaderChunk[ "morphtarget_vertex" ]}
+      //-- -- --//
       ${ShaderChunk[ "skinbase_vertex" ]}
+      //-- -- --//
       ${ShaderChunk[ "skinnormal_vertex" ]}
+      //-- -- --//
       ${ShaderChunk[ "skinning_vertex" ]}
       /*********************************/
       /** End of THREE Shader Includes **/
