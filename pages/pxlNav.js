@@ -3,6 +3,7 @@ import { ProcPage } from '../js/pxlPages/ProcPage.js';
 
 
 import { pageListingData as exploreData } from './pxlNav/explore.js';
+import { pageListingData as documentationData } from './pxlNav/documentation.js';
 import { pageListingData as originData } from './pxlNav/origin.js';
 import { pageListingData as whatsPxlNavData } from './pxlNav/whatsPxlNav.js';
 
@@ -50,6 +51,7 @@ const pageContentObject = {
   },
   'sections' : [
     exploreData,
+    documentationData,
     whatsPxlNavData,
     originData
   ]
