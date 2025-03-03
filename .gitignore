@@ -10,7 +10,6 @@ lerna-debug.log*
 dev
 Source/js/pxlRooms/CabinEnvironment
 Source/js/pxlRooms/VoidEnvironment
-pxlNav-*
 
 # Maya likes being Maya
 .mayaSwatches

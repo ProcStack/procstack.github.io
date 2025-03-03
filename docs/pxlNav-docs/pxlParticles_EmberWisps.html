@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>pxlParticles/EmberWisps - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://procstack.github.io/Outlet.htm" target="_blank" class="menu-item" id="pxlNav_Example" >pxlNav Example : The Outlet</a></h2><h3>Modules</h3><ul><li><a href="module-pxlNav.html">pxlNav</a></li><li><a href="pxlNav.module_pxlEffects.html">pxlNav.pxlEffects</a></li><li><a href="pxlNav.pxlEffects.module_pxlParticles.html">pxlNav.pxlEffects.pxlParticles</a></li></ul><h3>Classes</h3><ul><li><a href="Camera.html">Camera</a><ul class='methods'><li data-type='method'><a href="Camera.html#applyGravity">applyGravity</a></li><li data-type='method'><a href="Camera.html#buildDeviceMonitors">buildDeviceMonitors</a></li><li data-type='method'><a href="Camera.html#camApplyMobileRotation">camApplyMobileRotation</a></li><li data-type='method'><a href="Camera.html#camInitJump">camInitJump</a></li><li data-type='method'><a href="Camera.html#camJump">camJump</a></li><li data-type='method'><a href="Camera.html#camJumpKey">camJumpKey</a></li><li data-type='method'><a href="Camera.html#checkColliderValid">checkColliderValid</a></li><li data-type='method'><a href="Camera.html#colliderCheck">colliderCheck</a></li><li data-type='method'><a href="Camera.html#emitCameraTransforms">emitCameraTransforms</a></li><li data-type='method'><a href="Camera.html#eventCheck">eventCheck</a></li><li data-type='method'><a href="Camera.html#eventTrigger">eventTrigger</a></li><li data-type='method'><a href="Camera.html#fastTravel">fastTravel</a></li><li data-type='method'><a href="Camera.html#getStandingHeight">getStandingHeight</a></li><li data-type='method'><a href="Camera.html#getUserHeight">getUserHeight</a></li><li data-type='method'><a href="Camera.html#init">init</a></li><li data-type='method'><a href="Camera.html#initFrameCamPosition">initFrameCamPosition</a></li><li data-type='method'><a href="Camera.html#itemActive">itemActive</a></li><li data-type='method'><a href="Camera.html#itemCheck">itemCheck</a></li><li data-type='method'><a href="Camera.html#itemTrigger">itemTrigger</a></li><li data-type='method'><a href="Camera.html#jogServerMemory">jogServerMemory</a></li><li data-type='method'><a href="Camera.html#jumpLanding">jumpLanding</a></li><li data-type='method'><a href="Camera.html#killJumpImpulse">killJumpImpulse</a></li><li data-type='method'><a href="Camera.html#lookAtTargetLock">lookAtTargetLock</a></li><li data-type='method'><a href="Camera.html#lowQualityUpdates">lowQualityUpdates</a></li><li data-type='method'><a href="Camera.html#midQualityUpdates">midQualityUpdates</a></li><li data-type='method'><a href="Camera.html#resetCameraCalculations">resetCameraCalculations</a></li><li data-type='method'><a href="Camera.html#resetGravity">resetGravity</a></li><li data-type='method'><a href="Camera.html#setDependencies">setDependencies</a></li><li data-type='method'><a href="Camera.html#setFOV">setFOV</a></li><li data-type='method'><a href="Camera.html#setStats">setStats</a></li><li data-type='method'><a href="Camera.html#setToObj">setToObj</a></li><li data-type='method'><a href="Camera.html#setTransform">setTransform</a></li><li data-type='method'><a href="Camera.html#step">step</a></li><li data-type='method'><a href="Camera.html#updateCamera">updateCamera</a></li><li data-type='method'><a href="Camera.html#updateCameraMatrices">updateCameraMatrices</a></li><li data-type='method'><a href="Camera.html#updateDeviceValues">updateDeviceValues</a></li><li data-type='method'><a href="Camera.html#updateGravity">updateGravity</a></li><li data-type='method'><a href="Camera.html#updateMainValues">updateMainValues</a></li><li data-type='method'><a href="Camera.html#updateMovement">updateMovement</a></li><li data-type='method'><a href="Camera.html#updateRoamRotation">updateRoamRotation</a></li><li data-type='method'><a href="Camera.html#warpCamRun">warpCamRun</a></li><li data-type='method'><a href="Camera.html#warpEventTriggered">warpEventTriggered</a></li><li data-type='method'><a href="Camera.html#warpToRoom">warpToRoom</a></li></ul></li><li><a href="pxlEnv.html">pxlEnv</a></li><li><a href="pxlHUD.html">pxlHUD</a></li><li><a href="pxlParticles_BillowSmoke.html">pxlParticles/BillowSmoke</a></li><li><a href="pxlParticles_EmberWisps.html">pxlParticles/EmberWisps</a></li><li><a href="pxlParticles_FloatingDust.html">pxlParticles/FloatingDust</a></li><li><a href="pxlParticles_HeightMap.html">pxlParticles/HeightMap</a></li><li><a href="pxlParticles_ParticleBase.html">pxlParticles/ParticleBase</a></li><li><a href="pxlRoom%2520RoomEnvironment.html">pxlRoom RoomEnvironment</a><ul class='methods'><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#addColliderHelper">addColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#animPostLoad">animPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#applyRoomPass">applyRoomPass</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#build">build</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#castRay">castRay</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#cleanupPortalRender">cleanupPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#fbxPostLoad">fbxPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getArtistInfo">getArtistInfo</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getColliders">getColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getCurrentShader">getCurrentShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpAvgRate">getLerpAvgRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpRate">getLerpRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getName">getName</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getShaderList">getShaderList</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliderType">hasColliderType</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliders">hasColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hitColliders">hitColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#init">init</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#onMessage">onMessage</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#prepPortalRender">prepPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#readShader">readShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resetCamera">resetCamera</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resize">resize</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setDependencies">setDependencies</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setFog">setFog</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setPortalTexture">setPortalTexture</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setShader">setShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setUserHeight">setUserHeight</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#start">start</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#step">step</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stepColliderHelper">stepColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stop">stop</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#toCameraPos">toCameraPos</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="pxlAnim.html">pxlAnim</a></li><li><a href="pxlAudio.html">pxlAudio</a></li><li><a href="pxlAutoCam.html">pxlAutoCam</a></li><li><a href="pxlColliders.html">pxlColliders</a></li><li><a href="pxlCookie.html">pxlCookie</a></li><li><a href="pxlDevice.html">pxlDevice</a></li><li><a href="pxlFile.html">pxlFile</a></li><li><a href="pxlGuiDraws.html">pxlGuiDraws</a></li><li><a href="pxlNav.pxlEffects.html">pxlEffects</a></li><li><a href="pxlNav.pxlEffects.pxlParticles.html">pxlParticles</a></li><li><a href="pxlQuality.html">pxlQuality</a></li><li><a href="pxlTimer.html">pxlTimer</a></li><li><a href="pxlUser.html">pxlUser</a></li><li><a href="pxlUtils.html">pxlUtils</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pxlParticles/EmberWisps</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="pxlNav.pxlEffects.html">.pxlEffects</a><a href="pxlNav.pxlEffects.pxlParticles.html">.pxlParticles</a>#</span>
+        
+        
+            pxlParticles/EmberWisps
+        
+        </h2>
+        
+            <div class="class-description usertext"><p>Class representing EmberWisps, a type of particle effect that simulates fire embers wisping into the air.</p></div>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="pxlParticles/EmberWisps"><span class="type-signature"></span>new pxlParticles/EmberWisps<span class="signature">(room, systemName<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Create an EmberWisps instance.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_effects_particles_EmberWisps.js.html">pxlNav/effects/particles/EmberWisps.js</a>, <a href="pxlNav_effects_particles_EmberWisps.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>room</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The room object.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The name of the particle system.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>shaderSettings</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The shader settings for the particle system.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>knownKeys</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Known keys for shader</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>room</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>The room object where the particle system will be added.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>systemName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>'emberWisps'</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>The name of the particle system.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li>ParticleBase</li>
+    </ul>
+
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Mon Mar 03 2025 09:15:14 GMT-0500 (Eastern Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.js"></script>
+    
+    <script src="docs-init.js"></script>
+    
+</body>
+</html>

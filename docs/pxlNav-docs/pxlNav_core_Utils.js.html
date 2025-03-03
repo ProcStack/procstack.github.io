@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>pxlNav/core/Utils.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://procstack.github.io/Outlet.htm" target="_blank" class="menu-item" id="pxlNav_Example" >pxlNav Example : The Outlet</a></h2><h3>Modules</h3><ul><li><a href="module-pxlNav.html">pxlNav</a></li><li><a href="pxlNav.module_pxlEffects.html">pxlNav.pxlEffects</a></li><li><a href="pxlNav.pxlEffects.module_pxlParticles.html">pxlNav.pxlEffects.pxlParticles</a></li></ul><h3>Classes</h3><ul><li><a href="BillowSmoke.html">BillowSmoke</a><ul class='methods'><li data-type='method'><a href="BillowSmoke.html#build">build</a></li></ul></li><li><a href="EmberWisps.html">EmberWisps</a><ul class='methods'><li data-type='method'><a href="EmberWisps.html#build">build</a></li></ul></li><li><a href="FloatingDust.html">FloatingDust</a><ul class='methods'><li data-type='method'><a href="FloatingDust.html#build">build</a></li></ul></li><li><a href="HeightMap.html">HeightMap</a><ul class='methods'><li data-type='method'><a href="HeightMap.html#build">build</a></li><li data-type='method'><a href="HeightMap.html#setHeightMapPath">setHeightMapPath</a></li><li data-type='method'><a href="HeightMap.html#setSpawnMapPath">setSpawnMapPath</a></li></ul></li><li><a href="ParticleBase.html">ParticleBase</a><ul class='methods'><li data-type='method'><a href="ParticleBase.html#.addToScene">addToScene</a></li><li data-type='method'><a href="ParticleBase.html#.atlasArrayPicker">atlasArrayPicker</a></li><li data-type='method'><a href="ParticleBase.html#.atlasRandomGen">atlasRandomGen</a></li><li data-type='method'><a href="ParticleBase.html#.atlasRandomList">atlasRandomList</a></li><li data-type='method'><a href="ParticleBase.html#.build">build</a></li><li data-type='method'><a href="ParticleBase.html#.dupeArray">dupeArray</a></li><li data-type='method'><a href="ParticleBase.html#.elementDuplicator">elementDuplicator</a></li><li data-type='method'><a href="ParticleBase.html#.getSettings">getSettings</a></li><li data-type='method'><a href="ParticleBase.html#.hasPointLights">hasPointLights</a></li><li data-type='method'><a href="ParticleBase.html#.newMaterial">newMaterial</a></li><li data-type='method'><a href="ParticleBase.html#.setAtlasPath">setAtlasPath</a></li><li data-type='method'><a href="ParticleBase.html#.setPosition">setPosition</a></li></ul></li><li><a href="pxlCamera.html">pxlCamera</a><ul class='methods'><li data-type='method'><a href="pxlCamera.html#.Camera#setCameraRotateEasing">Camera#setCameraRotateEasing</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setGravityMax">Camera#setGravityMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setGravityRate">Camera#setGravityRate</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setInputMovementMult">Camera#setInputMovementMult</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpHoldMax">Camera#setJumpHoldMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpImpulse">Camera#setJumpImpulse</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpRepeatDelay">Camera#setJumpRepeatDelay</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpScalar">Camera#setJumpScalar</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMaxStepHeight">Camera#setMaxStepHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementEase">Camera#setMovementEase</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementMax">Camera#setMovementMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementScalar">Camera#setMovementScalar</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setPositionBlend">Camera#setPositionBlend</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setTouchSensitivity">Camera#setTouchSensitivity</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserHeight">Camera#setUserHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserScale">Camera#setUserScale</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserSettings">Camera#setUserSettings</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceEaseIn">Camera#setWalkBounceEaseIn</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceEaseOut">Camera#setWalkBounceEaseOut</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceHeight">Camera#setWalkBounceHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceRate">Camera#setWalkBounceRate</a></li></ul></li><li><a href="pxlEnv.html">pxlEnv</a></li><li><a href="pxlHUD.html">pxlHUD</a><ul class='methods'><li data-type='method'><a href="pxlHUD.html#.HUD#addItem">HUD#addItem</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#addToHUD">HUD#addToHUD</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createButton">HUD#createButton</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createDragRegion">HUD#createDragRegion</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createImage">HUD#createImage</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createRegion">HUD#createRegion</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createSlider">HUD#createSlider</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createText">HUD#createText</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createThumbstick">HUD#createThumbstick</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#emit">HUD#emit</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#subscribe">HUD#subscribe</a></li></ul></li><li><a href="pxlRoom%2520RoomEnvironment.html">pxlRoom RoomEnvironment</a><ul class='methods'><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#addColliderHelper">addColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#animPostLoad">animPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#applyRoomPass">applyRoomPass</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#build">build</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#castRay">castRay</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#cleanupPortalRender">cleanupPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#fbxPostLoad">fbxPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getArtistInfo">getArtistInfo</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getColliders">getColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getCurrentShader">getCurrentShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpAvgRate">getLerpAvgRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpRate">getLerpRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getName">getName</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getShaderList">getShaderList</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliderType">hasColliderType</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliders">hasColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hitColliders">hitColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#init">init</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#onMessage">onMessage</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#prepPortalRender">prepPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#readShader">readShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resetCamera">resetCamera</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resize">resize</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setDependencies">setDependencies</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setFog">setFog</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setPortalTexture">setPortalTexture</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setShader">setShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setUserHeight">setUserHeight</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#start">start</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#step">step</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stepColliderHelper">stepColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stop">stop</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#toCameraPos">toCameraPos</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="pxlAnim.html">pxlAnim</a></li><li><a href="pxlAudio.html">pxlAudio</a></li><li><a href="pxlAutoCam.html">pxlAutoCam</a></li><li><a href="pxlColliders.html">pxlColliders</a></li><li><a href="pxlCookie.html">pxlCookie</a></li><li><a href="pxlDevice.html">pxlDevice</a></li><li><a href="pxlFile.html">pxlFile</a></li><li><a href="pxlGuiDraws.html">pxlGuiDraws</a></li><li><a href="pxlQuality.html">pxlQuality</a></li><li><a href="pxlTimer.html">pxlTimer</a></li><li><a href="pxlUser.html">pxlUser</a></li><li><a href="pxlUtils.html">pxlUtils</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pxlNav/core/Utils.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+/**
+ * @namespace pxlUtils
+ * @description Utility functions
+ */
+
+import {
+  Vector2,
+  Vector3,
+  ImageLoader,
+  Texture,
+  VideoTexture,
+  CanvasTexture,
+  LinearFilter,
+  AlphaFormat,
+  RedFormat,
+  RGBAFormat,
+  RGFormat,
+  RGBFormat,
+  LuminanceFormat,
+  DepthFormat,
+  MeshBasicMaterial
+} from "../../libs/three/three.module.min.js";
+/*LinearSRGBColorSpace,
+SRGBColorSpace,
+CubeUVRefractionMapping,*/
+
+
+export class Utils{
+  constructor(assetRoot="images/assets/", mobile ){
+    this.assetRoot=assetRoot;
+    this.mobile=mobile;
+    this.pxlTimer=null;
+    this.verboseLoading=false;
+    this.texLoader=new ImageLoader();
+    this.textLoaderArray=[];
+    // Texture formats, use as needed
+    // ImageLoader's defauls; images load as RGBAFormat by default, and JPG as RGBAFormat
+    this.channelFormats=[ AlphaFormat, RedFormat, RGFormat, RGBFormat, RGBAFormat, LuminanceFormat, DepthFormat ];
+  }
+
+  get curMS(){
+      return this.pxlTimer.curMS;
+  }
+
+  setDependencies( pxlNav ){
+    this.pxlTimer=pxlNav.pxlTimer;
+  }
+  
+  updateUrl(url,state={},title=""){
+      if (window.history.replaceState) {
+          window.history.replaceState(state, title, url);
+      }else{
+          window.history.pushState(state, title, url);
+      }
+  }
+  
+  copyRoomUrl(){
+      let url=window.location;
+      let tmpFocus=document.activeElement;
+      let tmpText = document.createElement("textarea");
+      tmpText.value = url;
+
+      document.body.appendChild(tmpText);
+      tmpText.focus();
+      tmpText.select();
+
+      let status=false;
+      try{
+          let callback = document.execCommand('copy');
+          status = callback ? 'successful' : 'unsuccessful';
+      }catch(err){}
+
+      document.body.removeChild(tmpText);
+      tmpFocus.focus();  
+      
+      return status;
+  }
+    
+  checkInt(val){
+    return (val%1)==0;
+  }
+
+  degToRad(deg){
+    return deg*(Math.PI/180);
+  }
+
+  toHundreths(val){ // int(val*100)*.01 returns an erronious float on semi ussual basis...
+    if(!val) return 0;
+
+    if( Number.isInteger(val) ){
+      return val;
+    }else{
+      let sp=(val+"").split(".");
+      let ret=parseFloat(sp[0]+"."+sp[1].substr(0,2));
+      return ret;
+    }
+  }
+
+  toTenths(val){ // int(val*100)*.01 returns an erronious float on semi ussual basis...
+    if(!val) return 0;
+
+    if( Number.isInteger(val) ){
+      return val;
+    }else{
+      let sp=(val+"").split(".");
+      let ret=parseFloat(sp[0]+"."+sp[1].substr(0,1));
+      return ret;
+    }
+  }
+  
+  getDateTime(){
+    let d=new Date();
+    let date=(d.getFullYear()+"").padStart(2,'0')+"-"+((d.getMonth()+1)+"").padStart(2,'0')+"-"+(d.getDate()+"").padStart(2,'0');
+    let time=(d.getHours()+"").padStart(2,'0')+":"+(d.getMinutes()+"").padStart(2,'0')+":"+(d.getSeconds()+"").padStart(2,'0');
+    return [date, time];
+  }
+  
+  // -- -- -- //
+
+  cleanStrict( messageString ){
+    let strip=document.createElement( "div" );
+    strip.innerHTML=messageString;
+    strip=strip.innerText;
+    let matcher=strip.match(/([a-zA-Z0-9])\w+/g);
+
+    if(matcher){
+      strip=matcher.join(" ");
+    }
+    return strip;
+  }
+    
+  cleanBasic( messageString ){
+    let strip=document.createElement( "div" );
+    strip.innerHTML=messageString;
+    strip=strip.innerText;
+    let matcher=strip.match(/([a-zA-Z0-9\s\w-+()\[\]])+/g);
+
+    if(matcher){
+      strip=matcher.join("");
+    }
+    return strip;
+  }
+    
+  cleanString( messageString ){
+    let strip=document.createElement( "div" );
+    strip.innerHTML=messageString;
+    strip=strip.innerText;
+    return strip;
+  }
+
+
+  // Round to nearest
+  toNearestStr( val, precision=2 ){
+    let retVal = val.toFixed(precision);
+    return retVal;
+  }
+
+  // Round array elements to nearest
+  arrayToStr( arr, precision=2 ){
+    let retArr = [];
+    arr.forEach( (val)=>{
+      retArr.push( this.toNearestStr(val, precision) );
+    });
+    return retArr;
+  }
+
+  // Flatten array to joined string
+  flattenArrayToStr( arr, precision=2, delimiter="," ){
+    return this.arrayToStr( arr, precision ).join(delimiter);
+  }
+
+  // -- -- -- //
+  
+  randomFloat(min,max){
+    return Math.random()*(max-min)+min;
+  }
+
+  // -- -- -- //
+
+  screenToNDC( x, y, width, height ){
+    let ndcX = ( x / width ) * 2 - 1;
+    let ndcY = - ( y / height ) * 2 + 1;
+    return new Vector2( ndcX, ndcY );
+  }
+  
+  // -- -- -- //
+
+  componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.padStart(2,'0');
+  }
+  rgbToHex(r, g, b) {
+    return "#" + this.componentToHex(Math.min(255, Math.max(0,Math.round(r)))) + this.componentToHex(Math.min(255, Math.max(0,Math.round(g)))) + this.componentToHex(Math.min(255, Math.max(0,Math.round(b))));
+  }
+  
+  hexToRgb( hex ) {
+    let buffer=hex[0];
+    if(buffer=="#"){
+      hex=hex.substr( 1, 6 );
+    }else{
+      hex=hex.substr( 0, 6 );
+    }
+    let r,g,b;
+    if(hex.length==3){
+      r=hex[0]+hex[0];
+      g=hex[1]+hex[1];
+      b=hex[2]+hex[2];
+    }else{
+      r=hex[0]+hex[1];
+      g=hex[2]+hex[3];
+      b=hex[4]+hex[5];
+    }
+    r=parseInt(r,16);
+    g=parseInt(g,16);
+    b=parseInt(b,16);
+    return [r,g,b];
+  }
+  
+  // -- -- -- //
+
+  stringToRgb( string, boost=null, zoFit=false ){
+    let stringColor=[255,0,0];
+    if( string ){
+      let sLength=string.length;
+      let charCode="";
+      for(let x=0; x&lt;sLength; ++x){
+        charCode+=string[ (sLength-1-x) ].charCodeAt(0).toString(16);
+      }
+
+      let ccLength=charCode.length;
+      if(ccLength>6){
+        let offset=1;
+        if(string=="tussin"){
+          offset=0;
+        }else if(string=="fexofenadine"){
+          offset=-1;
+        }
+        let reader=Math.max(0,parseInt((ccLength-6)/2+offset));
+        charCode=charCode.substr(reader,6);
+      }
+      
+      stringColor=this.hexToRgb( charCode );
+    }
+    
+    if( boost != null){
+      let maxCd=Math.max(...stringColor);
+      let minCd=Math.min(...stringColor);
+      let boostCd=maxCd*boost;
+      stringColor[0]= parseInt( Math.min(255, ((stringColor[0]-minCd) / (maxCd-minCd))*255+boostCd) );
+      stringColor[1]= parseInt( Math.min(255, ((stringColor[1]-minCd) / (maxCd-minCd))*255+boostCd) );
+      stringColor[2]= parseInt( Math.min(255, ((stringColor[2]-minCd) / (maxCd-minCd))*255+boostCd) );
+      /*
+      stringColor[0]= Math.max(0, Math.min(255, (stringColor[0]-100)*boost+100));
+      stringColor[1]= Math.max(0, Math.min(255, (stringColor[1]-100)*boost+100));
+      stringColor[2]= Math.max(0, Math.min(255, (stringColor[2]-100)*boost+100));
+      */
+    }
+    
+    if( zoFit==true ){
+      stringColor[0]=stringColor[0]/255;
+      stringColor[1]=stringColor[1]/255;
+      stringColor[2]=stringColor[2]/255;
+    }
+    
+    return stringColor;
+  }
+    
+  // -- -- -- //
+
+
+  // Convert Color/Vector3 to sRGB Color Space
+  colorTosRGB( color ){
+    // Check if the colorue is a color object
+    if( typeof color == "object" ){
+      // Color Object
+      if( color.hasOwnProperty &amp;&amp; color.hasOwnProperty("r") ){
+        color.r = this.tosRGB(color.r);
+        color.g = this.tosRGB(color.g);
+        color.b = this.tosRGB(color.b);
+      }
+      if( color.hasOwnProperty &amp;&amp; color.hasOwnProperty("x") ){
+        color.x = this.tosRGB(color.x);
+        color.y = this.tosRGB(color.y);
+        color.z = this.tosRGB(color.z);
+      }
+      return color;
+    }
+    return color;
+  }
+
+  // Convert Linear to sRGB
+  tosRGB( val ){
+    // Convert the value per channel
+    if( val &lt;= 0.0031308 ){
+      val *= 12.92;
+    }else{
+      val = 1.055 * Math.pow(val, this.oneTwoPFour) - 0.055;
+    }
+    return val;
+  }
+
+  // -- -- --
+
+  // Convert Color/Vector3 to Linear Color Space
+  colorToLinear( color ){
+    // Check if the colorue is a color object
+    if( typeof color == "object" ){
+      // Color Object
+      if( color.hasOwnProperty &amp;&amp; color.hasOwnProperty("r") ){
+        color.r = this.toLinear(color.r);
+        color.g = this.toLinear(color.g);
+        color.b = this.toLinear(color.b);
+      }
+      if( color.hasOwnProperty &amp;&amp; color.hasOwnProperty("x") ){
+        color.x = this.toLinear(color.x);
+        color.y = this.toLinear(color.y);
+        color.z = this.toLinear(color.z);
+      }
+      return color;
+    }
+    return color;
+  }
+  // Convert sRGB to Linear
+  toLinear( val ){
+    if( val &lt;= 0.04045 ){
+      val *= this.twelvePNineTwoDiv;
+    }else{
+      val = Math.pow((val + 0.055) * this.onePOFiveFiveDiv, 2.4);
+    }
+    return val;
+  }
+
+
+  // -- -- --
+
+  gammaCorrectColor( color, gammaIn="2.2", gammaOut="1.8" ){
+    // Check if the colorue is a color object
+    if( typeof color == "object" ){
+      // Color Object
+      if( color.hasOwnProperty &amp;&amp; color.hasOwnProperty("r") ){
+        color.r = this.gammaCorrect(color.r, gammaIn, gammaOut);
+        color.g = this.gammaCorrect(color.g, gammaIn, gammaOut);
+        color.b = this.gammaCorrect(color.b, gammaIn, gammaOut);
+      }
+      if( color.hasOwnProperty &amp;&amp; color.hasOwnProperty("x") ){
+        color.x = this.gammaCorrect(color.x, gammaIn, gammaOut);
+        color.y = this.gammaCorrect(color.y, gammaIn, gammaOut);
+        color.z = this.gammaCorrect(color.z, gammaIn, gammaOut);
+      }
+      return color;
+    }
+    return color;
+  }
+
+  gammaCorrection( channel, gammaIn="2.2", gammaOut="1.8" ){
+    // Linearize the color
+    let linearChannel = Math.pow( channel, gammaIn );
+
+    // Apply the gamma correction
+    let channelShift = Math.pow( linearChannel, 1.0 / gammaOut );
+
+    return channelShift;
+  }
+
+  // -- -- --
+
+
+
+  // TODO : Prep &amp; re-implement THREE.GammaFactor -> pxlNav.pxlDevice.GammaFactor
+  // TODO : pxlDevice OS detect needs to be implement for color conversion between known OS color spaces
+  convertColor( color, space=COLOR_SHIFT.KEEP ){
+    if( space == COLOR_SHIFT.KEEP ){
+      return color;
+    }
+
+    // Notes on OS Gamma levels --
+    //   Linear Gamma is 1.0
+    //   Windows default Gamma is 2.2
+    //   Mac, Linux, &amp; Androids default Gamma is 1.8
+    //   Other Unix systems are 2.3-2.5
+
+    // Notes on Color Spaces --
+    //   sRGB &amp; Rec.709 are the same
+    //     sRGB is more in line with how the human eye percieves color
+    //   Linear is an uncorrected color space, not data is lost between programs or devices
+    //     Linear Colors should then be converted to sRGB for display,
+    //       But not converted if the color is for Data needs
+
+    let retColor = color.clone();
+    switch (space) {
+      // Assuming color adjustments have been made with shader math --
+      case COLOR_SHIFT.sRGB_TO_LINEAR:
+        retColor = this.colorTosRGB(retColor);
+        break;
+      case COLOR_SHIFT.LINEAR_TO_sRGB:
+        retColor = this.colorToLinear(retColor);
+        break;
+
+      // TODO : These need to be checked, added for completeness, not tested
+      case COLOR_SHIFT.WINDOWS_TO_UNIX:
+        retColor = this.gammaCorrectColor(retColor, "2.2", "1.8");
+        break;
+      case COLOR_SHIFT.UNIX_TO_WINDOWS:
+        retColor = this.gammaCorrectColor(retColor, "1.8", "2.2");
+        break;
+      case COLOR_SHIFT.LINEAR_TO_WINDOWS:
+        retColor = this.gammaCorrectColor(retColor, "1.0", "2.2");
+        break;
+      case COLOR_SHIFT.WINDOWS_TO_LINEAR:
+        retColor = this.gammaCorrectColor(retColor, "2.2", "1.0");
+        break;
+      case COLOR_SHIFT.LINEAR_TO_UNIX:
+        retColor = this.gammaCorrectColor(retColor, "1.0", "1.8");
+        break;
+      case COLOR_SHIFT.UNIX_TO_LINEAR:
+        retColor = this.gammaCorrectColor(retColor, "1.8", "1.0");
+        break;
+      default:
+        break;
+    }
+
+    return retColor;
+  }
+
+
+  // -- -- -- //
+
+  randomizeArray(inputArr){
+    let tmpArr=[...inputArr];
+    let retArr=[];
+    while( tmpArr.length > 0){
+      let rand=tmpArr.length==1 ? 0 : parseInt(Math.random()*21*tmpArr.length)%tmpArr.length;
+      retArr.push( tmpArr.splice( rand, 1 )[0] );
+    }
+    return retArr;
+  }
+    
+  getRandom( list, seed=1.14 ){
+    let randEl= Math.floor( Math.random( seed ) * list.length);
+    return list[ randEl ];
+  }
+    
+  applyTransformList(curObj,transList){
+    var rotate=transList["r"];
+    curObj.rotateX(rotate[0]);
+    curObj.rotateY(rotate[1]);
+    curObj.rotateZ(rotate[2]);
+    if(typeof(transList["rOrder"]) !== "undefined" ){
+      curObj.rotation.order=transList["rOrder"];
+    }
+    var pos=transList["t"];
+    curObj.position.set(pos[0],pos[1],pos[2]);
+    var scale=transList["s"];
+    curObj.scale.set(scale[0],scale[1],scale[2]);
+    
+    curObj.matrixAutoUpdate=false;
+    curObj.updateMatrix();
+  }
+  
+    vec2(x=null,y=null){
+        return new Vector2(x,y);
+    }
+    vec3(x=0,y=0,z=0){
+        return new Vector3(x,y,z);
+    }
+    
+  //this.channelFormats=[ AlphaFormat, RedFormat, RGFormat, RGBFormat, RGBAFormat, LuminanceFormat, DepthFormat ];
+  loadTexture(imgPath,channels=null,mods={}){
+    // ## Check how textLoaderArray textures are being handled after being disposed
+
+    // No path, default to the asset root
+    if( !imgPath.includes( "/") ){
+      imgPath = this.assetRoot + imgPath;
+    }
+
+    if(typeof(this.textLoaderArray[imgPath]) != "undefined"){
+      texture=this.textLoaderArray[imgPath];
+    }else{
+      //var texLoader=new ImageLoader(verboseLoading);
+      var texture=new Texture();
+      let modKeys = Object.keys(mods);
+      this.texLoader.load(imgPath,
+        (tex)=>{
+          if(channels!=null){
+            texture.format = this.channelFormats[ channels ];
+          }
+          texture.image=tex;
+          texture.needsUpdate=true;
+
+          // Apply texture mods passed from the user
+          if(modKeys.length>0){
+            modKeys.forEach((x)=>{
+              texture[x]=mods[x];
+            });
+          }
+        },
+        undefined,
+        (err)=>{
+          console.error(" TextureLoader :: Error loading texture :: "+imgPath);
+          console.error(err);
+        }
+      );
+      this.textLoaderArray[imgPath]=texture;
+    }
+    return texture;
+  }
+
+  getVideoTexture( videoObject ){
+    let videoTexture=new VideoTexture(videoObject);
+    videoTexture.minFilter=LinearFilter;
+    videoTexture.magFilter=LinearFilter; // faster, lower samples, NearestFilter
+    videoTexture.format=RGBFormat;
+    
+    return videoTexture;
+  }
+  
+  getCanvasTexture( canvas ){
+    const texture = new CanvasTexture(canvas);
+      
+    const material = new MeshBasicMaterial({
+      map: texture,
+    });
+    return {texture, material};
+  }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Mon Mar 03 2025 11:45:59 GMT-0500 (Eastern Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.js"></script>
+    
+    <script src="docs-init.js"></script>
+    
+</body>
+</html>

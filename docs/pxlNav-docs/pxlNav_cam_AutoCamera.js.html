@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>pxlNav/cam/AutoCamera.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://procstack.github.io/Outlet.htm" target="_blank" class="menu-item" id="pxlNav_Example" >pxlNav Example : The Outlet</a></h2><h3>Modules</h3><ul><li><a href="module-pxlNav.html">pxlNav</a></li><li><a href="pxlNav.module_pxlEffects.html">pxlNav.pxlEffects</a></li><li><a href="pxlNav.pxlEffects.module_pxlParticles.html">pxlNav.pxlEffects.pxlParticles</a></li></ul><h3>Classes</h3><ul><li><a href="BillowSmoke.html">BillowSmoke</a><ul class='methods'><li data-type='method'><a href="BillowSmoke.html#build">build</a></li></ul></li><li><a href="EmberWisps.html">EmberWisps</a><ul class='methods'><li data-type='method'><a href="EmberWisps.html#build">build</a></li></ul></li><li><a href="FloatingDust.html">FloatingDust</a><ul class='methods'><li data-type='method'><a href="FloatingDust.html#build">build</a></li></ul></li><li><a href="HeightMap.html">HeightMap</a><ul class='methods'><li data-type='method'><a href="HeightMap.html#build">build</a></li><li data-type='method'><a href="HeightMap.html#setHeightMapPath">setHeightMapPath</a></li><li data-type='method'><a href="HeightMap.html#setSpawnMapPath">setSpawnMapPath</a></li></ul></li><li><a href="ParticleBase.html">ParticleBase</a><ul class='methods'><li data-type='method'><a href="ParticleBase.html#.addToScene">addToScene</a></li><li data-type='method'><a href="ParticleBase.html#.atlasArrayPicker">atlasArrayPicker</a></li><li data-type='method'><a href="ParticleBase.html#.atlasRandomGen">atlasRandomGen</a></li><li data-type='method'><a href="ParticleBase.html#.atlasRandomList">atlasRandomList</a></li><li data-type='method'><a href="ParticleBase.html#.build">build</a></li><li data-type='method'><a href="ParticleBase.html#.dupeArray">dupeArray</a></li><li data-type='method'><a href="ParticleBase.html#.elementDuplicator">elementDuplicator</a></li><li data-type='method'><a href="ParticleBase.html#.getSettings">getSettings</a></li><li data-type='method'><a href="ParticleBase.html#.hasPointLights">hasPointLights</a></li><li data-type='method'><a href="ParticleBase.html#.newMaterial">newMaterial</a></li><li data-type='method'><a href="ParticleBase.html#.setAtlasPath">setAtlasPath</a></li><li data-type='method'><a href="ParticleBase.html#.setPosition">setPosition</a></li></ul></li><li><a href="pxlCamera.html">pxlCamera</a><ul class='methods'><li data-type='method'><a href="pxlCamera.html#.Camera#setCameraRotateEasing">Camera#setCameraRotateEasing</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setGravityMax">Camera#setGravityMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setGravityRate">Camera#setGravityRate</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setInputMovementMult">Camera#setInputMovementMult</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpHoldMax">Camera#setJumpHoldMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpImpulse">Camera#setJumpImpulse</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpRepeatDelay">Camera#setJumpRepeatDelay</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpScalar">Camera#setJumpScalar</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMaxStepHeight">Camera#setMaxStepHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementEase">Camera#setMovementEase</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementMax">Camera#setMovementMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementScalar">Camera#setMovementScalar</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setPositionBlend">Camera#setPositionBlend</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setTouchSensitivity">Camera#setTouchSensitivity</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserHeight">Camera#setUserHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserScale">Camera#setUserScale</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserSettings">Camera#setUserSettings</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceEaseIn">Camera#setWalkBounceEaseIn</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceEaseOut">Camera#setWalkBounceEaseOut</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceHeight">Camera#setWalkBounceHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceRate">Camera#setWalkBounceRate</a></li></ul></li><li><a href="pxlEnv.html">pxlEnv</a></li><li><a href="pxlHUD.html">pxlHUD</a><ul class='methods'><li data-type='method'><a href="pxlHUD.html#.HUD#addItem">HUD#addItem</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#addToHUD">HUD#addToHUD</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createButton">HUD#createButton</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createDragRegion">HUD#createDragRegion</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createImage">HUD#createImage</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createRegion">HUD#createRegion</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createSlider">HUD#createSlider</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createText">HUD#createText</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createThumbstick">HUD#createThumbstick</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#emit">HUD#emit</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#subscribe">HUD#subscribe</a></li></ul></li><li><a href="pxlRoom%2520RoomEnvironment.html">pxlRoom RoomEnvironment</a><ul class='methods'><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#addColliderHelper">addColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#animPostLoad">animPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#applyRoomPass">applyRoomPass</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#build">build</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#castRay">castRay</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#cleanupPortalRender">cleanupPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#fbxPostLoad">fbxPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getArtistInfo">getArtistInfo</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getColliders">getColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getCurrentShader">getCurrentShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpAvgRate">getLerpAvgRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpRate">getLerpRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getName">getName</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getShaderList">getShaderList</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliderType">hasColliderType</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliders">hasColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hitColliders">hitColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#init">init</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#onMessage">onMessage</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#prepPortalRender">prepPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#readShader">readShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resetCamera">resetCamera</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resize">resize</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setDependencies">setDependencies</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setFog">setFog</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setPortalTexture">setPortalTexture</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setShader">setShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setUserHeight">setUserHeight</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#start">start</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#step">step</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stepColliderHelper">stepColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stop">stop</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#toCameraPos">toCameraPos</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="pxlAnim.html">pxlAnim</a></li><li><a href="pxlAudio.html">pxlAudio</a></li><li><a href="pxlAutoCam.html">pxlAutoCam</a></li><li><a href="pxlColliders.html">pxlColliders</a></li><li><a href="pxlCookie.html">pxlCookie</a></li><li><a href="pxlDevice.html">pxlDevice</a></li><li><a href="pxlFile.html">pxlFile</a></li><li><a href="pxlGuiDraws.html">pxlGuiDraws</a></li><li><a href="pxlQuality.html">pxlQuality</a></li><li><a href="pxlTimer.html">pxlTimer</a></li><li><a href="pxlUser.html">pxlUser</a></li><li><a href="pxlUtils.html">pxlUtils</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pxlNav/cam/AutoCamera.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//AutoCam
+
+// Currently, any mobile devices default to autocam because of apability issues for web cam / audio support
+//   This limits any projects which don't require network support
+
+
+import {
+  Vector2,
+  Vector3,
+  Quaternion,
+  Euler
+} from "../../libs/three/three.module.min.js";
+
+/**
+ * @namespace pxlAutoCam
+ * @description Auto camera movement
+ */
+export class AutoCamera{
+  constructor( enabled=false ){
+    this.enabled=enabled;
+    this.active=false;
+    this.mobile=null;
+    this.pxlTimer=null;
+    this.pxlUtils=null;
+    this.pxlDevice=null;
+    this.pxlAudio=null;
+    this.pxlCamera=null;
+    this.pxlEnv=null;
+    this.camera=null;
+    this.netDistance=new Vector2();
+
+    this.prevCamChange=0;
+    this.nextCamChange=0;
+    this.delayRange=[25,45];
+
+    this.autoCamActive=false;
+    this.autoCamMode=0;
+    this.autoCamPaths={};
+    this.resetAutoCam=true;
+    this.autoCamPrevPos=null;
+    this.autoCamPrevLookAt=null;
+    this.touchBlender=false;
+
+    this.autoCamId=0;
+
+    // 0 - Drone Came
+    // 1 - Follow User
+    // 2 - Circle Group
+    this.camMode=0;
+    this.curModeCount=0;
+
+    this.curRoom="";
+    this.curRoomIndex=0;
+    this.curPath=0;
+    this.roomList=[];
+    this.pathCounts={};
+
+    this.forceNewRoom=false;
+    this.curRoomCount=0;
+
+    this.avatarMin=0; // Minimum count of avatars before running avatar cams
+    this.avatarValid=false;
+    this.curAvatar=null;
+
+    this.clusterReturn=false;
+    this.curCluster=[];
+    this.clusterValid=2; 
+    this.clusterRotation=0;
+    this.clusterRotRate=.005;
+  }
+
+  setDependencies( pxlNav ){
+    this.pxlTimer=pxlNav.pxlTimer;
+    this.pxlUtils=pxlNav.pxlUtils;
+    this.pxlDevice=pxlNav.pxlDevice;
+    this.pxlAudio=pxlNav.pxlAudio;
+    this.pxlCamera=pxlNav.pxlCamera;
+    this.pxlEnv=pxlNav.pxlEnv;
+    this.camera=pxlNav.pxlCamera.camera;
+  }
+  
+  // Reset pxlNav clock
+  //   Benchmarking steps the timer
+  init(){
+    this.active=this.enabled || this.mobile;
+    this.autoCamActive = this.autoCamActive || this.mobile;
+    let {roomList,pathCounts}= this.getAutoCamData();
+    this.roomList=roomList;
+    
+    this.curRoom = this.roomList[0];
+    this.pathCounts=pathCounts;
+    this.setRoom(false, true);
+    this.getNextPath();
+    
+    this.checkStatus();
+  }
+  
+  step( force=false ){
+    if( this.autoCamActive == null || this.active == null ){
+      this.autoCamActive = false;
+      this.active = false;
+      return true;
+    }
+    if( this.active == false){ // Check active state of Auto Cam
+      if( this.autoCamActive ){
+        this.updateAutoCamera();
+      }else{
+        return true; // If not active, run default Camera Step
+      }
+    }
+    
+    // Check Mode Change Status
+    if( ( this.pxlTimer.curMS >= this.nextCamChange || force ) &amp;&amp; this.active &amp;&amp; !this.pxlDevice.touchMouseData.active){
+      if( !force || !this.enabled ){
+        let triggerMult= this.checkCamMode();
+        this.setNextTrigger( triggerMult );
+      }
+      
+      this.curAvatar=0;
+      this.camera.up.set( 0,1,0 );
+      
+      this.pxlDevice.touchMouseData.netDistance.multiplyScalar(0);
+    
+      if( this.camMode == 1 ){
+        this.setCamMode(0);
+      }else if( this.camMode == 2 ){
+        this.setCamMode(0);
+      }else{
+        this.curCluster=[];
+        this.stepDroneCam();
+      }
+      this.setAutoCamMode( this.camMode );
+    }
+    
+    
+    // Run AutoCam Mode Step
+    this.updateAutoCamera();
+    
+    this.applyTouchRotate();
+    return false;
+  }
+
+
+///////////////////////////////
+// Auto Cam Mode Functions  //
+/////////////////////////////
+  
+  checkCamMode(){
+    let ret=1;
+    let prevCamMode=this.camMode;
+    this.camMode=0;
+    if( !this.enabled ){
+      return ret;
+    }
+    if( !this.active ){ return ret; }
+    
+    // Insert Mode Logic --
+    
+    if( this.camMode!=prevCamMode &amp;&amp; this.camMode==0){
+      this.forceNewRoom=true;
+    }
+    return ret;
+  }
+  
+  setCamMode( autoCamData ){
+    let timeMult=1;
+    if( autoCamData.type == 1 ){
+      timeMult= 1;
+    }else if( autoCamData.type == 2 ){
+      timeMult= 1;
+    }else{
+      this.camMode=0;
+      this.forceNewRoom=true;
+    }
+    this.step( true );
+  }
+  
+  
+/////////////////////////////////
+// Auto Cam &amp; Room Functions  //
+///////////////////////////////
+  
+  stepDroneCam(){
+    let unique=true;
+    let randDelay= Math.random( this.nextCamChange );
+    let camPathCount= this.pathCounts[ this.pxlEnv.currentRoom ] ;
+    if( this.curRoomCount >= camPathCount*2 ){
+      this.forceNewRoom=true;
+    }
+    if( randDelay&lt;.3 || this.forceNewRoom ){
+      this.setRoom();
+      unique=false;
+    }
+    this.curRoomCount+=1;
+    
+    this.getNextPath( unique );
+  }
+  
+  setRoom( setNextRoom=false, init=false ){
+    if( this.active || this.autoCamActive ){
+      let nextRoom=this.curRoomIndex;
+      let roomCount=this.roomList.length;
+      if( !this.pxlEnv.postIntro ){
+        nextRoom=0;
+      }else if(!init){
+        if( setNextRoom ){
+          nextRoom=(nextRoom+1)%roomCount;
+        }else{
+          nextRoom=Math.floor( Math.random() * roomCount );
+          if( nextRoom == this.curRoomIndex){
+            nextRoom=(nextRoom+1)%roomCount;
+          }
+        }
+      }
+      
+      this.curRoomIndex=nextRoom;
+      
+      if( this.curRoom != this.roomList[ nextRoom ] ){
+        this.curRoom = this.roomList[ nextRoom ];
+        this.forceNewRoom=false;
+        this.curRoomCount=0;
+        this.pxlCamera.warpEventTriggered( 1, this.curRoom, 'init' );
+      }
+    }
+  }
+  
+  setNextTrigger( timeMult=1 ){
+    let randDelay= Math.random( this.nextCamChange );
+    randDelay = (this.delayRange[1]-this.delayRange[0])*randDelay + this.delayRange[0];
+    this.nextCamChange = this.pxlTimer.curMS + randDelay*timeMult;
+  }
+  
+  getNextPath( unique=true, dir=1 ){
+    if( this.autoCamPaths.hasOwnProperty( this.pxlEnv.currentRoom ) ){
+      let camPathCount= this.autoCamPaths[ this.pxlEnv.currentRoom ].length ;
+      this.curPath = (this.curPath+dir) % camPathCount;
+      if( unique &amp;&amp; dir==0 ){
+        let path= Math.random( this.nextCamChange );
+        path= Math.floor( path * this.autoCamPaths[ this.pxlEnv.currentRoom ].length );
+        
+        if( this.curPath==path ){
+          path = (path+1) % camPathCount;
+        }
+        
+        this.curPath = path;
+      }else{
+        this.curPath = this.curPath&lt;0 ? camPathCount-1 : this.curPath;
+        this.setNextTrigger( 1 );
+      }
+      this.setAutoCamPath( this.curPath );
+    }
+  }
+  
+
+
+////////////////////////////
+// Auto-Camera Function  //
+//////////////////////////
+
+  checkStatus(){
+    if( this.autoCamActive || this.pxlDevice.mobile || this.active ){
+      this.toggleAutoCam(true);
+    }
+  }
+
+  preAutoCamToggle(){
+    //if(this.enabled == false){ // Check active state of Auto Cam
+      if( !this.autoCamActive ){
+        if( this.pxlCamera.colliderCurObjHit == "AudioTrigger_2" ){
+          this.pxlCamera.proximityScaleTrigger=true;
+          this.exposureShiftActive=true;
+        }
+      }
+      /*if( this.pxlEnv.pxlQuality.detailLimitOverride ){
+        this.enabled=!this.enabled;
+        this.active=this.enabled;
+        this.autoCamActive=this.enabled;
+      }*/
+      this.toggleAutoCam();
+    //}
+  }
+  
+  setAutoCamMode( curMode=0 ){
+    this.autoCamMode=curMode;
+    if( curMode==1 ){
+      this.resetAutoCam=true;
+    }
+  }
+
+  // For auto cam swapping
+  setPosQuat(pos, quat){ // Vector3, Vector4
+    this.camera.quaternion.copy( quat );
+    this.camera.position.copy( pos );
+    this.pxlCamera.updateCameraMatrices();
+    this.pxlCamera.camUpdated=true; // Forces next frame update
+  }
+    
+  toggleAutoCam( setValue=null, dir=1 ){
+    this.pxlEnv.fogMult.x = 1;
+    if( this.autoCamPaths[ this.pxlEnv.currentRoom ] ){
+      this.curRoom=this.pxlEnv.currentRoom;
+      let camPathCount=this.autoCamPaths[ this.pxlEnv.currentRoom ].length;
+      if( isNaN(this.autoCamId) ){
+        this.autoCamId=camPathCount-1;
+      }
+      let origActive=this.autoCamActive;
+
+      this.autoCamActive= setValue==null &amp;&amp; camPathCount>0 ? !this.autoCamActive : setValue;
+      this.autoCamActive = this.mobile || this.autoCamActive;
+      if( !origActive &amp;&amp; this.autoCamActive ){
+        this.netDistance= new Vector2().copy( this.pxlDevice.touchMouseData.netDistance );
+      }
+      this.pxlDevice.touchMouseData.netDistance.multiplyScalar(0);
+      
+      if( this.autoCamActive ){
+        this.pxlCamera.resetGravity(); // Set settings for when Auto-Camera cancels
+        
+        this.autoCamId = (this.autoCamId+dir) % camPathCount; // Step the auto cam path
+        this.autoCamId = this.autoCamId &lt; 0 ? camPathCount-1 : this.autoCamId;
+            
+        let curAutoCamGroup = this.autoCamPaths[ this.pxlEnv.currentRoom ][this.autoCamId];
+        // Path Duration, Point &amp; Look At curve point arrays
+        this.totalLoopDuration = curAutoCamGroup.position.userData.duration;
+        
+        try{
+          this.autoCamPositions = curAutoCamGroup.position.geometry.attributes.position;
+          this.autoCamLookAt = curAutoCamGroup.lookAt.geometry.attributes.position;
+          if( curAutoCamGroup.up ){
+            this.autoCamUp=curAutoCamGroup.up.geometry.attributes.position;
+          }else{
+            this.autoCamUp=null;
+            this.camera.up.set( 0,1,0 );
+          }
+          // Curve count
+          this.numControlPoints = this.autoCamPositions.array.length/3;
+          
+          // Initial time, offset in negative by a random length of the duration
+          this.autoCamStartTime = this.pxlTimer.curMS - (this.totalLoopDuration*Math.random());
+        }catch(err){}
+        
+      }else{
+        this.setPosQuat(this.pxlCamera.cameraPrevPos.clone(), this.pxlCamera.prevQuaternion.clone());
+                
+        this.pxlDevice.touchMouseData.netDistance.copy( this.netDistance );
+      }
+    }
+  }
+  prevNextAutoCam(dir=1, manual=false){
+    // If auto cam active, Left &amp; Right changes current auto cam path
+    if( this.autoCamActive ){
+      if( this.enabled &amp;&amp; this.active &amp;&amp; !manual ){
+        this.nextCamChange = this.pxlTimer.curMS;
+      }else{
+        this.toggleAutoCam( true, dir );
+      }
+    }
+  }
+  setAutoCamPath( path=0 ){
+    if( this.autoCamActive ){
+      this.autoCamId=path;
+      this.toggleAutoCam( true, 0 );
+    }
+  }
+  getAutoCamData(){
+    let roomList=Object.keys( this.autoCamPaths );
+    let pathCounts={};
+    roomList.forEach( (r)=>{
+      pathCounts[r]=this.autoCamPaths[r].length;
+    });
+    return {roomList, pathCounts};
+  }
+
+  getAutoCamValueFromCurve(array, curIndex, t_lerp, print=false) {
+    // Starting Point
+    let x = array[curIndex*3];
+    let y = array[curIndex*3 + 1];
+    let z = array[curIndex*3 + 2];
+    
+    // Ending point
+    let nextIndex = (curIndex + 1) % (this.numControlPoints);
+    let x2 = array[nextIndex*3];
+    let y2 = array[nextIndex*3 + 1];
+    let z2 = array[nextIndex*3 + 2];
+    
+    // Lerp
+    let pos= new Vector3(x,y,z);//.multiplyScalar(-1);
+    let nextPos= new Vector3(x2,y2,z2);//.multiplyScalar(-1);
+
+    pos.lerp(nextPos,t_lerp);
+    
+
+    return pos;
+    
+  } 
+  
+  updateAutoCamera(){
+    
+    // TODO : Elevate to active check for running updateAutoCam
+    if( !this.autoCamPositions || !this.autoCamPositions.array ){
+      return;
+    }
+    
+    // Percent travel along path
+    let ms = (this.pxlTimer.curMS - this.autoCamStartTime) % this.totalLoopDuration;
+
+    // Points to blend
+    let t = ms/this.totalLoopDuration;
+    t *= this.numControlPoints-1;
+    let curIndex = Math.floor(t);
+    let t_lerp = t - curIndex;
+    
+    // Current Position math-   
+    let cameraPos = this.getAutoCamValueFromCurve(this.autoCamPositions.array, curIndex, t_lerp, false);
+    this.camera.position.copy(cameraPos);
+
+    
+    // -- -- -- -- -- -- //
+    // Camera Look At Calculations
+    // Current Look At math-   
+    let camLookAt = this.getAutoCamValueFromCurve(this.autoCamLookAt.array, curIndex, t_lerp);
+    //camLookAt=cameraPos.clone().add( camLookAt.clone().sub( cameraPos ) );
+    this.camera.lookAt(camLookAt);
+    
+    if( this.autoCamUp ){
+      let camUp = this.getAutoCamValueFromCurve(this.autoCamUp.array, curIndex, t_lerp);
+      camUp=camUp.sub(cameraPos).normalize();
+      this.camera.up.copy( camUp  );
+    }
+    
+    /*let camPoseQuat=new Quaternion();
+    let euler=new Euler();
+    euler.set(0,0,180,'YXZ'); // Device returns YXZ for deviceOrientation
+    camPoseQuat.setFromEuler(euler);
+    camPoseQuat.normalize();
+    camPoseQuat.multiply( this.camera.quaternion );
+    this.camera.setRotationFromQuaternion(camPoseQuat);*/
+  }
+  
+  applyTouchRotate(){
+    // this.pxlDevice.touchMouseData.startPos;
+    // this.pxlDevice.touchMouseData.endPos;
+    // this.pxlDevice.touchMouseData.netDistance;
+    let blendOut=1;
+    if( this.touchBlender ){
+      // Camera rotation easing logic-
+      blendOut=Math.min(1, Math.max(0, this.pxlTimer.curMS - this.pxlDevice.touchMouseData.releaseTime ));
+      blendOut*=blendOut;
+      this.pxlDevice.touchMouseData.netDistance.multiplyScalar(1-blendOut);
+      this.touchBlender=blendOut&lt;1;
+    }else{
+      this.pxlDevice.touchMouseData.netDistance.multiplyScalar(.5);
+    }
+   let euler=new Euler();
+    euler.set(
+      (this.pxlDevice.touchMouseData.netDistance.y/this.pxlDevice.sH*2),
+      (this.pxlDevice.touchMouseData.netDistance.x/this.pxlDevice.sW*2),
+      0,
+      'YXZ'); // Device returns YXZ for deviceOrientation
+    // Limit Up/Down looking
+    let camPoseQuat=new Quaternion().clone( this.camera.quaternion );
+    camPoseQuat.setFromEuler(euler);
+    camPoseQuat=this.camera.quaternion.clone().multiply(camPoseQuat);
+    //camPoseQuat.multiply(poseQuat.setFromAxisAngle(viewNormal,-this.cameraPose.orientation));
+    camPoseQuat.normalize();
+    
+    // let smoothedQuat=new Quaternion();
+        
+    if( this.touchBlender ){
+      camPoseQuat.slerp(this.camera.quaternion.clone(),blendOut).normalize();
+    }
+    let lookAt= new Vector3(0,0,-10).applyQuaternion( camPoseQuat ).add( this.camera.position );
+        
+    this.camera.setRotationFromQuaternion(camPoseQuat);//smoothedQuat);
+    this.camera.lookAt(lookAt);
+    this.camera.up.set( 0,1,0 );
+  }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Mon Mar 03 2025 11:45:59 GMT-0500 (Eastern Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.js"></script>
+    
+    <script src="docs-init.js"></script>
+    
+</body>
+</html>

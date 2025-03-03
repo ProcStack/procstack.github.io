@@ -1,0 +1,2836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>pxlHUD - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://procstack.github.io/Outlet.htm" target="_blank" class="menu-item" id="pxlNav_Example" >pxlNav Example : The Outlet</a></h2><h3>Modules</h3><ul><li><a href="module-pxlNav.html">pxlNav</a></li><li><a href="pxlNav.module_pxlEffects.html">pxlNav.pxlEffects</a></li><li><a href="pxlNav.pxlEffects.module_pxlParticles.html">pxlNav.pxlEffects.pxlParticles</a></li></ul><h3>Classes</h3><ul><li><a href="BillowSmoke.html">BillowSmoke</a><ul class='methods'><li data-type='method'><a href="BillowSmoke.html#build">build</a></li></ul></li><li><a href="EmberWisps.html">EmberWisps</a><ul class='methods'><li data-type='method'><a href="EmberWisps.html#build">build</a></li></ul></li><li><a href="FloatingDust.html">FloatingDust</a><ul class='methods'><li data-type='method'><a href="FloatingDust.html#build">build</a></li></ul></li><li><a href="HeightMap.html">HeightMap</a><ul class='methods'><li data-type='method'><a href="HeightMap.html#build">build</a></li><li data-type='method'><a href="HeightMap.html#setHeightMapPath">setHeightMapPath</a></li><li data-type='method'><a href="HeightMap.html#setSpawnMapPath">setSpawnMapPath</a></li></ul></li><li><a href="ParticleBase.html">ParticleBase</a><ul class='methods'><li data-type='method'><a href="ParticleBase.html#.addToScene">addToScene</a></li><li data-type='method'><a href="ParticleBase.html#.atlasArrayPicker">atlasArrayPicker</a></li><li data-type='method'><a href="ParticleBase.html#.atlasRandomGen">atlasRandomGen</a></li><li data-type='method'><a href="ParticleBase.html#.atlasRandomList">atlasRandomList</a></li><li data-type='method'><a href="ParticleBase.html#.build">build</a></li><li data-type='method'><a href="ParticleBase.html#.dupeArray">dupeArray</a></li><li data-type='method'><a href="ParticleBase.html#.elementDuplicator">elementDuplicator</a></li><li data-type='method'><a href="ParticleBase.html#.getSettings">getSettings</a></li><li data-type='method'><a href="ParticleBase.html#.hasPointLights">hasPointLights</a></li><li data-type='method'><a href="ParticleBase.html#.newMaterial">newMaterial</a></li><li data-type='method'><a href="ParticleBase.html#.setAtlasPath">setAtlasPath</a></li><li data-type='method'><a href="ParticleBase.html#.setPosition">setPosition</a></li></ul></li><li><a href="pxlCamera.html">pxlCamera</a><ul class='methods'><li data-type='method'><a href="pxlCamera.html#.Camera#setCameraRotateEasing">Camera#setCameraRotateEasing</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setGravityMax">Camera#setGravityMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setGravityRate">Camera#setGravityRate</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setInputMovementMult">Camera#setInputMovementMult</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpHoldMax">Camera#setJumpHoldMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpImpulse">Camera#setJumpImpulse</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpRepeatDelay">Camera#setJumpRepeatDelay</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpScalar">Camera#setJumpScalar</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMaxStepHeight">Camera#setMaxStepHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementEase">Camera#setMovementEase</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementMax">Camera#setMovementMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementScalar">Camera#setMovementScalar</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setPositionBlend">Camera#setPositionBlend</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setTouchSensitivity">Camera#setTouchSensitivity</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserHeight">Camera#setUserHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserScale">Camera#setUserScale</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserSettings">Camera#setUserSettings</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceEaseIn">Camera#setWalkBounceEaseIn</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceEaseOut">Camera#setWalkBounceEaseOut</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceHeight">Camera#setWalkBounceHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceRate">Camera#setWalkBounceRate</a></li></ul></li><li><a href="pxlEnv.html">pxlEnv</a></li><li><a href="pxlHUD.html">pxlHUD</a><ul class='methods'><li data-type='method'><a href="pxlHUD.html#.HUD#addItem">HUD#addItem</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#addToHUD">HUD#addToHUD</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createButton">HUD#createButton</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createDragRegion">HUD#createDragRegion</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createImage">HUD#createImage</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createRegion">HUD#createRegion</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createSlider">HUD#createSlider</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createText">HUD#createText</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createThumbstick">HUD#createThumbstick</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#emit">HUD#emit</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#subscribe">HUD#subscribe</a></li></ul></li><li><a href="pxlRoom%2520RoomEnvironment.html">pxlRoom RoomEnvironment</a><ul class='methods'><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#addColliderHelper">addColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#animPostLoad">animPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#applyRoomPass">applyRoomPass</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#build">build</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#castRay">castRay</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#cleanupPortalRender">cleanupPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#fbxPostLoad">fbxPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getArtistInfo">getArtistInfo</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getColliders">getColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getCurrentShader">getCurrentShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpAvgRate">getLerpAvgRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpRate">getLerpRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getName">getName</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getShaderList">getShaderList</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliderType">hasColliderType</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliders">hasColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hitColliders">hitColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#init">init</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#onMessage">onMessage</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#prepPortalRender">prepPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#readShader">readShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resetCamera">resetCamera</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resize">resize</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setDependencies">setDependencies</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setFog">setFog</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setPortalTexture">setPortalTexture</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setShader">setShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setUserHeight">setUserHeight</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#start">start</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#step">step</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stepColliderHelper">stepColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stop">stop</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#toCameraPos">toCameraPos</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="pxlAnim.html">pxlAnim</a></li><li><a href="pxlAudio.html">pxlAudio</a></li><li><a href="pxlAutoCam.html">pxlAutoCam</a></li><li><a href="pxlColliders.html">pxlColliders</a></li><li><a href="pxlCookie.html">pxlCookie</a></li><li><a href="pxlDevice.html">pxlDevice</a></li><li><a href="pxlFile.html">pxlFile</a></li><li><a href="pxlGuiDraws.html">pxlGuiDraws</a></li><li><a href="pxlQuality.html">pxlQuality</a></li><li><a href="pxlTimer.html">pxlTimer</a></li><li><a href="pxlUser.html">pxlUser</a></li><li><a href="pxlUtils.html">pxlUtils</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pxlHUD</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            pxlHUD
+        
+        </h2>
+        
+            <div class="class-description usertext"><p>Class to handle a Heads-Up Display (HUD) management for pxlNav.
+Examples should be ran from your <code>pxlRoom.build()</code> function --</p></div>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="pxlHUD"><span class="type-signature"></span>new pxlHUD<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>HUD drawing and management</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_gui_HUD.js.html">pxlNav/gui/HUD.js</a>, <a href="pxlNav_gui_HUD.js.html#line48">line 48</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Examples</h5>
+    
+    <pre class="prettyprint"><code>// Add a button to the HUD from your roomlet buttonData = { 'style': ['my-button-style'] };this.pxlHUD.addItem('myButton', HUD_ELEMENT.BUTTON, buttonData, () => {  console.log('Button clicked!');});</code></pre>
+
+    <pre class="prettyprint"><code>// Add a draggable region to the HUD from your roomlet dragData = { 'style': ['my-drag-style'] };this.pxlHUD.addItem('myDragRegion', HUD_ELEMENT.DRAG_REGION, dragData, ( data ) => {  // data = { type = pxlEnum, name='myDragRegion', value={ x: number, y: number } };  console.log('Drag delta / relative offset : ', data.value );});</code></pre>
+
+    <pre class="prettyprint"><code>// Add a thumbstick to the HUD from your roomlet thumbData = { 'style': ['my-thumbstick-style'] };this.pxlHUD.addItem('myThumbstick', HUD_ELEMENT.THUMBSTICK, thumbData, ( data ) => {  // data = { type = pxlEnum, name='myThumbstick', value={ x: number (-1 to 1), y: number (-1 to 1) } };  console.log('Thumbstick value : ', data.value );});</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="addItem"><span class="type-signature type-signature-static">(static) </span>HUD#addItem<span class="signature">(label<span class="signature-attributes">opt</span>, type, data, callbackFn<span class="signature-attributes">opt</span>, parentObj<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object|null}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Add an item to the HUD.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_gui_HUD.js.html">pxlNav/gui/HUD.js</a>, <a href="pxlNav_gui_HUD.js.html#line170">line 170</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Add a button to the HUD//   Subscription passed through the `addItem()` function//   Its preferer you use this function over directly creating HUD elements//     As pxlHUD can manage the HUD elements and their subscriptionslet buttonData = { 'style': ['my-button-style'] };this.pxlHUD.addItem('myButton', HUD_ELEMENT.BUTTON, buttonData, () => {  console.log('Button clicked!');});// Add a draggable region to the HUD//   Subscription called after hud element creationlet dragData = { 'style': ['my-drag-style'] };this.pxlHUD.addItem('myDragRegion', HUD_ELEMENT.DRAG_REGION, dragData); // [...] // Later in your codethis.pxlHUD.subscribe('myDragRegion', ( data ) => {  console.log('Drag delta / relative offset : ', data.value );});</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>'default'</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>The label for the HUD item.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The type of HUD element.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The data for the HUD element.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callbackFn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>The callback function for the HUD element.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>parentObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>The parent object for the HUD element.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The created HUD element.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="addToHUD"><span class="type-signature type-signature-static">(static) </span>HUD#addToHUD<span class="signature">(hudElement)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Add an element to the HUD DOM Object.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_gui_HUD.js.html">pxlNav/gui/HUD.js</a>, <a href="pxlNav_gui_HUD.js.html#line130">line 130</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>//Add an created element to the managed HUD or specific parentlet newButton = this.pxlHUD.createButton('myButton', buttonData, ( data )=>{  console.log('Button clicked!');});this.pxlHUD.addToHUD( newButton );</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>hudElement</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+|
+
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The HUD element to add.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createButton"><span class="type-signature type-signature-static">(static) </span>HUD#createButton<span class="signature">(label, data, callbackFn<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Create a button element.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_gui_HUD.js.html">pxlNav/gui/HUD.js</a>, <a href="pxlNav_gui_HUD.js.html#line288">line 288</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Create a button elementlet buttonData = { 'style': ['my-button-style'] };let newButton = this.pxlHUD.createButton('myButton', buttonData, ( data )=>{  console.log( 'Button clicked!' );});this.pxlHUD.addToHUD( newButton );</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The label for the button.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The data for the button.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callbackFn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>The callback function for the button.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The created button element.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createDragRegion"><span class="type-signature type-signature-static">(static) </span>HUD#createDragRegion<span class="signature">(label, data, callbackFn<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Create a draggable region element.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_gui_HUD.js.html">pxlNav/gui/HUD.js</a>, <a href="pxlNav_gui_HUD.js.html#line266">line 266</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Create a draggable region elementlet dragData = { 'style': ['my-drag-style'] };let newDragRegion = this.pxlHUD.createDragRegion('myDragRegion', dragData, ( data )=>{ console.log( 'Drag delta / relative offset {X,Y} :' ); console.log( data.value );});this.pxlHUD.addToHUD( newDragRegion );</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The label for the draggable region.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The data for the draggable region.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callbackFn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>The callback function for the draggable region.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The created draggable region element.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createImage"><span class="type-signature type-signature-static">(static) </span>HUD#createImage<span class="signature">(label, data, callbackFn<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Create an image element.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_gui_HUD.js.html">pxlNav/gui/HUD.js</a>, <a href="pxlNav_gui_HUD.js.html#line365">line 365</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Create an image elementlet imageData = { 'src': 'path/to/image.png', 'style': ['my-image-style'] };let newImage = this.pxlHUD.createImage('myImage', imageData, ( data )=>{  console.log( 'Image clicked!' );});this.pxlHUD.addToHUD( newImage );</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The label for the image.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The data for the image.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callbackFn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>The callback function for the image.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The created image element.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createRegion"><span class="type-signature type-signature-static">(static) </span>HUD#createRegion<span class="signature">(label, data, callbackFn<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Create a region element.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_gui_HUD.js.html">pxlNav/gui/HUD.js</a>, <a href="pxlNav_gui_HUD.js.html#line242">line 242</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Create a region elementlet regionData = { 'style': ['my-region-style'] };let newRegion = this.pxlHUD.createRegion('myRegion', regionData, ( data )=>{  console.log( 'Region clicked!' );  console.log( data );});this.pxlHUD.addToHUD( newRegion );</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The label for the region.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The data for the region.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callbackFn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>The callback function for the region.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The created region element.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createSlider"><span class="type-signature type-signature-static">(static) </span>HUD#createSlider<span class="signature">(label, data, callbackFn<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Create a slider element.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_gui_HUD.js.html">pxlNav/gui/HUD.js</a>, <a href="pxlNav_gui_HUD.js.html#line342">line 342</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Create a slider elementlet sliderData = { 'min': 0, 'max': 100, 'value': 50, 'style': ['my-slider-style'] };let newSlider = this.pxlHUD.createSlider('mySlider', sliderData, ( data )=>{  console.log( 'Slider value changed!' );  console.log( data );});this.pxlHUD.addToHUD( newSlider );</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The label for the slider.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The data for the slider.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callbackFn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>The callback function for the slider.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The created slider element.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createText"><span class="type-signature type-signature-static">(static) </span>HUD#createText<span class="signature">(label, data, callbackFn<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Create a text element.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_gui_HUD.js.html">pxlNav/gui/HUD.js</a>, <a href="pxlNav_gui_HUD.js.html#line388">line 388</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Create a text elementlet textData = { 'text': 'Hello, world!', 'style': ['my-text-style'] };let newText = this.pxlHUD.createText('myText', textData, ( data )=>{  console.log( 'Text clicked!' );});this.pxlHUD.addToHUD( newText );</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The label for the text.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The data for the text.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callbackFn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>The callback function for the text.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The created text element.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createThumbstick"><span class="type-signature type-signature-static">(static) </span>HUD#createThumbstick<span class="signature">(label, data, callbackFn<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Create a thumbstick element.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_gui_HUD.js.html">pxlNav/gui/HUD.js</a>, <a href="pxlNav_gui_HUD.js.html#line312">line 312</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Create a thumbstick elementlet thumbstickData = { 'style': ['my-thumbstick-style'] };let newThumbstick = this.pxlHUD.createThumbstick('myThumbstick', thumbstickData, ( data )=>{  console.log( 'Thumbstick value changed!' );  console.log( data );});this.pxlHUD.addToHUD( newThumbstick );</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The label for the thumbstick.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The data for the thumbstick.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callbackFn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>The callback function for the thumbstick.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The created thumbstick element.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="emit"><span class="type-signature type-signature-static">(static) </span>HUD#emit<span class="signature">(label, data)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Emit an event for a HUD element.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_gui_HUD.js.html">pxlNav/gui/HUD.js</a>, <a href="pxlNav_gui_HUD.js.html#line508">line 508</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The label of the HUD element.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The data for the event.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="subscribe"><span class="type-signature type-signature-static">(static) </span>HUD#subscribe<span class="signature">(label, callbackFn)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Subscribe to a HUD element's events.</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_gui_HUD.js.html">pxlNav/gui/HUD.js</a>, <a href="pxlNav_gui_HUD.js.html#line495">line 495</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Subscribe to a HUD elementlet newButton = this.pxlHUD.addItem( 'myButton', HUD_ELEMENT.BUTTON );this.pxlHUD.subscribe( 'myButton', ( data )=>{  console.log( 'Button clicked!' );});</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The label of the HUD element.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callbackFn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The callback function to subscribe.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Mon Mar 03 2025 11:45:59 GMT-0500 (Eastern Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.js"></script>
+    
+    <script src="docs-init.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>pxlNav/core/QualityController.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://procstack.github.io/Outlet.htm" target="_blank" class="menu-item" id="pxlNav_Example" >pxlNav Example : The Outlet</a></h2><h3>Modules</h3><ul><li><a href="module-pxlNav.html">pxlNav</a></li><li><a href="pxlNav.module_pxlEffects.html">pxlNav.pxlEffects</a></li><li><a href="pxlNav.pxlEffects.module_pxlParticles.html">pxlNav.pxlEffects.pxlParticles</a></li></ul><h3>Classes</h3><ul><li><a href="BillowSmoke.html">BillowSmoke</a><ul class='methods'><li data-type='method'><a href="BillowSmoke.html#build">build</a></li></ul></li><li><a href="EmberWisps.html">EmberWisps</a><ul class='methods'><li data-type='method'><a href="EmberWisps.html#build">build</a></li></ul></li><li><a href="FloatingDust.html">FloatingDust</a><ul class='methods'><li data-type='method'><a href="FloatingDust.html#build">build</a></li></ul></li><li><a href="HeightMap.html">HeightMap</a><ul class='methods'><li data-type='method'><a href="HeightMap.html#build">build</a></li><li data-type='method'><a href="HeightMap.html#setHeightMapPath">setHeightMapPath</a></li><li data-type='method'><a href="HeightMap.html#setSpawnMapPath">setSpawnMapPath</a></li></ul></li><li><a href="ParticleBase.html">ParticleBase</a><ul class='methods'><li data-type='method'><a href="ParticleBase.html#.addToScene">addToScene</a></li><li data-type='method'><a href="ParticleBase.html#.atlasArrayPicker">atlasArrayPicker</a></li><li data-type='method'><a href="ParticleBase.html#.atlasRandomGen">atlasRandomGen</a></li><li data-type='method'><a href="ParticleBase.html#.atlasRandomList">atlasRandomList</a></li><li data-type='method'><a href="ParticleBase.html#.build">build</a></li><li data-type='method'><a href="ParticleBase.html#.dupeArray">dupeArray</a></li><li data-type='method'><a href="ParticleBase.html#.elementDuplicator">elementDuplicator</a></li><li data-type='method'><a href="ParticleBase.html#.getSettings">getSettings</a></li><li data-type='method'><a href="ParticleBase.html#.hasPointLights">hasPointLights</a></li><li data-type='method'><a href="ParticleBase.html#.newMaterial">newMaterial</a></li><li data-type='method'><a href="ParticleBase.html#.setAtlasPath">setAtlasPath</a></li><li data-type='method'><a href="ParticleBase.html#.setPosition">setPosition</a></li></ul></li><li><a href="pxlCamera.html">pxlCamera</a><ul class='methods'><li data-type='method'><a href="pxlCamera.html#.Camera#setCameraRotateEasing">Camera#setCameraRotateEasing</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setGravityMax">Camera#setGravityMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setGravityRate">Camera#setGravityRate</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setInputMovementMult">Camera#setInputMovementMult</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpHoldMax">Camera#setJumpHoldMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpImpulse">Camera#setJumpImpulse</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpRepeatDelay">Camera#setJumpRepeatDelay</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpScalar">Camera#setJumpScalar</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMaxStepHeight">Camera#setMaxStepHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementEase">Camera#setMovementEase</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementMax">Camera#setMovementMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementScalar">Camera#setMovementScalar</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setPositionBlend">Camera#setPositionBlend</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setTouchSensitivity">Camera#setTouchSensitivity</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserHeight">Camera#setUserHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserScale">Camera#setUserScale</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserSettings">Camera#setUserSettings</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceEaseIn">Camera#setWalkBounceEaseIn</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceEaseOut">Camera#setWalkBounceEaseOut</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceHeight">Camera#setWalkBounceHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceRate">Camera#setWalkBounceRate</a></li></ul></li><li><a href="pxlEnv.html">pxlEnv</a></li><li><a href="pxlHUD.html">pxlHUD</a><ul class='methods'><li data-type='method'><a href="pxlHUD.html#.HUD#addItem">HUD#addItem</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#addToHUD">HUD#addToHUD</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createButton">HUD#createButton</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createDragRegion">HUD#createDragRegion</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createImage">HUD#createImage</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createRegion">HUD#createRegion</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createSlider">HUD#createSlider</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createText">HUD#createText</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createThumbstick">HUD#createThumbstick</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#emit">HUD#emit</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#subscribe">HUD#subscribe</a></li></ul></li><li><a href="pxlRoom%2520RoomEnvironment.html">pxlRoom RoomEnvironment</a><ul class='methods'><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#addColliderHelper">addColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#animPostLoad">animPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#applyRoomPass">applyRoomPass</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#build">build</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#castRay">castRay</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#cleanupPortalRender">cleanupPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#fbxPostLoad">fbxPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getArtistInfo">getArtistInfo</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getColliders">getColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getCurrentShader">getCurrentShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpAvgRate">getLerpAvgRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpRate">getLerpRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getName">getName</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getShaderList">getShaderList</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliderType">hasColliderType</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliders">hasColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hitColliders">hitColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#init">init</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#onMessage">onMessage</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#prepPortalRender">prepPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#readShader">readShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resetCamera">resetCamera</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resize">resize</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setDependencies">setDependencies</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setFog">setFog</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setPortalTexture">setPortalTexture</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setShader">setShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setUserHeight">setUserHeight</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#start">start</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#step">step</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stepColliderHelper">stepColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stop">stop</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#toCameraPos">toCameraPos</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="pxlAnim.html">pxlAnim</a></li><li><a href="pxlAudio.html">pxlAudio</a></li><li><a href="pxlAutoCam.html">pxlAutoCam</a></li><li><a href="pxlColliders.html">pxlColliders</a></li><li><a href="pxlCookie.html">pxlCookie</a></li><li><a href="pxlDevice.html">pxlDevice</a></li><li><a href="pxlFile.html">pxlFile</a></li><li><a href="pxlGuiDraws.html">pxlGuiDraws</a></li><li><a href="pxlQuality.html">pxlQuality</a></li><li><a href="pxlTimer.html">pxlTimer</a></li><li><a href="pxlUser.html">pxlUser</a></li><li><a href="pxlUtils.html">pxlUtils</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pxlNav/core/QualityController.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+/**
+ * @namespace pxlQuality
+ * @description Quality settings and benchmarking
+ */
+
+import { VERBOSE_LEVEL } from "./Enums.js";
+import { Vector3 } from "../../libs/three/three.module.min.js";
+
+export class QualityController{
+  constructor( verbose, mobile=false, searchParms={}){
+    this.pxlTimer=null;
+    this.pxlCookie=null;
+    this.pxlDevice=null;
+    this.pxlEnv=null;
+    this.msLog=0;
+    this.prevMS=new Date().getTime()*.001;
+    this.autoQuality=false;
+    this.percent=1;
+    this.verbose=verbose;
+        
+    this.screenResPerc=1;
+    this.mBlurPercMult=mobile?.65:1;
+    this.bloomPercMult=mobile?.65:1;
+    this.bufferPercMult=1;//mobile?.3:.5,
+    this.renderTargetScale=10; // ## Not implemented
+    this.percentSteps=[.3,.45,.85];
+    this.fpsCounter=new Vector3(30, 0, (new Date().getTime())*.001);; // [ Cur FPS, Frame Count Since Last FPS Check, Last FPS Sample Time ]
+    this.countAtLevel=0,
+    this.shiftRate=.01;
+    this.moduleQualityList=[];
+    
+    this.qualityStep=-1;
+    this.qualityMaxSteps=3;
+    this.qualityStepValues=[ .25, .5, .75, 1 ];
+    
+    this.benchmarkStart=-1;
+    this.benchmarkTime=-1;
+    this.benchmarkRating=-1;
+    this.benchmarkTimes=[9,17];
+    
+    this.setFromBenchmark=true;
+    this.benchmarkQuality=1;
+    this.benchmarkQualityRange=[.25, 1];
+    
+    this.settingsQualityChoice=null;
+    this.detailLimitOverride= Object.keys(searchParms).includes("dlimit") ? searchParms["dlimit"] : 0;
+    this.detailLimit= this.detailLimitOverride!=null ? this.detailLimitOverride : 0;
+    
+    // Default Quality Settings &amp; Benchmark Settings
+    //   Numbers or Booleans ONLY; or update GuiDraw.setRadioValues()
+    // TODO : Movement settings shouldn't be on the Quality controller
+    //          "Quality" should strictly remain Render Settings
+    this.settings={
+      leftRight:true, // Turn, Strafe
+      mouse:true, // Drag, Point
+      graphics:2, // Low, Medium, High, Custom
+      resolution:1, // % Screen Size; [sW,sH] 
+      fog:2, // Off, Medium, High
+      bloom:true, // Unreal Bloom
+      motion:false, // pxlNav Motion Blur // ## Implement
+    };
+    
+    // Low Quality Settings
+    this.settingsLow={
+      resolution:.5,
+      fog:0,
+      bloom:false,
+      motion:false,
+    };
+    // Medium Quality Settings
+    this.settingsMedium={
+      resolution:.75,
+      fog:1,
+      bloom:true,
+      motion:false,
+    };
+    // High Quality Settings
+    this.settingsHigh={
+      resolution:1,
+      fog:2,
+      bloom:true,
+      motion:false,
+    };
+    // Custom Quality Settings
+    this.settingsCustom=null;
+  }
+
+  setDependencies( pxlNav ){
+    this.pxlTimer=pxlNav.pxlTimer;
+    this.pxlCookie=pxlNav.pxlCookie;
+    this.pxlDevice=pxlNav.pxlDevice;
+    this.pxlEnv=pxlNav.pxlEnv;
+  }
+
+  init(){
+        
+    if( this.detailLimitOverride!=null ){
+        this.detailLimit = this.detailLimitOverride;
+    }else{
+        if(this.pxlCookie.hasCookie("detailLimit")){
+            this.detailLimit=this.pxlCookie.parseCookie("detailLimit");
+        }
+    }
+    
+    if( this.verbose >= VERBOSE_LEVEL.INFO ){
+      console.log( "Graphics Limiting is set to level ", this.detailLimit );
+    }
+    
+    //parseDict sets the dict key values, returning true/false if keys missed
+    this.setFromBenchmark = !this.pxlCookie.parseDict( this.settings );
+
+    if(this.pxlCookie.hasCookie("leftRight")){
+      this.settings.leftRight=this.pxlCookie.parseCookie("leftRight");
+    }
+    if(this.pxlCookie.hasCookie("mouse")){
+      this.settings.mouse=this.pxlCookie.parseCookie("mouse");
+    }
+        let cookieEntries=Object.keys( this.settingsHigh );
+    if(this.pxlCookie.hasCookie("qualitySetting")){
+      let qualitySetting=this.pxlCookie.parseCookie("qualitySetting");
+            this.settings.graphics=qualitySetting;
+            this.settingsQualityChoice=qualitySetting;
+    }
+  }
+  step(){
+    this.mapFpsQualitCheck();
+  }
+  
+    // ## Indended for a more universe "Quality Control" system
+    //      But not implemented yet.
+  attachModule( module=null ){
+    if(module){
+      this.moduleQualityList.push( module );
+    }
+  }
+  
+  startBenchmark(){
+    this.pxlTimer.step();
+    this.benchmarkStart=this.pxlTimer.curMS;
+  }
+  endBenchmark(){
+    this.pxlTimer.step();
+    let bDelta=this.pxlTimer.curMS-this.benchmarkStart;
+    this.benchmarkTime=bDelta;
+    
+    this.benchmarkRating= 1-Math.min(1, Math.max(0, (bDelta-this.benchmarkTimes[0])/(this.benchmarkTimes[1]-this.benchmarkTimes[0]) ));
+    
+    // Set Benchmark Target Quality Percent to range; currently 25% to 100%
+    this.benchmarkQuality= this.benchmarkRating*(this.benchmarkQualityRange[1]-this.benchmarkQualityRange[0]) + this.benchmarkQualityRange[0];
+    
+    //%=
+    //console.log("Benchmark Timing - ",bDelta); 
+    //console.log("Benchmark Rating - ",this.benchmarkRating);
+    //console.log("Benchmark Quality - ", parseInt(this.benchmarkQuality*100), "%");
+    //%
+    
+    let percStep=Math.min(1, Math.max(0, this.benchmarkRating ));
+    percStep=Math.ceil( Math.max(.05,percStep)*this.qualityMaxSteps)-1;
+    this.qualityStep=percStep;
+    if( this.setFromBenchmark ){
+      //%=
+      let levelText=["Low","Medium","High"][this.qualityStep];
+      //console.log( "Setting Benchmark to "+levelText+" quality.");
+      //%
+      this.setQualityLevel( this.qualityStep );
+    }else{
+            if(this.settingsQualityChoice==null){
+                this.settingsQualityChoice=3;
+            }
+            
+      this.settingsCustom={};
+      let keys=Object.keys( this.settingsHigh ); // Just using this.settingsHigh reference for Keys
+      keys.forEach( (k)=>{
+        this.settingsCustom[k]=this.settings[k];
+      });
+    }
+        
+        this.setDependentSettings();
+  }
+  
+    // ## This might be causing some issues with movement jittering
+  mapFpsQualitCheck(){
+    if( this.pxlTimer.curMS-this.fpsCounter.z > 1){
+      this.fpsCounter.x= this.fpsCounter.y; //':new THREE.Vector3(30, 0, (new Date().getTime())), // [ Cur FPS, Time Since Last FPS Check, Last Sample Time ]
+      this.fpsCounter.y=0;
+      this.fpsCounter.z=this.pxlTimer.curMS;
+      
+      let dir=1;
+      if(this.fpsCounter.x&lt;15){
+        dir=-1;
+      }
+      let toPerc=Math.min(1, Math.max(0, this.percent+this.shiftRate*dir));
+      //datRenderResolutionSlider.setValue(toPerc);
+      if(this.autoQuality){
+        this.mapAutoQualityUpdate(toPerc, false);
+      }
+    }
+    this.fpsCounter.y+=1;
+    this.pxlTimer.prevMS=this.pxlTimer.curMS;
+  }
+
+  mapAutoQualityUpdate(percUpdate=null, force=false){
+    // Core percentage updates via settings dict
+    let percStep=Math.min(1, Math.max(0, percUpdate ));
+    percStep=Math.ceil( Math.max(.05,percStep)*this.qualityMaxSteps)-1;
+    this.qualityStep=percStep;
+  }
+  
+  setGraphicsSettings( qualitySettings=null, graphicsPreset=3 ){
+    if(qualitySettings==null){
+      if(this.qualityStep==0){
+        qualitySettings=this.settingsLow;
+      }else if(this.qualityStep==1){
+        qualitySettings=this.settingsMedium;
+      }else if(this.qualityStep==2){
+        qualitySettings=this.settingsHigh;
+      }else{
+        return;
+      }
+    }
+    
+    if(graphicsPreset==3){
+      this.checkCustomDict();
+    }
+    
+    let keys=Object.keys(qualitySettings);
+    keys.forEach( (k)=>{
+      this.setComponentQuality(k,qualitySettings[k]);
+      this.settings[k]=qualitySettings[k];
+      if(graphicsPreset==3){
+        this.settingsCustom[k]=qualitySettings[k];
+      }
+    });
+    
+       // this.pxlEnv.mapRender(false);
+    
+    // ## I dunno, I need to set more settings per component
+    //   Just set em all again!
+    /*keys=Object.keys(this.settings);
+    keys.forEach( (k)=>{
+      if( !["leftRight","mouse","graphics"].includes(k) ){
+        this.setComponentQuality(k,this.settings[k], false);
+      }
+    });*/
+       // this.pxlEnv.mapRender(false);
+    
+    this.setDependentSettings();
+    this.colliderPrevObjHit=null;
+    
+    if( graphicsPreset!=null ){
+      this.settings.graphics=graphicsPreset;
+    }
+  }
+  
+    reapplySettings(){
+    let keys=Object.keys(this.settingsLow);
+    keys.forEach( (k)=>{
+      //this.setComponentQuality(k,this.settingsLow[k], false);
+      //this.setComponentQuality(k,this.settingsHigh[k], false);
+      this.setComponentQuality(k,this.settings[k], false);
+    });
+    this.setDependentSettings();
+    }
+    
+  setQualityLevel(val){
+        if( this.pxlDevice.mobile ){
+            val=1;
+        }
+        
+    this.setQualityCookie(val);
+        
+    if(val==0){
+      this.setLowQuality();
+    }else if(val==1){
+      this.setMediumQuality();
+    }else if(val==2){
+      this.setHighQuality();
+    }else if(val==3){
+      this.setCustomQuality();
+    }
+  }    
+  
+  setLowQuality(){
+    this.settingsQualityChoice=0;
+    this.setGraphicsSettings(this.settingsLow, 0);
+  }
+  setMediumQuality(){
+    this.settingsQualityChoice=1;
+    this.setGraphicsSettings(this.settingsMedium, 1);
+  }
+  setHighQuality(){
+    this.settingsQualityChoice=2;
+    this.setGraphicsSettings(this.settingsHigh, 2);
+  }
+  setCustomQuality(){
+    this.checkCustomDict();
+    this.settingsQualityChoice=3;
+    this.setGraphicsSettings( this.settingsCustom);
+  }
+  checkCustomDict(){
+    if(this.settingsCustom==null){
+      this.settingsCustom={};
+      let sourceDict=this.settingsHigh;
+      if(this.settingsQualityChoice){
+        if(this.settingsQualityChoice==0){
+          sourceDict= this.settingsLow ;
+        }else if(this.settingsQualityChoice==1){
+          sourceDict= this.settingsMedium ;
+        }else if(this.settingsQualityChoice==2){
+          sourceDict= this.settingsHigh ;
+        }
+      }
+      Object.assign( this.settingsCustom, sourceDict );
+    }
+  }
+  
+    setQualityCookie(val){
+    this.pxlCookie.setCookie( "qualitySetting", val );
+    }
+    
+  // Set values per specific setting change
+  //   Render &amp; Navigational Settings
+  setComponentQuality( component, val, setCookie=true ){
+    switch(component){
+      case "leftRight":
+        this.settings[component]=val;
+        break;
+        
+      case "mouse":
+        this.settings[component]=val;
+        break;
+        
+      case "resolution":
+        this.screenResPerc=val;
+        this.pxlDevice.resizeRenderResolution();
+        this.settings[component]=val;
+        if( this.pxlEnv.geoList['snow'] &amp;&amp; this.pxlEnv.geoList['snow'].material ){
+            this.pxlEnv.geoList['snow'].material.uniforms.pointScale.value = this.pxlEnv.geoList['snow'].pBaseScale * val;
+        }
+        break;
+        
+      case "fog":
+        if( this.pxlEnv.mapOverlayHeavyPass ) this.pxlEnv.mapOverlayHeavyPass.enabled = val==2;
+        if( this.pxlEnv.mapOverlayPass ) this.pxlEnv.mapOverlayPass.enabled = val==1;
+        if( this.pxlEnv.mapOverlaySlimPass ) this.pxlEnv.mapOverlaySlimPass.enabled = val==0;
+        if( this.pxlEnv.mapBoxAAPass.enabled ) this.pxlEnv.mapBoxAAPass.enabled=val==2;
+        if( this.pxlEnv.mapCrossAAPass.enabled ) this.pxlEnv.mapCrossAAPass.enabled=val==1;
+                
+        if( this.pxlEnv.portaluserScreenIntensity ) this.pxlEnv.portaluserScreenIntensity.x=1;
+        //this.pxlEnv.pxlRenderSettings.mult=1;
+        if( this.pxlEnv.userScreenIntensity ){
+          this.pxlEnv.userScreenIntensity.x = .65 ;
+          this.pxlEnv.userScreenIntensity.y =  0 ;
+        }
+        if(this.pxlEnv.geoList['HDRView']){
+            this.pxlEnv.geoList['HDRView'].material.uniforms.cdMult.value = val==0 ? .7 : .3;
+        }
+        this.settings[component]=val;
+        break;
+        
+      case "bloom":
+        this.pxlEnv.portaluserScreenIntensity.x = val ? .4 : 1;
+        if( this.pxlEnv.mapGlowPass ) this.pxlEnv.mapGlowPass.enabled = val;
+        if( this.pxlEnv.roomBloomPass )  this.pxlEnv.roomBloomPass.enabled = val;
+        if( this.pxlEnv.roomGlowPass ) this.pxlEnv.roomGlowPass.enabled = val;
+        
+        if( this.pxlEnv.userScreenIntensity ){
+          this.pxlEnv.userScreenIntensity.x = val ? .65 : .8;
+          this.pxlEnv.userScreenIntensity.y = val ? 0 : .8;
+        }
+        if(this.pxlEnv.geoList['HDRView']){
+            this.pxlEnv.geoList['HDRView'].material.uniforms.cdMult.value = val==0 ? .7 : .3;
+        }
+        
+        if( this.pxlEnv.mapMotionBlurPass ) this.pxlEnv.mapMotionBlurPass.enabled=val;  
+      
+        this.settings[component]=val;
+        break;
+        
+      case "motion":
+        if( this.pxlEnv.mapMotionBlurPass ) this.pxlEnv.mapMotionBlurPass.enabled=val;  
+      
+        this.settings[component]=val;
+        break;
+        
+      default:
+        //%=
+        //console.error("No Setting Component Updated - ",component,": ",val);
+        //%
+        break;
+    }
+    if(setCookie){
+      this.pxlCookie.setCookie( component, val );
+    }
+  }
+  setDependentSettings(){
+    let multVal=1;
+    let portalIntensity=1;
+        let circleGateBloom=0;
+        let circleGateColor=.6;
+    
+        let mapMotionBlurPassEnabled = false;
+        let mapOverlayHeavyPassEnabled = false;
+        let mapOverlayPassEnabled = false;
+        let mapOverlaySlimPassEnabled = false;
+                  
+        let mapBoxAAPassEnabled = false;
+        let mapCrossAAPassEnabled = false;
+
+        if( this.settings.fog==2 ){
+          mapMotionBlurPassEnabled =false;  
+          mapOverlayHeavyPassEnabled = true;
+          mapOverlayPassEnabled = false;
+          mapOverlaySlimPassEnabled = false;
+
+          mapBoxAAPassEnabled = true;
+          mapCrossAAPassEnabled = false;
+          multVal=1.00;
+          portalIntensity=.5;
+                    
+          /*if( this.pxlEnv.geoList['skySemiSphere'] ){
+              this.pxlEnv.geoList["skySemiSphere"].material.uniforms.fogIntensity.value=1; // Post Process Fog
+          }*/
+                    
+        }else if( this.settings.fog==1 ){
+          mapMotionBlurPassEnabled = false;  
+          mapOverlayHeavyPassEnabled = false;
+          mapOverlayPassEnabled = true;
+          mapOverlaySlimPassEnabled = false;
+                    
+          mapBoxAAPassEnabled = false;
+          mapCrossAAPassEnabled = true;
+          multVal=1.15;
+          portalIntensity=.5;
+        }else{
+          mapMotionBlurPassEnabled = false;
+          mapOverlayPassEnabled = false;
+          mapOverlaySlimPassEnabled = true;
+                    
+          mapBoxAAPassEnabled = false;
+          mapCrossAAPassEnabled = false;
+          multVal=1.;
+          portalIntensity=.4;
+        }
+
+
+        if( this.pxlEnv.mapMotionBlurPass ) this.pxlEnv.mapMotionBlurPass.enabled = mapMotionBlurPassEnabled;
+        if( mapOverlayHeavyPassEnabled ) this.pxlEnv.mapOverlayHeavyPass.enabled = mapOverlayHeavyPassEnabled;
+        if( mapOverlayPassEnabled ) this.pxlEnv.mapOverlayPass.enabled = mapOverlayPassEnabled;
+        if( mapOverlaySlimPassEnabled ) this.pxlEnv.mapOverlaySlimPass.enabled = mapOverlaySlimPassEnabled;
+                  
+        if( mapBoxAAPassEnabled ) this.pxlEnv.mapBoxAAPass.enabled = mapBoxAAPassEnabled;
+        if( mapCrossAAPassEnabled ) this.pxlEnv.mapCrossAAPass.enabled = mapCrossAAPassEnabled;
+
+
+        
+        if( this.settings.bloom ){
+          if( this.pxlEnv.mapGlowPass ) this.pxlEnv.mapGlowPass.enabled=true;  
+
+          if( this.pxlEnv.roomBloomPass) this.pxlEnv.roomBloomPass.enabled=true;  
+
+          if( this.pxlEnv.roomGlowPass ) this.pxlEnv.roomGlowPass.enabled=true;  
+
+          this.pxlEnv.userScreenIntensity.x=.65;
+          this.pxlEnv.userScreenIntensity.y=0;
+                    circleGateBloom=1;
+                    circleGateColor=.25;
+        }else{
+          if( this.pxlEnv.mapGlowPass ) this.pxlEnv.mapGlowPass.enabled=false;
+          if( this.pxlEnv.roomBloomPass ) this.pxlEnv.roomBloomPass.enabled=false;
+          if( this.pxlEnv.roomGlowPass ) this.pxlEnv.roomGlowPass.enabled=false;
+          
+          if( this.pxlEnv?.mapComposerGlow?.renderTarget2 ){
+            this.pxlEnv.engine.setRenderTarget(this.pxlEnv.mapComposerGlow.renderTarget2);
+            this.pxlEnv.engine.clear();
+          }
+          if( this.pxlEnv?.roomGlowPass?.renderTarget2 ){
+            this.pxlEnv.engine.setRenderTarget(this.pxlEnv.roomGlowPass.renderTarget2);
+            this.pxlEnv.engine.clear();
+          }
+          
+          this.pxlEnv.engine.setRenderTarget(null);
+                    
+          this.pxlEnv.userScreenIntensity.x=.8;
+          this.pxlEnv.userScreenIntensity.y=0;
+                    
+          //multVal=1.0;
+          portalIntensity=1;
+                    circleGateBloom=0;
+                    circleGateColor=.5;
+        }
+                let cGate=this.pxlEnv.geoList['Circular_Gate'];
+        if( cGate ){
+                    cGate.material.uniforms.bloomBoost.value=circleGateBloom;
+                }
+                
+                if( this.pxlEnv.geoList['HDRView'] ){
+                    this.pxlEnv.geoList['HDRView'].material.uniforms.cdMult.value= this.settings.bloom ? .3 : .7;
+                }
+                
+                let cVid=this.pxlEnv.geoList['CirculateGateVideoSphere'];
+        if( cVid ){
+                    cVid.material.color.r=circleGateColor;
+                    cVid.material.color.g=circleGateColor;
+                    cVid.material.color.b=circleGateColor;
+                }
+                
+        if( this.pxlEnv.portaluserScreenIntensity ) this.pxlEnv.portaluserScreenIntensity.x=portalIntensity;
+        //this.pxlEnv.pxlRenderSettings.mult=multVal;
+        this.pxlEnv.pxlCamera.colliderCurObjHit=null;
+        //this.pxlEnv.setExposure(multVal);
+  }
+  
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Mon Mar 03 2025 11:45:59 GMT-0500 (Eastern Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.js"></script>
+    
+    <script src="docs-init.js"></script>
+    
+</body>
+</html>

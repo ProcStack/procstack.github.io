@@ -1,0 +1,2813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>pxlNav/gui/GUIBase.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://procstack.github.io/Outlet.htm" target="_blank" class="menu-item" id="pxlNav_Example" >pxlNav Example : The Outlet</a></h2><h3>Modules</h3><ul><li><a href="module-pxlNav.html">pxlNav</a></li><li><a href="pxlNav.module_pxlEffects.html">pxlNav.pxlEffects</a></li><li><a href="pxlNav.pxlEffects.module_pxlParticles.html">pxlNav.pxlEffects.pxlParticles</a></li></ul><h3>Classes</h3><ul><li><a href="BillowSmoke.html">BillowSmoke</a><ul class='methods'><li data-type='method'><a href="BillowSmoke.html#build">build</a></li></ul></li><li><a href="EmberWisps.html">EmberWisps</a><ul class='methods'><li data-type='method'><a href="EmberWisps.html#build">build</a></li></ul></li><li><a href="FloatingDust.html">FloatingDust</a><ul class='methods'><li data-type='method'><a href="FloatingDust.html#build">build</a></li></ul></li><li><a href="HeightMap.html">HeightMap</a><ul class='methods'><li data-type='method'><a href="HeightMap.html#build">build</a></li><li data-type='method'><a href="HeightMap.html#setHeightMapPath">setHeightMapPath</a></li><li data-type='method'><a href="HeightMap.html#setSpawnMapPath">setSpawnMapPath</a></li></ul></li><li><a href="ParticleBase.html">ParticleBase</a><ul class='methods'><li data-type='method'><a href="ParticleBase.html#.addToScene">addToScene</a></li><li data-type='method'><a href="ParticleBase.html#.atlasArrayPicker">atlasArrayPicker</a></li><li data-type='method'><a href="ParticleBase.html#.atlasRandomGen">atlasRandomGen</a></li><li data-type='method'><a href="ParticleBase.html#.atlasRandomList">atlasRandomList</a></li><li data-type='method'><a href="ParticleBase.html#.build">build</a></li><li data-type='method'><a href="ParticleBase.html#.dupeArray">dupeArray</a></li><li data-type='method'><a href="ParticleBase.html#.elementDuplicator">elementDuplicator</a></li><li data-type='method'><a href="ParticleBase.html#.getSettings">getSettings</a></li><li data-type='method'><a href="ParticleBase.html#.hasPointLights">hasPointLights</a></li><li data-type='method'><a href="ParticleBase.html#.newMaterial">newMaterial</a></li><li data-type='method'><a href="ParticleBase.html#.setAtlasPath">setAtlasPath</a></li><li data-type='method'><a href="ParticleBase.html#.setPosition">setPosition</a></li></ul></li><li><a href="pxlCamera.html">pxlCamera</a><ul class='methods'><li data-type='method'><a href="pxlCamera.html#.Camera#setCameraRotateEasing">Camera#setCameraRotateEasing</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setGravityMax">Camera#setGravityMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setGravityRate">Camera#setGravityRate</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setInputMovementMult">Camera#setInputMovementMult</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpHoldMax">Camera#setJumpHoldMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpImpulse">Camera#setJumpImpulse</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpRepeatDelay">Camera#setJumpRepeatDelay</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpScalar">Camera#setJumpScalar</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMaxStepHeight">Camera#setMaxStepHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementEase">Camera#setMovementEase</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementMax">Camera#setMovementMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementScalar">Camera#setMovementScalar</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setPositionBlend">Camera#setPositionBlend</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setTouchSensitivity">Camera#setTouchSensitivity</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserHeight">Camera#setUserHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserScale">Camera#setUserScale</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserSettings">Camera#setUserSettings</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceEaseIn">Camera#setWalkBounceEaseIn</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceEaseOut">Camera#setWalkBounceEaseOut</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceHeight">Camera#setWalkBounceHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceRate">Camera#setWalkBounceRate</a></li></ul></li><li><a href="pxlEnv.html">pxlEnv</a></li><li><a href="pxlHUD.html">pxlHUD</a><ul class='methods'><li data-type='method'><a href="pxlHUD.html#.HUD#addItem">HUD#addItem</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#addToHUD">HUD#addToHUD</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createButton">HUD#createButton</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createDragRegion">HUD#createDragRegion</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createImage">HUD#createImage</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createRegion">HUD#createRegion</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createSlider">HUD#createSlider</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createText">HUD#createText</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createThumbstick">HUD#createThumbstick</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#emit">HUD#emit</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#subscribe">HUD#subscribe</a></li></ul></li><li><a href="pxlRoom%2520RoomEnvironment.html">pxlRoom RoomEnvironment</a><ul class='methods'><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#addColliderHelper">addColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#animPostLoad">animPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#applyRoomPass">applyRoomPass</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#build">build</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#castRay">castRay</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#cleanupPortalRender">cleanupPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#fbxPostLoad">fbxPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getArtistInfo">getArtistInfo</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getColliders">getColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getCurrentShader">getCurrentShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpAvgRate">getLerpAvgRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpRate">getLerpRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getName">getName</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getShaderList">getShaderList</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliderType">hasColliderType</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliders">hasColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hitColliders">hitColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#init">init</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#onMessage">onMessage</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#prepPortalRender">prepPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#readShader">readShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resetCamera">resetCamera</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resize">resize</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setDependencies">setDependencies</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setFog">setFog</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setPortalTexture">setPortalTexture</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setShader">setShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setUserHeight">setUserHeight</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#start">start</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#step">step</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stepColliderHelper">stepColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stop">stop</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#toCameraPos">toCameraPos</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="pxlAnim.html">pxlAnim</a></li><li><a href="pxlAudio.html">pxlAudio</a></li><li><a href="pxlAutoCam.html">pxlAutoCam</a></li><li><a href="pxlColliders.html">pxlColliders</a></li><li><a href="pxlCookie.html">pxlCookie</a></li><li><a href="pxlDevice.html">pxlDevice</a></li><li><a href="pxlFile.html">pxlFile</a></li><li><a href="pxlGuiDraws.html">pxlGuiDraws</a></li><li><a href="pxlQuality.html">pxlQuality</a></li><li><a href="pxlTimer.html">pxlTimer</a></li><li><a href="pxlUser.html">pxlUser</a></li><li><a href="pxlUtils.html">pxlUtils</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pxlNav/gui/GUIBase.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// GUI Manager
+//   Base class for Div/Span generator, SVG loader/animator, &amp; CSS management
+//   Written by Kevin Edzenga; 2020, 2024
+// -- -- -- -- -- --
+
+/*import { HelpGui } from './pxlGui/HelpGui.js';
+import { InfoGui } from './pxlGui/InfoGui.js';
+import { SettingsGui } from './pxlGui/SettingsGui.js';*/
+
+// THIS FILE IS A MESS!!
+//   When necessity and limited time drives development....
+
+// TODO : Remove Antib0dy.Club specific code
+// TODO : Remove hard coded html/css, promote to div generator class
+
+import { SVGUtils } from './utils/svgUtils.js';
+import {VERBOSE_LEVEL} from '../core/Enums.js';
+
+
+export class GUIManager{
+  constructor(verbose, projectTitle="Metal-Asylum", assetRoot="./assets/", guiRoot="./assets/GUI/"){
+
+  this.projectTitle = projectTitle;
+  this.verbose = verbose;
+
+  //this.bootTime=new Date().getTime();
+  this.sW=window.innerWidth;
+  this.sH=window.innerHeight;
+  this.mobile=false;
+  this.pxlFile=null;
+  this.pxlCookie=null;
+  this.pxlTimer=null;
+  this.pxlAudio=null;
+  this.pxlUtils=null;
+  this.pxlUser=null;
+  this.pxlDevice=null;
+  this.pxlAutoCam=null;
+  this.pxlCamera=null;
+  this.pxlNavCanvas=null;
+  this.pxlQuality=null;
+  this.pxlEnv=null;
+  this.assetRoot=assetRoot;
+  this.guiRoot=guiRoot;
+  //this.djAudioObj=null;
+  this.introHelpActive=true;
+  
+  // -- Medalion Loads
+  this.branding={
+    title:projectTitle,
+    loader:guiRoot+".svg",
+    logo:guiRoot+".svg",
+    medalion:guiRoot+".svg",
+    stack:guiRoot+".svg"
+  };
+
+  // Loader Phrases
+  this.loaderPhrases=[ "Loading..." ];
+    
+  // Dynamic Styles 
+  this.lableBoxSize=40; // Device Label Box Size
+  this.optionWidthRound=10;
+  this.optionWidthAdd=25;
+  this.deviceOptionHeight=[0, 300]; // Device Option List Max-Height's
+  
+  this.pxlLoader=null;
+  this.pxlLoaderCount=0;
+  
+    // TODO : This is the loadable stage count
+  //      Load js, load room, run room boot, await room environment load/setup, and run post-boot code.
+  //      This should be a registration system, not hard coded
+  //      As it would be better for loading status for multi-room systems
+  //      Loader stages added to a promise/stage list during pre-boot, update max stage count here
+  this.pxlLoaderTotal=5;
+  
+  this.hudBlock={obj:null, active:false};
+  this.userControlBlock=null;
+  this.hudVisibility=true;
+  this.hudIcons={};
+  this.hudElements={};
+  this.guiWindows={};
+  this.msgCount=0;
+  this.hudMedalionBar=null;
+  this.userProfileMessageInput=null;
+  this.userProfileReturnMessage=null;
+  this.userCountObj=null;
+  this.userCountCur=0;
+  this.messageCountObj=null;
+  this.messageCountCur=0;
+  this.chatMessageDisplay=null;
+  this.chatMessageInput=null;
+  this.camChoicesActive=false;
+  //this.camChoicePrevObj=null;
+  this.micChoicesActive=false;
+  //this.micChoicePrevObj=null;
+    this.pxlNavData={
+      active:false,
+      gui:null,
+      height:null,
+      fpsSet:0,
+      fps:null,
+      dl:null,
+      ul:null
+    };
+    
+  this.djPlayerObj=null;
+    
+  this.buildGuiStatus={
+    hud:false,
+    userTopBar:false,
+    bottomBar:false,
+    djPlayer:false,
+    roomControls:false,
+    verseList:false,
+    medalion:false,
+    loadingBranding:false
+  };
+
+  this.settingsFields = {
+    'changeUsername' : false, // Display Change Username Field
+  };
+  
+  this.requestVerseList=false;
+  this.verseList=[];
+  this.verseUserCounts={};
+  
+  this.verseTitlePrefix="";
+  this.verseTitleSuffix="'s Room";
+  
+  this.multiverseData={
+  fromVerse:null,
+  toVerse:null,
+  electedVerse:null,
+  mitosisState:false,
+  mitosisBufferTime:15,
+  mitosisTime:0,
+  mitosisUpdateTime:0
+  };
+  
+  // TODO : Move to function to prep dictionary for div lookup
+  //      Would operate best for dynamic gen, offset/pos data:flags, and alt text propegation to Help
+  this.textDescriptions={
+    chatIcon:{'text':'&lt;span class="helpHotKeyParent">( &lt;span class="helpHotKey">C&lt;/span> )&lt;/span>&lt;br>chat', 'pos':[1,-1.5]},
+    multiverseIcon:{'text':'&lt;span class="helpHotKeyParent">( &lt;span class="helpHotKey">U&lt;/span> )&lt;/span>&lt;br>multiverse&lt;br>selection', 'pos':[0,-1.3]},
+    djPlayerVolumeParent:{'text':'&lt;span class="helpHotKeyParent">( &lt;span class="helpHotKey">B&lt;/span> )&lt;/span>&lt;br>music volume', 'pos':[0,-1.5]},
+    
+    speakerIcon:{'text':'&lt;span class="helpHotKeyParent">( &lt;span class="helpHotKey">N&lt;/span> )&lt;/span>&lt;br>mute people&lt;br>pick audio output', 'pos':[0,-1.5]},
+    micIcon:{'text':'&lt;span class="helpHotKeyParent">( &lt;span class="helpHotKey">M&lt;/span> )&lt;/span>&lt;br>mute/pick&lt;br>mic input', 'pos':[0,-1.5]},
+    camIcon:{'text':'&lt;span class="helpHotKeyParent">( &lt;span class="helpHotKey">V&lt;/span> )&lt;/span>&lt;br>enable/pick&lt;br>video input', 'pos':[0,-1.5]},
+    
+    helpIcon:{'text':'&lt;span class="helpHotKeyParent">( &lt;span class="helpHotKey">?&lt;/span> )&lt;/span>&lt;br>help &amp;&lt;br>instructions', 'pos':[0,-1.5]},
+    infoIconParent:{'text':'Info &lt;span class="helpHotKeyParent">( &lt;span class="helpHotKey">I&lt;/span> )&lt;/span>', 'pos':[-1,0], 'offset':[-10,0]},
+    settingsIcon:{'text':'&lt;span class="helpHotKeyParent">( &lt;span class="helpHotKey">G&lt;/span> )&lt;/span>&lt;br>graphics &amp;&lt;br>navigation', 'pos':[0,-1.5]},
+    muteAllIcon:{'text':'&lt;span class="helpHotKeyParent">( &lt;span class="helpHotKey">N&lt;/span> )&lt;/span>&lt;br>mute all users', 'pos':[1,0]},
+    fullScreenIcon:{'text':'&lt;span class="helpHotKeyParent">( &lt;span class="helpHotKey">F&lt;/span> )&lt;/span>&lt;br>toggle full screen', 'pos':[-1,0]},
+    videoQualityIcon:{'text':'&lt;span class="helpHotKeyParent">( &lt;span class="helpHotKey">H&lt;/span> )&lt;/span>&lt;br>video quality settings', 'pos':[-1,0]},
+    //%=
+    statsIcon:{'text':'jitsi connection status; toggle connection ', 'pos':[1,0]},
+    //%
+      //&amp;=
+      usersIcon:{'text':'&lt;span class="helpHotKeyParent">( &lt;span class="helpHotKey">T&lt;/span> )&lt;/span> user moderator tools', 'pos':[1,0]},
+    //&amp;
+    ft2Button:{'text':'Environment', 'pos':[-1,0], 'offset':[-10,0]},
+    ft3Button:{'text':'Invite Friends', 'pos':[-1,0], 'offset':[-10,0]},
+    hud_userCount:{'text':'# of People', 'pos':[-1,0], 'offset':[-10,0]},
+  };
+  
+  
+  this.loading=true;
+  this.disclaimer=false;
+  
+  this.mapPrompt=null;
+  this.mapPromptBG=null;
+  this.delayLoadChatWindow=false;
+  
+  this.renderSettings=null;
+  this.controlSettings=null;
+  this.shaderEditorDisplay=null;
+  
+  this.radioControls=[];
+  this.controlState=[true,false,false,false];
+  this.controlToggle=[true,true,false,false];
+  this.buttonPadding=6;
+  this.toggleOpacity=[0.60, 1];
+  
+  this.qualityText=["Netbook", "Laptop", "Desktop Computer", "Gamer Rig"];
+  
+  this.activeItem=null;
+  
+  //&amp;=
+  this.jmaWindowVis=false;
+  //&amp;
+  
+  this.actionPopUp=null;
+  this.ctaLocalDocURL={}
+  
+  // ## Gat damn cross origin on google
+  // ## iFrames headers to google prevent following links
+  // ## Fix!
+  this.ctaContentLoading=false;
+  this.googleDocHTML=null;
+  this.googleDocURL="";
+  }
+
+  setDependencies( pxlNav ){
+    this.pxlFile=pxlNav.pxlFile;
+    this.pxlCookie=pxlNav.pxlCookie;
+    this.pxlTimer=pxlNav.pxlTimer;
+    this.pxlAudio=pxlNav.pxlAudio;
+    this.pxlUtils=pxlNav.pxlUtils;
+    this.pxlUser=pxlNav.pxlUser;
+    this.pxlDevice=pxlNav.pxlDevice;
+    this.pxlAutoCam=pxlNav.pxlAutoCam;
+    this.pxlCamera=pxlNav.pxlCamera;
+    this.pxlNavCanvas=pxlNav.pxlNavCanvas;
+    this.pxlQuality=pxlNav.pxlQuality;
+    this.pxlEnv=pxlNav.pxlEnv;
+
+    this.mobile = pxlNav.mobile;
+    this.renderSettings=this.pxlCookie.readCookie(this.pxlUser.renderSettingsCookie);
+    this.controlSettings=this.pxlCookie.readCookie(this.pxlUser.controlModeCookie);
+
+    pxlNav.pxlDevice.subscribe( "resize", this.resize.bind(this) );
+
+  }
+  
+  init(){
+    this.cssBuildClasses();
+    this.createContainer();
+    this.createFailState();
+    this.buildConsole();
+  }
+
+  // -- -- --
+
+  // Primary container for all pxlNav DOM elements
+  //   This is the parent container for all GUI elements
+  createContainer(){
+    let container=document.createElement("div");
+    container.id="pxlNav-container";
+    container.classList.add("pxlNav-mainContainerStyle");
+
+    document.body.appendChild(container);
+
+    this.guiWindows.container={ active:true, gui:container };
+  }
+
+  // Add object to the document body
+  //   Contain all GUI elements in a single container
+  addToContainer( obj ){
+    if( !this.guiWindows.container ){
+      this.createContainer();
+    }
+    this.guiWindows.container.gui.appendChild( obj );
+  }
+
+  // -- -- --
+
+  createFailState(){
+    let failState=document.createElement("div");
+    failState.id="pxlNav-failState";
+    failState.classList.add("pxlNav-failStateStyle");
+    document.body.appendChild(failState);
+    this.guiWindows.failState={ active:true, gui:failState };
+  }
+
+  addToFailState( obj ){
+    if( !this.guiWindows.failState ){
+      this.createFailState();
+    }
+    this.guiWindows.failState.gui.appendChild( obj );
+  }
+
+  // -- -- --
+  
+  prepLoader(){
+		this.mapPromptBG=document.createElement("div");
+		this.mapPromptBG.classList.add("mapPromptBackgroundStyle");
+		this.addToContainer(this.mapPromptBG);
+
+		this.mapPrompt=document.createElement("div");
+		this.mapPrompt.setAttribute("id","mapPrompt");
+		this.mapPrompt.classList.add("mapPromptStyle");
+		this.mapPrompt.classList.add("fader");
+		this.mapPrompt.classList.add("visOn");
+		this.mapPrompt.innerHTML=`
+            &lt;div id="loaderLogoBranding" class='pxlLoaderLogo'>&lt;/div>
+            &lt;div class='loadStyleParent'>
+              &lt;div id='pxlLoader' class='loadStyle'>&lt;/div>
+              &lt;div id='pxlLoaderBackground' class='loadStyleBackground'>&lt;/div>
+            &lt;/div>
+            &lt;div id="loaderBranding" class='pxlLoaderTitle'>${this.projectTitle}&lt;/div>
+            &lt;div id="loaderMessage" class='pxlLoaderMessage'>&lt;/div>
+          `;
+		this.addToContainer(this.mapPrompt);
+
+    let loaderMsgObj=document.getElementById("loaderMessage");
+    if(loaderMsgObj){
+      
+      let loaderMsg = this.loaderPhrases[ Math.floor( Math.random()*this.loaderPhrases.length ) ];
+      loaderMsgObj.innerHTML=loaderMsg;
+    }
+
+		
+		if(this.buildGuiStatus.loadingBranding){
+			SVGUtils.svgPromise( this.branding.loader, "loaderBranding", "pxlLoaderTitle", "loadBrandingLogo");
+		}
+  
+		
+		this.pxlLoader=document.getElementById( "pxlLoader" );
+		this.pxlLoader.style.width= "2%";
+			
+		let canvasCrashBG=document.createElement("div");
+		canvasCrashBG.classList.add("pxlNav-crashPromptBackgroundStyle");
+		this.addToFailState(canvasCrashBG);
+
+		let canvasCrash=document.createElement("div");
+		canvasCrash.classList.add("pxlNav-canvasCrashPromptStyle");
+		canvasCrashBG.appendChild(canvasCrash);
+		
+		let inner;
+    if(this.pxlQuality){
+      if(parseInt(this.pxlQuality.detailLimit)==0){
+        inner=`Looks like your computer is having a hard time, but we’ve got your fix.
+          &lt;br>Please click &lt;a id="pxlNav-crashLink" class="pxlNav-crashLink">HERE&lt;/a> to reload ${this.projectTitle}.`;
+      }else{
+        inner=`Looks like your computer is still having trouble, but we’ve got another fix for ya.
+          &lt;br>Please click &lt;a id="pxlNav-crashLink" class="pxlNav-crashLink">HERE&lt;/a> to reload ${this.projectTitle} again.`;
+      }
+    }
+		canvasCrash.innerHTML=inner;
+		let crashLink=document.getElementById("pxlNav-crashLink");
+		if(crashLink){
+			crashLink.onclick= this.crashLinkTrigger.bind(this);
+		}
+  }
+	
+  stepLoader(msg=""){
+		this.pxlLoaderCount+=1;
+    let curPerc=Math.min(100, this.pxlLoaderCount/(this.pxlLoaderTotal-1)*100.0 )
+    if( curPerc == 100 ){
+      this.pxlLoader.style.borderRadius = "5px";
+    }
+		this.pxlLoader.style.width= curPerc +"%";
+		if( this.verbose >= VERBOSE_LEVEL.INFO ){
+		  console.log("Loader", this.pxlLoaderCount, this.pxlLoader.style.width, "; "+msg,);
+    }
+  }
+  
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- //
+
+  setLoaderPhrases( phrases, clear=true ){
+    if( phrases &amp;&amp; phrases.length > 0 ){
+      if( clear ){
+        this.loaderPhrases = [];
+      } 
+      this.loaderPhrases = this.loaderPhrases.concat( phrases );
+
+      // Check if this function was run after the loader was created
+      //   Likely, since the loader starts on init,
+      //     Future proofing here
+      this.setLoaderObjMessage();
+    }
+  }
+
+  setLoaderObjMessage(){
+    let loaderMsgObj=document.getElementById("loaderMessage");
+    if(loaderMsgObj){
+      // I was seeing too many repeats, multi-mod that number!
+      let ranEntry = Math.floor( (Math.random()*17391.537193 * this.loaderPhrases.length) % this.loaderPhrases.length  );
+      let loaderMsg = this.loaderPhrases[ ranEntry ];
+      loaderMsgObj.innerHTML=loaderMsg;
+    }
+  }
+
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- //
+	
+  booted(){
+    this.buildHudBlock();
+    this.buildTopBar();
+    //this.buildMedalionBar();
+    this.buildBottomBar();
+    this.buildGuiWindowContainer();
+    this.buildUserControlBlock();
+    this.buildRawHtml();
+		
+		// -- -- 
+		
+		this.prepPageDisplay();
+		// this.setPageToDisplay( true );
+		// this.togglePageDisplay( true );
+  }
+  
+  step(){
+  this.updateGuiPositions();
+  
+    if( this.pxlUser?.checkItemWearOff(this.pxlTimer.prevMS) ){
+      this.hideItemHud();
+    }
+    
+    this.pxlNavDataUpdate();
+  }
+  
+  resize(){
+		this.sW=window.innerWidth;
+		this.sH=window.innerHeight;
+		
+		// Linked to icons, run for any parenting
+		this.resetHelpTextPlacement();
+		
+		let optionList=["videoinput","audioinput","audiooutput"];
+		optionList.forEach( (type)=>{
+			let optionBlockId=null;
+			let curIcon=null;
+			if( type=="videoinput" ){
+		//this.camChoicesObj=deviceList;
+		optionBlockId="camChoiceOptionsBlock";
+		curIcon=this.hudIcons.camChoiceIcon;
+			}else if( type=="audioinput" ){
+		//this.micChoicesObj=deviceList;
+		optionBlockId="micChoiceOptionsBlock";
+		curIcon=this.hudIcons.micChoiceIcon;
+			}else if( type=="audiooutput" ){
+		//this.micChoicesObj=deviceList;
+		optionBlockId="speakerChoiceOptionsBlock";
+		curIcon=this.hudIcons.speakerChoiceIcon;
+			}
+			
+			let optionBlock=document.getElementById( optionBlockId );
+			if(optionBlock &amp;&amp; curIcon){
+		let curWidth=optionBlock.getBoundingClientRect().width
+		
+		let bbox=curIcon.parent.getBoundingClientRect();
+		optionBlock.style.left=bbox.x-curWidth*.5;
+		optionBlock.style.bottom=this.sH - this.hudBottomBar.getBoundingClientRect().y;
+			}
+		});
+    
+    this.setUserControlPosition();
+  
+    this.inviteUserPosition();
+    this.setArtistInfoSizing();
+  }
+  resetHelpTextPlacement(){
+		let hudIconKeys=Object.keys( this.textDescriptions );//this.hudIcons );
+		hudIconKeys.forEach( (i)=>{
+			let textDesc = this.textDescriptions[ i ];
+			if(textDesc){
+				let helpObj=document.getElementById( "helpText_"+i );
+				if(!helpObj){ return; }
+				let parentObj = document.getElementById( i );
+				if(parentObj){
+					let pad=2; 
+					
+					let pos=textDesc.pos;
+					let offset= textDesc.offset ? textDesc.offset : [0,0];
+					let parentBox=parentObj.getBoundingClientRect();
+					let helpBox=helpObj.getBoundingClientRect();
+					
+					let toX=0;
+					let toY=0;
+					let pOffset=false;
+					if(pos[1]&lt;0){
+					toY=parentBox.y+helpBox.height*pos[1];
+					pOffset=true;
+					}else if(pos[1]==0){
+					toY=parentBox.y+parentBox.height*.5-helpBox.height*.5;
+					}else if(pos[1]>0){
+					toY=parentBox.y+parentBox.height+helpBox.height*(pos[1]-1);
+					pOffset=true;
+					}
+					if(pOffset){
+					if(pos[0]&lt;0){
+						toX=parentBox.x+parentBox.width+helpBox.width*pos[0];
+					}else if(pos[0]==0){
+						toX=parentBox.x+parentBox.width*.5-helpBox.width*.5;
+					}else if(pos[0]>0){
+						toX=parentBox.x+parentBox.width*(pos[0]-1);
+					}
+					}else{
+					if(pos[0]&lt;0){
+						toX=parentBox.x+helpBox.width*pos[0];
+					}else if(pos[0]==0){
+						toX=parentBox.x+parentBox.width*.5-helpBox.width*.5;
+					}else if(pos[0]>0){
+						toX=parentBox.x+parentBox.width*2*pos[0];
+					}
+					}
+					toX=toX+offset[0];
+					
+					if(toX+helpBox.width > this.sW-pad){
+					toX=this.sW-pad-helpBox.width;
+					}else if(toX&lt;pad){
+					toX=pad;
+					}
+					toY=toY+offset[1];
+					
+					helpObj.style.left=toX;
+					helpObj.style.top=toY;
+				}else{
+					helpObj.style.display="none";
+				}
+			}
+		});
+  }
+  
+  crashLinkTrigger(e){
+    let search=location.search.match(/[a-zA-Z0-9=]+/g)
+    if(search){
+      let retSearch="?";
+      search.forEach( (s)=>{
+        let splitter=s.split("=");
+        if( splitter[0]=="dlimit" ){
+          retSearch+=splitter[0]+"="+(parseInt(splitter[1])+1)+"&amp;";
+        }else{
+          retSearch+=s+"&amp;"
+        }
+      });
+      location.search=retSearch;
+    }else{
+      location.search="?dlimit=1";
+    }
+  }
+   
+  guiToggleVisibility( active=null ){
+    active = active==null ? !this.hudVisibility : active;
+    this.hudVisibility=active;
+
+    if(this.hudTopBar &amp;&amp; !this.hudTopBar.origDisplay){ this.hudTopBar.origDisplay = this.hudTopBar.style.display;}
+    if(this.fastTravelBar &amp;&amp; !this.fastTravelBar.origDisplay){ this.fastTravelBar.origDisplay = this.fastTravelBar.style.display; }
+    if(this.hudBottomBar&amp;&amp; !this.hudBottomBar.origDisplay){ this.hudBottomBar.origDisplay = this.hudBottomBar.style.display; }
+
+    if( active ){
+      if(this.hudTopBar) this.hudTopBar.removeAttribute("style"); 
+      if(this.fastTravelBar) this.fastTravelBar.removeAttribute("style"); 
+      if(this.hudBottomBar) this.hudBottomBar.removeAttribute("style"); 
+      
+      if( this.userControlBlock ){
+        let topStyle=this.userControlBlock.gui.style.top;
+        this.userControlBlock.gui.removeAttribute("style"); 
+        this.userControlBlock.gui.style.top = topStyle;
+      }
+    }else{
+      if(this.hudTopBar) this.hudTopBar.style.display = "none" ;
+      if(this.fastTravelBar) this.fastTravelBar.style.display = "none" ;
+      if(this.hudBottomBar) this.hudBottomBar.style.display = "none" ;
+      if(this.userControlBlock) this.userControlBlock.gui.style.display = "none" ;
+    }
+    if( this.hudElements.artistInfo ){
+      this.hudElements.artistInfo.parent.style.display = active ? "grid" : "none" ;
+    }
+  }
+  
+  
+  
+  /**
+  * Prep css classes for promptFader to isolate required css from external files
+  */
+	// TODO : ... Why? Figure out why its used and just do class list toggles
+  cssBuildClasses(){
+		let faderStyle=document.createElement('style');
+		faderStyle.type="text/css";
+		faderStyle.innerHTML=`
+			.fader{
+				transition: opacity .8s, filter .8s;
+			}
+			.visOn{
+				filter:alpha(opacity=100);
+				opacity:1.0;
+			}
+			.visOff{
+				filter:alpha(opacity=0);
+				opacity:0.0;
+			}
+		`;
+		document.getElementsByTagName('head')[0].appendChild(faderStyle);
+  }
+
+  /**
+  * Prep an object with propper css classes to work with {@link promptFader}
+  * @param {(string|object)} obj Object to set classes to.
+  * @param {boolean=} startVis If the object starts visible or not. Defaults to not visible, easier for a fade in.
+  */
+  prepPromptFader( obj, startVis=false ){
+		let curObj=obj;
+		if( typeof(curObj) === "string" ){
+			curObj=document.getElementById(curObj);
+			if(!curObj){
+				return;
+			}
+		}
+			
+		curObj.classList.add("fader");
+		curObj.classList.add( (startVis ? "visOn" : "visOff") );
+		curObj.style.display= startVis ? "inline-block" : "none";
+  }
+  
+  /**
+  * Fade an object in or out of visiblity over time.
+  * Fade animation uses css for the visuals, but uses clock time for automatic fade out events.
+  * @param {(string|object)} faderObjObject to fade in or out.
+  * @param {boolean} vis Visiblity state to fade to.
+  * @param {number=} fadeOutLimit Length of time in Seconds until the object automatically fades out.
+  * This occures in the requestAnimationFrame Render function.
+  * @param {boolean=} deleteOnEnd Option to remove the object from the document once the fade out completes.
+  * For garbage collection reasons, its advised to set this `true` when possible.
+  */
+  promptFader(faderObj, vis, fadeOutLimit=null, deleteOnEnd=false){
+  if(typeof(faderObj)=="string"){
+    faderObj=document.getElementById(faderObj);
+    if(!faderObj){
+      return;
+    }
+  }
+  if(faderObj.classList.value.indexOf("fader")&lt;0){
+    faderObj.classList.add("fader");
+  }
+  if(vis){
+    faderObj.style.display="inline-block";
+    setTimeout( ()=>{
+        if(faderObj.classList.contains("visOff")){
+          faderObj.classList.remove("visOff");
+          faderObj.classList.add("visOn");
+          if(fadeOutLimit!=null){
+            faderObj.setAttribute("fadeOut", clockTime+fadeOutLimit*1000);
+            fadeOutList.push(faderObj);
+          }
+        }
+    }, 50);
+  }else{
+    faderObj.classList.remove("visOn");
+    faderObj.classList.add("visOff");
+    if(deleteOnEnd){
+  let transEnd=["webkitTransitionEnd", "otransitionend", "oTransitionEnd", "msTransitionEnd", "transitionend"];
+  transEnd.forEach((end)=>{
+    faderObj.addEventListener(end,()=>{
+    let curParent=faderObj.parentNode;
+    if(curParent){
+      curParent.removeChild(faderObj);
+    }
+    });
+  });
+    }else{
+      setTimeout( ()=>{
+        if(faderObj.classList.contains("visOff")){
+          faderObj.style.display="none";
+        }
+      }, 1000);
+    }
+  }
+  }
+  
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+  buildConsole(){
+    let consoleBlock=document.createElement("div");
+    consoleBlock.id="consoleBlock";
+    consoleBlock.classList.add("consoleBlockStyle");
+    this.addToContainer(consoleBlock);
+    this.guiWindows.consoleBlock={ active:false, gui:consoleBlock };
+  }
+
+  buildMessageBlock( msg, type="Info" ){
+    let messageBlock=document.createElement("div");
+    this.msgCount++;
+    messageBlock.id="messageBlock-"+this.msgCount;
+    messageBlock.classList.add("messageBlockStyle");
+    messageBlock.classList.add("message"+type);
+
+    let self = this;
+    let closeBtn=document.createElement("div");
+    closeBtn.classList.add("messageCloseBtn");
+    closeBtn.innerHTML="X";
+    closeBtn.addEventListener("click", function(){
+      self.removeMessage( messageBlock );
+    });
+
+    let messageTopBar = document.createElement("div");
+    messageTopBar.classList.add("messageTopBarStyle");
+    
+    let messageHeader = document.createElement("div");
+    messageHeader.classList.add("messageHeaderStyle");
+    messageHeader.innerHTML=type;
+    messageTopBar.appendChild( messageHeader );
+    messageTopBar.appendChild( closeBtn );
+    messageBlock.appendChild( messageTopBar );
+
+    let messageContent = document.createElement("div");
+    messageContent.classList.add("messageContentStyle");
+    messageContent.innerHTML=msg;
+    messageBlock.appendChild( messageContent );
+
+    return messageBlock;
+  }
+
+  print( msg ){
+    if( !this.guiWindows.consoleBlock ){
+      this.buildConsole();
+    }
+    if( !this.guiWindows.consoleBlock.active ){
+      this.guiWindows.consoleBlock.active=true;
+      this.promptFader( this.guiWindows.consoleBlock.gui, true );
+    }
+    let consoleBlock=this.guiWindows.consoleBlock.gui;
+    let consoleMsg=this.buildMessageBlock( msg );
+    consoleBlock.appendChild( consoleMsg );
+  }
+
+  
+/////////////////////////////////////////////
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////
+
+  /**
+  * For GUI elements, when option boxes and prompts are open; this is the object when clicked will close all open windows.
+  */
+  buildHudBlock(){
+  if(!this.buildGuiStatus.hud){
+    return;
+  }
+  let hudBlock=document.createElement( "div" );
+  hudBlock.id="hudBlock";
+  hudBlock.classList.add("hudBlockStyle");
+  this.hudBlock.obj=hudBlock;
+  this.addToContainer( this.hudBlock.obj );
+  this.hudBlock.obj.style.display="none";
+  
+  let tmpThis=this;
+  this.hudBlock.obj.addEventListener("click", (e)=>{ tmpThis.toggleHudBlock( false, true ); } );
+  }
+  
+  /**
+  * Toggle visibility of the background GUI exit object.
+  * Option to to set the specific visibility, along with force closing all open GUI windows.
+  * TODO: Set up heirachical windows, so instead of just closing all windows, the click action goes back to the previous menu.
+  * @param {boolean=} active The visibility value to set the background GUI exit object.
+  * @param {boolean=} close If all open GUI window objects need to close out as well.
+  */
+  toggleHudBlock(active=null, close=false){
+  if(!this.hudBlock){
+    return; // No Hud Block Exists
+  }
+  active = active==null ? !this.hudBlock.active : active;
+  this.hudBlock.active=active;
+  let hudObjDisplay = false
+  if( active ){
+    hudObjDisplay="inline-block";
+  }else{
+    if( !this.checkOpenWindows( close ) ){ // Returns if any windows are open, if not, hide the background object.
+  hudObjDisplay="none";
+  if(this.pxlNavCanvas){ this.pxlNavCanvas.focus(); }
+    }
+  }
+  
+  if( this.hudBlock.obj &amp;&amp; this.hudBlock.obj.style &amp;&amp; hudObjDisplay != false ){
+    this.hudBlock.obj.style.display=hudObjDisplay;
+  }
+    
+  }
+  /**
+  * Return a value of `true` or `false` if there is an open gui window.
+  * With option to close any open windows, as a quick exit out of all GUI elements.
+  * @param {boolean=} close Optional for closing all open GUI windows.
+  */
+  checkOpenWindows( close=false ){
+  let guiList = Object.keys( this.guiWindows );
+  let openStatus=false;
+  guiList.forEach( (g)=>{
+      if( g == "chatBoxGui" ){
+        return;
+      }
+    if(close){
+  if(this.guiWindows[g].button){
+    this.flipIcon(this.guiWindows[g].button, false );
+  }
+  if(this.guiWindows[g].gui &amp;&amp; this.guiWindows[g].active){
+    this.guiWindows[g].active=false;
+    this.promptFader( this.guiWindows[g].gui, false );
+          
+          if( g == "settingsGui" ){
+            this.togglePxlNavDataDisplay( false );
+          }
+  }
+    }
+    openStatus=openStatus || this.guiWindows[ g ].active;
+  });
+  return openStatus;
+  }
+  
+  
+  checkFocus( targetId=null, isPxlCore=null ){
+    if( isPxlCore===true ){
+      if( this.guiWindows.inviteUserGui &amp;&amp; this.guiWindows.inviteUserGui.active ){
+        this.toggleInviteUser(false);
+      }
+    }
+  }
+  /* -- -- -- -- -- -- -- -- -- -- */
+  
+  buildRawHtml(){}
+	
+  buildTopBar(){
+		if( this.mobile || !this.buildGuiStatus.userTopBar ){
+			return;
+		}
+		
+		let topBar=document.createElement( "div" );
+		topBar.id="hud_topBar";
+		topBar.classList.add("hud_topBarBlockStyle");
+		this.hudTopBar=topBar;
+		this.addToContainer( this.hudTopBar );
+		
+		let subHtml="";
+		//%=
+			//subHtml=`&lt;object id="statsIcon" data='${this.guiRoot}icons/icon_stats.svg' type='image/svg+xml'>&lt;/object>`;
+			subHtml=`&lt;div id="statsIcon">&lt;/div>`;
+		//%
+		//&amp;=
+			subHtml+=`&lt;/div>
+		&lt;div id="usersIconParent">
+			&lt;div id="usersIcon">&lt;/div>`;
+		//&amp;
+		
+		let html;
+		html=`
+			&lt;div id="hud_localVideoStyle" class="hud_localVideoStyle">&lt;/div>
+			&lt;div id="hud_topBarParent" class="hud_topBarParentStyle">
+		&lt;div id="statsIconParent">
+			${subHtml}
+		&lt;/div>
+		&lt;div  class="hud_topBarVSpacerStyle">&lt;/div>
+			&lt;/div>
+		`;
+		topBar.innerHTML=html;
+		//%=
+		this.hudIcons.statsIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_stats.svg`, "statsIcon", "stats" );
+		this.hudIcons.statsIcon.promise.finally(()=>{
+
+		});
+		//%
+		//&amp;=
+		this.hudIcons.usersIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_user.svg`, "usersIcon", "users" );
+		//&amp;
+    
+    let pnDataDisplayParent=document.createElement( "div" );
+		pnDataDisplayParent.id="hud_pxlNavData";
+		pnDataDisplayParent.classList.add("hud_pxlNavDataParentStyle");
+    topBar.appendChild( pnDataDisplayParent );
+    this.pxlNavData.gui=pnDataDisplayParent;
+    let pnDataDisplay=document.createElement( "div" );
+		pnDataDisplay.id="hud_pxlNavData";
+		pnDataDisplay.classList.add("hud_pxlNavDataStyle");
+    pnDataDisplayParent.appendChild( pnDataDisplay );
+    
+    html=`
+      &lt;div class="hud_pxlNavData_FPS gui_boldText">FPS&lt;/div>&lt;div class="hud_pxlNavData_FPS">:&lt;/div>&lt;div id="hud_pxlFPS" class="hud_pxlNavData_FPS"> - &lt;/div>
+      &lt;div class="hud_pxlNavData_UL gui_boldText">↑&lt;/div>&lt;div class="hud_pxlNavData_UL">:&lt;/div>&lt;div id="hud_pxlUL" class="hud_pxlNavData_UL"> - &lt;/div>
+      &lt;div class="hud_pxlNavData_DL gui_boldText">↓&lt;/div>&lt;div class="hud_pxlNavData_DL">:&lt;/div>&lt;div id="hud_pxlDL" class="hud_pxlNavData_DL"> - &lt;/div>
+    `;
+    pnDataDisplay.innerHTML=html;
+    
+    this.pxlNavData.fps=document.getElementById("hud_pxlFPS");
+    this.pxlNavData.ul=document.getElementById("hud_pxlUL");
+    this.pxlNavData.dl=document.getElementById("hud_pxlDL");
+  }
+  
+  buildUserControlBlock(){
+    this.userControlBlock={};
+    this.userControlBlock.activeList=[];
+    this.userControlBlock.userList={};
+    this.userControlBlock.mutedList=[];
+    
+		let userControlsBlock=document.createElement( "div" );
+    userControlsBlock.classList.add( "userControlBlockStyle" );
+		this.addToContainer( userControlsBlock );
+    this.userControlBlock.gui=userControlsBlock;
+    
+    this.userControlBlock.speakerIcon = null;//SVGUtils.svgRawPromise( `${this.guiRoot}icons/icon_userSpeaker.svg` );
+  }
+  
+  
+  /*
+    this.buildGuiStatus={
+      djPlayer:false,
+      roomControls:true,
+      verseList:false,
+      medalion:true
+    };
+    this.branding={
+      loader:guiRoot+"branding/logogram.svg",
+      logo:guiRoot+"branding/logomark.svg",
+      medalion:guiRoot+"branding/logomark.svg",
+      stack:guiRoot+"branding/logostack.svg"
+    };
+  svgIconPromise( url, id, clickEvent, curVal=null, style=null, postLoadCmd=null ){
+  */
+  buildMedalionBar(){
+    if( this.buildGuiStatus.medalion ){
+      let medalionBar=document.createElement( "div" );
+      medalionBar.id="hud_medalionBar";
+      medalionBar.classList.add("hud_medalionIconBlockStyle");
+      this.hudMedalionBar=medalionBar;
+      this.addToContainer( this.hudMedalionBar );
+      
+      
+      let html=`
+        &lt;div id="medalionIconParent" class="hud_speakerIconStyle">
+          &lt;div id="medalionIcon">&lt;/div>
+        &lt;/div>
+        &lt;div id="medalionTitle" class="medalionTitleStyle">${this.branding.title}&lt;/div>
+      `;
+      this.hudMedalionBar.innerHTML=html;
+      
+      // -- -- -- -- -- -- -- -- -- -- //
+      let mIcon=document.getElementById("medalionIcon");
+      let mTitle=document.getElementById("medalionTitle");
+        mIcon.addEventListener("mouseover", ()=>{
+          mTitle.classList.add("medalionTitleGrowStyle");
+        });
+        mIcon.addEventListener("mouseout", ()=>{
+          mTitle.classList.remove("medalionTitleGrowStyle");
+        });
+      
+      this.hudIcons.medalionIcon = SVGUtils.svgIconPromise( this.branding.medalion, "medalionIcon", "info", null, "medalionStyle" );
+    }
+  }
+  
+  buildBottomBar(){
+  
+  if( !this.buildGuiStatus.bottomBar ){
+    return;
+  }
+  let bottomBar=document.createElement( "div" );
+  bottomBar.id="hud_bottomBar";
+  bottomBar.classList.add("hud_bottomBarStyle");
+  this.hudBottomBar=bottomBar;
+  this.addToContainer( this.hudBottomBar );
+  
+  //&lt;object id="usersIcon" data='${this.guiRoot}icons/icon_user.svg' type='image/svg+xml'>&lt;/object>
+  
+  let html="";
+  html+=`
+    &lt;div id="hud_chatIconBlock" class="hud_bottomLeftBlockStyle">
+        &lt;div id="settingsIconParent" class="hud_settingsIconStyle">
+          &lt;object id="settingsIcon">&lt;/object>
+        &lt;/div>
+  &lt;div>&lt;/div>
+        &lt;div id="helpIconParent" class="hud_helpIconStyle">
+          &lt;object id="helpIcon">&lt;/object>
+        &lt;/div>
+        `;
+    if( !this.mobile &amp;&amp; this.buildGuiStatus.verseList ){
+      html+=`&lt;div class="hud_usersIconStyle">
+            &lt;div id="multiverseIcon">&lt;/div>
+          &lt;/div>
+          &lt;div>&lt;/div>`;
+    }
+    /*html+= `&lt;div id="musicControllerBlock" class="hud_musicControllerBlockStyle">kj
+  &lt;/div>
+      `;*/
+    html+='&lt;/div>';
+    if( !this.mobile ){
+      html+=`
+        &lt;div class="hud_micCamIconsBlockStyle">
+          &lt;div id="speakerIconParent" class="hud_speakerIconStyle">
+            &lt;div id="speakerIcon">&lt;/div>
+          &lt;/div>
+          &lt;div id="speakerChoiceIconParent" class="hud_speakerChoiceIconStyle">
+            &lt;div id="speakerChoiceOptionsBlock" class="gui_iconButtonPopup">
+            &lt;/div>
+            &lt;div id="speakerChoiceIconParent">
+              &lt;div id="speakerChoiceIcon" class="iconCaretStyle">&lt;/div>
+            &lt;/div>
+          &lt;/div>
+          &lt;div class="hud_micCamSpacerStyle">&lt;/div>
+          &lt;div id="micIconParent" class="hud_micIconStyle">
+            &lt;div id="micIcon">&lt;/div>
+          &lt;/div>
+          &lt;div id="micChoiceIconParent" class="hud_micChoiceIconStyle">
+            &lt;div id="micChoiceOptionsBlock" class="gui_iconButtonPopup">
+            &lt;/div>
+            &lt;div id="camChoiceIconParent">
+              &lt;div id="micChoiceIcon" class="iconCaretStyle">&lt;/div>
+            &lt;/div>
+          &lt;/div>
+          &lt;div class="hud_micCamSpacerStyle">&lt;/div>
+          &lt;div id="camIconParent" class="hud_camIconStyle">
+            &lt;div id="camIcon">&lt;/div>
+          &lt;/div>
+          &lt;div id="camChoiceIconBlock" class="hud_camChoiceIconStyle">
+            &lt;div id="camChoiceOptionsBlock" class="gui_iconButtonPopup">
+            &lt;/div>
+            &lt;div id="camChoiceIconParent">
+              &lt;div id="camChoiceIcon" class="iconCaretStyle">&lt;/div>
+            &lt;/div>
+          &lt;/div>
+        &lt;/div>
+        
+        &lt;div id="hud_helpInfoSettingsBlock" class="hud_helpInfoSettingsBlockStyle">
+          &lt;div class="guiVerseHudTitle">
+            &lt;span id="guiVerseTitle">&lt;/span>
+          &lt;/div>
+          &lt;div>&lt;/div>
+          &lt;div id="chatIconParent" class="hud_chatIconStyle">
+            &lt;div id="chatIcon">&lt;/div>
+          &lt;/div>
+          &lt;div id="hud_messageCount" class="hud_userCountStyle hud_messageCountBaseStyle">0&lt;/div>
+        &lt;/div>
+      `;
+    }
+  this.hudBottomBar.innerHTML=html;
+  
+  // -- -- -- -- -- -- -- -- -- -- //
+  
+  this.messageCountObj=document.getElementById( "hud_messageCount" );
+  //this.messageCountObj.style.display="none";
+  
+  // ## Damn it React... Damn it native JavaScript ... I want some Angular...
+  this.hudIcons.chatIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_chat.svg`, "chatIcon", "chat" );
+    
+    
+    if( !this.mobile &amp;&amp; !this.pxlAutoCam.enabled ){
+      this.hudIcons.multiverseIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_multiverse.svg`, "multiverseIcon", "multiverse" );
+      this.hudIcons.speakerIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_ProxAudio.svg`, "speakerIcon", "speakerToggle", false );
+      this.hudIcons.speakerChoiceIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_downcaret.svg`, "speakerChoiceIcon", "speakerChoice", false, "iconCaretStyle" );
+      this.hudIcons.micIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_mic.svg`, "micIcon", "micToggle", false );
+      this.hudIcons.micChoiceIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_downcaret.svg`, "micChoiceIcon", "micChoice", false, "iconCaretStyle" );
+      this.hudIcons.camIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_camera.svg`, "camIcon", "camToggle", false );
+      this.hudIcons.camChoiceIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_downcaret.svg`, "camChoiceIcon", "camChoice", false, "iconCaretStyle" );
+      this.hudIcons.helpIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_help.svg`, "helpIcon", "help" );
+      this.hudIcons.settingsIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_settings.svg`, "settingsIcon", "settings" );
+      
+      let guiVerseTitle=document.getElementById("guiVerseTitle");
+      let tmpThis=this;
+    }else{
+      let chatBlock=document.getElementById("hud_chatIconBlock");
+      chatBlock.style.gridAutoColumns= "max-content max-content auto max-content";
+      chatBlock.style.margin= "0px 10px";
+    }
+  }
+
+  // -- -- -- -- -- -- -- -- -- -- //
+	
+  prepArtistInfo( artistInfo=null ){
+    if( !this.pxlEnv?.postIntro || artistInfo=="" ){
+      return;
+    }
+  if( !this.hudElements.artistInfo ){
+      this.hudElements.artistInfo={};
+    this.hudElements.artistInfo.active=false;
+      let artistInfoParent=document.createElement( "div" );
+      artistInfoParent.classList.add( "hud_aristInfoParentStyle" )
+      this.hudElements.artistInfo.parent=artistInfoParent;
+      
+      let artistInfoButton=document.createElement( "div" );
+      artistInfoButton.classList.add( "hud_aristInfoButtonStyle" )
+      artistInfoParent.appendChild( artistInfoButton );
+      let tmpThis=this;
+      artistInfoButton.onclick=()=>{tmpThis.toggleArtistInfo()};
+      this.hudElements.artistInfo.button=artistInfoButton;
+      
+      
+      let artistInfoButtonText=document.createElement( "div" );
+      artistInfoButtonText.classList.add( "hud_aristInfoButtonTextStyle" )
+      artistInfoButtonText.innerHTML="artwork info&amp;nbsp;&amp;nbsp;";
+      artistInfoButton.appendChild( artistInfoButtonText );
+      this.hudElements.artistInfo.buttonText=artistInfoButtonText;
+      
+      let artistInfoButtonSvg=document.createElement( "div" );
+      artistInfoButtonSvg.classList.add( "hud_aristInfoCarrotXStyle" )
+      artistInfoButtonSvg.id="artistInfoCarrotX";
+      artistInfoButton.appendChild( artistInfoButtonSvg );
+      
+      let artistInfoInner=document.createElement( "div" );
+      artistInfoInner.classList.add( "hud_aristInfoInner" )
+      artistInfoInner.innerHTML=artistInfo;
+      artistInfoParent.appendChild( artistInfoInner );
+      this.hudElements.artistInfo.inner=artistInfoInner;
+      
+      this.addToContainer(artistInfoParent);
+      
+      this.hudElements.artistInfo.closeSvg=SVGUtils.svgPromise( `${this.guiRoot}global/carrotClose_animated.svg`, "artistInfoCarrotX" );
+      this.hudElements.artistInfo.closeSvg.promise.finally(()=>{
+        this.artistInfoButtonPrep();
+      });
+  }
+    this.toggleArtistInfo(false);
+      
+    if( artistInfo!= null &amp;&amp; this.hudVisibility &amp;&amp; !this.pxlAutoCam.active){
+      this.hudElements.artistInfo.parent.style.zIndex=155;
+      this.hudElements.artistInfo.parent.style.display="grid";
+      this.hudElements.artistInfo.inner.innerHTML=artistInfo;
+      setTimeout( ()=>{
+        this.setArtistInfoSizing();
+      },20);
+    }else{
+      this.hudElements.artistInfo.parent.style.zIndex=-5;
+      this.hudElements.artistInfo.parent.style.display="none";
+    }
+  }
+  artistInfoButtonPrep( run=0 ){
+  let curSVG=this.hudElements.artistInfo.closeSvg.svg;
+  if(curSVG){ // If this doesn't pass, means loading the svg broke
+    
+    let toX=curSVG.getElementById("carrotToClone_on");
+    let fromX=curSVG.getElementById("carrotToClone_off");
+    if( toX &amp;&amp; fromX ){
+  this.hudElements.artistInfo.onAnim=toX;
+  this.hudElements.artistInfo.offAnim=fromX;
+  
+    }else{
+  if(run==2){
+    // This should never run,
+    //   If it does, check the SVG file has propper IDs on the shapes
+    //console.log("Failed to prep Status SVG");
+  }else{
+    setTimeout( ()=>{
+    this.artistInfoButtonPrep( run+=1 );
+    },100); // This should never hit, so if it does, die after a few runs.
+  }
+    }
+  }
+  }
+  
+  setArtistInfoSizing(){
+    if( this.hudElements.artistInfo ){
+      let iHeight=this.hudElements.artistInfo.inner.clientHeight;
+      let iWidth=this.hudElements.artistInfo.inner.clientWidth;
+      let bHeight=this.hudElements.artistInfo.button.clientHeight;
+      let bWidth=this.hudElements.artistInfo.button.clientWidth;
+      this.hudElements.artistInfo.innerHeight=iHeight;
+      this.hudElements.artistInfo.innerWidth=iWidth;
+      this.hudElements.artistInfo.baseHeight=bHeight;
+      this.hudElements.artistInfo.baseWidth=bWidth;
+      this.hudElements.artistInfo.parent.style.height= iHeight+"px";
+      this.hudElements.artistInfo.parent.style.width= iWidth+"px";
+      let tWidth=this.hudElements.artistInfo.buttonText.clientWidth;
+      this.hudElements.artistInfo.buttonText.maxWidth= tWidth;
+      this.hudElements.artistInfo.buttonText.style.maxWidth= tWidth+"px";
+      this.toggleArtistInfo(this.hudElements.artistInfo.active);
+    }
+  }
+  toggleArtistInfo( active=null ){
+    active= active==null ? !this.hudElements.artistInfo.active : active;
+    this.hudElements.artistInfo.active=active;
+    
+    let iHeight=this.hudElements.artistInfo.innerHeight;
+    let iWidth=Math.min( this.pxlDevice.sW*.3, this.hudElements.artistInfo.innerWidth);
+    let bHeight=this.hudElements.artistInfo.baseHeight;
+    let bWidth=this.hudElements.artistInfo.baseWidth;
+    this.hudElements.artistInfo.parent.style.maxHeight= active ? iHeight+"px" : bHeight+"px";
+    this.hudElements.artistInfo.parent.style.maxWidth= active ? iWidth+"px" : bWidth+"px";
+    this.hudElements.artistInfo.parent.style.padding= active ? "5px" : "0px";
+    
+    // this.hudElements.artistInfo.buttonText.innerText= active ? "x" : "artwork info";
+    let tWidth=this.hudElements.artistInfo.buttonText.maxWidth;
+    this.hudElements.artistInfo.buttonText.style.maxWidth= active ? "0px" : tWidth+"px";
+    this.hudElements.artistInfo.buttonText.style.opacity= active ? "0" : "1";
+    this.hudElements.artistInfo.buttonText.style.filter= "alpha(opacity="+( active ? "0" : "1000" )+")";
+    
+    this.hudElements.artistInfo.inner.style.opacity= active ? "1" : "0";
+    this.hudElements.artistInfo.inner.style.filter= "alpha(opacity="+( active ? "100" : "0" )+")";
+    
+    if( this.hudElements.artistInfo.onAnim ){
+      if( active ){
+        this.hudElements.artistInfo.onAnim.beginElement();
+      }else{
+        this.hudElements.artistInfo.offAnim.beginElement();
+      }
+    }
+  }
+  
+	// -- -- -- --
+	
+  prepPageDisplay( artistInfo=null ){
+    if( !this.pxlEnv?.postIntro || artistInfo=="" ){
+      return;
+    }
+		if( !this.hudElements.artistInfo ){
+      this.hudElements.artistInfo={};
+			this.hudElements.artistInfo.active=false;
+      let artistInfoParent=document.createElement( "div" );
+      artistInfoParent.classList.add( "hud_aristInfoParentStyle" )
+      this.hudElements.artistInfo.parent=artistInfoParent;
+      
+      let artistInfoButton=document.createElement( "div" );
+      artistInfoButton.classList.add( "hud_aristInfoButtonStyle" )
+      artistInfoParent.appendChild( artistInfoButton );
+      let tmpThis=this;
+      artistInfoButton.onclick=()=>{tmpThis.togglePageDisplay()};
+      this.hudElements.artistInfo.button=artistInfoButton;
+      
+      
+      let artistInfoButtonText=document.createElement( "div" );
+      artistInfoButtonText.classList.add( "hud_aristInfoButtonTextStyle" )
+      artistInfoButtonText.innerHTML="artwork info&amp;nbsp;&amp;nbsp;";
+      artistInfoButton.appendChild( artistInfoButtonText );
+      this.hudElements.artistInfo.buttonText=artistInfoButtonText;
+      
+      let artistInfoButtonSvg=document.createElement( "div" );
+      artistInfoButtonSvg.classList.add( "hud_aristInfoCarrotXStyle" )
+      artistInfoButtonSvg.id="artistInfoCarrotX";
+      artistInfoButton.appendChild( artistInfoButtonSvg );
+      
+      let artistInfoInner=document.createElement( "div" );
+      artistInfoInner.classList.add( "hud_aristInfoInner" )
+      artistInfoInner.innerHTML=artistInfo;
+      artistInfoParent.appendChild( artistInfoInner );
+      this.hudElements.artistInfo.inner=artistInfoInner;
+      
+      this.addToContainer(artistInfoParent);
+      
+		}
+    this.togglePageDisplay(false);
+      
+    if( artistInfo!= null &amp;&amp; this.hudVisibility &amp;&amp; !this.pxlAutoCam.active){
+      this.hudElements.artistInfo.parent.style.zIndex=155;
+      this.hudElements.artistInfo.parent.style.display="grid";
+      this.hudElements.artistInfo.inner.innerHTML=artistInfo;
+      setTimeout( ()=>{
+        this.setArtistInfoSizing();
+      },20);
+    }else{
+      this.hudElements.artistInfo.parent.style.zIndex=-5;
+      this.hudElements.artistInfo.parent.style.display="none";
+    }
+  }
+  
+  setPageToDisplay(){
+    if( this.hudElements.artistInfo ){
+      let iHeight=this.hudElements.artistInfo.inner.clientHeight;
+      let iWidth=this.hudElements.artistInfo.inner.clientWidth;
+      let bHeight=this.hudElements.artistInfo.button.clientHeight;
+      let bWidth=this.hudElements.artistInfo.button.clientWidth;
+      this.hudElements.artistInfo.innerHeight=iHeight;
+      this.hudElements.artistInfo.innerWidth=iWidth;
+      this.hudElements.artistInfo.baseHeight=bHeight;
+      this.hudElements.artistInfo.baseWidth=bWidth;
+      this.hudElements.artistInfo.parent.style.height= iHeight+"px";
+      this.hudElements.artistInfo.parent.style.width= iWidth+"px";
+      let tWidth=this.hudElements.artistInfo.buttonText.clientWidth;
+      this.hudElements.artistInfo.buttonText.maxWidth= tWidth;
+      this.hudElements.artistInfo.buttonText.style.maxWidth= tWidth+"px";
+      this.toggleArtistInfo(this.hudElements.artistInfo.active);
+    }
+  }
+  togglePageDisplay( active=null ){
+    if( this.hudElements.artistInfo ){
+			// If no active boolean is passed, toggle the current state
+			active= active==null ? !this.hudElements.artistInfo.active : active;
+			if( this.hudElements?.artistInfo ){
+				 this.hudElements.artistInfo.active=active;
+			}
+			
+			let iHeight=this.hudElements.artistInfo.innerHeight;
+			let iWidth=Math.min( this.pxlDevice.sW*.3, this.hudElements.artistInfo.innerWidth);
+			let bHeight=this.hudElements.artistInfo.baseHeight;
+			let bWidth=this.hudElements.artistInfo.baseWidth;
+			this.hudElements.artistInfo.parent.style.maxHeight= active ? iHeight+"px" : bHeight+"px";
+			this.hudElements.artistInfo.parent.style.maxWidth= active ? iWidth+"px" : bWidth+"px";
+			this.hudElements.artistInfo.parent.style.padding= active ? "5px" : "0px";
+			
+			// this.hudElements.artistInfo.buttonText.innerText= active ? "x" : "artwork info";
+			let tWidth=this.hudElements.artistInfo.buttonText.maxWidth;
+			this.hudElements.artistInfo.buttonText.style.maxWidth= active ? "0px" : tWidth+"px";
+			this.hudElements.artistInfo.buttonText.style.opacity= active ? "0" : "1";
+			this.hudElements.artistInfo.buttonText.style.filter= "alpha(opacity="+( active ? "0" : "1000" )+")";
+			
+			this.hudElements.artistInfo.inner.style.opacity= active ? "1" : "0";
+			this.hudElements.artistInfo.inner.style.filter= "alpha(opacity="+( active ? "100" : "0" )+")";
+			
+			if( this.hudElements.artistInfo.onAnim ){
+				if( active ){
+					this.hudElements.artistInfo.onAnim.beginElement();
+				}else{
+					this.hudElements.artistInfo.offAnim.beginElement();
+				}
+			}
+		}
+  }
+  
+	
+	// -- -- -- --
+	
+  // TODO : Wow this is stupid....
+  iconEvent(func, obj, mode=null){
+    if(this.hudBlock.obj){
+      this.hudBlock.obj.style.display="none";
+    }
+    if(func=="click"){
+      switch (mode) {
+        case "chat":
+          this.toggleChatBox();
+          break;
+        case "musicToggle":
+          this.pxlAudio.djPlayerMuteToggle();
+          this.toggleIcon(obj, !this.pxlAudio.djMuted, true);
+          break;
+        case "userSpeakerToggle":
+          this.setUserControls(obj);
+          break;
+        case "speakerToggle":
+          this.toggleIcon(obj, false, true);
+          break;
+        case "speakerChoice":
+          let curType = "audiooutput";
+          this.flipIcon(obj, this.guiWindows[curType] &amp;&amp; this.guiWindows[curType].active);
+          break;
+        case "help":
+          let helpActive = this.guiWindows.helpGui ? this.guiWindows.helpGui.active : false;
+          this.checkOpenWindows(true);
+          this.helpGuiToggle(!helpActive);
+          break;
+        case "info":
+          let infoActive = this.guiWindows.infoGui ? this.guiWindows.infoGui.active : false;
+          this.checkOpenWindows(true);
+          this.infoGuiToggle(!infoActive);
+          break;
+        case "settings":
+          let settingsActive = this.guiWindows.settingsGui ? this.guiWindows.settingsGui.active : false;
+          this.checkOpenWindows(true);
+          this.settingsGuiToggle(!settingsActive);
+          break;
+        case "userProfile":
+          this.toggleUserProfile();
+          break;
+        //&amp;=
+        case "users":
+          break;
+        //&amp;
+        case "stats":
+        default:
+          // Handle unknown mode if necessary
+          break;
+      }
+    }
+  }
+  
+  setMicVolumeLevel( volLevel ){
+    if( !this.hudIcons.micIcon.volumeMask ){
+      this.hudIcons.micIcon.volumeMask=document.getElementById("gui_micVolumeMask");
+      this.hudIcons.micIcon.timer=this.pxlTimer.msRunner.x-1;
+    }
+    let yVal= 12-volLevel*11;
+    this.hudIcons.micIcon.volumeMask.setAttribute( "y", yVal );
+  }
+  
+  toggleIcon(obj, active, loadingCheck=false){ // Mute toggle
+    if( obj ){
+      obj.mute.style.filter= active ? "alpha(opacity=0)" : "alpha(opacity=100)";
+      obj.mute.style.opacity= active ? "0" : "1";
+      obj.mute.style.transform= active ? "scale(0,0)" : "scale(1,1)";
+      //obj.mute.style.display=active ? "none" : "inline-block";
+      
+      if( ["camToggle","speakerToggle"].includes( obj.eventType ) ){//"speaker" ){
+        return; // No need to have a loader on the speaker toggle.
+      }
+      
+      let loadingTypeList= { "speakerToggle":"speaker", "micToggle":"audio", "camToggle":"video" };
+      let loadingType= loadingTypeList[ obj.eventType ];
+      if(loadingType &amp;&amp; loadingCheck){
+        this.loadingDeviceChange( loadingType, active );
+      }
+  }
+  }
+  flipIcon(obj, active){ // Caret flip
+  obj.caret.style.transform=`rotate( ${(active ? "180deg" : "0deg")} )`;
+  }
+
+
+/////////////////////////////////////////////
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////
+
+  
+  // -- -- -- -- -- -- -- -- -- //
+  
+  loadingDeviceChange( loadingType, loadingState=true ){
+  let curButton=null;
+  if( loadingType == "speaker"){ // Shouldn't run, but if I add this in the future.
+    curButton=this.hudIcons.speakerIcon;
+  }else if( loadingType == "audio"){
+    curButton=this.hudIcons.micIcon;
+  }else if( loadingType == "video"){
+    curButton=this.hudIcons.camIcon;
+  }
+  
+  curButton.indicator.style.display= loadingState ? "inline-block" : "none";
+  curButton.indicator.style.animationPlayState= loadingState ? "running" : "paused";
+  
+  curButton.waiting.forEach( (p)=>{
+    p.setAttribute("fill-opacity", ( loadingState ? ".5" : "1" ) );
+  });
+  
+  if(loadingState){
+    setTimeout( ()=>{
+  this.loadingDeviceChange(loadingType,false);
+    },1000);
+  }
+  }
+  
+  
+/////////////////////////////////////////////
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////
+  
+  djBuildPlayer(){
+    if( this.buildGuiStatus.djPlayer ){
+      this.djPlayerObj=document.createElement("div");
+      this.djPlayerObj.id="djPlayer";
+      //this.djPlayerObj.classList.add( "fader" );
+      //this.djPlayerObj.classList.add( "visOff" );
+      
+      let djPlayerHtml=`
+          &lt;audio id="djStream" playsinline muted>
+            &lt;source src="`+this.pxlAudio.djUrlSource+`">&lt;/source>
+          &lt;/audio>
+          &lt;table cellpadding=0 cellspacing=5 border=0 style="height:100%;">&lt;tbody>&lt;tr>
+              &lt;td align="left">
+                  &lt;div id="djPlayerVol">&lt;/div>
+              &lt;  d>&lt;td valign="center" align="left" width=100%>
+                  &lt;div id="djPlayerVolumeParent" class="volParent">&lt;div id="djPlayerVolume" class="volSlider">&lt;/div>&lt;/div>
+              &lt;  d>&lt;  r>
+          &lt;  body>&lt;  able>`;
+      this.djPlayerObj.innerHTML=djPlayerHtml;
+
+      let playerParent=document.getElementById( "musicControllerBlock" );
+      playerParent.appendChild( this.djPlayerObj );
+
+      this.hudIcons.musicIcon = SVGUtils.svgIconPromise( `${this.guiRoot}icons/icon_music.svg`, "djPlayerVol", "musicToggle", !this.pxlAudio.djMuted );
+      
+      this.pxlAudio.djBuildPlayer();
+    }
+  }
+  
+
+
+/////////////////////////////////////////////
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////
+
+  
+  buildItemHud(objName, text){
+    this.activeItem.innerHTML=text;
+    this.activeItem.style.opacity="1";
+    this.activeItem.style.filter="alpha(opacity=100)";
+    this.activeItem.style.textShadow="1px 1px 3px #000000";
+    setTimeout(()=>{    
+      this.activeItem.style.fontSize="1.5em";
+      this.activeItem.style.top=".5%";
+      this.activeItem.style.right="140px";
+      this.activeItem.style.transform="translateX(0%)";
+    },1500);
+  }
+  hideItemHud(){
+    this.activeItem.innerHTML="";
+    this.activeItem.style.fontSize="3em";
+    this.activeItem.style.top="10%";
+    this.activeItem.style.right="50%";
+    this.activeItem.style.transform="translateX(50%)";
+    this.activeItem.style.opacity="0";
+    this.activeItem.style.filter="alpha(opacity=0)";
+  }
+  
+
+  mapPrepPrompts(){
+    this.activeItem=document.createElement("div");
+    this.activeItem.classList.add("activeItemStyle");
+    this.addToContainer(this.activeItem);
+  }
+  
+  updateGuiPositions(){
+    if(this.loading){
+      let cLen=this.radioControls.length;
+      let stillLoading=false;
+      for(let x=0; x&lt;cLen; ++x){
+    if(!this.radioControls[x][3]){
+      stillLoading=true;
+      break;
+    }
+    let child=this.radioControls[x][0];
+    let parent=this.radioControls[x][2];
+    let pBB=parent.getBoundingClientRect();
+    let cW=pBB.width+this.buttonPadding*2;
+    let cH=pBB.height+this.buttonPadding*2;
+    let cT=pBB.top-this.buttonPadding;
+    let cL=pBB.left-this.buttonPadding;
+    child.style.width=cW;
+    child.style.height=cH;
+    child.style.top=cT;
+    child.style.left=cL;
+    
+    this.radioControls[x][1].style.width=cW;
+    this.radioControls[x][1].style.height=cH;
+    this.radioControls[x][1].style.top=cT;
+    this.radioControls[x][1].style.left=cL;
+      }
+      this.loading=stillLoading;
+    }
+  }
+
+
+/////////////////////////////////////////////
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////
+
+  
+  togglGuiWindow( guiName=null, vis=false ){
+    if(guiName=="helpGui"){
+      this.helpGuiToggle( vis, false );
+    }else if(guiName=="infoGui"){
+      this.infoGuiToggle( vis, false );
+    }else if(guiName=="settingsGui"){
+      this.settingsGuiToggle( vis, false );
+    }
+  }
+
+  svgCheckClick(e=null, action=null){
+    if(!action){ return; }
+    
+    if( action== "close" ){
+      this.toggleGuiWindowContainer(null, false, true );
+      return;
+    
+    }else if(action=="ft1"){
+      return;
+    }else if(action=="ft2"){
+      return;
+    }else if(action=="ft3"){
+        this.toggleInviteUser();
+      return;
+    }else if(action=="ft4"){
+      return;
+    }else if(action=="ft5"){
+      this.pxlAutoCam.toggleAutoCam();
+      return;
+    }
+  }
+  svgStylize(e=null, active=false){
+    if( !e ){ return; }
+    let target= e.path ? e.path[1] : e.target.parentNode;
+
+    let stateObj=target.getElementById("state");//getElementsByTagName("id");
+      if(stateObj){
+        let color= active ? "white" : "none" ;
+        stateObj.setAttribute("fill", color );
+      }
+    
+    let hoverObj=target.getElementById("hover");//getElementsByTagName("id");
+    if(hoverObj){
+      hoverObj.setAttribute("fill", color );
+    }
+  }
+  
+  renderQualitySettings(val){
+  this.pxlQuality.percent=val;
+  this.pxlQuality.screenResPerc=val*.75+.25;
+  this.pxlQuality.mapAutoQualityUpdate(val, true);
+  this.pxlDevice.resizeRenderResolution();
+  }
+
+
+  pxlNavDataUpdate(){
+    if( this.pxlNavData.active &amp;&amp; this.pxlNavData?.fps ){
+      if( this.pxlTimer.msRunner.x > this.pxlNavData.fpsSet ){
+        this.pxlNavData.fpsSet=this.pxlTimer.msRunner.x+1;
+        this.pxlNavData.fps.innerText=parseInt(1  / this.pxlTimer.msRunner.y);
+      }
+    }
+  }
+
+
+/////////////////////////////////////////////
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////
+
+
+  buildGuiWindowContainer(){
+  let bgDiv=document.createElement("div");
+  bgDiv.classList.id="guiWindowBackground";
+  bgDiv.classList.add("guiWindowBackground");
+  bgDiv.classList.add("fader");
+  bgDiv.classList.add("visOff");
+  bgDiv.style.display="none";
+  
+  let tmpThis=this;
+  bgDiv.onclick=(e)=>{
+    tmpThis.toggleGuiWindowContainer(e, false, true );
+  }
+  this.guiWindowBG=bgDiv;
+  this.addToContainer( bgDiv );
+  }
+  toggleGuiWindowContainer(e, active, closeWindows=false ){
+  if(e){
+    let target= e.path ? e.path[0] : e.target;
+    let targetId=target.getAttribute("id");
+    if(targetId!="guiWindowBackground"){
+      // ## Bad way to do this....
+      let exitObjList=["gui_helpGuiWindow", "gui_helpContent", "gui_infoGuiWindow", "gui_infoContent", "gui_settingsGuiWindow", "gui_settingsContent"];
+      if( !exitObjList.includes( targetId ) ){
+        return null;
+      }
+    }
+  }
+    let openStatus=this.checkOpenWindows( closeWindows );
+
+    
+  if(this.guiWindowBG &amp;&amp; openStatus==active ){ this.promptFader(this.guiWindowBG, active,null,false); }
+  if(active){
+    this.pxlNavCanvas.blur();
+  }else{
+    this.pxlNavCanvas.focus();
+  }
+  }
+
+  helpGuiBuild(){
+    this.guiWindows.helpGui={};
+    this.guiWindows.helpGui.gui=null;
+    this.guiWindows.helpGui.active=false;
+    
+    let helpGuiDiv=document.createElement( "div" );
+    helpGuiDiv.id="gui_helpGuiWindow";
+    helpGuiDiv.classList.add("gui_helpGuiParentStyle");
+    this.prepPromptFader( helpGuiDiv );
+    this.guiWindowBG.appendChild( helpGuiDiv );
+    
+    let html="";
+    html+=`
+      &lt;div id="gui_helpContent" class="gui_contentStyle">
+    &lt;div class="gui_body">
+      &lt;div id="gui_helpGui_keyboardParent" class="gui_helpGui_keyboardParent">
+      &lt;div id="gui_helpGui_controlsKeyboard" class="guiPadding settings_sectionHeader">keyboard controls&lt;/div>
+      &lt;div class="gui_helpGui_ASDWorUDLR">
+        &lt;div id="gui_helpGui_asdw" class="gui_helpGui_asdw">&lt;/div>
+        &lt;div id="gui_helpGui_or" class="gui_helpGui_text">or&lt;/div>
+        &lt;div id="gui_helpGui_udlr" class="gui_helpGui_udlr">&lt;/div>
+      &lt;/div>
+      &lt;div id="gui_helpGui_useKeys" class="gui_helpGui_text" style="display:inline-block;">Use your keyboard &lt;span class="gui_boldText">WASD&lt;/span> or&lt;br>&lt;span class="gui_boldText">ARROWS&lt;/span> keys to move around&lt;/div>
+      &lt;/div>
+      &lt;div id="gui_helpGui_mouse" class="gui_helpGui_mouse">
+      &lt;div id="gui_helpGui_MouseControls" class="guiPadding settings_sectionHeader">mouse controls&lt;/div>
+      &lt;div id="gui_helpGui_MouseOutlined" class="gui_helpGui_mouseOutline">&lt;/div>
+      &lt;div id="gui_helpGui_useMouse" class="guiPadding gui_helpGui_text" style="display:inline-block;">To orient your view:&lt;br>&lt;span class="gui_boldText">LEFT CLICK&lt;/span> and drag your mouse&lt;br>&lt;span class="gui_boldText">RIGHT CLICK&lt;/span> to lock your mouse&lt;/div>
+      &lt;/div>
+    &lt;/div>
+    &lt;div id="gui_helpGui_hotKeys" class="gui_helpGui_hotKeys">
+            You can change &lt;span class="gui_boldText">Navigation&lt;/span> and &lt;span class="gui_boldText">Look controls&lt;/span> in the &lt;span class="gui_boldText">Settings (G)&lt;/span> &lt;span id="gui_helpGui_settingIcon">&lt;/span> menu
+            &lt;br> To show this screen again, open the &lt;span class="gui_boldText">Help (H)&lt;/span> screen
+            &lt;br> For additional info, see the &lt;span class="gui_boldText">Info (I)&lt;/span> screen
+          &lt;/div>
+    &lt;div id="guiHelpFooter" class="gui_footer">
+      &lt;div class="guiButton" id="guiHelpBackButton">close&lt;/div>
+    &lt;/div>
+    &lt;div class="gui_spacer">&lt;/div>
+      &lt;/div>
+    `;
+    helpGuiDiv.innerHTML=html;
+      
+    // SVG images to load into which divs
+    let svgDivList=[
+      [this.guiRoot+"keyboard_asdw.svg", "gui_helpGui_asdw","guiKeyDispSVG",false],
+      [this.guiRoot+"keyboard_udlr.svg", "gui_helpGui_udlr","guiKeyDispSVG",false],
+      [this.guiRoot+"mouse_outline.svg", "gui_helpGui_MouseOutlined","guiMouseDispSVG",false],
+    ];
+    svgDivList.forEach( (s)=>{
+      SVGUtils.svgButtonPromise( ...s );
+    });
+    
+    // -- -- --
+
+    // Close Button
+    let tmpThis=this;
+    let guiClose=document.getElementById("guiHelpBackButton");
+    guiClose.onclick=(e)=>{ 
+        if(tmpThis.introHelpActive){
+          tmpThis.introHelpActive=false;
+          tmpThis.pxlEnv.postHelpIntro();
+        }
+        tmpThis.svgCheckClick(e, "close");
+      };
+    
+    // Remove linking from hud icons only
+    //let hudIconKeys=Object.keys( this.hudIcons );
+    let hudIconKeys=Object.keys( this.textDescriptions );
+    //hudIconKeys.push( "djPlayerVolumeParent" );
+    /*hudIconKeys.forEach( (i)=>{
+      let textDesc = this.textDescriptions[ i ];
+      if(textDesc){
+        let text = textDesc.text;
+        let pos = textDesc.pos;
+        let helpObj = document.createElement( "div" );
+        helpObj.id = "helpText_"+i;
+        helpObj.classList.add( "helpTextDescriptionParent" );
+        helpObj.innerHTML = text;
+        helpGuiDiv.appendChild( helpObj );
+        this.textDescriptions[ i ].obj = helpObj;
+      }
+    });*/
+  
+      
+    let settingsIcon=document.getElementById("gui_helpGui_settingIcon");
+    if(settingsIcon &amp;&amp; this.hudIcons.settingsIcon){
+      settingsIcon.innerHTML=this.hudIcons.settingsIcon.svg.parentNode.innerHTML;
+      settingsIcon.style.position="relative";
+      settingsIcon.style.top="7.3px";
+      settingsIcon.style.width="30px";
+      settingsIcon.style.padding="2px";
+      settingsIcon.style.cursor="pointer";
+      settingsIcon.children[0].style.height="26px";
+      settingsIcon.onclick=()=>{
+        tmpThis.iconEvent("click", null, "settings");
+      };
+    }
+      
+    // -- -- -- -- -- -- -- -- -- -- //
+    // Store gui window as object
+    this.guiWindows.helpGui.gui=helpGuiDiv;
+    
+    // Let the browser update sizing and any potential display:block limitations
+    setTimeout( ()=>{
+      this.resize();
+    }, 50);
+  }
+  helpGuiToggle( active=null, bgVis=true ){
+    if( !this.guiWindows.helpGui ){
+      this.helpGuiBuild();
+    }
+  
+  active= active==null ? !this.guiWindows.helpGui.active : active;
+  this.guiWindows.helpGui.active=active;
+  this.promptFader( this.guiWindows.helpGui.gui, active );
+  this.toggleGuiWindowContainer( null, active );
+  if(this.hudBlock.active){ this.toggleHudBlock( active ); }
+  
+    
+    if(this.introHelpActive &amp;&amp; !active){
+      this.introHelpActive=false;
+      this.pxlEnv.postHelpIntro();
+    }
+    
+  // Make sure help text is placed correctly; Happens when resizing the window without the help gui open
+  setTimeout( ()=>{
+    this.resetHelpTextPlacement();
+  },20);
+  }
+
+/////////////////////////////////////////////
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////
+
+  infoGuiBuild(){
+  this.guiWindows.infoGui={};
+  this.guiWindows.infoGui.gui=null;
+  this.guiWindows.infoGui.active=false;
+  
+  let infoGuiDiv=document.createElement( "div" );
+  infoGuiDiv.id="gui_infoGuiWindow";
+  infoGuiDiv.classList.add("gui_infoGuiParentStyle");
+  this.prepPromptFader( infoGuiDiv );
+  this.guiWindowBG.appendChild( infoGuiDiv );
+  
+  let html="";
+  html+=`
+    &lt;div id="gui_infoContent" class="gui_contentInfoStyle">
+  &lt;div class="gui_infoBody">
+    &lt;div id="gui_infoGuiParent" class="gui_infoGuiParent">
+    &lt;br>${this.projectTitle}
+    &lt;br>&amp;nbsp;&amp;nbsp; Created by &lt;a href="https://github.com/ProcStack" target="_blank">Kevin Edzenga / ProcStack&lt;/a> 2024; 2025
+    &lt;br>
+    &lt;br>If any bugs are found in pxlNav, you can share them on the GitHub issues page:
+    &lt;br>&amp;nbsp;&amp;nbsp; &lt;a href="https://github.com/ProcStack/pxlNav/issues" target="_blank">pxlNav / issues&lt;/a>
+    &lt;br>
+    &lt;/div>
+  &lt;/div>
+  &lt;div id="guiInfoFooter" class="gui_footer">
+    &lt;div class="guiButton" id="guiInfoBackButton">close&lt;/div>
+  &lt;/div>
+    &lt;/div>
+  `;
+  infoGuiDiv.innerHTML=html;
+        
+  // Close Button
+  let tmpThis=this;
+  let guiClose=document.getElementById("guiInfoBackButton");
+  guiClose.onclick=(e)=>{ tmpThis.svgCheckClick(e, "close"); };
+    
+  
+  // -- -- -- -- -- -- -- -- -- -- //
+  
+  this.guiWindows.infoGui.gui=infoGuiDiv;  
+  }
+  
+  infoGuiToggle(active=null, bgVis=true){
+  if( !this.guiWindows.infoGui ){
+    this.infoGuiBuild();
+  }
+
+  active= active==null ? !this.guiWindows.infoGui.active : active;
+  this.guiWindows.infoGui.active=active;
+  this.promptFader( this.guiWindows.infoGui.gui, active );
+  this.toggleGuiWindowContainer( null, active );
+  if(this.hudBlock.active){ this.toggleHudBlock( active ); }
+    
+    if(this.introHelpActive &amp;&amp; !active){
+      this.introHelpActive=false;
+      this.pxlEnv.postHelpIntro();
+    }
+  }
+  
+/////////////////////////////////////////////
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////
+
+  applyCookies(){
+  if(this.controlSettings){
+    //console.log(this.controlSettings);
+    this.controlSettings=(this.controlSettings);
+  }
+  if(this.renderSettings){
+    //console.log(this.renderSettings);
+    this.renderSettings=(this.renderSettings);
+  }
+  }
+  
+  settingsGuiBuild(){
+  this.guiWindows.settingsGui={};
+  this.guiWindows.settingsGui.gui=null;
+  this.guiWindows.settingsGui.active=false;
+  
+  let settingsGuiDiv=document.createElement( "div" );
+  settingsGuiDiv.id="gui_settingsGuiWindow";
+  settingsGuiDiv.classList.add("gui_settingsGuiParentStyle");
+  this.prepPromptFader( settingsGuiDiv );
+  this.guiWindowBG.appendChild( settingsGuiDiv );
+  let curName="Default";
+    curName=!curName ? "" : curName;
+  let html=`
+    &lt;div id="gui_settingsContent" class="gui_contentSettingsStyle">
+  &lt;div class="gui_settingsBody">
+    &lt;div class="gui_settingsParentGrid">
+    `;
+    if( this.settingsFields.changeUsername ){
+      html+=`
+        &lt;!-- -- Username -- -- -->
+        &lt;div class="cellMargin settings_icon" id="settings_user">&lt;/div>
+        &lt;div class="settings_optionHeader">Username&lt;/div>
+        &lt;div class="settings_radio" style="grid-auto-flow: row; justify-content: start;">
+            &lt;div id="guiuserProfileBoxFieldParent" class="gui_userProfileBoxFieldParentStyle">
+              &lt;input type="text" placeholder="Set your username" value="${curName}" id="settings_usernameInput" class="settings_usernameInput">&lt;/input>
+              &lt;input type="button" value="Set" id="settings_sendUsername" class="sendUsername">
+            &lt;/div>
+            &lt;div id="settings_usernameResponseMessage" class="usernameResponseMessageStyle">&lt;/div>
+        &lt;/div>
+      &lt;!-- -- -- -- -- -- -->
+      &lt;div class="settingsGridSpan settingsSpacer">&lt;/div>
+      &lt;!-- -- -- -- -- -- -->
+      `;
+    }
+    html+=`
+      &lt;!-- -- Left/Right -- -- -->
+    &lt;div class="cellMargin settings_icon" id="settings_left_right">&lt;/div>
+    &lt;div class="settings_optionHeader">Left/Right&lt;/div>
+    &lt;div class="settings_radio" id="settingsRadioBlock_leftRight">
+      &lt;span>
+      &lt;input type="radio" id="settings_tankTurning" name="settings_leftRight" value="0" hidden>
+      &lt;label for="settings_tankTurning">Turn&lt;/label>
+      &lt;/span>
+      &lt;span>
+      &lt;input type="radio" id="settings_strafing" name="settings_leftRight" value="1" hidden>
+      &lt;label for="settings_strafing">Strafe&lt;/label>
+      &lt;/span>
+    &lt;/div>
+      &lt;!-- -- Mouse -- -- -->
+    &lt;div class="cellMargin settings_icon" id="settings_mouse">&lt;/div>
+    &lt;div class="settings_optionHeader">Mouse Looking&lt;/div>
+    &lt;div class="settings_radio" id="settingsRadioBlock_mouse">
+      &lt;span>
+      &lt;input type="radio" id="settings_dragLooking" name="settings_mouse" value="0" hidden>
+      &lt;label for="settings_dragLooking">Native&lt;/label>
+      &lt;/span>
+      &lt;span>
+      &lt;input type="radio" id="settings_pointLooking" name="settings_mouse" value="1" hidden>
+      &lt;label for="settings_pointLooking">Inverted&lt;/label>
+      &lt;/span>
+    &lt;/div>
+      &lt;!-- -- -- -- -- -- -->
+    &lt;div class="settingsGridSpan settingsSpacer">&lt;/div>
+      &lt;!-- -- Graphics Quality -- -- -->
+    &lt;div class="cellMargin settings_icon" id="settings_graphics">&lt;/div>
+    &lt;div class="settings_optionHeader">Graphics Quality&lt;/div>
+    &lt;div class="settings_radio" id="settingsRadioBlock_graphics">
+      &lt;span>
+      &lt;input type="radio" id="settings_graphicsQuality_low" name="settings_autoQuality" value="0" hidden>
+      &lt;label for="settings_graphicsQuality_low">Low&lt;/label>
+      &lt;/span>
+      &lt;span>
+      &lt;input type="radio" id="settings_graphicsQuality_med" name="settings_autoQuality" value="1" hidden>
+      &lt;label for="settings_graphicsQuality_med">Medium&lt;/label>
+      &lt;/span>
+      &lt;span>
+      &lt;input type="radio" id="settings_graphicsQuality_high" name="settings_autoQuality" value="2" hidden>
+      &lt;label for="settings_graphicsQuality_high">High&lt;/label>
+      &lt;/span>
+      &lt;span>
+      &lt;input type="radio" id="settings_graphicsQuality_custom" name="settings_autoQuality" value="3" hidden>
+      &lt;label for="settings_graphicsQuality_custom">Custom&lt;/label>
+      &lt;/span>
+    &lt;/div>
+      &lt;!-- -- -- -- -->
+      &lt;div class="r7Adv gui_settingsAdvancedParentGrid" id="gui_advancedSettings">
+    &lt;!-- -- -- -- -->
+      &lt;div class="cellMargin settings_icon" id="settings_render">&lt;/div>
+      &lt;div class="settings_optionHeader">Render Resolution&lt;/div>
+      &lt;div class="settings_radio" id="settingsRadioBlock_resolution">
+      &lt;span>
+        &lt;input type="radio" id="settings_render_25" name="settings_renderPerc" value=".25" hidden>
+        &lt;label for="settings_render_25">25%&lt;/label>
+      &lt;/span>
+      &lt;span>
+        &lt;input type="radio" id="settings_render_50" name="settings_renderPerc" value=".5" hidden>
+        &lt;label for="settings_render_50">50%&lt;/label>
+      &lt;/span>
+      &lt;span>
+        &lt;input type="radio" id="settings_render_75" name="settings_renderPerc" value=".75" hidden>
+        &lt;label for="settings_render_75">75%&lt;/label>
+      &lt;/span>
+      &lt;span>
+        &lt;input type="radio" id="settings_render_100" name="settings_renderPerc" value="1" hidden>
+        &lt;label for="settings_render_100">100%&lt;/label>
+      &lt;/span>
+      &lt;/div>
+    &lt;!-- -- -- -- -->
+      &lt;div class="cellMargin settings_icon" id="settings_fog">&lt;/div>
+      &lt;div class="settings_optionHeader">Fog Quality&lt;/div>
+      &lt;div class="settings_radio" id="settingsRadioBlock_fog">
+      &lt;span>
+        &lt;input type="radio" id="settings_noRedFog" name="settings_fogLevel" value="0" hidden>
+        &lt;label for="settings_noRedFog">Low&lt;/label>
+      &lt;/span>
+      &lt;span>
+        &lt;input type="radio" id="settings_cheapResFog" name="settings_fogLevel" value="1" hidden>
+        &lt;label for="settings_cheapResFog">Medium&lt;/label>
+      &lt;/span>
+      &lt;span>
+        &lt;input type="radio" id="settings_highResFog" name="settings_fogLevel" value="2" hidden>
+        &lt;label for="settings_highResFog">High&lt;/label>
+      &lt;/span>
+      &lt;/div>
+    &lt;!-- -- -- -- -->
+      &lt;div class="cellMargin settings_icon" id="settings_bloom">&lt;/div>
+      &lt;div class="settings_optionHeader">Bloom Effects&lt;/div>
+      &lt;div class="settings_radio" id="settingsRadioBlock_bloom">
+      &lt;span>
+        &lt;input type="radio" id="settings_noBloom" name="settings_bloomEffects" value="0" hidden>
+        &lt;label for="settings_noBloom">Off&lt;/label>
+      &lt;/span>
+      &lt;span>
+        &lt;input type="radio" id="settings_bloomActive" name="settings_bloomEffects" value="1" hidden>
+        &lt;label for="settings_bloomActive">On&lt;/label>
+      &lt;/span>
+      &lt;/div>
+    &lt;!-- -- -- -- -->
+      &lt;/div>
+    &lt;/div>
+      &lt;div class="settingsGridSpan settingsEmptySpacer">&lt;/div>
+    &lt;/div>
+    &lt;div class="guiSettingsFooterButtons">
+    &lt;div class="guiButton" id="guiSettingsBackButton">close&lt;/div>
+    &lt;/div>
+  &lt;/div>
+    &lt;/div>
+  `;
+  
+  settingsGuiDiv.innerHTML=html;
+  this.guiWindows.settingsGui.gui=settingsGuiDiv;  
+  
+  let tmpThis=this;
+  this.qualitySlider=document.getElementById( "SettingsGraphicsQualitySlider" );
+  
+  // Close Button
+  // ## Add "Save cookies" to closing the window
+  let guiClose=document.getElementById("guiSettingsBackButton");
+  guiClose.onclick=(e)=>{ tmpThis.svgCheckClick(e, "close"); };
+  
+  // -- -- -- -- -- -- -- -- -- -- -- -- //
+  // --  Advanced Quality Controls -- -- //
+  // -- -- -- -- -- -- -- -- -- -- -- -- //
+  
+  
+  let svgDivList=[
+    [this.guiRoot+"settings_user.svg", "settings_user",["settings_icon_scale"],false],
+    
+    [this.guiRoot+"settings_left_right.svg", "settings_left_right",["settings_icon"],false],
+    [this.guiRoot+"settings_mouse.svg", "settings_mouse",["settings_icon"],false],
+    
+    [this.guiRoot+"settings_graphics.svg", "settings_graphics",["settings_icon"],false],
+    [this.guiRoot+"settings_render.svg", "settings_render",["settings_icon"],false],
+    [this.guiRoot+"settings_fog.svg", "settings_fog",["settings_icon"],false],
+    [this.guiRoot+"settings_bloom.svg", "settings_bloom",["settingsIconStyle"],false],
+  ];
+  svgDivList.forEach( (s)=>{
+    SVGUtils.svgButtonPromise( ...s );
+  });
+
+  // -- -- -- -- -- -- -- //
+    
+  
+  let msgInput=document.getElementById( "settings_usernameInput" );
+  if( msgInput ){
+    msgInput.onkeyup=(e)=>{ tmpThis.keyUsernameSet(e); };
+    msgInput.onkeydown=(e)=>{ tmpThis.keyDownUsernameSet(e); };
+    this.guiWindows.settingsGui.usernameInput=msgInput;
+
+    let button=document.getElementById( "settings_sendUsername" );
+    button.addEventListener("click", ()=>{
+      tmpThis.sendUsernameUpdate( msgInput );
+    });
+
+    // If the `changeUsername` field is enabled, set the username input to the current username
+    let retMessage=document.getElementById( "settings_usernameResponseMessage" );
+    if( retMessage ){
+      this.guiWindows.settingsGui.usernameReturn=retMessage;
+    }
+  }
+    
+  
+  // -- -- -- -- -- -- -- //
+  
+  let radioList,rLength;
+  
+  this.guiWindows.settingsGui.advObj=document.getElementById("gui_advancedSettings");
+  this.guiWindows.settingsGui.customObj=document.getElementById("settings_graphicsQuality_custom");
+  
+  radioList=["settings_graphicsQuality_low", "settings_graphicsQuality_med", "settings_graphicsQuality_high", "settings_graphicsQuality_custom"];
+  rLength=radioList.length;
+  for(let x=0; x&lt;rLength; ++x){
+    let r=radioList[x];
+    let rad=document.getElementById( r );
+    this.setRadioStyle(rad, x, rLength);
+    
+    let val=parseInt( rad.value );
+    rad.addEventListener('change', (e)=>{
+  tmpThis.pxlQuality.setQualityLevel(val);
+  tmpThis.setRadioValues();
+    });
+    /*if( val != 3){
+  rad.addEventListener('change', (e)=>{
+    tmpThis.guiWindows.settingsGui.advObj.style.maxHeight="0px";
+    tmpThis.pxlQuality.setQualityLevel(val);
+    tmpThis.setRadioValues();
+  });
+    }else{
+  rad.addEventListener('change', (e)=>{
+    let advObj=tmpThis.guiWindows.settingsGui.advObj;
+    let oHeight=advObj.getAttribute( "maxHeight" );
+    advObj.style.maxHeight = oHeight+"px";
+  });
+    }*/
+  }
+  radioList=["settings_render_25", "settings_render_50", "settings_render_75", "settings_render_100"];
+  rLength=radioList.length;
+  for(let x=0; x&lt;rLength; ++x){
+    let r=radioList[x];
+    let rad=document.getElementById( r );
+    this.setRadioStyle(rad, x, rLength);
+    
+    let val=parseFloat( rad.value );
+    rad.addEventListener('change', (e)=>{
+  tmpThis.guiWindows.settingsGui.customObj.checked=true;
+  tmpThis.pxlQuality.setGraphicsSettings( {resolution:val} );
+  tmpThis.pxlQuality.setQualityCookie(3);
+    });
+  }
+  
+  
+  radioList=["settings_noRedFog", "settings_cheapResFog", "settings_highResFog"];
+  rLength=radioList.length;
+  for(let x=0; x&lt;rLength; ++x){
+    let r=radioList[x];
+    let rad=document.getElementById( r );
+    this.setRadioStyle(rad, x, rLength);
+    
+    let val=rad.value;
+    rad.addEventListener('change', (e)=>{
+  tmpThis.guiWindows.settingsGui.customObj.checked=true;
+  tmpThis.pxlQuality.setGraphicsSettings( {fog:val} );
+  tmpThis.pxlQuality.setQualityCookie(3);
+    });
+  }
+  
+  radioList=["settings_noBloom","settings_bloomActive"];
+  rLength=radioList.length;
+  for(let x=0; x&lt;rLength; ++x){
+    let r=radioList[x];
+    let rad=document.getElementById( r );
+    this.setRadioStyle(rad, x, rLength);
+    
+    let val= rad.value==1;
+    rad.addEventListener('change', (e)=>{
+  tmpThis.guiWindows.settingsGui.customObj.checked=true;
+  tmpThis.pxlQuality.setGraphicsSettings( {bloom:val} );
+  tmpThis.pxlQuality.setQualityCookie(3);
+    });
+  }
+  
+  radioList=["settings_tankTurning","settings_strafing"];
+  rLength=radioList.length;
+  for(let x=0; x&lt;rLength; ++x){
+    let r=radioList[x];
+    let rad=document.getElementById( r );
+    this.setRadioStyle(rad, x, rLength);
+    
+    let val= rad.value==1;
+    rad.addEventListener('change', (e)=>{
+  tmpThis.pxlQuality.setGraphicsSettings( {leftRight:val}, null );
+  //tmpThis.pxlQuality.settings.leftRight=val;
+  //tmpThis.pxlCookie.setCookie("leftRight", val);
+    });
+  }
+  
+  radioList=["settings_dragLooking","settings_pointLooking"];
+  rLength=radioList.length;
+  for(let x=0; x&lt;rLength; ++x){
+    let r=radioList[x];
+    let rad=document.getElementById( r );
+    this.setRadioStyle(rad, x, rLength);
+    
+    let val= rad.value==1;
+    rad.addEventListener('change', (e)=>{
+  tmpThis.pxlQuality.setGraphicsSettings( {mouse:val}, null );
+  //tmpThis.pxlQuality.settings.mouse=val;
+  //tmpThis.pxlCookie.setCookie("mouse", val);
+    });
+  }
+  
+
+  this.setRadioValues();
+  
+  /*setTimeout( ()=>{
+    this.settingsGuiAdvObjSizing(false);
+  }, 50);*/
+  
+  }
+  
+  setRadioStyle(rad,cur,aLen){
+    let addStyle="settings_radio_label_mid";
+    if(cur==0){
+  addStyle="settings_radio_label_start";
+    }else if(cur==aLen-1){
+  addStyle="settings_radio_label_end";
+    }
+    rad.parentNode.children[1].classList.add( addStyle );
+  }
+  setRadioValues(){
+  let qualitySettings=this.pxlQuality.settings;
+  
+  let keys=Object.keys(qualitySettings);
+  keys.forEach( (k)=>{
+    let radioBlock=document.getElementById( "settingsRadioBlock_"+k );
+    if(radioBlock){
+  let val= k=="resolution" ? qualitySettings[k]*4-1 : ~~qualitySettings[k];
+  radioBlock.children[val].children[0].checked=true; // Assuming [input, label]
+    }
+  });
+  }
+  
+  
+  settingsGuiAdvObjSizing(active=true){
+    let advObj=this.guiWindows.settingsGui.advObj;
+    let oHeight=advObj.offsetHeight;
+    advObj.style.maxHeight=(active ? oHeight : 0)+"px";
+    advObj.setAttribute("maxHeight", oHeight);
+  }
+  
+  settingsGuiToggle(active=null, bgVis=true){
+  if( !this.guiWindows.settingsGui ){
+    this.settingsGuiBuild();
+  }
+  
+  active= active==null ? !this.guiWindows.settingsGui.active : active;
+    
+    if(active &amp;&amp; this.guiWindows?.settingsGui?.usernameReturn){
+      this.guiWindows.settingsGui.usernameReturn.innerText="";
+    }
+    
+  this.guiWindows.settingsGui.active=active;
+  this.promptFader( this.guiWindows.settingsGui.gui, active );
+  this.toggleGuiWindowContainer( null, active );
+  if(this.hudBlock.active){ this.toggleHudBlock( active ); }
+  this.toggleHudBlock(active, false);
+    
+    this.togglePxlNavDataDisplay(active);
+    
+    if(this.introHelpActive &amp;&amp; !active){
+      this.introHelpActive=false;
+      this.pxlEnv.postHelpIntro();
+    }
+    
+  }
+
+  togglePxlNavDataDisplay( active=null ){
+    if( active==null ){
+      if( this.guiWindows.settingsGui ){
+      active = this.guiWindows.settingsGui.active;
+      }else{
+      active = false;
+      }
+    }
+    
+    this.pxlNavData.active=active;
+    
+    let toHeight= this.pxlNavData.height || 200;
+    if( this.pxlNavData?.gui ){
+      this.pxlNavData.gui.style.maxHeight= active ? toHeight+"px" : "0px" ;
+      if( !active ){
+        this.pxlNavData.height=this.pxlNavData.gui.offsetHeight;
+      }
+    }
+
+  }
+
+  // -- -- --
+
+  // Settings GUI Functions for resolution and glow settings
+
+  renderRadius(val){
+    this.pxlEnv.mapGlowPass.strength = Number( val );
+    this.pxlEnv.roomBloomPass.strength = Number( val );
+  }
+  renderThreshold(val){
+    this.pxlEnv.mapGlowPass.threshold = Number( val );
+    this.pxlEnv.roomBloomPass.threshold = Number( val );
+  }
+  renderGlowRadius(val){
+    this.pxlEnv.mapGlowPass.radius = Number( val );
+    this.pxlEnv.roomBloomPass.radius = Number( val );
+  }
+  renderResolution(val){
+    this.pxlQuality.screenResPerc=val*.75+.25;
+    this.pxlDevice.resizeRenderResolution();
+  }
+
+/////////////////////////////////////////////
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////
+
+
+  inviteUserBuild(){
+  this.guiWindows.inviteUserGui={};
+  this.guiWindows.inviteUserGui.gui=null;
+  this.guiWindows.inviteUserGui.active=false;
+  
+  let inviteUserGuiDiv=document.createElement( "div" );
+  inviteUserGuiDiv.id="gui_inviteUserWindow";
+  inviteUserGuiDiv.classList.add("gui_inviteUserParentStyle");
+  this.prepPromptFader( inviteUserGuiDiv );
+  this.addToContainer( inviteUserGuiDiv );
+  
+    let urlDisplay=window.location+"";
+    urlDisplay=urlDisplay.replace(/^https?:\/\//,"");
+    let html="";
+    html+=`
+        &lt;div class="gui_inviteUserBody">
+          &lt;div class="iu_urlStyle">${urlDisplay}&lt;/div>
+          &lt;div id="iu_copy" class="iu_copyStyle">Copy&lt;/div>
+        &lt;/div>
+    `;
+  inviteUserGuiDiv.innerHTML=html;
+        
+    let utils=this.pxlUtils;
+    let iuCopy=document.getElementById("iu_copy");
+    iuCopy.addEventListener("click", ()=>{
+      let status=utils.copyRoomUrl();
+      if(status){
+        iuCopy.innerText="Copied";
+      }else{
+        iuCopy.innerText="Error";
+      }
+      if(iuCopy.timeout){
+        clearTimeout( iuCopy.timeout ); 
+      }
+      iuCopy.timeout=setTimeout( ()=>{
+        iuCopy.innerText="Copy";
+        clearTimeout( iuCopy.timeout ); 
+      }, 2000);
+    });
+  
+  // -- -- -- -- -- -- -- -- -- -- //
+  
+  this.guiWindows.inviteUserGui.gui=inviteUserGuiDiv;  
+  }
+  inviteUserPosition(){
+    if( this.guiWindows.inviteUserGui &amp;&amp; this.guiWindows.inviteUserGui.active ){
+      let iu=document.getElementById("ft3Button");
+      let iuBB=iu.getBoundingClientRect();
+      this.guiWindows.inviteUserGui.gui.style.display="grid";
+      this.guiWindows.inviteUserGui.gui.style.top=iuBB.y;
+      this.guiWindows.inviteUserGui.gui.style.right=this.pxlDevice.sW - iuBB.x + 5;
+      this.guiWindows.inviteUserGui.gui.style.minHeight=iuBB.height;
+    }
+  }
+  
+  toggleInviteUser(active=null){
+  if( !this.guiWindows.inviteUserGui ){
+    this.inviteUserBuild();
+  }
+
+  active= active==null ? !this.guiWindows.inviteUserGui.active : active;
+  this.guiWindows.inviteUserGui.active=active;
+  this.promptFader( this.guiWindows.inviteUserGui.gui, active );
+    
+    this.inviteUserPosition();
+  }
+      
+/////////////////////////////////////////////
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////
+
+
+
+
+  buildMobileWelcome(){
+  this.guiWindows.mobileGui={};
+  this.guiWindows.mobileGui.gui=null;
+  this.guiWindows.mobileGui.active=false;
+  
+  let mobileWelcomeGuiDiv=document.createElement( "div" );
+  mobileWelcomeGuiDiv.id="gui_mobileWelcomeGuiWindow";
+  mobileWelcomeGuiDiv.classList.add("gui_helpGuiParentStyle");
+  this.prepPromptFader( mobileWelcomeGuiDiv );
+  this.guiWindowBG.appendChild( mobileWelcomeGuiDiv );
+  
+  let html="";
+  html+=`
+    &lt;div id="gui_helpContent" class="gui_contentStyle" style="min-height:45%;">
+  &lt;div class="gui_mobileBody">
+    welcome to
+          &lt;br>${this.projectTitle}
+  &lt;/div>
+  &lt;div id="guiHelpFooter" class="gui_footer" style="margin-bottom: 4vh;">
+    &lt;div class="guiButton" style="font-weight: 700; font-size: 5vw;" id="guiMobileWelcomeButton">enter&lt;/div>
+  &lt;/div>
+  &lt;div class="gui_spacer">&lt;/div>
+    &lt;/div>
+  `;
+  mobileWelcomeGuiDiv.innerHTML=html;
+    
+  
+  // Close Button
+  let tmpThis=this;
+  let guiClose=document.getElementById("guiMobileWelcomeButton");
+  guiClose.onclick=(e)=>{ 
+      tmpThis.toggleMobileWelcome( false );
+      tmpThis.pxlEnv.postHelpIntro();
+    };
+    
+  // -- -- -- -- -- -- -- -- -- -- //
+  // Store gui window as object
+  this.guiWindows.mobileGui.gui=mobileWelcomeGuiDiv;
+  
+  }
+
+
+  toggleMobileWelcome( active=null ){
+  if( !this.guiWindows.mobileGui ){
+    this.buildMobileWelcome();
+  }
+  
+  active= active==null ? !this.guiWindows.mobileGui.active : active;
+    
+  this.guiWindows.mobileGui.active=active;
+  this.promptFader( this.guiWindows.mobileGui.gui, active );
+  this.toggleGuiWindowContainer( null, active );
+  if(this.hudBlock.active){ this.toggleHudBlock( active ); }
+  }
+
+
+
+/////////////////////////////////////////////
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////
+
+
+
+
+  // TODO : CTA should request the desired dictionary key
+  ctaBuildPopup(response=''){
+  if( this.ctaContentLoading ){
+    return;
+  }
+  if( !this.googleDocHTML ){
+    this.ctaContentLoading=true;
+    this.pxlFile.getURLContent( this.ctaLocalDocURL['blmSupport'] ).then( (r)=>{
+  this.ctaContentLoading=false;
+  this.googleDocHTML=r;
+  this.ctaDisplayPopup();
+    });
+  }else{
+    this.ctaDisplayPopup();
+  }
+  }
+  
+  // TODO : CTA Display should request the desired dictionary key's iframe data
+  ctaDisplayPopup(){
+  if(this.actionPopUp){
+    this.actionPopUp.parentNode.removeChild(this.actionPopUp);
+  }
+  //let rxExp= /(?&lt;=&lt;body>)(.*?)(?=&lt;\/body>)$/gm;
+  
+  let bodyOnly=this.googleDocHTML;
+  
+  this.actionPopUp=document.createElement("div");
+  this.actionPopUp.setAttribute("id","ctaPopup");
+  this.actionPopUp.classList.add("parentGoogleLinkDoc");
+  this.actionPopUp.classList.add("fader");
+  this.actionPopUp.classList.add("visOff");
+  let apuInner=document.createElement("div");
+  apuInner.setAttribute("id","ctaPopupInner");
+  //apuInner.classList.add("innerGoogleLinkDoc");
+  this.actionPopUp.appendChild( apuInner );
+  this.addToContainer(this.actionPopUp);
+  
+  let iframe=null;
+  if(bodyOnly == '' || !bodyOnly){
+    iframe=document.createElement("iframe");
+    iframe.src=""
+    iframe.classList.add("iframeGoogleLinkDoc");
+    apuInner.appendChild(iframe);
+    //iframe.allow='';
+    iframe.referrerpolicy="unsafe-url";
+  }else{
+    apuInner.innerHTML=bodyOnly;
+    apuInner.classList.add("iframeGoogleLinkDoc");
+  }
+  let self=this;
+  this.actionPopUp.onclick=function(e){
+    let eventObject=e.srcElement.getAttribute("id");
+    if(eventObject == "ctaPopup" ){
+  self.promptFader(this, false, null, true);
+  self.actionPopUp=null;
+    }
+  };
+  
+  if(iframe){
+    iframe.onload=function(){
+  setTimeout( ()=>{
+    this.promptFader(this.actionPopUp, true, null, false);
+    }, 100);
+    }
+  }else{
+    setTimeout( ()=>{
+    this.promptFader(this.actionPopUp, true, null, false);
+  }, 100);
+  }
+  }
+
+
+
+/////////////////////////////////////////////
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////
+
+  getUserControls( curId ){
+    if( !curId ) return [null];
+    let curAvatar=curId;
+    let curGui=curAvatar.userStatusGui;
+    let curAudio=curAvatar.audio;
+    let curAudioMuted=curAvatar.audioMuted;
+    let curAudioGui=curAvatar.userSoundGui;
+    let curName=curAvatar.displayName;
+    let curNameGui=curAvatar.userNameGui;
+    let curVerse=curAvatar.verse;
+    return {curAvatar, curName, curAudio, curAudioMuted, curGui, curNameGui, curAudioGui, curVerse };
+  }
+  
+  async setUserControlPosition(){
+    if( this.userControlBlock ){
+      let curTop=0;
+      let curLeft=0;
+      if( this.hudTopBar ){
+        let htbr=this.hudTopBar.getBoundingClientRect();
+        curTop=htbr.y+htbr.height;
+      }
+      
+      /*if( this.guiWindows.chatBoxGui ){
+        if( this.guiWindows.chatBoxGui.active ){
+          let htbr=this.guiWindows.chatBoxGui.gui.getBoundingClientRect();
+          curLeft=htbr.width;
+          curTop=0;
+        }
+      }*/
+      this.userControlBlock.gui.style.top= curTop+"px";
+      //this.userControlBlock.gui.style.left= curLeft+"px";
+    }
+  }
+
+  buildUserSpeaker(){
+    let ret={};
+    
+    let retSpeaker=this.userControlBlock.speakerIcon.svg.cloneNode( true );
+    retSpeaker.classList.add( "userControlSpeakerStyle" );
+    retSpeaker.classList.add( "userControlSpeakerButtonStyle" );
+    ret.gui=retSpeaker;
+    ret.remoteMuted=false;
+    ret.volPrev=0;
+    
+    let children=retSpeaker.children;
+    for(let x=0; x&lt;children.length; ++x){
+      let cd=children[x];
+      let curId=cd.getAttribute("id");
+      ret[curId]=cd;
+      if( curId == "mute"){
+        cd.classList.add( "userControlVisStyle" );
+      }else if( curId == "button"){
+        cd.classList.add( "userControlSpeakerButtonStyle" );
+      }
+    }
+    
+    let volChildren=ret.volLines.children;
+    for(let x=0; x&lt;volChildren.length; ++x){
+      let cd=volChildren[x];
+      let curId=cd.getAttribute("id");
+      ret[curId]=cd;
+    }
+    
+    volChildren=ret.remoteMutedLines.children;
+    for(let x=0; x&lt;volChildren.length; ++x){
+      let cd=volChildren[x];
+      let curId=cd.getAttribute("id");
+      ret[curId]=cd;
+    }
+    return ret;
+  }
+
+  // Remote User Controls
+  async addUserControls( curId, muted=false ){
+    let {curAvatar, curName, curGui} = this.getUserControls( curId );
+    
+    let userControlsBlock=document.createElement( "div" );
+    userControlsBlock.classList.add( "userControlProximityOff" );
+    userControlsBlock.classList.add( "userControlParentStyle" );
+    userControlsBlock.classList.add( "userControlSpeakerButtonStyle" );
+    if( this.mobile ){
+      userControlsBlock.style.display="none";
+    }
+    //userControls.setAttribute( "jid", curId ); // This will become stale very quickly, want to have it tho...
+    let tmpThis=this;
+    userControlsBlock.onclick=()=>{ tmpThis.setUserControlMute(curId); };
+    curAvatar.userStatusGui=userControlsBlock;
+    this.userControlBlock.gui.appendChild( userControlsBlock );
+    
+    
+    let userControlsParent=document.createElement( "div" );
+    userControlsParent.classList.add( "userControlInnerParentStyle" );
+    userControlsBlock.appendChild( userControlsParent );
+    
+    
+    let userSpeakerParent=document.createElement( "div" );
+    userSpeakerParent.classList.add( "userControlSpeakerParentStyle" );
+    let userSpeaker=this.buildUserSpeaker();
+    userSpeakerParent.appendChild( userSpeaker.gui );
+    curAvatar.userSoundGui=userSpeaker;
+    userControlsParent.appendChild( userSpeakerParent );
+    
+    let userNameParent=document.createElement( "div" );
+    userNameParent.classList.add( "userControlNameStyle" );
+    userNameParent.innerText=curName;
+    curAvatar.userNameGui=userNameParent;
+    userControlsParent.appendChild( userNameParent );
+    
+    this.setUserControlColor( curId );
+  }
+  
+  async setUserControlVolume( curId, audioLevel, smoothing=true ){
+    if( this.userControlBlock.activeList.includes( curId ) ){
+      let {curAudioGui, curAudioMuted} = this.getUserControls( curId );
+      if( curAudioGui &amp;&amp; ( !curAudioMuted || audioLevel==0 ) ){
+        if( curAudioGui.remoteMuted ){
+          audioLevel=0;
+        }else if( smoothing &amp;&amp; audioLevel>0){
+          audioLevel*=2;
+          audioLevel=Math.min(1, Math.max(audioLevel, (audioLevel+curAudioGui.volPrev)*.5));
+        }
+        curAudioGui.volPrev=audioLevel;
+        curAudioGui.volLines.style.opacity = audioLevel;
+        curAudioGui.volLines.style.filter = "alpha(opacity="+(audioLevel*100)+")";
+      }
+    }
+  }
+  
+  async setUserControlMute( curId ){
+    let {curAvatar, curAudio, curAudioMuted, curAudioGui} = this.getUserControls( curId );
+    if( curAudio ){
+      let active=!curAudioMuted; // Muted Value Toggle
+      if( active ){
+        this.setUserControlVolume( curId, 0, false );
+        curAudioGui.mute.classList.add( "userControlVisible" ); // Mute Line Visible
+        curAudio.volume=0;
+        curAudio.muted=true;
+      }else{
+        curAudioGui.mute.classList.remove( "userControlVisible" ); // Mute Line Hidden
+        curAudio.muted=false;
+        curAudio.volume=1;
+      }
+      
+      curAvatar.audioMuted=active;
+    }
+  }
+  async setUserControlRemoteMute( curId, track=null, inVerse=true, color="#ffffff" ){
+    let {curAudio, curAudioGui} = this.getUserControls( curId );
+    if( curAudioGui ){
+      if( track==null ){
+        if( curAudio ){
+          track=curAudio.muted;
+        }else{
+          track=false;
+        }
+      }
+      let active = typeof track == "object" ? track.muted : track;
+      curAudioGui.remoteMuted=active;
+      curAudioGui.base.setAttribute("fill", (active ? "#ff0000" : color ) );
+      curAudioGui.remoteMutedLines.style.display=(active || !inVerse ? "inline-block" : "none" );
+      curAudioGui.remoteS1.setAttribute("stroke", (inVerse ? "#ff0000" : color ) );
+      curAudioGui.remoteS2.setAttribute("stroke", (inVerse ? "#ff0000" : color ) );
+      this.setUserControlVolume( curId, 0, false );
+    }
+  }
+  
+  async setUserControlVis( curId, active=null, deleteController=false ){
+    let {curAvatar, curGui,curAudio} = this.getUserControls( curId );
+    
+    /*if( !curAvatar.avatarGroup.visible ){
+      return;
+    }*/
+    
+    
+    if(curGui){
+      let proxVisOff="userControlProximityOff";
+      if( active == null ){
+        active=!curGui.classList.contains( proxVisOff );
+      }
+      if( active ){
+        curGui.classList.remove( proxVisOff );
+        curGui.style.maxWidth=curGui.children[0].getBoundingClientRect().width+"px";
+        //if( curAudio ){  curAudio.muted=false; }
+        
+        this.setUserControlVolume( curId, 0 );
+        if( !this.userControlBlock.activeList.includes( curId ) ){
+          this.userControlBlock.activeList.push( curId );
+        }
+      }else{
+        curGui.classList.add( proxVisOff );
+        curGui.style.maxWidth="30px";
+
+        //if( curAudio ){  curAudio.muted=false; }
+        
+        let curIdEl= this.userControlBlock.activeList.indexOf( curId );
+        if( curIdEl>-1 ){
+          this.userControlBlock.activeList.splice( curIdEl, 1 );
+        }
+      }
+      this.userControlBlock.gui.style.padding= this.userControlBlock.activeList.length == 0 ? "0px" : "5px" ;
+    }
+  }
+  
+  async deleteUserControlVis( curId ){
+    let {curAvatar, curGui} = this.getUserControls( curId );
+    
+    if(curGui){
+      let proxVisOff="userControlProximityOff";
+      curGui.classList.add( proxVisOff );
+      curGui.style.maxWidth="30px";
+
+      let curIdEl= this.userControlBlock.activeList.indexOf( curId );
+      if( curIdEl>-1 ){
+        this.userControlBlock.activeList.splice( curIdEl, 1 );
+      }
+      this.userControlBlock.gui.style.padding= this.userControlBlock.activeList.length == 0 ? "0px" : "5px" ;
+
+      // Clean up User Speaker Gui Element
+      if( curGui ){
+        curGui.parentNode.removeChild( curGui );
+      }
+    }
+  }
+  
+  userControlsSwap( idFrom, idTo ){
+    //console.log( "is this needed?", idFrom, idTo );
+    let curIdEl= this.userControlBlock.activeList.indexOf( idFrom );
+    if( curIdEl>-1 ){
+      this.userControlBlock.activeList.splice( curIdEl, 1 );
+      
+      if( !this.userControlBlock.activeList.includes( idTo ) ){
+        this.userControlBlock.activeList.push( idTo );
+      }
+    }
+  }
+  
+  setUserControlColor( curId, color=null ){
+    let {curAvatar, curGui, curAudioGui, curVerse} = this.getUserControls( curId );
+    let verseCompare=true;
+    if( color == null ){
+      if(verseCompare){
+        color="#ffffff";
+      }else{
+        let colorRGB=this.pxlUtils.stringToRgb( curVerse, .3 );
+        color=this.pxlUtils.rgbToHex( ...colorRGB );
+      }
+    }
+    curGui.style.color=color;
+    curAudioGui.base.setAttribute("fill", color );
+    curAudioGui.mute.setAttribute("stroke", color );
+    curAudioGui.mid.setAttribute("fill", color );
+    curAudioGui.max.setAttribute("fill", color );
+    
+    curAudioGui.volPrev=0;
+    curAudioGui.volLines.style.opacity = 0;
+    curAudioGui.volLines.style.filter = "alpha(opacity=0)";
+    
+    let tmpThis=this;
+    curAvatar.userStatusGui.onclick=()=>{ tmpThis.setUserControlMute(curId); };
+    
+    this.setUserControlRemoteMute( curId, null, verseCompare, color );
+  }
+  
+  toggleUserControls( curAvatar ){
+    if( !curAvatar ) return null;
+  }
+  
+/////////////////////////////////////////////
+// -- -- -- -- -- -- -- -- -- -- -- -- -- //
+///////////////////////////////////////////
+  
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Mon Mar 03 2025 11:45:59 GMT-0500 (Eastern Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.js"></script>
+    
+    <script src="docs-init.js"></script>
+    
+</body>
+</html>
