@@ -362,7 +362,7 @@ nav > h2 > a:hover {
 }
 
 footer {
-  color: hsl(0, 0%, 77%);
+  color: rgba(162, 172, 221, 0.67);
   margin-left: 300px;
   display: block;
   padding: 15px;

@@ -231,6 +231,21 @@ builBugs(){
 
     // Add some bugs jumping in the grass
     this.builBugs();
+
+    if( this.geoList.hasOwnProperty('LightHouse_geo') ){
+      let lhMtl = this.geoList['LightHouse_geo'].material;
+      if( lhMtl.map && !lhMtl.emissiveMap ){
+        lhMtl.emissiveMap = lhMtl.map;
+        lhMtl.emissive.set( 0x404040 );
+      }
+      // Certain material types in programs don't support AlphaMaps as it seems
+      //   I'll need to investigate which programs have which limitations in what materials
+      if( !lhMtl.alphaMap ){
+        lhMtl.alphaMap = this.pxlUtils.loadTexture( this.assetPath+"LightHouseA_alpha.jpg" );
+        lhMtl.transparent = true;
+        lhMtl.alphaTest = .05;
+      }
+    }
     
     // Adding a basic ambient light
     var ambientLight = new AmbientLight( 0x383838 ); // soft white light
