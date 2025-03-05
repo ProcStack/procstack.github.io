@@ -76,8 +76,8 @@ userSettings['gravity']['Max'] = 15.5; // Max gravity rate
 // Target FPS (Frames Per Second)
 //   Default is - PC = 30  -&-  Movile = 30
 const targetFPS = {
-  'PC' : 45,
-  'Mobile' : 30
+  'pc' : 45,
+  'mobile' : 30
 };
 
 // Anti-aliasing level
