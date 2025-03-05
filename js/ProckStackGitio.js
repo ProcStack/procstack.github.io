@@ -68,8 +68,8 @@ userSettings['headBounce']['easeOut'] = 0.95; // When move key is let go, the ea
 userSettings['jump']['impulse'] = 0.75; // Jump impulse force applied to the player while holding the jump button
 userSettings['jump']['holdMax'] = 2.85; // Max influence of holding the jump button on current jump; in seconds
 userSettings['jump']['repeatDelay'] = 0.08; // Delay between jumps when holding the jump button
-userSettings['gravity']['UPS'] = 0.3; // Units per Step() per Step()
-userSettings['gravity']['Max'] = 15.5; // Max gravity rate
+userSettings['gravity']['ups'] = 0.3; // Units per Step() per Step()
+userSettings['gravity']['max'] = 15.5; // Max gravity rate
 
 // -- -- --
 

@@ -49,7 +49,7 @@ const loaderPhrases = [
 // User settings for the default/initial pxlNav environment
 //   These can be adjusted from your `pxlRoom` but easily set defaults here
 const userSettings = Object.assign({}, pxlUserSettings);
-userSettings['height']['standing'] = 1.75; // Standing height in units; any camera in your room's FBX will override this height once loaded
+userSettings['height']['standing'] = 22.5; // Standing height in units; any camera in your room's FBX will override this height once loaded
 userSettings['height']['stepSize'] = 5; // Max step height in units
 userSettings['movement']['scalar'] = 1.0; // Overall movement rate scalar
 userSettings['movement']['max'] = 10.0; // Max movement speed
@@ -60,9 +60,9 @@ userSettings['headBounce']['easeIn'] = 0.03; // When move key is pressed, the ea
 userSettings['headBounce']['easeOut'] = 0.95; // When move key is let go, the ease back to no bounce; `bounce * easeOut`
 userSettings['jump']['impulse'] = 0.60; // Jump impulse force applied to the player while holding the jump button
 userSettings['jump']['holdMax'] = 2.85; // Max influence of holding the jump button on current jump; in seconds
-userSettings['jump']['repeatDelay'] = 0.08; // Delay between jumps when holding the jump button
-userSettings['gravity']['UPS'] = 0.28; // Units per Step() per Step()
-userSettings['gravity']['Max'] = 15.5; // Max gravity rate
+userSettings['jump']['repeatDelay'] = 0.085; // Delay between jumps when holding the jump button
+userSettings['gravity']['ups'] = 0.28; // Units per Step() per Step()
+userSettings['gravity']['max'] = 15.5; // Max gravity rate
 
 // -- -- --
 
