@@ -177,7 +177,13 @@ export function envGroundFrag( pointLightCount ){
         float baseDirtNoise = dirtNoise;
         
         
-        // -- -- --
+        // -- -- -- -- -- -- -- -- -- -- -- -- --
+        // -- Texture Offset by Position atan  -- --
+        // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+        
+        vec2 atanVec = normalize( vec2( vModelPos.x + vModelPos.y*.5, vModelPos.z + vModelPos.y*.1 ) );
+        float deg = atan( atanVec.y, atanVec.x );
+        deg = cos(deg*PI*2.0);
         
         // -- -- -- -- -- -- -- -- -- --
         // -- World Space Texturing - -- --
@@ -198,7 +204,7 @@ export function envGroundFrag( pointLightCount ){
         vec3 grassCd = texture2D( grassDiffuse, pos.xz*2.0 + uvNoiseOffset ).rgb ;
         
         // Shift the rocky hill texture so it reads it more horizontally
-        vec2 hillLayerUv =  vec2( subUv.x+uv.y*.1,  vModelPos.y*.007 ) ;
+        vec2 hillLayerUv =  vec2( subUv.x+uv.y*.5 + deg,  vModelPos.y*.007 ) ;  
         vec3 rockyHillCd = texture2D(hillDiffuse,hillLayerUv).rgb ;
         
         // -- -- --
