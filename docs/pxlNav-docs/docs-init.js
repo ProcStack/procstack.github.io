@@ -41,13 +41,51 @@ function fixNavLinks(){
 function gatherMethodList(){
   return new Promise((resolve, reject) => {
 
+    const matchRegSlash = /(\/)/;
+
+    let navPages = document.body.getElementsByTagName("li");
+    if( navPages.length > 0 ){
+      [...navPages].forEach((e)=>{
+        if( e.hasAttribute("data-type") ){
+          return;
+        }
+        let a = e.children;
+        if( a.length > 0 ){
+          a = a[0];
+          let matchSlash = a.innerText.match( matchRegSlash );
+          if( matchSlash ){
+            console.log( a.innerText.replace( matchRegSlash, ".") );
+            a.innerText = a.innerText.replace( matchRegSlash, ".");
+          }
+        }
+      });
+    }
+    
+    let pageHeader = document.body.getElementsByTagName("h1");
+    if( pageHeader.length > 0 ){
+      let matchSlash = pageHeader[0].innerText.match( matchRegSlash );
+      if( matchSlash ){
+        pageHeader[0].innerText = pageHeader[0].innerText.replace( matchRegSlash, ".");
+      }
+    }
+
     let methods = document.body.getElementsByTagName("h4");
     if( methods.length > 0 ){
       let header = document.getElementsByTagName('header');
       if( header.length > 0 ){
         header = header[0];
         
-        const matchReg = /\w*(#)/;
+        const matchRegOct = /\w*(#)/;
+
+        
+        let headerHeader = header.getElementsByTagName('h2');
+        console.log( headerHeader );
+        if( headerHeader.length > 0 ){
+          let matchSlash = headerHeader[0].innerText.match( matchRegSlash );
+          if( matchSlash ){
+            headerHeader[0].innerText = headerHeader[0].innerText.replace( matchRegSlash, ".");
+          }
+        }
   
         let methodAnchor = document.createElement('a');
         methodAnchor.href = "#Methods";
@@ -55,8 +93,8 @@ function gatherMethodList(){
   
         // Add methods header
         let methodsHeader = document.createElement('h3');
-        methodsHeader.innerText = "Methods List";
-        methodsHeader.name = "MethodsList";
+        methodsHeader.innerText = "Method List";
+        methodsHeader.name = "MethodList";
         header.appendChild(methodsHeader);
   
         let headerHeight = header.offsetHeight;
@@ -71,14 +109,26 @@ function gatherMethodList(){
             // Gather anchor names
             let name = e.innerText.replace("(static)\n","").split("(")[0].split(":")[0].split("\n")[0];
             if( name.includes("#")){
-              name = name.replace( /\w*(#)/, "");
+              name = name.replace( matchRegOct, "");
             }
+            if( name.includes("/") ){
+              nameSplit = name.split(" ");
+              name = [];
+              nameSplit.forEach((e)=>{
+                if( e.includes("/") ){
+                  e = e.split("/")[1];
+                }
+                name.push(e);
+              });
+              name = name.join(" ");
+            }
+
             methodNames.push(name);
             e.id = name;
   
             // Add ^Top link to each method
             let aTop = document.createElement('a');
-            aTop.href = `#MethodsList`;
+            aTop.href = `#MethodList`;
             aTop.innerText = "^Top";
             // Scroll to top of page
             aTop.onclick = (e) => {
@@ -86,10 +136,12 @@ function gatherMethodList(){
             };
   
             // Build grid template columns
-            let match = e.innerHTML.match( matchReg );
+            let match = e.innerHTML.match( matchRegOct );
             if( match){
-              e.innerHTML = e.innerHTML.replace( matchReg, "");
+              e.innerHTML = e.innerHTML.replace( matchRegOct, "");
             }
+
+
             let gridAutoColVal = Array( e.children.length ).fill('max-content').join(' ');
             gridAutoColVal += " auto";
             e.style.gridTemplateColumns = gridAutoColVal;

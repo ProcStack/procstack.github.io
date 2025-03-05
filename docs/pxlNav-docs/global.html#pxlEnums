@@ -1,0 +1,4507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>pxlEnums - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://procstack.github.io/Outlet.htm" target="_blank" class="menu-item" id="pxlNav_Example" >pxlNav Example : The Outlet</a></h2><h3>Global</h3><ul><li><a href="global.html#pxlOptions">pxlOptions</a></li><li><a href="global.html#pxlUserSettings">pxlUserSettings</a></li></ul><h3>Modules</h3><ul><li><a href="module-pxlNav.html">pxlNav</a></li><li><a href="pxlNav.module_pxlEffects.html">pxlNav.pxlEffects</a></li><li><a href="pxlNav.pxlEffects.module_pxlParticles.html">pxlNav.pxlEffects.pxlParticles</a></li></ul><h3>Classes</h3><ul><li><a href="pxlAnim.html">pxlAnim</a><ul class='methods'><li data-type='method'><a href="pxlAnim.html#.Animation#addClips">Animation#addClips</a></li><li data-type='method'><a href="pxlAnim.html#.Animation#destroy">Animation#destroy</a></li><li data-type='method'><a href="pxlAnim.html#.Animation#getMesh">Animation#getMesh</a></li><li data-type='method'><a href="pxlAnim.html#.Animation#getMixer">Animation#getMixer</a></li><li data-type='method'><a href="pxlAnim.html#.Animation#getRig">Animation#getRig</a></li><li data-type='method'><a href="pxlAnim.html#.Animation#hasClip">Animation#hasClip</a></li><li data-type='method'><a href="pxlAnim.html#.Animation#initObject">Animation#initObject</a></li><li data-type='method'><a href="pxlAnim.html#.Animation#playClip">Animation#playClip</a></li><li data-type='method'><a href="pxlAnim.html#.Animation#setStateConnections">Animation#setStateConnections</a></li><li data-type='method'><a href="pxlAnim.html#.Animation#setWeight">Animation#setWeight</a></li></ul></li><li><a href="pxlCamera.html">pxlCamera</a><ul class='methods'><li data-type='method'><a href="pxlCamera.html#.Camera#setCameraRotateEasing">Camera#setCameraRotateEasing</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setGravityMax">Camera#setGravityMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setGravityRate">Camera#setGravityRate</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setInputMovementMult">Camera#setInputMovementMult</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpHoldMax">Camera#setJumpHoldMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpImpulse">Camera#setJumpImpulse</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpRepeatDelay">Camera#setJumpRepeatDelay</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setJumpScalar">Camera#setJumpScalar</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMaxStepHeight">Camera#setMaxStepHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementEase">Camera#setMovementEase</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementMax">Camera#setMovementMax</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setMovementScalar">Camera#setMovementScalar</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setPositionBlend">Camera#setPositionBlend</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setTouchSensitivity">Camera#setTouchSensitivity</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserHeight">Camera#setUserHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserScale">Camera#setUserScale</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setUserSettings">Camera#setUserSettings</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceEaseIn">Camera#setWalkBounceEaseIn</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceEaseOut">Camera#setWalkBounceEaseOut</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceHeight">Camera#setWalkBounceHeight</a></li><li data-type='method'><a href="pxlCamera.html#.Camera#setWalkBounceRate">Camera#setWalkBounceRate</a></li></ul></li><li><a href="global.html#pxlEnums">pxlEnums</a></li><li><a href="pxlEnv.html">pxlEnv</a></li><li><a href="pxlHUD.html">pxlHUD</a><ul class='methods'><li data-type='method'><a href="pxlHUD.html#.HUD#addItem">HUD#addItem</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#addToHUD">HUD#addToHUD</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createButton">HUD#createButton</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createDragRegion">HUD#createDragRegion</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createImage">HUD#createImage</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createRegion">HUD#createRegion</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createSlider">HUD#createSlider</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createText">HUD#createText</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#createThumbstick">HUD#createThumbstick</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#emit">HUD#emit</a></li><li data-type='method'><a href="pxlHUD.html#.HUD#subscribe">HUD#subscribe</a></li></ul></li><li><a href="pxlParticles_BillowSmoke.html">pxlParticles/BillowSmoke</a><ul class='methods'><li data-type='method'><a href="pxlParticles_BillowSmoke.html#addToScene">addToScene</a></li><li data-type='method'><a href="pxlParticles_BillowSmoke.html#atlasArrayPicker">atlasArrayPicker</a></li><li data-type='method'><a href="pxlParticles_BillowSmoke.html#atlasRandomGen">atlasRandomGen</a></li><li data-type='method'><a href="pxlParticles_BillowSmoke.html#atlasRandomList">atlasRandomList</a></li><li data-type='method'><a href="pxlParticles_BillowSmoke.html#build">build</a></li><li data-type='method'><a href="pxlParticles_BillowSmoke.html#dupeArray">dupeArray</a></li><li data-type='method'><a href="pxlParticles_BillowSmoke.html#elementDuplicator">elementDuplicator</a></li><li data-type='method'><a href="pxlParticles_BillowSmoke.html#getSettings">getSettings</a></li><li data-type='method'><a href="pxlParticles_BillowSmoke.html#hasPointLights">hasPointLights</a></li><li data-type='method'><a href="pxlParticles_BillowSmoke.html#newMaterial">newMaterial</a></li><li data-type='method'><a href="pxlParticles_BillowSmoke.html#setAtlasPath">setAtlasPath</a></li><li data-type='method'><a href="pxlParticles_BillowSmoke.html#setPosition">setPosition</a></li></ul></li><li><a href="pxlParticles_EmberWisps.html">pxlParticles/EmberWisps</a><ul class='methods'><li data-type='method'><a href="pxlParticles_EmberWisps.html#addToScene">addToScene</a></li><li data-type='method'><a href="pxlParticles_EmberWisps.html#atlasArrayPicker">atlasArrayPicker</a></li><li data-type='method'><a href="pxlParticles_EmberWisps.html#atlasRandomGen">atlasRandomGen</a></li><li data-type='method'><a href="pxlParticles_EmberWisps.html#atlasRandomList">atlasRandomList</a></li><li data-type='method'><a href="pxlParticles_EmberWisps.html#build">build</a></li><li data-type='method'><a href="pxlParticles_EmberWisps.html#dupeArray">dupeArray</a></li><li data-type='method'><a href="pxlParticles_EmberWisps.html#elementDuplicator">elementDuplicator</a></li><li data-type='method'><a href="pxlParticles_EmberWisps.html#getSettings">getSettings</a></li><li data-type='method'><a href="pxlParticles_EmberWisps.html#hasPointLights">hasPointLights</a></li><li data-type='method'><a href="pxlParticles_EmberWisps.html#newMaterial">newMaterial</a></li><li data-type='method'><a href="pxlParticles_EmberWisps.html#setAtlasPath">setAtlasPath</a></li><li data-type='method'><a href="pxlParticles_EmberWisps.html#setPosition">setPosition</a></li></ul></li><li><a href="pxlParticles_FloatingDust.html">pxlParticles/FloatingDust</a><ul class='methods'><li data-type='method'><a href="pxlParticles_FloatingDust.html#addToScene">addToScene</a></li><li data-type='method'><a href="pxlParticles_FloatingDust.html#atlasArrayPicker">atlasArrayPicker</a></li><li data-type='method'><a href="pxlParticles_FloatingDust.html#atlasRandomGen">atlasRandomGen</a></li><li data-type='method'><a href="pxlParticles_FloatingDust.html#atlasRandomList">atlasRandomList</a></li><li data-type='method'><a href="pxlParticles_FloatingDust.html#build">build</a></li><li data-type='method'><a href="pxlParticles_FloatingDust.html#dupeArray">dupeArray</a></li><li data-type='method'><a href="pxlParticles_FloatingDust.html#elementDuplicator">elementDuplicator</a></li><li data-type='method'><a href="pxlParticles_FloatingDust.html#getSettings">getSettings</a></li><li data-type='method'><a href="pxlParticles_FloatingDust.html#hasPointLights">hasPointLights</a></li><li data-type='method'><a href="pxlParticles_FloatingDust.html#newMaterial">newMaterial</a></li><li data-type='method'><a href="pxlParticles_FloatingDust.html#setAtlasPath">setAtlasPath</a></li><li data-type='method'><a href="pxlParticles_FloatingDust.html#setPosition">setPosition</a></li></ul></li><li><a href="pxlParticles_HeightMap.html">pxlParticles/HeightMap</a><ul class='methods'><li data-type='method'><a href="pxlParticles_HeightMap.html#addToScene">addToScene</a></li><li data-type='method'><a href="pxlParticles_HeightMap.html#atlasArrayPicker">atlasArrayPicker</a></li><li data-type='method'><a href="pxlParticles_HeightMap.html#atlasRandomGen">atlasRandomGen</a></li><li data-type='method'><a href="pxlParticles_HeightMap.html#atlasRandomList">atlasRandomList</a></li><li data-type='method'><a href="pxlParticles_HeightMap.html#build">build</a></li><li data-type='method'><a href="pxlParticles_HeightMap.html#dupeArray">dupeArray</a></li><li data-type='method'><a href="pxlParticles_HeightMap.html#elementDuplicator">elementDuplicator</a></li><li data-type='method'><a href="pxlParticles_HeightMap.html#getSettings">getSettings</a></li><li data-type='method'><a href="pxlParticles_HeightMap.html#hasPointLights">hasPointLights</a></li><li data-type='method'><a href="pxlParticles_HeightMap.html#newMaterial">newMaterial</a></li><li data-type='method'><a href="pxlParticles_HeightMap.html#setAtlasPath">setAtlasPath</a></li><li data-type='method'><a href="pxlParticles_HeightMap.html#setPosition">setPosition</a></li></ul></li><li><a href="pxlParticles_ParticleBase.html">pxlParticles/ParticleBase</a></li><li><a href="pxlRoom%2520RoomEnvironment.html">pxlRoom RoomEnvironment</a><ul class='methods'><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#addColliderHelper">addColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#animPostLoad">animPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#applyRoomPass">applyRoomPass</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#build">build</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#castRay">castRay</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#cleanupPortalRender">cleanupPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#fbxPostLoad">fbxPostLoad</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getArtistInfo">getArtistInfo</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getColliders">getColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getCurrentShader">getCurrentShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpAvgRate">getLerpAvgRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getLerpRate">getLerpRate</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getName">getName</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#getShaderList">getShaderList</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliderType">hasColliderType</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hasColliders">hasColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#hitColliders">hitColliders</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#init">init</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#onMessage">onMessage</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#prepPortalRender">prepPortalRender</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#readShader">readShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resetCamera">resetCamera</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#resize">resize</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setDependencies">setDependencies</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setFog">setFog</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setPortalTexture">setPortalTexture</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setShader">setShader</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#setUserHeight">setUserHeight</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#start">start</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#step">step</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stepColliderHelper">stepColliderHelper</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#stop">stop</a></li><li data-type='method'><a href="pxlRoom%252520RoomEnvironment.html#toCameraPos">toCameraPos</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="pxlAudio.html">pxlAudio</a></li><li><a href="pxlAutoCam.html">pxlAutoCam</a></li><li><a href="pxlColliders.html">pxlColliders</a></li><li><a href="pxlCookie.html">pxlCookie</a></li><li><a href="pxlDevice.html">pxlDevice</a></li><li><a href="pxlFile.html">pxlFile</a></li><li><a href="pxlGuiDraws.html">pxlGuiDraws</a></li><li><a href="pxlQuality.html">pxlQuality</a></li><li><a href="pxlTimer.html">pxlTimer</a></li><li><a href="pxlUser.html">pxlUser</a></li><li><a href="pxlUtils.html">pxlUtils</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">pxlEnums</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            pxlEnums
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+    
+
+    <h4 class="name" id="pxlEnums"><span class="type-signature"></span>new pxlEnums<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line37">line 37</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".ANTI_ALIASING"><span class="type-signature type-signature-static">(static) </span>ANTI_ALIASING<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Anti-aliasing settings</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line66">line 66</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>OFF</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>No anti-aliasing</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>LOW</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Low anti-aliasing</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>MEDIUM</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Medium anti-aliasing</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>HIGH</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>High anti-aliasing</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>Anti-aliasing settings</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".CAMERA_EVENT"><span class="type-signature type-signature-static">(static) </span>CAMERA_EVENT<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Camera event types</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line186">line 186</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>MOVE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Camera movement event</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ROTATE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Camera rotation event</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>JUMP</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Camera jump event</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>FALL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Camera fall event</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>LANDED</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Camera landed event</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>COLLISION</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Camera collision event</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>Camera event types</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".COLLIDER_TYPE"><span class="type-signature type-signature-static">(static) </span>COLLIDER_TYPE<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Collider internal types</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line136">line 136</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>FLOOR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Default ground/floor type collider</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>WALL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Can't walk through, even if there is 'FLOOR' beneath it</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>WALL_TOP</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The Wall Top; Will be removed in future versions, use 'FLOOR' instead</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>CEILING</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Not implemented yet</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>PORTAL_WARP</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Warp to another location in the same room</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ROOM_WARP</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Warp to another location in a different room</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ITEM</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Callback to item list managed by pxlNav &amp; from Room FBX</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>SCRIPTED</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Callback to current room on collision</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>HOVERABLE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Mouse hoverable, but not clickable</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>CLICKABLE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Mouse clickable</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>Collider internal types</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".COLOR_SHIFT"><span class="type-signature type-signature-static">(static) </span>COLOR_SHIFT<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Color space conversion options</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line212">line 212</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>KEEP</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Keep the color as is</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sRGB_TO_LINEAR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Convert sRGB to Linear color space</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>LINEAR_TO_sRGB</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Convert Linear to sRGB color space</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>WINDOWS_TO_UNIX</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Convert Windows color space to Unix color space</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>UNIX_TO_WINDOWS</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Convert Unix color space to Windows color space</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>LINEAR_TO_WINDOWS</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Convert Linear color space to Windows color space</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>WINDOWS_TO_LINEAR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Convert Windows color space to Linear color space</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>LINEAR_TO_UNIX</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Convert Linear color space to Unix color space</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>UNIX_TO_LINEAR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Convert Unix color space to Linear color space</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>Color space conversion options</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".DEVICE_ACTION"><span class="type-signature type-signature-static">(static) </span>DEVICE_ACTION<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Input-Device Actions</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line361">line 361</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>MOVE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Move action</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>MOVE_X</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Move X axis ( Unused )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>MOVE_Y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Move Y axis ( Unused )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>LOOK</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Look action</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>LOOK_X</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Look X axis ( Unused )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>LOOK_Y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Look Y axis ( Unused )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>JUMP</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Jump action</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>RUN</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Run action</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ACTION</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Action button</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ACTION_ALT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Alternate action button ( Unused )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ITEM</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Item button</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>MENU</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Menu button ( Unused )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>PAUSE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Pause button</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>MAP</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Map button ( Unused )</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>Input-Device Actions</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".DEVICE_EVENT"><span class="type-signature type-signature-static">(static) </span>DEVICE_EVENT<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Input-Device Events</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line293">line 293</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>CONNECT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Device connected</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DISCONNECT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Device disconnected</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>BUTTON_PRESS</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Button pressed</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>AXIS_MOVE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Axis moved</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>AXIS_LOOK</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Axis looking</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>Input-Device Events</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".DEVICE_TYPE"><span class="type-signature type-signature-static">(static) </span>DEVICE_TYPE<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Input-Device Types</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line267">line 267</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>KEYBOARD</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Keyboard input device</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>MOBILE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Mobile input device</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>GAMEPAD</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Gamepad input device ( Unused )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>XR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Extended Reality input device ( Unused )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>VR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Virtual Reality input device ( Unused )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>AR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Augmented Reality input device ( Unused )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>HMD</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Head Mounted Display input device ( Unused )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>OTHER</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Other input device ( Unused )</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>Input-Device Types</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".GEOMETRY_SIDE"><span class="type-signature type-signature-static">(static) </span>GEOMETRY_SIDE<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Geometry side types</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line168">line 168</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>FRONT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Front side of the geometry</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>BACK</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Back side of the geometry</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DOUBLE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Both sides of the geometry</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>Geometry side types</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".HUD_ACTION"><span class="type-signature type-signature-static">(static) </span>HUD_ACTION<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>GUI &amp; HUD Element actions</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line424">line 424</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>NONE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>No action</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>CLICK</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Click action</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>HOVER</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Hover action</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ACTIVE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Active action</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DRAG</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Drag action</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DROP</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Drop action ( Unused )</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>GUI &amp; HUD Element actions</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".HUD_ELEMENT"><span class="type-signature type-signature-static">(static) </span>HUD_ELEMENT<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>GUI &amp; HUD Element types</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line401">line 401</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>REGION</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Region element</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DRAG_REGION</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Drag Region element</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>BUTTON</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Button element</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>THUMBSTICK</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Thumbstick element</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>SLIDER</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Slider element ( Unused )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>IMAGE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Image element ( Unused )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>TEXT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Text element ( Unused )</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>GUI &amp; HUD Element types</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".RENDER_LAYER"><span class="type-signature type-signature-static">(static) </span>RENDER_LAYER<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Render Order Layers</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line84">line 84</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>SKY</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Sky layer</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>SCENE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Scene layer</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>PARTICLES</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Particle layer</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>GLOW</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Glow layer</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>GLOW_MASK</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Glow mask layer</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>Render Order Layers</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".SHADOW_MAP"><span class="type-signature type-signature-static">(static) </span>SHADOW_MAP<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Shadow edge softness settings</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line120">line 120</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>OFF</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>No shadow edge softness</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>BASIC</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Basic shadow edge softness</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>SOFT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Soft shadow edge softness</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>Shadow edge softness settings</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".SKY_HAZE"><span class="type-signature type-signature-static">(static) </span>SKY_HAZE<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Sky Haze settings</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line105">line 105</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>OFF</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>No sky haze</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>VAPOR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Vapor sky haze</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>Sky Haze settings</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".USER_SPEED"><span class="type-signature type-signature-static">(static) </span>USER_SPEED<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>User speed settings</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line245">line 245</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>STOP</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Stop movement</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>SLOW</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Slow movement</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>BASE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Base movement</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>BOOST</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Boosted movement</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>User speed settings</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".VERBOSE_LEVEL"><span class="type-signature type-signature-static">(static) </span>VERBOSE_LEVEL<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>Console logging levels</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line44">line 44</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>NONE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>No console logging</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ERROR</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Log only errors</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>WARN</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Log errors and warnings</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>INFO</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Log errors, warnings, and info</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DEBUG</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Log all console messages</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>Console logging levels</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".exports.pxlEnums"><span class="type-signature type-signature-static, constant">(static, constant) </span>exports.pxlEnums<span class="type-signature"> :Object</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>pxlNav Enums</p></li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pxlNav_core_Enums.js.html">pxlNav/core/Enums.js</a>, <a href="pxlNav_core_Enums.js.html#line485">line 485</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>VERBOSE_LEVEL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Console logging levels</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ANTI_ALIASING</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Anti-aliasing settings</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>RENDER_LAYER</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Render Order Layers</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>SKY_HAZE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Sky Haze settings</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>SHADOW_MAP</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Shadow edge softness settings</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>CAMERA_EVENT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Camera event types</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>COLLIDER_TYPE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Collider internal types</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>GEOMETRY_SIDE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Geometry side types</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>COLOR_SHIFT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Color space conversion options</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>USER_SPEED</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>User speed settings</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DEVICE_TYPE</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Input-Device Types</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DEVICE_EVENT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Input-Device Events</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DEVICE_BUTTON</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Input-Device Buttons</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>DEVICE_ACTION</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Input-Device Actions</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>HUD_ELEMENT</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>GUI &amp; HUD Element types</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>HUD_ACTION</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>GUI &amp; HUD Element actions</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>HUD_DRAW</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>GUI &amp; HUD Element draw types</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="description usertext">
+    <p>pxlNav Enums</p>
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Tue Mar 04 2025 23:51:54 GMT-0500 (Eastern Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.js"></script>
+    
+    <script src="docs-init.js"></script>
+    
+</body>
+</html>
