@@ -61,6 +61,7 @@ userSettings['height']['stepSize'] = 5; // Max step height in units
 userSettings['movement']['scalar'] = 1.0; // Overall movement rate scalar
 userSettings['movement']['max'] = 10.0; // Max movement speed
 userSettings['movement']['easing'] = 0.55; // Easing rate between Step() calls
+userSettings['look']['mobile']['invert'] = true; // Invert the look controls on mobile devices
 userSettings['headBounce']['height'] = 0.3; // Bounce magnitude in units
 userSettings['headBounce']['rate'] = 0.025; // Bounce rate per Step()
 userSettings['headBounce']['easeIn'] = 0.03; // When move key is pressed, the ease into bounce; `bounce * ( boundInf + easeIn )`
