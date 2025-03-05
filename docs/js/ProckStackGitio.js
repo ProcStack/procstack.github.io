@@ -61,6 +61,7 @@ userSettings['height']['stepSize'] = 5; // Max step height in units
 userSettings['movement']['scalar'] = 1.0; // Overall movement rate scalar
 userSettings['movement']['max'] = 10.0; // Max movement speed
 userSettings['movement']['easing'] = 0.55; // Easing rate between Step() calls
+userSettings['look']['mobile']['invert'] = true; // Invert the look controls on mobile devices
 userSettings['headBounce']['height'] = 0.3; // Bounce magnitude in units
 userSettings['headBounce']['rate'] = 0.025; // Bounce rate per Step()
 userSettings['headBounce']['easeIn'] = 0.03; // When move key is pressed, the ease into bounce; `bounce * ( boundInf + easeIn )`
@@ -68,8 +69,8 @@ userSettings['headBounce']['easeOut'] = 0.95; // When move key is let go, the ea
 userSettings['jump']['impulse'] = 0.75; // Jump impulse force applied to the player while holding the jump button
 userSettings['jump']['holdMax'] = 2.85; // Max influence of holding the jump button on current jump; in seconds
 userSettings['jump']['repeatDelay'] = 0.08; // Delay between jumps when holding the jump button
-userSettings['gravity']['UPS'] = 0.3; // Units per Step() per Step()
-userSettings['gravity']['Max'] = 15.5; // Max gravity rate
+userSettings['gravity']['ups'] = 0.3; // Units per Step() per Step()
+userSettings['gravity']['max'] = 15.5; // Max gravity rate
 
 // -- -- --
 

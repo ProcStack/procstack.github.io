@@ -159,7 +159,7 @@ buildDust(){
 }
 
 builBugs(){
-  if( this.mobile ) return;
+  //if( this.mobile ) return;
 
   let vertexCount = 500; // Point Count
   let pScale = 10.0;  // Point Base Scale
