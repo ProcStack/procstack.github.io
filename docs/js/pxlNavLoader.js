@@ -54,6 +54,7 @@ userSettings['height']['stepSize'] = 5; // Max step height in units
 userSettings['movement']['scalar'] = 1.0; // Overall movement rate scalar
 userSettings['movement']['max'] = 10.0; // Max movement speed
 userSettings['movement']['easing'] = 0.55; // Easing rate between Step() calls
+userSettings['look']['mobile']['invert'] = true; // Invert the look controls on mobile devices
 userSettings['headBounce']['height'] = 0.3; // Bounce magnitude in units
 userSettings['headBounce']['rate'] = 0.025; // Bounce rate per Step()
 userSettings['headBounce']['easeIn'] = 0.03; // When move key is pressed, the ease into bounce; `bounce * ( boundInf + easeIn )`
@@ -72,6 +73,14 @@ const targetFPS = {
   'pc' : 60,
   'mobile' : 30
 };
+
+// Render Resolution Scale
+//   Since mobile devices have a lower resolution, up scaling may help
+// Default is - PC = 1.0  -&-  Mobile = 1.0
+const renderScale = {
+  'pc' : 1.0,
+  'mobile' : 1.3
+}
 
 // Anti-aliasing level
 //   Options are - NONE, LOW, MEDIUM, HIGH
@@ -122,6 +131,7 @@ const collisionScale = {
 let pxlNavOptions = Object.assign({},pxlOptions);
 pxlNavOptions.verbose = verbose;
 pxlNavOptions.fps = targetFPS;
+pxlNavOptions.renderScale = renderScale;
 pxlNavOptions.userSettings = userSettings;
 pxlNavOptions.antiAliasing = antiAliasing;
 pxlNavOptions.collisionScale = collisionScale;

@@ -54,7 +54,6 @@ function gatherMethodList(){
           a = a[0];
           let matchSlash = a.innerText.match( matchRegSlash );
           if( matchSlash ){
-            console.log( a.innerText.replace( matchRegSlash, ".") );
             a.innerText = a.innerText.replace( matchRegSlash, ".");
           }
         }
@@ -79,7 +78,6 @@ function gatherMethodList(){
 
         
         let headerHeader = header.getElementsByTagName('h2');
-        console.log( headerHeader );
         if( headerHeader.length > 0 ){
           let matchSlash = headerHeader[0].innerText.match( matchRegSlash );
           if( matchSlash ){
