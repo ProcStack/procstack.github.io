@@ -43,13 +43,10 @@ import {
         envGroundVert, envGroundFrag,
         instPlantsVert, instPlantsFrag,
         creekWaterVert, creekWaterFrag,
-        waterWayVert, waterWayFrag,
-        woodenDockVert, woodenDockFrag,
+        waterWayVert, waterWayFrag
       } from "./Shaders.js";
 import { RoomEnvironment, pxlShaders, pxlEffects } from "../../pxlNav.esm.js";
 
-const pxlPrincipledVert = pxlShaders.objects.pxlPrincipledVert;
-const pxlPrincipledFrag = pxlShaders.objects.pxlPrincipledFrag;
 const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
 const HeightMapSpawner = pxlEffects.pxlParticles.HeightMap;
 
@@ -246,6 +243,14 @@ builBugs(){
         lhMtl.alphaTest = .05;
       }
     }
+
+    if( this.geoList.hasOwnProperty('woodenDock_geo') ){
+      let wdMtl = this.geoList['woodenDock_geo'].material;
+      if( wdMtl.map && !wdMtl.emissiveMap ){
+        wdMtl.emissiveMap = wdMtl.map;
+        wdMtl.emissive.set( 0x404040 );
+      }
+    }
     
     // Adding a basic ambient light
     var ambientLight = new AmbientLight( 0x383838 ); // soft white light
@@ -309,7 +314,6 @@ builBugs(){
     envGroundUniforms.crackedDirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"CrackedDirtGround_diffuse.jpg", null, textureOptionsSRGB );
     envGroundUniforms.hillDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"RockLayerDirtHill_diffuse.jpg", null, textureOptionsSRGB );
     envGroundUniforms.grassDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"GrassA_diffuse.jpg", null, textureOptionsSRGB );
-    //envGroundUniforms.mossDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"MossyGround_diffuse.jpg", null, textureOptionsSRGB );
     envGroundUniforms.mossDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"MossyB_diffuse.jpg", null, textureOptionsSRGB );
 
     envGroundUniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Data.jpg", null, textureOptionsClamp );
@@ -381,27 +385,6 @@ builBugs(){
     grassMat.transparent = false;
     
         
-    // -- -- --
-    
-    
-    // -- -- -- -- -- -- -- -- -- --
-    // -- Fishing Pond Material - -- --
-    // -- -- -- -- -- -- -- -- -- -- -- --
-
-
-    let woodenDockUniforms = UniformsUtils.merge(
-      [
-      UniformsLib[ "lights" ],
-      {
-        'noiseTexture' : { type:'t', value: null },
-        'fogColor' : { type: "c", value: this.fogColor },
-      }]
-    )
-    woodenDockUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
-
-    let woodenDockMat=this.pxlFile.pxlShaderBuilder( woodenDockUniforms, woodenDockVert(), woodenDockFrag() );
-    woodenDockMat.side = FrontSide;
-    woodenDockMat.lights = true;
     
         
     // -- -- --
@@ -530,7 +513,6 @@ builBugs(){
     this.materialList[ "catTailA_lod0_geo" ] = grassMat;
     this.materialList[ "catTailA_lod1_geo" ] = grassMat;
 
-    this.materialList[ "woodenDock_geo" ] = woodenDockMat;
     this.materialList[ "waterWay_geo" ] = waterWayMat;
 
     this.materialList[ "creekWater_geo" ] = creekWaterMat;
