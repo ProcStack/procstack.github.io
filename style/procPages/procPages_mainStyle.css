@@ -130,6 +130,12 @@ left: calc(max(3.5vw, 50vw - 765px));
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .procPagesHideWhenVertical{
+    display: none;
+  }
+}
+
 /* -- -- -- */
 
 .procPagesNavStyle {
@@ -382,6 +388,10 @@ text-shadow: 1px 1.5px 4px #252525;
   font-size: 0.81em;
 }
 
+.textBold{
+  font-weight: 700;
+}
+
 .textBump{
   font-size: 1.17em;
 }
@@ -446,6 +456,13 @@ text-shadow: 1px 1.5px 4px #252525;
 }
 
 
+
+/* -- -- -- */
+
+.procPagesSpacer{
+  height: 7px;
+  overflow: hidden;
+}
 
 /* -- -- -- */
 

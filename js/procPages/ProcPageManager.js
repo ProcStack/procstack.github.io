@@ -1,6 +1,10 @@
 // Page Management For Some Git.io Example Site To Show Off pxlNav Cause I Couldn't Come Up With A Better Idea v0.0.1
 //  Written by Kevin Edzenga; 2024,2025
 //
+// Should this be Next & Tailwind?
+//   Maybe
+// React is heavy though, so naw...
+//
 // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 //
 //   Note December 3rd, 2024:
@@ -18,10 +22,6 @@
 //     There is no need for yet another page manager, but I could always use a good bootstrapper for myself,
 //       And my blatently ESM ways.
 //
-// -- -- -- -- -- -- -- -- -- -- -- -- -- --
-//
-//   This is an example implementation of `pxlNav` in a project;
-//   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
 export class ProcPageManager {

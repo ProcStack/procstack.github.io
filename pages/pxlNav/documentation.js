@@ -8,7 +8,7 @@ export const pageListingData = {
       'href' : './pxlNav-docs',
       'alt' : 'pxlNav Shader Editor',
       'style' : 'procPagesImageStyle',
-      'caption' : ["See pxlNav Documentation"]
+      'caption' : ["<span class='procPagesHideWhenVertical'>See pxlNav Documentation</span>"]
     
     }
   ],
@@ -20,6 +20,11 @@ export const pageListingData = {
       <br>
       Create your own interactive environments,
       <br>Using <span class='textNudge'>pxlNav</span> for your Three.js projects.
+
+      <br>
+      <br>
+      <div class="innerCenter">Install <span class='textNudge'>pxlNav</span> for your web project using NPM
+      <div class="textBoldBox">npm -i pxlnav</div></div>
       <br><br>
     </div>
   `
