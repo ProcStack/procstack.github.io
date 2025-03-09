@@ -44,7 +44,7 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; Then I moved to minky, which is a bit more difficult to work with, but is so soft and cuddly!  It's a bit more expensive, has less stretch than anti-pil, but it's a much better fabric for the feel of the plushies.
       <br><span class="innerCenter textSkew">Minky is definitely for a more skilled crafter.</span>
       
-      <br>&nbsp;&nbsp; In the long run, I can get a idea from my head to a plushie in about 4 days now.  So I've been making a bunch of different designs, and I'm really happy with how they've been turning out!
+      <br>&nbsp;&nbsp; In the long run, I can get an idea from my head to a plushie in about 4 days now.  So I've been making a bunch of different designs, and I'm really happy with how they've been turning out!
       <br>
       <br>
     </div>

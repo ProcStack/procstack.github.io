@@ -11,14 +11,17 @@ export const pageListingData = {
   ],
   'content' : `
     <div class='procPagesAboutMeInfoStyle'>
-      I think I'm a '<span class="textNudge">Technical Artist</span>' (<span class="textItalic">when doing real-time work</span>)
+      I think I'm a '<span class="textNudge">Technical Artist</span>' (<span class="textItalic">doing real-time work</span>)
       <br>&nbsp;&nbsp; or a '<span class="textNudge">Technical Director</span>' (<span class="textItalic">on films</span>)
       <br>&nbsp;&nbsp;&nbsp;&nbsp; or a '<span class="textNudge">Creative Technologist</span>' (<span class="textItalic">for immersive</span>)
-      <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...
+      <br>It's all the same type of mental challenges.
     </div>
+    
+    <br>
     <div class="textItalicBox">So I says, blue M&M, red M&M, they all wind up the same color in the end.</div>
     <div class="textDrinkMeAlice innerTextEnd"> - <span class="textNudge">Homer Simpson</span></div>
     
+    <br>
     <div class='procPagesAboutMeInfoStyle'>
       Ya know... I don't really know what I am,
       <br>&nbsp;&nbsp; I just know I like figuring out puzzles, and for the life of me, can't seem to stop my fidgety fingers.

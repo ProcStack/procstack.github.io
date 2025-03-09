@@ -1,5 +1,5 @@
-import { PageMetaData } from '../js/pxlPages/PageMetaData.js';
-import { ProcPage } from '../js/pxlPages/ProcPage.js';
+import { PageMetaData } from '../js/procPages/PageMetaData.js';
+import { ProcPage } from '../js/procPages/ProcPage.js';
 
 const metaDataInput = {
   'page': 'Init',

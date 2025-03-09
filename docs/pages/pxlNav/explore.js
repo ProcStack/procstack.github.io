@@ -32,12 +32,18 @@ export const pageListingData = {
       <span class="textBump">pxlNav Example : <a href="Outlet.htm" target="_blank" alt="Outlet Environment" class="textBump">The Outlet</a></span>
 
       <br>
-      <br>Run around the Outlet environment to see pxlNav in action.
-      <br>A water-way dock with some coastal plant life.
+      <br>Run around the Outlet environment to see <span class="textBoldBox">pxlNav</span> in action.
+      <br>A water-way with a lighthouse & some coastal plant life.
 
       <br>
       <br>
-      <br><span class="textBoldBox">WASD</span> or <span class="textBoldBox">Arrow</span> keys to <span class="textNudge">Move</span>
+      <br><span class="textBold">On Mobile</span>, your <span class="textBoldBox">Left</span> thumbstick is Movement 
+      <br>While your <span class="textBoldBox">Right</span> thumbstick is Look / Rotation
+      <br>Tap the upper half of the screen to <span class="textBoldBox">Jump</span>
+
+      <br>
+      <br>
+      <br><span class="textBold">On PC</span>, use <span class="textBoldBox">WASD</span> or <span class="textBoldBox">Arrow</span> keys to <span class="textNudge">Move</span>
       <div class="procPagesSpacer"></div>
       <span class="textBoldBox">Left Click & Drag</span> or <span class="textBoldBox">Right Click Toggle</span>
       <br>With your <span class="textNudge">Mouse</span> to <span class="textNudge">Look</span> around

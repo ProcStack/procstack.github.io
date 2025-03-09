@@ -1,6 +1,7 @@
 
 const projectName = "ProcStack.Github.io";
 let listenIP = 'localhost';
+//listenIP = '192.168.1.3'; // For testing on my phone
 var httpPort = 3000;
 
 const args = process.argv.slice(2);

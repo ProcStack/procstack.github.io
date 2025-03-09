@@ -25,22 +25,22 @@ export const pageListingData = {
 
     <br>
     <br>But since then, society walked back into the sun and stretched their legs a bit,
-    <br>The needs for a virtual event space had waned.
+    <br>&nbsp;&nbsp; The needs for a virtual event space had waned.
     
     <br>
     <br>However, pxlNav was pretty cool, so I decided to make it easier to install for your own Three.js projects.
-    <br>Aiming to turn your 3d modeling software into a level editor.
+    <br>&nbsp;&nbsp; Aiming to turn your 3d modeling software into a level editor.
 
     <br><br>As it stands, pxlNav supports FBX files for your Rooms (the environment / scene / levels) which can be made in your 3D program of choice.
-    <br>It supports rig + animation fbx files for your character animation, and a simple curve in your scene can act as your camera path ( add another if you want the camera to look somewhere as it's traveling the path ).
-    <br>Animated textures by using a second texture, particle effects, FPS navigation, obstacles, items, portals, and more.
+    <br>&nbsp;&nbsp; It supports rig + animation fbx files for your character animation, and a simple curve in your scene can act as your camera path ( add another if you want the camera to look somewhere as it's traveling the path ).
+    <br>&nbsp;&nbsp; Animated textures by using a second texture, particle effects, FPS navigation, obstacles, items, portals, and more.
 
     <br><br>3d for web has come a far way, and it has less hurdles than getting your game ready for cross platform usability.
-    <br>Websites are just there, anywhere, and can be turned into apps easily these days.
-    <br>So why not?
+    <br>&nbsp;&nbsp; Websites are just there, anywhere, and can be turned into apps easily these days.
+    <br>&nbsp;&nbsp; So why not?
 
-      <br>
-      <br>
+    <br>
+    <br>
     <div class="procPagesPxlNavEndNoteStyle">
       During the run of Antibody Club (2020), I had a helping hand on a couple shaders, camera animations, and some other odds'n'ends. 
       <div class="procPagesPxlNavSpacer"></div>

@@ -10,7 +10,7 @@
 //
 
 import { pxlNav, pxlNavVersion, pxlEnums, pxlUserSettings, pxlOptions } from './pxlNav.esm.js'; // v0.20
-import { ProcPageManager } from './pxlPages/ProcPageManager.js';
+import { ProcPageManager } from './procPages/ProcPageManager.js';
 import { pageListing } from '../pages/pageListing.js';
 import { BlogManager } from './BlogManager.js';
 
