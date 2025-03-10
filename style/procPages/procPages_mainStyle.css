@@ -420,6 +420,8 @@ text-shadow: 1px 1.5px 4px #252525;
   border-radius: 6px;
   background-color: rgba(110,110,110,0.5);
   padding: 2px 6px 2px 6px;
+  width: 50%;
+  justify-self: center;
 }
 
 .textItalicBox{
