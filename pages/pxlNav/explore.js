@@ -1,0 +1,65 @@
+
+export const pageListingData = {
+  'name' : 'Explore',
+  'media' : [
+    {
+      'type' : 'image',
+      'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_Coastline_sm.webp',
+      'href' : 'Outlet.htm',
+      'alt' : 'The Outlet coastline',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["An overlook of the Outlet"]
+    
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_CatTails_sm.webp',
+      'href' : 'Outlet.htm',
+      'alt' : 'The water-side cattails',
+      'style' : 'procPagesImageStyle'
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-2-8_The_Dock_sm.webp',
+      'href' : 'Outlet.htm',
+      'alt' : 'Overview of the foothills next to the Outlet',
+      'style' : 'procPagesImageStyle'
+    }
+  ],
+  'contentStyle' : [ 'procPagesCenterContent' ],
+  'content' : `
+    <div class="innerCenter">
+      <span class="textBump">pxlNav Example : <a href="Outlet.htm" target="_blank" alt="Outlet Environment" class="textBump">The Outlet</a></span>
+
+      <br>
+      <br>Run around in this water side environment to see <span class="textBoldBox">pxlNav</span> in action.
+      <br>A water-way with a lighthouse & some coastal plant life.
+
+      <br>
+      <br>
+      <br><span class="textBold">On Mobile</span>, your <span class="textBoldBox">Left</span> thumbstick is <span class="textNudge">Movement</span>
+      <br>While your <span class="textBoldBox">Right</span> thumbstick is <span class="textNudge">Look / Rotation</span>
+      <br>Tap the <span class="textBoldBox">Upper Half</span> of the screen to <span class="textNudge">Jump</span>
+
+      <br>
+      <br>
+      <br><span class="textBold">On PC</span>, use <span class="textBoldBox">WASD</span> <span class="textNudge">or</span> <span class="textBoldBox">Arrow</span> keys to <span class="textNudge">Move</span>
+      <div class="procPagesSpacer"></div>
+      <span class="textBoldBox">Left Click & Drag</span> <span class="textNudge">or</span> <span class="textBoldBox">Right Click Toggle</span>
+      <br>With your <span class="textNudge">mouse</span> <span class="textNudge">to</span> <span class="textNudge">Look</span> around
+      <div class="procPagesSpacer"></div>
+      <span class="textBoldBox">Space</span> to <span class=" ">Jump</span> <span class="textNudge">- & -</span> <span class="textBoldBox">Shift</span> to <span class="textBump">Run</span>
+      
+      <br>
+      <br>Press the <span class="textBoldBox">P</span> key <span class="textNudge">to</span> <span class="textNudge">pause</span> the system
+      <br>Tap the <span class="textBoldBox">Y</span> key <span class="textNudge">to</span> open the <span class="textName">Shader Editor</span>
+
+      <br>
+      <br>Bump <span class="textBoldBox">G</span> to open <span class="textName">Graphics</span> settings
+      <br>Nudge <span class="textBoldBox">H</span> to open the <span class="textName">Help</span> menu
+      <br>Bop the <span class="textBoldBox">I</span> to open the <span class="textName">Info</span> screen
+      <br>
+      <br>
+    </div>
+  `
+};
