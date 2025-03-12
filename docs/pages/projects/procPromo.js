@@ -30,12 +30,35 @@ export const pageListingData = {
     <br>A shader pack for Minecraft, used through Optifine.
 
     <br>
-    <br>I developed a depth-based texture bluring, similar to Smart Blur filter in Photoshop,
-    <br>&nbsp;&nbsp;In attempts to capture the Minecraft Key or Promo art used when new updates are released.
-    
+    <br>I started writing procPromo in the spring of 2022 as a way to learn GLSL,
+    <br>&nbsp;&nbsp; Figured, if I was already playing mindcraft, might as well make it look cool too;
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Like when buildings the 2 builds in the images above.
+
     <br>
-    <br>I also wrote a shadow distortion & bias system as well;
-    <br>&nbsp;&nbsp;A per-axis shadow distortion, with biasing based on distance from camera/player,
-    <br>&nbsp;&nbsp;Also project block sides out to sample the shadow at a distance, letting shadow cascade down the side of the blocks too.
+    <br>I decided on a style inspired by the Minecraft Key art,
+    <br>&nbsp;&nbsp; This meant a <span class='textInblockBox'>Texture Blur</span> like the <span class='textName'>Smart Blur</span> in photoshop. By smoothing regions of similar colors.
+    <br>&nbsp;&nbsp; To make a <span class='textInblockBox'>Depth + Normal</span> based edge detection.
+    <br>&nbsp;&nbsp; Create a <span class='textInblockBox'>2-Pass Blur/Glow</span> with post-processing.
+    <br>&nbsp;&nbsp; And a <span class='textInblockBox'>Shadow Distortion</span> system with <span class='textName'>biasing</span> based on axial-distance from camera/player.
+
+    <br>
+    <br>Shadows are strange in games,
+    <br>&nbsp;&nbsp; They are a 2D representation of a 3D object, being projected onto a surface.
+    <br>&nbsp;&nbsp; Then to fix artifacts like <span class='textName'>Peter Panning</span> or <span class='textName'>Shadow Acne</span>, you have to bias the shadow map as you read it.
+    <br>&nbsp;&nbsp; It's strange because it's always circular in games.
+
+    <div class='procPagesSpacer'></div>
+    <span class="innerCenter">How about per axis?</span>
+    <br> Minecraft is a game of cubes after all,
+    <br>&nbsp;&nbsp; 90 degree angles are everywhere.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; So why not treat X, Y, & Z differently?
+
+    <div class='procPagesSpacer'></div>
+
+    <br> Fun experiment for shadowing,
+    <br>&nbsp;&nbsp; But it has it's time and place;
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Like in a block game.
+    <br>
+    <br>
   `,
 };

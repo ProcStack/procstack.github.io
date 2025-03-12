@@ -1,6 +1,6 @@
 
 export const pageListingData = {
-  'name' : 'Explore pxlNav',
+  'name' : 'Try pxlNav',
   'media' : [
     {
       'type' : 'image',

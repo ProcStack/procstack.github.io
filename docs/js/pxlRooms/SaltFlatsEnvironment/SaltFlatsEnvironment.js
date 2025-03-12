@@ -338,10 +338,11 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
         UniformsLib[ "lights" ],
         {
           'noiseTexture' : { type:'t', value: null },
+          'cloudTexture' : { type:'t', value: this.cloud3dTexture },
           'fogColor' : { type: "c", value: this.fogColor },
         }]
     )
-    envGroundUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+    envGroundUniforms.noiseTexture.value = this.pxlUtils.loadTexture( "Noise_UniformWebbing.jpg" );
 
     let mat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag() );
     mat.side=FrontSide;
@@ -361,7 +362,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
           'noiseTexture' : { type:'t', value: null }
         }]
     )
-    salioaPlanUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+    salioaPlanUniforms.noiseTexture.value = this.pxlUtils.loadTexture( "Noise_UniformWebbing.jpg" );
 
     let salioaMtl=this.pxlFile.pxlShaderBuilder( salioaPlanUniforms, salioaPlantVert(), salioaPlantFrag() );
     salioaMtl.side=DoubleSide;

@@ -61,6 +61,7 @@ export class OutletEnvironment extends RoomEnvironment{
     // The FBX file to load for your room
     //   Defaults to " ./ pxlRooms / *YourRoomEnv* / Assets / *YourSceneFile.fbx* "
     this.sceneFile = this.assetPath+"OutletEnvironment.fbx";
+    //this.sceneFile = this.assetPath+"OutletEnvironment.glb";
 		
 		// Environment Shader 
 		this.spiralizerUniforms={};
@@ -158,15 +159,15 @@ buildDust(){
 builBugs(){
   //if( this.mobile ) return;
 
-  let vertexCount = 500; // Point Count
-  let pScale = 10.0;  // Point Base Scale
-  let visibleDistance = 400;  // Proximity Distance from Camera
+  let vertexCount = 300; // Point Count
+  let pScale = 6.25;  // Point Base Scale
+  let visibleDistance = 500;  // Proximity Distance from Camera
   let particleOpacity = 1.0;  // Overall Opacity
-  let opacityRolloff = 0.9;  // Distance-opacity falloff multiplier
+  let opacityRolloff = 0.85;  // Distance-opacity falloff multiplier
 
   let jumpHeightMult = 17.0; // How high the bugs jump
   let wanderInfluence = 0.85; // How much the particle sways
-  let wanderFrequency = 3.50; // How frequent the sway happens
+  let wanderFrequency = 3.75; // How frequent the sway happens
 
   // -- -- --
 
@@ -180,13 +181,28 @@ builBugs(){
   grassBugsSettings["proxDist"] = visibleDistance;
   grassBugsSettings["fadeOutScalar"] = opacityRolloff;
   grassBugsSettings["additiveBlend"] = false;
+  
+  grassBugsSettings["tint"].set( .85, .72, .55 );
 
   grassBugsSettings["jumpHeightMult"] = jumpHeightMult;
-  grassBugsSettings["offsetPos"].y = .1 ;
+  grassBugsSettings["offsetPos"].y = .2 ;
   
   grassBugsSettings["wanderInf"] = wanderInfluence;
   grassBugsSettings["wanderFrequency"] = wanderFrequency;
   
+  // Use a texture from the internal `pxlAsset` folder; ( RGB, Alpha )
+
+  // For the darker tones, few of the white dust
+  grassBugsSettings["atlasPicks"] = [
+    ...grassBugsSystem.dupeArray([0.0,0.0],4), ...grassBugsSystem.dupeArray([0.25,0.],4),
+    ...grassBugsSystem.dupeArray([0.0,0.25],4), ...grassBugsSystem.dupeArray([0.25,0.25],4),
+    ...grassBugsSystem.dupeArray([0.0,0.5],2), ...grassBugsSystem.dupeArray([0.25,0.5],2),
+  ];
+  grassBugsSystem.setAtlasPath( "sprite_dustAtlas_rgb.jpg", "sprite_dustAtlas_alpha.jpg" );
+
+
+  /*
+  // For more of the lighter & bluer dustLiquid textures -
   grassBugsSettings["atlasPicks"] = [
     ...grassBugsSystem.dupeArray([0.0,0.],4), ...grassBugsSystem.dupeArray([0.25,0.],4),
     ...grassBugsSystem.dupeArray([0.50,0.],4), ...grassBugsSystem.dupeArray([0.75,0.],4),
@@ -194,10 +210,8 @@ builBugs(){
     ...grassBugsSystem.dupeArray([0.50,0.5],2), ...grassBugsSystem.dupeArray([0.75,0.5],2),
     ...grassBugsSystem.dupeArray([0.50,0.75],3), ...grassBugsSystem.dupeArray([0.75,0.75],3)
   ];
-
-  // Use a texture from the internal `pxlAsset` folder; ( RGB, Alpha )
   grassBugsSystem.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
-
+  */
 
   // Set height map
   grassBugsSystem.setHeightMapPath( this.assetPath+"bug_heightMap.webp" );
@@ -212,6 +226,7 @@ builBugs(){
 
   // Generate geometry and load texture resources
   grassBugsSystem.build( grassBugsSettings, bugObj );
+  
   this.particleList[systemName] = grassBugsSystem;
 }
 
@@ -519,8 +534,18 @@ builBugs(){
     
   //
     // -- -- -- 
-        
-		let fieldFbxLoader = this.pxlFile.loadRoomFBX( this );// , null, null, true );
+    
+    // 'meshIsChild' - Some GLTF compressions splits Meshes -&- Transforms into Parent-Child relationships
+    //                   Read transforms from the parent, but apply the material + settings to the child
+    let loadSettings = Object.assign( {}, this.pxlFile.getSettings() );
+    loadSettings['filePath'] = this.sceneFile;
+    loadSettings['fileType'] = this.pxlEnums.FILE_TYPE.GLB; // Optional; Default is 'AUTO'
+    loadSettings['filePath'] = this.assetPath+"OutletEnvironment.glb";
+    loadSettings['filePath'] = this.assetPath+"OutletEnvironment_blender.glb";
+    loadSettings['meshIsChild'] = true; // If your GLB has been "optimized" to split transforms & meshes
+    loadSettings['enableLogging'] = true;
+		//let fieldFbxLoader = this.pxlFile.loadRoom( this, loadSettings );
+		let fieldFbxLoader = this.pxlFile.loadRoom( this );
 		
 	// -- -- -- -- -- -- -- -- -- -- -- -- -- //
 		
