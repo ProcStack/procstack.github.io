@@ -34,6 +34,7 @@ export function envGroundVert(){
     varying float vRockyMask;
     varying float vFarMask;
     varying float vPitMask;
+    varying float vInnerPitMask;
     
     void main(){
         vCd = color;
@@ -46,12 +47,13 @@ export function envGroundVert(){
         gl_Position = projectionMatrix*mvPos;
         vPos = mvPos.xyz;
         
-        float pLen = length(position.xyz);
+        float pLen = length(position.xyz + vec3(2.369, .0, -0.1274) );
         vRockyMask = clamp( (0.985-normal.y)*20.0, 0.0, 1.0);
         vRockyMask = clamp( (vRockyMask * (1.0-normal.y)*10.0 - .3)*5.0, 0.0, 1.0);
         vFarMask = 1.0 - min(1.0, max(0.0, 1.0-pLen*.0065 )*1.7 );
 
-        vPitMask = ( max(0.0, 1.0-pLen*.015 )*1.35 );
+        vPitMask = ( max(0.0, 1.0-pLen*.02 )*1.35 );
+        vInnerPitMask = max(0.0, 1.0 - ( max(0.0, 1.0-pLen*.225 )*1.35 )*2.);
         vPitMask *= vPitMask;
     }`;
   return ret;
@@ -86,6 +88,7 @@ export function envGroundFrag(){
     varying float vRockyMask;
     varying float vFarMask;
     varying float vPitMask;
+    varying float vInnerPitMask;
     
     
     struct DirLight {
@@ -255,10 +258,10 @@ export function envGroundFrag(){
         float animWarpFit = max( animWarpCd.r, max(animWarpCd.g,animWarpCd.b) )*.8 -.2;
         
         // Main Pit
-        Cd.rgb += (firePitColor + firePitColor*animWarpFit) * (campfireMask*1.1-.1) * .25 * ashMask;
+        Cd.rgb += (firePitColor + firePitColor*animWarpFit) * (campfireMask*1.1-.1) * vInnerPitMask * .5 * ashMask;
         
         // Region around Pit and Druid Rabbit
-        Cd.rgb += (fireGlowColor + fireGlowColor*animWarpFit) * vPitMask * vPitMask * .15 * ashMask;
+        Cd.rgb += (fireGlowColor + fireGlowColor*animWarpFit) * vPitMask * vPitMask * .35 * ashMask;
         
         // -- -- --
 
@@ -269,9 +272,8 @@ export function envGroundFrag(){
         float shade = clamp(dot(vN, reflect( normalize(vPos), vN )) + depthFade, 0.0, 1.0 );
         shade = max( lights.r, shade * (1.0 - (vFarMask*.1+max(0.0,depth-.1))) );
         shade +=  length( lights ) ;
-        shade *= dataCd.b*.35+.65;
+        shade *= dataCd.b*.35+.65*vInnerPitMask;
         Cd.rgb=  mix( Cd.rgb*shade, fogColor, depth );
-        
         
         gl_FragColor=Cd;
     }`;

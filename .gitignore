@@ -8,6 +8,7 @@ lerna-debug.log*
 .pnpm-debug.log*
 
 dev
+packing
 Source/js/pxlRooms/CabinEnvironment
 Source/js/pxlRooms/VoidEnvironment
 

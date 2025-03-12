@@ -123,7 +123,7 @@ export const pageListingData = {
       <br>
       <br><div class='procPagesAboutMeBar'></div>
       
-      <br><span class="textNudge">How about an <span class="textNudge">Echo State Network</span> (<span class="textNudge">ESN</span>) AI I wrote in the sprint-summer of 2024?</span>
+      <br><span class="textNudge">How about an <span class="textNudge">Echo State Network</span> (<span class="textNudge">ESN</span>) AI I wrote in the spring-summer of 2024?</span>
       <br>
       <br><span class="innerCenter">An ESN is a type of RNN,
         <br>Which considers time in its prediction.

@@ -54,28 +54,12 @@ export class CampfireEnvironment extends RoomEnvironment{
 		//this.assetPath="./pxlRooms/CampfireEnvironment/Assets/";
     
     this.sceneFile = this.assetPath+"CampfireEnvironment.fbx";
-
     // Animation Source & Clips are managed under the hood,
     //   So you only need to set your rig, animations, and connections in one room.
     // Current issue, re-imports will re-read the file from disk/url,
     //   But wont overwrite the data if it exists from a prior Room's load.
     this.animRigName = "RabbitDruidA";
-    this.animSource = {
-      "RabbitDruidA" : {
-        "rig" : this.assetPath+"RabbitDruidA/RabbitDruidA_rig.fbx",
-        "anim" : {
-          "Sit_Idle" : this.assetPath+"RabbitDruidA/RabbidDruidA_anim_sit_idle.fbx",
-          "Sit_Stoke" : this.assetPath+"RabbitDruidA/RabbidDruidA_anim_sit_stoke.fbx",
-          "Sit_Look" : this.assetPath+"RabbitDruidA/RabbidDruidA_anim_sit_look.fbx"
-        },
-        "stateConnections"  : {
-          // Non existing states will be ignored and loop'ed, ie "Walk"
-          "Sit_Idle" : [ ...Array(6).fill("Sit_Idle"), ...Array(6).fill("Sit_Stoke"), ...Array(5).fill("Sit_Look")],
-          "Sit_Stoke" : ["Sit_Idle"],
-          "Sit_Look" : ["Sit_Idle"]
-        }
-      }
-    };
+    this.animSource = {};
     this.animInitCycle = "Sit_Idle";
 
     this.animMixer = null;
@@ -106,6 +90,24 @@ export class CampfireEnvironment extends RoomEnvironment{
   }
   init(){
     super.init();
+    //console.log(this.pxlOptions.pxlAssetRoot);
+    
+    this.animSource = {
+      "RabbitDruidA" : {
+        "rig" : this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbitDruidA_rig.fbx",
+        "anim" : {
+          "Sit_Idle" : this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbidDruidA_anim_sit_idle.fbx",
+          "Sit_Stoke" : this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbidDruidA_anim_sit_stoke.fbx",
+          "Sit_Look" : this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbidDruidA_anim_sit_look.fbx"
+        },
+        "stateConnections"  : {
+          // Non existing states will be ignored and loop'ed, ie "Walk"
+          "Sit_Idle" : [ ...Array(6).fill("Sit_Idle"), ...Array(6).fill("Sit_Stoke"), ...Array(5).fill("Sit_Look")],
+          "Sit_Stoke" : ["Sit_Idle"],
+          "Sit_Look" : ["Sit_Idle"]
+        }
+      }
+    };
   }
 
   start(){
@@ -418,10 +420,10 @@ export class CampfireEnvironment extends RoomEnvironment{
             logMat = this.pxlFile.pxlShaderBuilder( campfireLogUniforms, campfireLogVert(), campfireLogFrag() );
             //logMat.depthTest=true;
             //logMat.depthWrite=true;
-            logMat.uniforms.baseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_diffuse_charred.jpg", 4, {"encoding":LinearSRGBColorSpace, "magFilter":LinearFilter, "minFilter":NearestMipmapLinearFilter} );
-            logMat.uniforms.midEmberTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_diffuse_charredEmberGlow.jpg", 4, {"encoding":LinearSRGBColorSpace, "magFilter":LinearFilter, "minFilter":NearestMipmapLinearFilter} );
-            logMat.uniforms.heavyEmberTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_diffuse_emberGlow.jpg", 4, {"encoding":LinearSRGBColorSpace, "magFilter":LinearFilter, "minFilter":NearestMipmapLinearFilter} );
-            logMat.uniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_dataMask.jpg", 4, {"encoding":LinearSRGBColorSpace, "magFilter":LinearFilter, "minFilter":NearestMipmapLinearFilter} );
+            logMat.uniforms.baseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_diffuse_charred.webp", 4, {"encoding":LinearSRGBColorSpace, "magFilter":LinearFilter, "minFilter":NearestMipmapLinearFilter} );
+            logMat.uniforms.midEmberTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_diffuse_charredEmberGlow.webp", 4, {"encoding":LinearSRGBColorSpace, "magFilter":LinearFilter, "minFilter":NearestMipmapLinearFilter} );
+            logMat.uniforms.heavyEmberTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_diffuse_emberGlow.webp", 4, {"encoding":LinearSRGBColorSpace, "magFilter":LinearFilter, "minFilter":NearestMipmapLinearFilter} );
+            logMat.uniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"log_dataMask.webp", 4, {"encoding":LinearSRGBColorSpace, "magFilter":LinearFilter, "minFilter":NearestMipmapLinearFilter} );
             logMat.uniforms.noiseTexture.value = this.smoothNoiseTexture;
           
             this.materialList["CampfireLogs"]=logMat;
@@ -481,7 +483,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     );
 
     skinnedMtlUniforms.diffuseTexture.value = bindObj.material.map;
-    skinnedMtlUniforms.areTexture.value = this.pxlUtils.loadTexture( this.assetPath+"RabbitDruidA/RabbitDruidA_lowRes_ARE.jpg" );
+    skinnedMtlUniforms.areTexture.value = this.pxlUtils.loadTexture( this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbitDruidA_lowRes_ARE.webp" );
     skinnedMtlUniforms.noiseTexture.value = this.cloud3dTexture;
     skinnedMtlUniforms.lightScalar.value = this.pxlDevice.lightShift;
 
@@ -532,14 +534,14 @@ export class CampfireEnvironment extends RoomEnvironment{
       );
 
     envGroundUniforms.fogColor.value = this.fogColor;
-    envGroundUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Diffuse.jpg", null, {'encoding':SRGBColorSpace} );
-    envGroundUniforms.dirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"Dirt_Diffuse.jpg", null, {'encoding':SRGBColorSpace} );
+    envGroundUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Diffuse.webp", null, {'encoding':SRGBColorSpace} );
+    envGroundUniforms.dirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"Dirt_Diffuse.webp", null, {'encoding':SRGBColorSpace} );
 
-    envGroundUniforms.crackedDirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"CrackedDirtGround_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
-    envGroundUniforms.hillDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"RockLayerDirtHill_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
-    envGroundUniforms.mossDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"MossyGround_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
-    envGroundUniforms.grassDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"GrassA_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
-    envGroundUniforms.dataDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_dataMask.jpg", null, {'encoding':SRGBColorSpace} );
+    envGroundUniforms.crackedDirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"CrackedDirtGround_diffuse.webp", null, {'encoding':SRGBColorSpace} );
+    envGroundUniforms.hillDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"RockLayerDirtHill_diffuse.webp", null, {'encoding':SRGBColorSpace} );
+    envGroundUniforms.mossDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"MossyGround_diffuse.webp", null, {'encoding':SRGBColorSpace} );
+    envGroundUniforms.grassDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"GrassA_diffuse.webp", null, {'encoding':SRGBColorSpace} );
+    envGroundUniforms.dataDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_dataMask.webp", null, {'encoding':SRGBColorSpace} );
 
     envGroundUniforms.noiseTexture.value = this.cloud3dTexture;
     envGroundUniforms.uniformNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg", null, {'encoding':LinearSRGBColorSpace} );
@@ -651,7 +653,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     grassClusterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg", null, {'encoding':SRGBColorSpace} );
 
 
-    let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, grassClusterVert(), grassClusterFrag() );
+    let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, grassClusterVert(), grassClusterFrag() ); 
     grassMat.side = FrontSide;
     grassMat.lights = true;
     grassMat.transparent = false;
@@ -672,12 +674,12 @@ export class CampfireEnvironment extends RoomEnvironment{
         'diffuse' : { type:'t', value: null },
         'alphaMap' : { type:'t', value: null },
         'noiseTexture' : { type:'t', value: null },
-        'intensity' : { type: "f", value: 2.2 },
+        'intensity' : { type: "f", value: 2.25 },
         'fogColor' : { type: "c", value: this.fogColor }
       }]
     )
     grassCardsAUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
-    grassCardsAUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_diffuse.jpg" );
+    grassCardsAUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_diffuse.webp" );
     grassCardsAUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_alpha.jpg" );
 
 
@@ -685,7 +687,8 @@ export class CampfireEnvironment extends RoomEnvironment{
       'buildAlpha' : true,
       'addShimmer' : true,
       'addCampfire' : true,
-      'depthScalar': 0.0025,
+      'depthScalar': 0.003,
+      'fogDepthScalar': 0.8,
     }
 
     let grassCardsMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert(), instPlantsFrag( grassCardSettings ) );
@@ -703,25 +706,6 @@ export class CampfireEnvironment extends RoomEnvironment{
     // -- Grass Cluster Instances Material -- --
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-/*
-    let grassClusterCardsUniforms = UniformsUtils.merge(
-        [
-        UniformsLib[ "lights" ],
-        {
-          'diffuse' : { type:'t', value: null },
-          'alphaMap' : { type:'t', value: null },
-          'fogColor' : { type: "c", value: this.fogColor },
-        }]
-    )
-    //grassClusterCardsUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg", null, {'encoding':SRGBColorSpace} );
-    grassClusterCardsUniforms.rgbaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassClusterA_cards_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
-    grassClusterCardsUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassClusterA_cards_mask.jpg" );
-
-    let grassFlatMat=this.pxlFile.pxlShaderBuilder( grassClusterCardsUniforms, rgbaMapVert(), rgbaMapFrag() );
-    grassFlatMat.side = DoubleSide;
-    grassFlatMat.lights = true;
-    grassFlatMat.transparent = false;
-    */
     let grassClusterCardsUniforms = UniformsUtils.merge(
       [
       UniformsLib[ "lights" ],
@@ -729,13 +713,13 @@ export class CampfireEnvironment extends RoomEnvironment{
       {
         'rgbMap' : { type:'t', value: null },
         'alphaMap' : { type:'t', value: null },
-        'intensity' : { type: "f", value: 0.7 },
+        'intensity' : { type: "f", value: 0.85 },
         'noiseTexture' : { type:'t', value: null },
         'fogColor' : { type: "c", value: this.fogColor }
       }]
     )
     grassClusterCardsUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
-    grassClusterCardsUniforms.rgbMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassClusterA_cards_diffuse.jpg", null, {'encoding':SRGBColorSpace} );
+    grassClusterCardsUniforms.rgbMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassClusterA_cards_diffuse.webp", null, {'encoding':SRGBColorSpace} );
     grassClusterCardsUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassClusterA_cards_mask.jpg" );
 
     let grassLODSettings = {
