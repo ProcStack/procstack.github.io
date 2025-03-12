@@ -230,3 +230,14 @@
   align-items: center;
   padding-top: 1px;
 }
+
+.codeAccentStyle{
+  color: #90ecff;
+  background-color: #5b7b994a;
+  padding: 0px 2px;
+  border-radius: 3px;
+}
+
+.procPagesBgColor{
+  background-color: rgba(40, 122, 185, 0.15)
+}

@@ -14,7 +14,7 @@ export const pageListingData = {
   ],
   'contentStyle' : [ 'procPagesCenterContent' ],
   'content' : `
-    <div class="innerCenter">
+    <div class="innerCenter" style="padding : 2.5em 0px 0px 0px;">
       <span class="textBump">View the <a href="./pxlNav-docs" target="_blank" alt="pxlNav Documentation" class="textBump">pxlNav Documentation</a></span>
       <br>
       <br>

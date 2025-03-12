@@ -275,7 +275,7 @@
   .procPagesCenterContent{
     display: grid;
     justify-content: center;
-    align-content: center;
+    align-content: baseline;
     height: 100%;
   }
 
