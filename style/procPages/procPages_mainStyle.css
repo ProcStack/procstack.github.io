@@ -416,6 +416,19 @@ text-shadow: 1px 1.5px 4px #252525;
   font-style: italic;
 }
 
+.textBox{
+  border-radius: 6px;
+  background-color: rgba(110,110,110,0.5);
+  justify-self: center;
+  inline-size: 100%;
+  overflow-wrap: break-word;
+}
+
+.textInner{
+  padding: 2px 6px 2px 6px;
+  width: 95%;
+}
+
 .textBoldBox{
   font-weight: 600;
   border-radius: 6px;
@@ -423,6 +436,8 @@ text-shadow: 1px 1.5px 4px #252525;
   padding: 2px 6px 2px 6px;
   width: 50%;
   justify-self: center;
+  inline-size: 100%;
+  overflow-wrap: break-word;
 }
 
 .textItalicBox{
@@ -434,6 +449,8 @@ text-shadow: 1px 1.5px 4px #252525;
   justify-self: center;
   text-align: center;
   text-wrap-style: balance;
+  inline-size: 100%;
+  overflow-wrap: break-word;
 }
 
 .textInblockQuote{
@@ -443,6 +460,8 @@ text-shadow: 1px 1.5px 4px #252525;
   background-color: rgba(110,110,110,0.5);
   padding: 2px 6px 2px 6px;
   margin: 4px 4px;
+  inline-size: 100%;
+  overflow-wrap: break-word;
 }
 .textInblockBox{
   font-size: 1.05em;
@@ -450,6 +469,8 @@ text-shadow: 1px 1.5px 4px #252525;
   font-weight: 600;
   background-color: rgba(110,110,110,0.5);
   padding: 2px 6px 2px 6px;
+  inline-size: 100%;
+  overflow-wrap: break-word;
 }
 
 

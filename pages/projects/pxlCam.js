@@ -38,8 +38,27 @@ export const pageListingData = {
       <div class="procPagesProjectsHeaderStyle"><a href='https://pxlmancer.com/gl/pxlCam' class="textBump" target='_blank'>pxlCam</a></div>
       <div class="procPagesProjectsDescriptionStyle">  <span class="textNudge">*Use on phone!!*</span>
         <br>&nbsp;&nbsp;&nbsp;&nbsp; A few day project.
-        <br>&nbsp;&nbsp; A custom photo filter site with interactive color and edge effects opengl shaders, using three.js for gpu access, and your multiple phone cameras in-browser.
-        <br>&nbsp;&nbsp; Tap the triple down arrow to change the filter.  Tap and drag left & right or up & down to change the current filter's hue & saturation or edge detection size & brightness
+        
+        <br>&nbsp;&nbsp; - Tap the right arrows to switch between the cameras.
+        <br>&nbsp;&nbsp; - Tap the triple down arrow to change the filter.
+        <br>&nbsp;&nbsp; - The lightning bolt will make the screen white in selfie mode; use your phones light with your back camera
+        <br>&nbsp;&nbsp; - The grid toggles the overlay you can use to align and position your shot
+
+        <br>&nbsp;&nbsp; - Tap & drag left/right or up/down to change the current filter's hue shifting or edge detection size & brightness
+        <br>
+        <br> Each filter has a different effect for the finger drag + direction, so play around with it!
+
+        <br>
+        <br>
+        <br> This is a camera filter web site I wrote with interactive color and edge effects opengl shaders,
+        <br>
+        <br> I've added camera checks + access, resolution checkings + switching
+        <br>&nbsp;&nbsp; The photo-bin temp photo storage handling. Once you take a photo, a thumbnail will appear.  Tap the icon to load a screen to save the image to any number of resoultions. Tap a resolution to load the file size, if you want to send the photo on discord or something.
+        <br>
+
+        <br>&nbsp;&nbsp;&nbsp;&nbsp; And your multiple phone cameras in-browser.
+        
+        <br>
       </div>
   `,
 };

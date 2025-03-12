@@ -75,7 +75,7 @@ const pageContentObject = {
         pxlVisData,
         pxlTextGenData,
 
-        metalAsylumData,
+        /* metalAsylumData, */
         pxlmancerData,
         neurousNetData,
         pxlCamData,
