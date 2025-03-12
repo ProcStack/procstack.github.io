@@ -159,15 +159,16 @@ buildDust(){
 builBugs(){
   //if( this.mobile ) return;
 
-  let vertexCount = 300; // Point Count
-  let pScale = 6.25;  // Point Base Scale
-  let visibleDistance = 500;  // Proximity Distance from Camera
+  let vertexCount = 250; // Point Count
+  let pScale = 5.85;  // Point Base Scale
+  let visibleDistance = 550;  // Proximity Distance from Camera
   let particleOpacity = 1.0;  // Overall Opacity
   let opacityRolloff = 0.85;  // Distance-opacity falloff multiplier
 
   let jumpHeightMult = 17.0; // How high the bugs jump
-  let wanderInfluence = 0.85; // How much the particle sways
-  let wanderFrequency = 3.75; // How frequent the sway happens
+  let wanderInfluence = 0.90; // How much the particle sways
+  let wanderRate = 1.75; // How fast the sway happens
+  let wanderFrequency = 5.25; // How frequent the sway happens
 
   // -- -- --
 
@@ -188,6 +189,7 @@ builBugs(){
   grassBugsSettings["offsetPos"].y = .2 ;
   
   grassBugsSettings["wanderInf"] = wanderInfluence;
+  grassBugsSettings["wanderRate"] = wanderRate;
   grassBugsSettings["wanderFrequency"] = wanderFrequency;
   
   // Use a texture from the internal `pxlAsset` folder; ( RGB, Alpha )
