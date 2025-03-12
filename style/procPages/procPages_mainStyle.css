@@ -370,6 +370,7 @@ text-shadow: 1px 1.5px 4px #252525;
 
 .innerCenter{
   text-align: center;    /* justify-self: center; */
+  text-wrap-style: pretty;
   display: block;
 }
 
@@ -442,6 +443,13 @@ text-shadow: 1px 1.5px 4px #252525;
   background-color: rgba(110,110,110,0.5);
   padding: 2px 6px 2px 6px;
   margin: 4px 4px;
+}
+.textInblockBox{
+  font-size: 1.05em;
+  border-radius: 6px;
+  font-weight: 600;
+  background-color: rgba(110,110,110,0.5);
+  padding: 2px 6px 2px 6px;
 }
 
 

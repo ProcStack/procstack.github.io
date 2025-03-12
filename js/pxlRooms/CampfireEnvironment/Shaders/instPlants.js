@@ -142,6 +142,7 @@ export function instPlantsFrag( settings={} ){
     'addShimmer' : false,
     'addCampfire' : false,
     'depthScalar' : .0001,
+    'fogDepthScalar' : .05,
   }
   let shaderSettings = Object.assign( defaults, settings );
 
@@ -150,7 +151,7 @@ export function instPlantsFrag( settings={} ){
     const float DepthScalar = ${shaderSettings.depthScalar};
     const float ScreenWarpColorFix = 3.521;
     const float ShadowTighten = 2.94;
-    const float FogDepthMult = 0.05;
+    const float FogDepthMult = ${shaderSettings.fogDepthScalar};
   `;
   if( shaderSettings.addShimmer ){
     ret+=`
@@ -368,7 +369,7 @@ export function instPlantsFrag( settings={} ){
     }
     if( shaderSettings.addShimmer ){
     ret+=`
-        Cd.rgb = mix( Cd.rgb, vec3( gCd*3.4 ), depth );
+        Cd.rgb = mix( Cd.rgb, vec3( gCd*1.85 ), depth*.85 );
       `;
     }
     if( shaderSettings.addCampfire ){
@@ -377,14 +378,14 @@ export function instPlantsFrag( settings={} ){
         // -- -- --
 
         // Add Campfire Flicker
-        Cd.rgb += Cd.rgb * (animWarpCd.r*.65) * clamp( 1.2 - min(1.0, length( vPos )*0.01), 0.0, 1.0 ) * intensity;
+        Cd.rgb += Cd.rgb * (animWarpCd.r*2.5+.15) * clamp( 1. - min(1.0, length( vPos )*0.015)*1.5, 0.0, 1.0 ) ;//* intensity;
 
         // -- -- --
 
       `;
     }
     ret+=`
-        float fogMix =  clamp( depth * (depth*2.2501)  - lightMag*(1.0-depth * FogDepthMult), 0.0, 0.85 ) ;
+        float fogMix =  clamp( depth * (depth*2.2501)  - lightMag*(1.0-depth * FogDepthMult), 0.0, 0.9 ) ;
         
         vec3 toFogColor = fogColor * (gCd*.4 + .7 + gInf*.3);
         Cd.rgb=  mix( Cd.rgb, toFogColor, fogMix );

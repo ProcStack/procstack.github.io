@@ -2,7 +2,7 @@ import { PageMetaData } from '../js/procPages/PageMetaData.js';
 import { ProcPage } from '../js/procPages/ProcPage.js';
 
 
-import { pageListingData as exploreData } from './pxlNav/explore.js';
+import { pageListingData as tryData } from './pxlNav/try.js';
 import { pageListingData as documentationData } from './pxlNav/documentation.js';
 import { pageListingData as originData } from './pxlNav/origin.js';
 import { pageListingData as whatsPxlNavData } from './pxlNav/whatsPxlNav.js';
@@ -50,7 +50,7 @@ const pageContentObject = {
     'footerBar' : 'pxlNavPage_footerBar'
   },
   'sections' : [
-    exploreData,
+    tryData,
     documentationData,
     whatsPxlNavData,
     originData

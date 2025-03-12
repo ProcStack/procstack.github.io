@@ -115,7 +115,7 @@ export function rgbaMapFrag( settings ){
 
       vec4 outCd = vec4( Cd, alpha );
 
-      float fogMix =  clamp( depth * (depth*2.501+.1), 0.1, 0.8 ) ;
+      float fogMix =  clamp( depth * (depth*2.501+.1), 0.0, 0.9 ) ;
       
       // Mix in texture color's luminance to fog color
       vec3 toFogColor = fogColor * ( luma( Cd.rgb ) * .4 + .7 );

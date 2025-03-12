@@ -56,19 +56,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     // Current issue, re-imports will re-read the file from disk/url,
     //   But wont overwrite the data if it exists from a prior Room's load.
     this.animRigName = "RabbitDruidASalt";
-    this.animSource = {
-      "RabbitDruidASalt" : {
-        "rig" : this.assetPath+"RabbitDruidA/RabbitDruidA_rig.fbx",
-        "anim" : {
-          "Walk" : this.assetPath+"RabbitDruidA/RabbidDruidA_anim_walk.fbx"
-        },
-        "stateConnections"  : {
-          // Non existing states will be ignored and loop'ed, ie "Walk"
-          //"Sit_Idle" : ["Sit_Idle", "Sit_Stoke", ...]
-          "Walk" : ["Walk"]
-        }
-      }
-    };
+    this.animSource = {};
 
     this.animMixer = null;
     
@@ -97,6 +85,20 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
   }
   init(){
     super.init();
+
+    this.animSource = {
+      "RabbitDruidASalt" : {
+        "rig" : this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbitDruidA_rig.fbx",
+        "anim" : {
+          "Walk" : this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbidDruidA_anim_walk.fbx"
+        },
+        "stateConnections"  : {
+          // Non existing states will be ignored and loop'ed, ie "Walk"
+          //"Sit_Idle" : ["Sit_Idle", "Sit_Stoke", ...]
+          "Walk" : ["Walk"]
+        }
+      }
+    };
   }
 
   start(){
@@ -310,7 +312,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     );
 
     skinnedMtlUniforms.diffuseTexture.value = bindObj.material.map;
-    skinnedMtlUniforms.areTexture.value = this.pxlUtils.loadTexture( this.assetPath+"RabbitDruidA/RabbitDruidA_lowRes_ARE.jpg" );
+    skinnedMtlUniforms.areTexture.value = this.pxlUtils.loadTexture( this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbitDruidA_lowRes_ARE.webp" );
     skinnedMtlUniforms.noiseTexture.value = this.cloud3dTexture;
     skinnedMtlUniforms.noiseTexture.value = this.cloud3dTexture;
 
@@ -336,10 +338,11 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
         UniformsLib[ "lights" ],
         {
           'noiseTexture' : { type:'t', value: null },
+          'cloudTexture' : { type:'t', value: this.cloud3dTexture },
           'fogColor' : { type: "c", value: this.fogColor },
         }]
     )
-    envGroundUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+    envGroundUniforms.noiseTexture.value = this.pxlUtils.loadTexture( "Noise_UniformWebbing.jpg" );
 
     let mat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag() );
     mat.side=FrontSide;
@@ -359,7 +362,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
           'noiseTexture' : { type:'t', value: null }
         }]
     )
-    salioaPlanUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+    salioaPlanUniforms.noiseTexture.value = this.pxlUtils.loadTexture( "Noise_UniformWebbing.jpg" );
 
     let salioaMtl=this.pxlFile.pxlShaderBuilder( salioaPlanUniforms, salioaPlantVert(), salioaPlantFrag() );
     salioaMtl.side=DoubleSide;

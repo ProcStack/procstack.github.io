@@ -16,8 +16,8 @@ import { BlogManager } from './BlogManager.js';
 
 
 // Console logging level
-//   Options are - NONE, ERROR, WARN, INFO
-const verbose = pxlEnums.VERBOSE_LEVEL.ERROR;
+//   Options are - NONE, ERROR, WARN, INFO, DEBUG
+const verbose = pxlEnums.VERBOSE_LEVEL.NONE;
 
 
 // The Title of your Project
