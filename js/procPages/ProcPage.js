@@ -41,6 +41,7 @@ export class ProcPage {
       'navGroup' : '',
       'content' : '',
       'media' : [],
+      'ytPlayers' : [],
       'header' : null,
       'objects' : [],
       'mediaObjects' : []
@@ -50,6 +51,7 @@ export class ProcPage {
     this.defaultMediaData = {
       'isLoaded' : false, // internal use
       'type':'image', // required - image, manualLoad, youtube, ...
+      'sectionName' : '', // internal use
       'src' : '', // required - Source URL
       'thumb' : '', // optional - Thumbnail for manual loading
       'width' : 0, // optional - Width for manual loading
@@ -99,6 +101,7 @@ export class ProcPage {
     if( !this.sectionData.hasOwnProperty(sectionName) ){
       sectionContent = Object.assign({}, this.defaultSectionData, sectionContent);
     }
+    sectionContent.sectionName = sectionContent.name || sectionName;
     this.sectionData[sectionName] = sectionContent;
   }
   
@@ -141,33 +144,20 @@ export class ProcPage {
       if( typeof mediaData.style == 'string' && mediaData.style != '' ){
         obj.classList.add(mediaData.style);
       } else if( Array.isArray(mediaData.style) ){
-        mediaData.style.forEach( (c)=>{ obj.classList.add(c); });
+        mediaData.style.forEach( (c)=>{
+           let curObj = obj;
+           if( curObj.getIframe ){
+             curObj = curObj.getIframe();
+           }
+           if( curObj && curObj.classList ){
+            curObj.classList.add(c); 
+           }
+        });
       }
     }
   }
 
   // -- -- --
-
-  addImages( sectionName, imageList ){
-    if( !this.sectionTitles.includes( sectionName ) ){
-      this.addSection( sectionName, {} );
-    }
-    if( !Array.isArray(imageList) ){
-      imageList = [imageList];
-    }
-    imageList.forEach( image => {
-      if( typeof image == 'string' ){
-        let imgPath = image;
-        image = Object.assign({}, this.defaultMediaData);
-        image.type = 'image';
-        image.src = imgPath;
-      }
-
-      let newImage = this.buildImage( image );
-      this.sectionData[sectionName].media.push( newImage );
-    });
-  }
-
 
   buildImage( mediaData ){
     let img = document.createElement('img');
@@ -300,41 +290,62 @@ export class ProcPage {
 
   // -- -- --
 
-  addYoutube( sectionName, youtubeID='', altText='' ){
-    if( !youtubeID || youtubeID == '' ){
-      console.error("No youtube ID provided for section: "+sectionName);
-      return;
-    }
-    if( !this.sectionTitles.includes( sectionName ) ){
-      this.addSection( sectionName, {} );
-    }
-    let ytData = Object.assign({}, this.defaultMediaData);
-    ytData.type = 'youtube';
-    ytData.src = youtubeID;
-    ytData.alt = altText;
-
-    let youtubeEmbed = this.buildYoutubeEmbed( ytData );
-    ytData.object = youtubeEmbed;
-
-    this.sectionData[sectionName].media.push( ytData );
-  }
-
-  buildYoutubeEmbed( mediaData ){
+  buildYoutubeEmbed( parentObj, mediaData ){
     //let embedParent = document.createElement('div');
     //this.applyStyle( mediaData, embedParent );
-    
+
     let vidId = mediaData.src;
-    let ytEmbed = document.createElement('iframe');
-    ytEmbed.src = "https://www.youtube-nocookie.com/embed/"+vidId;
-    ytEmbed.title = mediaData.alt;
-    ytEmbed.setAttribute( "frameborder", 0 );
-    ytEmbed.allow = "encrypted-media; picture-in-picture; web-share";
-    ytEmbed.setAttribute( "referrerpolicy", "strict-origin-when-cross-origin" );
-    ytEmbed.setAttribute( "allowfullscreen", true );
+    let ytEmbed;
+    if( typeof YT === 'undefined' ){
+      ytEmbed = document.createElement('iframe');
+      ytEmbed.src = "https://www.youtube-nocookie.com/embed/"+vidId;
+      ytEmbed.title = mediaData.alt;
+      ytEmbed.setAttribute( "frameborder", 0 );
+      ytEmbed.allow = "encrypted-media; picture-in-picture; web-share";
+      ytEmbed.setAttribute( "referrerpolicy", "strict-origin-when-cross-origin" );
+      ytEmbed.setAttribute( "allowfullscreen", true );
+      this.applyStyle( mediaData, ytEmbed );
+    }else{
+      ytEmbed = document.createElement('div');
+      ytEmbed.id = vidId+'-player';
+      parentObj.appendChild( ytEmbed );
+
+      // Function ran once Youtube player is ready
+      const setYTStyle = ( e )=>{
+        let target = e.target;
+        let sectionName = mediaData.sectionName;
+        let sectionHeaders = Object.keys( this.sectionData );
+        sectionHeaders.forEach(( sectionHeader )=>{
+          let section = this.sectionData[sectionHeader];
+          if( section.name == sectionName ){
+            section.ytPlayers.push( target );
+          }
+        });
+
+        // Get the iframe object and set the style
+        let curIframe = target.getIframe();
+        this.applyStyle( mediaData, curIframe );
+
+        if(ytEmbed.parentObj){
+          ytEmbed.parentObj.removeChild( ytEmbed );
+        }
+      };
+
+      let ytPlayer = new YT.Player( ytEmbed, {
+        height: '390',
+        width: '640',
+        videoId: vidId,
+        playerVars: {
+          'playsinline': 1
+        },
+        events: {
+          'onReady': setYTStyle
+        }
+      });
+    }
 
     //embedParent.appendChild( ytEmbed );
 
-    this.applyStyle( mediaData, ytEmbed );
 
     return ytEmbed;
     //return embedParent;
@@ -342,7 +353,7 @@ export class ProcPage {
 
   // -- -- --
 
-  buildMedia( mediaData ){
+  buildMedia( parentObj, mediaData ){
     let media = null;
     switch( mediaData.type ){
       case 'image':
@@ -358,7 +369,7 @@ export class ProcPage {
         media = this.buildAudio( mediaData );
         break;
       case 'youtube':
-        media = this.buildYoutubeEmbed( mediaData );
+        media = this.buildYoutubeEmbed( parentObj, mediaData );
         break;
       default:
         console.error("Unknown media type: "+mediaData.type);
@@ -766,7 +777,6 @@ export class ProcPage {
       }
     }
 
-
     this.sectionData[ sectionName ].objects.forEach(( obj )=>{
       obj.classList.remove('procPagesSectionActive');
       obj.classList.remove('pagesVisOn');
@@ -790,12 +800,16 @@ export class ProcPage {
     }
     
     this.sectionData[ sectionName ].media.forEach(( mediaData )=>{
-      if( mediaData.type == 'video' ){
+      let mediaType = mediaData.type;
+      if( mediaType == 'video' ){
         mediaData.object.pause();
       }
     });
-  }
 
+    this.sectionData[ sectionName ].ytPlayers.forEach(( ytPlayer )=>{
+      ytPlayer.pauseVideo();
+    });
+  }
 
   // -- -- --
 
@@ -838,8 +852,10 @@ export class ProcPage {
     if( sectionData.media.length > 0 ){
       let sectionMedia = document.createElement('div');
       sectionMedia.classList.add('procPagesMediaListStyle');
+      sectionMediaParent.appendChild( sectionMedia );
       sectionData.media.forEach( mediaData => {
-        let media = this.buildMedia( mediaData );
+        mediaData['sectionName'] = sectionData.sectionName;
+        let media = this.buildMedia( sectionMedia, mediaData );
         this.applyPageStyle( 'sectionMedia', media );
         sectionMedia.appendChild( media );
 
@@ -869,7 +885,6 @@ export class ProcPage {
         }
       });
       sectionMedia.classList.add('pagesVisOff');
-      sectionMediaParent.appendChild( sectionMedia );
       ret['content'].push( sectionMedia );
       ret['media'].push( sectionMedia );
     }

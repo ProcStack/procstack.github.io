@@ -13,7 +13,6 @@ const metaDataInput = {
 const pageContentObject = {
   'visible' : false,
   'page' : 'Blog',
-  'title' : 'Blog',
   'theme' : '#3a1c69',
   'activeNavButton' : [ 'procPagesNav_blogActiveStyle' ],
   'header' : '',

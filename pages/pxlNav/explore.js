@@ -17,7 +17,7 @@ export const pageListingData = {
       'href' : 'Outlet.htm',
       'alt' : 'The lighthouse at the Outlet',
       'style' : 'procPagesImageStyle',
-      'caption' : ["Mobile controls expand when dragged out"]
+      'caption' : ["Mobile controls; they expand when dragged out"]
     },
     {
       'type' : 'image',
@@ -37,11 +37,11 @@ export const pageListingData = {
   'contentStyle' : [ 'procPagesCenterContent' ],
   'content' : `
     <div class="innerCenter" style="padding : 1.5em 0px 0px 0px;">
-      <span class="textBump">pxlNav Example : <a href="Outlet.htm" target="_blank" alt="Outlet Environment" class="textBump">The Outlet</a></span>
+      <span class="textBump">pxlNav Example :: <a href="Outlet.htm" target="_blank" alt="Outlet Environment" class="textBump">The Outlet</a></span>
 
       <br>
-      <br>Run around in this water side environment to see <span class="textBoldBox">pxlNav</span> in action.
-      <br>A water-way with a lighthouse & some coastal plant life.
+      <br>Run around in this water side environment,
+      <br>A water-way with a lighthouse & coastal plant life.
 
       <br>
       <br><span class="textBold">On Mobile</span>, your <span class="textBoldBox">Left</span> thumbstick is <span class="textNudge">Movement</span>

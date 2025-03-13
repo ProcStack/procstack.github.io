@@ -18,9 +18,9 @@ export const pageListingData = {
       'alt' : "ESN Horizontal-Vertical Slice",
       'style' : ['procPagesMediaStyle', 'procPagesNarrowWidthStyle', 'setAspectRatio_2_1'],
       'caption' : ["A vertical slice of horizontal movement in my Echo State Network (ESN) brain.",
-          "I'm showing a 2D slice of a single motion dimension.",
-          "The repeating gray tones are 'relative' movement,",
-          "Lik a 'motion offset' found in similar prior frames.",
+          "I'm showing a 2D slice of a side-to-side movement.",
+          "The repeating gray tones are patterns of 'relative' movement,",
+          "Like a 'motion offset' found in similar prior frames.",
       ]
     },
     {
@@ -57,25 +57,34 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; It was an insane particle script + 3d animation cycles in Maya haha.
       <br>Then I did Boid movement, navigation, & obstacle detection in animated films for 5 years at Blue Sky Studios, using Houdini.
       <br>
-      <br>I dove into Style-Transfer AI & Long Short-Term Memory (LSTM) training in 2019-2020.
-      <br>&nbsp;&nbsp; Since then, I've been developing different multi-media AI structures in my spare time.
-      
+      <br>I dove into Style-Transfer AI & Long Short-Term Memory (LSTM) training in 2019-2020,
+      <br>&nbsp;&nbsp; Like making a Node.js server (web site) understand my voice & auto google search for me.
+      <br>
+      <br>Since then, I've been developing different multi-media AI structures in my spare time.
       <br>
       <br><div class='procPagesAboutMeBar'></div>
 
       <br>In 2015 I decided I'd cram a machine learning AI into a single-board computer, a Jetson TK1, by the end of 2026.
-      <br>&nbsp;&nbsp; Something that could understand what I say,
-      <br>&nbsp;&nbsp; Through vision, understand an object simply went out of frame.
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; Yet knows if it looks over, the object is still there;
+      <br>&nbsp;&nbsp; Something that could write down what I say,
+      <br>&nbsp;&nbsp; Use vision to understand an object simply went out of frame.
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; Yet "knows" if it looks over, the object is still there;
       <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'Long Term Attention'
       <br>
       <br>At the end of 2023, this evolved into a deep learning AI crammed into, likely, a Jetson Nano.
-      <br>&nbsp;&nbsp; As something to infer what I mean from what I say,
-      <br>&nbsp;&nbsp; Or give thoughts on what it saw or heard in the world around it.
+      <br>&nbsp;&nbsp; As something to infer what I mean, from what I say,
+      <br>&nbsp;&nbsp; Or give a "thought" on what it saw or heard in the world around it.
       <br>
-      <br>I'd be happy to make something that can understand what I say and can give a <span class='textItalic'>semi</span> coherent response without an internet connection.
+
+      <br><span class="innerCenter">
+        'Machine Learning' is AI that can learn basic patterns.
+        <br>'Deep Learning' is Machine Learning,
+        <br>But uses neural networks to form patterns of patterns.
+      </span>
+
       <br>
-      <br>I'm yet to begin on the core of the AI, as I'm still testing different structures.
+      <br>Realistically, I'd just be happy to make something that can understand what I say and can give a <span class='textItalic'>semi</span> coherent response without an internet connection.
+      <br>
+      <br>I'm yet to begin on the core of the AI, as I'm still testing different structure's ability in adapting to stimuli.
       <br>
 
       <br><span class="innerCenter">
@@ -111,9 +120,19 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; It's the structure of neural connections which manipulates the data.
       </span>
       
-      <br>I've been going in a direction that should yield a similar result to a RNN, but with a different mental structure.
+      <br>I've been going in a direction that should yield a similar result to a Recurrent Neural Network (RNN), but with a different mental structure.
       <br>&nbsp;&nbsp; With that general-purpose neuron, I can provide text, images, audio histograms, etc. to the network.
-      &nbsp; It'll then create connections from initial data points, sample the differences, then pass the 'prediction' forward and 'back' in the chain, and adjust the connections based on their revisit to the same data in the current 'prediction'.
+      <br>
+      <br><span class="innerCenter">RNNs can be used for/in nearly any ai,
+        <br>Best for detecting patterns in sequencial data,
+        <br>Like time-based events or words in text.
+        <div class='procPagesAboutMeSpacer'></div>
+        They are the basis for many types of ai, like LSTMs;
+        <br>And can be used as part of LLMs, like ChatGPT.
+      </span>
+
+
+      <br> The GAT will create connections from initial random data points, sample the differences, then pass the 'prediction' forward and 'back' in the chain, and adjust the connections based on their revisit to the same data in the current 'prediction'.
       <br>&nbsp;&nbsp; Relying on localized regions of sub-networks to recurrently process the data
       <br>
       <br>It should be self-taught descrimination of attention between neurons;
@@ -171,6 +190,7 @@ export const pageListingData = {
       <br>&nbsp;&nbsp;&nbsp;&nbsp; If I made every aspect of the AI & training data?
       <br>
       <br>
+      <div class="textFullRight">- February 2025</div>
     </div>
   `,
 };

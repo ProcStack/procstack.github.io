@@ -54,10 +54,12 @@
   border-color: rgba(40, 121, 205, 0.83);
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and ((min-width: 1000px) or (min-aspect-ratio: 1)) {
   .gitProjectsPage-sectionNavListStyle{
     background: linear-gradient(-45deg, rgba(72, 134, 199, 0.0), rgba(72, 134, 199, 0.35));
     border-color: rgba(40, 121, 205, 0.83);
+    height: 100%;
+    overflow: auto;
   }
 }
 
@@ -239,5 +241,5 @@
 }
 
 .procPagesBgColor{
-  background-color: rgba(40, 122, 185, 0.15)
+  background-color: rgba(40, 122, 185, 0.30)
 }

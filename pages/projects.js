@@ -25,8 +25,7 @@ const metaDataInput = {
 
 const pageContentObject = {
   'page' : 'ProjectsLinks',
-  'title' : 'Repos / Projects / Socials',
-  'header' : 'Repos / Projects / Socials',
+  'header' : 'My Repos / Projects / Socials',
   'theme' : '#184d76',
   'activeNavButton' : [ 'procPagesNav_projectsActiveStyle' ],
   'subHeader' : '',

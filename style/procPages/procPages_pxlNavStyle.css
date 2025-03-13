@@ -61,10 +61,12 @@
   border-color: rgba(46, 102, 10, 0.85);
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and ((min-width: 1000px) or (min-aspect-ratio: 1)) {
   .gitPxlNav-sectionNavListStyle{
     background: linear-gradient(-45deg, rgba(41, 79, 17, 0), rgba(41, 79, 17, 0.28));
     border-color: rgba(46, 102, 10, 0.85);
+    height: 100%;
+    overflow: auto;
   }
 }
 

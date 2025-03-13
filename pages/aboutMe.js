@@ -18,7 +18,6 @@ const metaDataInput = {
 
 const pageContentObject = {
   'page' : 'AboutMe',
-  'title' : 'About Me; Kevin Edzenga',
   'theme' : '#656565',
   'activeNavButton' : [ 'procPagesNav_aboutMeActiveStyle' ],
   'layout' : 'vertical',

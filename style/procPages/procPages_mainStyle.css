@@ -124,13 +124,20 @@ left: calc(max(3.5vw, 50vw - 765px));
 
 /* -- -- -- */
 
+.procPagesShowWhenThin{
+  display: none;
+}
+
 @media screen and (max-width: 600px) {
   .procPagesHideWhenThin{
     display: none;
   }
+  .procPagesShowWhenThin{
+    display: inherit;
+  }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and ((max-width: 1000px) or (min-aspect-ratio: 1)) {
   .procPagesHideWhenVertical{
     display: none;
   }
@@ -384,6 +391,23 @@ text-shadow: 1px 1.5px 4px #252525;
   justify-self: center;
 }
 
+.textLeft{
+  text-align: left;
+}
+
+.textCenter{
+  text-align: center;
+}
+
+.textRight{
+  text-align: right;
+}
+
+.textFullRight{
+  text-align: right;
+  width: 100%;
+}
+
 
 .textDrinkMeAlice{
   font-size: 0.81em;
@@ -434,10 +458,9 @@ text-shadow: 1px 1.5px 4px #252525;
   border-radius: 6px;
   background-color: rgba(110,110,110,0.5);
   padding: 2px 6px 2px 6px;
-  width: 50%;
   justify-self: center;
-  inline-size: 100%;
   overflow-wrap: break-word;
+  min-width: 50%;
 }
 
 .textItalicBox{

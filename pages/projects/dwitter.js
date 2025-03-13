@@ -43,7 +43,7 @@ export const pageListingData = {
     <br>&nbsp;&nbsp; After a short amount of time,
     <br>&nbsp;&nbsp;&nbsp;&nbsp; using Tan() to have them fall off the screen.
     <br>
-    <br> Since you want to use as few chars. as possible,
+    <br> Since you want to use as few chars as possible,
     <br>&nbsp;&nbsp; You'll see variable assignment in the arguments of functions.
     <br> This might make things tricky to follow-
 
@@ -106,7 +106,7 @@ export const pageListingData = {
     <div class="procPagesSpacer"></div>
 
     <div class="innerCenter">
-      ...doin a wee bit here, haha
+      ... doin a wee bit in there, haha
     </div>
     
     <br> When all you get is 140 characters,
