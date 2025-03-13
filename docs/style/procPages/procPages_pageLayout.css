@@ -59,7 +59,8 @@
 
 .procPagesMediaListStyle{
   justify-self: center;
-  width:98%
+  width:98%;
+  justify-items: center;
 }
 
 .procPagesMediaStyle{
@@ -270,8 +271,7 @@
 
 /* When the screen is 1000px wide or more */
 
-@media screen and (min-width: 1000px) {
-
+@media screen and ((min-width: 1000px) or (min-aspect-ratio: 1)) {
   .procPagesCenterContent{
     display: grid;
     justify-content: center;

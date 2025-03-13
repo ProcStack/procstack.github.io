@@ -4,17 +4,18 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'youtube',
-      'src' : 'trt9dGUYevs?si=FyyFhAOe5is6UM8H',
+      'src' : 'trt9dGUYevs',
       'alt' : 'Technical Art Reel 2024',
       'style' : ['procPagesMediaStyle', 'procPagesLimitWidthStyle'], 
     }
   ],
   'content' : `
     <div class='procPagesAboutMeInfoStyle'>
-      I think I'm a '<span class="textNudge">Technical Artist</span>' (<span class="textItalic">doing real-time work</span>)
-      <br>&nbsp;&nbsp; or a '<span class="textNudge">Technical Director</span>' (<span class="textItalic">on films</span>)
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; or a '<span class="textNudge">Creative Technologist</span>' (<span class="textItalic">for immersive</span>)
-      <br>It's all the same type of mental challenges.
+      I'm given the title '<span class="textNudge">Technical Artist</span>' (<span class="textItalic">doing real-time jobs</span>)
+      <br>&nbsp;&nbsp; or '<span class="textNudge">Technical Director</span>' (<span class="textItalic">on films</span>)
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; or '<span class="textNudge">Creative Technologist</span>' (<span class="textItalic">for immersive</span>)
+      <br>It's all the same types of mental challenges though,
+      <br>&nbsp;&nbsp; Just different mediums.
     </div>
     
     <br>
@@ -31,10 +32,10 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; or 3d modeling, 
       <br>&nbsp;&nbsp; or sewing, 
       <br>&nbsp;&nbsp; or writing, 
-      <br>&nbsp;&nbsp; or... well, ya get the idea.
+      <br>&nbsp;&nbsp; or ... well, you get the idea.
 
       <br><br>An undiagnosed something-or-another,
-      <br>&nbsp;&nbsp; Which spawned-in with energy only befitting a gift from the mythical Red Bull itself!
+      <br>&nbsp;&nbsp; Who spawned-in with the energy befitting a gift from the mythical Red Bull itself!
       <br>
       <br>
     </div>

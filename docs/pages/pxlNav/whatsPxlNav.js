@@ -1,6 +1,6 @@
 
 export const pageListingData = {
-  'name' : "What's&nbsp;<span class='textNudge'>pxlNav</span>?",
+  'name' : "<span class='procPagesHideWhenThin'>What's&nbsp;<span class='textNudge'>pxlNav</span>?</span><span class='procPagesShowWhenThin'>What?</span>",
   'media' : [
     {
       'type' : 'image',
@@ -29,7 +29,7 @@ export const pageListingData = {
     <div class="textBoldBox">npm -i pxlnav</div></div>
     
     <br><span class="textNudge">pxlNav</span> is a player controller + rendering set-up that brings more interactive functionality to Three.js.
-    <br>&nbsp;&nbsp; It's basically a wrapper for Three.js, using Three.js's renderer, character rig + animation features, to create something like a game engine... I guess.
+    <br>&nbsp;&nbsp; It's basically a wrapper for Three.js, using Three's renderer, character rig + animation features, to create something like a game engine... I guess.
     
     <br>
     <br>You can use any 3d modeling software to make interactive environments called <span class="textName">Rooms</span>, making it a little easier to make games/interactive environments.

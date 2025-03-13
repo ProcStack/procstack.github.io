@@ -79,7 +79,7 @@ const targetFPS = {
 // Default is - PC = 1.0  -&-  Mobile = 1.0
 const renderScale = {
   'pc' : 1.0,
-  'mobile' : 1.3
+  'mobile' : 1.5
 }
 
 // Anti-aliasing level

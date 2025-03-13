@@ -13,7 +13,6 @@ const metaDataInput = {
 const pageContentObject = {
   'visible' : false,
   'page' : 'MakingOf',
-  'title' : 'Making Of ProcStack.GitHub.io',
   'theme' : '#3d4297',
   'activeNavButton' : [ 'procPagesNav_reposActiveStyle' ],
   'header' : 'Making Of...',

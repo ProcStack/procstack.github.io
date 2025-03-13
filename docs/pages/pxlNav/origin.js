@@ -4,7 +4,7 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'youtube',
-      'src' : '_vzqZ2sNjaw?si=RDEV72-mVmd1qWla',
+      'src' : '_vzqZ2sNjaw',
       'alt' : 'Huge holiday party thank you video',
       'style' : 'procPagesMediaStyle'
     },

@@ -12,7 +12,6 @@ const metaDataInput = {
 
 const pageContentObject = {
   'page' : 'Init',
-  'title' : 'Welcome.',
   'theme' : '#6b420c',
   'activeNavButton' : [ 'procPagesNav_initActiveStyle' ],
   'layout' : 'single',
