@@ -8,7 +8,12 @@ const shaderHeader = pxlShaders.core.shaderHeader;
 /////////////////////////////////////////////////////////
 
 
-export function rabbitDruidVert(){
+export function rabbitDruidVert(settings={}){
+  const defaultSettings = {
+    'shadows': false, // Set to true to enable shadow mapping
+  };
+  settings = Object.assign({}, defaultSettings, settings);
+
   let ret=shaderHeader();
   ret+=`
     
@@ -40,6 +45,14 @@ export function rabbitDruidVert(){
     ${ShaderChunk[ "morphtarget_pars_vertex" ]}
     //-- -- --//
     ${ShaderChunk[ "skinning_pars_vertex" ]}
+  `;  
+  if( settings.shadows ) {
+    ret += `
+    ${ShaderChunk[ "shadowmap_pars_vertex" ]}
+    `;
+  }
+  ret += `
+    
     /*********************************/
     /** End of THREE Shader Includes **/
     /*********************************/
@@ -50,6 +63,7 @@ export function rabbitDruidVert(){
       
       vec3 transformed = vec3( position );
       vec3 objectNormal = vec3( normal );
+      vec3 transformedNormal = objectNormal;
       vec3 objectTangent = vec3( cross( cross( normal, vec3(.0, 1.0, .0) ), vec3(.0, 1.0, .0) ) );
       objectTangent = normalize( objectTangent );
       
@@ -74,6 +88,20 @@ export function rabbitDruidVert(){
       objectNormal = normalize(objectNormal);
       objectTangent = normalize( objectTangent );
       
+      `;
+      if( settings.shadows ) {
+        ret += `
+          // -- -- -- -- -- -- -- --
+          // -- Three.js imports  -- --
+          // -- -- -- -- -- -- -- -- -- --
+          ${ShaderChunk[ "worldpos_vertex" ]}
+          ${ShaderChunk[ "shadowmap_vertex" ]}
+          // -- -- -- -- -- -- -- -- -- --
+          // -- End Three.js - -- -- --
+          // -- -- -- -- -- -- -- --
+        `;
+      }
+      ret += `
       
       vTan =  objectTangent;
       vN =  objectNormal;
@@ -92,7 +120,12 @@ export function rabbitDruidVert(){
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 
-export function rabbitDruidFrag(){
+export function rabbitDruidFrag(settings={}){
+  const defaultSettings = {
+    'shadows': false, // Set to true to enable shadow mapping
+  };
+  settings = Object.assign({}, defaultSettings, settings);
+
   let ret=shaderHeader();
   ret +=`
     
@@ -102,6 +135,7 @@ export function rabbitDruidFrag(){
     uniform sampler2D noiseTexture;
     uniform vec2 lightScalar;
     
+    
     varying vec2 vUv;
     varying vec4 vCd;
     varying vec3 vPos;
@@ -110,6 +144,87 @@ export function rabbitDruidFrag(){
     
     varying float vFlicker;
     
+
+    `;
+    if( settings.shadows ) {
+      ret += `
+    // -- -- -- -- -- -- -- --
+    // -- Three.js imports  -- --
+    // -- -- -- -- -- -- -- -- -- --
+    // -- Shadow modified from Three.js --
+    
+        ${ShaderChunk[ "packing" ]}
+        
+    #if NUM_POINT_LIGHT_SHADOWS > 0
+      uniform sampler2D pointShadowMap[ NUM_POINT_LIGHT_SHADOWS ];
+      varying vec4 vPointShadowCoord[ NUM_POINT_LIGHT_SHADOWS ];
+      struct PointLightShadow {
+        float shadowIntensity;
+        float shadowBias;
+        float shadowNormalBias;
+        float shadowRadius;
+        vec2 shadowMapSize;
+        float shadowCameraNear;
+        float shadowCameraFar;
+      };
+      uniform PointLightShadow pointLightShadows[ NUM_POINT_LIGHT_SHADOWS ];
+    #endif
+    float texture2DCompare( sampler2D depths, vec2 uv, float compare ) {
+        return step( compare, unpackRGBAToDepth( texture2D( depths, uv ) ) );
+    }
+    vec2 cubeToUV( vec3 v, float texelSizeY ) {
+      vec3 absV = abs( v );
+      float scaleToCube = 1.0 / max( absV.x, max( absV.y, absV.z ) );
+      absV *= scaleToCube;
+      v *= scaleToCube * ( 1.0 - 2.0 * texelSizeY );
+      vec2 planar = v.xy;
+      float almostATexel = 1.5 * texelSizeY;
+      float almostOne = 1.0 - almostATexel;
+      if ( absV.z >= almostOne ) {
+        if ( v.z > 0.0 )
+          planar.x = 4.0 - v.x;
+      } else if ( absV.x >= almostOne ) {
+        float signX = sign( v.x );
+        planar.x = v.z * signX + 2.0 * signX;
+      } else if ( absV.y >= almostOne ) {
+        float signY = sign( v.y );
+        planar.x = v.x + 2.0 * signY + 2.0;
+        planar.y = v.z * signY - 2.0;
+      }
+      return vec2( 0.125, 0.25 ) * planar + vec2( 0.375, 0.75 );
+    }
+    float getPointShadow( sampler2D shadowMap, vec2 shadowMapSize, float shadowIntensity, float shadowBias, float shadowRadius, vec4 shadowCoord, float shadowCameraNear, float shadowCameraFar ) {
+      vec2 texelSize = vec2( 1.0 ) / ( shadowMapSize * vec2( 4.0, 2.0 ) );
+      vec3 lightToPosition = shadowCoord.xyz;
+      float dp = ( length( lightToPosition ) - shadowCameraNear ) / ( shadowCameraFar - shadowCameraNear );
+        dp += shadowBias;
+      vec3 bd3D = normalize( lightToPosition );
+      #if defined( SHADOWMAP_TYPE_PCF ) || defined( SHADOWMAP_TYPE_PCF_SOFT ) || defined( SHADOWMAP_TYPE_VSM )
+        vec2 offset = vec2( - 1, 1 ) * shadowRadius * texelSize.y;
+        return mix( 1.0, (
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.xyy, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.yyy, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.xyx, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.yyx, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.xxy, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.yxy, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.xxx, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.yxx, texelSize.y ), dp )
+        ) * .11111111111 * (1.0-dp), shadowIntensity );
+      #else
+        return mix( 1.0, texture2DCompare( shadowMap, cubeToUV( bd3D, texelSize.y ), dp ) * (1.0-dp), shadowIntensity );
+      #endif
+    }
+    // -- -- -- -- -- -- -- -- -- --
+    // -- End Three.js - -- -- --
+    // -- -- -- -- -- -- -- --
+      `;
+    }
+    ret += `
+
+
+
     struct PointLight {
       vec3 color;
       float decay;
@@ -173,6 +288,26 @@ export function rabbitDruidFrag(){
       outCd.rgb += lights * areCd.g * lightScalar.x;
     #endif
 
+    `;
+    if( settings.shadows ) {
+      ret+=`
+    #if NUM_POINT_LIGHT_SHADOWS > 0
+      
+      float shadowInf = 0.0;
+      float detailInf = 0.0;
+      float lShadow = 0.0;
+
+      int i = 0;
+      for( i = 0; i < NUM_POINT_LIGHT_SHADOWS; ++i ) {
+          lShadow = getPointShadow( pointShadowMap[0], pointLightShadows[i].shadowMapSize, pointLightShadows[i].shadowIntensity, pointLightShadows[i].shadowBias*.1, pointLightShadows[i].shadowRadius*.5, vPointShadowCoord[i], pointLightShadows[i].shadowCameraNear, pointLightShadows[i].shadowCameraFar );
+          shadowInf = max( lShadow, shadowInf);
+      }
+      shadowInf = shadowInf*.875+.125;
+      outCd.rgb *= shadowInf;
+    #endif
+      `;
+    }
+    ret += `
       
       // Add some ambient color to the back rim of the object
       float d = clamp( dot( normalize(vec3(2.80, 1.2, -1.20)), vTan )*1.+.15, 0.0, 1.0) * lightContrib * (1.0-lMag*.5);

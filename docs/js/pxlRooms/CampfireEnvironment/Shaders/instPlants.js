@@ -7,7 +7,11 @@ const shaderHeader = pxlShaders.core.shaderHeader;
 
 
 
-export function instPlantsVert(){
+export function instPlantsVert(settings={}){
+  const defaultSettings = {
+    'shadows': false, // Set to true to enable shadow mapping
+  };
+  settings = Object.assign({}, defaultSettings, settings);
   let ret=shaderHeader();
   ret=`
     uniform vec2 time;
@@ -30,6 +34,13 @@ export function instPlantsVert(){
     /** Start of THREE Shader Includes **/
     /***********************************/
     ${ShaderChunk[ "common" ]}
+    `;  
+    if( settings.shadows ) {
+      ret += `
+      ${ShaderChunk[ "shadowmap_pars_vertex" ]}
+      `;
+    }
+    ret += `
     /*********************************/
     /** End of THREE Shader Includes **/
     /*********************************/
@@ -50,6 +61,21 @@ export function instPlantsVert(){
         vec3 transformed = vec3( position );
         vec3 objectNormal = vec3( normal );
         vec3 transformedNormal = objectNormal;
+
+        `;
+        if( settings.shadows ) {
+          ret += `
+            // -- -- -- -- -- -- -- --
+            // -- Three.js imports  -- --
+            // -- -- -- -- -- -- -- -- -- --
+            ${ShaderChunk[ "worldpos_vertex" ]}
+            ${ShaderChunk[ "shadowmap_vertex" ]}
+            // -- -- -- -- -- -- -- -- -- --
+            // -- End Three.js - -- -- --
+            // -- -- -- -- -- -- -- --
+          `;
+        }
+        ret += `
         // -- -- --
 
         vec4 noiseMaskPos = pos*.3;
@@ -112,17 +138,6 @@ export function instPlantsVert(){
         
         // -- -- --
 
-
-    
-        /***********************************/
-        /** Start of THREE Shader Includes **/
-        /***********************************/
-        ${ShaderChunk[ "worldpos_vertex" ]}
-        /*********************************/
-        /** End of THREE Shader Includes **/
-        /*********************************/
-
-
     }`;
   return ret;
 }
@@ -143,6 +158,7 @@ export function instPlantsFrag( settings={} ){
     'addCampfire' : false,
     'depthScalar' : .0001,
     'fogDepthScalar' : .05,
+    'shadows': false, // Set to true to enable shadow mapping
   }
   let shaderSettings = Object.assign( defaults, settings );
 
@@ -193,6 +209,84 @@ export function instPlantsFrag( settings={} ){
     varying vec3 vCd;
     
     
+    `;
+    if( settings.shadows ) {
+      ret += `
+    // -- -- -- -- -- -- -- --
+    // -- Three.js imports  -- --
+    // -- -- -- -- -- -- -- -- -- --
+    // -- Shadow modified from Three.js --
+    
+        ${ShaderChunk[ "packing" ]}
+        
+    #if NUM_POINT_LIGHT_SHADOWS > 0
+      uniform sampler2D pointShadowMap[ NUM_POINT_LIGHT_SHADOWS ];
+      varying vec4 vPointShadowCoord[ NUM_POINT_LIGHT_SHADOWS ];
+      struct PointLightShadow {
+        float shadowIntensity;
+        float shadowBias;
+        float shadowNormalBias;
+        float shadowRadius;
+        vec2 shadowMapSize;
+        float shadowCameraNear;
+        float shadowCameraFar;
+      };
+      uniform PointLightShadow pointLightShadows[ NUM_POINT_LIGHT_SHADOWS ];
+    #endif
+    float texture2DCompare( sampler2D depths, vec2 uv, float compare ) {
+        return step( compare, unpackRGBAToDepth( texture2D( depths, uv ) ) );
+    }
+    vec2 cubeToUV( vec3 v, float texelSizeY ) {
+      vec3 absV = abs( v );
+      float scaleToCube = 1.0 / max( absV.x, max( absV.y, absV.z ) );
+      absV *= scaleToCube;
+      v *= scaleToCube * ( 1.0 - 2.0 * texelSizeY );
+      vec2 planar = v.xy;
+      float almostATexel = 1.5 * texelSizeY;
+      float almostOne = 1.0 - almostATexel;
+      if ( absV.z >= almostOne ) {
+        if ( v.z > 0.0 )
+          planar.x = 4.0 - v.x;
+      } else if ( absV.x >= almostOne ) {
+        float signX = sign( v.x );
+        planar.x = v.z * signX + 2.0 * signX;
+      } else if ( absV.y >= almostOne ) {
+        float signY = sign( v.y );
+        planar.x = v.x + 2.0 * signY + 2.0;
+        planar.y = v.z * signY - 2.0;
+      }
+      return vec2( 0.125, 0.25 ) * planar + vec2( 0.375, 0.75 );
+    }
+    float getPointShadow( sampler2D shadowMap, vec2 shadowMapSize, float shadowIntensity, float shadowBias, float shadowRadius, vec4 shadowCoord, float shadowCameraNear, float shadowCameraFar ) {
+      vec2 texelSize = vec2( 1.0 ) / ( shadowMapSize * vec2( 4.0, 2.0 ) );
+      vec3 lightToPosition = shadowCoord.xyz;
+      float dp = ( length( lightToPosition ) - shadowCameraNear ) / ( shadowCameraFar - shadowCameraNear );
+        dp += shadowBias;
+      vec3 bd3D = normalize( lightToPosition );
+      #if defined( SHADOWMAP_TYPE_PCF ) || defined( SHADOWMAP_TYPE_PCF_SOFT ) || defined( SHADOWMAP_TYPE_VSM )
+        vec2 offset = vec2( - 1, 1 ) * shadowRadius * texelSize.y;
+        return mix( 1.0, (
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.xyy, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.yyy, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.xyx, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.yyx, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.xxy, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.yxy, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.xxx, texelSize.y ), dp ) +
+          texture2DCompare( shadowMap, cubeToUV( bd3D + offset.yxx, texelSize.y ), dp )
+        ) * .11111111111 * (1.0-dp), shadowIntensity );
+      #else
+        return mix( 1.0, texture2DCompare( shadowMap, cubeToUV( bd3D, texelSize.y ), dp ) * (1.0-dp), shadowIntensity );
+      #endif
+    }
+    // -- -- -- -- -- -- -- -- -- --
+    // -- End Three.js - -- -- --
+    // -- -- -- -- -- -- -- --
+      `;
+    }
+    ret += `
+
     struct PointLight {
       vec3 color;
       float decay;
@@ -307,7 +401,7 @@ export function instPlantsFrag( settings={} ){
             vec3 lightVector = normalize(lightDelta);
             
             // Calculate distance attenuation
-            float lightDistFit = max( 1.0, length(lightDelta) / pointLights[i].distance ) * .65;
+            float lightDistFit = max( 1.0, length(lightDelta) / pointLights[i].distance ) * .48;
             float attenuation = 1.0 / (1.0 + pointLights[i].decay * lightDistFit * lightDistFit);
             
             // Calculate light intensity
@@ -351,6 +445,39 @@ export function instPlantsFrag( settings={} ){
           //  
         #endif
         
+      `;
+      if( settings.shadows ) {
+        ret+=`
+        // -- -- -- -- -- -- -- -- --
+        // -- Shadow Influence  -- -- --
+        // -- -- -- -- -- -- -- -- -- -- --
+        float shadowInf = 0.0;
+
+        #if NUM_POINT_LIGHT_SHADOWS > 0
+          
+          float detailInf = 0.0;
+          float lShadow = 0.0;
+  
+          float shadowMix = length(vPos)*.1;
+          
+          float shadowMixFit = max(0.0,min(1.0, shadowMix*shadowMix*.04)*1.4-.4);
+          float shadowRadius = max(0.0,min(1.0, 1.0-shadowMixFit*1.5));
+          
+          for( int x = 0; x < NUM_POINT_LIGHT_SHADOWS; ++x ) {
+              lShadow = getPointShadow( pointShadowMap[0], pointLightShadows[x].shadowMapSize, pointLightShadows[x].shadowIntensity * shadowRadius, pointLightShadows[x].shadowBias+shadowMixFit*.3, pointLightShadows[x].shadowRadius+shadowMixFit*30.0, vPointShadowCoord[x], pointLightShadows[x].shadowCameraNear, pointLightShadows[x].shadowCameraFar );
+              shadowInf = max( lShadow, shadowInf);
+          }
+          shadowInf = shadowInf*.875+.125;
+          Cd.rgb *= shadowInf;
+        #endif
+          `;
+        }else{
+          ret+=`
+          float shadowInf = 1.0;
+          `;
+        }
+        ret += `
+
         // -- -- -- -- -- -- -- -- --
         // -- Match Scene Tone  -- -- --
         // -- -- -- -- -- -- -- -- -- -- --
