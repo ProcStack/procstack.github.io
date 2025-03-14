@@ -78,7 +78,7 @@ userSettings['gravity']['max'] = 15.5; // Max gravity rate
 //   Default is - PC = 30  -&-  Movile = 30
 const targetFPS = {
   'pc' : 45,
-  'mobile' : 30
+  'mobile' : 45
 };
 
 // Render Resolution Scale
@@ -119,6 +119,33 @@ const collisionScale = {
   'gridReference' : 1000
 };
 
+
+// -- -- -- -- --
+
+// Find search parameters in the URL for procstack.github.io
+//   Not needed for pxlNav
+// Note : procPages clears the search parameters on the page
+//          So search is lost on page change,
+//            Running before procPages.init() is needed
+let uriSearch = window.location.search;
+
+// Check hash for fps and renderScale
+let searchParams = new URLSearchParams(uriSearch);
+let showFPS = searchParams.has('showfps') ? !!parseInt(searchParams.get('showfps')) : false;
+if( searchParams.has('fps') ){
+  let fps = parseInt(searchParams.get('fps'));
+  if( fps > 0 ){
+    targetFPS.pc = fps;
+    targetFPS.mobile = fps;
+  }
+}
+if( searchParams.has('scale') ){
+  let scale = parseFloat(searchParams.get('scale'));
+  if( scale > 0 ){
+    renderScale.pc = scale;
+    renderScale.mobile = scale;
+  }
+}
 
 // -- -- -- -- --
 
@@ -170,8 +197,6 @@ pxlNavOptions.loaderPhrases = loaderPhrases;
 const pxlNavEnv = new pxlNav( pxlNavOptions, projectTitle, procPages.curRoom, bootRoomList );
 
 
-
-
 // -- -- -- -- --
 
 
@@ -183,10 +208,37 @@ pageListenEvents.forEach( (e)=>{
 });
 
 
+
 // -- -- --
 
 // Connect ProcPages' trigger emit function to into `pxlNav`
 procPages.bindTriggerEmits( pxlNavEnv.trigger.bind(pxlNavEnv) );
+
+// -- -- --
+
+
+// Check hash for fps and renderScale
+if( showFPS ){
+  let verboseConsole = document.getElementById('verbErrorConsole');
+  let skipper = true;
+  let prevTime = 0;
+  if( verboseConsole ){
+    pxlNavEnv.subscribe( 'render-prep', ( e )=>{
+      skipper = !skipper;
+      if( !skipper ){
+        prevTime = e.value.time;
+        return;
+      }
+      let newDiv = document.createElement('div');
+      let delta = (1 / ((e.value.time-prevTime))).toFixed(3);
+      newDiv.innerHTML = delta;
+      verboseConsole.prepend(newDiv);
+      if( verboseConsole.childElementCount > 3 ){
+        verboseConsole.removeChild(verboseConsole.lastChild);
+      }
+    });
+  }
+}
 
 // -- -- --
 
