@@ -217,7 +217,7 @@ procPages.bindTriggerEmits( pxlNavEnv.trigger.bind(pxlNavEnv) );
 // -- -- --
 
 
-// Check hash for fps and renderScale
+// Check uri search for `show fps`
 if( showFPS ){
   let verboseConsole = document.getElementById('verbErrorConsole');
   let skipper = true;
