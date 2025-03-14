@@ -24,8 +24,13 @@
       let basePath = window.location.pathname;
       basePath = basePath.split('/');
       basePath = basePath.pop();
-      let redirectUrl = '/index.htm?redirect=' + basePath;
+      let getData = "";
+      if(window.location.search) {
+        getData = window.location.search;
+        getData = getData.replace("?", "&");
+      }
 
+      let redirectUrl = '/index.htm?redirect=' + basePath + getData;
       window.location.replace( redirectUrl );
 
       // -- -- --
