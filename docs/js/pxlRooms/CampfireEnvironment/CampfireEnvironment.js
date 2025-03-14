@@ -67,6 +67,8 @@ export class CampfireEnvironment extends RoomEnvironment{
     
     this.materialList={};
     this.particleList={};
+
+    this.campfireLight = null;
     
     
     this.pxlCamFOV={ 'PC':60, 'MOBILE':80 };
@@ -76,7 +78,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     this.pxlCamFarClipping = 5000;
 
     // this.fogColor=new Color(.3,.3,.3);
-    this.fogColor=new Color(.015,.025,.06);
+    this.fogColor=new Color(.008,.020,.04);
     this.fogExp=.0055;
     this.fog=new FogExp2( this.fogColor, this.fogExp);
     
@@ -152,6 +154,34 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     //let curFOV = this.pxlCamFOV[  this.mobile ? 'MOBILE' : 'PC' ];
     //this.pxlEnv.pxlCamera.setStats( curFOV, this.pxlCamZoom, this.pxlCamAspect, this.pxlCamNearClipping );
+
+    if( this.campfireLight ){
+      // Flicker the campfire light color and intensity
+      let basePos = this.campfireLight.origPos.clone();
+      let totalIntensity = this.campfireLight.origIntensity;
+
+      let magnitude = 3.2; // Adjust the flicker magnitude
+
+      let timeOffset = this.msRunner.x * .3; // Adjust the flicker speed
+
+      let flickerNoise =  Math.sin( timeOffset +
+         this.campfireLight.position.x * 0.01 +
+         this.campfireLight.position.y * 0.01 +
+         this.campfireLight.position.z * 0.01 );
+      
+      this.campfireLight.position.set( 
+        basePos.x + Math.sin( timeOffset + flickerNoise ) * magnitude,
+        basePos.y + Math.cos( timeOffset + flickerNoise ) * 1.2,
+        basePos.z + Math.sin( -timeOffset * 1.5 + flickerNoise * 0.5 ) * magnitude
+      );
+      this.campfireLight.intensity = totalIntensity * ( 
+        Math.sin( timeOffset * 3.5 + flickerNoise*4.0 
+          + this.campfireLight.position.x 
+          + this.campfireLight.position.y
+          + this.campfireLight.position.z
+        ) * 0.1 + 1.0 ); // Flicker intensity
+    }
+
   }
   
   checkEyeBlink(){
@@ -424,6 +454,17 @@ export class CampfireEnvironment extends RoomEnvironment{
       pokinStick.material.lights = true;
     }
     
+
+    if( this.lightList.hasOwnProperty("PointLight") && this.lightList["PointLight"].length > 0 ){
+      this.lightList["PointLight"].forEach( (light)=>{
+        if( light.name == "point_campFire_lit" ){
+          this.campfireLight = light;
+          this.campfireLight.origPos = light.position.clone(); // Save the original position of the campfire light
+          this.campfireLight.origIntensity = light.intensity; // Save the original intensity of the campfire light
+        }
+      });
+    }
+
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
     // Log replicator time!
@@ -560,7 +601,8 @@ export class CampfireEnvironment extends RoomEnvironment{
     // Enable shadows for non-mobile devices
     let shadowMapUniforms = this.mobile ? {} : UniformsLib[ "shadowmap" ];
     let hasShadowSettings = {
-      'shadows' : this.mobile ? false : true,
+      //'shadows' : this.mobile ? false : true,
+      'shadows' : true,
     }
 
     let envGroundUniforms = UniformsUtils.merge(
@@ -599,6 +641,10 @@ export class CampfireEnvironment extends RoomEnvironment{
     var defines = {
       'USE_MAP' : "",
     };
+
+    let envGroundSettings = Object.assign( {}, hasShadowSettings, {
+      'shadowReach' : this.mobile ? 0.65 : 0.3, // Shadow reach for non-mobile devices
+    });
 
     let environmentGroundMat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(hasShadowSettings), envGroundFrag(hasShadowSettings), defines );
     environmentGroundMat.lights= true;
@@ -706,9 +752,12 @@ export class CampfireEnvironment extends RoomEnvironment{
         shadowMapUniforms,
         {
           'noiseTexture' : { type:'t', value: null },
+          'intensity' : { type: "f", value: 1.25 },
           'fogColor' : { type: "c", value: this.fogColor },
         }]
     )
+
+    grassClusterUniforms.intensity.value = this.mobile ? 1.0 : 1.3; // Lower intensity for mobile devices
     grassClusterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg", null, {'encoding':SRGBColorSpace} );
 
 
@@ -716,6 +765,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     grassMat.side = FrontSide;
     grassMat.lights = true;
     grassMat.transparent = false;
+
     
         
     // -- -- -- 
@@ -738,6 +788,7 @@ export class CampfireEnvironment extends RoomEnvironment{
         'fogColor' : { type: "c", value: this.fogColor }
       }]
     )
+    grassClusterUniforms.intensity.value = this.mobile ? 2.25 : 2.0; // Lower intensity for mobile devices
     grassCardsAUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
     grassCardsAUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_diffuse.webp" );
     grassCardsAUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_alpha.jpg" );
@@ -749,7 +800,7 @@ export class CampfireEnvironment extends RoomEnvironment{
       'addCampfire' : true,
       'depthScalar': 0.003,
       'fogDepthScalar': 0.8,
-      'shadows' : this.mobile ? false : true,
+      'shadows' : true,
     }
 
     let grassCardsMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert( hasShadowSettings ), instPlantsFrag( grassCardSettings ) );
@@ -758,7 +809,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     grassCardsMat.transparent = false;
     
     grassCardSettings['shadow'] = false; // Disable shadow for the far grass cards
-    let grassCardsFarMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert( {} ), instPlantsFrag( grassCardSettings ) );
+    let grassCardsFarMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert( hasShadowSettings ), instPlantsFrag( grassCardSettings ) );
     grassCardsFarMat.side = DoubleSide;
     grassCardsFarMat.lights = true;
     grassCardsFarMat.transparent = false;
