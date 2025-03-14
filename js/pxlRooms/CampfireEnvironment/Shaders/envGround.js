@@ -419,7 +419,7 @@ export function envGroundFrag(settings={}){
             lShadow = getPointShadow( pointShadowMap[0], pointLightShadows[x].shadowMapSize, pointLightShadows[x].shadowIntensity * shadowRadius, pointLightShadows[x].shadowBias+shadowMixFit*.3, pointLightShadows[x].shadowRadius+shadowMixFit*30.0, vPointShadowCoord[x], pointLightShadows[x].shadowCameraNear, pointLightShadows[x].shadowCameraFar );
             shadowInf = max( lShadow, shadowInf);
         }
-        shadowInf = shadowInf;
+        shadowInf = shadowInf*.875+.125;
         Cd.rgb *= shadowInf;
       #endif
         `;
