@@ -28,7 +28,8 @@ import {
   DoubleSide, FrontSide,
   UniformsUtils, UniformsLib,
   SRGBColorSpace, LinearSRGBColorSpace,
-  AmbientLight
+  AmbientLight,
+  MeshPhongMaterial
 } from "../../libs/three/three.module.min.js";
 
 import { RoomEnvironment, pxlShaders, pxlEffects } from "../../pxlNav.esm.js";
@@ -394,6 +395,29 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+
+    let lightTypeList = Object.keys( this.lightList );
+    if( lightTypeList.length>0){
+      lightTypeList.forEach( (type)=>{
+        this.lightList[type].forEach( (light)=>{
+          if( type == "DirectionalLight" ){ 
+            light.castShadow=false;
+          }else if( type == "PointLight" ){ 
+            light.shadow.radius = 5;
+            light.shadow.receiveShadow = true;
+            light.shadow.mapSize.width = 512; // default
+            light.shadow.mapSize.height = 512; // default
+            light.shadow.camera.near = 0.5; // default
+            light.shadow.camera.far = 35; // default
+            light.shadow.bias = .025; // default
+            light.shadow.radius = 5; // default
+          }
+        });
+      });
+    }
+
+    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
     // Log replicator time!
     //  Making some shader materials for our burny burny logs.
     //    Lets get them crackling in that flame!
@@ -455,9 +479,17 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     let curMesh = this.pxlAnim.getMesh( animKey );
     if(curMesh){
+
+      let envGroundSettings = {
+        //'shadows' : this.mobile ? false : true,
+      }
+
+      curMesh.castShadow = true;
+      curMesh.receiveShadow = true;
+
       let curMtl = curMesh.material;
       curMtl.side = DoubleSide;
-      let newSkinnedMtl = this.setSkinnedMaterial( curMesh, rabbitDruidVert(), rabbitDruidFrag() );
+      let newSkinnedMtl = this.setSkinnedMaterial( curMesh, rabbitDruidVert(envGroundSettings), rabbitDruidFrag(envGroundSettings) );
       this.materialList[ "RabbitDruidA" ] = newSkinnedMtl;
     }
 
@@ -469,10 +501,14 @@ export class CampfireEnvironment extends RoomEnvironment{
 
   setSkinnedMaterial( bindObj, vertShader=null, fragShader=null ){
 
+    // Enable shadows for non-mobile devices
+    let shadowMapUniforms = this.mobile ? {} : UniformsLib[ "shadowmap" ];
+
     let skinnedMtlUniforms = UniformsUtils.merge(
       [
           UniformsLib['common'],
           UniformsLib['lights'],
+          shadowMapUniforms,
         {
           'diffuseTexture' : { type:'t', value: null },
           'areTexture' : { type:'t', value: null },
@@ -513,25 +549,31 @@ export class CampfireEnvironment extends RoomEnvironment{
     // -- Environment Ground Material - -- --
     // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+    // Enable shadows for non-mobile devices
+    let shadowMapUniforms = this.mobile ? {} : UniformsLib[ "shadowmap" ];
+    let hasShadowSettings = {
+      'shadows' : this.mobile ? false : true,
+    }
+
     let envGroundUniforms = UniformsUtils.merge(
-        [
-          UniformsLib[ "common" ],
-          UniformsLib[ "lights" ],
-          UniformsLib[ "shadowmap" ],
-          {
-            'diffuse' : { type:'t', value: null },
-            'dirtDiffuse' : { type:'t', value: null },
-            'crackedDirtDiffuse' : { type:'t', value: null },
-            'hillDiffuse' : { type:'t', value: null },
-            'mossDiffuse' : { type:'t', value: null },
-            'grassDiffuse' : { type:'t', value: null },
-            'dataDiffuse' : { type:'t', value: null },
-            'fogColor': { type:'c', value: null },
-            'noiseTexture' : { type:'t', value: null },
-            'uniformNoise' : { type:'t', value: null },
-          }
-        ]
-      );
+      [
+        UniformsLib[ "common" ],
+        UniformsLib[ "lights" ],
+        shadowMapUniforms,
+        {
+          'diffuse' : { type:'t', value: null },
+          'dirtDiffuse' : { type:'t', value: null },
+          'crackedDirtDiffuse' : { type:'t', value: null },
+          'hillDiffuse' : { type:'t', value: null },
+          'mossDiffuse' : { type:'t', value: null },
+          'grassDiffuse' : { type:'t', value: null },
+          'dataDiffuse' : { type:'t', value: null },
+          'fogColor': { type:'c', value: null },
+          'noiseTexture' : { type:'t', value: null },
+          'uniformNoise' : { type:'t', value: null },
+        }
+      ]
+    );
 
     envGroundUniforms.fogColor.value = this.fogColor;
     envGroundUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Diffuse.webp", null, {'encoding':SRGBColorSpace} );
@@ -546,9 +588,16 @@ export class CampfireEnvironment extends RoomEnvironment{
     envGroundUniforms.noiseTexture.value = this.cloud3dTexture;
     envGroundUniforms.uniformNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg", null, {'encoding':LinearSRGBColorSpace} );
 
-    let environmentGroundMat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag(4) );
+    var defines = {
+      'USE_MAP' : "",
+    };
+
+    let environmentGroundMat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(hasShadowSettings), envGroundFrag(hasShadowSettings), defines );
     environmentGroundMat.lights= true;
     environmentGroundMat.transparent=false;
+    environmentGroundMat.meshSettings = {
+      'receiveShadow' : true,
+    };
 
     envGroundUniforms.uniformNoise.value.wrapS = RepeatWrapping;
     envGroundUniforms.uniformNoise.value.wrapT = RepeatWrapping;
@@ -644,7 +693,9 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     let grassClusterUniforms = UniformsUtils.merge(
         [
+        UniformsLib[ "common" ],
         UniformsLib[ "lights" ],
+        shadowMapUniforms,
         {
           'noiseTexture' : { type:'t', value: null },
           'fogColor' : { type: "c", value: this.fogColor },
@@ -653,7 +704,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     grassClusterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg", null, {'encoding':SRGBColorSpace} );
 
 
-    let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, grassClusterVert(), grassClusterFrag() ); 
+    let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, grassClusterVert(hasShadowSettings), grassClusterFrag(hasShadowSettings) ); 
     grassMat.side = FrontSide;
     grassMat.lights = true;
     grassMat.transparent = false;
@@ -668,8 +719,9 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     let grassCardsAUniforms = UniformsUtils.merge(
       [
-      UniformsLib[ "lights" ],
-      /*UniformsLib[ "shadowmap" ],*/
+        UniformsLib[ "common" ],
+        UniformsLib[ "lights" ],
+        shadowMapUniforms,
       {
         'diffuse' : { type:'t', value: null },
         'alphaMap' : { type:'t', value: null },
@@ -689,15 +741,19 @@ export class CampfireEnvironment extends RoomEnvironment{
       'addCampfire' : true,
       'depthScalar': 0.003,
       'fogDepthScalar': 0.8,
+      'shadows' : this.mobile ? false : true,
     }
 
-    let grassCardsMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert(), instPlantsFrag( grassCardSettings ) );
+    let grassCardsMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert( hasShadowSettings ), instPlantsFrag( grassCardSettings ) );
     grassCardsMat.side = DoubleSide;
     grassCardsMat.lights = true;
     grassCardsMat.transparent = false;
-    //grassCardsMat.alphaTest = .5;
-    //grassCardsMat.blending = ;
     
+    grassCardSettings['shadow'] = false; // Disable shadow for the far grass cards
+    let grassCardsFarMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert( {} ), instPlantsFrag( grassCardSettings ) );
+    grassCardsFarMat.side = DoubleSide;
+    grassCardsFarMat.lights = true;
+    grassCardsFarMat.transparent = false;
         
     
     // -- -- --
@@ -745,6 +801,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     //this.materialList[ "mushroomA_lod1_geo" ] = grassMat;
     this.materialList[ "grassCardsA_lod0_geo" ] = grassCardsMat;
     this.materialList[ "grassCardsA_lod1_geo" ] = grassCardsMat;
+    this.materialList[ "grassCardsA_lod2_geo" ] = grassCardsFarMat;
     
     
     //

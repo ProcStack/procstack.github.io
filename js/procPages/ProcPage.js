@@ -296,7 +296,8 @@ export class ProcPage {
 
     let vidId = mediaData.src;
     let ytEmbed;
-    if( typeof YT === 'undefined' ){
+    if( typeof YT === 'undefined' || typeof YT.Player === 'undefined' ){
+      // Fallback to iframe if YT API is not loaded
       ytEmbed = document.createElement('iframe');
       ytEmbed.src = "https://www.youtube-nocookie.com/embed/"+vidId;
       ytEmbed.title = mediaData.alt;
