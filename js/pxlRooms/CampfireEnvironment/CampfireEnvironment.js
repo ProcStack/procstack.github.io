@@ -99,7 +99,7 @@ export class CampfireEnvironment extends RoomEnvironment{
       "RabbitDruidA" : {
         "rig" : this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbitDruidA_rig.fbx",
         "anim" : {
-          "Sit_Idle" : this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbidDruidA_anim_sit_idle_opt.fbx",
+          "Sit_Idle" : this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbidDruidA_anim_sit_idle.fbx",
           "Sit_Stoke" : this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbidDruidA_anim_sit_stoke.fbx",
           "Sit_Look" : this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbidDruidA_anim_sit_look.fbx"
         },

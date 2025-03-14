@@ -216,25 +216,25 @@ procPages.bindTriggerEmits( pxlNavEnv.trigger.bind(pxlNavEnv) );
 
 // -- -- --
 
-
 // Check uri search for `show fps`
 if( showFPS ){
   let verboseConsole = document.getElementById('verbErrorConsole');
-  let skipper = true;
+  let skipper = 0;
+  let avgFPS = 0;
+  let avgCount = 4;
   let prevTime = 0;
   if( verboseConsole ){
     pxlNavEnv.subscribe( 'render-prep', ( e )=>{
-      skipper = !skipper;
-      if( !skipper ){
-        prevTime = e.value.time;
+      skipper++;
+      let delta = (1 / ((e.value.time-prevTime)));
+      prevTime = e.value.time;
+      avgFPS += delta;
+      if( skipper >= avgCount ){
+        avgFPS = (avgFPS / skipper).toFixed(2);
+        verboseConsole.innerText = avgFPS;
+        avgFPS = 0; // reset for next round
+        skipper = 0;
         return;
-      }
-      let newDiv = document.createElement('div');
-      let delta = (1 / ((e.value.time-prevTime))).toFixed(3);
-      newDiv.innerHTML = delta;
-      verboseConsole.prepend(newDiv);
-      if( verboseConsole.childElementCount > 3 ){
-        verboseConsole.removeChild(verboseConsole.lastChild);
       }
     });
   }
