@@ -541,6 +541,11 @@ export class ProcPageManager {
               }
             }
           });
+          
+          // Stop any playing media on the page
+          if( prevPageListing.hasOwnProperty('pageData') ){
+            prevPageListing.pageData.stopSectionMedia();
+          }
         }
       }
 
