@@ -418,6 +418,14 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+    if( !this.pxlOptions.mobile && this.geoList.hasOwnProperty("pokinStick_geo") ){
+      let pokinStick = this.geoList["pokinStick_geo"];
+      pokinStick.castShadow = true;
+      pokinStick.material.lights = true;
+    }
+    
+    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
     // Log replicator time!
     //  Making some shader materials for our burny burny logs.
     //    Lets get them crackling in that flame!
