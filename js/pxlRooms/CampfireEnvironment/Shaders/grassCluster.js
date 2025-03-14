@@ -366,7 +366,7 @@ export function grassClusterFrag(settings={}){
         // -- -- -- -- -- -- -- -- -- --
 
         float fogMix =  clamp( depth * (depth*2.2501), 0.0, 0.85 ) ;
-        Cd.rgb += Cd.rgb * (animWarpCd.r*3.0+.20) * vCampfireInf;
+        Cd.rgb += Cd.rgb * intensity * (animWarpCd.r*3.0+.20) * vCampfireInf;
         Cd.rgb=  mix( Cd.rgb, vFogColor, fogMix );
         Cd.a=1.0;
         

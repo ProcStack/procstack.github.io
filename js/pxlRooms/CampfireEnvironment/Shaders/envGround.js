@@ -104,6 +104,7 @@ export function envGroundVert(settings={}){
 export function envGroundFrag(settings={}){
   const defaultSettings = {
     'shadows': false, // Set to true to enable shadow mapping
+    'shadowReach': 0.3, // How far the shadows reach from the light source
   };
   settings = Object.assign({}, defaultSettings, settings);
 
@@ -413,7 +414,7 @@ export function envGroundFrag(settings={}){
         float shadowMix = length(vPos)*.1;
         
         float shadowMixFit = max(0.0,min(1.0, shadowMix*shadowMix*.04)*1.4-.4);
-        float shadowRadius = max(0.0,min(1.0, 1.0-shadowMixFit*0.3));
+        float shadowRadius = max(0.0, 1.0-shadowMixFit * ${settings.shadowReach});
         
         for( int x = 0; x < NUM_POINT_LIGHT_SHADOWS; ++x ) {
             lShadow = getPointShadow( pointShadowMap[0], pointLightShadows[x].shadowMapSize, pointLightShadows[x].shadowIntensity * shadowRadius, pointLightShadows[x].shadowBias+shadowMixFit*.3, pointLightShadows[x].shadowRadius+shadowMixFit*30.0, vPointShadowCoord[x], pointLightShadows[x].shadowCameraNear, pointLightShadows[x].shadowCameraFar );
@@ -434,6 +435,7 @@ export function envGroundFrag(settings={}){
         shade = max( lights.r, shade * (1.0 - (vFarMask*.1+max(0.0,depth-.1))) );
         shade +=  length( lights ) ;
         shade *= dataCd.b*.35+.65*vInnerPitMask;
+        shade = max( 0.0, shade-dataCd.r*(dataCd.r) * vPitMask );
         Cd.rgb=  mix( Cd.rgb*shade, fogColor, depth );
         
         gl_FragColor=Cd;

@@ -270,7 +270,7 @@ export function rabbitDruidFrag(settings={}){
           vec3 lightInf=  clamp( (dot(refTan, vN )+.15)*(1.65+areCd.g*.7)+.5, 0.0, 1.0) * pointLights[x].color;
           lights += lightInf * lightContrib;
       }
-      outCd.rgb *= lights*.85;
+      outCd.rgb *= lights;
 
       // CampFire Light Magnitude; Ambient Light Mask
       lMag = min(1.0, max(0.0,length( lights )-.3)*.35 + max(0.0,-vN.y));
