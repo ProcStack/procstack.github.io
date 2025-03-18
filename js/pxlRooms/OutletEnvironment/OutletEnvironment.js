@@ -397,7 +397,7 @@ builBugs(){
     grassClusterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
 
     let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, instPlantsVert(), instPlantsFrag() );
-    grassMat.side = FrontSide;
+    grassMat.side = DoubleSide;
     grassMat.lights = true;
     grassMat.transparent = false;
     
@@ -520,6 +520,7 @@ builBugs(){
 
     this.materialList[ "grassClusterA_lod0_geo" ] = grassMat;
     this.materialList[ "grassClusterA_lod1_geo" ] = grassMat;
+    this.materialList[ "grassClusterA_lod2_geo" ] = grassCardsMat;
 
     this.materialList[ "swampGrassA_lod0_geo" ] = grassMat;
     this.materialList[ "swampGrassA_lod1_geo" ] = grassMat;
