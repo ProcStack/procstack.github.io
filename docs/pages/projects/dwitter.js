@@ -24,11 +24,12 @@ export const pageListingData = {
     },
   ],
   'content' : `
-    <a href='https://dwitter.net/u/trancor' class="textBump" target='_blank'>Dwitter</a>
-    <br>My account on a javaScript code golfing website
-    <br>
-
-    <br>'Code Golfing' is the art of annoying your coworkers + devs,
+    <a href='https://dwitter.net/u/trancor' class="textBump" target='_blank'>Dwitter</a> <span class="textDrinkMeAlice textItalic">2018+</span>
+    <br><span class="textBump">My account on a javaScript code golfing website</span>
+    <br><span class="textShrink textItalic textName ">Language - <span class="textBold">JavaScript</span></span>
+    <div class="pppHBar"></div>
+    
+    'Code Golfing' is the art of annoying your coworkers + devs,
     <br>&nbsp;&nbsp; By writing the most obtuse code as possible,
     <br>&nbsp;&nbsp;&nbsp;&nbsp;  In the fewest characters you can.
 

@@ -33,7 +33,7 @@ export const pageListingData = {
     </div>
     
     <div class='procPagesAboutMe-subHeaderStyle'>
-      <span>Note : 25+ years of using 'Native Javascript' <span class="textShrink">(since I was a kid)</span>; but little React & Next.js knowledge.
+      <span>Note : 25+ years of using 'Native Javascript' <span class="textShrink">(since I was a kid)</span>; but little React & Next.js experience.
       <br>&nbsp;&nbsp; So I'm better dev'ing modules, middleware, & backends.
       <br>&nbsp;&nbsp; Like, I wrote this site's single-page system in 'vanilla' JS for the fun of it.</span>
     </div>
