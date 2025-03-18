@@ -52,8 +52,9 @@ export const pageListingData = {
     }
   ],
   'content' : `
+      <div class='procPagesSpacer'></div>
     <div class='procPagesAboutMe-infoStyle'>
-      <br>I starting my dive into AI in 2008 writing a Boid / Crowd system for my thesis while in art college, School of Visual Arts.
+      I started my dive into AI in 2008 writing a Boid / Crowd system for my thesis while in art college, School of Visual Arts.
       <br>&nbsp;&nbsp; It was an insane particle script + 3d animation cycles in Maya haha.
       <br>Then I did Boid movement, navigation, & obstacle detection in animated films for 5 years at Blue Sky Studios, using Houdini.
       <br>
@@ -113,7 +114,7 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; So the same system could learn my voice on the fly, as well as sensor signals connected to the Jetson computer.
       <br>
       <br>Since its the Structure in a GAT that causes regions of neural activation based on stimuli,
-      <br>&nbsp;&nbsp; It forms a result <span class="textDrinkMeAlice">(prediction)</span> after subsiquent activations, as-though compounding ripples in a pond.
+      <br>&nbsp;&nbsp; It forms a result <span class="textDrinkMeAlice">(prediction)</span> after subsequent activations, as-though compounding ripples in a pond.
 
       <br>
       <br><span class="innerCenter">Rather than a field of numbers aligning to yield a prediction,
@@ -124,7 +125,7 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; With that general-purpose neuron, I can provide text, images, audio histograms, etc. to the network.
       <br>
       <br><span class="innerCenter">RNNs can be used for/in nearly any ai,
-        <br>Best for detecting patterns in sequencial data,
+        <br>Best for detecting patterns in sequential data,
         <br>Like time-based events or words in text.
         <div class='procPagesAboutMeSpacer'></div>
         They are the basis for many types of ai, like LSTMs;
@@ -135,7 +136,7 @@ export const pageListingData = {
       <br> The GAT will create connections from initial random data points, sample the differences, then pass the 'prediction' forward and 'back' in the chain, and adjust the connections based on their revisit to the same data in the current 'prediction'.
       <br>&nbsp;&nbsp; Relying on localized regions of sub-networks to recurrently process the data
       <br>
-      <br>It should be self-taught descrimination of attention between neurons;
+      <br>It should be self-taught discrimination of attention between neurons;
       <br>&nbsp;&nbsp; Like in the human brain.
       <br><div class="textSkew">&nbsp;&nbsp;&nbsp;&nbsp; (When the purple circles go red in the GAT video above)</div>
       
@@ -173,7 +174,7 @@ export const pageListingData = {
       <br><br><div class='procPagesAboutMeBar'></div>
       
       <br>Since I didn't have a good use case for the ESN in Python,
-      <br>&nbsp;&nbsp; I built a similar ESN through C# in Unity to operate NPC's ability to learning player habbits.
+      <br>&nbsp;&nbsp; I built a similar ESN through C# in Unity to operate NPC's ability to learning player habits.
       <br>The logic is pretty simple, so running by CPU is fine for now,
       <br>&nbsp;&nbsp; I'll likely look to move it to GPU in the future, if need be.
       <br>I set it up to learn less often when the player is in another area of the map.

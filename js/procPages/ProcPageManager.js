@@ -24,7 +24,17 @@
 //
 //
 
+/**
+ * @class ProcPageManager
+ * @description Page management system for single page applications. Handles page transitions,
+ * URL routing, navigation state, and page-specific styling overrides.
+ * Made with callbacks in mind; to be used with pxlNav for room/view management in Three.js
+ */
 export class ProcPageManager {
+  /**
+   * @constructor
+   * @description Initializes a new ProcPageManager instance with default settings
+   */
   constructor() {
     this.mainDiv = null;
     this.curPage = null;
@@ -119,10 +129,20 @@ export class ProcPageManager {
 
   }
 
+/**
+ * @method setVersion
+ * @param {string} version - Version string to set
+ * @description Sets the version string used for version replacement in the UI
+ */
   setVersion( version ){
     this.versionReplace = version;
   }
   
+/**
+ * @method setPxlNavVersion
+ * @param {string|null} version - Version string to set for pxlNav elements
+ * @description Updates pxlNav version numbers in DOM elements.
+ */
   setPxlNavVersion( version=null ){
     if( version == null ){
       version = this.versionReplace;
@@ -139,6 +159,10 @@ export class ProcPageManager {
     });
   }
 
+/**
+ * @method init
+ * @description Initializes the page manager, sets up event listeners, and prepares the initial page state
+ */
   init(){
     this.mainDiv = document.getElementById("procPagesMainBlock");
     this.navBar = document.getElementById("procPagesNav");
@@ -295,7 +319,11 @@ export class ProcPageManager {
 
   // -- -- --
   
-
+/**
+ * @method findDomUserEvents
+ * @description Finds and sets up DOM user events for toggling page elements based on user interactions.
+ * This is used for toggling DOM visibility when the 'pageEvent="ToggleDOM"' attribute is set on the 'procPagesToggleDOM' links.
+ */
   findDomUserEvents(){
     let toggleDomObjs = [...document.getElementById("procPagesToggleDOM").children];
     toggleDomObjs.forEach( (toggleLink)=>{
@@ -340,7 +368,12 @@ export class ProcPageManager {
   }
 
   // -- -- --
-  
+
+/**
+ * @method getPageURL
+ * @returns {string} - The current page URL
+ * @description Retrieves the current page URL from the browser's address bar
+ */
   triggerDomEvent( eventType, value ){
     if( this.toggleDomEvents.hasOwnProperty(eventType) ){
       let curObj = this.toggleDomEvents[eventType];
@@ -358,6 +391,11 @@ export class ProcPageManager {
 
   // -- -- --
 
+/**
+ * @method eventHandler
+ * @param {Event} e - Event object
+ * @description Handles various page manager events (booted, shader editor, room changes)
+ */
   eventHandler( e ){
     if( e.type == "booted" ){
       this.postLoad();
@@ -374,6 +412,11 @@ export class ProcPageManager {
 
   // -- -- --
 
+/**
+ * @method bindTriggerEmits
+ * @param {Function} emitFunc - Function to handle event emissions
+ * @description Binds an event emission function for page manager events
+ */
   bindTriggerEmits( emitFunc ){
     this.triggerEmitFunc = emitFunc;
   }
@@ -404,6 +447,10 @@ export class ProcPageManager {
 
   // -- -- --
 
+/**
+ * @method setStyleOverrides
+ * @description Applies page-specific style overrides based on current page configuration
+ */
   setStyleOverrides(){
     if(!this.curPage){
       return;
@@ -427,6 +474,11 @@ export class ProcPageManager {
   }
 
 
+/**
+ * @method addPageListing
+ * @param {Object} pageData - Object containing page configuration data
+ * @description Adds new pages to the page manager's listing
+ */
   addPageListing( pageData ){
     let pageKeys = Object.keys( pageData );
     let listingKeys = Object.keys( this.pageListing );
@@ -446,6 +498,12 @@ export class ProcPageManager {
 
   }
 
+/**
+ * @method setPageMetaData
+ * @param {string} pageName - Name of the page to update
+ * @param {Object} metaData - Metadata object containing page information
+ * @description Sets metadata for a specific page
+ */
   setPageMetaData( pageName, metaData ){
     if( this.pageListing.hasOwnProperty(pageName) ){
       let pageObj = this.pageListing[pageName];
@@ -459,6 +517,12 @@ export class ProcPageManager {
       return pageObj["metaData"];
     }
   }
+
+/**
+ * @method updateDocumentMetaData
+ * @param {string} pageName - Name of the page to update document metadata for
+ * @description Updates document metadata (title, meta tags) based on page configuration
+ */
 
   updateDocumentMetaData( pageName ){
     if( !this.pageListing.hasOwnProperty(pageName) ){
@@ -498,6 +562,11 @@ export class ProcPageManager {
     }
   }
 
+/**
+ * @method activateNavButton
+ * @param {string} pageName - Name of the page to activate navigation for
+ * @description Updates navigation button states based on current page
+ */
   activateNavButton( pageName ){
     let navKeys = Object.keys(this.navBarObjs);
     navKeys.forEach( (navKey)=>{
@@ -519,6 +588,13 @@ export class ProcPageManager {
     });
   }
 
+/**
+ * @method changePage
+ * @param {string} pageName - The name/ID of the page to display
+ * @param {string|null} roomName - Optional room name for pxlNav integration
+ * @param {string|null} locationName - Optional location name within the room
+ * @description Changes the current page, handles transitions, updates URL state, and triggers room changes
+ */
   changePage( pageName, roomName=null, locationName=null ){
     if( pageName != this.curPage && Object.keys(this.pageListing).includes(pageName) ){
       this.toggleFader(this.curPage, false);
@@ -610,7 +686,12 @@ export class ProcPageManager {
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- //
 
-  // TODO : Update for Blog post loading, in tandem with hashListener()
+/**
+ * @method getHash
+ * @returns {string} Current hash value from the URL or default page if empty
+ * @description Extracts the hash from the URL and returns it, or returns the default page if the hash is empty
+ * TODO : Update for Blog post loading, in tandem with hashListener()
+ */
   getHash(){
     let hash = window.location.hash;
     hash = hash.replace("#","");
@@ -622,6 +703,11 @@ export class ProcPageManager {
 
   // -- -- --
 
+/**
+ * @method shiftHistoryState
+ * @param {string} pageName - Page name to update in browser history
+ * @description Updates browser history state with new page URL
+ */
   shiftHistoryState( pageName ){
     let urlDisplay = pageName;
     
@@ -656,6 +742,10 @@ export class ProcPageManager {
 
   }
 
+/**
+ * @method checkForRedirect
+ * @description Checks the URL for a 'redirect' query parameter and updates the page state accordingly
+ */
   checkForRedirect(){
     const urlParams = new URLSearchParams(window.location.search);
     const redirectPath = urlParams.get('redirect');
@@ -667,6 +757,11 @@ export class ProcPageManager {
     }
   }
 
+/**
+ * @method getPageURL
+ * @returns {string} Current page name from URL
+ * @description Extracts and returns the current page name from the URL
+ */
   getPageURL(){
     let ret = this.defaultPage;
 
@@ -693,7 +788,11 @@ export class ProcPageManager {
 
   onResize(){}
   
-
+/**
+ * @method prepFader
+ * @param {HTMLElement|string} obj - DOM element or element ID to prepare for fading
+ * @description Prepares a DOM element for fade transitions by adding necessary CSS classes
+ */
   prepFader( obj ){
     if( typeof(obj)=="string" ){
       obj = document.getElementById(obj);
@@ -703,6 +802,13 @@ export class ProcPageManager {
       obj.classList.add("pagesVisOff");
     }
   }
+
+/**
+ * @method toggleFader
+ * @param {HTMLElement|string} obj - DOM element or element ID to fade
+ * @param {boolean} vis - Visibility state to set
+ * @description Toggles the visibility of DOM elements.
+ */
   toggleFader( obj, vis=false ){
     if( typeof(obj)=="string" ){
       obj = document.getElementById(obj);
@@ -738,6 +844,12 @@ export class ProcPageManager {
     }
   }
 
+/**
+ * @method toggleMidFader
+ * @param {HTMLElement|string} obj - DOM element or element ID to toggle visibility for
+ * @param {boolean} vis - Visibility state to set
+ * @description Toggles the mid-way visibility of DOM elements, triggered on pxlNav UI callbacks
+ */
   toggleMidFader( obj, vis=false ){
     if( typeof(obj)=="string" ){
       obj = document.getElementById(obj);

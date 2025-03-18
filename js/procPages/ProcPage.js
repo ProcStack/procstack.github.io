@@ -1,7 +1,65 @@
 // Core ProcPages content manager
+//   Written by Kevin Edzenga; 2024-2025
+//
 
+/**
+ * @fileoverview Core ProcPages content manager that handles page layout and content organization
+ * @module ProcPage
+ */
+
+/**
+ * @typedef {Object} MediaData
+ * @property {boolean} isLoaded - Internal flag indicating if media is loaded
+ * @property {('image'|'manualLoad'|'video'|'audio'|'youtube')} type - Type of media
+ * @property {string} sectionName - Name of the section containing this media
+ * @property {string} src - Source URL for the media
+ * @property {string} [thumb] - Thumbnail URL for manual loading
+ * @property {number} [width] - Width for manual loading
+ * @property {number} [height] - Height for manual loading
+ * @property {string|string[]} [style] - CSS class(es) to apply
+ * @property {HTMLElement} [object] - Internal reference to DOM element
+ * @property {string[]} [caption] - Caption text to display under media
+ * @property {string} [alt] - Alt text for accessibility
+ */
+
+/**
+ * @typedef {Object} SectionData
+ * @property {boolean} isLoaded - Whether the section has been loaded
+ * @property {boolean} isActive - Whether the section is currently active
+ * @property {string} name - Display name of the section
+ * @property {string} navGroup - Navigation group this section belongs to
+ * @property {string} content - HTML content for the section
+ * @property {MediaData[]} media - Array of media items in this section
+ * @property {Object[]} ytPlayers - YouTube player instances
+ * @property {HTMLElement} header - Section header DOM element
+ * @property {HTMLElement[]} objects - DOM elements for this section
+ * @property {HTMLElement[]} mediaObjects - Media DOM elements for this section
+ */
+
+/**
+ * Class representing a ProcPage that manages page content and layout
+ */
 
 export class ProcPage {
+  /**
+   * Create a ProcPage
+   * @param {Object} contentObject - Configuration object for the page
+   * @param {Object} [contentObject.metaData] - Metadata for the page
+   * @param {boolean} [contentObject.visible=true] - Whether the page is visible
+   * @param {string} [contentObject.id] - Unique identifier for the page
+   * @param {string} [contentObject.idPrefix="pxlPage_"] - Prefix for auto-generated IDs
+   * @param {string} [contentObject.page="Default"] - Page name
+   * @param {string} [contentObject.name=""] - Display name
+   * @param {string} [contentObject.header=""] - Page header content
+   * @param {string} [contentObject.subHeader=""] - Page subheader content
+   * @param {string} [contentObject.footer=""] - Page footer content
+   * @param {string} [contentObject.pageStyles=""] - Additional page styles
+   * @param {Object} [contentObject.styleOverrides={}] - Style override definitions
+   * @param {number} [contentObject.initialSection=0] - Initial active section index
+   * @param {string[]} [contentObject.activeNavButton=[]] - Initially active navigation buttons
+   * @param {('single'|'triple'|'vertical')} [contentObject.layout='triple'] - Page layout type
+   * @param {Object} [contentObject.sections] - Section definitions
+   */
   constructor( contentObject ){
     this.metaData = contentObject.metaData || {};
     this.visible = contentObject.hasOwnProperty('visible') ? contentObject.visible : true;
@@ -80,22 +138,39 @@ export class ProcPage {
   }
 
   // -- -- --
-
+/**
+ * Get a copy of the default section data
+ * @returns {SectionData} Default section data object
+ */
   getDefaultData(){
     return Object.assign({}, this.defaultSectionData);
   }
+
+/**
+ * Get a copy of the default media data
+ * @returns {MediaData} Default media data object 
+ */
   getDefaultMedia(){
     return Object.assign({}, this.defaultMediaData);
   }
   
   // -- -- --
 
+/**
+ * Set page metadata
+ * @param {Object} metaData - Metadata object to set
+ */
   setMetaData( metaData ){
     this.metaData = metaData;
   }
 
   // -- -- --
   
+/**
+ * Add a new section to the page
+ * @param {string} sectionName - Unique identifier for the section
+ * @param {Object} sectionContent - Section content and configuration
+ */
   addSection( sectionName, sectionContent ){
     this.sectionTitles.push(sectionName);
     if( !this.sectionData.hasOwnProperty(sectionName) ){
@@ -104,7 +179,11 @@ export class ProcPage {
     sectionContent.sectionName = sectionContent.name || sectionName;
     this.sectionData[sectionName] = sectionContent;
   }
-  
+
+/**
+ * Remove a section from the page
+ * @param {string} sectionName - Name of section to remove
+ */
   removeSection( sectionName ){
     if( !this.sectionTitles.includes( sectionName ) ) return;
     
@@ -116,10 +195,20 @@ export class ProcPage {
 // -- Page Section Helpers  - -- --
 // -- -- -- -- -- -- -- -- -- -- -- --
 
+/**
+ * Get section data by name
+ * @param {string} sectionName - Name of section to retrieve
+ * @returns {SectionData} Section data object
+ */
   getSection( sectionName ){
     return this.sectionData[sectionName];
   }
 
+/**
+ * Set content for a page's titled section
+ * @param {string} sectionName - Name of section to update
+ * @param {string} sectionContent - HTML content for the section
+ */
   setContent( sectionName, sectionContent ){
     if( !this.sectionTitles.includes( sectionName ) ){
       this.addSection( sectionName, sectionContent );
@@ -127,6 +216,11 @@ export class ProcPage {
     this.sectionData[sectionName].content = sectionContent;
   }
 
+/**
+ * Set display name for a page's section
+ * @param {string} sectionName - Name of section to update
+ * @param {string} sectionTitle - Display name to set
+ */
   setSectionName( sectionName, sectionTitle ){
     if( !this.sectionTitles.includes( sectionName ) ){
       this.addSection( sectionName, {} );
@@ -138,7 +232,11 @@ export class ProcPage {
 // -- Media Helpers  -- -- --
 // -- -- -- -- -- -- -- -- -- --
 
-  // Apply style to media objects if specified
+/**
+ * Apply style to media objects if specified
+ * @param {MediaData} mediaData - Media data containing style information
+ * @param {HTMLElement} obj - DOM element to apply styles to
+ */
   applyStyle( mediaData, obj ){
     if( mediaData.hasOwnProperty('style') ){
       if( typeof mediaData.style == 'string' && mediaData.style != '' ){
@@ -158,7 +256,11 @@ export class ProcPage {
   }
 
   // -- -- --
-
+/**
+ * Creates an image element from media data
+ * @param {MediaData} mediaData - Media data containing image properties
+ * @returns {HTMLImageElement} Created image element
+ */
   buildImage( mediaData ){
     let img = document.createElement('img');
     img.src = mediaData.src;
@@ -174,6 +276,11 @@ export class ProcPage {
     return img;
   }
 
+/**
+ * Creates a lazy-loading image container with placeholder
+ * @param {MediaData|string} mediaData - Media data or image URL
+ * @returns {HTMLDivElement} Container with placeholder and lazy-loaded image
+ */
   buildManualLoad( mediaData ){
     if( typeof mediaData == 'string' ){
       let imgPath = mediaData;
@@ -249,6 +356,12 @@ export class ProcPage {
   // -- -- --
 
 
+/**
+ * Adds a video to a page section
+ * @param {string} sectionName - Name of section to add video to
+ * @param {MediaData|string} videoData - Video data or URL
+ * @param {string} [altText=''] - Alternative text for accessibility
+ */
   addVideo( sectionName, videoData, altText='' ){
     if( !this.sectionTitles.includes( sectionName ) ){
       this.addSection( sectionName, {} );
@@ -271,6 +384,11 @@ export class ProcPage {
     this.sectionData[sectionName].media.push( videoData );
   }
 
+/**
+ * Creates a video element from media data
+ * @param {MediaData} mediaData - Media data containing video properties
+ * @returns {HTMLVideoElement} Created video element
+ */
   buildVideoEmbed( mediaData ){
     let vidSrc = mediaData.src;
     let vidAlt = mediaData.alt;
@@ -290,6 +408,15 @@ export class ProcPage {
 
   // -- -- --
 
+/**
+ * Creates a YouTube embed from media data
+ * 
+ * Check's if the Youtube API is loaded, if not, it falls back to a simple iframe embed.
+ * <br>Without the Youtube API, iframe embeds reset their `.src` to stop the video when the page is changed.
+ * @param {HTMLElement} parentObj - Parent element to attach player to
+ * @param {MediaData} mediaData - Media data containing YouTube video ID
+ * @returns {HTMLIFrameElement|HTMLDivElement} YouTube player element
+ */
   buildYoutubeEmbed( parentObj, mediaData ){
     //let embedParent = document.createElement('div');
     //this.applyStyle( mediaData, embedParent );
@@ -354,6 +481,12 @@ export class ProcPage {
 
   // -- -- --
 
+/**
+ * Creates appropriate media element based on media type
+ * @param {HTMLElement} parentObj - Parent element to attach media to
+ * @param {MediaData} mediaData - Media data for creating element
+ * @returns {HTMLElement} Created media element
+ */
   buildMedia( parentObj, mediaData ){
     let media = null;
     switch( mediaData.type ){
@@ -396,7 +529,10 @@ export class ProcPage {
 // -- Page Building  -- -- --
 // -- -- -- -- -- -- -- -- -- --
 
-  
+/**
+ * Creates the page layout structure
+ * @returns {HTMLDivElement} Root page content element
+ */
   buildPage(){
 
     let pageContent = document.createElement('div');
@@ -572,6 +708,10 @@ export class ProcPage {
 
   // -- -- --
 
+/**
+ * Creates the section navigation buttons
+ * @param {HTMLElement} sectionNav - Container element for section navigation
+ */
   buildSectionNav( sectionNav ){
 
     let sectionTitles = [];
@@ -635,6 +775,10 @@ export class ProcPage {
 
   // -- -- --
 
+/**
+ * Builds a section's content and media elements
+ * @param {string} sectionName - Name of section to build
+ */
   buildSection( sectionName ){
     if( !this.sectionData.hasOwnProperty( sectionName ) ){
       console.error("Section '"+sectionName+"' does not exist.");
@@ -693,6 +837,10 @@ export class ProcPage {
 
   }
 
+/**
+ * Activates a section and displays its content
+ * @param {string|number} sectionName - Section name or index to activate
+ */
   activateSection( sectionName ){
 
     if( Number.isInteger(sectionName) ){
@@ -749,7 +897,10 @@ export class ProcPage {
   }
 
 
-
+/**
+ * Deactivates a section and hides its content
+ * @param {string} sectionName - Name of section to deactivate
+ */
   deactivateSection( sectionName ){
     this.sectionData[ sectionName ].isActive = false;
     this.sectionData[ sectionName] .header.classList.remove('procPagesNavActive');
@@ -791,6 +942,10 @@ export class ProcPage {
 
   // -- -- --
 
+/**
+ * Stops all media playback in a section
+ * @param {string} [sectionName=null] - Name of section to stop media in
+ */
   stopSectionMedia( sectionName=null ){
     if( sectionName == null ){
       sectionName = this.prevSection;
@@ -819,7 +974,10 @@ export class ProcPage {
 
   // -- -- --
 
-  // TODO - Implement Vertical Page Layout
+/**
+ * Builds page layout for vertical mode
+ * TODO - Implement Vertical Page Layout
+ */
   buildVerticalPage(){
     this.buildHorizontalPage();
   }
@@ -827,6 +985,11 @@ export class ProcPage {
 
   // -- -- --
 
+/**
+ * Builds content for single layout mode
+ * @param {SectionData} sectionData - Section data to build
+ * @param {HTMLElement} sectionContentParent - Parent element for section content
+ */
   buildSinglePageSection( sectionData, sectionContentParent ){
     if( sectionData.content != '' ){
       let sectionContentDiv = document.createElement('div');
@@ -838,6 +1001,13 @@ export class ProcPage {
     }
   }
 
+/**
+ * Builds content for triple layout mode
+ * @param {SectionData} sectionData - Section data to build
+ * @param {HTMLElement} sectionContentParent - Parent element for section content
+ * @param {HTMLElement} sectionMediaParent - Parent element for section media
+ * @returns {{content: HTMLElement[], media: HTMLElement[]}} Created content and media elements
+ */
   buildTriplePageSection( sectionData, sectionContentParent, sectionMediaParent ){
     let ret = {
       'content' : [],
@@ -900,12 +1070,22 @@ export class ProcPage {
   // -- -- --
 
 
+/**
+ * Applies page styles to an element
+ * @param {string} styleType - Style type to apply
+ * @param {HTMLElement} obj - Element to apply styles to
+ */
   applyPageStyle( styleType, obj ){
     if( this.pageStyles.hasOwnProperty( styleType ) && Array.isArray( this.pageStyles[ styleType ] ) ){
       this.pageStyles[ styleType ].forEach(( style )=>{ style!=''&&obj.classList.add(style) });
     }
   }
 
+/**
+ * Checks if page has a specific style type
+ * @param {string} styleType - Style type to check for
+ * @returns {boolean} True if style type exists
+ */
   hasPageStyle( styleType ){
     return this.pageStyles.hasOwnProperty( styleType );
   }

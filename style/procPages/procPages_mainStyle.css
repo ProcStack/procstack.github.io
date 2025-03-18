@@ -408,6 +408,9 @@ text-shadow: 1px 1.5px 4px #252525;
   width: 100%;
 }
 
+.textShrink{
+  font-size: 0.9em;
+}
 
 .textDrinkMeAlice{
   font-size: 0.81em;

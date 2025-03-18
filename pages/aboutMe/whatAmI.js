@@ -10,6 +10,7 @@ export const pageListingData = {
     }
   ],
   'content' : `
+      <div class='procPagesSpacer'></div>
 
     <div class='procPagesAboutMe-topTextStyle'>
       <span class="textBold">Technical Artist</span>; 2D+3D asset optimization, shaders, & pipeline tools
@@ -20,15 +21,21 @@ export const pageListingData = {
       <span class="ppamSkillListing">Unity</span>
       <span class="ppamSkillListing">Photoshop</span>
 
-      <span class="ppamSkillListing">JavaScript</span>
       <span class="ppamSkillListing">Python</span>
       <span class="ppamSkillListing">VEX/MEL</span>
       <span class="ppamSkillListing">C#</span>
+      <span class="ppamSkillListing">JavaScript</span>
     </div>
 
     <div class='procPagesAboutMe-subHeaderStyle'>
       <span>New York Metropolitan Area</span>
       <span><a href="mailto:trancor@metal-asylum.net" alt="Email me!">email</a></span>
+    </div>
+    
+    <div class='procPagesAboutMe-subHeaderStyle'>
+      <span>Note : 25+ years of using 'Native Javascript' <span class="textShrink">(since I was a kid)</span>; but little React & Next.js knowledge.
+      <br>&nbsp;&nbsp; So I'm better dev'ing modules, middleware, & backends.
+      <br>&nbsp;&nbsp; Like, I wrote this site's single-page system in 'vanilla' JS for the fun of it.</span>
     </div>
 
 
