@@ -186,7 +186,7 @@ export function envGroundFrag( pointLightCount ){
       // Masking the fire pit since there is too much variation in normals
       
       //vec2 subUv = fract( pos.xz + baseDirtNoise );
-      vec2 subUv = vec2( pos.x*.2 + pos.z*.2325  );
+      vec2 subUv = pos.xz;
       
       // Read world-uv'ed textures
       vec3 crackDirtCd = texture2D( crackedDirtDiffuse, subUv ).rgb ;
