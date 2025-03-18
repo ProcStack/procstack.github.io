@@ -12,10 +12,12 @@ export const pageListingData = {
     },
   ],
   'content' : `
-    See some of my shaders at <a href='https://www.shadertoy.com/user/trancor' class="textBump" target='_blank'>Trancor</a>
+    <a href='https://www.shadertoy.com/user/trancor' class="textBump" target='_blank'>ShaderToy</a> <span class="textDrinkMeAlice textItalic">2020+</span>
+    <br><span class="textBump">My account on a social shader playground website</span>
+    <br><span class="textShrink textItalic textName ">Language - <span class="textBold">GLSL ES</span></span>
+    <div class="pppHBar"></div>
     
-    <br>
-    <br> Most of the shaders are utilitarian, 
+    Most of the shaders are utilitarian, 
     <br>&nbsp;&nbsp; 'Utility' like an exploration into the <a href='https://www.shadertoy.com/view/cdSSW1' class="textNudge" target='_blank'>Kuwahara Filter</a>.
     <br> Or a Ray Marching shader to learn about sdf math.
     

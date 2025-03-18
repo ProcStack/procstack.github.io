@@ -25,9 +25,12 @@ export const pageListingData = {
     },
   ],
   'content' : `
-    <div class="procPagesProjectsHeaderStyle"><a href='https://pxlmancer.com' class="textBump" target='_blank'>pxlmancer.com</a></div>
-    &nbsp;&nbsp; A full drawing/painting app on desktop, a fun fidget toy on mobile.
-    <br>On'n'off multi-year project (2014-2019) to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)
+    <div class="procPagesProjectsHeaderStyle"><a href='https://pxlmancer.com' class="textBump" target='_blank'>pxlmancer.com</a> <span class="textDrinkMeAlice textItalic">2014-2019</span></div>
+    <span class="textBump">A full drawing/painting app on desktop, a fun fidget toy on mobile.</span>
+    <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">JavaScript & JQuery</span></span>
+    <div class="pppHBar"></div>
+    
+    On'n'off multi-year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)
     
     <br>
     <br>
