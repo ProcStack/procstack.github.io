@@ -206,6 +206,13 @@
   width: 80vw;
 }
 
+@media screen and (max-width: 500px) {
+  .procPagesInnerContentSingleStyle{
+    justify-self: center;
+    width: 94vw;
+  }
+}
+
 .procPagesInnerContentStyle{
   padding: 0px 10px;
 }

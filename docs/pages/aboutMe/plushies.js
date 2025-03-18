@@ -31,7 +31,7 @@ export const pageListingData = {
     }
   ],
   'content' : `
-    <div class='procPagesAboutMeInfoStyle'>
+    <div class='procPagesAboutMe-infoStyle'>
       In late-spring of 2024,
       <br>&nbsp;&nbsp; I made a tool to turn any 3d model into a fabric pattern in Houdini.
       <br>&nbsp;&nbsp; It'll show me the ammount of stretch in a design, let me label the panels, add notches to neighboring panels, and more!

@@ -804,6 +804,11 @@ export class ProcPage {
       let mediaType = mediaData.type;
       if( mediaType == 'video' ){
         mediaData.object.pause();
+      }else if( mediaType == 'youtube' ){
+        let ytPlayer = mediaData.object;
+        if( ytPlayer?.src && ytPlayer.src != '' ){
+          ytPlayer.src = ytPlayer.src;
+        }
       }
     });
 

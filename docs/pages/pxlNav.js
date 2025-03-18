@@ -50,8 +50,8 @@ const pageContentObject = {
   },
   'sections' : [
     exploreData,
-    documentationData,
     whatsPxlNavData,
+    documentationData,
     originData
   ]
 }

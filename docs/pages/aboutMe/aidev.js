@@ -52,7 +52,7 @@ export const pageListingData = {
     }
   ],
   'content' : `
-    <div class='procPagesAboutMeInfoStyle'>
+    <div class='procPagesAboutMe-infoStyle'>
       <br>I starting my dive into AI in 2008 writing a Boid / Crowd system for my thesis while in art college, School of Visual Arts.
       <br>&nbsp;&nbsp; It was an insane particle script + 3d animation cycles in Maya haha.
       <br>Then I did Boid movement, navigation, & obstacle detection in animated films for 5 years at Blue Sky Studios, using Houdini.
@@ -103,7 +103,7 @@ export const pageListingData = {
         <br>Its best for predicting connections between ideas / things / data in a system.
       </span>
       
-      <br><div class='procPagesAboutMeInfoStyle'>
+      <br><div class='procPagesAboutMe-infoStyle'>
         GNNs are commonly used for "<span class="textNudge">Recommendation Systems</span>",
         <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textItalicBox">Hey, you might know <span class="textNudge">Jim Bob McGee</span>!!</span>
         <br>&nbsp;&nbsp; But GATs could be used for so much more!
