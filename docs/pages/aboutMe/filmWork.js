@@ -10,6 +10,7 @@ export const pageListingData = {
     }
   ],
   'content' : `
+      <div class='procPagesSpacer'></div>
     <div class='procPagesAboutMe-infoStyle'>
       In the past, I worked on <span class="textNudge">10</span> films, <span class="textNudge">9</span> of those at <span class="textBump">Blue Sky Studios</span>.
       
@@ -38,7 +39,7 @@ export const pageListingData = {
       <br><div class='ppamHBar'></div>
       
       <br>For <span class="textName">Crowds</span>,
-      <br>&nbsp;&nbsp; I built tools for placement, pathing, obstacle detection, and all the ussual crowd navigation logic itself in Houdini.
+      <br>&nbsp;&nbsp; I built tools for placement, pathing, obstacle detection, and all the usual crowd navigation logic itself in Houdini.
 
       <br>
       <br>One of the personality traits I gave the crowd agents was 'rudeness';

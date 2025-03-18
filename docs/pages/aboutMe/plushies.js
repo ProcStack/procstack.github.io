@@ -31,6 +31,7 @@ export const pageListingData = {
     }
   ],
   'content' : `
+      <div class='procPagesSpacer'></div>
     <div class='procPagesAboutMe-infoStyle'>
       In late-spring of 2024,
       <br>&nbsp;&nbsp; I made a tool to turn any 3d model into a fabric pattern in Houdini.
@@ -38,7 +39,7 @@ export const pageListingData = {
       
       <br><span class="innerCenter">So I've been making plushies in my free time!</span>
       
-      <br>&nbsp;&nbsp; I started with anti-pil fleece fabric. I realized pretty quickly it gives off plooms of micro-plastics as you play with them; but its super easy to work with.
+      <br>&nbsp;&nbsp; I started with anti-pil fleece fabric. I realized pretty quickly it gives off plumes of micro-plastics as you play with them; but its super easy to work with.
       <br><span class="innerCenter textSkew">Anti-pil fleece is definitely a hobbyist fabric.</span>
       
       <br>&nbsp;&nbsp; Then I moved to minky, which is a bit more difficult to work with, but is so soft and cuddly!  It's a bit more expensive, has less stretch than anti-pil, but it's a much better fabric for the feel of the plushies.
