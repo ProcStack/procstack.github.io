@@ -39,11 +39,13 @@ const pageContentObject = {
       'content' : `
 <span class="procPagesHeaderStyle initHeaderStyle">Ahoi there!</span>
 <div class="initPage_hBarStyle">&nbsp;</div>
-<br>I'm <span class="textNudge">ProcStack</span>, <span class="textNudge">Trancor</span>, and <span class="textNudge">Kevin Edzenga</span>,
+<br>I'm <span class="textNudge">ProcStack</span>, <span class="textNudge">Trancor</span>, & <span class="textNudge">Kevin Edzenga</span>,
 <br>&nbsp;&nbsp;Which ever ya feel like calling me!
 
-<br><br><span class="textNudge">Trancor</span> is my pre-rendered visual graphics & diy builds
-<br><span class="textNudge">ProcStack</span> is my coding & real-time graphics creations <span class="textDrinkMeAlice">('Trancor' was already taken on github)</span>
+<br><br>I'm a technical artist with years of film, XR, & immersive experience.
+
+<br><br><span class="textNudge">Trancor</span> is my pre-rendered graphics & diy builds,
+<br><span class="textNudge">ProcStack</span> is coding & real-time graphics creations <span class="textDrinkMeAlice">('Trancor' was taken on github)</span>,
 <br><span class="textNudge">Kevin Edzenga</span> is just ... Me.
 
 <br><br>Everything shown here is my personal work;

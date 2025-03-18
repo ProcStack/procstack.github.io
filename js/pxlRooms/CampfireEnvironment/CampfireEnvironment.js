@@ -508,8 +508,6 @@ export class CampfireEnvironment extends RoomEnvironment{
     }
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-
-
         
   }
 
