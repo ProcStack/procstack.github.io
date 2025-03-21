@@ -50,19 +50,19 @@ const loaderPhrases = [
 //   These can be adjusted from your `pxlRoom` but easily set defaults here
 const userSettings = Object.assign({}, pxlUserSettings);
 userSettings['height']['standing'] = 22.5; // Standing height in units; any camera in your room's FBX will override this height once loaded
-userSettings['height']['stepSize'] = 5; // Max step height in units
+userSettings['height']['stepSize'] = 4.5; // Max step height in units
 userSettings['movement']['scalar'] = 1.1; // Overall movement rate scalar
-userSettings['movement']['max'] = 12.0; // Max movement speed
-userSettings['movement']['easing'] = 0.55; // Easing rate between Step() calls
+userSettings['movement']['max'] = 10.0; // Max movement speed
+userSettings['movement']['easing'] = 0.75; // Easing rate between Step() calls
 userSettings['look']['mobile']['invert'] = true; // Invert the look controls on mobile devices
 userSettings['headBounce']['height'] = 0.3; // Bounce magnitude in units
-userSettings['headBounce']['rate'] = 0.025; // Bounce rate per Step()
+userSettings['headBounce']['rate'] = 0.04; // Bounce rate per Step()
 userSettings['headBounce']['easeIn'] = 0.03; // When move key is pressed, the ease into bounce; `bounce * ( boundInf + easeIn )`
 userSettings['headBounce']['easeOut'] = 0.95; // When move key is let go, the ease back to no bounce; `bounce * easeOut`
-userSettings['jump']['impulse'] = 0.625; // Jump impulse force applied to the player while holding the jump button
-userSettings['jump']['holdMax'] = 2.65; // Max influence of holding the jump button on current jump; in seconds
+userSettings['jump']['impulse'] = 0.75; // Jump impulse force applied to the player while holding the jump button
+userSettings['jump']['holdMax'] = 2.5; // Max influence of holding the jump button on current jump; in seconds
 userSettings['jump']['repeatDelay'] = 0.085; // Delay between jumps when holding the jump button
-userSettings['gravity']['ups'] = 0.30; // Units per Step() per Step()
+userSettings['gravity']['ups'] = 0.5; // Units per Step() per Step()
 userSettings['gravity']['max'] = 18.5; // Max gravity rate
 
 // -- -- --

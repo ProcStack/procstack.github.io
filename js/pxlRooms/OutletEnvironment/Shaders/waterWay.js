@@ -73,7 +73,6 @@ export function waterWayFrag(){
   uniform vec2 time;
   uniform float intensity;
   uniform float rate;
-  uniform sampler2D dataTexture;
   uniform sampler2D coastLineTexture;
   uniform sampler2D rippleTexture;
   uniform sampler2D noiseTexture;
@@ -96,15 +95,20 @@ export function waterWayFrag(){
     vec3 pos = vPos*0.001;
     vec2 uv = vUv;
     
-    vec3 dataCd = texture2D( dataTexture, vUv ).rgb;
+    float depth = min(1.0, max(0.0, gl_FragCoord.z / gl_FragCoord.w  * .00015 )) * step( .930, gl_FragCoord.z );
+    depth = pow( depth, 1.0-depth);
+
+    float depthFade = clamp( 2.-(depth*depth), 0.0, 1.0);
+    depthFade *= depthFade*depthFade;
+      
     
     uv.x = ( pos.x*1.2-timer*.19 );
     uv.y = ( pos.z*1.9+timer*.9 );  
     
     vec3 nCd=(texture2D(noiseTexture,uv).rgb-.5);
     
-    uv.x = ( pos.x*10.81-timer*17.1 + nCd.x*dataCd.r + nCd.z + dataCd.b );
-    uv.y = ( pos.z*7.51+timer*10.1  + nCd.y*1.50 - nCd.x + dataCd.g ); 
+    uv.x = ( pos.x*10.81-timer*17.1 + nCd.x * depth + nCd.z );
+    uv.y = ( pos.z*7.51+timer*10.1  + nCd.y*1.50 - nCd.x  ); 
     nCd = texture2D( noiseTexture, uv*.0135 ).rgb*.65+.35;
     
     // -- -- --
@@ -128,7 +132,7 @@ export function waterWayFrag(){
     
     // Calculate Alpha
     float alpha = clamp(((nCd.x*nCd.y*nCd.z)*.15)+.85, 0.0, 1.0) ;
-    alpha =  min(1.0,alpha +  (dataCd.r*vCd.b)* min(1.0,vCd.r*2.0)) ;
+    alpha =  min(1.0,alpha + vCd.b * min(1.0,vCd.r*2.0) * depth ) ;
     vec4 Cd=vec4( .226,.27,.43, alpha );
     
     
@@ -170,6 +174,7 @@ export function waterWayFrag(){
     alpha = clamp( mix(Cd.a*angleIncidence, Cd.a-min(1.0, (1.0-rippleInf)*.035)*(1.0-angleIncidence), (-coastInf*.5+rippleInf)  ), 0.0, 1.0);
     alpha *= min(1.0,vCd.r*10.0);
     Cd.a=alpha;
+    
     
     // -- -- --
     

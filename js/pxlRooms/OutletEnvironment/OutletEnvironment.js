@@ -71,7 +71,7 @@ export class OutletEnvironment extends RoomEnvironment{
     this.pxlCamFOV={ 'PC':60, 'MOBILE':80 };
     
     // Near-Far Clipping Planes for your room
-    this.pxlCamNearClipping = 3;
+    this.pxlCamNearClipping = 2.25;
     this.pxlCamFarClipping = 12000;
 
     // Room Fog Settings
@@ -362,7 +362,7 @@ builBugs(){
     )
     grassCardsAUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
     grassCardsAUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_diffuse.webp" );
-    grassCardsAUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_alpha.jpg" );
+    grassCardsAUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_mask.jpg" );
 
     let grassCardSettings = {
       'buildAlpha' : true,
@@ -444,7 +444,6 @@ builBugs(){
         [
         UniformsLib[ "lights" ],
         {
-          'dataTexture' : { type:'t', value: null },
           'coastLineTexture' : { type:'t', value: null },
           'rippleTexture' : { type:'t', value: null },
           'noiseTexture' : { type:'t', value: null },
@@ -453,7 +452,6 @@ builBugs(){
           'intensity': { type:'f', value:1 },
         }]
     )
-    waterWayUniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterWay_Data.webp", textureOptionsSRGB );
     waterWayUniforms.coastLineTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterWay_CoastLine.webp" );
     waterWayUniforms.rippleTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterRipples_CoastalB.jpg" );
     waterWayUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg", textureOptionsRepeat );
@@ -484,7 +482,6 @@ builBugs(){
       [
       UniformsLib[ "lights" ],
       {
-        'dataTexture' : { type:'t', value: null },
         'rippleTexture' : { type:'t', value: null },
         'noiseTexture' : { type:'t', value: null },
         'fogColor' : { type: "c", value: this.fogColor },
@@ -492,7 +489,6 @@ builBugs(){
         'intensity': { type:'f', value:1 },
       }]
     )
-    creekWaterUniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"CreekWater_Data.webp" );
     creekWaterUniforms.rippleTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterRipples_CoastalB.jpg" );
     creekWaterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
 
