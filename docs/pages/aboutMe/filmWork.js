@@ -48,7 +48,7 @@ export const pageListingData = {
 
       <br>
       <br>I also added a multi-joint 'lookAt' which would blend their neck joints to look at a target smoothly.
-      <br>&nbsp;&nbsp; I added in a joint rotation limits and calculated the linear algebra (target-to-joint space) to determine if the agent could look at their target or not.
+      <br>&nbsp;&nbsp; I added in joint rotation limits and calculated the linear algebra (target-to-joint space) to determine if the agent could look at their target or not.
 
       <br>
       <br>I could talk about the horse-and-jockey system I helped build, or the post-simulation joint editing tools, or the multi-limb IK with heel offsets & foot locking,

@@ -789,7 +789,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     grassClusterUniforms.intensity.value = this.mobile ? 2.25 : 2.0; // Lower intensity for mobile devices
     grassCardsAUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
     grassCardsAUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_diffuse.webp" );
-    grassCardsAUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_alpha.jpg" );
+    grassCardsAUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_mask.jpg" );
 
 
     let grassCardSettings = {
@@ -832,8 +832,8 @@ export class CampfireEnvironment extends RoomEnvironment{
       }]
     )
     grassClusterCardsUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
-    grassClusterCardsUniforms.rgbMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassClusterA_cards_diffuse.webp", null, {'encoding':SRGBColorSpace} );
-    grassClusterCardsUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassClusterA_cards_mask.jpg" );
+    grassClusterCardsUniforms.rgbMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_diffuse.webp", null, {'encoding':SRGBColorSpace} );
+    grassClusterCardsUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_mask.jpg" );
 
     let grassLODSettings = {
       'depthScalar': 0.004,
