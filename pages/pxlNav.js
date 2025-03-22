@@ -22,7 +22,7 @@ const pageContentObject = {
   'theme' : '#186d18',
   'activeNavButton' : [ 'procPagesNav_pxlNavActiveStyle' ],
   'header' : '<a href="https://github.com/ProcStack/pxlNav" target="_blank">pxlNav <span class="pxlNavVersion"></span></a>',
-  'subHeader' : `<span>A javascript player controller & room manager<span class='procPagesHideWhenThin'>&nbsp;for Three.js</span></span>`,
+  'subHeader' : `<span>A javascript player controller & environment manager<span class='procPagesHideWhenThin'>&nbsp;for Three.js</span></span>`,
   'pageStyles' : {
     'block' : ['procPagesContentStyle', 'gitPxlNavPageStyle'],
     'before' : [ 'procPagesInnerBefore' ],

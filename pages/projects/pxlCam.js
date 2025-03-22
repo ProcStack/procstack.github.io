@@ -37,7 +37,7 @@ export const pageListingData = {
   'content' : `
     <div class="procPagesProjectsHeaderStyle"><a href='https://pxlmancer.com/gl/pxlCam' class="textBump" target='_blank'>pxlCam</a> <span class="textDrinkMeAlice textItalic">2020</span></div>
     <span class="textBump">A photo filter camera web app</span>
-    <span class="textShrink textItalic textName ">Languages - <span class="textBold">Javascript & GLSL ES</span></span>
+    <span class="textShrink textItalic textName ">Languages - <span class="textBold">JavaScript, Three.js, & GLSL ES</span></span>
     <div class="pppHBar"></div>
   
     <div class="procPagesProjectsDescriptionStyle">

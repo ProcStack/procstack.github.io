@@ -28,6 +28,9 @@ import { campfireLogVert, campfireLogFrag } from "./Shaders/campfireLog.js";
 // Shader for the Grass Cluster, using a noise texture to blend areas of different grass textures --
 import { grassClusterVert, grassClusterFrag } from "./Shaders/grassCluster.js";
 
+// Add in some fireflies
+import { fireflyVert, fireflyFrag } from "./Shaders/fireflySystem.js";
+
 // -- -- --
 
 export {
@@ -37,5 +40,6 @@ export {
   envGroundVert, envGroundFrag,
   campfireVert, campfireFrag,
   campfireLogVert, campfireLogFrag,
-  grassClusterVert, grassClusterFrag
+  grassClusterVert, grassClusterFrag,
+  fireflyVert, fireflyFrag
 };

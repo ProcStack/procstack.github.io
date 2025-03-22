@@ -90,7 +90,7 @@ export class OutletEnvironment extends RoomEnvironment{
 // OutletEnvironment Helper Functions
 
 buildDust(){
-  if( this.mobile ) return;
+  //if( this.mobile ) return;
 
   let vertexCount = 600; // Point Count
   let pScale = 8.0;  // Point Base Scale

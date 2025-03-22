@@ -28,36 +28,37 @@ export const pageListingData = {
   'content' : `
     <a href='https://github.com/ProcStack/procPromo_ShaderPack' class='procPagesRepoLinkStyle' target='_blank'>procPromo Shader Pack</a> <span class="textDrinkMeAlice textItalic">2022-2025</span>
     <br><span class="textBump">A shader pack for Minecraft, used through Optifine.</span>
-    <br><span class="textShrink textItalic textName ">Language - <span class="textBold">GLSL 1.2 & 3.2+</span></span>
+    <br><span class="textShrink textItalic textName ">Language - <span class="textBold">GLSL 1.2, 3.2, & 4.5+</span></span>
     <br><span class="textShrink textItalic textName ">File Count - <span class="textBold">177</span></span>
     <div class="pppHBar"></div>
     
-    I started writing procPromo in the spring of 2022 as a way to learn GLSL,
-    <br>&nbsp;&nbsp; Figured, if I was already playing mindcraft, might as well make it look cool too;
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; Like when buildings the 2 builds in the images above.
+    I started writing <span class="textName">procPromo</span> in the spring of 2022 as a way to learn GLSL, as I was only using GLSL ES for WebGL at the time.
+    <br>&nbsp;&nbsp; Figured, if I was already playing minecraft, might as well make it look cool too!
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Like, while I built the sky villa and alian spore in the images.
 
     <br>
-    <br>I decided on a style inspired by the Minecraft Key art,
-    <br>&nbsp;&nbsp; This meant a <span class='textInblockBox'>Texture Blur</span> like the <span class='textName'>Smart Blur</span> in photoshop. By smoothing regions of similar colors.
-    <br>&nbsp;&nbsp; To make a <span class='textInblockBox'>Depth + Normal</span> based edge detection.
+    <br>I decided on a style inspired by the Minecraft Key or '<a href="https://www.minecraft.net/content/dam/games/minecraft/key-art/CC-Part%20I-Announce-Header.jpg" target="_blank">Promo</a>' art,
+    <br>&nbsp;&nbsp; Writing a <span class='textInblockBox'>Texture Blur</span> similar to <span class='textName'>Smart Blur</span> in photoshop; smoothing regions of similar colors.
+    <br>&nbsp;&nbsp; To make block edges using <span class='textInblockBox'>Depth + Normals</span>
     <br>&nbsp;&nbsp; Create a <span class='textInblockBox'>2-Pass Blur/Glow</span> with post-processing.
-    <br>&nbsp;&nbsp; And a <span class='textInblockBox'>Shadow Distortion</span> system with <span class='textName'>biasing</span> based on axial-distance from camera/player.
+    <br>&nbsp;&nbsp; And a <span class='textInblockBox'>Shadow Distortion</span> system with <span class='textName'>biasing</span> based on per-axis (X,Y) distance from camera/player.
 
     <br>
-    <br>Shadows are strange in games,
-    <br>&nbsp;&nbsp; They are a 2D representation of a 3D object, being projected onto a surface.
-    <br>&nbsp;&nbsp; Then to fix artifacts like <span class='textName'>Peter Panning</span> or <span class='textName'>Shadow Acne</span>, you have to bias the shadow map as you read it.
-    <br>&nbsp;&nbsp; It's strange because it's always circular in games.
-
-    <div class='procPagesSpacer'></div>
-    <span class="innerCenter">How about per axis?</span>
-    <br> Minecraft is a game of cubes after all,
-    <br>&nbsp;&nbsp; 90 degree angles are everywhere.
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; So why not treat X, Y, & Z differently?
+    <br>Shadows are fun to figure out in games,
+    <br>&nbsp;&nbsp; But they are all circlar, or 'radial', distance from the player.
 
     <div class='procPagesSpacer'></div>
 
-    <br> Fun experiment for shadowing,
+    <span class="innerCenter">
+    This is a block game though!
+    <br>So how about 90-degree angle shadows?</span>
+
+    <br> Distorting the objects in space by thier X,Y to the player/camera allows for much sharper shadows than a radial player-centric shadow map.
+    <br>&nbsp;&nbsp; This let me get much sharper shadows from blocks, similar to Minecraft's promo art's shadows.
+
+    <div class='procPagesSpacer'></div>
+
+    <br> It was a fun experiment for shadowing,
     <br>&nbsp;&nbsp; But it has it's time and place;
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Like in a block game.
     <br>

@@ -165,13 +165,23 @@ export function grassClusterFrag(settings={}){
   };
   settings = Object.assign({}, defaultSettings, settings);
 
-  let ret=shaderHeader();
+  let ret=`
+    const float ShadowFlickerRate = 0.250;
+
+    // -- -- --
+  
+  `;
+  ret += shaderHeader();
   ret +=`
+
+  // -- -- --
+  
     uniform vec2 time;
     uniform float intensity;
     uniform float rate;
 
     uniform sampler2D diffuse;
+    uniform sampler2D cloudTexture;
     uniform sampler2D noiseTexture;
     
     varying vec3 vPos;
@@ -300,6 +310,8 @@ export function grassClusterFrag(settings={}){
         animWarpUV = vec2(.45,  length(animWarpUV)*.04 - timer );
         vec3 animWarpCd = texture2D(noiseTexture,animWarpUV).rgb * depthFade;
         
+        animWarpUV = ( vec2( vPos.xz*.01 + vec2(.235,.39) * time.x * ShadowFlickerRate ) );
+        vec3 animNoiseCd = texture2D( cloudTexture, animWarpUV ).rgb ;
         
         // -- -- --
         
@@ -346,8 +358,12 @@ export function grassClusterFrag(settings={}){
         float shadowMixFit = max(0.0,min(1.0, shadowMix*shadowMix*.04)*1.4-.4);
         float shadowRadius = max(0.0,min(1.0, 1.0-shadowMixFit*2.0));
         
+        float biasShift;
         for( int x = 0; x < NUM_POINT_LIGHT_SHADOWS; ++x ) {
-            lShadow = getPointShadow( pointShadowMap[0], pointLightShadows[x].shadowMapSize, pointLightShadows[x].shadowIntensity * shadowRadius, pointLightShadows[x].shadowBias+shadowMixFit*.3, pointLightShadows[x].shadowRadius+shadowMixFit*30.0, vPointShadowCoord[x], pointLightShadows[x].shadowCameraNear, pointLightShadows[x].shadowCameraFar );
+            biasShift =  animNoiseCd.x + animNoiseCd.y*animNoiseCd.z + .2;
+            biasShift = pointLightShadows[x].shadowRadius * ( animNoiseCd.x*animNoiseCd.y* biasShift + max(animNoiseCd.x,animNoiseCd.y) );
+            biasShift += shadowMixFit*5.0;
+            lShadow = getPointShadow( pointShadowMap[0], pointLightShadows[x].shadowMapSize, pointLightShadows[x].shadowIntensity * shadowRadius, pointLightShadows[x].shadowBias+shadowMixFit*.3, biasShift, vPointShadowCoord[x], pointLightShadows[x].shadowCameraNear, pointLightShadows[x].shadowCameraFar );
             shadowInf = max( lShadow, shadowInf);
         }
         shadowInf = shadowInf*.875+.125;
