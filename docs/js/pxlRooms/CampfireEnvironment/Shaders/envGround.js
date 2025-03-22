@@ -108,8 +108,18 @@ export function envGroundFrag(settings={}){
   };
   settings = Object.assign({}, defaultSettings, settings);
 
-  let ret=shaderHeader();
+  let ret=`
+  // Ground settings --
+    const float ShadowFlickerRate = 0.250;
+  
+  // -- -- --
+
+  `;
+  ret += shaderHeader();
   ret+=`
+  
+  // -- -- --
+  
     uniform sampler2D diffuse;
     uniform sampler2D dirtDiffuse;
     uniform sampler2D noiseTexture;
@@ -275,6 +285,9 @@ export function envGroundFrag(settings={}){
         animWarpUV = vec2(.45,  length(animWarpUV)*.04 - timer );
         vec3 animWarpCd = texture2D(uniformNoise,animWarpUV).rgb*depthFade;
         
+        animWarpUV = ( vec2( vLocalPos.xz*.01 + vec2(.235,.39) * time.x * ShadowFlickerRate ) );
+        vec3 animNoiseCd = texture2D(noiseTexture,animWarpUV).rgb ;
+
         // -- -- --
         
         // -- -- -- -- -- -- -- -- 
@@ -386,28 +399,14 @@ export function envGroundFrag(settings={}){
       #endif
         
         // -- -- --
-        
-        // -- -- -- -- -- -- -- --
-        // -- Firepit Flicker - -- --
-        // -- -- -- -- -- -- -- -- -- --
-        
-        float animWarpFit = max( animWarpCd.r, max(animWarpCd.g,animWarpCd.b) )*.8 -.2;
-        
-        // Main Pit
-        Cd.rgb += (firePitColor + firePitColor*animWarpFit) * (campfireMask*1.1-.1) * vInnerPitMask * .5 * ashMask;
-        
-        // Region around Pit and Druid Rabbit
-        Cd.rgb += (fireGlowColor + fireGlowColor*animWarpFit) * vPitMask * vPitMask * .35 * ashMask;
-        
-        // -- -- --
 
         
       `;
       if( settings.shadows ) {
         ret+=`
+        float shadowInf = 0.0;
       #if NUM_POINT_LIGHT_SHADOWS > 0
         
-        float shadowInf = 0.0;
         float detailInf = 0.0;
         float lShadow = 0.0;
 
@@ -416,16 +415,41 @@ export function envGroundFrag(settings={}){
         float shadowMixFit = max(0.0,min(1.0, shadowMix*shadowMix*.04)*1.4-.4);
         float shadowRadius = max(0.0, 1.0-shadowMixFit * ${settings.shadowReach});
         
+        float biasShift;
         for( int x = 0; x < NUM_POINT_LIGHT_SHADOWS; ++x ) {
-            lShadow = getPointShadow( pointShadowMap[0], pointLightShadows[x].shadowMapSize, pointLightShadows[x].shadowIntensity * shadowRadius, pointLightShadows[x].shadowBias+shadowMixFit*.3, pointLightShadows[x].shadowRadius+shadowMixFit*30.0, vPointShadowCoord[x], pointLightShadows[x].shadowCameraNear, pointLightShadows[x].shadowCameraFar );
+            biasShift =  animNoiseCd.x + animNoiseCd.y*animNoiseCd.z + .2;
+            biasShift = pointLightShadows[x].shadowRadius * ( animNoiseCd.x*animNoiseCd.y* biasShift + max(animNoiseCd.x,animNoiseCd.y) );
+            biasShift += shadowMixFit*5.0;
+            lShadow = getPointShadow( pointShadowMap[0], pointLightShadows[x].shadowMapSize, pointLightShadows[x].shadowIntensity * shadowRadius, pointLightShadows[x].shadowBias+shadowMixFit*.3, biasShift, vPointShadowCoord[x], pointLightShadows[x].shadowCameraNear, pointLightShadows[x].shadowCameraFar );
             shadowInf = max( lShadow, shadowInf);
         }
         shadowInf = shadowInf*.875+.125;
         Cd.rgb *= shadowInf;
       #endif
         `;
+      }else{
+        ret += `
+        float shadowInf = 1.0;
+        `;
       }
       ret += `
+
+
+        // -- -- --
+                
+        // -- -- -- -- -- -- -- --
+        // -- Firepit Flicker - -- --
+        // -- -- -- -- -- -- -- -- -- --
+
+        float animWarpFit = max( animWarpCd.r, max(animWarpCd.g,animWarpCd.b) )*.8 -.2;
+
+        // Main Pit
+        Cd.rgb += (firePitColor + firePitColor*animWarpFit) * (campfireMask*1.1-.1) * vInnerPitMask * .5 * ashMask * shadowInf;
+
+        // Region around Pit and Druid Rabbit
+        Cd.rgb += (fireGlowColor + fireGlowColor*animWarpFit) * vPitMask * vPitMask * .35 * ashMask * shadowInf;
+
+
 
         // -- -- -- -- -- -- -- -- -- -- -- --
         // -- Final shading and fog color - -- --
