@@ -34,7 +34,7 @@ export const pageListingData = {
     
     I started writing <span class="textName">procPromo</span> in the spring of 2022 as a way to learn GLSL, as I was only using GLSL ES for WebGL at the time.
     <br>&nbsp;&nbsp; Figured, if I was already playing minecraft, might as well make it look cool too!
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; Like, while I built the sky villa and alian spore in the images.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Like, while I built the sky villa and alien spore in the images.
 
     <br>
     <br>I decided on a style inspired by the Minecraft Key or '<a href="https://www.minecraft.net/content/dam/games/minecraft/key-art/CC-Part%20I-Announce-Header.jpg" target="_blank">Promo</a>' art,
@@ -53,7 +53,7 @@ export const pageListingData = {
     This is a block game though!
     <br>So how about 90-degree angle shadows?</span>
 
-    <br> Distorting the objects in space by thier X,Y to the player/camera allows for much sharper shadows than a radial player-centric shadow map.
+    <br> Distorting the objects in space by their X,Y to the player/camera allows for much sharper shadows than a radial player-centric shadow map.
     <br>&nbsp;&nbsp; This let me get much sharper shadows from blocks, similar to Minecraft's promo art's shadows.
 
     <div class='procPagesSpacer'></div>
