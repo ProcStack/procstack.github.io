@@ -167,6 +167,7 @@ export function instPlantsFrag( settings={} ){
     const float DepthScalar = ${shaderSettings.depthScalar};
     const float ScreenWarpColorFix = 3.521;
     const float ShadowTighten = 2.94;
+    const float ShadowFlickerRate = 0.25;
     const float FogDepthMult = ${shaderSettings.fogDepthScalar};
   `;
   if( shaderSettings.addShimmer ){
@@ -186,6 +187,8 @@ export function instPlantsFrag( settings={} ){
   `;
   ret += shaderHeader();
   ret +=`
+  // -- -- --
+  
     uniform vec2 time;
     uniform float intensity;
     uniform float rate;
@@ -199,6 +202,7 @@ export function instPlantsFrag( settings={} ){
     `;
   }
   ret+=`
+    uniform sampler2D cloudTexture;
     uniform sampler2D noiseTexture;
     
     varying vec3 vPos;
@@ -384,6 +388,9 @@ export function instPlantsFrag( settings={} ){
         animWarpUV = vec2(.45,  length(animWarpUV)*.01 - timer );
         vec3 animWarpCd = texture2D(noiseTexture,animWarpUV).rgb *  min(1.0, depthFade*depthFade*1.3 ) + max(0.0, 0.5-depthFade)*.15;
 
+        animWarpUV = ( vec2( vPos.xz*.01 + vec2(.235,.39) * time.x * ShadowFlickerRate ) );
+        vec3 nCd = texture2D(cloudTexture,animWarpUV).rgb ;
+
         // -- -- --
 
       `;
@@ -460,12 +467,16 @@ export function instPlantsFrag( settings={} ){
   
           float shadowMix = length(vPos)*.1;
           
-          float shadowMixFit = max(0.0,min(1.0, shadowMix*shadowMix*.04)*1.4-.4);
+          float shadowMixFit = max(0.0,min(1.0, shadowMix*shadowMix*.03)*1.5-.45);
           float shadowRadius = max(0.0,min(1.0, 1.0-shadowMixFit*1.5));
           
-          for( int x = 0; x < NUM_POINT_LIGHT_SHADOWS; ++x ) {
-              lShadow = getPointShadow( pointShadowMap[0], pointLightShadows[x].shadowMapSize, pointLightShadows[x].shadowIntensity * shadowRadius, pointLightShadows[x].shadowBias+shadowMixFit*.3, pointLightShadows[x].shadowRadius+shadowMixFit*30.0, vPointShadowCoord[x], pointLightShadows[x].shadowCameraNear, pointLightShadows[x].shadowCameraFar );
-              shadowInf = max( lShadow, shadowInf);
+          float biasShift;
+          for( int x = 0; x < NUM_POINT_LIGHT_SHADOWS; ++x ){
+            biasShift =  nCd.x*0.5 + nCd.y*nCd.z *.4 + .1;
+            biasShift = pointLightShadows[x].shadowRadius * ( nCd.x*nCd.y* biasShift +.5*max(nCd.x,nCd.y) );
+            biasShift += shadowMixFit*5.0;
+            lShadow = getPointShadow( pointShadowMap[0], pointLightShadows[x].shadowMapSize, pointLightShadows[x].shadowIntensity * shadowRadius, pointLightShadows[x].shadowBias+shadowMixFit*.3, biasShift, vPointShadowCoord[x], pointLightShadows[x].shadowCameraNear, pointLightShadows[x].shadowCameraFar );
+            shadowInf = max( lShadow, shadowInf);
           }
           shadowInf = shadowInf*.875+.125;
           Cd.rgb *= shadowInf;
@@ -486,7 +497,8 @@ export function instPlantsFrag( settings={} ){
     `;
     if( shaderSettings.addShimmer ){
       ret+=`
-        Cd.rgb = Cd.rgb * intensity * (vCd.z*.15*(1.0-(gCd*gInf*2.0))-depth*1.1+.45) * (vCd.x*depthFade + 0.9-gCd*depthFade);
+        float shadowShimmer = mix( 1.0, gInf*2.0, shadowInf );
+        Cd.rgb = Cd.rgb * intensity * (vCd.z*.15*(1.0-(gCd* shadowShimmer ))-depth*1.1+.45) * (vCd.x*depthFade + 0.9-gCd*depthFade);
       `;
     }else{
       ret+=`
@@ -505,7 +517,7 @@ export function instPlantsFrag( settings={} ){
         // -- -- --
 
         // Add Campfire Flicker
-        Cd.rgb += Cd.rgb * (animWarpCd.r*2.5+.15) * clamp( 1. - min(1.0, length( vPos )*0.015)*1.5, 0.0, 1.0 ) ;//* intensity;
+        Cd.rgb += Cd.rgb * (animWarpCd.r*2.5+.15) * clamp( 1. - min(1.0, length( vPos )*0.015)*1.5, 0.0, 1.0 ) * shadowInf ;
 
         // -- -- --
 

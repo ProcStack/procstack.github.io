@@ -32,7 +32,7 @@ import {
   MeshPhongMaterial
 } from "../../libs/three/three.module.min.js";
 
-import { RoomEnvironment, pxlShaders, pxlEffects } from "../../pxlNav.esm.js";
+import { RoomEnvironment, pxlEffects } from "../../pxlNav.esm.js";
 
 import { rabbitDruidVert, rabbitDruidFrag,
          campfireLogVert, campfireLogFrag,
@@ -40,12 +40,12 @@ import { rabbitDruidVert, rabbitDruidFrag,
          instPlantsVert, instPlantsFrag,
          grassClusterVert, grassClusterFrag,
          envGroundVert, envGroundFrag,
-         rgbaMapVert, rgbaMapFrag } from "./Shaders.js";
+         fireflyVert, fireflyFrag } from "./Shaders.js";
 
 const BillowSmoke = pxlEffects.pxlParticles.BillowSmoke;
 const EmberWisps = pxlEffects.pxlParticles.EmberWisps;
 const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
-const DefaultVert = pxlShaders.core.defaultVert;
+const ParticleBase = pxlEffects.pxlParticles.ParticleBase;
 
 export class CampfireEnvironment extends RoomEnvironment{
   constructor( roomName='CampfireEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
@@ -64,12 +64,8 @@ export class CampfireEnvironment extends RoomEnvironment{
     this.animInitCycle = "Sit_Idle";
 
     this.animMixer = null;
-    
-    this.materialList={};
-    this.particleList={};
 
     this.campfireLight = null;
-    
     
     this.pxlCamFOV={ 'PC':60, 'MOBILE':80 };
     this.pxlCamZoom=1;
@@ -347,12 +343,56 @@ export class CampfireEnvironment extends RoomEnvironment{
     // -- -- --
   
     // Generate geometry and load texture resources
-    dustSystem.build( dustSystemSettings );
+    //dustSystem.build( dustSystemSettings );
   
     this.particleList[systemName] = dustSystem;
   }
 
 
+
+  // Build a mesh-to-particle system for the fireflies
+  //   Using the `fireflies_vfx` geometry from the CampfireEnvironment.fbx
+  //     Marked with the custom property `pSystem = true`
+  buildFireflies(){
+    //if( this.mobile ) return;
+
+    let nameOfSystem = "fireflies_vfx";
+    if( this.particleList?.hasOwnProperty( nameOfSystem ) && this.particleList[nameOfSystem].type == "BufferGeometry" ){
+      let fireflyUniforms = {
+          'atlasTexture' : { type:'t', value: null },
+          'atlasAlphaTexture' : { type:'t', value: null },
+          'noiseTexture' : { type:"t", value: null },
+          'pointScale' : { type: "v", value: new Vector2( 5.0, 0.0 ) },
+          'tint' : { type: "c", value: new Color( 1.5, 1.4, 0.6 ) },
+          'fogColor' : { type: "c", value: this.fogColor },
+          'rate' : { type:"f", value:.035 }
+        };
+      fireflyUniforms.atlasTexture.value = this.pxlUtils.loadTexture( "sprite_dustAtlas_rgb.jpg", null, {'encoding':SRGBColorSpace} );
+      fireflyUniforms.atlasAlphaTexture.value = this.pxlUtils.loadTexture( "sprite_dustAtlas_alpha.jpg" );
+
+      // -- -- --
+  
+      // Make the firefly system itself
+      let fireflySystem = new ParticleBase( this, "fireflySystem" );
+
+      // Build settings using the ParticleBase class's `getSettings()` method
+      let fireflySettings = fireflySystem.getSettings();
+      fireflySettings["atlasPicks"] = [
+        ...fireflySystem.dupeArray([0.0,0.50],4), ...fireflySystem.dupeArray([0.25,0.50],4),
+        ...fireflySystem.dupeArray([0.0,0.75],4), ...fireflySystem.dupeArray([0.25,0.75],4)
+      ];
+      fireflySettings["additiveBlend"] = true;
+
+      // Assign your `userData.pSystem = true` geometry to the particle system to use
+      fireflySystem.setGeometry( this.particleList[ nameOfSystem ] );
+
+      // Build + Add the particle system to the scene using `ParticleBase.build( settings, uniforms, vertex shader, fragment shader )`
+      fireflySystem.build( fireflySettings, fireflyUniforms, fireflyVert(), fireflyFrag()  );
+
+      // Optional, overwrite the `pSystem` geometry with the built particle system
+      this.particleList[ nameOfSystem ] = fireflySystem;
+    }
+  }
 
 
 
@@ -365,7 +405,6 @@ export class CampfireEnvironment extends RoomEnvironment{
     
     let particleSource = this.geoList['Scripted']['ParticleSource_loc'];
     let particleSourcePos = particleSource.position;
-
 
     var ambientLight = new AmbientLight( 0x101010 ); // soft white light
     this.scene.add( ambientLight );
@@ -404,17 +443,14 @@ export class CampfireEnvironment extends RoomEnvironment{
     // Add Billowing Smoke
     this.buildBillowSmoke( particleSourcePos );
 
-    
-    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-    
-
     // Quick buggers zippin out of the flame-ola
     this.buildEmberWisps( particleSourcePos );
-
-    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     
     // Floating debris in the air
     this.buildDust();
+    
+    // Add lightning bugs to the background
+    this.buildFireflies();
     
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     
@@ -508,7 +544,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     }
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-        
+
   }
 
 
@@ -634,7 +670,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     envGroundUniforms.dataDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_dataMask.webp", null, {'encoding':SRGBColorSpace} );
 
     envGroundUniforms.noiseTexture.value = this.cloud3dTexture;
-    envGroundUniforms.uniformNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg", null, {'encoding':LinearSRGBColorSpace} );
+    envGroundUniforms.uniformNoise.value = this.pxlUtils.loadTexture( "Noise_UniformWebbing.jpg", null, {'encoding':LinearSRGBColorSpace} );
 
     var defines = {
       'USE_MAP' : "",
@@ -689,8 +725,8 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     
     campfireUniforms.noiseTexture.value = this.cloud3dTexture;
-    campfireUniforms.smoothNoiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
-    campfireUniforms.webNoise.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_NCross.jpg" );
+    campfireUniforms.smoothNoiseTexture.value = this.pxlUtils.loadTexture( "Noise_UniformWebbing.jpg" );
+    campfireUniforms.webNoise.value = this.pxlUtils.loadTexture( "Noise_NCross.jpg" );
 
 
     let campfireMtl=this.pxlFile.pxlShaderBuilder( campfireUniforms, campfireVert(), campfireFrag() );
@@ -749,6 +785,7 @@ export class CampfireEnvironment extends RoomEnvironment{
         UniformsLib[ "lights" ],
         shadowMapUniforms,
         {
+          'cloudTexture' : { type:'t', value: null },
           'noiseTexture' : { type:'t', value: null },
           'intensity' : { type: "f", value: 1.25 },
           'fogColor' : { type: "c", value: this.fogColor },
@@ -756,11 +793,12 @@ export class CampfireEnvironment extends RoomEnvironment{
     )
 
     grassClusterUniforms.intensity.value = this.mobile ? 1.0 : 1.3; // Lower intensity for mobile devices
-    grassClusterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg", null, {'encoding':SRGBColorSpace} );
+    grassClusterUniforms.cloudTexture.value = this.cloud3dTexture;
+    grassClusterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( "Noise_UniformWebbing.jpg", null, {'encoding':SRGBColorSpace} );
 
 
     let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, grassClusterVert(hasShadowSettings), grassClusterFrag(hasShadowSettings) ); 
-    grassMat.side = FrontSide;
+    grassMat.side = DoubleSide;
     grassMat.lights = true;
     grassMat.transparent = false;
 
@@ -781,13 +819,15 @@ export class CampfireEnvironment extends RoomEnvironment{
       {
         'diffuse' : { type:'t', value: null },
         'alphaMap' : { type:'t', value: null },
+        'cloudTexture' : { type:'t', value: null },
         'noiseTexture' : { type:'t', value: null },
         'intensity' : { type: "f", value: 2.25 },
         'fogColor' : { type: "c", value: this.fogColor }
       }]
     )
     grassClusterUniforms.intensity.value = this.mobile ? 2.25 : 2.0; // Lower intensity for mobile devices
-    grassCardsAUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+    grassCardsAUniforms.cloudTexture.value = this.cloud3dTexture;
+    grassCardsAUniforms.noiseTexture.value = this.pxlUtils.loadTexture( "Noise_UniformWebbing.jpg" );
     grassCardsAUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_diffuse.webp" );
     grassCardsAUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_mask.jpg" );
 
@@ -811,49 +851,20 @@ export class CampfireEnvironment extends RoomEnvironment{
     grassCardsFarMat.side = DoubleSide;
     grassCardsFarMat.lights = true;
     grassCardsFarMat.transparent = false;
-        
     
     // -- -- --
+
 
     // -- -- -- -- -- -- -- -- -- -- -- -- --
-    // -- Grass Cluster Instances Material -- --
-    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    // -- -- -- -- -- -- -- -- -- -- -- -- --
+    // -- -- -- -- -- -- -- -- -- -- -- -- --
 
-    let grassClusterCardsUniforms = UniformsUtils.merge(
-      [
-      UniformsLib[ "lights" ],
-      /*UniformsLib[ "shadowmap" ],*/
-      {
-        'rgbMap' : { type:'t', value: null },
-        'alphaMap' : { type:'t', value: null },
-        'intensity' : { type: "f", value: 0.85 },
-        'noiseTexture' : { type:'t', value: null },
-        'fogColor' : { type: "c", value: this.fogColor }
-      }]
-    )
-    grassClusterCardsUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
-    grassClusterCardsUniforms.rgbMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_diffuse.webp", null, {'encoding':SRGBColorSpace} );
-    grassClusterCardsUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"grassCardsA_mask.jpg" );
-
-    let grassLODSettings = {
-      'depthScalar': 0.004,
-    }
-
-    let grassFlatMat=this.pxlFile.pxlShaderBuilder( grassClusterCardsUniforms, rgbaMapVert(), rgbaMapFrag( grassLODSettings ) );
-    grassFlatMat.side = DoubleSide;
-    grassFlatMat.lights = true;
-    grassFlatMat.transparent = false;
-    //grassFlatMat.alphaTest = .5;
-    //grassFlatMat.blending = ;
-        
-    
-    // -- -- --
     
     this.materialList[ "EnvironmentGround_geo" ] = environmentGroundMat;
     this.materialList[ "CampfireFlame_geo" ] = campfireMtl;
     this.materialList[ "grassClusterA_lod0_geo" ] = grassMat;
     this.materialList[ "grassClusterA_lod1_geo" ] = grassMat;
-    this.materialList[ "grassClusterA_lod2_geo" ] = grassFlatMat;
+    this.materialList[ "grassClusterA_lod2_geo" ] = grassCardsMat;
     //this.materialList[ "mushroomA_lod0_geo" ] = grassMat;
     //this.materialList[ "mushroomA_lod1_geo" ] = grassMat;
     this.materialList[ "grassCardsA_lod0_geo" ] = grassCardsMat;

@@ -49,7 +49,7 @@ const pageContentObject = {
 <br><span class="textNudge">Kevin Edzenga</span> is just ... Me.
 
 <br><br>Everything shown here is my personal work;
-<br>&nbsp;&nbsp;This site's code to it's 3d modeling, texturing, shaders, even <span class="textNudge">pxlNav</span> itself!
+<br>&nbsp;&nbsp;From the site's code to it's 3d modeling, shaders, even <span class="textNudge">pxlNav</span> itself!
 <br><span class="textNudge">Everything the light touches!</span> ...sorta.
 <br><span class="textDrinkMeAlice">&nbsp;&nbsp;I didn't make Three.js, certainly.</span>
 <br><br>

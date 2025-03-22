@@ -25,7 +25,7 @@ export const pageListingData = {
   ],
   'content' : `
     <a href='https://dwitter.net/u/trancor' class="textBump" target='_blank'>Dwitter</a> <span class="textDrinkMeAlice textItalic">2018+</span>
-    <br><span class="textBump">My account on a javaScript code golfing website</span>
+    <br><span class="textBump">My account on a JavaScript code golfing website</span>
     <br><span class="textShrink textItalic textName ">Language - <span class="textBold">JavaScript</span></span>
     <div class="pppHBar"></div>
     

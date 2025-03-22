@@ -65,6 +65,7 @@
 
 .gitProjectsPage-sectionCaptionStyle{
   background: linear-gradient(90deg, rgba(72, 134, 199, 0.0) 0%, rgba(72, 134, 199, 0.5) 25%, rgba(72, 134, 199, 0.5) 75%, rgba(72, 134, 199, 0.0) 100%);
+  width: 100%;
 }
 
 .gitProjectsPage-headerLine{
