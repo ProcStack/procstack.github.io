@@ -159,7 +159,7 @@ export const pageListingData = {
         <br>&nbsp;&nbsp; The next step would be introducing a base image to motion-transfer / reference.
         <br>However did build a simple version in Unity to learn player combos + movement over time.
         <div class='procPagesAboutMeSpacer'></div>
-        So I'm mostly just learnin' while watching my ai learnin'!
+        <span class="innerCenter">So I'm mostly just learnin' while watching my ai learnin'!</span>
         <div class='procPagesAboutMeSpacer'></div>
         
         <br>In the videos, I had the "reservoir" set to 15 times steps, you'll notice about every 15 frames the brain shifts.
