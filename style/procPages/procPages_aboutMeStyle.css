@@ -167,7 +167,7 @@
   max-width: 1200px;
   justify-self: center;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(45%, 200px), 1fr));
   grid-auto-rows: auto;
   gap: 8px 9px;
   margin-bottom: 10px;
@@ -175,7 +175,8 @@
 
 @media screen and (max-width: 500px) {
   .procPagesAboutMe-skillListStyle{
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(min(45%, 100px), 1fr));
   }
   
 }
