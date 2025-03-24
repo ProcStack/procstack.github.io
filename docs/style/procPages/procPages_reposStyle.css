@@ -15,7 +15,7 @@
   color: rgb(168 197 255);
   text-shadow: 1.5px 1.5px 4px #252525;
   background-color: rgba(12, 55, 113, 0.71);
-  border-color: rgba(51, 61, 186, 0.85) rgba(39, 45, 142, 0.29);
+  border-color: rgba(51, 61, 186, 0.45) rgba(39, 45, 142, 0.2);
 }
 .gitReposPage-sectionNavButtonStyle:hover{
   color: rgb(231 239 255);
@@ -96,27 +96,11 @@
 }
 
 .gitReposPageStyle .procPagesInnerBefore {
-  content : '';
-  border-radius: var(--inner-before-after-radiusBefore);
-  background: transparent;
-  border-width: 0px 2px 2px 2px;
   border-color: #152c52;
-  border-style: solid;
-  height: var(--inner-before-after-height);
-  width: 99.8%;
-  margin-bottom: var(--inner-before-after-margin);
 }
 
 .gitReposPageStyle .procPagesInnerAfter {
-  content : '';
-  border-radius: var(--inner-before-after-radiusAfter);
-  background: transparent;
-  border-width: 2px 2px 0px 2px;
   border-color: #152c52;
-  border-style: solid;
-  height: var(--inner-before-after-height);
-  width: 99.8%;
-  margin-top: var(--inner-before-after-margin);
 }
 
 /* -- -- -- */

@@ -16,14 +16,14 @@ export const pageListingData = {
       <span class="textBold">Technical Artist</span>; 2D+3D asset optimization, shaders, & pipeline tools
     </div>
     <div class='procPagesAboutMe-skillListStyle'>
-      <span class="ppamSkillListing">Houdini</span>
-      <span class="ppamSkillListing">Maya</span>
-      <span class="ppamSkillListing">Unity</span>
+      <span class="ppamSkillListing">Houdini / VEX</span>
+      <span class="ppamSkillListing">Maya / MEL</span>
+      <span class="ppamSkillListing">Unity / C#</span>
       <span class="ppamSkillListing">Photoshop</span>
 
       <span class="ppamSkillListing">Python</span>
-      <span class="ppamSkillListing">VEX/MEL</span>
-      <span class="ppamSkillListing">C#</span>
+      <span class="ppamSkillListing">PyQT</span>
+      <span class="ppamSkillListing">GLSL</span>
       <span class="ppamSkillListing">JavaScript</span>
     </div>
 

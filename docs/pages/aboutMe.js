@@ -25,7 +25,7 @@ const pageContentObject = {
   'subHeader' : '',
   'pageStyles' : {
     'block' : ['procPagesContentStyle', 'gitAboutMePageStyle'],
-    'before' : [ 'procPagesInnerBefore' ],
+    'before' : [ 'procPagesInnerBeforeBase', 'procPagesInnerBefore' ],
     'parent' : [ 'procPagesParentStyle', 'gitAboutMePageParentStyle', 'procPagesLockVertical' ],
     'header' : [ 'procPagesHeaderStyle' ],
     'subHeader' : [],
@@ -40,7 +40,7 @@ const pageContentObject = {
     'sectionCaption' : [ 'gitAboutMePage-sectionCaptionStyle' ],
     'content' : [ 'procPagesScrollbarStyle' ],
     'media' : [ 'procPagesScrollbarStyle' ],
-    'after' : [ 'procPagesInnerAfter' ]
+    'after' : [ 'procPagesInnerAfterBase', 'procPagesInnerAfter' ]
   },
   'styleOverrides' : {
     'procPagesNavBlock' : 'procPagesNav_aboutMeStyle',

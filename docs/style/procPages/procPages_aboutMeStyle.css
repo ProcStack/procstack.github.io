@@ -7,7 +7,7 @@
   z-index: 6;
   overflow: hidden;
   position: fixed;
-  left: max(0px, calc(min(15vw, max(0px, 100vw - 1250px) / 4.5)));
+  left: max( 1vmax, calc(min(15vw, max(0px, 100vw - 1250px) / 4.5)) );
   bottom: 2.5vmin;
 }
 
@@ -18,7 +18,7 @@
   color: rgba(237, 237, 237, 0.9);
   text-shadow: 1.5px 1.5px 4px rgba(37, 37, 37, 0.632);
   background-color: rgba(86, 86, 86, 0.37);
-  border-color: rgba(192, 192, 192, 0.85) rgba(144, 144, 144, 0.29);
+  border-color: rgba(192, 192, 192, 0.45) rgba(144, 144, 144, 0.2);
   border-style: solid;
 }
 .gitAboutMePage-sectionNavButtonStyle:hover{
@@ -64,7 +64,7 @@
 
 
 .gitAboutMePageParentStyle{
-  width: min(100vw, 1100px);
+  width: min( calc(100vw - 2vmax), 1100px);
   height: calc(90vh - 40px);
   display: grid;
   grid-auto-flow: row;
@@ -81,27 +81,11 @@
 }
 
 .gitAboutMePageStyle .procPagesInnerBefore {
-  content : '';
-  border-radius: var(--inner-before-after-radiusBefore);
-  background: transparent;
-  border-width: 0px 2px 2px 2px;
   border-color: #5d5d5d;
-  border-style: solid;
-  height: var(--inner-before-after-height);
-  width: 99.8%;
-  margin-bottom: var(--inner-before-after-margin);
 }
 
 .gitAboutMePageStyle .procPagesInnerAfter {
-  content : '';
-  border-radius: var(--inner-before-after-radiusAfter);
-  background: transparent;
-  border-width: 2px 2px 0px 2px;
   border-color: #5d5d5d;
-  border-style: solid;
-  height: var(--inner-before-after-height);
-  width: 99.8%;
-  margin-top: var(--inner-before-after-margin);
 }
 
 /* -- -- -- */
@@ -183,7 +167,7 @@
   max-width: 1200px;
   justify-self: center;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(45%, 200px), 1fr));
   grid-auto-rows: auto;
   gap: 8px 9px;
   margin-bottom: 10px;
@@ -191,7 +175,8 @@
 
 @media screen and (max-width: 500px) {
   .procPagesAboutMe-skillListStyle{
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(min(45%, 100px), 1fr));
   }
   
 }

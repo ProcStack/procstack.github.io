@@ -19,7 +19,7 @@ const pageContentObject = {
   'subHeader' : '',
   'pageStyles' : {
     'block' : [ 'procPagesContentStyle', 'gitReposPageStyle' ],
-    'before' : [ 'procPagesInnerBefore' ],
+    'before' : [ 'procPagesInnerBeforeBase', 'procPagesInnerBefore' ],
     'parent' : [ 'procPagesParentStyle', 'gitReposPageParentStyle', 'procPagesLayoutTripleStyle' ],
     'header' : [ 'procPagesHeaderStyle' ],
     'headerLine' : [ 'gitReposPage-headerLine' ],
@@ -35,7 +35,7 @@ const pageContentObject = {
     'sectionCaption' : [ 'gitReposPage-sectionCaptionStyle' ],
     'content' : [ 'gitReposPageScrollbarStyle' ],
     'media' : [ 'gitReposPageScrollbarStyle' ],
-    'after' : [ 'procPagesInnerAfter' ]
+    'after' : [ 'procPagesInnerAfterBase', 'procPagesInnerAfter' ]
   },
   'styleOverrides' : {
     'procPagesNavBlock' : 'procPagesNav_reposStyle',

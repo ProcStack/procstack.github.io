@@ -2,7 +2,6 @@
 /* -- -- -- */
 
 .gitPxlNavPageStyle{
-  /*width: var(--procPage-width);*/
   justify-self: center;
   justify-items: center;
   z-index: 2;
@@ -23,7 +22,7 @@
   color: rgba(80, 210, 90, 0.8);
   text-shadow: 1.5px 1.5px 4px #252525;
   background-color: transparent;
-  border-color: rgba(25, 220, 32, 0.85) rgba(20, 151, 24, 0.29);
+  border-color: rgba(25, 220, 32, 0.45) rgba(20, 151, 24, 0.2);
 }
 .gitPxlNav-sectionNavButtonStyle:hover{
   color: rgba(86, 231, 98, 0.9);
@@ -118,27 +117,11 @@
 }
 
 .gitPxlNavPageStyle .procPagesInnerBefore {
-  content : '';
-  border-radius: var(--inner-before-after-radiusBefore);
-  background: transparent;
-  border-width: 0px 2px 2px 2px;
   border-color: #304112;
-  border-style: solid;
-  height: var(--inner-before-after-height);
-  width: 99.8%;
-  margin-bottom: var(--inner-before-after-margin);
 }
 
 .gitPxlNavPageStyle .procPagesInnerAfter {
-  content : '';
-  border-radius: var(--inner-before-after-radiusAfter);
-  background: transparent;
-  border-width: 2px 2px 0px 2px;
   border-color: #304112;
-  border-style: solid;
-  height: var(--inner-before-after-height);
-  width: 99.8%;
-  margin-top: var(--inner-before-after-margin);
 }
 
 

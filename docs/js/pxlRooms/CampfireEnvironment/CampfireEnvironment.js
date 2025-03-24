@@ -263,9 +263,11 @@ export class CampfireEnvironment extends RoomEnvironment{
     
     eWisps.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
 
+    particleSourcePos = particleSourcePos.clone();
+    particleSourcePos.y += -2.0; // Raise the ember wisps above the campfire
     
     let emberSettings = eWisps.getSettings();
-    emberSettings["vertCount"] = 30;
+    emberSettings["vertCount"] = 17;
     emberSettings["pScale"] = 10;
     emberSettings["offsetPos"] = particleSourcePos; // Offset center of the system
     //emberSettings["fadeOutScalar"] = opacityRolloff;
@@ -277,6 +279,11 @@ export class CampfireEnvironment extends RoomEnvironment{
     //emberSettings["offsetPos"] = particleSourcePos;
     //emberSettings["wanderInf"] = wanderInfluence;
     //emberSettings["wanderFrequency"] = wanderFrequency;
+    
+    emberSettings["EmberSpread"] = 9.0;
+    emberSettings["EmberFadeDistance"] = 0.052;
+    emberSettings["ShiftFromZero"] = 0.65;
+    emberSettings["MultPosXZ"] = 0.650;
 
     //
     let emberAtlasPicks=eWisps.elementDuplicator([ [0.0,0.75], [0.0,0.5], [0.25,0.75], [0.25,0.5] ],4);
