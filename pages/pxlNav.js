@@ -25,7 +25,7 @@ const pageContentObject = {
   'subHeader' : `<span>A javascript player controller & environment manager<span class='procPagesHideWhenThin'>&nbsp;for Three.js</span></span>`,
   'pageStyles' : {
     'block' : ['procPagesContentStyle', 'gitPxlNavPageStyle'],
-    'before' : [ 'procPagesInnerBefore' ],
+    'before' : [ 'procPagesInnerBeforeBase', 'procPagesInnerBefore' ],
     'parent' : [ 'procPagesParentStyle', 'gitPxlNavPageParentStyle', 'gitPxlNavPageScrollbarStyle', 'procPagesLayoutTripleStyle' ],
     'header' : [ 'procPagesHeaderStyle' ],
     'headerLine' : [ 'gitPxlNav-headerLine' ],
@@ -42,7 +42,7 @@ const pageContentObject = {
     'sectionCaption' : [ 'gitPxlNav-sectionCaptionStyle' ],
     'content' : [ 'gitPxlNavPageScrollbarStyle' ],
     'media' : [ 'gitPxlNavPageScrollbarStyle' ],
-    'after' : [ 'procPagesInnerAfter' ]
+    'after' : [ 'procPagesInnerAfterBase', 'procPagesInnerAfter' ]
   },
   'styleOverrides' : {
     'procPagesNavBlock' : 'procPagesNav_pxlNavStyle',

@@ -39,7 +39,7 @@ const pageContentObject = {
   `,
   'pageStyles' : {
     'block' : ['procPagesContentStyle', 'gitProjectsPageStyle'],
-    'before' : [ 'procPagesInnerBefore' ],
+    'before' : [ 'procPagesInnerBeforeBase', 'procPagesInnerBefore' ],
     'parent' : [ 'procPagesParentStyle', 'gitProjectsPageParentStyle', 'procPagesLayoutTripleStyle' ],
     'header' : [ 'procPagesHeaderStyle' ],
     'headerLine' : [ 'gitProjectsPage-headerLine' ],
@@ -56,7 +56,7 @@ const pageContentObject = {
     'sectionCaption' : [ 'gitProjectsPage-sectionCaptionStyle' ],
     'content' : [ 'gitProjectsPageScrollbarStyle' ],
     'media' : [ 'gitProjectsPageScrollbarStyle' ],
-    'after' : [ 'procPagesInnerAfter' ]
+    'after' : [ 'procPagesInnerAfterBase', 'procPagesInnerAfter' ]
   },
   'styleOverrides' : {
     'procPagesNavBlock' : 'procPagesNav_projectsStyle',

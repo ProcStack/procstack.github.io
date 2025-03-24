@@ -103,27 +103,11 @@
 }
 
 .gitBlogPageStyle .procPagesInnerBefore {
-  content : '';
-  border-radius: var(--inner-before-after-radiusBefore);
-  background: transparent;
-  border-width: 0px 2px 2px 2px;
   border-color: #2b0967;
-  border-style: solid;
-  height: var(--inner-before-after-height);
-  width: 99.8%;
-  margin-bottom: var(--inner-before-after-margin);
 }
 
 .gitBlogPageStyle .procPagesInnerAfter {
-  content : '';
-  border-radius: var(--inner-before-after-radiusAfter);
-  background: transparent;
-  border-width: 2px 2px 0px 2px;
   border-color: #2b0967;
-  border-style: solid;
-  height: var(--inner-before-after-height);
-  width: 99.8%;
-  margin-top: var(--inner-before-after-margin);
 }
 
 /* -- -- -- */

@@ -11,6 +11,7 @@
   --procPage-width: calc( 100vw - 6vmax );
   --procPage-mobile-width: calc( 100vw - 2vmax );
   --layout-toggle: 1000px;
+  --max-inner-width: min(calc(100vw - 2.5vmax), 99.8%);
 }
 
 /*  -- -- -- -- -- -- -- -- -- -- -- -- */
@@ -115,8 +116,34 @@ BODY {
   grid-auto-flow: column;
   pointer-events: none;
 }
+
 .gpnhScreenMedia{
 left: calc(max(3.5vw, 50vw - 765px));
+}
+
+
+.procPagesInnerBeforeBase {
+  content : '';
+  border-radius: var(--inner-before-after-radiusBefore);
+  background: transparent;
+  border-width: 0px 2px 2px 2px;
+  border-color: #5d5d5d;
+  border-style: solid;
+  height: var(--inner-before-after-height);
+  width: var(--max-inner-width);
+  margin-bottom: var(--inner-before-after-margin);
+}
+
+.procPagesInnerAfterBase {
+  content : '';
+  border-radius: var(--inner-before-after-radiusAfter);
+  background: transparent;
+  border-width: 2px 2px 0px 2px;
+  border-color: #5d5d5d;
+  border-style: solid;
+  height: var(--inner-before-after-height);
+  width: var(--max-inner-width);
+  margin-top: var(--inner-before-after-margin);
 }
 
 @media (max-width: 400px){
@@ -139,6 +166,14 @@ left: calc(max(3.5vw, 50vw - 765px));
   .procPagesShowWhenThin{
     display: inherit;
   }
+  
+  .procPagesInnerBeforeBase {
+    border-width: 0px 1px 1px 1px;
+  }
+
+  .procPagesInnerAfterBase {
+    border-width: 1px 1px 0px 1px;
+  }
 }
 
 @media screen and ((max-width: 1000px) or (min-aspect-ratio: 1)) {
@@ -152,12 +187,13 @@ left: calc(max(3.5vw, 50vw - 765px));
 .procPagesNavStyle {
   width: 100vw;
   max-width: 950px;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   justify-content: space-around;
-  justify-self: center;
   position: relative;
   z-index: 200;
+  grid-auto-flow: column;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 

@@ -277,6 +277,11 @@ export class CampfireEnvironment extends RoomEnvironment{
     //emberSettings["offsetPos"] = particleSourcePos;
     //emberSettings["wanderInf"] = wanderInfluence;
     //emberSettings["wanderFrequency"] = wanderFrequency;
+    
+    emberSettings["EmberSpread"] = 9.0;
+    emberSettings["EmberFadeDistance"] = 0.04;
+    emberSettings["ShiftFromZero"] = 0.5;
+    emberSettings["MultPosXZ"] = 1.120;
 
     //
     let emberAtlasPicks=eWisps.elementDuplicator([ [0.0,0.75], [0.0,0.5], [0.25,0.75], [0.25,0.5] ],4);
