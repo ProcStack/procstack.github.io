@@ -104,7 +104,7 @@ const enableStaticCamera = true;
 
 // If using static cameras, allow the user to rotate the camera
 //  Default is `false`
-const allowStaticRotation = false;
+const allowStaticRotation = true;
 
 // Visual effect for the sky
 //  Options are - OFF, VAPOR

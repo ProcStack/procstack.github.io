@@ -27,7 +27,7 @@ export const pageListingData = {
   ],
   'content' : `
     <a href='https://github.com/ProcStack/procPromo_ShaderPack' class='procPagesRepoLinkStyle' target='_blank'>procPromo Shader Pack</a> <span class="textDrinkMeAlice textItalic">2022-2025</span>
-    <br><span class="textBump">A shader pack for Minecraft, used through Optifine.</span>
+    <br><span class="textBump">A Minecraft shader pack for Optifine.</span>
     <br><span class="textShrink textItalic textName ">Language - <span class="textBold">GLSL 1.2, 3.2, & 4.5+</span></span>
     <br><span class="textShrink textItalic textName ">File Count - <span class="textBold">177</span></span>
     <div class="pppHBar"></div>

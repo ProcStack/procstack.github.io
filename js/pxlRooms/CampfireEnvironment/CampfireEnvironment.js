@@ -217,7 +217,6 @@ export class CampfireEnvironment extends RoomEnvironment{
     let bSmoke = new BillowSmoke( this, systemName );
     //
     bSmoke.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
-    bSmoke.setPosition( particleSourcePos );
 
     let bSmokeSettings = bSmoke.getSettings();
     bSmokeSettings["vertCount"] = 600;
@@ -225,6 +224,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     bSmokeSettings["pOpacity"] = .4;
     //bSmokeSettings["fadeOutScalar"] = opacityRolloff;
     bSmokeSettings["additiveBlend"] = false;
+    bSmokeSettings["offsetPos"] = particleSourcePos; // Offset center of the system
   
     bSmokeSettings["windDir"].x = -14.6;
     bSmokeSettings["windDir"].z = 13.6;
@@ -267,8 +267,10 @@ export class CampfireEnvironment extends RoomEnvironment{
     let emberSettings = eWisps.getSettings();
     emberSettings["vertCount"] = 30;
     emberSettings["pScale"] = 10;
+    emberSettings["offsetPos"] = particleSourcePos; // Offset center of the system
     //emberSettings["fadeOutScalar"] = opacityRolloff;
     emberSettings["additiveBlend"] = true;
+
   
     emberSettings["windDir"].x = -0.14;
     emberSettings["windDir"].z = 0.15;

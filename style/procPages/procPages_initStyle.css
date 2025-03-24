@@ -36,7 +36,7 @@
   border-radius: 5px;
   overflow: hidden;
   background: linear-gradient(155deg, rgba(67, 55, 4, 0.407), rgba(52, 35, 3, 0), rgba(52, 35, 3, 0), rgba(52, 35, 3, 0));
-  background-image: radial-gradient(150% 50% ellipse at top left, rgba(52, 35, 3, 0.52), rgba(52, 35, 3, 0.0));
+  background-image: radial-gradient(150% 50% ellipse at top left, rgba(52, 35, 3, 0.652), rgba(52, 35, 3, 0.12), rgba(52, 35, 3, 0.0));
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
@@ -44,16 +44,14 @@
 .gitInitPageStyle .procPagesInnerBefore {
   content : '';
   padding-left: 8px;
-  border-radius: 5px 5px 0px 0px;
+  border-radius: var(--inner-before-after-radiusBefore);
   background: transparent;
-  border-width: 0px 1px 1px 1px;
+  border-width: 0px 2px 2px 2px;
   border-color: #483107;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 99%;
+  width: 99.8%;
   margin-bottom: var(--inner-before-after-margin);
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .gitInitPageStyle .procPagesInnerAfter {

@@ -21,7 +21,7 @@
   color: rgba(186, 228, 255, 0.92);
   text-shadow: 1.5px 1.5px 4px #252525;
   background-color: rgba(33, 81, 116, 0.15);
-  border-color: rgba(84, 203, 255, 0.46);
+  border-color: rgba(84, 203, 255, 0.85) rgba(57, 141, 177, 0.29);
 }
 .gitProjectsPage-sectionNavButtonStyle:hover{
   color: rgb(234, 246, 255);
@@ -118,8 +118,8 @@
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
   border-radius: 2px;
   background: linear-gradient(123deg, rgba(62, 95, 117, 0.65), rgba(32, 82, 117, 0.71), rgba(59, 81, 107, 0.65));
-  background-image: radial-gradient(150% 75% ellipse at top, rgba(62, 95, 117, 0.9), rgba(62, 95, 117, 0)), 
-                    radial-gradient(150% 75% ellipse at bottom, rgba(59, 81, 107, 0.8), rgba(59, 81, 107, 0));
+  background-image: radial-gradient(150% 75% ellipse at top, rgba(62, 95, 117, 0.9), rgba(62, 95, 117, 0.55)), 
+                    radial-gradient(150% 75% ellipse at bottom, rgba(59, 81, 107, 0.8), rgba(59, 81, 107, 0.25));
   pointer-events: auto;
   overflow: hidden;
 }
@@ -130,30 +130,26 @@
 
 .gitProjectsPageStyle .procPagesInnerBefore {
   content : '';
-  border-radius: 5px 5px 0px 0px;
+  border-radius: var(--inner-before-after-radiusBefore);
   background: transparent;
-  border-width: 0px 1px 1px 1px;
+  border-width: 0px 2px 2px 2px;
   border-color: #3e5f75;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 99%;
+  width: 99.8%;
   margin-bottom: var(--inner-before-after-margin);
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .gitProjectsPageStyle .procPagesInnerAfter {
   content : '';
-  border-radius: 0px 0px 5px 5px;
+  border-radius: var(--inner-before-after-radiusAfter);
   background: transparent;
-  border-width: 1px 1px 0px 1px;
+  border-width: 2px 2px 0px 2px;
   border-color: #3e5f75;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 99%;
+  width: 99.8%;
   margin-top: var(--inner-before-after-margin);
-  margin-left: auto;
-  margin-right: auto;
 }
 
 

@@ -35,7 +35,7 @@ export const pageListingData = {
 
     <br>
     <br> This is the 'dwitter' for the top video,
-    <br>&nbsp;&nbsp; Falling Circles [139/140 chars.]
+    <br>&nbsp;&nbsp; <span class="textName">Falling Circles</span> <span class="textItalic">[139/140 chars.]</span>
     
     <div class="procPagesSpacer"></div>
     

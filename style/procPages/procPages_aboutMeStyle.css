@@ -18,7 +18,7 @@
   color: rgba(237, 237, 237, 0.9);
   text-shadow: 1.5px 1.5px 4px rgba(37, 37, 37, 0.632);
   background-color: rgba(86, 86, 86, 0.37);
-  border-color: rgba(213, 213, 213, 0.5);
+  border-color: rgba(192, 192, 192, 0.85) rgba(144, 144, 144, 0.29);
   border-style: solid;
 }
 .gitAboutMePage-sectionNavButtonStyle:hover{
@@ -65,7 +65,7 @@
 
 .gitAboutMePageParentStyle{
   width: min(100vw, 1100px);
-  height: calc(92vh - 36px);
+  height: calc(92vh - 40px);
   display: grid;
   grid-auto-flow: row;
   border-radius: 2px;
@@ -74,38 +74,34 @@
   pointer-events: auto;
   overflow: hidden;
   text-wrap: auto;
-  background-image: radial-gradient(200% 35% ellipse at top, rgba(100, 100, 100, 0.35), rgba(100, 100, 100, 0.0)),
-                    radial-gradient(200% 35% ellipse at bottom, rgba(100, 100, 100, 0.35), rgba(100, 100, 100, 0.0));
+  background-image: radial-gradient(200% 35% ellipse at top, rgba(100, 100, 100, 0.3), rgba(100, 100, 100, 0.10)),
+                    radial-gradient(200% 35% ellipse at bottom, rgba(100, 100, 100, 0.35), rgba(100, 100, 100, 0.15));
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 
 .gitAboutMePageStyle .procPagesInnerBefore {
   content : '';
-  border-radius: 5px 5px 0px 0px;
+  border-radius: var(--inner-before-after-radiusBefore);
   background: transparent;
-  border-width: 0px 1px 1px 1px;
+  border-width: 0px 2px 2px 2px;
   border-color: #5d5d5d;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 99%;
+  width: 99.8%;
   margin-bottom: var(--inner-before-after-margin);
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .gitAboutMePageStyle .procPagesInnerAfter {
   content : '';
-  border-radius: 0px 0px 5px 5px;
+  border-radius: var(--inner-before-after-radiusAfter);
   background: transparent;
-  border-width: 1px 1px 0px 1px;
+  border-width: 2px 2px 0px 2px;
   border-color: #5d5d5d;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 99%;
+  width: 99.8%;
   margin-top: var(--inner-before-after-margin);
-  margin-left: auto;
-  margin-right: auto;
 }
 
 /* -- -- -- */
