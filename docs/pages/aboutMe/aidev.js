@@ -138,7 +138,7 @@ export const pageListingData = {
       <br>
       <br>It should be self-taught discrimination of attention between neurons;
       <br>&nbsp;&nbsp; Like in the human brain.
-      <br><div class="textSkew">&nbsp;&nbsp;&nbsp;&nbsp; (When the purple circles go red in the GAT video above)</div>
+      <br><div class="textSkew">&nbsp;&nbsp;&nbsp;&nbsp; (When the purple circles go red in the GAT video, first vid)</div>
       
       <br>
       <br><div class='procPagesAboutMeBar'></div>
@@ -156,9 +156,10 @@ export const pageListingData = {
       <br>
         <div class='procPagesAboutMeSpacer'></div>
         Currently I'm not using my ESN's predicted movement for anything in python,
-        <br>The next step would be introducing a base image to motion-transfer / reference.
+        <br>&nbsp;&nbsp; The next step would be introducing a base image to motion-transfer / reference.
+        <br>However did build a simple version in Unity to learn player combos + movement over time.
         <div class='procPagesAboutMeSpacer'></div>
-        So I'm just learnin' while watching my ai learnin'!
+        <span class="innerCenter">So I'm mostly just learnin' while watching my ai learnin'!</span>
         <div class='procPagesAboutMeSpacer'></div>
         
         <br>In the videos, I had the "reservoir" set to 15 times steps, you'll notice about every 15 frames the brain shifts.
@@ -171,17 +172,6 @@ export const pageListingData = {
         <br>But it's detecting patterns in motion!
       </span>
       
-      <br><br><div class='procPagesAboutMeBar'></div>
-      
-      <br>Since I didn't have a good use case for the ESN in Python,
-      <br>&nbsp;&nbsp; I built a similar ESN through C# in Unity to operate NPC's ability to learning player habits.
-      <br>The logic is pretty simple, so running by CPU is fine for now,
-      <br>&nbsp;&nbsp; I'll likely look to move it to GPU in the future, if need be.
-      <br>I set it up to learn less often when the player is in another area of the map.
-      <br>&nbsp;&nbsp; Thinking that I'd want to set up a "data transfer" between characters,
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; Gossip about the player.
-      <br>&nbsp;&nbsp; But its just cubes and spheres in Unity at the moment.
-
       <br><br><div class='procPagesAboutMeBar'></div>
       
       <br>

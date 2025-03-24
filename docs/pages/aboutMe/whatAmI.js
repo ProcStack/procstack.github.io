@@ -32,12 +32,6 @@ export const pageListingData = {
       <span><a href="mailto:trancor@metal-asylum.net" alt="Email me!">email</a></span>
     </div>
     
-    <div class='procPagesAboutMe-subHeaderStyle'>
-      <span>Note : 'JavaScript', I'm better with modules, middleware, & backends.
-      <br>&nbsp;&nbsp; Like, I wrote this site's single-page system in 'vanilla' JS for the fun of it.</span>
-    </div>
-
-
     <br><div class='ppamHBar'></div>
 
     <br>
@@ -46,7 +40,7 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; or '<span class="textNudge">Technical Director</span>' (<span class="textItalic">on films</span>)
       <br>&nbsp;&nbsp;&nbsp;&nbsp; or '<span class="textNudge">Creative Technologist</span>' (<span class="textItalic">for immersive</span>)
       <br>It's all the same types of mental challenges though,
-      <br>&nbsp;&nbsp; Just different mediums.
+      <br>&nbsp;&nbsp; Just in different mediums of digital graphics.
     </div>
     
 

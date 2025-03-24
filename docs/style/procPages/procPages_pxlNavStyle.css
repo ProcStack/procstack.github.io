@@ -23,7 +23,7 @@
   color: rgba(80, 210, 90, 0.8);
   text-shadow: 1.5px 1.5px 4px #252525;
   background-color: transparent;
-  border-color: rgba(25, 220, 32, 0.26);
+  border-color: rgba(25, 220, 32, 0.85) rgba(20, 151, 24, 0.29);
 }
 .gitPxlNav-sectionNavButtonStyle:hover{
   color: rgba(86, 231, 98, 0.9);
@@ -111,38 +111,34 @@
   pointer-events: auto;
   overflow: hidden;
   background-color: rgba(33, 46, 24, 0.2);
-  background-image: radial-gradient(200% 50% ellipse at top, rgba(33, 46, 24, 0.57), rgba(51, 73, 35, 0)), 
-                    radial-gradient(200% 50% ellipse at bottom, rgba(45, 67, 30, 0.57), rgba(23, 35, 15, 0));
+  background-image: radial-gradient(200% 50% ellipse at top, rgba(33, 46, 24, 0.57), rgba(51, 73, 35, 0.33)), 
+                    radial-gradient(200% 50% ellipse at bottom, rgba(45, 67, 30, 0.27), rgba(23, 35, 15, 0.33));
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 
 .gitPxlNavPageStyle .procPagesInnerBefore {
   content : '';
-  border-radius: 5px 5px 0px 0px;
+  border-radius: var(--inner-before-after-radiusBefore);
   background: transparent;
-  border-width: 0px 1px 1px 1px;
+  border-width: 0px 2px 2px 2px;
   border-color: #304112;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 99%;
+  width: 99.8%;
   margin-bottom: var(--inner-before-after-margin);
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .gitPxlNavPageStyle .procPagesInnerAfter {
   content : '';
-  border-radius: 0px 0px 5px 5px;
+  border-radius: var(--inner-before-after-radiusAfter);
   background: transparent;
-  border-width: 1px 1px 0px 1px;
+  border-width: 2px 2px 0px 2px;
   border-color: #304112;
   border-style: solid;
   height: var(--inner-before-after-height);
-  width: 99%;
+  width: 99.8%;
   margin-top: var(--inner-before-after-margin);
-  margin-left: auto;
-  margin-right: auto;
 }
 
 

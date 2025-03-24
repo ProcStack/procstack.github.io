@@ -25,7 +25,8 @@ export const pageListingData = {
     <div class="pppHBar"></div>
     
     Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.net.
-    <br>Letting them write the very words written in the tome perched upon the desk.
+    <br>&nbsp;&nbsp; Letting them write the very words written in the tome perched upon the desk.
+    <br>
     <br>A segmenter, labeler, and scripting language was written to allow saving individual characters, variants, and written pages, with text effects like opacity, scale, and kearning.
     
     <br>
