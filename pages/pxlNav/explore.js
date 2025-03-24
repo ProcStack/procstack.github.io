@@ -66,7 +66,7 @@ export const pageListingData = {
       <div class='procPagesSpacer'></div>
       Bump <span class="textBoldBox">G</span> to open <span class="textName">Graphics</span> settings
       <br>Nudge <span class="textBoldBox">H</span> for the <span class="textName">Help</span> menu
-      <br>Bop the <span class="textBoldBox">I</span> to squeek an <span class="textName">Info</span> screen
+      <br>Bop <span class="textBoldBox">I</span> to squeek an <span class="textName">Info</span> screen
       <br>
       <br>
     </div>
