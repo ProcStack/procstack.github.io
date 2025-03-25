@@ -15,7 +15,7 @@
   color: rgb(168 197 255);
   text-shadow: 1.5px 1.5px 4px #252525;
   background-color: rgba(12, 55, 113, 0.71);
-  border-color: rgba(51, 61, 186, 0.85) rgba(39, 45, 142, 0.29);
+  border-color: rgba(51, 61, 186, 0.45) rgba(39, 45, 142, 0.2);
 }
 .gitReposPage-sectionNavButtonStyle:hover{
   color: rgb(231 239 255);

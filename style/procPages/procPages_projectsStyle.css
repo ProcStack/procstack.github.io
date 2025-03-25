@@ -21,7 +21,7 @@
   color: rgba(186, 228, 255, 0.92);
   text-shadow: 1.5px 1.5px 4px #252525;
   background-color: rgba(33, 81, 116, 0.15);
-  border-color: rgba(84, 203, 255, 0.85) rgba(57, 141, 177, 0.29);
+  border-color: rgba(84, 203, 255, 0.45) rgba(57, 141, 177, 0.2);
 }
 .gitProjectsPage-sectionNavButtonStyle:hover{
   color: rgb(234, 246, 255);

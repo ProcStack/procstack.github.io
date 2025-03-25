@@ -15,7 +15,7 @@
   color: rgba(80, 210, 90, 0.8);
   text-shadow: 1.5px 1.5px 4px #252525;
   background-color: rgba(15, 79, 20, 0.37);
-  border-color: rgba(25, 220, 30, 0.85) rgba(20, 168, 25, 0.29);
+  border-color: rgba(25, 220, 30, 0.45) rgba(20, 168, 25, 0.2);
 }
 .gitBlogPage-sectionNavButtonStyle:hover{
   color: rgba(80, 210, 90, 0.9);

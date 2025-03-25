@@ -22,7 +22,7 @@
   color: rgba(80, 210, 90, 0.8);
   text-shadow: 1.5px 1.5px 4px #252525;
   background-color: transparent;
-  border-color: rgba(25, 220, 32, 0.85) rgba(20, 151, 24, 0.29);
+  border-color: rgba(25, 220, 32, 0.45) rgba(20, 151, 24, 0.2);
 }
 .gitPxlNav-sectionNavButtonStyle:hover{
   color: rgba(86, 231, 98, 0.9);
