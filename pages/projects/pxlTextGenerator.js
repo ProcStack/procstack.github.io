@@ -1,5 +1,6 @@
 
 export const pageListingData = {
+  'htmlName' : "pxlTextGenerator.htm",
   'name' : 'pxlTextGenerator',
   'navGroup' : 'Repos to Check Out',
   'media' : [

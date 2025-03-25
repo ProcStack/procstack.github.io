@@ -1,5 +1,6 @@
 
 export const pageListingData = {
+  'htmlName' : "procPromo.htm",
   'name' : 'procPromo<span class="hideOnMobile">&nbsp;Shader Pack</span>',
   'navGroup' : 'Repos to Check Out',
   'media' : [

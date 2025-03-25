@@ -112,18 +112,27 @@ export class ProcPageManager {
 
     // Check for forward-back history navigation
     window.addEventListener("popstate", (e) => {
-      let newPage = this.getPageURL();
-      if( newPage != this.curPageName ){
+      let urlData = this.getPageURL();
+      let newPage = urlData.page;
 
+      if( !this.pageListing.hasOwnProperty(newPage) ){
+        console.warn("Page not found in pageListing: " + newPage);
+        newPage = this.defaultPage;
+      }
+
+      if( newPage != this.curPageName ){
         // Swap page content
         this.changePage(newPage);
 
         // Run page theming and callback functions
-        if( this.pageListing.hasOwnProperty(newPage) ){
-          this.curPageName = newPage;
-          this.curPage = this.pageListing[newPage]["obj"];
-          this.postLoad();
-        }
+        this.curPageName = newPage;
+        this.curPage = this.pageListing[newPage]["obj"];
+        this.postLoad();
+      }
+
+      if( urlData.section != null ){
+        let pageData = this.pageListing[newPage]["pageData"];
+        pageData.activateSection( urlData.section );
       }
     });
 
@@ -177,7 +186,10 @@ export class ProcPageManager {
     });
 
     // Rectify the URL state and set the current page
-    let pageURL = this.getPageURL();
+    let pageURLData = this.getPageURL();
+    let pageURL = pageURLData.page;
+    let pageSection = pageURLData.section;
+    
     
     // Find the dom user clickable actions
     this.findDomUserEvents();
@@ -212,6 +224,7 @@ export class ProcPageManager {
       this.shiftHistoryState( pageURL );
       this.updateDocumentMetaData( pageURL );
     }
+
 
     this.curPageName = pageURL;
 
@@ -302,6 +315,14 @@ export class ProcPageManager {
     //this.runHidePages();
     this.activateNavButton( this.curPageName );
 
+    // Check the current page section
+    if( pageSection != null && pageSection != "" ){
+      let pageData = this.pageListing[pageURL]["pageData"];
+      if( pageData ){
+        pageData.activateSection( pageSection );
+      }
+    }
+
   }
 
   // -- -- --
@@ -371,7 +392,7 @@ export class ProcPageManager {
   // -- -- --
 
 /**
- * @method getPageURL
+ * @method triggerDomEvent
  * @returns {string} - The current page URL
  * @description Retrieves the current page URL from the browser's address bar
  */
@@ -495,7 +516,10 @@ export class ProcPageManager {
 
       let pageObj = pageData[pageKey].buildPage();
       this.pageListing[pageKey][ "obj" ] = pageObj;
-      console.log( pageObj )
+
+      // Connect when sections change, to update the page manager
+      //   This is used for history state pushes to a `folder/page` URL
+      pageData[pageKey].subscribe( this.sectionChangeCallback.bind(this) );
     });
 
   }
@@ -640,7 +664,16 @@ export class ProcPageManager {
       }
 
       // Update URL page display & history state
-      this.shiftHistoryState( pageName );
+      let pageData = this.pageListing[pageName]['pageData'];
+      let prevSection = pageData['prevSection'];
+      let sectionData =  pageData['sectionData'][ prevSection ];
+      if( sectionData && sectionData.hasOwnProperty("htmlName") ){
+        let htmlName = sectionData["htmlName"];
+        let formattedURL = this.formatURL( pageName, htmlName );
+        this.shiftHistoryState( formattedURL );
+      }else{
+        this.shiftHistoryState( pageName );
+      }
 
       // Update Meta Data
       this.updateDocumentMetaData( pageName );
@@ -710,8 +743,9 @@ export class ProcPageManager {
   shiftHistoryState( pageName ){
     let urlDisplay = pageName;
     
-    if( urlDisplay.includes(".htm") ){
-      urlDisplay = urlDisplay.split(".")[0];
+    let urlCheck = urlDisplay.split("/")[0];
+    if( urlCheck.includes(".htm") ){
+      urlCheck = urlCheck.split(".")[0];
     }
 
     // Check for specific capitalization of file url names
@@ -728,6 +762,7 @@ export class ProcPageManager {
       urlDisplay += ".htm";
     }
 
+    /*
     let urlFolderPath = window.location.pathname;
     if( urlFolderPath.includes(".htm") ){
       urlFolderPath = urlFolderPath.split("/");
@@ -737,12 +772,51 @@ export class ProcPageManager {
       urlFolderPath = urlFolderPath+"/";
     }
     let url = window.location.origin + urlFolderPath + urlDisplay;
+    */
+    if( !urlDisplay.startsWith("/") ){
+      urlDisplay = "/" + urlDisplay;
+    }
+    let url = window.location.origin + urlDisplay;
     window.history.pushState({path:url}, '', url);
 
   }
 
+/**
+ * Recieve page section change callback from the page itself
+ * 
+ * This is used to push state to the browser history when the page has a section change
+ * @method sectionChangeCallback
+ * @param {Object} sectionData - Data object containing section information
+ */
   sectionChangeCallback( sectionData ){
-    console.log( sectionData );
+    let pageName = null;
+    let sectionName = null;
+    if( !sectionData || !sectionData.hasOwnProperty("page") ){
+      pageName = this.curPageName;
+    }else{
+      pageName = sectionData['dir'];
+      if( sectionData.hasOwnProperty("page") ){
+        sectionName = sectionData['page'];
+      }
+    }
+
+    let formattedURL = this.formatURL( pageName, sectionName );
+    this.shiftHistoryState( formattedURL );
+  }
+
+/**
+ * Format URL from page + section callback
+ */
+  formatURL( pageName, sectionName ){
+    let urlDisplay = pageName;
+
+    if( sectionName != null ){
+      urlDisplay += "/" + sectionName;
+    }
+    if( !urlDisplay.includes(".htm") ){
+      urlDisplay += ".htm";
+    }
+    return urlDisplay;
   }
 
 
@@ -772,8 +846,15 @@ export class ProcPageManager {
     this.checkForRedirect();
 
     // Pull base name from the url
-    let url = window.location.href;
+    let url = window.location.pathname;
+    
+    if( url == "/index.htm" || url == "/" ){
+      this.shiftHistoryState( this.defaultPage );
+      return {'page':this.defaultPage, 'section':null};
+    }
+
     let urlSplit = url.split("/");
+
     let urlLast = urlSplit[urlSplit.length-1];
     if( urlLast != "" ){
       let urlSplitDot = urlLast.split(".");
@@ -782,11 +863,32 @@ export class ProcPageManager {
         ret = urlPage;
       }
     }
-    if( ret.toLowerCase() == "index" ){
-      ret = this.defaultPage;
-      this.shiftHistoryState( ret );
+
+    urlSplit = urlSplit.filter( (path)=>{ return path != ""; });
+
+    
+    let urlFolderPath = null;
+    let urlPagePath = urlSplit.pop();
+    if( urlSplit.length > 0 ){
+      urlFolderPath = urlSplit.join("/");
     }
-    return ret;
+
+    let pageCheck = (urlFolderPath || urlPagePath).toLowerCase();
+    if( pageCheck.includes(".htm") ){
+      pageCheck = pageCheck.split(".")[0];
+    }
+
+    if( (urlFolderPath == null || urlFolderPath == "") && urlPagePath != "" ){
+      urlFolderPath = urlPagePath;
+      urlPagePath = "";
+    }
+    urlFolderPath = urlFolderPath.replace(/\.htm/g, "");
+    if( urlFolderPath == "" ){
+      urlFolderPath = this.defaultPage;
+      urlPagePath = "";
+    }
+
+    return {'page':urlFolderPath, 'section':urlPagePath};
   }
 
 

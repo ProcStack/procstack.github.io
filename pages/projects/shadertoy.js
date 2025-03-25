@@ -1,5 +1,6 @@
 
 export const pageListingData = {
+  'htmlName' : "Shadertoy.htm",
   'name' : 'Shadertoy',
   'navGroup' : "The One'Offs",
   'navStyle' : ['hideOnMobile'],

@@ -1,5 +1,6 @@
 
 export const pageListingData = {
+  'htmlName' : "pxlCam.htm",
   'name' : 'pxlCam',
   'navGroup' : 'Personal Projects',
   'media' : [
