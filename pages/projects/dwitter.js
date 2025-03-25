@@ -40,7 +40,7 @@ export const pageListingData = {
     <div class="procPagesSpacer"></div>
     
     <br> I'm running a <span class="textName">recursive</span> function to draw circles over & over,
-    <br>&nbsp;&nbsp; That are getting smaller as they go down.
+    <br>&nbsp;&nbsp; That are getting smaller as they go up.
     <br>&nbsp;&nbsp; After a short amount of time,
     <br>&nbsp;&nbsp;&nbsp;&nbsp; using Tan() to have them fall off the screen.
     <br>
