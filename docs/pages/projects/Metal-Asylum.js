@@ -1,5 +1,6 @@
 
 export const pageListingData = {
+  'htmlName' : "Metal-AsylumNet.htm",
   'name' : 'Metal-Asylum.Net',
   'navGroup' : 'Personal Projects',
   'navStyle' : ['hideOnMobile'],

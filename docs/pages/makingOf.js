@@ -43,6 +43,7 @@ const pageContentObject = {
   },
   'sections' : [
     {
+      'htmlName' : "Making_Of.htm",
       'name' : 'Making of ProcStack.GitHub.io',
       'media' : [
         {

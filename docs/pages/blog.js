@@ -43,6 +43,7 @@ const pageContentObject = {
   },
   'sections' : [
     {
+      'htmlName' : "Blog.htm",
       'name' : 'Blog',
       'content' : `
 <div id="blogEntryListing" class="blogEntryListStyle"></div>

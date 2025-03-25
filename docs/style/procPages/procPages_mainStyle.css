@@ -451,6 +451,12 @@ text-shadow: 1px 1.5px 4px #252525;
   font-size: 0.81em;
 }
 
+.textSuper{
+  font-size: 0.7em;
+  position: relative;
+  top: -1.5px;
+}
+
 .textBold{
   font-weight: 700;
 }

@@ -1,5 +1,6 @@
 
 export const pageListingData = {
+  'htmlName' : "pxlmancer.htm",
   'name' : 'pxlmancer.com',
   'navGroup' : 'Personal Projects',
   'media' : [

@@ -1,5 +1,6 @@
 
 export const pageListingData = {
+  'htmlName' : "NeurousNet.htm",
   'name' : 'Neurous Net',
   'navGroup' : 'Personal Projects',
   'media' : [

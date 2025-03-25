@@ -1,11 +1,12 @@
 
 export const pageListingData = {
+  'htmlName' : "Explore.htm",
   'name' : 'Explore',
   'media' : [
     {
       'type' : 'image',
       'src' : '../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_coastline.webp',
-      'href' : 'Outlet.htm',
+      'href' : '../Outlet.htm',
       'alt' : 'The coastline of the Outlet',
       'style' : 'procPagesImageStyle',
       'caption' : ["An overlook of the Outlet"]
@@ -14,7 +15,7 @@ export const pageListingData = {
     {
       'type' : 'image',
       'src' : '../pages/pxlNav/images/pxlNav_TheOutlet_2025-03-12_lightHouse_mobile.webp',
-      'href' : 'Outlet.htm',
+      'href' : '../Outlet.htm',
       'alt' : 'The lighthouse at the Outlet',
       'style' : 'procPagesImageStyle',
       'caption' : ["Mobile controls; they expand when dragged out"]
@@ -22,14 +23,14 @@ export const pageListingData = {
     {
       'type' : 'image',
       'src' : '../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_spawn.webp',
-      'href' : 'Outlet.htm',
+      'href' : '../Outlet.htm',
       'alt' : 'The Outlets spawn location',
       'style' : 'procPagesImageStyle'
     },
     {
       'type' : 'image',
       'src' : '../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_dockBarrels.webp',
-      'href' : 'Outlet.htm',
+      'href' : '../Outlet.htm',
       'alt' : 'Overview of the foothills next to the Outlet',
       'style' : 'procPagesImageStyle'
     }
@@ -37,7 +38,7 @@ export const pageListingData = {
   'contentStyle' : [ 'procPagesCenterContent' ],
   'content' : `
     <div class="innerCenter" style="padding : 1.5em 0px 0px 0px;">
-      <span class="textBump">pxlNav Example :: <a href="Outlet.htm" target="_blank" alt="Outlet Environment" class="textBump">The Outlet</a></span>
+      <span class="textBump">pxlNav Example :: <a href="../Outlet.htm" target="_blank" alt="Outlet Environment" class="textBump">The Outlet</a></span>
 
       <br>
       <br>Run around in this water side environment,

@@ -1,5 +1,6 @@
 
 export const pageListingData = {
+  'htmlName' : "Shadertoy.htm",
   'name' : 'Shadertoy',
   'navGroup' : "The One'Offs",
   'navStyle' : ['hideOnMobile'],
@@ -12,7 +13,7 @@ export const pageListingData = {
     },
   ],
   'content' : `
-    <a href='https://www.shadertoy.com/user/trancor' class="textBump" target='_blank'>ShaderToy</a> <span class="textDrinkMeAlice textItalic">2020+</span>
+    <a href='https://www.shadertoy.com/user/trancor' class="textBump" target='_blank'>Shadertoy</a> <span class="textDrinkMeAlice textItalic">2020+</span>
     <br><span class="textBump">My account on a social shader playground website</span>
     <br><span class="textShrink textItalic textName ">Language - <span class="textBold">GLSL ES</span></span>
     <div class="pppHBar"></div>

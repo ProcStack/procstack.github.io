@@ -1,5 +1,6 @@
 
 export const pageListingData = {
+  'htmlName' : "Plushies.htm",
   'name' : 'Plushies',
   'media' : [
     {

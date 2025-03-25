@@ -93,6 +93,7 @@ export class ProcPage {
     // -- -- --
 
     this.defaultSectionData = {
+      'htmlName' : '',
       'isLoaded' : false,
       'isActive' : false,
       'name' : '',
@@ -847,8 +848,20 @@ export class ProcPage {
 
     if( Number.isInteger(sectionName) ){
       sectionName = this.sectionTitles[sectionName];
+    }else if( typeof sectionName == 'string' && sectionName.includes(".htm") ){
+      let foundSectionTitle = this.sectionTitles[0];
+      for( let x=0; x<this.sectionTitles.length; ++x ){
+        let htmlName = this.sectionData[ this.sectionTitles[x] ].htmlName;
+        if( sectionName == htmlName ){
+          foundSectionTitle = this.sectionTitles[x];
+          break;
+        }
+      }
+      sectionName = foundSectionTitle;
     }
 
+    // -- -- --
+    
     if( this.prevSection != null ){
       this.deactivateSection( this.prevSection );
     }
@@ -866,6 +879,7 @@ export class ProcPage {
         this.sectionData[ sectionName ].header.classList.add( style );
       });
     }
+
 
 
     // Modify page's media display
@@ -897,7 +911,13 @@ export class ProcPage {
       obj.scrollTop = 0;
     });
 
-    console.log( this.sectionData[ sectionName ] );
+    let emitData = {
+      'dir' : this.page,
+      'page' : this.sectionData[ sectionName ].htmlName
+    };
+
+    this.emit( emitData );
+
   }
 
 

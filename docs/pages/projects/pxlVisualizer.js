@@ -1,5 +1,6 @@
 
 export const pageListingData = {
+  'htmlName' : "pxlVisualizer.htm",
   'name' : 'pxlVisualizer',
   'navGroup' : 'Repos to Check Out',
   'media' : [
