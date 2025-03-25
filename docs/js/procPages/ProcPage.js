@@ -135,6 +135,8 @@ export class ProcPage {
         }
       });
     }
+
+    this.callbacks = [];
   }
 
   // -- -- --
@@ -894,6 +896,8 @@ export class ProcPage {
       obj.classList.remove('pagesVisOff');
       obj.scrollTop = 0;
     });
+
+    console.log( this.sectionData[ sectionName ] );
   }
 
 
@@ -1088,6 +1092,20 @@ export class ProcPage {
  */
   hasPageStyle( styleType ){
     return this.pageStyles.hasOwnProperty( styleType );
+  }
+
+
+  subscribe( callback ){
+    if( typeof callback == 'function' ){
+      this.callbacks.push( callback );
+    }
+  }
+  emit( ...args ){
+    this.callbacks.forEach( (callbackFn)=>{
+      if( typeof callbackFn == 'function' ){
+        callbackFn( ...args );
+      }
+    });
   }
 
 }

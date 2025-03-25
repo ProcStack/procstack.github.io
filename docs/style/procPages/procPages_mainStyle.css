@@ -393,6 +393,10 @@ text-shadow: 1px 1.5px 4px #252525;
   transition: color .15s, border .15s, background-color .15s, text-shadow .15s;
 }
 
+.pageLinkEventStyle{
+  width: 1ch;
+}
+
 
 .imageDesc{
   display: grid;

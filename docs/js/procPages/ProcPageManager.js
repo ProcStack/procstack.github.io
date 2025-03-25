@@ -277,6 +277,7 @@ export class ProcPageManager {
         e.preventDefault();
         let curPageId = this.curPageName;
         if( linkText == curPageId ){
+          this.checkDisplayState( false );
           return;
         }
         this.changePage( linkText, pxlRoomName, pxlCameraView );
@@ -494,6 +495,7 @@ export class ProcPageManager {
 
       let pageObj = pageData[pageKey].buildPage();
       this.pageListing[pageKey][ "obj" ] = pageObj;
+      console.log( pageObj )
     });
 
   }
@@ -625,10 +627,7 @@ export class ProcPageManager {
         }
       }
 
-      if( this.domEventStates.ToggleDOM ){
-        this.toggleMidFader( this.mainDiv, false );
-        this.triggerDomEvent("ToggleDOM", false);
-      }
+      this.checkDisplayState( false );
 
       // Set current page value
       let pageListing = this.pageListing[pageName];
@@ -742,6 +741,11 @@ export class ProcPageManager {
 
   }
 
+  sectionChangeCallback( sectionData ){
+    console.log( sectionData );
+  }
+
+
 /**
  * @method checkForRedirect
  * @description Checks the URL for a 'redirect' query parameter and updates the page state accordingly
@@ -784,6 +788,7 @@ export class ProcPageManager {
     }
     return ret;
   }
+
 
 
   onResize(){}
@@ -888,6 +893,17 @@ export class ProcPageManager {
       pageDiv.style.border = "";
 
     }
+  }
+
+  checkDisplayState( toggleState=null){
+    if( toggleState == null ){
+      toggleState = this.domEventStates.ToggleDOM
+    }
+    
+    //if( this.domEventStates.ToggleDOM ){
+      this.toggleMidFader( this.mainDiv, toggleState );
+      this.triggerDomEvent("ToggleDOM", toggleState);
+    //}
   }
 
   /*runHidePages(){
