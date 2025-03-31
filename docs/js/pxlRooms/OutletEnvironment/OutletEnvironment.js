@@ -385,6 +385,11 @@ builBugs(){
     )
     grassClusterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
 
+    let instPlantSettings = {
+      'depthScalar' : .0001,
+      'dewarpFactor' : .35,
+    }
+
     let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, instPlantsVert(), instPlantsFrag() );
     grassMat.side = DoubleSide;
     grassMat.lights = true;

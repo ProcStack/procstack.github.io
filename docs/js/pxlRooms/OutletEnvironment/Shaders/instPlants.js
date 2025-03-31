@@ -134,6 +134,7 @@ export function instPlantsFrag( settings={} ){
     'buildAlpha' : false,
     'addShimmer' : false,
     'depthScalar' : .0001,
+    'dewarpFactor': 0.45,
   }
   let shaderSettings = Object.assign( defaults, settings );
 
@@ -237,7 +238,7 @@ export function instPlantsFrag( settings={} ){
         // -- Depth Calculations - -- --
         // -- -- -- -- -- -- -- -- -- -- --
         
-        float screenSpaceX = abs((vCamPos.x / vCamPos.z))*.45;
+        float screenSpaceX = abs((vCamPos.x / vCamPos.z))*${shaderSettings.dewarpFactor};
         float depth = min(1.0, max(0.0, gl_FragCoord.z / gl_FragCoord.w * DepthScalar )) * step( .930, gl_FragCoord.z );
         depth = depth + ( screenSpaceX * screenSpaceX )*min( 1.0, depth * ScreenWarpColorFix );
         depth = pow( depth, 1.0-depth);
