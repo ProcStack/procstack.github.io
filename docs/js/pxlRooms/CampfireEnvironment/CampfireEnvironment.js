@@ -314,24 +314,24 @@ export class CampfireEnvironment extends RoomEnvironment{
     // This is optional, as the default settings is created for you
     //   If you don't pass one to the `build()` function
     let dustSystemSettings = dustSystem.getSettings();
-    dustSystemSettings["vertCount"] = 900; // Point Count
+    dustSystemSettings["vertCount"] = 400; // Point Count
     dustSystemSettings["pScale"] = 8.5;  // Point Base Scale
-    dustSystemSettings["pOpacity"] = .95;  // Overall Opacity
-    dustSystemSettings["proxDist"] = 220;  // Proximity Distance from Camera
+    dustSystemSettings["pOpacity"] = 1.35;  // Overall Opacity
+    dustSystemSettings["proxDist"] = 240;  // Proximity Distance from Camera
     dustSystemSettings["fadeOutScalar"] = 1.2;  // Distance-opacity falloff multiplier
     dustSystemSettings["additiveBlend"] = false;
   
-    dustSystemSettings["offsetPos"] = new Vector3( -10.0, 5.0, 10.0 ); // Offset center of the system
+    dustSystemSettings["offsetPos"] = new Vector3( -10.0, 2.0, 10.0 ); // Offset center of the system
     dustSystemSettings["windDir"] = new Vector3( -4.4, 0.25, 4.8 ); // Constant direction flow
     dustSystemSettings["wanderInf"] = 0.50; // How much the particle sways
     dustSystemSettings["wanderFrequency"] = 2.80; // How frequent the sway happens
     
   
     dustSystemSettings["atlasPicks"] = [
-      ...dustSystem.dupeArray([0.0,0.],4), ...dustSystem.dupeArray([0.25,0.],4),
-      ...dustSystem.dupeArray([0.0,0.25],4), ...dustSystem.dupeArray([0.25,0.25],4),
-      ...dustSystem.dupeArray([0.0,0.5],2), ...dustSystem.dupeArray([0.25,0.5],2),
-      ...dustSystem.dupeArray([0.0,0.75],3), ...dustSystem.dupeArray([0.25,0.75],3)
+      ...dustSystem.dupeArray([0.5,0.],4), ...dustSystem.dupeArray([0.75,0.],4),
+      ...dustSystem.dupeArray([0.5,0.25],4), ...dustSystem.dupeArray([0.75,0.25],4),
+      ...dustSystem.dupeArray([0.5,0.5],2), ...dustSystem.dupeArray([0.75,0.5],2),
+      ...dustSystem.dupeArray([0.5,0.75],3), ...dustSystem.dupeArray([0.75,0.75],3)
     ];
   
     // -- -- --
@@ -352,7 +352,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     // -- -- --
   
     // Generate geometry and load texture resources
-    //dustSystem.build( dustSystemSettings );
+    dustSystem.build( dustSystemSettings );
   
     this.particleList[systemName] = dustSystem;
   }
@@ -493,7 +493,7 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-    if( !this.pxlOptions.mobile && this.geoList.hasOwnProperty("pokinStick_geo") ){
+    if( this.geoList.hasOwnProperty("pokinStick_geo") ){
       let pokinStick = this.geoList["pokinStick_geo"];
       pokinStick.castShadow = true;
       pokinStick.material.lights = true;
