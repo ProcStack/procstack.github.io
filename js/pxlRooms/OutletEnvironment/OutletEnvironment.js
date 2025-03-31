@@ -39,13 +39,17 @@ import {
 } from "../../libs/three/three.module.min.js";
 /*ShaderMaterial*/
 
+// -- -- --
+
+import { RoomEnvironment, pxlEffects } from "../../pxlNav.esm.js";
+
 import {
-        envGroundVert, envGroundFrag,
-        instPlantsVert, instPlantsFrag,
-        creekWaterVert, creekWaterFrag,
-        waterWayVert, waterWayFrag
-      } from "./Shaders.js";
-import { RoomEnvironment, pxlShaders, pxlEffects } from "../../pxlNav.esm.js";
+  envGroundVert, envGroundFrag,
+  instPlantsVert, instPlantsFrag,
+  creekWaterVert, creekWaterFrag,
+  pineTreeFrag, pineTreeVert,
+  waterWayVert, waterWayFrag
+} from "./Shaders.js";
 
 const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
 const HeightMapSpawner = pxlEffects.pxlParticles.HeightMap;
@@ -160,13 +164,13 @@ builBugs(){
   //if( this.mobile ) return;
 
   let vertexCount = 250; // Point Count
-  let pScale = 5.85;  // Point Base Scale
+  let pScale = 5.5;  // Point Base Scale
   let visibleDistance = 550;  // Proximity Distance from Camera
   let particleOpacity = 1.0;  // Overall Opacity
-  let opacityRolloff = 0.85;  // Distance-opacity falloff multiplier
+  let opacityRolloff = 0.9;  // Distance-opacity falloff multiplier
 
-  let jumpHeightMult = 17.0; // How high the bugs jump
-  let wanderInfluence = 0.90; // How much the particle sways
+  let jumpHeightMult = 18.0; // How high the bugs jump
+  let wanderInfluence = 0.93; // How much the particle sways
   let wanderRate = 1.75; // How fast the sway happens
   let wanderFrequency = 5.25; // How frequent the sway happens
 
@@ -183,7 +187,7 @@ builBugs(){
   grassBugsSettings["fadeOutScalar"] = opacityRolloff;
   grassBugsSettings["additiveBlend"] = false;
   
-  grassBugsSettings["tint"].set( .85, .72, .55 );
+  grassBugsSettings["tint"].set( .8, .64, .58 );
 
   grassBugsSettings["jumpHeightMult"] = jumpHeightMult;
   grassBugsSettings["offsetPos"].y = .2 ;
@@ -195,25 +199,10 @@ builBugs(){
   // Use a texture from the internal `pxlAsset` folder; ( RGB, Alpha )
 
   // For the darker tones, few of the white dust
-  grassBugsSettings["atlasPicks"] = [
-    ...grassBugsSystem.dupeArray([0.0,0.0],4), ...grassBugsSystem.dupeArray([0.25,0.],4),
-    ...grassBugsSystem.dupeArray([0.0,0.25],4), ...grassBugsSystem.dupeArray([0.25,0.25],4),
-    ...grassBugsSystem.dupeArray([0.0,0.5],2), ...grassBugsSystem.dupeArray([0.25,0.5],2),
-  ];
-  grassBugsSystem.setAtlasPath( "sprite_dustAtlas_rgb.jpg", "sprite_dustAtlas_alpha.jpg" );
-
-
-  /*
-  // For more of the lighter & bluer dustLiquid textures -
-  grassBugsSettings["atlasPicks"] = [
-    ...grassBugsSystem.dupeArray([0.0,0.],4), ...grassBugsSystem.dupeArray([0.25,0.],4),
-    ...grassBugsSystem.dupeArray([0.50,0.],4), ...grassBugsSystem.dupeArray([0.75,0.],4),
-    ...grassBugsSystem.dupeArray([0.50,0.25],4), ...grassBugsSystem.dupeArray([0.75,0.25],4),
-    ...grassBugsSystem.dupeArray([0.50,0.5],2), ...grassBugsSystem.dupeArray([0.75,0.5],2),
-    ...grassBugsSystem.dupeArray([0.50,0.75],3), ...grassBugsSystem.dupeArray([0.75,0.75],3)
-  ];
+  grassBugsSettings["atlasPicks"] = [ [0.0,0.0], [0.25,0.0], [0.0,0.25], [0.25,0.25] ];
+  grassBugsSettings["atlasPicks"] = [ [0.50,0.0], [0.5,0.25], [0.75,0.0], [0.75,0.25] ];
   grassBugsSystem.setAtlasPath( "sprite_dustLiquid_rgb.jpg", "sprite_dustLiquid_alpha.jpg" );
-  */
+
 
   // Set height map
   grassBugsSystem.setHeightMapPath( this.assetPath+"bug_heightMap.webp" );
@@ -396,10 +385,52 @@ builBugs(){
     )
     grassClusterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
 
+    let instPlantSettings = {
+      'depthScalar' : .0001,
+      'dewarpFactor' : .35,
+    }
+
     let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, instPlantsVert(), instPlantsFrag() );
     grassMat.side = DoubleSide;
     grassMat.lights = true;
     grassMat.transparent = false;
+    
+        
+        
+    // -- -- --
+    
+
+    // -- -- -- -- -- -- -- -- -- -- -- -- --
+    // -- Pine Tree Instances Material -- --
+    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+
+    let pineTreeUniforms = UniformsUtils.merge(
+      [
+      UniformsLib[ "lights" ],
+      /*UniformsLib[ "shadowmap" ],*/
+      {
+        'diffuse' : { type:'t', value: null },
+        'alphaMap' : { type:'t', value: null },
+        'noiseTexture' : { type:'t', value: null },
+        'fogColor' : { type: "c", value: this.fogColor },
+      }]
+    )
+    pineTreeUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
+    pineTreeUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"pineTree_bark_diffuse.webp" );
+    pineTreeUniforms.alphaMap.value = this.pxlUtils.loadTexture( this.assetPath+"pineTree_bark_alpha.jpg" );
+
+
+    let pineTreeSettings = {
+      'buildAlpha' : true,
+      'alphaTest' : 0.1,
+      'zFitScalar' : 0.40,
+    };
+
+    let pineTreeMat=this.pxlFile.pxlShaderBuilder( pineTreeUniforms, pineTreeVert(), pineTreeFrag( pineTreeSettings ) );
+    pineTreeMat.side = DoubleSide;
+    pineTreeMat.lights = true;
+    pineTreeMat.transparent = false;
     
         
     
@@ -526,6 +557,9 @@ builBugs(){
     
     this.materialList[ "catTailA_lod0_geo" ] = grassMat;
     this.materialList[ "catTailA_lod1_geo" ] = grassMat;
+
+    this.materialList[ "pineTreeA_lod0_geo" ] = pineTreeMat;
+    this.materialList[ "pineTreeA_lod1_geo" ] = pineTreeMat;
 
     this.materialList[ "waterWay_geo" ] = waterWayMat;
 

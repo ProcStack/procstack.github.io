@@ -6,8 +6,7 @@ const shaderHeader = pxlShaders.core.shaderHeader;
 // -- -- -- -- -- -- -- -- -- -- -- //
 
 
-
-export function instPlantsVert(){
+export function pineTreeVert(){
   let ret=shaderHeader();
   ret=`
     uniform vec2 time;
@@ -24,6 +23,7 @@ export function instPlantsVert(){
     varying vec3 vWorldPos;
     varying vec2 vUv;
     varying vec3 vN;
+    varying vec3 vLightN;
     varying vec3 vLocalN;
     varying vec3 vCd;
     
@@ -93,9 +93,12 @@ export function instPlantsVert(){
         // -- -- --
         
         // Shift position to Instance position-
+        vec3 lightN = pos.xyz;
         #ifdef USE_INSTANCING
+          lightN = mat3(instanceMatrix) * normalize(pos.xyz*vec3(1.0, .0, 1.0));
           pos = instanceMatrix * pos;
         #endif
+        vLightN = normalize( mat3(modelViewMatrix) * lightN * vec3(1.0, 0.0, 1.0) );
         
         // Global Wind
         pos.z += max(offset.x, max(offset.y, offset.z)) * nMask;
@@ -114,27 +117,18 @@ export function instPlantsVert(){
         // -- -- --
 
 
-    
-        /***********************************/
-        /** Start of THREE Shader Includes **/
-        /***********************************/
-        ${ShaderChunk[ "worldpos_vertex" ]}
-        /*********************************/
-        /** End of THREE Shader Includes **/
-        /*********************************/
-
-
     }`;
   return ret;
 }
 
-export function instPlantsFrag( settings={} ){
+export function pineTreeFrag( settings={} ){
 
   let defaults = {
     'buildAlpha' : false,
     'addShimmer' : false,
+    'zFitScalar' : 0.45,
     'depthScalar' : .0001,
-    'dewarpFactor': 0.45,
+    'alphaTest' : 0.5,
   }
   let shaderSettings = Object.assign( defaults, settings );
 
@@ -182,6 +176,7 @@ export function instPlantsFrag( settings={} ){
     varying vec3 vWorldPos;
     varying vec2 vUv;
     varying vec3 vN;
+    varying vec3 vLightN;
     varying vec3 vLocalN;
     varying vec3 vCd;
     
@@ -225,7 +220,7 @@ export function instPlantsFrag( settings={} ){
           ret+=`
           float Alpha = texture2D(alphaMap,vUv).r;
 
-          if( Alpha < .5 ){
+          if( Alpha < ${shaderSettings.alphaTest} ){
             discard;
           }
           `;
@@ -238,7 +233,7 @@ export function instPlantsFrag( settings={} ){
         // -- Depth Calculations - -- --
         // -- -- -- -- -- -- -- -- -- -- --
         
-        float screenSpaceX = abs((vCamPos.x / vCamPos.z))*${shaderSettings.dewarpFactor};
+        float screenSpaceX = abs((vCamPos.x / vCamPos.z))*${shaderSettings.zFitScalar};
         float depth = min(1.0, max(0.0, gl_FragCoord.z / gl_FragCoord.w * DepthScalar )) * step( .930, gl_FragCoord.z );
         depth = depth + ( screenSpaceX * screenSpaceX )*min( 1.0, depth * ScreenWarpColorFix );
         depth = pow( depth, 1.0-depth);
@@ -275,6 +270,7 @@ export function instPlantsFrag( settings={} ){
         
         vec3 lights = vec3(0.0, 0.0, 0.0);
         float lightMag = 0.0;
+        vec3 lightNormal = normalize( vN*.5 + vLightN );
       #if NUM_POINT_LIGHTS > 0
         for(int i = 0; i < NUM_POINT_LIGHTS; i++) {
             vec3 lightDelta = (vWorldPos - pointLights[i].position);
@@ -288,48 +284,48 @@ export function instPlantsFrag( settings={} ){
             float lightDist = max(0.0, (  1. - lightDistFit )) * attenuation;
             
             // Not really helping with current DoubleSided defaults--
-            //  float lightNormDot = abs(dot(-lightVector, vLocalN));
-            //  lights += pointLights[i].color * lightNormDot * lightDist;
+            float lightNormDot = dot(-lightVector, lightNormal)*.5+.5;
+            lights += pointLights[i].color * lightNormDot * lightDist;
 
-            lights += pointLights[i].color * lightDist;
+            //lights += pointLights[i].color * lightDist;
         }
         Cd.rgb *=  min(vec3(1.0),lights);
         lightMag = length( lights );
       #endif
         
 
-        // -- -- -- -- -- -- -- -- -- -- -- -- 
-        // -- Directional Light Influence - -- --
-        // -- -- -- -- -- -- -- -- -- -- -- -- -- --
+      // -- -- -- -- -- -- -- -- -- -- -- -- 
+      // -- Directional Light Influence - -- --
+      // -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-        #if NUM_DIR_LIGHTS > 0
-          vec3 pos = vPos;
-          lights = vec3(0.0, 0.0, 0.0);
+      #if NUM_DIR_LIGHTS > 0
+        vec3 pos = vPos;
+        lights = vec3(0.0, 0.0, 0.0);
 
-          for(int x = 0; x < NUM_DIR_LIGHTS; ++x) {
-          
-            float rDot = dot(directionalLights[x].direction, vLocalN );
-            float cdLength = length(directionalLights[x].color);
-            //cdLength *= cdLength;
-            rDot = 1.0 - ( (1.0-rDot) * cdLength * .23017 );
-            
-            vec3 lightInf= min( directionalLights[x].color, (max(0.0, rDot) * directionalLights[x].color));
-            lights += lightInf * vertlightInf;
-            
-          }
-          // Add a fake bump map to the lighting
-          lights = lights*min(1.0, 1.0-(vCd.x*vCd.z)-depth);
-          lightMag = length(lights);
-
-          Cd.rgb += Cd.rgb*lights;
-          //  
-        #endif
+        for(int x = 0; x < NUM_DIR_LIGHTS; ++x) {
         
-        // -- -- -- -- -- -- -- -- --
-        // -- Match Scene Tone  -- -- --
-        // -- -- -- -- -- -- -- -- -- -- --
+          float rDot = dot(directionalLights[x].direction, lightNormal );
+          float cdLength = length(directionalLights[x].color);
+          //cdLength *= cdLength;
+          rDot = 1.0 - ( (1.0-rDot) * cdLength * .23017 );
+          
+          vec3 lightInf= min( directionalLights[x].color, (max(0.0, rDot) * directionalLights[x].color));
+          lights += lightInf * vertlightInf;
+          
+        }
+        // Add a fake bump map to the lighting
+        lights = lights*min(1.0, 1.0-vCd.x-depth);
+        lightMag = length(lights);
 
-        float gCd = luma( Cd.rgb );
+        Cd.rgb += Cd.rgb*lights;
+        //  
+      #endif
+      
+      // -- -- -- -- -- -- -- -- --
+      // -- Match Scene Tone  -- -- --
+      // -- -- -- -- -- -- -- -- -- -- --
+
+      float gCd = luma( Cd.rgb );
     `;
     if( shaderSettings.addShimmer ){
       ret+=`
@@ -338,7 +334,8 @@ export function instPlantsFrag( settings={} ){
     }else{
       ret+=`
         //Cd.rgb = Cd.rgb * (1.0+vCd.r*depth);
-        Cd.rgb = Cd.rgb * (vCd.z*.25*(1.0-gCd)-depth*.1+.45) * (vCd.x*depthFade + 1.0-gCd*depthFade);
+        //Cd.rgb = Cd.rgb * (vCd.z*.25*(1.0-gCd)-depth*.1+.45) * (vCd.x*depthFade + 1.0-gCd*depthFade);
+        Cd.rgb = Cd.rgb * ((1.0-gCd)-depth*.1+.045) * (Cd.rgb*depthFade + 1.0-gCd*depthFade);
       `;
     }
     if( shaderSettings.addShimmer ){
@@ -348,10 +345,9 @@ export function instPlantsFrag( settings={} ){
     }
     ret+=`
         
-
-        float fogMix =  clamp( depth * (depth*4.501+1.5)  - lightMag*(1.0-depth * FogDepthMult), 0.0, 1.0 ) ;
+        float fogMix =  clamp( depth * (depth+1.5)  - lightMag*.1*(1.0-depth * FogDepthMult), 0.0, 1.0 ) ;
         
-        vec3 toFogColor = fogColor * (gCd*.4 + .7 + gInf*.3);
+        vec3 toFogColor = fogColor * (gCd*.2 + .9);
         Cd.rgb=  mix( Cd.rgb, toFogColor, fogMix );
         
         // -- -- --
