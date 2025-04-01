@@ -349,9 +349,9 @@ export function instPlantsFrag( settings={} ){
     ret+=`
         
 
-        float fogMix =  clamp( depth * (depth*4.501+1.5)  - lightMag*(1.0-depth * FogDepthMult), 0.0, 1.0 ) ;
-        
-        vec3 toFogColor = fogColor * (gCd*.4 + .7 + gInf*.3);
+        float fogMix =  clamp( depth * (depth*2.0+1.5)  - lightMag*(1.0-depth * FogDepthMult), 0.0, 1.0 ) ;
+            
+        vec3 toFogColor = fogColor * (gCd*.50 + .75 + gInf*.2);
         Cd.rgb=  mix( Cd.rgb, toFogColor, fogMix );
         
         // -- -- --

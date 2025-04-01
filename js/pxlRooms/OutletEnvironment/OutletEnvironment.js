@@ -80,7 +80,7 @@ export class OutletEnvironment extends RoomEnvironment{
 
     // Room Fog Settings
     this.fogColor=new Color( 0x48415d );
-    this.fogExp=.0007;
+    this.fogExp=.00035;
     this.fog=new FogExp2( this.fogColor, this.fogExp);
         
 	}
@@ -355,7 +355,9 @@ builBugs(){
 
     let grassCardSettings = {
       'buildAlpha' : true,
-      'addShimmer' : true
+      'addShimmer' : true,
+      'depthScalar' : .0001,
+      'dewarpFactor' : .35,
     }
 
     let grassCardsMat=this.pxlFile.pxlShaderBuilder( grassCardsAUniforms, instPlantsVert(), instPlantsFrag( grassCardSettings ) );
@@ -386,11 +388,11 @@ builBugs(){
     grassClusterUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg" );
 
     let instPlantSettings = {
-      'depthScalar' : .0001,
+      'depthScalar' : .00013,
       'dewarpFactor' : .35,
     }
 
-    let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, instPlantsVert(), instPlantsFrag() );
+    let grassMat=this.pxlFile.pxlShaderBuilder( grassClusterUniforms, instPlantsVert(), instPlantsFrag(instPlantSettings) );
     grassMat.side = DoubleSide;
     grassMat.lights = true;
     grassMat.transparent = false;
