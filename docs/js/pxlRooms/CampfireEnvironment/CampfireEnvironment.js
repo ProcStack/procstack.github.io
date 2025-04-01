@@ -280,9 +280,9 @@ export class CampfireEnvironment extends RoomEnvironment{
     //emberSettings["wanderInf"] = wanderInfluence;
     //emberSettings["wanderFrequency"] = wanderFrequency;
     
-    emberSettings["EmberSpread"] = 9.0;
+    emberSettings["EmberSpread"] = 8.0;
     emberSettings["EmberFadeDistance"] = 0.052;
-    emberSettings["ShiftFromZero"] = 0.65;
+    emberSettings["ShiftFromZero"] = 0.7;
     emberSettings["MultPosXZ"] = 0.650;
 
     //
@@ -291,9 +291,8 @@ export class CampfireEnvironment extends RoomEnvironment{
 
     eWisps.build( emberSettings );
 
-    eWisps.points.renderOrder = 6;
-
     eWisps.points.renderOrder = 2;
+    
   }
 
 
@@ -441,6 +440,11 @@ export class CampfireEnvironment extends RoomEnvironment{
       campfireObj.renderOrder = campefireOrder;
     }
 
+
+    // Set moon plane texture settings
+    //   Removed from the FBX for now, but leaving in the texture check
+    //     I'm sure I'll be confuzed why the same texture issues exist,
+    //       Then add this back in to fix it.
     let moonObj = this.geoList['Scripted']['Moon_geo'];
     if( moonObj ){
       moonObj.material.map.wrapS = ClampToEdgeWrapping;
