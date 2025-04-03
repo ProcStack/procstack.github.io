@@ -42,13 +42,17 @@ const pageContentObject = {
 <br>I'm <span class="textNudge">ProcStack</span>, <span class="textNudge">Trancor</span>, & <span class="textNudge">Kevin Edzenga</span>,
 <br>&nbsp;&nbsp;Which ever ya feel like calling me!
 
-<br><br>I'm a technical artist with years of film, XR, & immersive experience.
+<div class='procPagesSpacer'></div>
 
-<br><br><span class="textNudge">Trancor</span> is my pre-rendered graphics & diy builds,
+I'm a technical artist with years of film, XR, & immersive experience.
+
+<div class='procPagesSpacer'></div>
+
+<span class="textNudge">Trancor</span> is my pre-rendered graphics & diy builds,
 <br><span class="textNudge">ProcStack</span> is coding & real-time graphics creations <span class="textDrinkMeAlice">('Trancor' was taken on github)</span>,
 <br><span class="textNudge">Kevin Edzenga</span> is just ... Me.
 
-<br><br>Everything shown here is my personal work;
+<br><br>I built this site to show off my work,
 <br>&nbsp;&nbsp;From the site's code to it's 3d modeling, shaders, even <span class="textNudge">pxlNav</span> itself!
 <br><span class="textNudge">Everything the light touches!</span> ...sorta.
 <br><span class="textDrinkMeAlice">&nbsp;&nbsp;I didn't make Three.js, certainly.</span>

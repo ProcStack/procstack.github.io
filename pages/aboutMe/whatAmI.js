@@ -14,7 +14,7 @@ export const pageListingData = {
       <div class='procPagesSpacer'></div>
 
     <div class='procPagesAboutMe-topTextStyle'>
-      <span class="textBold">Technical Artist</span>; 2D+3D asset optimization, shaders, & pipeline tools
+      <span class="textBold">Technical Artist</span>; particles, shaders, asset optimization, & pipeline
     </div>
     <div class='procPagesAboutMe-skillListStyle'>
       <span class="ppamSkillListing">Houdini <span class="textDrinkMeAlice">&nbsp;/&nbsp;</span> VEX</span>

@@ -40,7 +40,7 @@ export const pageListingData = {
       <br><div class='ppamHBar'></div>
       
       <br>While working in <span class="textName">Crowds</span>,
-      <br>&nbsp;&nbsp; I built all the navigation tools, placement, pathing, obstacle detection, and all the usual crowd/boid navigation logic itself in Houdini for Birds & Land critters.
+      <br>&nbsp;&nbsp; I built most of the navigation tools, placement, pathing, obstacle detection, and made the usual crowd/boid navigation logic itself in Houdini for Birds & Land critters.
       
       <br>
       <br>I wrote systems to understand the terrain and how to follow the flow of the ground,
