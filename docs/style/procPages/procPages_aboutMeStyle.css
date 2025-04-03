@@ -157,7 +157,7 @@
 }
 
 .procPagesAboutMe-infoStyle{
-  width:85.5%;
+  width: min(95.5%, 900px);
   max-width: 1300px;
   justify-self: center;
 }
