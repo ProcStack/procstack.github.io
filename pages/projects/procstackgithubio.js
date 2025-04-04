@@ -11,16 +11,16 @@ export const pageListingData = {
     <div class="pppHBar"></div>
     
     <span class='textNudge'>Eyyyyy, check out this sites code!</span>
-    <br>&nbsp;&nbsp; It mostly has examples of pxlNav rooms and the page & content system I wrote!
+    <br>&nbsp;&nbsp; It mostly has examples of pxlNav rooms and the page & content system I wrote
 
     <br>
     <br>
     <br>It's funny, out of all the projects I can bootstrap together with my personal boilerplates over the years,
-    <br>&nbsp;&nbsp; I never built a single-page site system before this one!
+    <br>&nbsp;&nbsp; I never built a single-page site system before this one.
 
     <br>
     <br>Maybe I should write a 'server-side' pre-render for this pages system,
-    <br>&nbsp;&nbsp; Turn this into a proper package for others to use! haha
+    <br>&nbsp;&nbsp; Turn this into a proper framework for others to use! haha
 
     <br>
     <br>I like vanilla javascript too much....
