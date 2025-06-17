@@ -21,8 +21,8 @@
 
   <h2>Link Tags</h2>
   <ul>
-    <li><code>&lt;link rel="alternate" type="application/json" ...&gt;</code> – JSON representation of this specific page.</li>
-    <li><code>&lt;link rel="data-manifest" ...&gt;</code> – Points to the master structured content manifest (site-wide JSON).</li>
+    <li><code>&lt;link rel="alternate" type="application/json" ...&gt;</code> - JSON representation of the full site or specific page.</li>
+    <li><code>&lt;link rel="data-manifest" ...&gt;</code> - Points to the master structured content manifest (site-wide JSON).</li>
   </ul>
 
   <h2>Use Cases</h2>
@@ -39,7 +39,6 @@
 &lt;!-- AI/LLM Data Discovery --&gt;
 &lt;meta name="ai:data-source" content="https://procstack.github.io/bots/siteContent.json"&gt;
 &lt;meta name="ai:data-manifest" content="https://procstack.github.io/data-manifest.json"&gt;
-&lt;meta name="ai:content-api" content="https://procstack.github.io/bots/"&gt;
 &lt;link rel="alternate" type="application/json" href="https://procstack.github.io/bots/siteContent.json" title="Full JSON of all Page's Content Data"&gt;
 &lt;link rel="data-manifest" type="application/json" href="https://procstack.github.io/data-manifest.json" title="Data Sources Manifest" /&gt;
   </pre>
@@ -50,9 +49,13 @@
 &lt;!-- AI/LLM Data Discovery --&gt;
 &lt;meta name="ai:data-source" content="https://procstack.github.io/bots/ProjectsLinks_currentsOfWar.htm.json"&gt;
 &lt;meta name="ai:data-manifest" content="https://procstack.github.io/data-manifest.json"&gt;
-&lt;meta name="ai:content-api" content="https://procstack.github.io/bots/"&gt;
 &lt;link rel="alternate" type="application/json" href="https://procstack.github.io/bots/ProjectsLinks_currentsOfWar.htm.json" title="Single Page Content Data"&gt;
 &lt;link rel="data-manifest" type="application/json" href="https://procstack.github.io/data-manifest.json" title="Data Sources Manifest" /&gt;
+  </pre>
+
+  <h2>Example 3 - API End-Point</h2>
+  <pre>
+&lt;meta name="ai:content-api" content="https://procstack.github.io/bots/"&gt;
   </pre>
 
   <footer>
