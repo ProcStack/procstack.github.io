@@ -2,6 +2,8 @@
 export const pageListingData = {
   'htmlName' : "Whats_pxlNav.htm",
   'name' : "<span class='procPagesHideWhenThin'>What's&nbsp;<span class='textNudge'>pxlNav</span>?</span><span class='procPagesShowWhenThin'>What?</span>",
+  'description' : 'An overview of the pxlNav library, its features, and how to use it for creating interactive environments in Three.js.',
+  'keywords' : 'pxlNav, Three.js, interactive environments, javascript library, game engine, web development',
   'media' : [
     {
       'type' : 'image',

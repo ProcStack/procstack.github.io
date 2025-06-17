@@ -75,6 +75,7 @@ export class ProcPage {
     this.initialSection = contentObject.initialSection || 0;
     this.activeNavButton = contentObject.activeNavButton || [];
 
+
     this.layoutTypes = ['single', 'triple', 'vertical'];
     this.layout = 'triple';
     if( contentObject.hasOwnProperty('layout') && this.layoutTypes.includes(contentObject.layout) ){
@@ -84,6 +85,7 @@ export class ProcPage {
     this.navButton = null;
     this.pageObject = null;
     this.pageContent = {};
+    this.currentPageUrl = null;
     this.prevSection = null;
     this.pageSectionsObject = null;
     this.pageSectionListObject = null;
@@ -97,6 +99,8 @@ export class ProcPage {
       'isLoaded' : false,
       'isActive' : false,
       'name' : '',
+      'description' : '',
+      'keywords' : '',
       'navGroup' : '',
       'content' : '',
       'media' : [],
@@ -268,6 +272,7 @@ export class ProcPage {
     let img = document.createElement('img');
     img.src = mediaData.src;
     img.alt = mediaData.alt;
+    img.loading = 'lazy';
     if( this.layout == 'vertical' ){
       img.classList.add('procPagesVerticalLockMediaImage');
     }else{
@@ -290,6 +295,7 @@ export class ProcPage {
       mediaData = Object.assign({}, this.defaultMediaData);
       mediaData.type = 'image';
       mediaData.src = imgPath;
+
     }
     if( !this.validMediaTypes.includes(mediaData.type) ){
       mediaData.type = 'image';
@@ -338,6 +344,7 @@ export class ProcPage {
       img.width = manualWidth;
       img.height = manualHeight;
       img.alt = manualAlt;
+      img.loading = 'lazy';
       manualClass.forEach( (c)=>{ img.classList.add(c); });
       img.onload = () => {
         manualObj.innerHTML = "";
@@ -375,6 +382,7 @@ export class ProcPage {
       videoData.type = 'video';
       videoData.src = vidPath;
       videoData.alt = altText;
+      videoData.loading = 'lazy';
     }
     if( !this.validMediaTypes.includes(videoData.type) ){
       videoData.type = 'video';
@@ -401,6 +409,8 @@ export class ProcPage {
     vidEmbed.alt = vidAlt;
     vidEmbed.loop = true;
     vidEmbed.controls = true;
+    vidEmbed.preload = 'metadata';
+    vidEmbed.loading = 'lazy';
     //vidEmbed.classList.add('procPagesMediaVideo');
 
     this.applyStyle( mediaData, vidEmbed );
@@ -848,7 +858,9 @@ export class ProcPage {
 
     if( Number.isInteger(sectionName) ){
       sectionName = this.sectionTitles[sectionName];
+      this.currentPageUrl = sectionName;
     }else if( typeof sectionName == 'string' && sectionName.includes(".htm") ){
+      this.currentPageUrl = sectionName;
       let foundSectionTitle = this.sectionTitles[0];
       for( let x=0; x<this.sectionTitles.length; ++x ){
         let htmlName = this.sectionData[ this.sectionTitles[x] ].htmlName;

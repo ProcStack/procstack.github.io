@@ -2,6 +2,8 @@
 export const pageListingData = {
   'htmlName' : "Shadertoy.htm",
   'name' : 'Shadertoy',
+  'description' : 'My account on a social shader playground website, where I post my shaders.',
+  'keywords' : 'shadertoy, shaders, social shader playground, glsl es, personal projects',
   'navGroup' : "The One'Offs",
   'navStyle' : ['hideOnMobile'],
   'media' : [

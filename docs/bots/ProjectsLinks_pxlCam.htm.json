@@ -1,0 +1,36 @@
+{
+  "title": "pxlCam",
+  "description": "pxlCam 2020\n    A photo filter camera web app\n    Languages - JavaScript, Three.",
+  "media": [
+    {
+      "type": "image",
+      "src": "../pages/projects/images/pxlCam_treeStump.webp",
+      "alt": "Trippy tree stump",
+      "caption": ""
+    },
+    {
+      "type": "image",
+      "src": "../pages/projects/images/pxlCam_trainTracks.webp",
+      "alt": "Train track edges",
+      "caption": ""
+    },
+    {
+      "type": "image",
+      "src": "../pages/projects/images/pxlCam_fungi.webp",
+      "alt": "Fungi on a log",
+      "caption": ""
+    },
+    {
+      "type": "image",
+      "src": "../pages/projects/images/pxlCam_treeBark.webp",
+      "alt": "Funky tree bark",
+      "caption": ""
+    },
+    {
+      "type": "image",
+      "src": "../pages/projects/images/pxlCam_empireStateBuilding.webp",
+      "alt": "Tweaked Empire State Building",
+      "caption": ""
+    }
+  ]
+}

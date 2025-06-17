@@ -115,6 +115,7 @@ BODY {
   display: grid;
   grid-auto-flow: column;
   pointer-events: none;
+  user-select: none;
 }
 
 .gpnhScreenMedia{

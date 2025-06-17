@@ -2,6 +2,8 @@
 export const pageListingData = {
   'htmlName' : "Metal-AsylumNet.htm",
   'name' : 'Metal-Asylum.Net',
+  'description' : 'My main site - an earlier version of pxlNav, but this time you can walk around and jump - Best on desktop',
+  'keywords' : 'Metal-Asylum, Metal Asylum, MetalAsylum, MetalAsylum.net, pxlNav, personal projects, personal website, personal site, personal portfolio',
   'navGroup' : 'Personal Projects',
   'navStyle' : ['hideOnMobile'],
   'media' : [],

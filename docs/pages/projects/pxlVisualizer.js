@@ -2,6 +2,8 @@
 export const pageListingData = {
   'htmlName' : "pxlVisualizer.htm",
   'name' : 'pxlVisualizer',
+  'description' : 'A C++ project that visualizes different switchable trippy visuals using OpenFrameWorks and GLSL.',
+  'keywords' : 'pxlVisualizer, visualizer, C++, OpenFrameWorks, GLSL, personal projects, trippy visuals',
   'navGroup' : 'Repos to Check Out',
   'media' : [
     {

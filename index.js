@@ -6,17 +6,27 @@ var httpPort = 3000;
 
 const args = process.argv.slice(2);
 
-
-const express = require('express');
+import express from 'express';
 const app = express();
 
-const path = require('path');
-const http = require('http').Server(app);
+import path from 'path';
+import http from 'http';
+const server = http.createServer(app);
 
+let pathName = new URL( import.meta.url ).pathname;
+let pathSplit = pathName.split('/');
+if( pathSplit[0] == "" || pathSplit[0] == "file:" ){
+  pathSplit = pathSplit.slice(1);
+  pathName = pathSplit.join('/');
+}
+
+console.log(pathName);
+
+const dirName = path.dirname( pathName );
 
 
 //Setup folders
-//app.use( express.static(path.join(__dirname, '/Build')) );
+//app.use( express.static(path.join(dirName, '/Build')) );
 
 let publicDir = 'Public';
 if(args.length > 0 && args[0] == "dist"){
@@ -24,14 +34,14 @@ if(args.length > 0 && args[0] == "dist"){
   console.log("Serving from: ./docs");
   publicDir = 'docs';
 
-  app.use( express.static(path.join(__dirname, 'docs')) );
+  app.use( express.static(path.join(dirName, 'docs')) );
 }else{
   console.log("Booting in Developer Mode");
   console.log("Serving from: ./Public & ./Source");
-  app.use( express.static(path.join(__dirname, 'Public')) );
-  app.use( express.static(path.join(__dirname, 'Source')) );
+  app.use( express.static(path.join(dirName, 'Public')) );
+  app.use( express.static(path.join(dirName, 'Source')) );
 }
-app.use('/three', express.static(path.join(__dirname, 'node_modules/three')));
+app.use('/three', express.static(path.join(dirName, 'node_modules/three')));
 
 app.get("/", function(req,res){
   res.redirect('/index.htm');
@@ -39,7 +49,7 @@ app.get("/", function(req,res){
 
 // Handle 404 errors by serving the 404.html file
 app.use(function(req, res, next) {
-  res.status(404).sendFile(path.join(__dirname, publicDir, '404.html'));
+  res.status(404).sendFile(path.join(dirName, publicDir, '404.html'));
 });
 
 
@@ -63,7 +73,14 @@ app.use(function(req, res, next) {
 
 
 //Setup http and https servers
-http.listen(httpPort, listenIP, function () {
+/*http.listen(httpPort, listenIP, function () {
 	//console.log(`${projectName} listening at localhost:${httpPort}`);
 	console.log(`${projectName} listening at ${listenIP}:${httpPort}`);
+});*/
+server.listen(httpPort, listenIP, function () {
+  //console.log(`${projectName} listening at localhost:${httpPort}`);
+  console.log(`${projectName} listening at ${listenIP}:${httpPort}`);
+});
+server.on('error', (err) => {
+  console.error('Server error:', err);
 });

@@ -1,0 +1,12 @@
+{
+  "title": "Neurous Net",
+  "description": "Neurous.",
+  "media": [
+    {
+      "type": "image",
+      "src": "../pages/projects/images/neurousnet.webp",
+      "alt": "Swirling particles",
+      "caption": ""
+    }
+  ]
+}

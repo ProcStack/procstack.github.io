@@ -2,6 +2,8 @@
 export const pageListingData = {
   'htmlName' : "What_am_I.htm",
   'name' : 'What am I?',
+  'description' : 'A little about me, my skills, and what I do.',
+  'keywords' : 'technical artist, technical director, creative technologist, houdini, unity, unreal engine, maya, vfx, particles, shaders, asset optimization, pipeline',
   'media' : [
     {
       'type' : 'youtube',
