@@ -1,0 +1,16 @@
+{
+  "urls": [
+    {
+      "loc": "https://procstack.github.io/ai-data.html",
+      "changefreq": "monthly"
+    },
+    {
+      "loc": "https://procstack.github.io/data-manifest.json",
+      "changefreq": "monthly"
+    },
+    {
+      "loc": "https://procstack.github.io/bots/siteContent.json",
+      "changefreq": "monthly"
+    }
+  ]
+}
