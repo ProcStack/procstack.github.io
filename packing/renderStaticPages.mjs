@@ -150,10 +150,15 @@ const main = async () => {
         let relUrl = `./${folder}/${htmlName}`;
         let url = `${siteRootUrl}/${folder}/${htmlName}`;
         let manifestKey = `${folder}_${htmlName}`;
+        let relPathUpdate = "../";
+        let outPath = path.join(renderDir, folder, htmlName);
         if( !subPageData.htmlName && (!subPageData.name || subPageData.name == '') ){
           localUrl = `${baseUrl}/${folder}.htm`;
+          relUrl = `./${folder}.htm`;
           url = `${siteRootUrl}/${htmlName}`;
           manifestKey = htmlName;
+          relPathUpdate = "./";
+          outPath = path.join(renderDir, htmlName);
         }
 
         console.log(`|SubPage: ${cleanedName} (${subKey})`);
@@ -193,7 +198,8 @@ const main = async () => {
               let path = await element.evaluate((el, attr) => el.getAttribute(attr), attr);
               path = path.replace('./', '');
 
-              const absolutePath = `${siteRootUrl}/${path}`;
+              //const absolutePath = `${siteRootUrl}/${path}`;
+              const absolutePath = `${relPathUpdate}${path}`;
               await element.evaluate((el, attr, absPath) => el.setAttribute(attr, absPath), attr, absolutePath);
 
             }
@@ -222,7 +228,6 @@ const main = async () => {
           }
 
           const content = await page.content();
-          const outPath = path.join(renderDir, folder, htmlName);
 
           fs.mkdirSync(path.dirname(outPath), { recursive: true });
           fs.writeFileSync(outPath, content);
