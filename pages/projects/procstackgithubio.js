@@ -2,6 +2,8 @@
 export const pageListingData = {
   'htmlName' : "procstack.github.io.htm",
   'name' : 'procstack.github.io',
+  'description' : 'The source code for this site, procstack.github.io',
+  'keywords' : 'procstack, procstack.github.io, javascript, pxlNav, pages system, personal projects',
   'navGroup' : 'Repos to Check Out',
   'navStyle' : ['hideOnMobile'],
   'media' : [],

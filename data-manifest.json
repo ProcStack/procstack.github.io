@@ -1,0 +1,60 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-06-17",
+  "description": "ProcStack.github.io Data Sources for AI/LLM consumption",
+  "baseUrl": "https://procstack.github.io",
+  "dataSources": {
+    "siteContent": {
+      "url": "/bots/siteContent.json",
+      "description": "Aggregated site content including all page data",
+      "format": "json",
+      "size": "~50KB",
+      "lastUpdated": "2025-06-17"
+    },
+    "individualPages": {
+      "baseUrl": "/bots/",
+      "description": "Individual page content as separate JSON files",
+      "format": "json",
+      "files": [
+        "Init.htm.json",
+        "AboutMe_AI_Dev.htm.json",
+        "AboutMe_Film_Work.htm.json",
+        "AboutMe_Plushies.htm.json",
+        "AboutMe_What_am_I.htm.json",
+        "ProjectsLinks_currentsOfWar.htm.json",
+        "ProjectsLinks_Dwitter.htm.json",
+        "ProjectsLinks_NeurousNet.htm.json",
+        "ProjectsLinks_procPromo.htm.json",
+        "ProjectsLinks_procstack.github.io.htm.json",
+        "ProjectsLinks_pxlCam.htm.json",
+        "ProjectsLinks_pxlmancer.htm.json",
+        "ProjectsLinks_pxlTextGenerator.htm.json",
+        "ProjectsLinks_pxlVisualizer.htm.json",
+        "ProjectsLinks_Shadertoy.htm.json",
+        "pxlNav_Docs.htm.json",
+        "pxlNav_Explore.htm.json",
+        "pxlNav_Origin.htm.json",
+        "pxlNav_Whats_pxlNav.htm.json"
+      ]
+    }
+  },
+  "schemas": {
+    "pageContent": {
+      "title": "string",
+      "description": "string",
+      "media": [
+        {
+          "type": "string",
+          "src": "string",
+          "alt": "string",
+          "caption": "string"
+        }
+      ]
+    }
+  },
+  "usage": {
+    "note": "This data is available for AI/LLM consumption to understand ProcStack's work and projects",
+    "contact": "Kevin@Metal-Asylum.Net",
+    "repository": "https://github.com/ProcStack/procstack.github.io"
+  }
+}

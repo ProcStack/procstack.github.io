@@ -2,6 +2,8 @@
 export const pageListingData = {
   'htmlName' : "Origin.htm",
   'name' : 'Origin',
+  'description' : 'The origin of pxlNav, a virtual event space made during the 2020 Covid lockdowns.',
+  'keywords' : 'pxlNav, origin, Antibody Club, virtual event space, Three.js, web development',
   'media' : [
     {
       'type' : 'youtube',

@@ -22,12 +22,20 @@
   <meta name="robots" content="index, follow">
   <meta name="revisit-after" content="14 days">
   <meta name="fragment" content="!">
+  <!-- Note : connical, description, & keywords update with page changes -->
   <link rel="canonical" href="https://procstack.github.io/Init.htm" id="canonicalLink">
-
   <meta name="description" content="ProcStack's GitHub Portfolio">
   <meta name="keywords" content="ProcStack, Kevin Edzenga, Trancor, Technical Artist, Technical Director, Creative Technologist, 3d modeling, 3d rendering, texturing, shading, scripting, 3d programming, graphics developer, 3d development, 3d art, 3d graphics, visual effects">
   <meta name="author" content="Kevin Edzenga">
 
+  <!-- AI/LLM Data Discovery -->
+  <meta name="ai:data-source" content="https://procstack.github.io/bots/siteContent.json">
+  <meta name="ai:data-manifest" content="https://procstack.github.io/data-manifest.json">
+  <meta name="ai:content-api" content="https://procstack.github.io/bots/">
+  <link rel="alternate" type="application/json" href="https://procstack.github.io/bots/siteContent.json" title="Site Content Data">
+  <link rel="data-manifest" type="application/json" href="https://procstack.github.io/data-manifest.json" title="Data Sources Manifest">
+
+  <!-- The Socials -->
   <meta name="googlebot" content="index, follow">
   <meta name="google" content="nositelinkssearchbox">
   <meta name="google" content="notranslate">
@@ -50,8 +58,8 @@
 
 <!-- -- -- -- -->
 
-<link type="text/css" rel="stylesheet" href="style/ProcStackStyle.css">
-<link type="text/css" rel="stylesheet" href="style/pxlNavStyle.min.css">
+<link type="text/css" id="procPagesStylesheet" rel="stylesheet" href="style/ProcStackStyle.css"/>
+<link type="text/css" id="pxlNavStylesheet" rel="stylesheet" href="style/pxlNavStyle.min.css"/>
 
 <!-- Bypassing Youtube Player API for now -->
 <!--   Causing pxlNav pre-processing errors -->
@@ -66,12 +74,11 @@
 <!-- SEO for Robots -- -->
 <!-- -- -- -- -- -- -- -- -->
 <nav aria-hidden="true" style="display:none;">
-    <a href="/Init.htm">Home</a>
-    <a href="/pxlNav.htm">pxlNav</a>
-    <a href="/MakingOf.htm">Making Of</a>
-    <a href="/Projects.htm">Projects</a>
-    <a href="/AboutMe.htm">About Me</a>
-  </nav>
+  <a href="/Init.htm">Init.</a>
+  <a href="/pxlNav/Explore.htm">pxlNav</a>
+  <a href="/ProjectsLinks/procstack.github.io.htm">Repos / Projects</a>
+  <a href="/AboutMe/What_am_I.htm">About Me</a>
+</nav>
 
   <!-- -- -- -- -->
 
@@ -127,7 +134,7 @@
 
     <canvas id="pxlNav-coreCanvas" height='1' width='1' class="pxlNav-coreCanvasStyle" ></canvas>
 
-    <script type="module" src="js/ProckStackGitio.js?v=2025-02-08"></script>
+    <script type="module" id="pxlNavModule" src="js/ProckStackGitio.js?v=2025-02-08"></script>
 
 
 </body>

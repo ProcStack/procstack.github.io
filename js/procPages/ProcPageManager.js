@@ -35,13 +35,16 @@ export class ProcPageManager {
    * @constructor
    * @description Initializes a new ProcPageManager instance with default settings
    */
-  constructor() {
+  constructor(originUrl) {
+    this.originUrl = originUrl || window.location.origin;
     this.mainDiv = null;
     this.curPage = null;
     this.curRoom = null;
     this.curLocation = null;
     this.defaultPage = "Init";
     this.pageListing = {};
+    this.curPageName = this.defaultPage;
+    this.prevPageName = this.defaultPage;
 
     this.versionReplace = '';
 
@@ -72,6 +75,17 @@ export class ProcPageManager {
     this.resBasedObjs = [];
     this.triggerEmitFunc = null;
     // this.navBar.init();
+
+    this.botRoot = null;
+    this.metaAlternateLink = document.querySelector("link[rel='alternate']");
+    if( this.metaAlternateLink && this.metaAlternateLink.hasAttribute('href') ){
+      let conHref = this.metaAlternateLink.getAttribute('href');
+      conHref = conHref.split('/');
+      conHref = conHref.slice(0, 4).join('/');
+      if( conHref && conHref != '' ){
+        this.botRoot = conHref;
+      }
+    }
 
     this.pageStyleOverrides = {};
     this.runningTimeouts = {};
@@ -125,6 +139,7 @@ export class ProcPageManager {
         this.changePage(newPage);
 
         // Run page theming and callback functions
+        this.prevPageName = this.curPageName;
         this.curPageName = newPage;
         this.curPage = this.pageListing[newPage]["obj"];
         this.postLoad();
@@ -182,6 +197,10 @@ export class ProcPageManager {
       let parentObj = document.getElementById( this.parentObjectData[key]["name"] );
       if( parentObj ){
         this.parentObjectData[key]["obj"] = parentObj;
+
+        // Empty the body object
+        //   This is a hold over until I can connect the static page system to the page manager
+        parentObj.innerHTML = '';
       }
     });
 
@@ -226,6 +245,7 @@ export class ProcPageManager {
     }
 
 
+    this.prevPageName = this.curPageName;
     this.curPageName = pageURL;
 
 
@@ -253,6 +273,7 @@ export class ProcPageManager {
 
       this.pageListing[ pageId ]["obj"] = pageDiv;
       if( pageId == pageURL ){
+        this.prevPageName = this.curPageName;
         this.curPageName = pageId;
         this.curPage = pageDiv;
         this.toggleFader( this.curPage, true );
@@ -300,7 +321,6 @@ export class ProcPageManager {
 
     window.addEventListener("resize", this.onResize.bind(this));
 
-    this.updateDocumentMetaData( pageURL );
 
     this.setStyleOverrides();
     this.hashListener();
@@ -322,6 +342,8 @@ export class ProcPageManager {
         pageData.activateSection( pageSection );
       }
     }
+
+    this.updateDocumentMetaData( pageURL );
 
   }
 
@@ -478,6 +500,23 @@ export class ProcPageManager {
       return;
     }
 
+    // There is an issue with the initial load of the page,
+    //   The previous page's style overrides aren't stored.
+    // TODO : Find the source of this issue.
+    let prevPageListing = this.pageListing[this.prevPageName];
+    if( prevPageListing && prevPageListing["pageData"].hasOwnProperty("styleOverrides") ){
+      let overrideKeys = Object.keys(prevPageListing["pageData"]["styleOverrides"]);
+      overrideKeys.forEach( (key)=>{
+        let curObj = document.getElementById(key);
+        if( curObj ){
+          let attrName = prevPageListing["pageData"]["styleOverrides"][key];
+          if( curObj.classList.contains(attrName) ){
+            curObj.classList.remove(attrName);
+          }
+        }
+      });
+    }
+
     let curPageId = this.curPageName;
     let pageListing = this.pageListing[curPageId];
     if( pageListing && pageListing["pageData"].hasOwnProperty("styleOverrides") ){
@@ -549,15 +588,86 @@ export class ProcPageManager {
  * @param {string} pageName - Name of the page to update document metadata for
  * @description Updates document metadata (title, meta tags) based on page configuration
  */
-
   updateDocumentMetaData( pageName ){
     if( !this.pageListing.hasOwnProperty(pageName) ){
       return;
     }
-
     let pageObj = this.pageListing[pageName];
-    if( pageObj.hasOwnProperty("metaData") ){
+    let siteUrl = window.location.origin;
+    
+    let prevSection = pageObj.pageData.prevSection;
+    if( !prevSection || prevSection == "" ){
+      prevSection = pageObj.pageData.sectionTitles[0];
+    }
+    const subPageData = pageObj.pageData.sectionData[ prevSection ];
+    
+    const title = subPageData.name;
+    if( title && title != "" ){
+      document.title = title;
+    }else{
+      document.title = "ProcStack";
+    }
+    
+    // Update Open Graph and Twitter Card meta tags
+    const description = subPageData.description || pageObj.metaData.description || '';
+    const keywords = subPageData.keywords || pageObj.metaData.keywords.join(", ") || '';
+
+    //const image = subPageData.image || '';
+    const fileName = subPageData.htmlName;
+    let url = `${siteUrl}/${pageObj.pageData.page}/${fileName}`;
+    if( fileName == null || fileName == "" ){
+      url = `${siteUrl}/${pageObj.pageData.page}.htm`;
+    }
+
+    //Update Conical Link
+    let conicalLink = document.querySelector("link[rel='canonical']");
+    if( conicalLink ){
+      conicalLink.setAttribute("href", url);
+    }else{
+      conicalLink = document.createElement("link");
+      conicalLink.setAttribute("rel", "canonical");
+      conicalLink.setAttribute("href", url);
+      document.head.appendChild(conicalLink);
+    }
+
+
+    const metaTags = {
+      'title': ['title', 'og:title', 'twitter:title'],
+      'description': ['description', 'og:description', 'twitter:description'],
+      'keywords': ['keywords'],
+      //'image': ['og:image', 'twitter:image'],
+      'url': ['og:url']
+    };
+    const metaData = {
+      'title': title,
+      'description': description,
+      'keywords': keywords,
+      //'image': image,
+      'url': url
+    };
+    Object.keys(metaTags).forEach((key) => {
+      const tags = metaTags[key];
+      const content = metaData[key];
+      tags.forEach((tag) => {
+        let metaElement = document.querySelector(`meta[name='${tag}']`);
+        if (!metaElement) {
+          metaElement = document.createElement('meta');
+          metaElement.setAttribute('name', tag);
+          document.head.appendChild(metaElement);
+        }
+        metaElement.setAttribute('content', content);
+        if (tag === 'title') {
+          document.title = content; // Update document title
+        }
+
+      });
+    });
+
+
+
+    /*if( pageObj.hasOwnProperty("metaData") ){
       let pageMetaData = pageObj["metaData"];
+      console.log("Updating page meta data for: " + pageName);
 
       let metaObjs = pageMetaData.metaTagList;
       if( metaObjs != null ){
@@ -585,7 +695,7 @@ export class ProcPageManager {
           });
         });
       }
-    }
+    }*/
   }
 
 /**
@@ -802,6 +912,28 @@ export class ProcPageManager {
 
     let formattedURL = this.formatURL( pageName, sectionName );
     this.shiftHistoryState( formattedURL );
+
+    this.curPageName = sectionName;
+
+    let altLinkHref = `${this.botRoot}/${pageName}_${sectionName}.json`;
+
+    if( this.metaAlternateLink ){
+      this.metaAlternateLink.setAttribute("href", altLinkHref);
+    }else{
+      
+      this.metaAlternateLink = document.querySelector("link[rel='alternate']");
+      if( this.metaAlternateLink ){
+        this.metaAlternateLink.setAttribute("href", altLinkHref);
+      }else{
+        this.metaAlternateLink = document.createElement("link");
+        this.metaAlternateLink.setAttribute("rel", "alternate");
+        this.metaAlternateLink.setAttribute("href", altLinkHref);
+        document.head.appendChild(this.metaAlternateLink);
+      }
+    }
+
+    // Update Meta Data
+    this.updateDocumentMetaData( pageName );
   }
 
 /**
@@ -965,7 +1097,8 @@ export class ProcPageManager {
       return;
     }
 
-    let pageDiv = this.pageListing[this.curPageName]["obj"];
+    //let pageDiv = this.pageListing[this.curPageName]["obj"];
+    let pageDiv = this.curPage;
     if( vis ){
       this.domEventStates.ToggleDOM = true;
       obj.style.display = "";//"block";

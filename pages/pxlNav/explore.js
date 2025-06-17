@@ -2,6 +2,8 @@
 export const pageListingData = {
   'htmlName' : "Explore.htm",
   'name' : 'Explore',
+  'description' : 'Explore the Outlet environment, a water-side area with a lighthouse and coastal plant life.',
+  'keywords' : 'pxlNav, explore, Outlet, interactive environment, Three.js, web development',
   'media' : [
     {
       'type' : 'image',

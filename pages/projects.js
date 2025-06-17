@@ -1,6 +1,7 @@
 import { PageMetaData } from '../js/procPages/PageMetaData.js';
 import { ProcPage } from '../js/procPages/ProcPage.js';
 
+import { pageListingData as cowData } from './projects/currentsofwar.js';
 import { pageListingData as psghioData } from './projects/procstackgithubio.js';
 import { pageListingData as procPromoData } from './projects/procPromo.js';
 import { pageListingData as pxlVisData } from './projects/pxlVisualizer.js';
@@ -70,6 +71,7 @@ const pageContentObject = {
   'initialSection' : 1,
   'sections' : [
         psghioData,
+        cowData,
         procPromoData,
         pxlVisData,
         pxlTextGenData,
@@ -84,7 +86,6 @@ const pageContentObject = {
   ]
 }
 // -- -- --
-
 const metaData = new PageMetaData( metaDataInput );
 pageContentObject['metaData'] = metaData;
 export const pageData = new ProcPage( pageContentObject );

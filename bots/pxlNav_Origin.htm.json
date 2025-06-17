@@ -1,0 +1,18 @@
+{
+  "title": "Origin",
+  "description": "Originally pxlNav was made for a virtual event space named \"Antibody Club\" [defunct] during 2020 Covid lockdowns.",
+  "media": [
+    {
+      "type": "youtube",
+      "src": "_vzqZ2sNjaw",
+      "alt": "Huge holiday party thank you video",
+      "caption": ""
+    },
+    {
+      "type": "image",
+      "src": "../pages/pxlNav/images/Antib0dyClub_10_chatImplemented.webp",
+      "alt": "Chat features in Antibody Club",
+      "caption": "Antibody Club [defunct] - Showing some of the, now removed, network features."
+    }
+  ]
+}

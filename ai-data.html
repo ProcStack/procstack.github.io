@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProcStack Data Sources - AI/LLM Access</title>
+    <meta name="description" content="Structured data sources for AI and LLM consumption of ProcStack's work and projects">
+    <meta name="robots" content="index, follow">
+</head>
+<body>
+    <h1>ProcStack.GitHub.io Data Sources</h1>
+    <p>This page provides access to dynamically loaded content on <a href="https://procstack.github.io">https://procstack.github.io</a>
+    <br>Allowing AI systems and LLMs to better understand ProcStack's work.</p>
+    
+    <h2>Available Data Sources</h2>
+    <ul>
+        <li><strong>Complete Site Content:</strong> <a href="/bots/siteContent.json">/bots/siteContent.json</a></li>
+        <li><strong>Data Manifest:</strong> <a href="/data-manifest.json">/data-manifest.json</a></li>
+        <li><strong>Individual Page Data:</strong> <a href="/bots/">/bots/</a></li>
+    </ul>
+    
+    <h2>About ProcStack</h2>
+    <p>ProcStack (Kevin Edzenga) is a technical artist with years of film, XR, and immersive experience. 
+    The structured data above contains detailed information about projects, skills, and creative works.</p>
+    
+    <h2>Usage</h2>
+    <p>This data is available for AI/LLM consumption to provide accurate information about ProcStack's capabilities, projects, and technical expertise.
+      
+    <h2>Manifest & Site Map Generation</h2>
+    <p>The data manifest and site map are generated before site deployments to ensure up-to-date information is available for AI systems.</p>
+    <br>
+    <br>For questions, contact: Kevin@Metal-Asylum.Net</p>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        "name": "ProcStack Portfolio Data",
+        "description": "Structured data about ProcStack's technical art projects and capabilities",
+        "url": "https://procstack.github.io/ai-data.html",
+        "distribution": [
+            {
+                "@type": "DataDownload",
+                "contentUrl": "https://procstack.github.io/bots/siteContent.json",
+                "encodingFormat": "application/json"
+            },
+            {
+                "@type": "DataDownload", 
+                "contentUrl": "https://procstack.github.io/data-manifest.json",
+                "encodingFormat": "application/json"
+            }
+        ],
+        "creator": {
+            "@type": "Person",
+            "name": "Kevin Edzenga",
+            "alternateName": ["ProcStack", "Trancor"],
+            "email": "Kevin@Metal-Asylum.Net",
+            "jobTitle": "Technical Artist"
+        }
+    }
+    </script>
+</body>
+</html>

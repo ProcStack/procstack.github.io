@@ -2,6 +2,8 @@
 export const pageListingData = {
   'htmlName' : "pxlTextGenerator.htm",
   'name' : 'pxlTextGenerator',
+  'description' : 'A text to handwriting generator, with a character builder and page editor.',
+  'keywords' : 'pxlTextGenerator, pxl text generator, handwriting generator, text to handwriting, character builder, page editor, python',
   'navGroup' : 'Repos to Check Out',
   'media' : [
     {
@@ -32,6 +34,16 @@ export const pageListingData = {
     
     <br>
     <br>Scan some writing, click the letters, adjust the spacing, type your page with those letters, and hit save!
+
+    <div class="pppHBar"></div>
+
+    <br>Now with ai resources so prevelant,
+    <br>&nbsp;&nbsp; I've been on and off developing a CNN (Convolutional Neural Network) to generate new characters based on the ones you have saved.
+    <br>&nbsp;&nbsp; Along with a much better segmenter, where the letters will highlight as you hover over them, and you can select the ones you want to save.
+
+    <br>
+    <br>This is pretty low on my project list, so it may take awhile before the support is fully working and implemented.
+
     
   `,
 };

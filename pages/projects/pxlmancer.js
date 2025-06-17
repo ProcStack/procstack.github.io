@@ -2,6 +2,8 @@
 export const pageListingData = {
   'htmlName' : "pxlmancer.htm",
   'name' : 'pxlmancer.com',
+  'description' : 'A full drawing/painting app on desktop, a fun fidget toy on mobile.',
+  'keywords' : 'pxlmancer, drawing app, painting app, javascript, jquery, personal projects',
   'navGroup' : 'Personal Projects',
   'media' : [
     {

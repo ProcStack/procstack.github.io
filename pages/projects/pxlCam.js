@@ -2,6 +2,8 @@
 export const pageListingData = {
   'htmlName' : "pxlCam.htm",
   'name' : 'pxlCam',
+  'description' : 'A photo filter camera web app. Use on phone!!',
+  'keywords' : 'pxlCam, camera, photo filter, web app, javascript, three.js, glsl es, personal projects',
   'navGroup' : 'Personal Projects',
   'media' : [
     {

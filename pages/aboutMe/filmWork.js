@@ -2,6 +2,8 @@
 export const pageListingData = {
   'htmlName' : "Film_Work.htm",
   'name' : 'My Film Work',
+  'description' : 'My work at Blue Sky Studios',
+  'keywords' : 'Blue Sky Studios, film work, character simulation, effects, crowds, technical director, TD, Maya, Houdini',
   'media' : [
     {
       'type' : 'youtube',
