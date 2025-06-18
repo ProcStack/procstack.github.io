@@ -11,6 +11,15 @@ export class PageMetaData {
     this.keywords = metaOptions.keywords || '';
     this.image = metaOptions.image || '';
     this.url = metaOptions.url || '';
+    this.schemaData = metaOptions.schemaData || {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": this.page,
+      "description": this.description,
+      "keywords": this.keywords,
+      "url": this.url,
+      "image": this.image
+    };
     this.metaTagList = {
       'title':['title', 'og:title', 'twitter:title'],
       'description':['description', 'og:description', 'twitter:description'],

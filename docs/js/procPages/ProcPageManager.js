@@ -601,7 +601,7 @@ export class ProcPageManager {
     }
     const subPageData = pageObj.pageData.sectionData[ prevSection ];
 
-    const schemaData = subPageData.schemaData || pageObj.pageData.schemaData || {};
+    const schemaData = subPageData.schemaData || pageObj.metaData.schemaData || {};
     if( schemaData && Object.keys(schemaData).length > 0 ){
       let schemaScript = document.querySelector("script[type='application/ld+json']");
       if( !schemaScript ){
