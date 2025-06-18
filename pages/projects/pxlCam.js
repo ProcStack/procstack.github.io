@@ -1,7 +1,24 @@
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "pxlCam",
+  "description": "A photo filter camera web app. Use on phone!!",
+  "keywords": "pxlCam, camera, photo filter, web app, javascript, three.js, glsl es, personal projects",
+  "url": "https://procstack.github.io/ProjectsLinks/pxlCam.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
 
 export const pageListingData = {
   'htmlName' : "pxlCam.htm",
   'name' : 'pxlCam',
+  'title' : 'pxlCam',
+  'schemaData' : shemaData,
   'description' : 'A photo filter camera web app. Use on phone!!',
   'keywords' : 'pxlCam, camera, photo filter, web app, javascript, three.js, glsl es, personal projects',
   'navGroup' : 'Personal Projects',

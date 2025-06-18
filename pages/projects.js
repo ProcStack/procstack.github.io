@@ -17,7 +17,7 @@ import { pageListingData as dwitterData } from './projects/dwitter.js';
 
 const metaDataInput = {
   'page': 'ProjectsLinks',
-  'title': "Proc's Projects & Socials",
+  'title': "Projects & Links",
   'description': "See a collection of projects and links by ProcStack / Kevin Edzenga",
   'keywords': ['ProcStack', 'Kevin Edzenga', 'Projects', 'Socials', 'Portfolio', 'Plushie', 'Plushies', 'neural network', 'neural networks', 'ESN', 'GRU', 'GAT'],
   'image': 'https://procstack.github.io/images/ProcStack_th.jpg',

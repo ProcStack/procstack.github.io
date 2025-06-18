@@ -1,7 +1,23 @@
-
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Metal-Asylum.Net",
+  "description": "My main site - an earlier version of pxlNav, but this time you can walk around and jump - Best on desktop",
+  "keywords": "Metal-Asylum, Metal Asylum, MetalAsylum, MetalAsylum.net, pxlNav, personal projects, personal website, personal site, personal portfolio",
+  "url": "https://procstack.github.io/ProjectsLinks/Metal-AsylumNet.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
 export const pageListingData = {
   'htmlName' : "Metal-AsylumNet.htm",
   'name' : 'Metal-Asylum.Net',
+  'title' : 'Metal-Asylum.Net',
+  'schemaData' : shemaData,
   'description' : 'My main site - an earlier version of pxlNav, but this time you can walk around and jump - Best on desktop',
   'keywords' : 'Metal-Asylum, Metal Asylum, MetalAsylum, MetalAsylum.net, pxlNav, personal projects, personal website, personal site, personal portfolio',
   'navGroup' : 'Personal Projects',

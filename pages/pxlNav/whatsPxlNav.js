@@ -1,7 +1,23 @@
-
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "What's pxlNav?",
+  "description": "An overview of the pxlNav library, its features, and how to use it for creating interactive environments in Three.js.",
+  "keywords": "pxlNav, Three.js, interactive environments, javascript library, game engine, web development",
+  "url": "https://procstack.github.io/pxlNav/Whats_pxlNav.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
 export const pageListingData = {
   'htmlName' : "Whats_pxlNav.htm",
   'name' : "<span class='procPagesHideWhenThin'>What's&nbsp;<span class='textNudge'>pxlNav</span>?</span><span class='procPagesShowWhenThin'>What?</span>",
+  'title' : "What's pxlNav?",
+  'schemaData' : shemaData,
   'description' : 'An overview of the pxlNav library, its features, and how to use it for creating interactive environments in Three.js.',
   'keywords' : 'pxlNav, Three.js, interactive environments, javascript library, game engine, web development',
   'media' : [

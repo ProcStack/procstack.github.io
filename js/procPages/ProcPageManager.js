@@ -600,8 +600,30 @@ export class ProcPageManager {
       prevSection = pageObj.pageData.sectionTitles[0];
     }
     const subPageData = pageObj.pageData.sectionData[ prevSection ];
+
+    const schemaData = subPageData.schemaData || pageObj.pageData.schemaData || {};
+    if( schemaData && Object.keys(schemaData).length > 0 ){
+      let schemaScript = document.querySelector("script[type='application/ld+json']");
+      if( !schemaScript ){
+        // Create new schema script
+        schemaScript = document.createElement("script");
+        schemaScript.setAttribute("type", "application/ld+json");
+        schemaScript.textContent = JSON.stringify(schemaData, null, 2);
+        document.head.appendChild(schemaScript);
+      }
+
+      // Update existing schema script
+      schemaScript.textContent = JSON.stringify(schemaData, null, 2);
+    }else{
+      // Remove existing schema script if no data
+      let schemaScript = document.querySelector("script[type='application/ld+json']");
+      if( schemaScript ){
+        schemaScript.remove();
+      }
+      console.warn("ProcPageManager; No schemaData found for page: " + pageName);
+    }
     
-    const title = subPageData.name;
+    const title = (`${subPageData.title} - ${pageObj.metaData.title}`) || pageObj.metaData.title || pageName.split('.')[0] ;
     if( title && title != "" ){
       document.title = title;
     }else{

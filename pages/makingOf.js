@@ -3,7 +3,7 @@ import { ProcPage } from '../js/procPages/ProcPage.js';
 
 const metaDataInput = {
   'page': 'MakingOf',
-  'title': "The Making of ProcStack's GitHub Portfolio",
+  'title': "Making of the Portfolio",
   'description': "The making of 'procstack.github.io' by Kevin Edzenga",
   'keywords': ['ProcStack', 'Kevin Edzenga', 'Making Of', 'Portfolio', 'GitHub', 'Houdini', 'Maya', 'Photoshop', 'Web Development', 'Web', 'JavaScript', 'HTML', 'CSS'],
   'image': 'https://procstack.github.io/images/ProcStack_th.webp',

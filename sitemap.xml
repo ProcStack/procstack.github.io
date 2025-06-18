@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://procstack.github.io/Init.htm</loc>
+    <loc>https://procstack.github.io/Init/Init.htm</loc>
     <changefreq>monthly</changefreq>
     <image:image xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>

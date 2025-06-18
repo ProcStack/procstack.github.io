@@ -1,7 +1,25 @@
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Plushies",
+  "description": "My 2024 year in plushies! I made a tool to turn 3d models into fabric patterns in Houdini, so I've been making plushies in my free time!",
+  "keywords": "plushies, sewing, 3d modeling, houdini, fabric patterns, personal projects",
+  "url": "https://procstack.github.io/AboutMe/Plushies.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
+
 
 export const pageListingData = {
   'htmlName' : "Plushies.htm",
   'name' : 'Plushies',
+  'title' : 'Plushies',
+  'schemaData' : shemaData,
   'description' : 'My 2024 year in plushies! I made a tool to turn 3d models into fabric patterns in Houdini, so I\'ve been making plushies in my free time!',
   'keywords' : 'plushies, houdini, fabric patterns, sewing, minky, anti-pil fleece, plushie making, sewing tools',
   'media' : [

@@ -1,7 +1,24 @@
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Currents of War",
+  "description": "A NPC Simulator made in Unity for the April 2025 itch.io gamejam 'Indie Game Clinic COLLAB JAM '25'",
+  "keywords": "currents of war, game jam, itch.io, indie game clinic, collab jam, 2025, unity, npc simulator",
+  "url": "https://procstack.github.io/ProjectsLinks/currentsOfWar.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
 
 export const pageListingData = {
   'htmlName' : "currentsOfWar.htm",
   'name' : 'Currents of War',
+  'title' : 'Currents of War',
+  'schemaData' : shemaData,
   'description' : 'A NPC Simulator made in Unity for the April 2025 itch.io gamejam "Indie Game Clinic COLLAB JAM \'25"',
   'keywords' : 'currents of war, game jam, itch.io, indie game clinic, collab jam, 2025, unity, npc simulator',
   'navGroup' : 'Personal Projects',
