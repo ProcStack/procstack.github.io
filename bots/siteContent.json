@@ -1,12 +1,12 @@
 {
-  "Init_Init.htm": {
+  "Init.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/Init_Init.htm.json",
     "title": "Init.",
     "description": "Ahoi there!\n \nI'm ProcStack, Trancor, & Kevin Edzenga,\n  Which ever ya feel like calling me!\n\n\n\nI'm a technical artist with years of film, XR, & immersive experience.",
     "media": [],
     "content": "\n<span class=\"procPagesHeaderStyle initHeaderStyle\">Ahoi there!</span>\n<div class=\"initPage_hBarStyle\">&nbsp;</div>\n<br>I'm <span class=\"textNudge\">ProcStack</span>, <span class=\"textNudge\">Trancor</span>, & <span class=\"textNudge\">Kevin Edzenga</span>,\n<br>&nbsp;&nbsp;Which ever ya feel like calling me!\n\n<div class='procPagesSpacer'></div>\n\nI'm a technical artist with years of film, XR, & immersive experience.\n\n<div class='procPagesSpacer'></div>\n\n<span class=\"textNudge\">Trancor</span> is my pre-rendered graphics & diy builds,\n<br><span class=\"textNudge\">ProcStack</span> is coding & real-time graphics creations <span class=\"textDrinkMeAlice\">('Trancor' was taken on github)</span>,\n<br><span class=\"textNudge\">Kevin Edzenga</span> is just ... Me.\n\n<br><br>I built this site to show off my work,\n<br>&nbsp;&nbsp;From the site's code to it's 3d modeling, shaders, even <span class=\"textNudge\">pxlNav</span> itself!\n<br><span class=\"textNudge\">Everything the light touches!</span> ...sorta.\n<br><span class=\"textDrinkMeAlice\">&nbsp;&nbsp;I didn't make Three.js, certainly.</span>\n<br><br>\n      ",
-    "pageURL": "https://procstack.github.io/Init/Init.htm",
-    "relativeURL": "./Init/Init.htm"
+    "pageURL": "https://procstack.github.io/Init.htm",
+    "relativeURL": "./Init.htm"
   },
   "pxlNav_Explore.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/pxlNav_Explore.htm.json",

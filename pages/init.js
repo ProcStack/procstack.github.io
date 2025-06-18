@@ -7,7 +7,22 @@ const metaDataInput = {
   'description': 'The personal portfolio of Kevin Edzenga',
   'keywords': ['Kevin Edzenga', 'Portfolio', 'ProcStack', 'ProcStack.GitHub.io'],
   'image': 'https://procstack.github.io/images/ProcStack_th.jpg',
-  'url': 'Init.htm'
+  'url': 'Init.htm',
+  'schemaData': {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Init.",
+    "description": "The personal portfolio of Kevin Edzenga",
+    "keywords": "Kevin Edzenga, Portfolio, ProcStack, ProcStack.GitHub.io",
+    "url": "https://procstack.github.io/Init.htm",
+    "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Kevin Edzenga",
+      "alternateName": ["ProcStack", "Trancor"],
+      "url": "https://procstack.github.io"
+    }
+  }
 };
 
 const pageContentObject = {

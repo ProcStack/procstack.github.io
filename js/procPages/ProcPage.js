@@ -442,7 +442,8 @@ export class ProcPage {
       ytEmbed.src = "https://www.youtube-nocookie.com/embed/"+vidId;
       ytEmbed.title = mediaData.alt;
       ytEmbed.setAttribute( "frameborder", 0 );
-      ytEmbed.allow = "encrypted-media; picture-in-picture; web-share";
+      //ytEmbed.allow = "encrypted-media; picture-in-picture; web-share"; // Google was flagging 'web-share' unrecognized
+      ytEmbed.allow = "encrypted-media; picture-in-picture";
       ytEmbed.setAttribute( "referrerpolicy", "strict-origin-when-cross-origin" );
       ytEmbed.setAttribute( "allowfullscreen", true );
       this.applyStyle( mediaData, ytEmbed );
