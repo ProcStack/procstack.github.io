@@ -35,7 +35,8 @@ const pageContentObject = {
   },
   'sections' : [
     {
-      'name' : '',
+      'name' : 'Init.',
+      'title' : 'Init.',
       'content' : `
 <span class="procPagesHeaderStyle initHeaderStyle">Ahoi there!</span>
 <div class="initPage_hBarStyle">&nbsp;</div>

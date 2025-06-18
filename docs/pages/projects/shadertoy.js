@@ -1,7 +1,23 @@
-
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Shadertoy",
+  "description": "My account on a social shader playground website, where I post my shaders.",
+  "keywords": "shadertoy, shaders, social shader playground, glsl es, personal projects",
+  "url": "https://procstack.github.io/ProjectsLinks/Shadertoy.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
 export const pageListingData = {
   'htmlName' : "Shadertoy.htm",
   'name' : 'Shadertoy',
+  'title' : 'Shadertoy',
+  'schemaData' : shemaData,
   'description' : 'My account on a social shader playground website, where I post my shaders.',
   'keywords' : 'shadertoy, shaders, social shader playground, glsl es, personal projects',
   'navGroup' : "The One'Offs",

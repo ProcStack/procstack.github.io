@@ -1,7 +1,24 @@
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Dwitter",
+  "description": "A collection of my code golfing projects on Dwitter.net",
+  "keywords": "dwitter, code golf, javascript, procstack, procstack.github.io",
+  "url": "https://procstack.github.io/ProjectsLinks/Dwitter.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
 
 export const pageListingData = {
   'htmlName' : "Dwitter.htm",
   'name' : 'Dwitter',
+  'title' : 'Dwitter',
+  'schemaData' : shemaData,
   'description' : 'A collection of my code golfing projects on Dwitter.net',
   'keywords' : 'dwitter, code golf, javascript, procstack, procstack.github.io',
   'navGroup' : "The One'Offs",

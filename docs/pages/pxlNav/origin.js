@@ -1,7 +1,24 @@
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Origin",
+  "description": "The origin of pxlNav, a virtual event space made during the 2020 Covid lockdowns.",
+  "keywords": "pxlNav, origin, Antibody Club, virtual event space, Three.js, web development",
+  "url": "https://procstack.github.io/pxlNav/Origin.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
 
 export const pageListingData = {
   'htmlName' : "Origin.htm",
   'name' : 'Origin',
+  'title' : 'Origin of pxlNav',
+  'schemaData' : shemaData,
   'description' : 'The origin of pxlNav, a virtual event space made during the 2020 Covid lockdowns.',
   'keywords' : 'pxlNav, origin, Antibody Club, virtual event space, Three.js, web development',
   'media' : [

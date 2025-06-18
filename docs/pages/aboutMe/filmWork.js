@@ -1,7 +1,26 @@
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "My Film Work",
+  "description": "My work at Blue Sky Studios, including character simulation, effects, and crowds.",
+  "keywords": "film work, Blue Sky Studios, character simulation, effects, crowds, animated films",
+  "url": "https://procstack.github.io/AboutMe/Film_Work.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
+
+
 
 export const pageListingData = {
   'htmlName' : "Film_Work.htm",
   'name' : 'My Film Work',
+  'title' : 'My Film Work',
+  'schemaData' : shemaData,
   'description' : 'My work at Blue Sky Studios',
   'keywords' : 'Blue Sky Studios, film work, character simulation, effects, crowds, technical director, TD, Maya, Houdini',
   'media' : [

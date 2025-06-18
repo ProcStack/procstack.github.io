@@ -6,6 +6,7 @@
 //   - `live`: Render pages directly to the docs directory
 //   - `dry`: Perform a dry run without writing files
 //   - `sitemap`: Only generate the sitemap.xml + manifest without rendering + writing static site files
+//   - `llms`: Generate LLMs.txt file and individual markdown files for LLM consumption
 
 
 
@@ -22,9 +23,9 @@ const __dirname = path.dirname(__filename);
 
 // Find the project root (where package.json is located)
 let projectRoot = __dirname;
-while (!fs.existsSync(path.join(projectRoot, 'package.json'))) {
+while (!fs.existsSync(path.join(projectRoot, 'package.json')) ){
   const parent = path.dirname(projectRoot);
-  if (parent === projectRoot) {
+  if( parent === projectRoot ){
     throw new Error('Could not find project root (package.json not found)');
   }
   projectRoot = parent;
@@ -44,6 +45,7 @@ const { pageListing } = await import(pageListingUrl);
 const directToDocs = process.argv.includes('live');
 const dryRun = process.argv.includes('dry');
 const sitemapOnly = process.argv.includes('sitemap');
+const llmsGenerate = process.argv.includes('llms') || !sitemapOnly; // Generate LLMs files by default unless sitemap-only
 const writeToDisk = !dryRun;
 
 
@@ -63,9 +65,76 @@ const sitemapPath = path.join( renderDir, 'sitemap.xml' );
 fs.mkdirSync( renderDir, { recursive: true });
 fs.mkdirSync( botsDir, { recursive: true });
 
+// Check for meta data spec file and move it to the bots directory if it's not already there
+const aiMetaSpecFile = path.join( projectRoot, 'ai-metadata-spec.html' );
+if( fs.existsSync(aiMetaSpecFile) ){
+  const aiMetaSpecDest = path.join( botsDir, 'ai-metadata-spec.html' );
+  if( !fs.existsSync(aiMetaSpecDest) ){
+    fs.copyFileSync(aiMetaSpecFile, aiMetaSpecDest);
+    console.log(`AI metadata spec file copied to: ${aiMetaSpecDest}`);
+  }else{
+    console.log(`AI metadata spec file already exists at: ${aiMetaSpecDest}`);
+  }
+} else {
+  console.warn(`!! AI metadata spec file not found at: ${aiMetaSpecFile}`);
+}
+
+
 // Strip tags & space codes for cleaner output for legibility
 const cleanText = html => {
   return html.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
+};
+
+// Convert HTML content to markdown format for LLMs.txt
+const htmlToMarkdown = (html, title = '') => {
+  if( !html) return '';
+  
+  let markdown = html
+    // Convert headers
+    .replace(/<h1[^>]*>(.*?)<\/h1>/gi, '# $1\n\n')
+    .replace(/<h2[^>]*>(.*?)<\/h2>/gi, '## $1\n\n')
+    .replace(/<h3[^>]*>(.*?)<\/h3>/gi, '### $1\n\n')
+    .replace(/<h4[^>]*>(.*?)<\/h4>/gi, '#### $1\n\n')
+    
+    // Convert paragraphs and divs
+    .replace(/<p[^>]*>(.*?)<\/p>/gi, '$1\n\n')
+    .replace(/<div[^>]*>(.*?)<\/div>/gi, '$1\n')
+    
+    // Convert lists
+    .replace(/<ul[^>]*>/gi, '')
+    .replace(/<\/ul>/gi, '\n')
+    .replace(/<ol[^>]*>/gi, '')
+    .replace(/<\/ol>/gi, '\n')
+    .replace(/<li[^>]*>(.*?)<\/li>/gi, '- $1\n')
+    
+    // Convert links
+    .replace(/<a[^>]*href=["']([^"']*)["'][^>]*>(.*?)<\/a>/gi, '[$2]($1)')
+    
+    // Convert emphasis
+    .replace(/<strong[^>]*>(.*?)<\/strong>/gi, '**$1**')
+    .replace(/<b[^>]*>(.*?)<\/b>/gi, '**$1**')
+    .replace(/<em[^>]*>(.*?)<\/em>/gi, '*$1*')
+    .replace(/<i[^>]*>(.*?)<\/i>/gi, '*$1*')
+    
+    // Convert line breaks
+    .replace(/<br[^>]*\/?>/gi, '\n')
+    
+    // Remove remaining HTML tags
+    .replace(/<[^>]+>/g, '')
+    
+    // Clean up entities
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    
+    // Clean up excessive whitespace
+    .replace(/\n\s*\n\s*\n/g, '\n\n')
+    .replace(/^\s+|\s+$/g, '')
+    .trim();
+    
+  return markdown;
 };
 
 
@@ -124,6 +193,41 @@ const generateSitemap = (urls) => {
   return `${header}${body}${append}${footer}`;
 };
 
+// Generate LLMs.txt file according to the specification
+const generateLLMsTxt = ( llmsContent, sitemapUrls ) => {
+  let content = '# ProcStack Portfolio\n\n';
+  content += `> Eyo, ProcStack here, I.\n\n`;
+  
+  content += `Kevin Edzenga (ProcStack/Trancor) is a technical artist with years of experience in film, XR, and immersive media. This portfolio demonstrates expertise in:\n\n`;
+  content += `- Interactive 3D web experiences using Three.js and WebGL\n`;
+  content += `- Custom shader development and procedural content creation\n`;
+  content += `- Player controller systems (pxlNav)\n`;
+  content += `- Technical art pipeline development\n`;
+  content += `- Film and XR production workflows\n\n`;
+  
+  // Add main sections
+  for( const [sectionName, pages] of Object.entries(llmsContent.sections) ){
+    content += `## ${sectionName}\n\n`;
+    
+    for( const page of pages ){
+      content += `- [${page.title}](${page.url})`;
+      if( page.description && page.description !== page.title ){
+        content += `: ${page.description}`;
+      }
+      content += '\n';
+    }
+    content += '\n';
+  }
+  
+  // Add optional section for metadata
+  content += '## AI Metadata Specifications\n\n';
+  content += '- [Site Content JSON](https://procstack.github.io/bots/siteContent.json): Complete site metadata in JSON format\n';
+  content += '- [AI Metadata Specification](https://procstack.github.io/bots/ai-metadata-spec.html): Technical specification for AI metadata format\n';
+  content += '- [Sitemap](https://procstack.github.io/sitemap.xml): Complete site structure for search engines\n';
+  
+  return content;
+};
+
 const main = async () => {
   let browser;
   if( writeToDisk ){
@@ -131,6 +235,10 @@ const main = async () => {
   }
   const manifest = {};
   const sitemapUrls = [];
+  const llmsContent = {
+    pages: [],
+    sections: {}
+  };
 
   for( const [key, pageData] of Object.entries(pageListing) ){
     const folder = key;
@@ -179,6 +287,23 @@ const main = async () => {
         }));
         const content = subPageData.content || '';
 
+        // Convert content to markdown for LLMs.txt
+        const markdownContent = htmlToMarkdown(content, title);
+        
+        // Organize content for LLMs.txt by section
+        const sectionName = pageData.name || folder;
+        if( !llmsContent.sections[sectionName] ){
+          llmsContent.sections[sectionName] = [];
+        }
+        
+        const mdUrl = url.replace(/\.htm?$/, '.html.md');
+        llmsContent.sections[sectionName].push({
+          title,
+          url: mdUrl,
+          description,
+          content: markdownContent
+        });
+
         manifest[ manifestKey ] = { 'jsonURL':manifestJsonUrl, title, description, media, content, 'pageURL':url, 'relativeURL':relUrl };
         const aiOut = path.join(botsDir, `${manifestKey}.json`);
         if( writeToDisk ){
@@ -186,6 +311,15 @@ const main = async () => {
           fs.writeFileSync(aiOut, JSON.stringify({ title, description, media }, null, 2));
           console.log(`  AI Metadata saved to: ${aiOut}`);
 
+
+          // Generate individual markdown file for LLMs.txt standard
+          if( llmsGenerate ){
+            const mdPath = outPath.replace(/\.htm?$/, '.html.md');
+            const mdContent = `# ${title}\n\n${markdownContent}`;
+            fs.mkdirSync(path.dirname(mdPath), { recursive: true });
+            fs.writeFileSync(mdPath, mdContent);
+            console.log(`  Markdown file saved to: ${mdPath}`);
+          }
 
           // Render the page using Puppeteer
           console.log(` - Rendering subpage... ${localUrl}`);
@@ -202,6 +336,19 @@ const main = async () => {
               const absolutePath = `${relPathUpdate}${path}`;
               await element.evaluate((el, attr, absPath) => el.setAttribute(attr, absPath), attr, absolutePath);
 
+              // Find last div object and remove it
+              // TODO : Fix this from pxlNav, not everything is in the content div, or has an id
+              await element.evaluate(() => {
+                const divs = document.body.getElementsByTagName("div");
+                if( divs.length > 0 ){
+                  divs[divs.length - 1].remove();
+                }
+
+                const faderStyleObj = document.head.lastChild;
+                if( faderStyleObj && faderStyleObj.tagName === 'STYLE' ){
+                  faderStyleObj.remove();
+                }
+              });
             }
             return null;
           }
@@ -248,18 +395,29 @@ const main = async () => {
       fs.writeFileSync(path.join(botsDir, 'siteContent.json'), JSON.stringify(manifest, null, 2));
     } 
 
+    // Generate LLMs.txt file
+    if( llmsGenerate && writeToDisk ){
+      const llmsTxtContent = generateLLMsTxt(llmsContent, sitemapUrls);
+      const llmsTxtPath = path.join(renderDir, 'llms.txt');
+      fs.writeFileSync(llmsTxtPath, llmsTxtContent);
+      console.log(`LLMs.txt generated at: ${llmsTxtPath}`);
+    }
+
     // Save sitemap.xml
     fs.writeFileSync(sitemapPath, generateSitemap(sitemapUrls));
 
     console.log(`Sitemap generated at: ${sitemapPath}`);
   }
-  
-  if( sitemapOnly ){
+    if( sitemapOnly ){
     console.log('Sitemap only generation complete. No other files written to disk.');
-  }else if (dryRun) {
+  }else if( dryRun ){
     console.log('Dry run complete. No files written to disk.');
   } else {
-    console.log(`\n Static pages rendered to ${renderDir}\n AI metadata files generated.\n sitemap.xml updated.`);
+    let message = `\n Static pages rendered to ${renderDir}\n AI metadata files generated.\n sitemap.xml updated.`;
+    if( llmsGenerate ){
+      message += `\n llms.txt generated with individual .md files for LLM consumption.`;
+    }
+    console.log(message);
   }
 
 };

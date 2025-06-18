@@ -1,7 +1,24 @@
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "pxlmancer.com",
+  "description": "A full drawing/painting app on desktop, a fun fidget toy on mobile.",
+  "keywords": "pxlmancer, drawing app, painting app, javascript, jquery, personal projects",
+  "url": "https://procstack.github.io/ProjectsLinks/pxlmancer.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
 
 export const pageListingData = {
   'htmlName' : "pxlmancer.htm",
   'name' : 'pxlmancer.com',
+  'title' : 'pxlmancer.com',
+  'schemaData' : shemaData,
   'description' : 'A full drawing/painting app on desktop, a fun fidget toy on mobile.',
   'keywords' : 'pxlmancer, drawing app, painting app, javascript, jquery, personal projects',
   'navGroup' : 'Personal Projects',

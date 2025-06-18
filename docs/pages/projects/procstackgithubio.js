@@ -1,7 +1,24 @@
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "procstack.github.io",
+  "description": "The source code for this site, procstack.github.io",
+  "keywords": "procstack, procstack.github.io, javascript, pxlNav, pages system, personal projects",
+  "url": "https://procstack.github.io/ProjectsLinks/procstack.github.io.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
 
 export const pageListingData = {
   'htmlName' : "procstack.github.io.htm",
   'name' : 'procstack.github.io',
+  'title' : 'procstack.github.io',
+  'schemaData' : shemaData,
   'description' : 'The source code for this site, procstack.github.io',
   'keywords' : 'procstack, procstack.github.io, javascript, pxlNav, pages system, personal projects',
   'navGroup' : 'Repos to Check Out',

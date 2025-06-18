@@ -1,7 +1,24 @@
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "pxlTextGenerator",
+  "description": "A text to handwriting generator, with a character builder and page editor.",
+  "keywords": "pxlTextGenerator, text to handwriting, character builder, page editor, javascript, personal projects",
+  "url": "https://procstack.github.io/ProjectsLinks/pxlTextGenerator.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
 
 export const pageListingData = {
   'htmlName' : "pxlTextGenerator.htm",
   'name' : 'pxlTextGenerator',
+  'title' : 'pxlTextGenerator',
+  'schemaData' : shemaData,
   'description' : 'A text to handwriting generator, with a character builder and page editor.',
   'keywords' : 'pxlTextGenerator, pxl text generator, handwriting generator, text to handwriting, character builder, page editor, python',
   'navGroup' : 'Repos to Check Out',

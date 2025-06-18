@@ -1,7 +1,25 @@
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "What am I?",
+  "description": "A little about me, my skills, and what I do.",
+  "keywords": "about me, personal projects, skills, web development, javascript, houdini, AI development",
+  "url": "https://procstack.github.io/AboutMe/What_am_I.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
 
+  
 export const pageListingData = {
   'htmlName' : "What_am_I.htm",
   'name' : 'What am I?',
+  'title' : 'What am I?',
+  'schemaData' : shemaData,
   'description' : 'A little about me, my skills, and what I do.',
   'keywords' : 'technical artist, technical director, creative technologist, houdini, unity, unreal engine, maya, vfx, particles, shaders, asset optimization, pipeline',
   'media' : [

@@ -1,7 +1,24 @@
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Explore",
+  "description": "Explore the Outlet environment, a water-side area with a lighthouse and coastal plant life.",
+  "keywords": "pxlNav, explore, outlet, lighthouse, coastal environment, Three.js, interactive environments",
+  "url": "https://procstack.github.io/pxlNav/Explore.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
 
 export const pageListingData = {
   'htmlName' : "Explore.htm",
   'name' : 'Explore',
+  'title' : 'Explore in the Outlet',
+  'schemaData' : shemaData,
   'description' : 'Explore the Outlet environment, a water-side area with a lighthouse and coastal plant life.',
   'keywords' : 'pxlNav, explore, Outlet, interactive environment, Three.js, web development',
   'media' : [

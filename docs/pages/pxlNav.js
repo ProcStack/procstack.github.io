@@ -10,7 +10,7 @@ import { pageListingData as whatsPxlNavData } from './pxlNav/whatsPxlNav.js';
 
 const metaDataInput = {
   'page': 'pxlNav',
-  'title': 'pxlNav Breakdown',
+  'title': 'pxlNav',
   'description': 'Explore what pxlNav offers as a javascript player controller & room manager for Three.js',
   'keywords': ['pxlNav', 'player controller', 'javascript', 'room manager', 'threejs', 'three.js', 'Kevin Edzenga', 'ProcStack'],
   'image': 'https://procstack.github.io/images/ProcStack_th.jpg',

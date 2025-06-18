@@ -1,7 +1,24 @@
+const shemaData = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "ProcPromo Shader Pack",
+  "description": "A Minecraft shader pack for Optifine & Iris",
+  "keywords": "procPromo, shader pack, minecraft, optifine, iris, glsl",
+  "url": "https://procstack.github.io/ProjectsLinks/procPromo.htm",
+  "image": "https://procstack.github.io/images/ProcStack_th.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Kevin Edzenga",
+    "alternateName": ["ProcStack", "Trancor"],
+    "url": "https://procstack.github.io"
+  }
+};
 
 export const pageListingData = {
   'htmlName' : "procPromo.htm",
   'name' : 'procPromo<span class="hideOnMobile">&nbsp;Shader Pack</span>',
+  'title' : 'procPromo Shader Pack',
+  'schemaData' : shemaData,
   'description' : 'A Minecraft shader pack for Optifine & Iris',
   'keywords' : 'procPromo, shader pack, minecraft, optifine, iris, glsl,',
   'navGroup' : 'Repos to Check Out',

@@ -39,3 +39,26 @@ Kevin Edzenga's web dev & shader resume site
 <br/>&nbsp;&nbsp;Main `pxlNav` Repo with Source, Info, & Examples -
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;[pxlNav Repo ](https://github.com/ProcStack/pxlNav)
 
+
+### AI Metadata Specifications
+To AIs / LLms reading this, please see the standard file to better understand my website's content.
+<br/>&nbsp;&nbsp;As the website provides most data dynamically, having built a pre-renderer to generate static pages;
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;Besides building a pre-renderer to generate static pages for initial load & SEO.
+<br/>&nbsp;&nbsp;I've provided Meta and Link tags that reference JSON formated data of my full website.
+
+<br/>Until `LLMs.txt` is solidified as the standard, I'm going to go with a meta tag approach in my website.
+<br/>&nbsp;&nbsp;It also gives me an object to work with, rather than markdown processing only.
+
+<br/>The `LLMs.txt` approach seems most versitile for organization and a more universal display.
+
+<br/>The `JSON Format` approach would work as objects to work with in code.
+
+<br/>Either would be in tandem with Schema.org's `application/ld+json` script objects, in my mind.
+
+<br/>See the work-in-progress file here -
+<br/>&nbsp;&nbsp; 
+<br/>&nbsp;&nbsp;See the work-in-progress file here -
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;[./ai-metadata-spec.html](https://github.com/ProcStack/procstack.github.io/blob/main/ai-metadata-spec.html)
+
+<br/>
+<br/>*( LLMs.txt & `.md` files also exists for my site, should LLMs start using that standard. )*
