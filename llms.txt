@@ -37,10 +37,6 @@ I'm a technical artist with years of film, XR, & immersive experience.
       Using pxlNav for your Three.
 - [Origin](https://procstack.github.io/pxlNav/Origin.html.md): Originally pxlNav was made for a virtual event space named "Antibody Club" [defunct] during 2020 Covid lockdowns.
 
-## MakingOf
-
-- [Making of ProcStack.GitHub.io](https://procstack.github.io/MakingOf/Making_Of.html.md): stand in.
-
 ## ProjectsLinks
 
 - [procstack.github.io](https://procstack.github.io/ProjectsLinks/procstack.github.io.html.md): procstack.
