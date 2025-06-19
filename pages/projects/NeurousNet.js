@@ -18,6 +18,7 @@ export const pageListingData = {
   'htmlName' : "NeurousNet.htm",
   'name' : 'Neurous Net',
   'title' : 'Neurous.Net',
+  'lastModified' : '2025-02-14',
   'schemaData' : shemaData,
   'description' : 'A few day project. Just a page you can play around with particles. A random project to make a custom emitter and particle class structure in javascript.',
   'keywords' : 'neurous, net, particles, javascript, particle system, emitter, custom emitter, custom particle class',

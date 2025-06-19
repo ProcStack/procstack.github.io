@@ -18,6 +18,7 @@ export const pageListingData = {
   'htmlName' : "Docs.htm",
   'name' : 'Documentation',
   'title' : 'Documentation',
+  'lastModified' : '2025-03-12',
   'schemaData' : shemaData,
   'description' : 'Documentation for the pxlNav library, including installation and usage instructions.',
   'keywords' : 'pxlNav, documentation, shader editor, Three.js, interactive environments, web development',

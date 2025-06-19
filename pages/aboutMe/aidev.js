@@ -19,6 +19,7 @@ export const pageListingData = {
   'htmlName' : "AI_Dev.htm",
   'name' : 'AI Dev',
   'title' : 'AI Dev',
+  'lastModified' : '2025-05-07',
   'schemaData' : shemaData,
   'description' : "AI development & research by ProcStack, including work on Graph Attention Networks (GAT), Echo State Networks (ESN), and other AI structures.",
   'keywords' : "AI, Artificial Intelligence, Machine Learning, Deep Learning, Graph Attention Network, GAT, Echo State Network, ESN, Neural Networks, AI Development",

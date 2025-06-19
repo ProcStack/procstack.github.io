@@ -18,6 +18,7 @@ export const pageListingData = {
   'htmlName' : "Dwitter.htm",
   'name' : 'Dwitter',
   'title' : 'Dwitter',
+  'lastModified' : '2025-02-24',
   'schemaData' : shemaData,
   'description' : 'A collection of my code golfing projects on Dwitter.net',
   'keywords' : 'dwitter, code golf, javascript, procstack, procstack.github.io',

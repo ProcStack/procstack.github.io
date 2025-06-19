@@ -18,6 +18,7 @@ export const pageListingData = {
   'htmlName' : "currentsOfWar.htm",
   'name' : 'Currents of War',
   'title' : 'Currents of War',
+  'lastModified' : '2025-06-19',
   'schemaData' : shemaData,
   'description' : 'A NPC Simulator made in Unity for the April 2025 itch.io gamejam "Indie Game Clinic COLLAB JAM \'25"',
   'keywords' : 'currents of war, game jam, itch.io, indie game clinic, collab jam, 2025, unity, npc simulator',

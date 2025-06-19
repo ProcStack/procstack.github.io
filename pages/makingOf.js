@@ -45,6 +45,7 @@ const pageContentObject = {
     {
       'htmlName' : "Making_Of.htm",
       'name' : 'Making of ProcStack.GitHub.io',
+      'lastModified' : '2025-06-19',
       'media' : [
         {
           'type' : 'video',

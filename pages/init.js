@@ -47,6 +47,7 @@ const pageContentObject = {
     {
       'name' : 'Init.',
       'title' : 'Init.',
+      'lastModified' : '2025-06-19',
       'content' : `
 <span class="procPagesHeaderStyle initHeaderStyle">Ahoi there!</span>
 <div class="initPage_hBarStyle">&nbsp;</div>

@@ -18,6 +18,7 @@ export const pageListingData = {
   'htmlName' : "procstack.github.io.htm",
   'name' : 'procstack.github.io',
   'title' : 'procstack.github.io',
+  'lastModified' : '2025-03-24',
   'schemaData' : shemaData,
   'description' : 'The source code for this site, procstack.github.io',
   'keywords' : 'procstack, procstack.github.io, javascript, pxlNav, pages system, personal projects',
