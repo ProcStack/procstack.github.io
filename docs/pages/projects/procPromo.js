@@ -18,6 +18,7 @@ export const pageListingData = {
   'htmlName' : "procPromo.htm",
   'name' : 'procPromo<span class="hideOnMobile">&nbsp;Shader Pack</span>',
   'title' : 'procPromo Shader Pack',
+  'lastModified' : '2025-06-19',
   'schemaData' : shemaData,
   'description' : 'A Minecraft shader pack for Optifine & Iris',
   'keywords' : 'procPromo, shader pack, minecraft, optifine, iris, glsl,',

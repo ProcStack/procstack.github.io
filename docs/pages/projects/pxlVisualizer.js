@@ -18,6 +18,7 @@ export const pageListingData = {
   'htmlName' : "pxlVisualizer.htm",
   'name' : 'pxlVisualizer',
   'title' : 'pxlVisualizer',
+  'lastModified' : '2025-02-14',
   'schemaData' : shemaData,
   'description' : 'A C++ project that visualizes different switchable trippy visuals using OpenFrameWorks and GLSL.',
   'keywords' : 'pxlVisualizer, visualizer, C++, OpenFrameWorks, GLSL, personal projects, trippy visuals',

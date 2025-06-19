@@ -1,6 +1,7 @@
 {
   "Init.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/Init_Init.htm.json",
+    "jsonURL": "https:\\procstack.github.io\\bots/Init.htm.json",
+    "lastModified": "2025-06-19",
     "title": "Init.",
     "description": "Ahoi there!\n \nI'm ProcStack, Trancor, & Kevin Edzenga,\n  Which ever ya feel like calling me!\n\n\n\nI'm a technical artist with years of film, XR, & immersive experience.",
     "media": [],
@@ -10,6 +11,7 @@
   },
   "pxlNav_Explore.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/pxlNav_Explore.htm.json",
+    "lastModified": "2025-03-12",
     "title": "Explore",
     "description": "pxlNav Example :: The Outlet\n\n      \n      Run around in this water side environment,\n      A water-way with a lighthouse & coastal plant life.",
     "media": [
@@ -44,6 +46,7 @@
   },
   "pxlNav_Whats_pxlNav.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/pxlNav_Whats_pxlNav.htm.json",
+    "lastModified": "2025-03-12",
     "title": "What's pxlNav?What?",
     "description": "The background of this page is running 'pxlNav',\n       A javascript package to extend Three.",
     "media": [
@@ -66,6 +69,7 @@
   },
   "pxlNav_Docs.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/pxlNav_Docs.htm.json",
+    "lastModified": "2025-03-12",
     "title": "Documentation",
     "description": "View the pxlNav Documentation\n      \n      \n      Create your own interactive environments,\n      Using pxlNav for your Three.",
     "media": [
@@ -82,6 +86,7 @@
   },
   "pxlNav_Origin.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/pxlNav_Origin.htm.json",
+    "lastModified": "2025-03-12",
     "title": "Origin",
     "description": "Originally pxlNav was made for a virtual event space named \"Antibody Club\" [defunct] during 2020 Covid lockdowns.",
     "media": [
@@ -104,6 +109,7 @@
   },
   "ProjectsLinks_procstack.github.io.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_procstack.github.io.htm.json",
+    "lastModified": "2025-03-24",
     "title": "procstack.github.io",
     "description": "procstack.",
     "media": [],
@@ -113,6 +119,7 @@
   },
   "ProjectsLinks_currentsOfWar.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_currentsOfWar.htm.json",
+    "lastModified": "2025-06-19",
     "title": "Currents of War",
     "description": "Currents of War 2025\n    A 'NPC Simulator' game made in Unity for the April 2025 itch.",
     "media": [
@@ -147,6 +154,7 @@
   },
   "ProjectsLinks_procPromo.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_procPromo.htm.json",
+    "lastModified": "2025-06-19",
     "title": "procPromo Shader Pack",
     "description": "procPromo Shader Pack 2022-2025\n    A Minecraft shader pack for Optifine & Iris.",
     "media": [
@@ -175,6 +183,7 @@
   },
   "ProjectsLinks_pxlVisualizer.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_pxlVisualizer.htm.json",
+    "lastModified": "2025-02-14",
     "title": "pxlVisualizer",
     "description": "pxlVisualizer 2019\n    Different switchable trippy visuals\n    Language - C++ / OpenFrameWorks & GLSL\n    \n    \n    Originally written in Python for PyGame, decided it would be a fun project to learn C++ on.",
     "media": [
@@ -191,6 +200,7 @@
   },
   "ProjectsLinks_pxlTextGenerator.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_pxlTextGenerator.htm.json",
+    "lastModified": "2025-02-24",
     "title": "pxlTextGenerator",
     "description": "pxlTextGenerator 2018-2019\n    Text to handwriting generator\n    Language - Python\n    \n    \n    Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.",
     "media": [
@@ -213,6 +223,7 @@
   },
   "ProjectsLinks_pxlmancer.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_pxlmancer.htm.json",
+    "lastModified": "2025-02-24",
     "title": "pxlmancer.com",
     "description": "pxlmancer.",
     "media": [
@@ -241,6 +252,7 @@
   },
   "ProjectsLinks_NeurousNet.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_NeurousNet.htm.json",
+    "lastModified": "2025-02-14",
     "title": "Neurous Net",
     "description": "Neurous.",
     "media": [
@@ -257,6 +269,7 @@
   },
   "ProjectsLinks_pxlCam.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_pxlCam.htm.json",
+    "lastModified": "2025-02-24",
     "title": "pxlCam",
     "description": "pxlCam 2020\n    A photo filter camera web app\n    Languages - JavaScript, Three.",
     "media": [
@@ -297,6 +310,7 @@
   },
   "ProjectsLinks_Shadertoy.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_Shadertoy.htm.json",
+    "lastModified": "2025-02-24",
     "title": "Shadertoy",
     "description": "Shadertoy 2020+\n    My account on a social shader playground website\n    Language - GLSL ES\n    \n    \n    Most of the shaders are utilitarian, \n       'Utility' like an exploration into the Kuwahara Filter.",
     "media": [
@@ -313,6 +327,7 @@
   },
   "ProjectsLinks_Dwitter.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_Dwitter.htm.json",
+    "lastModified": "2025-02-24",
     "title": "Dwitter",
     "description": "Dwitter 2018+\n    My account on a JavaScript code golfing website\n    Language - JavaScript\n    \n    \n    'Code Golfing' is the art of annoying your coworkers + devs,\n       By writing the most obtuse code as possible,\n          In the fewest characters you can.",
     "media": [
@@ -341,6 +356,7 @@
   },
   "AboutMe_What_am_I.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/AboutMe_What_am_I.htm.json",
+    "lastModified": "2025-03-25",
     "title": "What am I?",
     "description": "Technical Artist; particles, shaders, asset optimization, & pipeline\n    \n    \n      Houdini  /  VEX\n      Maya  /  MEL\n      Unity  /  C#\n      Photoshop\n\n      Python\n      PyQT\n      GLSL\n      JavaScript\n    \n\n    \n      New York Metropolitan Area\n      email\n    \n    \n    \n\n    \n    \n      I'm given the title 'Technical Artist' (when doing real-time jobs)\n         or 'Technical Director' (on films)\n           or 'Creative Technologist' (for immersive)\n      It's all the same types of mental challenges though,\n         Just in different mediums of digital graphics.",
     "media": [
@@ -357,6 +373,7 @@
   },
   "AboutMe_Film_Work.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/AboutMe_Film_Work.htm.json",
+    "lastModified": "2025-03-24",
     "title": "My Film Work",
     "description": "In the past, I worked on 10 films, 9 of those at Blue Sky Studios.",
     "media": [
@@ -373,6 +390,7 @@
   },
   "AboutMe_Plushies.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/AboutMe_Plushies.htm.json",
+    "lastModified": "2025-03-25",
     "title": "Plushies",
     "description": "In late-spring of 2024,\n         I made a tool to turn any 3d model into a fabric pattern in Houdini.",
     "media": [
@@ -407,6 +425,7 @@
   },
   "AboutMe_AI_Dev.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/AboutMe_AI_Dev.htm.json",
+    "lastModified": "2025-05-07",
     "title": "AI Dev",
     "description": "I started my dive into AI in 2008 writing a Boid / Crowd system for my thesis while in art college, School of Visual Arts.",
     "media": [

@@ -50,14 +50,15 @@ const writeToDisk = !dryRun;
 
 
 const siteRootUrl = "https://procstack.github.io";
-const baseUrl = 'http://localhost:3000'; // Ensure you're running a local server for this
+const localUrl = 'http://localhost:3000';
+
 const outputRoot = path.join( projectRoot, 'docs' );
 const snapshotDir = path.join( projectRoot, 'staticPages' );
 const botsDir = path.join( projectRoot, 'bots' );
 const botsRootUrl = path.join( siteRootUrl, 'bots' );
 const siteMapAppend = "sitemapAppend.json";
 
-const thumbnailUrl = "https://procstack.github.io/images/ProcStack_th.jpg";
+const thumbnailUrl = siteRootUrl + "/images/ProcStack_th.jpg";
 
 const renderDir = directToDocs ? outputRoot : snapshotDir;
 const sitemapPath = path.join( renderDir, 'sitemap.xml' );
@@ -138,34 +139,6 @@ const htmlToMarkdown = (html, title = '') => {
 };
 
 
-/*
-// Sitemap Append Json -
-{
-  "urls": [
-    {
-      "loc": "https://procstack.github.io/ai-data.html",
-      "lastmod": "2025-06-17",
-      "changefreq": "weekly",
-      "priority": 0.8
-    },
-    {
-      "loc": "https://procstack.github.io/data-manifest.json",
-      "lastmod": "2025-06-17",
-      "changefreq": "weekly",
-      "priority": 0.7
-    },
-    {
-      "loc": "https://procstack.github.io/bots/siteContent.json",
-      "lastmod": "2025-06-17",
-      "changefreq": "weekly",
-      "priority": 0.7
-    }
-  ]
-}
-
-*/
-
-
 const generateSitemap = (urls) => {
   const header = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n`;
   const footer = `\n</urlset>`;
@@ -175,7 +148,7 @@ const generateSitemap = (urls) => {
   }
 
 
-  const body = urls.map(url => `  <url>\n    <loc>${url}</loc>\n    <changefreq>monthly</changefreq>${imageTag}\n  </url>`).join('\n');
+  const body = urls.map(data => `  <url>\n    <loc>${data.url}</loc>\n    <lastmod>${data.lastModified}</lastmod>\n    <changefreq>monthly</changefreq>${imageTag}\n  </url>`).join('\n');
   let append = ``;
 
   // If sitemapAppend.json exists, read it and append its URLs
@@ -183,7 +156,9 @@ const generateSitemap = (urls) => {
   if( fs.existsSync(appendPath) ){
     const appendData = JSON.parse(fs.readFileSync(appendPath, 'utf8'));
     if( appendData.urls && Array.isArray(appendData.urls) ){
-      append = appendData.urls.map(entry => `  <url>\n    <loc>${entry.loc}</loc>\n    <lastmod>${entry.lastmod}</lastmod>\n    <changefreq>${entry.changefreq}</changefreq>\n  </url>`).join('\n');
+      let lastmod = appendData.lastModified || new Date().toISOString();
+      lastmod = lastmod.split('T')[0];
+      append = appendData.urls.map(entry => `  <url>\n    <loc>${entry.loc}</loc>\n    <lastmod>${lastmod}</lastmod>\n    <changefreq>${entry.changefreq}</changefreq>\n  </url>`).join('\n');
 
       if( append ){
         append = `\n${append}`;
@@ -194,7 +169,7 @@ const generateSitemap = (urls) => {
 };
 
 // Generate LLMs.txt file according to the specification
-const generateLLMsTxt = ( llmsContent, sitemapUrls ) => {
+const generateLLMsTxt = ( llmsContent ) => {
   let content = '# ProcStack Portfolio\n\n';
   content += `> Eyo, ProcStack here, I.\n\n`;
   
@@ -207,12 +182,16 @@ const generateLLMsTxt = ( llmsContent, sitemapUrls ) => {
   
   // Add main sections
   for( const [sectionName, pages] of Object.entries(llmsContent.sections) ){
-    content += `## ${sectionName}\n\n`;
+    content += `## ${sectionName}\n`;
     
     for( const page of pages ){
       content += `- [${page.title}](${page.url})`;
+      const lastUpdated = page.lastModified;
+      if( lastUpdated && lastUpdated !== '' ){
+        content += `\n Updated: ${lastUpdated}`;
+      }
       if( page.description && page.description !== page.title ){
-        content += `: ${page.description}`;
+        content += `\n Description : ${page.description}`;
       }
       content += '\n';
     }
@@ -221,9 +200,9 @@ const generateLLMsTxt = ( llmsContent, sitemapUrls ) => {
   
   // Add optional section for metadata
   content += '## AI Metadata Specifications\n\n';
-  content += '- [Site Content JSON](https://procstack.github.io/bots/siteContent.json): Complete site metadata in JSON format\n';
-  content += '- [AI Metadata Specification](https://procstack.github.io/bots/ai-metadata-spec.html): Technical specification for AI metadata format\n';
-  content += '- [Sitemap](https://procstack.github.io/sitemap.xml): Complete site structure for search engines\n';
+  content += `- [Site Content JSON](${siteRootUrl}/bots/siteContent.json): Complete site metadata in JSON format\n`;
+  content += `- [AI Metadata Specification](${siteRootUrl}/bots/ai-metadata-spec.html): Technical specification for AI metadata format\n`;
+  content += `- [Sitemap](${siteRootUrl}/sitemap.xml): Complete site structure for search engines\n`;
   
   return content;
 };
@@ -244,24 +223,32 @@ const main = async () => {
     const folder = key;
     const htmlName = pageData.htmlName || 'index.htm';
     const route = `${folder}/${htmlName}`;
-    const url = `${baseUrl}/${route}`;
+    const url = `${localUrl}/${route}`;
 
     console.log( `Page - ${key}` );
     const subPageKeys = pageData.sectionData;
-    
+
+    let isVisible = !pageData.hasOwnProperty('visible') || pageData.visible !== false;
+    if( !isVisible ){
+      console.log(` !! Skipping hidden page: ${key}`);
+      continue;
+    }
+
     if( subPageKeys ){
       for( const subKey in subPageKeys ){
         const subPageData = subPageKeys[subKey];
         const cleanedName = cleanText(subPageData.name || '');
         const htmlName = subPageData.htmlName || `${folder}.htm`;
-        let localUrl = `${baseUrl}/${folder}/${htmlName}`;
+
+        let localSubUrl = `${localUrl}/${folder}/${htmlName}`;
         let relUrl = `./${folder}/${htmlName}`;
         let url = `${siteRootUrl}/${folder}/${htmlName}`;
         let manifestKey = `${folder}_${htmlName}`;
         let relPathUpdate = "../";
         let outPath = path.join(renderDir, folder, htmlName);
-        if( !subPageData.htmlName && (!subPageData.name || subPageData.name == '') ){
-          localUrl = `${baseUrl}/${folder}.htm`;
+        
+        if( !subPageData.htmlName || subPageData.htmlName === '' ){
+          localSubUrl = `${localUrl}/${folder}.htm`;
           relUrl = `./${folder}.htm`;
           url = `${siteRootUrl}/${htmlName}`;
           manifestKey = htmlName;
@@ -272,8 +259,6 @@ const main = async () => {
         console.log(`|SubPage: ${cleanedName} (${subKey})`);
         console.log(`  Live URL: ${url}`);
 
-        // Add to sitemap
-        sitemapUrls.push( url );
 
         // Generate AI metadata
         const manifestJsonUrl = `${botsRootUrl}/${manifestKey}.json`;
@@ -286,6 +271,14 @@ const main = async () => {
           caption: cleanText((entry.caption || []).join(' '))
         }));
         const content = subPageData.content || '';
+        let lastModified = subPageData.lastModified || new Date().toISOString();
+        lastModified = lastModified.split('T')[0]; // Keep only the date part
+
+        // Add to sitemap
+        sitemapUrls.push({
+          url,
+          lastModified
+        });
 
         // Convert content to markdown for LLMs.txt
         const markdownContent = htmlToMarkdown(content, title);
@@ -296,25 +289,26 @@ const main = async () => {
           llmsContent.sections[sectionName] = [];
         }
         
-        const mdUrl = url.replace(/\.htm?$/, '.html.md');
+        const mdUrl = url+".md";
         llmsContent.sections[sectionName].push({
           title,
           url: mdUrl,
+          lastModified,
           description,
           content: markdownContent
         });
 
-        manifest[ manifestKey ] = { 'jsonURL':manifestJsonUrl, title, description, media, content, 'pageURL':url, 'relativeURL':relUrl };
+        manifest[ manifestKey ] = { 'jsonURL':manifestJsonUrl, lastModified, title, description, media, content, 'pageURL':url, 'relativeURL':relUrl };
         const aiOut = path.join(botsDir, `${manifestKey}.json`);
         if( writeToDisk ){
           fs.mkdirSync(path.dirname(aiOut), { recursive: true });
-          fs.writeFileSync(aiOut, JSON.stringify({ title, description, media }, null, 2));
+          fs.writeFileSync(aiOut, JSON.stringify({ title, description, lastModified, media }, null, 2));
           console.log(`  AI Metadata saved to: ${aiOut}`);
 
 
           // Generate individual markdown file for LLMs.txt standard
           if( llmsGenerate ){
-            const mdPath = outPath.replace(/\.htm?$/, '.html.md');
+            const mdPath = outPath+".md";
             const mdContent = `# ${title}\n\n${markdownContent}`;
             fs.mkdirSync(path.dirname(mdPath), { recursive: true });
             fs.writeFileSync(mdPath, mdContent);
@@ -322,9 +316,9 @@ const main = async () => {
           }
 
           // Render the page using Puppeteer
-          console.log(` - Rendering subpage... ${localUrl}`);
+          console.log(` - Rendering subpage... ${localSubUrl}`);
           const page = await browser.newPage();
-          await page.goto(localUrl, { waitUntil: 'networkidle0' });
+          await page.goto(localSubUrl, { waitUntil: 'networkidle0' });
 
           // Convert style and pxlNav modules to absolute paths
             const hrefToAbsolute = async (element, attr='href') => {
@@ -362,6 +356,30 @@ const main = async () => {
           const pxlNavModule = await page.$('#pxlNavModule');
           await hrefToAbsolute(pxlNavModule, 'src');
 
+          // Replace all instances of localhost URLs with production URLs in the HTML
+          await page.evaluate((localUrl, siteRootUrl) => {
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, null, false);
+                let regex = new RegExp(localUrl, 'g');
+            while (walker.nextNode()) {
+              const node = walker.currentNode;
+              if (node.nodeType === Node.TEXT_NODE) {
+                // Replace localhost URLs in text nodes
+                node.textContent = node.textContent.replace(regex, siteRootUrl);
+              } else if (node.nodeType === Node.ELEMENT_NODE) {
+                // Replace in attributes like href, src, etc.
+                for (const attr of ['href', 'src', 'data-src']) {
+                  if (node.hasAttribute && node.hasAttribute(attr)) {
+                  const val = node.getAttribute(attr);
+                    if (typeof val === 'string' && val.includes(localUrl)) {
+                      node.setAttribute(attr, val.replace(regex, siteRootUrl));
+                    }
+                  }
+                }
+              }
+            }
+          }, localUrl, siteRootUrl);
+
+
           // Remove pxlNav runtime container - id="pxlNav-container"
           const pxlNavContainer = await page.$('#pxlNav-container');
           if( pxlNavContainer ){
@@ -397,7 +415,7 @@ const main = async () => {
 
     // Generate LLMs.txt file
     if( llmsGenerate && writeToDisk ){
-      const llmsTxtContent = generateLLMsTxt(llmsContent, sitemapUrls);
+      const llmsTxtContent = generateLLMsTxt(llmsContent);
       const llmsTxtPath = path.join(renderDir, 'llms.txt');
       fs.writeFileSync(llmsTxtPath, llmsTxtContent);
       console.log(`LLMs.txt generated at: ${llmsTxtPath}`);

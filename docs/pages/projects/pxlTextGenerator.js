@@ -18,6 +18,7 @@ export const pageListingData = {
   'htmlName' : "pxlTextGenerator.htm",
   'name' : 'pxlTextGenerator',
   'title' : 'pxlTextGenerator',
+  'lastModified' : '2025-02-24',
   'schemaData' : shemaData,
   'description' : 'A text to handwriting generator, with a character builder and page editor.',
   'keywords' : 'pxlTextGenerator, pxl text generator, handwriting generator, text to handwriting, character builder, page editor, python',

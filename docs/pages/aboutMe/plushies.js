@@ -19,6 +19,7 @@ export const pageListingData = {
   'htmlName' : "Plushies.htm",
   'name' : 'Plushies',
   'title' : 'Plushies',
+  'lastModified' : '2025-03-25',
   'schemaData' : shemaData,
   'description' : 'My 2024 year in plushies! I made a tool to turn 3d models into fabric patterns in Houdini, so I\'ve been making plushies in my free time!',
   'keywords' : 'plushies, houdini, fabric patterns, sewing, minky, anti-pil fleece, plushie making, sewing tools',

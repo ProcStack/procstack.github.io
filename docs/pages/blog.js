@@ -45,6 +45,7 @@ const pageContentObject = {
     {
       'htmlName' : "Blog.htm",
       'name' : 'Blog',
+      'lastModified' : '2025-06-19',
       'content' : `
 <div id="blogEntryListing" class="blogEntryListStyle"></div>
 <div id="blogEntryContent" class="blogContentStyle"></div>

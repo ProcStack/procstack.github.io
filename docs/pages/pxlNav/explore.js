@@ -18,6 +18,7 @@ export const pageListingData = {
   'htmlName' : "Explore.htm",
   'name' : 'Explore',
   'title' : 'Explore in the Outlet',
+  'lastModified' : '2025-03-12',
   'schemaData' : shemaData,
   'description' : 'Explore the Outlet environment, a water-side area with a lighthouse and coastal plant life.',
   'keywords' : 'pxlNav, explore, Outlet, interactive environment, Three.js, web development',
