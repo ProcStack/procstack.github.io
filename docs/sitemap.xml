@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+  <loc>https://procstack.github.io/index.htm</loc>
+  <changefreq>monthly</changefreq>
+  <xhtml:link rel="canonical" href="https://procstack.github.io/Init.htm" xmlns:xhtml="http://www.w3.org/1999/xhtml"/>
+  <image:image xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
+  </image:image>
+</url>
   <url>
     <loc>https://procstack.github.io/Init.htm</loc>
     <changefreq>monthly</changefreq>
@@ -149,17 +157,14 @@
   </url>
   <url>
     <loc>https://procstack.github.io/ai-data.html</loc>
-    <lastmod>undefined</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://procstack.github.io/data-manifest.json</loc>
-    <lastmod>undefined</lastmod>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://procstack.github.io/bots/siteContent.json</loc>
-    <lastmod>undefined</lastmod>
     <changefreq>monthly</changefreq>
   </url>
 </urlset>
