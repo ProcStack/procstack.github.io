@@ -62,9 +62,20 @@ const thumbnailUrl = siteRootUrl + "/images/ProcStack_th.jpg";
 
 const renderDir = directToDocs ? outputRoot : snapshotDir;
 const sitemapPath = path.join( renderDir, 'sitemap.xml' );
+const sitemapPathXSL = path.join( renderDir, 'sitemap.xsl' );
+const sitemapXslSource = path.join( __dirname, 'sitemap.xsl' );
 
 fs.mkdirSync( renderDir, { recursive: true });
 fs.mkdirSync( botsDir, { recursive: true });
+
+// Copy the sitemap XSL file if it exists
+if( fs.existsSync(sitemapXslSource) ){
+  fs.copyFileSync(sitemapXslSource, sitemapPathXSL);
+  console.log(`Sitemap XSL copied to: ${sitemapPathXSL}`);
+}else{
+  console.warn(`!! Sitemap XSL file not found at: ${sitemapXslSource}`);
+}
+
 
 // Check for meta data spec file and move it to the bots directory if it's not already there
 const aiMetaSpecFile = path.join( projectRoot, 'ai-metadata-spec.html' );
@@ -140,7 +151,7 @@ const htmlToMarkdown = (html, title = '') => {
 
 
 const generateSitemap = (urls) => {
-  const header = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n`;
+  const header = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n`;
   const footer = `\n</urlset>`;
   let imageTag = '';
   if( thumbnailUrl !== '' ){
