@@ -3,5 +3,6 @@ Allow: /
 Sitemap: https://procstack.github.io/sitemap.xml
 
 # AI/LLM Data Sources
+Allow: /llms.txt
 Allow: /bots/siteContent.json
 Allow: /bots/*.json
