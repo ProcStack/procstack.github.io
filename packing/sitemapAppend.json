@@ -1,18 +1,24 @@
 {
   "urls": [
+    
+    {
+      "loc": "https://procstack.github.io/Outlet.htm",
+      "lastModified": "2025-03-06",
+      "changefreq": "monthly"
+    },
     {
       "loc": "https://procstack.github.io/ai-data.html",
-      "lastModified": "2024-06-18",
+      "lastModified": "2025-06-18",
       "changefreq": "monthly"
     },
     {
       "loc": "https://procstack.github.io/data-manifest.json",
-      "lastModified": "2024-06-19",
+      "lastModified": "2025-06-19",
       "changefreq": "monthly"
     },
     {
       "loc": "https://procstack.github.io/bots/siteContent.json",
-      "lastModified": "2024-06-19",
+      "lastModified": "2025-06-19",
       "changefreq": "monthly"
     }
   ]

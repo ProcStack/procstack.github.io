@@ -103,6 +103,7 @@
                         border-bottom: 1px solid #8a8a8a;
                         vertical-align: top;
                         text-align: center;
+                        color: #8f8f8f;
                     }
 
                     .td-url{
