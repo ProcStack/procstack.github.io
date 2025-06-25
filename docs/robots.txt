@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://procstack.github.io/sitemap.xml
+Sitemap: https://procstack.github.io/proc.sitemap.xml
 
 # AI/LLM Data Sources
 Allow: /llms.txt
