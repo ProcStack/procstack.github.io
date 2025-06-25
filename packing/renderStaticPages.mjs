@@ -150,12 +150,13 @@ const htmlToMarkdown = (html, title = '') => {
 };
 
 
+
 const generateSitemap = (urls) => {
-  const header = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n`;
+  const header = `<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n    xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"\n    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9\n      http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">\n`;
   const footer = `\n</urlset>`;
   let imageTag = '';
   if( thumbnailUrl !== '' ){
-    imageTag = `\n    <image:image xmlns:image=\"http://www.google.com/schemas/sitemap-image/1.1\">\n      <image:loc>${thumbnailUrl}</image:loc>\n    </image:image>`;
+    imageTag = `\n    <image:image>\n      <image:loc>${thumbnailUrl}</image:loc>\n    </image:image>`;
   }
 
 

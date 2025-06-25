@@ -103,7 +103,7 @@
                         border-bottom: 1px solid #8a8a8a;
                         vertical-align: top;
                         text-align: center;
-                        color: #8f8f8f;
+                        color: rgb(147, 160, 171);
                     }
 
                     .td-url{
@@ -121,11 +121,6 @@
                     .url-link:hover {
                         text-decoration: underline;
                         color: #5baaff;
-                    }
-                    
-                    .date {
-                        color:rgb(147, 160, 171);
-                        font-size: 13px;
                     }
                     
                     .frequency {
@@ -230,7 +225,7 @@
                           </div>
                           <div class="stat-item">
                               <span class="stat-number">
-                                  2025-06-19
+                                  2025-06-25
                               </span>
                               <span class="stat-label">Generated</span>
                           </div>
