@@ -101,7 +101,6 @@
                     td {
                         padding: 8px;
                         border-bottom: 1px solid #8a8a8a;
-                        vertical-align: top;
                         text-align: center;
                         color: rgb(147, 160, 171);
                     }
@@ -122,21 +121,6 @@
                         text-decoration: underline;
                         color: #5baaff;
                     }
-                    
-                    .frequency {
-                        background: #e9ecef;
-                        padding: 4px 8px;
-                        border-radius: 12px;
-                        font-size: 11px;
-                        text-transform: uppercase;
-                        color: #495057;
-                        display: inline-block;
-                    }
-                    
-                    .frequency.daily { background:rgb(92, 97, 93); color:rgb(57, 214, 93); }
-                    .frequency.weekly { background:rgb(99, 104, 110); color:rgb(23, 123, 229); }
-                    .frequency.monthly { background:rgb(86, 84, 78); color:rgb(229, 180, 32); }
-                    .frequency.yearly { background:rgb(81, 75, 75); color:rgb(224, 113, 124); }
                     
                     .image-yes-indicator {
                         color: #28a745;
@@ -235,9 +219,8 @@
                           <table>
                               <thead>
                                   <tr>
-                                      <th style="width: 50%;">URL</th>
-                                      <th style="width: 15%;">Last Modified</th>
-                                      <th style="width: 15%;">Change Frequency</th>
+                                      <th style="width: 60%;">URL</th>
+                                      <th style="width: 20%;">Last Modified</th>
                                       <th style="width: 10%;">Priority</th>
                                       <th style="width: 10%;">Images</th>
                                   </tr>
@@ -251,11 +234,6 @@
                                           </td>
                                           <td class="date">
                                               <xsl:value-of select="sitemap:lastmod"/>
-                                          </td>
-                                          <td>
-                                              <span class="frequency {sitemap:changefreq}">
-                                                  <xsl:value-of select="sitemap:changefreq"/>
-                                              </span>
                                           </td>
                                           <td>
                                               <xsl:choose>
