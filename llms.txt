@@ -133,7 +133,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
         Which considers time in its prediction.
 - [Notes & Research](https://procstack.github.io/AIDev/aiNotes.htm.md)
  Updated: 2025-07-31
- Description : If you couldn't tell, I'm training my AIs on my own works.
+ Description : I made a whole 'blog' system for this.
 
 ## AboutMe
 - [What am I?](https://procstack.github.io/AboutMe/What_am_I.htm.md)
@@ -168,7 +168,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
          Just in different mediums of digital graphics.
 - [My Film Work](https://procstack.github.io/AboutMe/Film_Work.htm.md)
  Updated: 2025-03-24
- Description : In the past, I worked on 10 films, 9 of those at Blue Sky Studios.
+ Description : In the past, I worked on 9 films, 8 of those at Blue Sky Studios.
 - [Plushies](https://procstack.github.io/AboutMe/Plushies.htm.md)
  Updated: 2025-03-25
  Description : In late-spring of 2024,

@@ -42,4 +42,6 @@ As of May 24th 2025, I've started on the core of the AI,
 
         You could guess,
         
-All the recent AI stuff has been quite serendipitous for my creation!
+All the recent AI hullabaloo (2019-...)
+        
+Has been quite serendipitous for my creation!

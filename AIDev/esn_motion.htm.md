@@ -6,7 +6,7 @@ An ESN is a type of 'reservoir' network,
         
 Which considers time in its prediction.
         
-It thinks about past events to predict future events.
+It thinks about past events to predict future ones.
 
 Since an ESN brain can learn on the fly, why not feed it some videos I made?
 

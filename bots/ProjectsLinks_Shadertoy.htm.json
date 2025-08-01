@@ -1,0 +1,13 @@
+{
+  "title": "Shadertoy",
+  "description": "Shadertoy 2020+\n    My account on a social shader playground website\n    Language - GLSL ES\n    \n    \n    Most of the shaders are utilitarian, \n       'Utility' like an exploration into the Kuwahara Filter.",
+  "lastModified": "2025-02-24",
+  "media": [
+    {
+      "type": "video",
+      "src": "../pages/projects/images/datNya.webm",
+      "alt": "Dat Nya!",
+      "caption": ""
+    }
+  ]
+}

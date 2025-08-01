@@ -2,6 +2,7 @@
 
 
 import { blogEntries } from './blog/blogEntries.js';
+import { blogEntry } from './blog/blogEntryBase.js';
 
 export class BlogManager {
   constructor( listParent, contentParent ){
@@ -23,8 +24,8 @@ export class BlogManager {
     this.contentParent = contentParent;
   }
   addBlogEntry( title, date, tags, body ){
-    let blogEntry = new blogEntries( this.parent, title, date, tags, body );
-    this.blogEntries.push( blogEntry );
+    let newBlogEntry = new blogEntry( this.parent, title, date, tags, body );
+    this.blogEntries.push( newBlogEntry );
   }
   build( parent=null ){
     let parentObj = parent;

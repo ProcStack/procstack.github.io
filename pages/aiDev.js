@@ -4,7 +4,7 @@ import { ProcPage } from '../js/procPages/ProcPage.js';
 import { pageListingData as aiIntroData } from './aiDev/aiIntro.js';
 import { pageListingData as gatLanguageData } from './aiDev/gatLanguageInterp.js';
 import { pageListingData as esnMotionPredictData } from './aiDev/esnMotionPredict.js';
-import { pageListingData as aiDevNotesData } from './aiDev/aiDevNotes.js';
+import { pageListingData as aiNotesData } from './aiDev/aiNotes.js';
 
 const metaDataInput = {
   'page': 'AIDev',
@@ -49,7 +49,7 @@ const pageContentObject = {
     aiIntroData,
     gatLanguageData,
     esnMotionPredictData,
-    aiDevNotesData
+    aiNotesData
   ]
 }
 

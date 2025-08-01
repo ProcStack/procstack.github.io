@@ -35,7 +35,7 @@ export const pageListingData = {
   'content' : `
       <div class='textSpacer'></div>
     <div class='procPagesAboutMe-infoStyle'>
-      In the past, I worked on <span class="textNudge">10</span> films, <span class="textNudge">9</span> of those at <span class="textBump">Blue Sky Studios</span>.
+      In the past, I worked on <span class="textNudge">9</span> films, <span class="textNudge">8</span> of those at <span class="textBump">Blue Sky Studios</span>.
       
       <div class='procPagesAboutMeSpacer'></div>
       

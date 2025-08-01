@@ -1,7 +1,7 @@
 import { blogEntry } from './blogEntryBase.js';
 
 let entryTitle = "Visibility in Design";
-let entryDate = "2025-08-08";
+let entryDate = "2025-02-08";
 let entryTags = ["layout", "design", "visibility", "expression", "pages", "february", "2025"];
 let entryBody = `
 I'll ussually have an idea of how a site/tool/project will look & operate in my head, but that's version 1.
