@@ -8,6 +8,7 @@ lerna-debug.log*
 .pnpm-debug.log*
 
 dev
+staticPages
 packing/FBX2glTF.exe
 Source/js/pxlRooms/CabinEnvironment
 Source/js/pxlRooms/VoidEnvironment
