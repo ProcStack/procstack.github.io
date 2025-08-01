@@ -1,6 +1,6 @@
 # My Film Work
 
-In the past, I worked on 10 films, 9 of those at Blue Sky Studios.
+In the past, I worked on 9 films, 8 of those at Blue Sky Studios.
 
         Character Simulation Technical Director (TD) for hair / clothing sims & tools in Maya on -
       

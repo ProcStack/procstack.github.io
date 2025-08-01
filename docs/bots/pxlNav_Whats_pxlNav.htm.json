@@ -1,0 +1,19 @@
+{
+  "title": "What's pxlNav?What?",
+  "description": "The background of this page is running 'pxlNav',\n       A javascript package to extend Three.",
+  "lastModified": "2025-03-12",
+  "media": [
+    {
+      "type": "image",
+      "src": "../pages/pxlNav/images/whatIs_theOutlet.webp",
+      "alt": "Showing The Outlet environment in Houdini",
+      "caption": "Using Houdini as my level editor for The Outlet"
+    },
+    {
+      "type": "image",
+      "src": "../pages/pxlNav/images/userDetails.webp",
+      "alt": "Showing User Details in different CGI programs",
+      "caption": "Add custom User Details to objects in your 3d modeling software, Allowing pxlNav to better understand your FBX file."
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Dwitter",
+  "description": "Dwitter 2018+\n    My account on a JavaScript code golfing website\n    Language - JavaScript\n    \n    \n    'Code Golfing' is the art of annoying your coworkers + devs,\n       By writing the most obtuse code as possible,\n          In the fewest characters you can.",
+  "lastModified": "2025-02-24",
+  "media": [
+    {
+      "type": "video",
+      "src": "../pages/projects/images/fallingCircles.webm",
+      "alt": "Fallin circles",
+      "caption": ""
+    },
+    {
+      "type": "video",
+      "src": "../pages/projects/images/greenField.webm",
+      "alt": "A green field",
+      "caption": ""
+    },
+    {
+      "type": "video",
+      "src": "../pages/projects/images/undulations.webm",
+      "alt": "The ripples of undulations",
+      "caption": ""
+    }
+  ]
+}

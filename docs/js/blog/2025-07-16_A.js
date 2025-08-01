@@ -1,8 +1,8 @@
 import { blogEntry } from './blogEntryBase.js';
 
-let entryTitle = "Visibility in Design";
+let entryTitle = "Boid Movement: Beyond the Basic Three Rules";
 let entryDate = "2025-07-16";
-let entryTags = ["layout", "design", "visibility", "expression", "pages", "february", "2025"];
+let entryTags = ["boids", "flocking", "navigation", "animation", "crowd-simulation", "blue-sky-studios", "july", "2025"];
 let entryBody = `
 Couple weeks down an a lot of progress on the site and personal ai development.
 Created 'Currents of War' in that time, and now pushing my plushie design collection.

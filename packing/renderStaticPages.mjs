@@ -483,6 +483,12 @@ const main = async () => {
     sections: {}
   };
 
+  // Counter to track pages rendered/updated
+  let pagesProcessedCount = 0;
+
+  // Flag to track if there were any issues during processing
+  let returnSuccessWarning = true;
+
   // Determine if this is a partial update (page filter is active)
   const isPartialUpdate = !!pageFilter;
   let existingSitemapUrls = [];
@@ -618,7 +624,7 @@ const main = async () => {
           outPath = path.join(renderDir, htmlName);
         }
 
-        console.log(`|SubPage: ${cleanedName} (${subKey})`);
+        console.log(`-|  -- SubPage: ${cleanedName} (${subKey})`);
         console.log(`  Live URL: ${url}`);
 
 
@@ -663,6 +669,9 @@ const main = async () => {
         manifest[ manifestKey ] = { 'jsonURL':manifestJsonUrl, lastModified, title, description, media, content, 'pageURL':url, 'relativeURL':relUrl };
         const aiOut = path.join(jsonOutputDir, `${manifestKey}.json`);
         if( writeToDisk ){
+          // Increment counter for pages being processed
+          pagesProcessedCount++;
+          
           fs.mkdirSync(path.dirname(aiOut), { recursive: true });
           fs.writeFileSync(aiOut, JSON.stringify({ title, description, lastModified, media }, null, 2));
           console.log(`  AI Metadata saved to: ${aiOut}`);
@@ -692,11 +701,11 @@ const main = async () => {
               if( path.startsWith('../.') ){
                 path = path.substring(4);
               }
-              if( path)
-              console.log(`   Processing ${attr} - ${path}`);
+              if( path ){
+                console.log(`   Processing ${attr} - ${path}`);
+              }
               
               // Only process relative paths that don't already start with ../ or /
-              console.log(path);
               if( path && !path.startsWith('/') && !path.startsWith('http') && !path.startsWith('../') ){
                 // Remove leading ./ if present
                 if( path.startsWith('./') ){
@@ -705,7 +714,6 @@ const main = async () => {
                 
                 //const absolutePath = `${siteRootUrl}/${path}`;
                 const absolutePath = `${relPathUpdate}${path}`;
-                console.log( absolutePath );
                 await element.evaluate((el, attr, absPath) => el.setAttribute(attr, absPath), attr, absolutePath);
               }
 
@@ -861,15 +869,50 @@ const main = async () => {
     console.log(message);
   }
 
+  // Report pages processed count
+  if( pagesProcessedCount === 0 ){
+    console.log(`\n  !! WARNING !! -- NO PAGES WERE PROCESSED! (Count: ${pagesProcessedCount})`);
+    console.log("        ( '"+pageFilter+"' not found in any page/sub-page names )");
+    returnSuccessWarning = false;
+  } else {
+    console.log(`\n  Something worked right!`);
+  }
+
+  // No need for reject when we have VARIABLES!
+  //   It's as async as it needs to be!
+  //     Since we all know how WebPack can get,
+  //       Yes, this is not a web packer,
+  //         But anything in that pre-deploy prep is gonna need a function or two
+  // The only missing pieces?
+  //   Recursive diving to find & convert FBX -> GLB (Binary GLTF)
+  //     Then at least I'll have a "live view" renderer of the site with asset processing
+  //   But, one step at a time!
+  return { pagesProcessedCount, returnSuccessWarning };
+
 };
 
 
 main()
-  .then(() => {
-    console.log('Process completed successfully');
+  .then(({ pagesProcessedCount, returnSuccessWarning }) => {
+
+    console.log("");
+    console.log(" - - - ");
+    console.log("");
+
+    if( !returnSuccessWarning ){
+      console.log('  !! WARNING !! - Process completed successfully, but with an issue!');
+      console.log('      (See above for details)');
+    } else {
+      console.log('Process completed successfully !!');
+      console.log(`  Total pages processed: ${pagesProcessedCount}`);
+    }
+    console.log("");
+    console.log(" - - - ");
+    console.log("");
+
     process.exit(0);
   })
   .catch((error) => {
-    console.error('Process failed:', error);
+    console.error('  !! ERROR !! - Process failed:', error);
     process.exit(1);
   });

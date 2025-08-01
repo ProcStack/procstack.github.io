@@ -35,7 +35,7 @@ export const pageListingData = {
     <div class='textSpacer'></div>
     <div class='procPagesAboutMe-infoStyle'>
       For my 2026 goal, I've been exploring <span class="textNudge">Graph Attention Network</span> (<span class="textNudge">GAT</span>) artificial intelligence.
-      &nbsp;As GATs allow me to treat 'concepts' as 'objects', rather than sections of words/pixels as a tensor or 'piece of a concept'.
+      &nbsp;As GATs allow me to treat 'concepts' as 'objects', rather than sections of words/pixels as a tensor or 'piece of a chunk of a concept'.
       <br>
       <br><span class="innerCenter">
         GATs are a type of neural network that considers the relationships between data points.
@@ -76,6 +76,35 @@ export const pageListingData = {
       <br>It should be self-taught discrimination of attention between neurons;
       <br>&nbsp;&nbsp; Like in the human brain.
       <br><div class="textSkew">&nbsp;&nbsp;&nbsp;&nbsp; (When the purple circles go red in the GAT video, first vid)</div>
+
+      <br><br><div class='procPagesAboutMeBar'></div>
+
+      <br><br>Please note, I haven't mentioned the transformer for this GAT.
+      <br>&nbsp;&nbsp; It was byte-pair 'tensors' encoded text block that I fed into the GAT.
+      <br>&nbsp;&nbsp; The GAT then found connections between the occurance of 'tensors' in "sessions" of other 'tensors'.
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; So the nodes are "occurences" of neighboring 'tensors' in the text block.
+      <br>It was like a, "find my neighbors" type of search for the GAT.
+
+      <br><br>What's not visualized here?
+      <br>The "ripple" through the GAT nodes during training epochs.
+      <br>... And the attributes of the nodes.
+      <br>&nbsp;&nbsp; I have a new GAT use-case in mind that should better show how "language connects" in a visual way soon.
+
+      <br><br>What it's trying to do?
+      <br>&nbsp;&nbsp; Link multiple nodes together in series to recreate the "rule" for those tensor neighbors.
+      <br>&nbsp;&nbsp; By recreating 'use cases' of the 'tensors' in the text block.
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; Which is why there are so few nodes here.
+
+      <br><br>What I didn't know? This is more of an MPNN than a GAT.
+      <br>&nbsp;&nbsp; A message passing neural network (MPNN) is a type of GNN that passes messages between nodes to update their states.
+
+      <br><br>It could really use some better visuals for this anyhow....
+
+      <br>
+      <br>But hey!
+      <br>I'm a toys'r'us kid after all, so....
+      <br>&nbsp;&nbsp;Hooked on Phonics worked for me!
+      <br>
     </div>
   `,
 };

@@ -31,7 +31,7 @@ export const pageListingData = {
   'content' : `
     <div class='textSpacer'></div>
     <div class='procPagesAboutMe-infoStyle'>
-      I started my dive into AI in 2008 writing a Boid / Crowd system for my thesis while in art college, School of Visual Arts.
+      <br>I started my dive into AI in 2008 writing a Boid / Crowd system for my thesis while in art college, School of Visual Arts.
       <br>&nbsp;&nbsp; It was an insane particle script + 3d animation cycles in Maya haha.
       <br>Then I did Boid movement, navigation, & obstacle detection in animated films for 5 years at Blue Sky Studios, using Houdini.
       <br>
@@ -68,7 +68,8 @@ export const pageListingData = {
 
       <br><span class="innerCenter">
         You could guess,
-        <br>All the recent AI stuff has been quite serendipitous for my creation!
+        <br>All the recent AI hullabaloo (2019-...)
+        <br>Has been quite serendipitous for my creation!
       </span>
     </div>
   `,

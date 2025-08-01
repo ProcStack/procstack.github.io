@@ -1,5 +1,9 @@
 # Notes & Research
 
+I made a whole 'blog' system for this... yet here we are....
+      
+   ( nudge, nudge )
+
 If you couldn't tell, I'm training my AIs on my own works.
       
 A personally made AI trained on personally made images / videos / photos / code / writing.
@@ -16,13 +20,13 @@ I've begun on the core of the AI, as of May 24th, 2025.
       
 This, paired with automatic graph edge splitting ('Dynamic' in DGNN or DGAT) and use of geometric clustering, seems to be giving me values of a "remembered" object when it's outside of the dataset.
       
-   Bodily awarness of limbs, objects outside of the field of view, and other 'long term' tensors/classifications at a temporary scale.
+   Hopefully leading to bodily awareness of limbs, objects outside of the field of view, and other 'long term' tensors/classifications at a temporary scale.
 
 It's a 4d kernel, in that it uses an ESN to train on it's own mistakes,
       
    Basing it's decisions on prior back-propagation states/adjustments.
       
-   The beginnings of a meta-learning process, hehe.
+   The beginnings of a meta-learning process, I hope!
 
 I'm using a method I'm calling 'Stack Crunching',
       
@@ -55,7 +59,13 @@ It's a Dynamic Pointer-Attention Message Passing Neural Network with Affine-Proj
 
 It all comes down to BOOOOIIIIIDDDDSSSSSS instead of Adam, baby!
       
-Tiny Brains running around in hyperdimensional space like little buggers running around avoiding each other.
+Because, what is Adam? It's a direction to move in a field of numbers, with momentum and a learning rate.
+      
+   Yet... That's just a simple Boid, now isn't it?
+      
+   Just without a few of the more advanced rules, which make boids feel so alive!
+
+Having some Tiny Brains running around in hyperdimensional space like little buggers running around avoiding each other.
       
    Because if they collide, double activation happens when it may not be desired.
       
@@ -64,33 +74,23 @@ Tiny Brains running around in hyperdimensional space like little buggers running
 (Only difference is that it was a [study](https://www.nature.com/articles/s41586-025-09142-4) into small biological systems, not artificial ones... but I'm gettin there!)
       - July 2025
 
- With a bit more research into the types of minds that brought us DeepMind, and their work on GNN networks,
+I'd like to believe I'm moving in the right direction with the feedback systems I'm developing.
       
- I read a bit of Petar Velickovic's work on topological deep learning and the geometry of GNNs.
-      
- Coming to find out that my idea of 'Stack Crunching' is similar to 'Squashing' in GNNs.
+   But been further creating other architectures to see how they operate.
 
- So I've been inspired to propperly name my neural structure-
+I created a GAN for upressing, which helped me understand a bit better the pairing of mental structures between both our brain's hemispheres.
       
-It's a Dynamic Pointer-Attention Message Passing Neural Network with Affine-Projections
+   So I added a time based memory to check if the training was moving in the right direction.
       
-   or a dPA-MPNN
+     It definitely helped guide training a bit quicker.
 
- But I must say, this isn't Affine Projections like in the papers,
+Shows my knowledge base that I'm impressed by back-up supported learning...
       
-   It's more like a 'projection' of the data into 'pointer' space;
-      
-   Actual Affine Matricies.
-      
-     I am a Technical Artist first before an AI Researcher after all, BOIDS!
+   But'is proof of concept!
 
-It all comes down to BOOOOIIIIIDDDDSSSSSS instead of Adam, baby!
+Adversarial networks exist in nature to guide a 'single' thought's path.
       
-Tiny Brains running around in hyperdimensional space like little buggers running around avoiding each other.
+   Yet in the case of Group Think between humans,
       
-   Because if they collide, double activation happens when it may not be desired.
-      
-   (I'm happy I finally saw a paper on Tiny Brains, giving my idea credence, cause it fits! .. in my mind.)
-      
-(Only difference is that it was a [study](https://www.nature.com/articles/s41586-025-09142-4) into small biological systems, not artificial ones... but I'm gettin there!)
+     Balance is never reached.
       - August 2025

@@ -1,7 +1,7 @@
 # GAT & Language
 
 For my 2026 goal, I've been exploring Graph Attention Network (GAT) artificial intelligence.
-       As GATs allow me to treat 'concepts' as 'objects', rather than sections of words/pixels as a tensor or 'piece of a concept'.
+       As GATs allow me to treat 'concepts' as 'objects', rather than sections of words/pixels as a tensor or 'piece of a chunk of a concept'.
 
         GATs are a type of neural network that considers the relationships between data points.
         
@@ -48,3 +48,41 @@ It should be self-taught discrimination of attention between neurons;
    Like in the human brain.
       
      (When the purple circles go red in the GAT video, first vid)
+
+Please note, I haven't mentioned the transformer for this GAT.
+      
+   It was byte-pair 'tensors' encoded text block that I fed into the GAT.
+      
+   The GAT then found connections between the occurance of 'tensors' in "sessions" of other 'tensors'.
+      
+     So the nodes are "occurences" of neighboring 'tensors' in the text block.
+      
+It was like a, "find my neighbors" type of search for the GAT.
+
+What's not visualized here?
+      
+The "ripple" through the GAT nodes during training epochs.
+      
+... And the attributes of the nodes.
+      
+   I have a new GAT use-case in mind that should better show how "language connects" in a visual way soon.
+
+What it's trying to do?
+      
+   Link multiple nodes together in series to recreate the "rule" for those tensor neighbors.
+      
+   By recreating 'use cases' of the 'tensors' in the text block.
+      
+     Which is why there are so few nodes here.
+
+What I didn't know? This is more of an MPNN than a GAT.
+      
+   A message passing neural network (MPNN) is a type of GNN that passes messages between nodes to update their states.
+
+It could really use some better visuals for this anyhow....
+
+But hey!
+      
+I'm a toys'r'us kid after all, so....
+      
+  Hooked on Phonics worked for me!

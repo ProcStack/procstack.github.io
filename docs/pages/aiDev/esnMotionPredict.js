@@ -66,7 +66,7 @@ export const pageListingData = {
       <br>
       <br><span class="innerCenter">An ESN is a type of '<span class="textNudge">reservoir</span>' network,
         <br>Which considers time in its prediction.
-        <br>It thinks about past events to predict future events.
+        <br>It thinks about past events to predict future ones.
         <div class='procPagesAboutMeSpacer'></div>
       </span>
       
