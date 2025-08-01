@@ -76,8 +76,8 @@
 
 <!-- -- -- -- -->
 
-<link type="text/css" id="procPagesStylesheet" rel="stylesheet" href="style/ProcStackStyle.css"/>
-<link type="text/css" id="pxlNavStylesheet" rel="stylesheet" href="style/pxlNavStyle.min.css"/>
+<link type="text/css" id="procPagesStylesheet" rel="stylesheet" href="./style/ProcStackStyle.css"/>
+<link type="text/css" id="pxlNavStylesheet" rel="stylesheet" href="./style/pxlNavStyle.min.css"/>
 
 <!-- Bypassing Youtube Player API for now -->
 <!--   Causing pxlNav pre-processing errors -->
@@ -91,11 +91,13 @@
 <!-- -- -- -- -- -- -->
 <!-- SEO for Robots -- -->
 <!-- -- -- -- -- -- -- -- -->
-<nav aria-hidden="true" style="display:none;">
-  <a href="/Init.htm">Init.</a>
-  <a href="/pxlNav/Explore.htm">pxlNav</a>
-  <a href="/ProjectsLinks/procstack.github.io.htm">Repos / Projects</a>
-  <a href="/AboutMe/What_am_I.htm">About Me</a>
+<nav aria-hidden="true" style="display:none;" role="navigation" aria-label="Site structure for crawlers">
+  <a href="/Init.htm" rel="bookmark">Initialize - Welcome and Introduction</a>
+  <a href="/pxlNav/Explore.htm" rel="bookmark">pxlNav Framework - 3D Navigation Technology</a>
+  <a href="/MakingOf/Development.htm" rel="bookmark">Making Of - Development Process</a>
+  <a href="/ProjectsLinks/procstack.github.io.htm" rel="bookmark">Projects and Repositories Portfolio</a>
+  <a href="/Blog/Technical.htm" rel="bookmark">Technical Blog and Tutorials</a>
+  <a href="/AboutMe/What_am_I.htm" rel="bookmark">About Kevin Edzenga - Technical Artist</a>
 </nav>
 
   <!-- -- -- -- -->
@@ -112,18 +114,19 @@
                 <div id="procPagesNavHeader" class="procPagesNavHeaderStyle gpnhScreenMedia">
                   <span class="squashInLowRes">_ProcStack_</span>
                 </div>
-                <div id="procPagesNav" class="procPagesNavStyle">
-                  <a href="Init.htm" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="init" page-name="Init" alt="Link to Init...">Init.</a>
-                  <a href="pxlNav.htm" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="pxlNav" page-name="pxlNav" alt="Some info on this git.io site's backbone">pxlNav</a>
-                  <a href="MakingOf.htm" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="makingOf" page-name="MakingOf" alt="The gears & servos">Making<span class="procPagesHideWhenThin"> Of</span>...</a>
-                  <a href="ProjectsLinks.htm" class="pageLinkStyle" pxlRoomName="SaltFlatsEnvironment" pxlCameraView="default" page-name="ProjectsLinks" alt="Real world projects"><span class="procPagesHideWhenThin">Repos /&nbsp;</span>Projects</a>
-                  <a href="Blog.htm" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="default" page-name="Blog" alt="My ramblings...">Blog</a>
-                  <a href="AboutMe.htm" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="aboutMe" page-name="AboutMe" alt="It's ah me! Marrr.... yeah"><span class="procPagesHideWhenThin">About&nbsp;</span>Me</a>
-                  <span id="procPagesToggleDOM" class="procPagesToggleDOMStyle">
-                    <a class="pageLinkStyle pageLinkEventStyle" pageEvent="ToggleDOM" pageValue=1 alt="Toggle the website contents">§</a>
-                    <a class="pageLinkStyle pageLinkEventStyle" pageEvent="ToggleDOM" pageValue=0 alt="Toggle the website contents">¤</a>
+                <nav id="procPagesNav" class="procPagesNavStyle" role="navigation" aria-label="Main navigation">
+                  <a href="Init.htm" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="init" page-name="Init" aria-label="Navigate to initialization and welcome page">Init.</a>
+                  <a href="pxlNav.htm" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="pxlNav" page-name="pxlNav" aria-label="Learn about pxlNav, this site's 3D navigation framework">pxlNav</a>
+                  <a href="MakingOf.htm" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="makingOf" page-name="MakingOf" aria-label="Behind the scenes of building this site">Making<span class="procPagesHideWhenThin"> Of</span>...</a>
+                  <a href="ProjectsLinks.htm" class="pageLinkStyle" pxlRoomName="SaltFlatsEnvironment" pxlCameraView="defaultCam" page-name="ProjectsLinks" aria-label="View my repositories and project portfolio">Projects</a>
+                  <a href="Blog.htm" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="defaultCam" page-name="Blog" aria-label="Read my technical blog posts and tutorials">Blog</a>
+                  <a href="AIDev.htm" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="aiDev" page-name="AIDev" aria-label="Read my technical blog posts and tutorials">AI Dev</a>
+                  <a href="AboutMe.htm" class="pageLinkStyle" pxlRoomName="CampfireEnvironment" pxlCameraView="aboutMe" page-name="AboutMe" aria-label="Learn about me and my background"><span class="procPagesHideWhenThin">About&nbsp;</span>Me</a>
+                  <span id="procPagesToggleDOM" class="procPagesToggleDOMStyle" role="group" aria-label="View mode controls">
+                    <a class="pageLinkStyle pageLinkEventStyle" pageEvent="ToggleDOM" pageValue="1" role="button" tabindex="0" aria-label="Switch to full 3D environment view" title="Switch to 3D view">§</a>
+                    <a class="pageLinkStyle pageLinkEventStyle" pageEvent="ToggleDOM" pageValue="0" role="button" tabindex="0" aria-label="Switch back to page content view" title="Switch to page content view">¤</a>
                   </span>
-                </div>
+                </nav>
             </div>
 
             <!-- -- -- -- -->
@@ -152,7 +155,7 @@
 
     <canvas id="pxlNav-coreCanvas" height='1' width='1' class="pxlNav-coreCanvasStyle" ></canvas>
 
-    <script type="module" id="pxlNavModule" src="js/ProckStackGitio.js?v=2025-02-08"></script>
+    <script type="module" id="pxlNavModule" src="./js/ProckStackGitio.js?v=2025-02-08"></script>
 
 
 </body>

@@ -1,0 +1,13 @@
+{
+  "title": "pxlVisualizer",
+  "description": "pxlVisualizer 2019\n    Different switchable trippy visuals\n    Language - C++ / OpenFrameWorks & GLSL\n    \n    \n    Originally written in Python for PyGame, decided it would be a fun project to learn C++ on.",
+  "lastModified": "2025-02-14",
+  "media": [
+    {
+      "type": "youtube",
+      "src": "1QPy7r63IRs?si=v8YY5M--7YLTNUeC",
+      "alt": "pxlVisualizer demo",
+      "caption": ""
+    }
+  ]
+}

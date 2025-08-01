@@ -1,35 +1,29 @@
 {
-  "title": "AI Dev",
-  "description": "I started my dive into AI in 2008 writing a Boid / Crowd system for my thesis while in art college, School of Visual Arts.",
-  "lastModified": "2025-05-07",
+  "title": "ESN & Motion Prediction",
+  "description": "How about an Echo State Network (ESN) AI I wrote in the spring-summer of 2024?\n      \n      An ESN is a type of 'reservoir' network,\n        Which considers time in its prediction.",
+  "lastModified": "2025-07-31",
   "media": [
     {
       "type": "video",
-      "src": "../pages/aboutMe/images/dgat_generativeStrings_15.webm",
-      "alt": "Dynamic Graph Attention Network",
-      "caption": "Generative connections in a dynamic Graph Attention Network (GAT); Finding connections between a block of text I wrote up. The network is creating connections between 'usage rules' of different words."
-    },
-    {
-      "type": "video",
-      "src": "../pages/aboutMe/images/learningGradients_dev02_18_loop.webm",
+      "src": "../pages/aiDev/images/learningGradients_dev02_18_loop.webm",
       "alt": "ESN Horizontal-Vertical Slice",
       "caption": "A vertical slice of horizontal movement in my Echo State Network (ESN) brain. I'm showing a 2D slice of a side-to-side movement. The repeating gray tones are patterns of 'relative' movement, Like a 'motion offset' found in similar prior frames."
     },
     {
       "type": "video",
-      "src": "../pages/aboutMe/images/esnLearning.webm",
-      "alt": "ESN Horizontal-Vertical Slice",
+      "src": "../pages/aiDev/images/esnLearning.webm",
+      "alt": "ESN Learning Process",
       "caption": "ESN test run; Upper Left are videos I made, Upper Right are learning rates in RGB, Red shows 'known' patterns, Green are pattern edges, & Blue 'might be' patterns. The Bottom is what the brain thinks its seeing & then predicting."
     },
     {
       "type": "video",
-      "src": "../pages/aboutMe/images/learningGradients_84.webm",
-      "alt": "ESN Horizontal-Vertical Slice",
+      "src": "../pages/aiDev/images/learningGradients_84.webm",
+      "alt": "ESN Different Slices",
       "caption": "Different slices from the same ESN, with different input video. Upper left is a video I made the AI's watching, upper right is detecting movement; Lower left is the brain's wrinkles, lower right is predicted movement."
     },
     {
       "type": "image",
-      "src": "../pages/aboutMe/images/learningGradients_84_brainSlice.png",
+      "src": "../pages/aiDev/images/learningGradients_84_brainSlice.png",
       "alt": "Custom ESN Learning Gradients",
       "caption": "A slice of the ESN's brain by frame 101 of watching the X pattern video."
     }

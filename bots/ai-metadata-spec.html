@@ -6,11 +6,11 @@
   <meta name="description" content="Specification for custom metadata fields used by ProcStack to aid AI and LLM systems in data discovery.">
 </head>
 <body>
-  <h1>ProcStack's AI Metadata Specification v0.1</h1>
-  <h4>  Updated : June 17th 2025</h4>
+  <h1>ProcStack's AI Metadata Specification v0.2</h1>
+  <h4>  Updated : August 1st 2025</h4>
 
   <p>This document defines custom metadata and link conventions used across the ProcStack project pages to expose structured data to bots, crawlers, and language models.</p>
-  <p>This document is a work in progress, structure for json's to be added shortly.</p>
+  <p>This specification includes JSON schema definitions and comprehensive discovery methods for AI systems.</p>
 
   <h2>Meta Tags</h2>
   <ul>
@@ -24,7 +24,50 @@
   <ul>
     <li><code>&lt;link rel="alternate" type="application/json" ...&gt;</code> - JSON representation of the full site or specific page.</li>
     <li><code>&lt;link rel="data-manifest" ...&gt;</code> - Points to the master structured content manifest (site-wide JSON).</li>
+    <li><code>&lt;link rel="ai-meta-spec" ...&gt;</code> - Points to this specification document for reference.</li>
   </ul>
+
+  <h2>Discovery Files</h2>
+  <ul>
+    <li><strong>data-manifest.json</strong> - Master manifest with all available data sources, schemas, and metadata</li>
+    <li><strong>llms.txt</strong> - LLM-friendly text summary following community standards</li>
+    <li><strong>sitemap.xml</strong> - Standard sitemap with lastmod dates for change detection</li>
+    <li><strong>robots.txt</strong> - Includes AI-specific directives and manifest references</li>
+  </ul>
+
+  <h2>JSON Data Schema</h2>
+  <h3>Individual Page Data (e.g., /bots/PageName.htm.json)</h3>
+  <pre>
+{
+  "title": "string",
+  "description": "string",
+  "lastModified": "YYYY-MM-DD",
+  "media": [
+    {
+      "type": "video|image",
+      "src": "relative/path/to/media",
+      "alt": "alt text",
+      "caption": "media description"
+    }
+  ]
+}
+  </pre>
+
+  <h3>Site Content Manifest (/bots/siteContent.json)</h3>
+  <pre>
+{
+  "[pageKey]": {
+    "jsonURL": "absolute URL to page JSON",
+    "lastModified": "YYYY-MM-DD",
+    "title": "page title",
+    "description": "page description",
+    "media": [...],
+    "content": "full HTML content",
+    "pageURL": "absolute page URL",
+    "relativeURL": "relative page path"
+  }
+}
+  </pre>
 
   <h2>Use Cases</h2>
   <ul>
@@ -58,6 +101,31 @@
   <pre>
 &lt;meta name="ai:content-api" content="https://procstack.github.io/bots/"&gt;
   </pre>
+
+  <h2>Example 4 - Enhanced robots.txt</h2>
+  <pre>
+User-agent: *
+Allow: /
+
+# AI/LLM specific directives  
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+
+# Data endpoints
+AI-Data-Manifest: https://procstack.github.io/data-manifest.json
+AI-Content-API: https://procstack.github.io/bots/
+  </pre>
+
+  <h2>Discovery Workflow for AI Systems</h2>
+  <ol>
+    <li>Check robots.txt for AI-Data-Manifest directive</li>
+    <li>Fetch data-manifest.json for complete data source overview</li>
+    <li>Use siteContent.json for bulk content or individual page JSON for specific content</li>
+    <li>Parse llms.txt for human-readable content summary</li>
+    <li>Respect lastModified dates to avoid unnecessary re-crawling</li>
+  </ol>
 
   <footer>
     <p>Created by Kevin Edzenga - <a href="https://procstack.github.io/">https://procstack.github.io/</a></p>

@@ -1,0 +1,19 @@
+{
+  "title": "pxlTextGenerator",
+  "description": "pxlTextGenerator 2018-2019\n    Text to handwriting generator\n    Language - Python\n    \n    \n    Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.",
+  "lastModified": "2025-02-24",
+  "media": [
+    {
+      "type": "image",
+      "src": "../pages/projects/images/pxlTextGenerator_characterBuilder.webp",
+      "alt": "Character selector & builder",
+      "caption": "Character selector & builder"
+    },
+    {
+      "type": "image",
+      "src": "../pages/projects/images/pxlTextGenerator_pageView.webp",
+      "alt": "Page builder with alphabet",
+      "caption": "Page builder using your selected characters"
+    }
+  ]
+}

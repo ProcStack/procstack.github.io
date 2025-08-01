@@ -33,7 +33,7 @@ export const pageListingData = {
     }
   ],
   'content' : `
-      <div class='procPagesSpacer'></div>
+      <div class='textSpacer'></div>
     <div class='procPagesAboutMe-infoStyle'>
       In the past, I worked on <span class="textNudge">10</span> films, <span class="textNudge">9</span> of those at <span class="textBump">Blue Sky Studios</span>.
       
@@ -42,12 +42,12 @@ export const pageListingData = {
       &nbsp;&nbsp;<span class="textInblockBox">Character Simulation Technical Director (TD)</span> for hair / clothing sims & tools in <span class="textName">Maya</span> on -
       <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textName">Epic</span>, <span class="textName">Rio 1</span> & <span class="textName">Rio 2</span>
       
-      <div class='procPagesSpacer'></div>
+      <div class='textSpacer'></div>
 
       &nbsp;&nbsp;<span class="textInblockBox">Effects TD</span> doing volume sims (snow & dust plumes), particles, some RBDs, & tools in <span class="textName">Houdini</span> & <span class="textName">Maya</span> on -
       <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textName">Ice Age 4</span>
       
-      <div class='procPagesSpacer'></div>
+      <div class='textSpacer'></div>
 
       &nbsp;&nbsp;<span class="textInblockBox">Crowds TD</span> navigation, sims, & tools in <span class="textName">Houdini</span> on -
       <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textName">Ferdinand</span>, <span class="textName">Rio 2</span>, <span class="textName">Peanuts</span>, <span class="textName">Ice Age 5</span>, & <span class="textName">Spies In Disguise</span>

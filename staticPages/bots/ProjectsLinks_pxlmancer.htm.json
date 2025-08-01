@@ -1,0 +1,25 @@
+{
+  "title": "pxlmancer.com",
+  "description": "pxlmancer.",
+  "lastModified": "2025-02-24",
+  "media": [
+    {
+      "type": "image",
+      "src": "../pages/projects/images/tvKid.webp",
+      "alt": "TV was king!",
+      "caption": "vv Watch the timelapse of me making 'TV Kid' in Pxlmancer vv"
+    },
+    {
+      "type": "video",
+      "src": "../pages/projects/images/tvKid.webm",
+      "alt": "TV Kid timelapse",
+      "caption": ""
+    },
+    {
+      "type": "image",
+      "src": "../pages/projects/images/kitty.webp",
+      "alt": "Digital drawing a friends cat",
+      "caption": "...of course, the cat tax..."
+    }
+  ]
+}

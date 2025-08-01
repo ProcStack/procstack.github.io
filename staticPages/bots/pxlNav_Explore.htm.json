@@ -1,0 +1,31 @@
+{
+  "title": "Explore",
+  "description": "pxlNav Example :: The Outlet\n\n      \n      Run around in this water side environment,\n      A water-way with a lighthouse & coastal plant life.",
+  "lastModified": "2025-03-12",
+  "media": [
+    {
+      "type": "image",
+      "src": "../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_coastline.webp",
+      "alt": "The coastline of the Outlet",
+      "caption": "An overlook of the Outlet"
+    },
+    {
+      "type": "image",
+      "src": "../pages/pxlNav/images/pxlNav_TheOutlet_2025-03-12_lightHouse_mobile.webp",
+      "alt": "The lighthouse at the Outlet",
+      "caption": "Mobile controls; they expand when dragged out"
+    },
+    {
+      "type": "image",
+      "src": "../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_spawn.webp",
+      "alt": "The Outlets spawn location",
+      "caption": ""
+    },
+    {
+      "type": "image",
+      "src": "../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_dockBarrels.webp",
+      "alt": "Overview of the foothills next to the Outlet",
+      "caption": ""
+    }
+  ]
+}

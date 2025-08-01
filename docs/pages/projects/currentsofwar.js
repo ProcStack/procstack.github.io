@@ -76,7 +76,7 @@ export const pageListingData = {
     <br> I wanted to create a semi 'tacky' weapons shop for the style.
     <br>&nbsp;&nbsp; To give some room for gags & chicanery!
 
-    <div class='procPagesSpacer'></div> 
+    <div class='textSpacer'></div> 
     <div class="pppHBar"></div>
 
     <br> One of the challenges was making sure the character's displayed with custom colors for their hair, face, armor, gloves/boots, and leggings.
@@ -87,7 +87,7 @@ export const pageListingData = {
     <br>
     <br> Among other fun things like adding an animated cursor, outlines around items on hover, ui borders that auto size to the text and stay pixel perfect, among other things
     
-    <div class='procPagesSpacer'></div> 
+    <div class='textSpacer'></div> 
     <div class="pppHBar"></div>
 
     Give the game a try, it's a little game with some neat mechanics!

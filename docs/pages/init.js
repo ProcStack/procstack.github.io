@@ -54,11 +54,11 @@ const pageContentObject = {
 <br>I'm <span class="textNudge">ProcStack</span>, <span class="textNudge">Trancor</span>, & <span class="textNudge">Kevin Edzenga</span>,
 <br>&nbsp;&nbsp;Which ever ya feel like calling me!
 
-<div class='procPagesSpacer'></div>
+<div class='textSpacer'></div>
 
 I'm a technical artist with years of film, XR, & immersive experience.
 
-<div class='procPagesSpacer'></div>
+<div class='textSpacer'></div>
 
 <span class="textNudge">Trancor</span> is my pre-rendered graphics & diy builds,
 <br><span class="textNudge">ProcStack</span> is coding & real-time graphics creations <span class="textDrinkMeAlice">('Trancor' was taken on github)</span>,

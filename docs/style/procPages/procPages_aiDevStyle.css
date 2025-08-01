@@ -1,0 +1,169 @@
+/* -- -- -- */
+
+.aiDevPageStyle{
+  width: var(--procPage-width);
+  justify-self: center;
+  justify-items: center;
+  z-index: 3;
+  overflow: hidden;
+}
+
+/* -- -- -- */
+
+.aiDevPage-sectionNavButtonStyle{
+  color: rgb(168 197 255);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(12, 55, 113, 0.71);
+  border-color: rgba(51, 61, 186, 0.45) rgba(39, 45, 142, 0.2);
+}
+.aiDevPage-sectionNavButtonStyle:hover{
+  color: rgb(231 239 255);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(21, 67, 189, 0.71);
+  border-color: rgb(59 74 255);
+}
+.aiDevPage-sectionNavButtonStyle:active{
+  color: rgb(184 204 245);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(3, 29, 97, 0.71);
+  border-color: rgb(36 51 232);
+}
+.aiDevPage-sectionNavButtonBackgroundStyle{
+  background: linear-gradient(90deg, rgba(12, 55, 113, 0.7), rgba(12, 55, 113, 0.0));
+}
+
+.aiDevPage-sectionNavButtonActiveStyle{
+  color: rgb(231 239 255);
+  text-shadow: 1.5px 1.5px 4px #252525;
+  background-color: rgba(21, 67, 189, 0.71);
+  border-color: rgb(59 74 255);
+}
+
+.aiDevPage-sectionNavListStyle{
+  background-color: rgba(59, 59, 59, 0.16);
+}
+
+@media screen and ((min-width: 1000px) or (min-aspect-ratio: 1)) {
+  .aiDevPage-sectionNavListStyle{
+    background: linear-gradient(-45deg, rgba(59, 59, 59, 0.0), rgba(59, 59, 59, 0.56));
+    height: 100%;
+    overflow: auto;
+  }
+}
+
+.aiDevPage-sectionCaptionStyle{
+  background: linear-gradient(90deg, rgba(72, 80, 100, 0.0) 0%, rgba(72, 80, 100, 0.5) 25%, rgba(72, 80, 100, 0.5) 75%, rgba(72, 80, 100, 0.0) 100%);
+}
+
+.aiDevPage-headerLine{
+  background: linear-gradient(90deg, rgb(167 167 167 / 38%) 0%, rgb(111 111 111 / 0%) 100%);
+}
+
+/* -- -- -- */
+
+.aiDevPageScrollbarStyle::-webkit-scrollbar {
+  border-radius: 2px;
+	width: 10px;
+}
+
+.aiDevPageScrollbarStyle::-webkit-scrollbar-track {
+  border-radius: 2px;
+	background: rgba(51, 76, 161, 0.308);
+}
+
+.aiDevPageScrollbarStyle::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+	cursor: grab;
+	background-color: rgba(33, 53, 117, 0.75);
+}
+.aiDevPageScrollbarStyle::-webkit-scrollbar-thumb:hover {
+  border-radius: 2px;
+	background-color: rgba(34, 61, 151, 0.811);
+}
+
+/* -- -- -- */
+
+.aiDevPageParentStyle{
+  max-width: min(100vw, 1600px);
+  width: 100%;
+  height : 60.5vh;
+  padding: var(--inner-padding);
+  border-radius: 2px;
+  background: linear-gradient(149deg, rgba(28, 76, 178, 0.4), rgba(29, 43, 66, 0.65), rgba(28, 48, 82, 0.4));
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
+  pointer-events: auto;
+  overflow: hidden;
+}
+
+.aiDevPageStyle .procPagesInnerBefore {
+  border-color: #152c52;
+}
+
+.aiDevPageStyle .procPagesInnerAfter {
+  border-color: #152c52;
+}
+
+/* -- -- -- */
+
+
+.procPagesNav_aiDevStyle {
+  background: linear-gradient(90deg, rgba(28, 30, 46, 0), rgba(27, 47, 95, 0.45), rgba(51, 62, 107, 0.55), rgba(27, 47, 95, 0.45), rgba(28, 30, 46, 0));
+  border-bottom: 1px solid rgb(58 58 153 / 45%);
+}
+.procPagesNav_aiDevStyle a {
+  border: 1px solid #8086fd;
+  color: #6e86ff;
+  background-color: rgba(77, 91, 140, 0.35);
+}
+.procPagesNav_aiDevStyle a:hover {
+  text-shadow: 1px 1.5px 4px #2a469b;
+  background-color: rgba(87, 112, 204, 0.532);
+}
+.procPagesNav_aiDevStyle a:active {
+  color: #3d4297;
+  border: 1px solid #5156af;
+  text-shadow: 1px 1.5px 4px #18254f;
+  background-color: rgba(53, 64, 104, 0.541);
+}
+
+.procPagesNav_aiDevActiveStyle {
+  text-shadow: 1px 1.5px 4px #2a469b;
+  background-color: rgba(87, 112, 204, 0.532) !important;
+  border: 1px solid rgba(89, 164, 94, 0.94) !important;
+  color: #758cff !important;
+}
+
+/* -- -- -- */
+
+.procPagesAiDevLinkStyle{
+  margin-bottom: 3px;
+  font-size: 1.2em;
+}
+
+.procPagesAiDevImageStyle{
+  width: calc(max(40vw,500px));
+  max-width: calc( max(min(100vw - 7vh, 480px), min( 100vw - 7vh, 40vw + ( (1000px - 100vw)*5) )) );
+  height: auto;
+  display: grid;
+  justify-self: center;
+  margin: 8px 0px 2px 0px;
+}
+
+/* -- -- -- */
+
+.aiDevPage_footerBar{
+    background: linear-gradient(90deg, rgba(20, 76, 186, 0.3), rgba(27, 63, 149, 0.1), rgba(20, 69, 186, 0), rgba(27, 63, 149, 0.2), rgba(20, 76, 186, 0.3));
+    color: #4964f1;
+}
+.aiDevPage_footerBar a {
+    color: #4964f1;
+}
+.aiDevPage_footerBar a:hover {
+    color: #5872f7;
+    font-weight: 600;
+    text-shadow: 1px 1.5px 4px rgba(50,50,50,.5);
+}
+.aiDevPage_footerBar a:active {
+    color: #324bc9;
+    text-shadow: 1px 1.5px 4px rgba(50,50,50,.75);
+}
