@@ -53,7 +53,7 @@ export const pageListingData = {
     }
   ],
   'content' : `
-      <div class='procPagesSpacer'></div>
+      <div class='textSpacer'></div>
     <div class='procPagesAboutMe-infoStyle'>
       In late-spring of 2024,
       <br>&nbsp;&nbsp; I made a tool to turn any 3d model into a fabric pattern in Houdini.

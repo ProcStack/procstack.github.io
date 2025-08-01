@@ -1,8 +1,23 @@
 User-agent: *
 Allow: /
-Sitemap: https://procstack.github.io/sitemap.xml
 
-# AI/LLM Data Sources
-Allow: /llms.txt
-Allow: /bots/siteContent.json
-Allow: /bots/*.json
+# AI/LLM specific directives
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: GoogleBot
+Allow: /
+
+# Data endpoints for AI discovery
+Sitemap: https://procstack.github.io/sitemap.xml
+AI-Data-Manifest: https://procstack.github.io/data-manifest.json
+AI-Content-API: https://procstack.github.io/bots/
+AI-LLMs-File: https://procstack.github.io/llms.txt
+
+# Crawl delay (be respectful)
+Crawl-delay: 1

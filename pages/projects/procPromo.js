@@ -68,7 +68,7 @@ export const pageListingData = {
     <br>Shadows are fun to figure out in games,
     <br>&nbsp;&nbsp; But they are all circlar, or 'radial', distance from the player.
 
-    <div class='procPagesSpacer'></div>
+    <div class='textSpacer'></div>
 
     <span class="innerCenter">
     This is a block game though!
@@ -77,7 +77,7 @@ export const pageListingData = {
     <br> Distorting the objects in space by their X,Y to the player/camera allows for much sharper shadows than a radial player-centric shadow map.
     <br>&nbsp;&nbsp; This let me get much sharper shadows from blocks, similar to Minecraft's promo art's shadows.
 
-    <div class='procPagesSpacer'></div>
+    <div class='textSpacer'></div>
 
     <br> It was a fun experiment for shadowing,
     <br>&nbsp;&nbsp; But it has it's time and place;

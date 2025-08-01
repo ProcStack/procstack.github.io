@@ -63,12 +63,12 @@ export const pageListingData = {
     <br>You can use any 3d modeling software to make interactive environments called <span class="textName">Rooms</span>, making it a little easier to make games/interactive environments.
     
     <br><br>Lets say, in Maya or Blender, you make a scene, add extra User Detail attributes to your objects to tell <span class="textNudge">pxlNav</span> how to interact with them.
-    <div class='procPagesSpacer'></div>
+    <div class='textSpacer'></div>
     Giving you the ability in your modeling software to set up-
     <br>&nbsp;&nbsp; Teleporter colliders within scene or between <span class="textName">Rooms</span>, set item pick-ups, ground colliders, animated textures, and more set in your 3d modeling software of choice.
-    <div class='procPagesSpacer'></div>
+    <div class='textSpacer'></div>
     <br>&nbsp;&nbsp; For customized object coding in javascript, mark objects as 'isScripted' and you can easily access that specific object by name in code.
-    <div class='procPagesSpacer'></div>
+    <div class='textSpacer'></div>
     <br>&nbsp;&nbsp; Then <span class="textNudge">pxlNav</span> loads your FBX and acompanying javascript file as a <span class="textName">Room</span> that can be portal'ed to if ya wanted.
   `,
 };

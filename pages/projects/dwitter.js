@@ -58,7 +58,7 @@ export const pageListingData = {
     <br> This is the 'dwitter' for the top video,
     <br>&nbsp;&nbsp; <span class="textName">Falling Circles</span> <span class="textItalic">[139/140 chars.]</span>
     
-    <div class="procPagesSpacer"></div>
+    <div class="textSpacer"></div>
     
     <br> I'm running a <span class="textName">recursive</span> function to draw circles over & over,
     <br>&nbsp;&nbsp; That are getting smaller as they go up.
@@ -69,19 +69,19 @@ export const pageListingData = {
     <br>&nbsp;&nbsp; You'll see variable assignment in the arguments of functions.
     <br> This might make things tricky to follow-
 
-    <div class="procPagesSpacer"></div>
+    <div class="textSpacer"></div>
 
     <div class="textInblockBox">
       d=(j,r)=>{x.beginPath(),x.arc(j*4+S(t*3+r)*r,T(t)*r+r*5,S(t+=j&6)*r/5+r,0,7),x.fill(),r>2&&(r/=2,d(j-r,r),d(j,r))}
       <br> d(w=(c.width=999)/2,600)
     </div>
 
-    <div class="procPagesSpacer"></div>
+    <div class="textSpacer"></div>
 
     <br>Hmmm, see how messy that looks?
     <br>&nbsp;&nbsp; Let me clean it up for you a bit!
 
-    <div class="procPagesSpacer"></div>
+    <div class="textSpacer"></div>
 
     <div class="textBox textInner">
       Built-in Variables & Functions - 
@@ -92,7 +92,7 @@ export const pageListingData = {
       <br>&nbsp;&nbsp S()- Math.sin;  C()- Math.cos; T()- Math.tan.
     </div>
     
-    <div class="procPagesSpacer"></div>
+    <div class="textSpacer"></div>
 
     <div class="textInblockBox">
       d=(j,r)=>{  <span class="codeAccentStyle">// Define 'd()' to call later vvv</span>
@@ -125,7 +125,7 @@ export const pageListingData = {
 
     </div>
 
-    <div class="procPagesSpacer"></div>
+    <div class="textSpacer"></div>
 
     <div class="innerCenter">
       ... doin a wee bit in there, haha

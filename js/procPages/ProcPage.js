@@ -324,6 +324,11 @@ export class ProcPage {
     placeholder.innerHTML = "&lt; Click to Play &gt;";
     placeholder.classList.add('manualLoadPlaceholder');
     
+    // Add accessibility attributes for interactive placeholder
+    placeholder.setAttribute('role', 'button');
+    placeholder.setAttribute('tabindex', '0');
+    placeholder.setAttribute('aria-label', `Load image: ${manualAlt || 'Click to load image'}`);
+    
     if( mediaData.hasOwnProperty('aspectRatio') ){
       placeholder.style.aspectRatio = mediaData.aspectRatio;
     }
@@ -353,6 +358,28 @@ export class ProcPage {
       // Remove the placeholder after the image starts loading
       manualObj.innerHTML = "";
       manualObj.appendChild(img);
+    });
+
+    // Add keyboard support for accessibility
+    placeholder.addEventListener('keydown', (e)=>{
+      if( e.key === 'Enter' || e.key === ' ' ){
+        e.preventDefault();
+        // Trigger the same logic as click
+        let img = new Image();
+        img.src = manualSrc;
+        img.width = manualWidth;
+        img.height = manualHeight;
+        img.alt = manualAlt;
+        img.loading = 'lazy';
+        manualClass.forEach( (c)=>{ img.classList.add(c); });
+        img.onload = ()=>{
+          manualObj.innerHTML = "";
+          manualObj.appendChild(img);
+        };
+        // Remove the placeholder after the image starts loading
+        manualObj.innerHTML = "";
+        manualObj.appendChild(img);
+      }
     });
 
     // Add the style classes to the manualObj
@@ -646,7 +673,10 @@ export class ProcPage {
     // -- -- -- -- -- --
 
     if( this.layout != 'single' ){
-      let pageSectionList = document.createElement('div');
+      let pageSectionList = document.createElement('nav');
+      pageSectionList.setAttribute('role', 'navigation');
+      pageSectionList.setAttribute('aria-label', 'Page sections');
+      
       if( this.layout == 'triple' ){
         pageSectionList.classList.add('procPageSectionList');
       }else if( this.layout == 'vertical' ){
@@ -663,8 +693,11 @@ export class ProcPage {
 
     let pageMediaView;
     if( this.layout != 'single' ){
-      pageMediaView = document.createElement('div');
-      pageMediaView.classList.add('procPageMediaView');
+      pageMediaView = document.createElement( 'section' );
+      pageMediaView.classList.add( 'procPageMediaView' );
+      pageMediaView.setAttribute( 'role', 'region' );
+      pageMediaView.setAttribute( 'aria-label', `Media gallery for ${this.page} page sections` );
+      pageMediaView.setAttribute( 'aria-describedby', 'Dynamic media content that changes based on selected section' );
       
       this.applyPageStyle( 'media', pageMediaView );
 
@@ -674,12 +707,16 @@ export class ProcPage {
 
     // -- -- --
 
-    let pageContentView = document.createElement('div');
+    let pageContentView = document.createElement( 'section' );
     if( this.layout == 'triple' ){
-      pageContentView.classList.add('procPageContentView');
+      pageContentView.classList.add( 'procPageContentView' );
     }else if( this.layout == 'vertical' ){
-      pageContentView.classList.add('procPageVerticalLockContentView');
+      pageContentView.classList.add( 'procPageVerticalLockContentView' );
     }
+    
+    pageContentView.setAttribute( 'role', 'main' );
+    pageContentView.setAttribute( 'aria-label', `Primary content area for ${this.page} page` );
+    pageContentView.setAttribute( 'aria-describedby', 'Main content that updates dynamically based on selected section navigation' );
     
     this.applyPageStyle( 'content', pageContentView );
 
@@ -690,6 +727,7 @@ export class ProcPage {
 
 
     if( this.layout == 'single' ){
+      // Just the Init. page for now, no sections or button navigation
       let curKey = Object.keys( this.sectionTitles )[0];
       let curSectionData = this.sectionData[curKey];
       this.buildSinglePageSection( curSectionData, pageContentView);
@@ -749,6 +787,10 @@ export class ProcPage {
         sectionTitleDiv.classList.add('procPagesButtonStyle');
         sectionTitleDiv.classList.add('procPagesSectionNavColor');
         
+        // Add accessibility attributes for crawlers and screen readers
+        sectionTitleDiv.setAttribute( 'role', 'button' );
+        sectionTitleDiv.setAttribute( 'tabindex', '0' );
+        sectionTitleDiv.setAttribute( 'aria-label', `Navigate to ${sectionData.name} section` );
         
         sectionTitleDiv.innerHTML = sectionData.name;
 
@@ -781,6 +823,14 @@ export class ProcPage {
         sectionTitleDiv.addEventListener('click', (e)=>{
           e.preventDefault();
           this.activateSection(sectionName);
+        });
+
+        // Add keyboard support for accessibility
+        sectionTitleDiv.addEventListener( 'keydown', (e)=>{
+          if( e.key === 'Enter' || e.key === ' ' ){
+            e.preventDefault();
+            this.activateSection(sectionName);
+          }
         });
 
       }
@@ -930,7 +980,6 @@ export class ProcPage {
     };
 
     this.emit( emitData );
-
   }
 
 

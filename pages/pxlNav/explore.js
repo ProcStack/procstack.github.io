@@ -69,22 +69,22 @@ export const pageListingData = {
       <br>While your <span class="textBoldBox">Right</span> thumbstick is <span class="textNudge">Look / Rotation</span>
       <br>Tap the <span class="textBoldBox">Upper Half</span> of the screen to <span class="textNudge">Jump</span>
 
-      <div class='procPagesSpacer'></div>
+      <div class='textSpacer'></div>
       
       <br><span class="textBold">On PC</span>, use <span class="textBoldBox">WASD</span> <span class="textNudge">or</span> <span class="textBoldBox">Arrow</span> keys to <span class="textNudge">Move</span>
-      <div class="procPagesSpacer"></div>
+      <div class="textSpacer"></div>
       <span class="textBoldBox">Left Click & Drag</span> <span class="textNudge">or</span> <span class="textBoldBox">Right Click Toggle</span>
       <br>With your <span class="textNudge">mouse</span> <span class="textNudge">to</span> <span class="textNudge">Look</span> around
-      <div class="procPagesSpacer"></div>
+      <div class="textSpacer"></div>
       <span class="textBoldBox">Space</span> to <span class=" ">Jump</span> <span class="textNudge">- & -</span> <span class="textBoldBox">Shift</span> to <span class="textBump">Run</span>
       
       
-      <div class='procPagesSpacer'></div>
+      <div class='textSpacer'></div>
       <br>Press the <span class="textBoldBox">P</span> key <span class="textNudge">to</span> <span class="textNudge">pause</span> the system
       <br>Tap the <span class="textBoldBox">Y</span> key <span class="textNudge">to</span> open the <span class="textName">Shader Editor</span>
 
       
-      <div class='procPagesSpacer'></div>
+      <div class='textSpacer'></div>
       Bump <span class="textBoldBox">G</span> to open <span class="textName">Graphics</span> settings
       <br>Nudge <span class="textBoldBox">H</span> for the <span class="textName">Help</span> menu
       <br>Bop <span class="textBoldBox">I</span> to squeek an <span class="textName">Info</span> screen

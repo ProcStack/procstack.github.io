@@ -20,7 +20,7 @@
   <meta name="revisit-after" content="14 days">
   <meta name="fragment" content="!">
   <!-- Note : connical, description, & keywords update with page changes -->
-  <link rel="canonical" href="https://procstack.github.io/pxlNav/Whats_pxlNav.htm" id="canonicalLink">
+  <link rel="canonical" href="http://localhost:3000/pxlNav/Whats_pxlNav.htm" id="canonicalLink">
   <meta name="description" content="An overview of the pxlNav library, its features, and how to use it for creating interactive environments in Three.js.">
   <meta name="keywords" content="pxlNav, Three.js, interactive environments, javascript library, game engine, web development">
   <meta name="author" content="Kevin Edzenga">
@@ -42,7 +42,7 @@
   <meta name="og:title" content="What's pxlNav? - pxlNav">
   <meta name="og:description" content="An overview of the pxlNav library, its features, and how to use it for creating interactive environments in Three.js.">
   <meta name="og:image" content="https://procstack.github.io/images/ProcStack_th.jpg">
-  <meta name="og:url" content="https://procstack.github.io/pxlNav/Whats_pxlNav.htm">
+  <meta name="og:url" content="http://localhost:3000/pxlNav/Whats_pxlNav.htm">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="What's pxlNav? - pxlNav">
@@ -94,11 +94,13 @@
 <!-- -- -- -- -- -- -->
 <!-- SEO for Robots -- -->
 <!-- -- -- -- -- -- -- -- -->
-<nav aria-hidden="true" style="display:none;">
-  <a href="/Init.htm">Init.</a>
-  <a href="/pxlNav/Explore.htm">pxlNav</a>
-  <a href="/ProjectsLinks/procstack.github.io.htm">Repos / Projects</a>
-  <a href="/AboutMe/What_am_I.htm">About Me</a>
+<nav aria-hidden="true" style="display:none;" role="navigation" aria-label="Site structure for crawlers">
+  <a href="/Init.htm" rel="bookmark">Initialize - Welcome and Introduction</a>
+  <a href="/pxlNav/Explore.htm" rel="bookmark">pxlNav Framework - 3D Navigation Technology</a>
+  <a href="/MakingOf/Development.htm" rel="bookmark">Making Of - Development Process</a>
+  <a href="/ProjectsLinks/procstack.github.io.htm" rel="bookmark">Projects and Repositories Portfolio</a>
+  <a href="/Blog/Technical.htm" rel="bookmark">Technical Blog and Tutorials</a>
+  <a href="/AboutMe/What_am_I.htm" rel="bookmark">About Kevin Edzenga - Technical Artist</a>
 </nav>
 
   <!-- -- -- -- -->
@@ -115,24 +117,25 @@
                 <div id="procPagesNavHeader" class="procPagesNavHeaderStyle gpnhScreenMedia">
                   <span class="squashInLowRes">_ProcStack_</span>
                 </div>
-                <div id="procPagesNav" class="procPagesNavStyle">
-                  <a href="Init.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="init" page-name="Init" alt="Link to Init...">Init.</a>
-                  <a href="pxlNav.htm" class="pageLinkStyle procPagesNav_pxlNavActiveStyle" pxlroomname="CampfireEnvironment" pxlcameraview="pxlNav" page-name="pxlNav" alt="Some info on this git.io site's backbone">pxlNav</a>
-                  <a href="MakingOf.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="makingOf" page-name="MakingOf" alt="The gears &amp; servos" style="display: none;">Making<span class="procPagesHideWhenThin"> Of</span>...</a>
-                  <a href="ProjectsLinks.htm" class="pageLinkStyle" pxlroomname="SaltFlatsEnvironment" pxlcameraview="default" page-name="ProjectsLinks" alt="Real world projects"><span class="procPagesHideWhenThin">Repos /&nbsp;</span>Projects</a>
-                  <a href="Blog.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="default" page-name="Blog" alt="My ramblings..." style="display: none;">Blog</a>
-                  <a href="AboutMe.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="aboutMe" page-name="AboutMe" alt="It's ah me! Marrr.... yeah"><span class="procPagesHideWhenThin">About&nbsp;</span>Me</a>
-                  <span id="procPagesToggleDOM" class="procPagesToggleDOMStyle">
-                    <a class="pageLinkStyle pageLinkEventStyle" pageevent="ToggleDOM" pagevalue="1" alt="Toggle the website contents">§</a>
-                    <a class="pageLinkStyle pageLinkEventStyle" pageevent="ToggleDOM" pagevalue="0" alt="Toggle the website contents" style="display: none;">¤</a>
+                <nav id="procPagesNav" class="procPagesNavStyle" role="navigation" aria-label="Main navigation">
+                  <a href="Init.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="init" page-name="Init" aria-label="Navigate to initialization and welcome page" role="button">Init.</a>
+                  <a href="pxlNav.htm" class="pageLinkStyle procPagesNav_pxlNavActiveStyle" pxlroomname="CampfireEnvironment" pxlcameraview="pxlNav" page-name="pxlNav" aria-label="Learn about pxlNav, this site's 3D navigation framework" role="button">pxlNav</a>
+                  <a href="MakingOf.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="makingOf" page-name="MakingOf" aria-label="Behind the scenes of building this site" role="button" style="display: none;">Making<span class="procPagesHideWhenThin"> Of</span>...</a>
+                  <a href="ProjectsLinks.htm" class="pageLinkStyle" pxlroomname="SaltFlatsEnvironment" pxlcameraview="defaultCam" page-name="ProjectsLinks" aria-label="View my repositories and project portfolio" role="button">Projects</a>
+                  <a href="Blog.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="defaultCam" page-name="Blog" aria-label="Read my technical blog posts and tutorials" role="button" style="display: none;">Blog</a>
+                  <a href="AIDev.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="aiDev" page-name="AIDev" aria-label="Read my technical blog posts and tutorials" role="button">AI Dev</a>
+                  <a href="AboutMe.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="aboutMe" page-name="AboutMe" aria-label="Learn about me and my background" role="button"><span class="procPagesHideWhenThin">About&nbsp;</span>Me</a>
+                  <span id="procPagesToggleDOM" class="procPagesToggleDOMStyle" role="group" aria-label="View mode controls">
+                    <a class="pageLinkStyle pageLinkEventStyle" pageevent="ToggleDOM" pagevalue="1" role="button" tabindex="0" aria-label="Switch to full 3D environment view" title="Switch to 3D view">§</a>
+                    <a class="pageLinkStyle pageLinkEventStyle" pageevent="ToggleDOM" pagevalue="0" role="button" tabindex="0" aria-label="Switch back to page content view" title="Switch to page content view" style="display: none;">¤</a>
                   </span>
-                </div>
+                </nav>
             </div>
 
             <!-- -- -- -- -->
             
             <div id="pxlPagesContentBlock" class="pxlPagesContentBlockStyle gpcpVisibleStyle heightFader">
-              <div id="pxlPagesContentParent" class="pxlPagesContentParentStyle"><div class="gpcpVisibleStyle procPagesContentStyle procPagesPlacementTripleStyle gitPxlNavPageStyle pagesFader pagesVisOn"><div class="procPagesInnerBeforeBase procPagesInnerBefore"></div><div class="procPagesInnerStyle procPagesParentStyle gitPxlNavPageParentStyle gitPxlNavPageScrollbarStyle procPagesLayoutTripleStyle" id="pxlPage_pxlNav"><div class="procPageHeader procPagesHeaderStyle"><a href="https://github.com/ProcStack/pxlNav" target="_blank">pxlNav <span class="pxlNavVersion" versionadded="v0.0.28-dev">v0.0.28-dev</span></a></div><div class="procPageSubHeader"><span>A javascript player controller &amp; environment manager<span class="procPagesHideWhenThin">&nbsp;for Three.js</span></span></div><div class="procPagesHeaderLine gitPxlNav-headerLine"></div><div class="procPageSectionList gitPxlNav-sectionNavListStyle"><div class="procPagesSectionNavButtonBackground gitPxlNav-sectionNavButtonBackgroundStyle"><div class="procPagesNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitPxlNav-sectionNavButtonStyle">Explore</div></div><div class="procPagesSectionNavButtonBackground gitPxlNav-sectionNavButtonBackgroundStyle"><div class="procPagesNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitPxlNav-sectionNavButtonStyle procPagesNavActive gitPxlNav-sectionNavButtonActiveStyle"><span class="procPagesHideWhenThin">What's&nbsp;<span class="textNudge">pxlNav</span>?</span><span class="procPagesShowWhenThin">What?</span></div></div><div class="procPagesSectionNavButtonBackground gitPxlNav-sectionNavButtonBackgroundStyle"><div class="procPagesNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitPxlNav-sectionNavButtonStyle">Documentation</div></div><div class="procPagesSectionNavButtonBackground gitPxlNav-sectionNavButtonBackgroundStyle"><div class="procPagesNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitPxlNav-sectionNavButtonStyle">Origin</div></div></div><div class="procPageMediaView gitPxlNavPageScrollbarStyle"><div class="procPagesMediaListStyle pagesVisOff"><a href="../Outlet.htm" target="_blank"><img src="../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_coastline.webp" alt="The coastline of the Outlet" loading="lazy" class="procPagesMediaImage procPagesImageStyle"></a><div class="procPagesMediaCaptionParentStyle gitPxlNav-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">An overlook of the Outlet</div></div><a href="../Outlet.htm" target="_blank"><img src="../pages/pxlNav/images/pxlNav_TheOutlet_2025-03-12_lightHouse_mobile.webp" alt="The lighthouse at the Outlet" loading="lazy" class="procPagesMediaImage procPagesImageStyle"></a><div class="procPagesMediaCaptionParentStyle gitPxlNav-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">Mobile controls; they expand when dragged out</div></div><a href="../Outlet.htm" target="_blank" class="procPagesMediaPad"><img src="../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_spawn.webp" alt="The Outlets spawn location" loading="lazy" class="procPagesMediaImage procPagesImageStyle"></a><a href="../Outlet.htm" target="_blank" class="procPagesMediaPad"><img src="../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_dockBarrels.webp" alt="Overview of the foothills next to the Outlet" loading="lazy" class="procPagesMediaImage procPagesImageStyle"></a></div><div class="procPagesMediaListStyle procPagesSectionActive pagesVisOn"><img src="../pages/pxlNav/images/whatIs_theOutlet.webp" alt="Showing The Outlet environment in Houdini" loading="lazy" class="procPagesMediaImage procPagesImageStyle"><div class="procPagesMediaCaptionParentStyle gitPxlNav-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">Using Houdini as my level editor for <a href="../Outlet.htm" target="_blank" alt="Outlet Environment" class="textBump">The Outlet</a></div></div><img src="../pages/pxlNav/images/userDetails.webp" alt="Showing User Details in different CGI programs" loading="lazy" class="procPagesMediaImage procPagesImageStyle"><div class="procPagesMediaCaptionParentStyle gitPxlNav-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">Add custom User Details to objects in your 3d modeling software,<br>Allowing <span class="textNudge">pxlNav</span> to better understand your FBX file.</div></div></div></div><div class="procPageContentView gitPxlNavPageScrollbarStyle"><div class="procPageSectionContentStyle procPagesCenterContent pagesVisOff" id="0"><div class="procPagesInnerContentStyle pagesVisOff">
+              <div id="pxlPagesContentParent" class="pxlPagesContentParentStyle"><div class="gpcpVisibleStyle procPagesContentStyle procPagesPlacementTripleStyle gitPxlNavPageStyle pagesFader pagesVisOn"><div class="procPagesInnerBeforeBase procPagesInnerBefore"></div><div class="procPagesInnerStyle procPagesParentStyle gitPxlNavPageParentStyle gitPxlNavPageScrollbarStyle procPagesLayoutTripleStyle" id="pxlPage_pxlNav"><div class="procPageHeader procPagesHeaderStyle"><a href="https://github.com/ProcStack/pxlNav" target="_blank">pxlNav <span class="pxlNavVersion" versionadded="v0.0.28-dev">v0.0.28-dev</span></a></div><div class="procPageSubHeader"><span>A javascript player controller &amp; environment manager<span class="procPagesHideWhenThin">&nbsp;for Three.js</span></span></div><div class="procPagesHeaderLine gitPxlNav-headerLine"></div><nav role="navigation" aria-label="Page sections" class="procPageSectionList gitPxlNav-sectionNavListStyle"><div class="procPagesSectionNavButtonBackground gitPxlNav-sectionNavButtonBackgroundStyle"><div class="procPagesNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitPxlNav-sectionNavButtonStyle" role="button" tabindex="0" aria-label="Navigate to Explore section">Explore</div></div><div class="procPagesSectionNavButtonBackground gitPxlNav-sectionNavButtonBackgroundStyle"><div class="procPagesNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitPxlNav-sectionNavButtonStyle procPagesNavActive gitPxlNav-sectionNavButtonActiveStyle" role="button" tabindex="0" aria-label="Navigate to &lt;span class='procPagesHideWhenThin'&gt;What's&amp;nbsp;&lt;span class='textNudge'&gt;pxlNav&lt;/span&gt;?&lt;/span&gt;&lt;span class='procPagesShowWhenThin'&gt;What?&lt;/span&gt; section"><span class="procPagesHideWhenThin">What's&nbsp;<span class="textNudge">pxlNav</span>?</span><span class="procPagesShowWhenThin">What?</span></div></div><div class="procPagesSectionNavButtonBackground gitPxlNav-sectionNavButtonBackgroundStyle"><div class="procPagesNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitPxlNav-sectionNavButtonStyle" role="button" tabindex="0" aria-label="Navigate to Documentation section">Documentation</div></div><div class="procPagesSectionNavButtonBackground gitPxlNav-sectionNavButtonBackgroundStyle"><div class="procPagesNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitPxlNav-sectionNavButtonStyle" role="button" tabindex="0" aria-label="Navigate to Origin section">Origin</div></div></nav><section class="procPageMediaView gitPxlNavPageScrollbarStyle" role="region" aria-label="Media gallery for pxlNav page sections" aria-describedby="Dynamic media content that changes based on selected section"><div class="procPagesMediaListStyle pagesVisOff"><a href="../Outlet.htm" target="_blank"><img src="../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_coastline.webp" alt="The coastline of the Outlet" loading="lazy" class="procPagesMediaImage procPagesImageStyle"></a><div class="procPagesMediaCaptionParentStyle gitPxlNav-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">An overlook of the Outlet</div></div><a href="../Outlet.htm" target="_blank"><img src="../pages/pxlNav/images/pxlNav_TheOutlet_2025-03-12_lightHouse_mobile.webp" alt="The lighthouse at the Outlet" loading="lazy" class="procPagesMediaImage procPagesImageStyle"></a><div class="procPagesMediaCaptionParentStyle gitPxlNav-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">Mobile controls; they expand when dragged out</div></div><a href="../Outlet.htm" target="_blank" class="procPagesMediaPad"><img src="../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_spawn.webp" alt="The Outlets spawn location" loading="lazy" class="procPagesMediaImage procPagesImageStyle"></a><a href="../Outlet.htm" target="_blank" class="procPagesMediaPad"><img src="../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_dockBarrels.webp" alt="Overview of the foothills next to the Outlet" loading="lazy" class="procPagesMediaImage procPagesImageStyle"></a></div><div class="procPagesMediaListStyle procPagesSectionActive pagesVisOn"><img src="../pages/pxlNav/images/whatIs_theOutlet.webp" alt="Showing The Outlet environment in Houdini" loading="lazy" class="procPagesMediaImage procPagesImageStyle"><div class="procPagesMediaCaptionParentStyle gitPxlNav-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">Using Houdini as my level editor for <a href="../Outlet.htm" target="_blank" alt="Outlet Environment" class="textBump">The Outlet</a></div></div><img src="../pages/pxlNav/images/userDetails.webp" alt="Showing User Details in different CGI programs" loading="lazy" class="procPagesMediaImage procPagesImageStyle"><div class="procPagesMediaCaptionParentStyle gitPxlNav-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">Add custom User Details to objects in your 3d modeling software,<br>Allowing <span class="textNudge">pxlNav</span> to better understand your FBX file.</div></div></div></section><section class="procPageContentView gitPxlNavPageScrollbarStyle" role="main" aria-label="Primary content area for pxlNav page" aria-describedby="Main content that updates dynamically based on selected section navigation"><div class="procPageSectionContentStyle procPagesCenterContent pagesVisOff" id="0"><div class="procPagesInnerContentStyle pagesVisOff">
     <div class="innerCenter" style="padding : 1.5em 0px 0px 0px;">
       <span class="textBump">pxlNav Example :: <a href="../Outlet.htm" target="_blank" alt="Outlet Environment" class="textBump">The Outlet</a></span>
 
@@ -145,22 +148,22 @@
       <br>While your <span class="textBoldBox">Right</span> thumbstick is <span class="textNudge">Look / Rotation</span>
       <br>Tap the <span class="textBoldBox">Upper Half</span> of the screen to <span class="textNudge">Jump</span>
 
-      <div class="procPagesSpacer"></div>
+      <div class="textSpacer"></div>
       
       <br><span class="textBold">On PC</span>, use <span class="textBoldBox">WASD</span> <span class="textNudge">or</span> <span class="textBoldBox">Arrow</span> keys to <span class="textNudge">Move</span>
-      <div class="procPagesSpacer"></div>
+      <div class="textSpacer"></div>
       <span class="textBoldBox">Left Click &amp; Drag</span> <span class="textNudge">or</span> <span class="textBoldBox">Right Click Toggle</span>
       <br>With your <span class="textNudge">mouse</span> <span class="textNudge">to</span> <span class="textNudge">Look</span> around
-      <div class="procPagesSpacer"></div>
+      <div class="textSpacer"></div>
       <span class="textBoldBox">Space</span> to <span class=" ">Jump</span> <span class="textNudge">- &amp; -</span> <span class="textBoldBox">Shift</span> to <span class="textBump">Run</span>
       
       
-      <div class="procPagesSpacer"></div>
+      <div class="textSpacer"></div>
       <br>Press the <span class="textBoldBox">P</span> key <span class="textNudge">to</span> <span class="textNudge">pause</span> the system
       <br>Tap the <span class="textBoldBox">Y</span> key <span class="textNudge">to</span> open the <span class="textName">Shader Editor</span>
 
       
-      <div class="procPagesSpacer"></div>
+      <div class="textSpacer"></div>
       Bump <span class="textBoldBox">G</span> to open <span class="textName">Graphics</span> settings
       <br>Nudge <span class="textBoldBox">H</span> for the <span class="textName">Help</span> menu
       <br>Bop <span class="textBoldBox">I</span> to squeek an <span class="textName">Info</span> screen
@@ -191,14 +194,14 @@
     <br>You can use any 3d modeling software to make interactive environments called <span class="textName">Rooms</span>, making it a little easier to make games/interactive environments.
     
     <br><br>Lets say, in Maya or Blender, you make a scene, add extra User Detail attributes to your objects to tell <span class="textNudge">pxlNav</span> how to interact with them.
-    <div class="procPagesSpacer"></div>
+    <div class="textSpacer"></div>
     Giving you the ability in your modeling software to set up-
     <br>&nbsp;&nbsp; Teleporter colliders within scene or between <span class="textName">Rooms</span>, set item pick-ups, ground colliders, animated textures, and more set in your 3d modeling software of choice.
-    <div class="procPagesSpacer"></div>
+    <div class="textSpacer"></div>
     <br>&nbsp;&nbsp; For customized object coding in javascript, mark objects as 'isScripted' and you can easily access that specific object by name in code.
-    <div class="procPagesSpacer"></div>
+    <div class="textSpacer"></div>
     <br>&nbsp;&nbsp; Then <span class="textNudge">pxlNav</span> loads your FBX and acompanying javascript file as a <span class="textName">Room</span> that can be portal'ed to if ya wanted.
-  </div></div></div></div><div class="procPagesInnerAfterBase procPagesInnerAfter"></div></div></div>
+  </div></div></section></div><div class="procPagesInnerAfterBase procPagesInnerAfter"></div></div></div>
             </div>
             
             <!-- -- -- -- -->

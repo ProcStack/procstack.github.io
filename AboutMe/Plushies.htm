@@ -20,7 +20,7 @@
   <meta name="revisit-after" content="14 days">
   <meta name="fragment" content="!">
   <!-- Note : connical, description, & keywords update with page changes -->
-  <link rel="canonical" href="https://procstack.github.io/AboutMe/Plushies.htm" id="canonicalLink">
+  <link rel="canonical" href="http://localhost:3000/AboutMe/Plushies.htm" id="canonicalLink">
   <meta name="description" content="My 2024 year in plushies! I made a tool to turn 3d models into fabric patterns in Houdini, so I've been making plushies in my free time!">
   <meta name="keywords" content="plushies, houdini, fabric patterns, sewing, minky, anti-pil fleece, plushie making, sewing tools">
   <meta name="author" content="Kevin Edzenga">
@@ -42,7 +42,7 @@
   <meta name="og:title" content="Plushies - About Kevin Edzenga">
   <meta name="og:description" content="My 2024 year in plushies! I made a tool to turn 3d models into fabric patterns in Houdini, so I've been making plushies in my free time!">
   <meta name="og:image" content="https://procstack.github.io/images/ProcStack_th.jpg">
-  <meta name="og:url" content="https://procstack.github.io/AboutMe/Plushies.htm">
+  <meta name="og:url" content="http://localhost:3000/AboutMe/Plushies.htm">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Plushies - About Kevin Edzenga">
@@ -94,11 +94,13 @@
 <!-- -- -- -- -- -- -->
 <!-- SEO for Robots -- -->
 <!-- -- -- -- -- -- -- -- -->
-<nav aria-hidden="true" style="display:none;">
-  <a href="/Init.htm">Init.</a>
-  <a href="/pxlNav/Explore.htm">pxlNav</a>
-  <a href="/ProjectsLinks/procstack.github.io.htm">Repos / Projects</a>
-  <a href="/AboutMe/What_am_I.htm">About Me</a>
+<nav aria-hidden="true" style="display:none;" role="navigation" aria-label="Site structure for crawlers">
+  <a href="/Init.htm" rel="bookmark">Initialize - Welcome and Introduction</a>
+  <a href="/pxlNav/Explore.htm" rel="bookmark">pxlNav Framework - 3D Navigation Technology</a>
+  <a href="/MakingOf/Development.htm" rel="bookmark">Making Of - Development Process</a>
+  <a href="/ProjectsLinks/procstack.github.io.htm" rel="bookmark">Projects and Repositories Portfolio</a>
+  <a href="/Blog/Technical.htm" rel="bookmark">Technical Blog and Tutorials</a>
+  <a href="/AboutMe/What_am_I.htm" rel="bookmark">About Kevin Edzenga - Technical Artist</a>
 </nav>
 
   <!-- -- -- -- -->
@@ -115,25 +117,26 @@
                 <div id="procPagesNavHeader" class="procPagesNavHeaderStyle gpnhScreenMedia">
                   <span class="squashInLowRes">_ProcStack_</span>
                 </div>
-                <div id="procPagesNav" class="procPagesNavStyle">
-                  <a href="Init.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="init" page-name="Init" alt="Link to Init...">Init.</a>
-                  <a href="pxlNav.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="pxlNav" page-name="pxlNav" alt="Some info on this git.io site's backbone">pxlNav</a>
-                  <a href="MakingOf.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="makingOf" page-name="MakingOf" alt="The gears &amp; servos" style="display: none;">Making<span class="procPagesHideWhenThin"> Of</span>...</a>
-                  <a href="ProjectsLinks.htm" class="pageLinkStyle" pxlroomname="SaltFlatsEnvironment" pxlcameraview="default" page-name="ProjectsLinks" alt="Real world projects"><span class="procPagesHideWhenThin">Repos /&nbsp;</span>Projects</a>
-                  <a href="Blog.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="default" page-name="Blog" alt="My ramblings..." style="display: none;">Blog</a>
-                  <a href="AboutMe.htm" class="pageLinkStyle procPagesNav_aboutMeActiveStyle" pxlroomname="CampfireEnvironment" pxlcameraview="aboutMe" page-name="AboutMe" alt="It's ah me! Marrr.... yeah"><span class="procPagesHideWhenThin">About&nbsp;</span>Me</a>
-                  <span id="procPagesToggleDOM" class="procPagesToggleDOMStyle">
-                    <a class="pageLinkStyle pageLinkEventStyle" pageevent="ToggleDOM" pagevalue="1" alt="Toggle the website contents">§</a>
-                    <a class="pageLinkStyle pageLinkEventStyle" pageevent="ToggleDOM" pagevalue="0" alt="Toggle the website contents" style="display: none;">¤</a>
+                <nav id="procPagesNav" class="procPagesNavStyle" role="navigation" aria-label="Main navigation">
+                  <a href="Init.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="init" page-name="Init" aria-label="Navigate to initialization and welcome page" role="button">Init.</a>
+                  <a href="pxlNav.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="pxlNav" page-name="pxlNav" aria-label="Learn about pxlNav, this site's 3D navigation framework" role="button">pxlNav</a>
+                  <a href="MakingOf.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="makingOf" page-name="MakingOf" aria-label="Behind the scenes of building this site" role="button" style="display: none;">Making<span class="procPagesHideWhenThin"> Of</span>...</a>
+                  <a href="ProjectsLinks.htm" class="pageLinkStyle" pxlroomname="SaltFlatsEnvironment" pxlcameraview="defaultCam" page-name="ProjectsLinks" aria-label="View my repositories and project portfolio" role="button">Projects</a>
+                  <a href="Blog.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="defaultCam" page-name="Blog" aria-label="Read my technical blog posts and tutorials" role="button" style="display: none;">Blog</a>
+                  <a href="AIDev.htm" class="pageLinkStyle" pxlroomname="CampfireEnvironment" pxlcameraview="aiDev" page-name="AIDev" aria-label="Read my technical blog posts and tutorials" role="button">AI Dev</a>
+                  <a href="AboutMe.htm" class="pageLinkStyle procPagesNav_aboutMeActiveStyle" pxlroomname="CampfireEnvironment" pxlcameraview="aboutMe" page-name="AboutMe" aria-label="Learn about me and my background" role="button"><span class="procPagesHideWhenThin">About&nbsp;</span>Me</a>
+                  <span id="procPagesToggleDOM" class="procPagesToggleDOMStyle" role="group" aria-label="View mode controls">
+                    <a class="pageLinkStyle pageLinkEventStyle" pageevent="ToggleDOM" pagevalue="1" role="button" tabindex="0" aria-label="Switch to full 3D environment view" title="Switch to 3D view">§</a>
+                    <a class="pageLinkStyle pageLinkEventStyle" pageevent="ToggleDOM" pagevalue="0" role="button" tabindex="0" aria-label="Switch back to page content view" title="Switch to page content view" style="display: none;">¤</a>
                   </span>
-                </div>
+                </nav>
             </div>
 
             <!-- -- -- -- -->
             
             <div id="pxlPagesContentBlock" class="pxlPagesContentBlockStyle gpcpVisibleStyle heightFader">
-              <div id="pxlPagesContentParent" class="pxlPagesContentParentStyle"><div class="gpcpVisibleStyle procPagesContentStyle procPagesPlacementVerticalStyle procPagesLockVertical gitAboutMePageStyle pagesFader pagesVisOn"><div class="procPagesInnerBeforeBase procPagesInnerBefore"></div><div class="procPagesParentStyle gitAboutMePageParentStyle procPagesLockVertical" id="pxlPage_AboutMe"><div class="procPageHeader procPagesHeaderStyle">About Me</div><div class="procPageVerticalLockSectionList gitAboutMePage-sectionNavListStyle"><div class="procPagesVerticalLockNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitAboutMePage-sectionNavButtonStyle">What am I?</div><div class="procPagesVerticalLockNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitAboutMePage-sectionNavButtonStyle">My Film Work</div><div class="procPagesVerticalLockNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitAboutMePage-sectionNavButtonStyle procPagesNavActive gitAboutMePage-sectionNavButtonActiveStyle">Plushies</div><div class="procPagesVerticalLockNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitAboutMePage-sectionNavButtonStyle">AI Dev</div></div><div class="procPageMediaView procPagesScrollbarStyle" style=""><div class="procPagesMediaListStyle pagesVisOff"><iframe src="https://www.youtube-nocookie.com/embed/trt9dGUYevs" title="Technical Art Reel 2024" frameborder="0" allow="encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="true" class="procPagesMediaStyle procPagesLimitWidthStyle"></iframe></div><div class="procPagesMediaListStyle procPagesSectionActive pagesVisOn"><img src="../pages/aboutMe/images/plushies_YearReview_2024_Overview.webp" alt="The plushies I made in 2024" loading="lazy" class="procPagesVerticalLockMediaImage procPagesImageStyle procPagesLimitWidthStyle"><div class="procPagesMediaCaptionParentStyle gitAboutMePage-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">My 2024 year in plushies!</div></div><img src="../pages/aboutMe/images/pl_uvToFabricPattern.webp" alt="Houdini screenshot of Daryll getting flattened" loading="lazy" class="procPagesVerticalLockMediaImage procPagesImageStyle procPagesLimitWidthStyle"><div class="procPagesMediaCaptionParentStyle gitAboutMePage-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">My Houdini tool to turn 3d models into fabric patterns</div></div><img src="../pages/aboutMe/images/a04_DaryllTheDuck_A_main.webp" alt="Daryll the 'Rubber Duckie'" loading="lazy" class="procPagesVerticalLockMediaImage procPagesImageStyle procPagesLimitWidthStyle"><div class="procPagesMediaCaptionParentStyle gitAboutMePage-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">Daryll all done!</div></div><img src="../pages/aboutMe/images/FrankTheFish_n_Pinky.webp" alt="Frank the Fish on his Pinky Flamingotube!" loading="lazy" class="procPagesVerticalLockMediaImage procPagesImageStyle procPagesLimitWidthStyle procPagesMediaPad"></div></div><div class="procPageVerticalLockContentView procPagesScrollbarStyle"><div class="procPageSectionContentStyle pagesVisOff" id="0"><div class="procPagesInnerContentStyle pagesVisOff">
-      <div class="procPagesSpacer"></div>
+              <div id="pxlPagesContentParent" class="pxlPagesContentParentStyle"><div class="gpcpVisibleStyle procPagesContentStyle procPagesPlacementVerticalStyle procPagesLockVertical gitAboutMePageStyle pagesFader pagesVisOn"><div class="procPagesInnerBeforeBase procPagesInnerBefore"></div><div class="procPagesParentStyle gitAboutMePageParentStyle procPagesLockVertical" id="pxlPage_AboutMe"><div class="procPageHeader procPagesHeaderStyle">About Me</div><nav role="navigation" aria-label="Page sections" class="procPageVerticalLockSectionList gitAboutMePage-sectionNavListStyle"><div class="procPagesVerticalLockNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitAboutMePage-sectionNavButtonStyle" role="button" tabindex="0" aria-label="Navigate to What am I? section">What am I?</div><div class="procPagesVerticalLockNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitAboutMePage-sectionNavButtonStyle" role="button" tabindex="0" aria-label="Navigate to My Film Work section">My Film Work</div><div class="procPagesVerticalLockNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitAboutMePage-sectionNavButtonStyle procPagesNavActive gitAboutMePage-sectionNavButtonActiveStyle" role="button" tabindex="0" aria-label="Navigate to Plushies section">Plushies</div></nav><section class="procPageMediaView procPagesScrollbarStyle" role="region" aria-label="Media gallery for AboutMe page sections" aria-describedby="Dynamic media content that changes based on selected section" style=""><div class="procPagesMediaListStyle pagesVisOff"><iframe src="https://www.youtube-nocookie.com/embed/trt9dGUYevs" title="Technical Art Reel 2024" frameborder="0" allow="encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="true" class="procPagesMediaStyle procPagesLimitWidthStyle"></iframe></div><div class="procPagesMediaListStyle procPagesSectionActive pagesVisOn"><img src="../pages/aboutMe/images/plushies_YearReview_2024_Overview.webp" alt="The plushies I made in 2024" loading="lazy" class="procPagesVerticalLockMediaImage procPagesImageStyle procPagesLimitWidthStyle"><div class="procPagesMediaCaptionParentStyle gitAboutMePage-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">My 2024 year in plushies!</div></div><img src="../pages/aboutMe/images/pl_uvToFabricPattern.webp" alt="Houdini screenshot of Daryll getting flattened" loading="lazy" class="procPagesVerticalLockMediaImage procPagesImageStyle procPagesLimitWidthStyle"><div class="procPagesMediaCaptionParentStyle gitAboutMePage-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">My Houdini tool to turn 3d models into fabric patterns</div></div><img src="../pages/aboutMe/images/a04_DaryllTheDuck_A_main.webp" alt="Daryll the 'Rubber Duckie'" loading="lazy" class="procPagesVerticalLockMediaImage procPagesImageStyle procPagesLimitWidthStyle"><div class="procPagesMediaCaptionParentStyle gitAboutMePage-sectionCaptionStyle"><div class="procPagesMediaCaptionStyle">Daryll all done!</div></div><img src="../pages/aboutMe/images/FrankTheFish_n_Pinky.webp" alt="Frank the Fish on his Pinky Flamingotube!" loading="lazy" class="procPagesVerticalLockMediaImage procPagesImageStyle procPagesLimitWidthStyle procPagesMediaPad"></div></section><section class="procPageVerticalLockContentView procPagesScrollbarStyle" role="main" aria-label="Primary content area for AboutMe page" aria-describedby="Main content that updates dynamically based on selected section navigation"><div class="procPageSectionContentStyle pagesVisOff" id="0"><div class="procPagesInnerContentStyle pagesVisOff">
+      <div class="textSpacer"></div>
 
     <div class="procPagesAboutMe-topTextStyle">
       <span class="textBold">Technical Artist</span>; particles, shaders, asset optimization, &amp; pipeline
@@ -189,7 +192,7 @@
       <br>
     </div>
   </div></div><div class="procPageSectionContentStyle pagesVisOn procPagesSectionActive" id="2"><div class="procPagesInnerContentStyle procPagesSectionActive pagesVisOn">
-      <div class="procPagesSpacer"></div>
+      <div class="textSpacer"></div>
     <div class="procPagesAboutMe-infoStyle">
       In late-spring of 2024,
       <br>&nbsp;&nbsp; I made a tool to turn any 3d model into a fabric pattern in Houdini.
@@ -207,7 +210,7 @@
       <br>
       <br>
     </div>
-  </div></div></div></div><div class="procPagesInnerAfterBase procPagesInnerAfter"></div></div></div>
+  </div></div></section></div><div class="procPagesInnerAfterBase procPagesInnerAfter"></div></div></div>
             </div>
             
             <!-- -- -- -- -->

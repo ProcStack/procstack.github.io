@@ -317,6 +317,15 @@ export class ProcPageManager {
         this.changePage( linkText, pxlRoomName, pxlCameraView );
       });
 
+      // Ensure navigation links are properly accessible (redundant for <a> tags but good practice)
+      if( !navLink.hasAttribute('role') ){
+        navLink.setAttribute('role', 'button');
+      }
+      if( !navLink.hasAttribute('aria-label') && !navLink.hasAttribute('aria-labelledby') ){
+        const pageName = navLink.getAttribute("page-name") || linkText;
+        navLink.setAttribute('aria-label', `Navigate to ${pageName} page`);
+      }
+
     });
 
     window.addEventListener("resize", this.onResize.bind(this));
@@ -371,6 +380,30 @@ export class ProcPageManager {
   findDomUserEvents(){
     let toggleDomObjs = [...document.getElementById("procPagesToggleDOM").children];
     toggleDomObjs.forEach( (toggleLink)=>{
+      // Add accessibility attributes if they don't exist
+      if( !toggleLink.hasAttribute('role') ){
+        toggleLink.setAttribute('role', 'button');
+      }
+      if( !toggleLink.hasAttribute('tabindex') ){
+        toggleLink.setAttribute('tabindex', '0');
+      }
+      if( !toggleLink.hasAttribute('aria-label') && !toggleLink.hasAttribute('aria-labelledby') ){
+        const eventType = toggleLink.getAttribute("pageEvent");
+        const eventValue = toggleLink.getAttribute("pageValue");
+        
+        // Create more descriptive labels based on the toggle function
+        let ariaLabel = '';
+        if( eventType === "ToggleDOM" ){
+          ariaLabel = eventValue === "1" ? "Switch to full 3D environment view" : "Switch back to page content view";
+        }else{
+          // Fallback for other event types
+          const actionText = eventValue === "1" ? "Enable" : "Disable";
+          ariaLabel = `${actionText} ${eventType} functionality`;
+        }
+        
+        toggleLink.setAttribute( 'aria-label', ariaLabel );
+      }
+      
       let domEventType = toggleLink.getAttribute("pageEvent");
       if( !this.toggleDomEvents.hasOwnProperty(domEventType) ){
         this.toggleDomEvents[domEventType] = {};
@@ -406,6 +439,24 @@ export class ProcPageManager {
           this.toggleDomEvents[key]["off"].style.display = "none";
           this.toggleDomEvents[key]["on"].style.display = "block";
           this.toggleMidFader( this.mainDiv, false );
+        });
+        
+        // Keyboard handlers for accessibility
+        curObj["on"].addEventListener("keydown", (e)=>{
+          if( e.key === 'Enter' || e.key === ' ' ){
+            e.preventDefault();
+            this.toggleDomEvents[key]["on"].style.display = "none";
+            this.toggleDomEvents[key]["off"].style.display = "block";
+            this.toggleMidFader( this.mainDiv, true );
+          }
+        });
+        curObj["off"].addEventListener("keydown", (e)=>{
+          if( e.key === 'Enter' || e.key === ' ' ){
+            e.preventDefault();
+            this.toggleDomEvents[key]["off"].style.display = "none";
+            this.toggleDomEvents[key]["on"].style.display = "block";
+            this.toggleMidFader( this.mainDiv, false );
+          }
         });
       }
     });
@@ -758,6 +809,7 @@ export class ProcPageManager {
       this.toggleFader(this.curPage, false);
       // Remove previous page styles
       if( this.curPage != null ){
+        this.prevPageName = this.curPageName;
         let prevPageListing = this.pageListing[ this.curPageName ];
         if( prevPageListing && prevPageListing["pageData"].hasOwnProperty("styleOverrides") ){
           // Iterate page css overrides and remove them to allow for the new page's styles, if they exist
@@ -935,7 +987,7 @@ export class ProcPageManager {
     let formattedURL = this.formatURL( pageName, sectionName );
     this.shiftHistoryState( formattedURL );
 
-    this.curPageName = sectionName;
+    //this.curPageName = sectionName;
 
     let altLinkHref = `${this.botRoot}/${pageName}_${sectionName}.json`;
 

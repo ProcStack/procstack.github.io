@@ -59,8 +59,9 @@
 
 .procPagesMediaListStyle{
   justify-self: center;
-  width:98%;
   justify-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .procPagesMediaStyle{
@@ -93,7 +94,7 @@
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  /*max-width: var(--procPage-mobile-width);*/
+  background-color: rgba(35, 35, 35, .25);
   display: grid;
 }
 
@@ -323,15 +324,6 @@
     padding: 4px;
   }
 
-  .procPageMediaView{
-    grid-area: media;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    /*max-width: var(--procPage-width);*/
-    display: grid;
-  }
-
   .procPageSectionList{
     display: grid;
     grid-auto-flow: row;
@@ -365,7 +357,7 @@
       "headerLine headerLine headerLine"
       "sectionNav pageContent media"
       "pageAfter pageAfter pageAfter";
-    grid-template-columns: max-content auto 55%;
+    grid-template-columns: max-content auto 50%;
     grid-template-rows: max-content max-content max-content auto max-content;
   }
 

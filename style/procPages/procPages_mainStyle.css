@@ -11,7 +11,7 @@
   --procPage-width: calc( 100vw - 6vmax );
   --procPage-mobile-width: calc( 100vw - 2vmax );
   --layout-toggle: 1000px;
-  --max-inner-width: min(calc(100vw - 2.5vmax), 99.8%);
+  --max-inner-width: min(calc(100vw - 2.5vmax), 99.5%);
 }
 
 /*  -- -- -- -- -- -- -- -- -- -- -- -- */
@@ -132,6 +132,7 @@ left: calc(max(3.5vw, 50vw - 765px));
   border-style: solid;
   height: var(--inner-before-after-height);
   width: var(--max-inner-width);
+  max-width: 1600px;
   margin-bottom: var(--inner-before-after-margin);
 }
 
@@ -144,6 +145,7 @@ left: calc(max(3.5vw, 50vw - 765px));
   border-style: solid;
   height: var(--inner-before-after-height);
   width: var(--max-inner-width);
+  max-width: 1600px;
   margin-top: var(--inner-before-after-margin);
 }
 
@@ -542,10 +544,6 @@ text-shadow: 1px 1.5px 4px #252525;
 }
 
 
-.procPagesSpacer{
-  height: 7px;
-  overflow: hidden;
-}
 
 .oneOffsBlockStyle{
   display: grid;
@@ -557,6 +555,17 @@ text-shadow: 1px 1.5px 4px #252525;
 
 
 /* -- -- -- */
+
+.textSpacer{
+  height: 7px;
+  overflow: hidden;
+}
+
+.textBar{
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba(80, 80, 80, 0.0) 0%, rgba(130, 130, 130, 0.95) 25%, rgba(130, 130, 130, 0.95) 75%, rgba(80, 80, 80, 0.0) 100%);
+  overflow: hidden;
+}
 
 .procPagesSpacer{
   height: 7px;

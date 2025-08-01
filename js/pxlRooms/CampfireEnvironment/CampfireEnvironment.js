@@ -451,6 +451,9 @@ export class CampfireEnvironment extends RoomEnvironment{
       moonObj.material.map.wrapT = ClampToEdgeWrapping;
       moonObj.material.map.minFilter = NearestFilter;
       moonObj.material.map.magFilter = NearestFilter;
+      moonObj.material.emissiveIntensity = 2.5;
+      moonObj.material.alphaMap = this.pxlUtils.loadTexture( this.assetPath+"moonTexture_alpha.jpg", 4, {"encoding":LinearSRGBColorSpace, "magFilter":LinearFilter, "minFilter":NearestMipmapLinearFilter} );
+      moonObj.material.transparent = true;
     }
 
     // Add Billowing Smoke

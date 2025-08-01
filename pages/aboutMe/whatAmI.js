@@ -32,7 +32,7 @@ export const pageListingData = {
     }
   ],
   'content' : `
-      <div class='procPagesSpacer'></div>
+      <div class='textSpacer'></div>
 
     <div class='procPagesAboutMe-topTextStyle'>
       <span class="textBold">Technical Artist</span>; particles, shaders, asset optimization, & pipeline
