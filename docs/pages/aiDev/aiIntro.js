@@ -18,7 +18,9 @@ const shemaData = {
 export const pageListingData = {
   'htmlName' : "aiIntro.htm",
   'name' : 'My Introduction',
+  'title' : 'My Introduction',
   'lastModified' : '2025-08-01',
+  'schemaData' : shemaData,
   'media' : [
     {
       'type' : 'youtube',

@@ -212,6 +212,10 @@
   justify-self: center;
 }
 
+.setH55vh{
+    max-height: 55vh;
+}
+
 .setAspectRatio_1{
   aspect-ratio: 1;
 }

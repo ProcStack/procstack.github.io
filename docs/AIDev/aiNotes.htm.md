@@ -69,10 +69,17 @@ Having some Tiny Brains running around in hyperdimensional space like little bug
       
    Because if they collide, double activation happens when it may not be desired.
       
-   (I'm happy I finally saw a paper on Tiny Brains, giving my idea credence, cause it fits! .. in my mind.)
+   (I'm happy I finally saw a paper on Tiny Brains, giving some of my ideas credence, cause it fits! .. in my mind.)
       
 (Only difference is that it was a [study](https://www.nature.com/articles/s41586-025-09142-4) into small biological systems, not artificial ones... but I'm gettin there!)
-      - July 2025
+
+Update : At the time, I had been seeing some papers talking about "Tiny Brains" being used in AI, hence the term.
+      
+   But this biological study really helped solidify some ethereal concepts.
+      
+   See August_B 2025 for some thoughts.
+
+      - July 2025, Updated August 2025
 
 I'd like to believe I'm moving in the right direction with the feedback systems I'm developing.
       
@@ -93,4 +100,10 @@ Adversarial networks exist in nature to guide a 'single' thought's path.
    Yet in the case of Group Think between humans,
       
      Balance is never reached.
-      - August 2025
+      - August_A 2025
+
+I've been looking into neural bundles in the brain.  There is an implicit "delay" in the flow of information.
+      
+   As signals move between neurons, some connections take a longer path than others to get to the same destination.
+      
+     For as much as I interpreted it.

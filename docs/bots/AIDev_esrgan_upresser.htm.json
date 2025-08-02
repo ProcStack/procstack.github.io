@@ -1,0 +1,19 @@
+{
+  "title": "ESRGAN Upresser",
+  "description": "ESRGAN Image Upresser!\n      This was a fun one for me, I've been using ESRGANs for a while now,\n         And wanted to build a GAN to better understand how they work.",
+  "lastModified": "2025-08-02",
+  "media": [
+    {
+      "type": "video",
+      "src": "../pages/aiDev/images/gan_C_training_visualization_18.webm",
+      "alt": "ESRGAN Training Visualization",
+      "caption": "Training visualization of the ESRGAN Upresser. The Generator (blue) creates images, and the Discriminator (red) checks if they look like the low resolution image. As the training progresses, the Generator gets better at creating realistic images."
+    },
+    {
+      "type": "video",
+      "src": "../pages/aiDev/images/gan_C_generator_evolution.webm",
+      "alt": "ESRGAN Generator Evolution",
+      "caption": "Upresser output of the ESRGAN's Generator."
+    }
+  ]
+}

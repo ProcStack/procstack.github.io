@@ -1,29 +1,31 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-08-01",
+  "lastUpdated": "2025-08-02",
   "description": "ProcStack.github.io Data Sources for AI/LLM consumption",
   "baseUrl": "https://procstack.github.io",
-  "totalPages": 22,
+  "totalPages": 24,
   "dataSources": {
     "siteContent": {
       "url": "/bots/siteContent.json",
       "description": "Aggregated site content including all page data",
       "format": "json",
-      "size": "67KB",
-      "lastUpdated": "2025-08-01",
-      "pages": 22
+      "size": "79KB",
+      "lastUpdated": "2025-08-02",
+      "pages": 24
     },
     "individualPages": {
       "baseUrl": "/bots/",
       "description": "Individual page content as separate JSON files",
       "format": "json",
-      "count": 22,
-      "lastUpdated": "2025-08-01",
+      "count": 24,
+      "lastUpdated": "2025-08-02",
       "files": [
         "AIDev_aiIntro.htm.json",
         "AIDev_aiNotes.htm.json",
         "AIDev_esn_motion.htm.json",
+        "AIDev_esrgan_upresser.htm.json",
         "AIDev_gat_languageRules.htm.json",
+        "AIDev_gnn_exploration.htm.json",
         "AboutMe_Film_Work.htm.json",
         "AboutMe_Plushies.htm.json",
         "AboutMe_What_am_I.htm.json",
@@ -48,19 +50,19 @@
       "url": "/llms.txt",
       "description": "LLM-friendly text summary of all site content",
       "format": "text/plain",
-      "lastUpdated": "2025-08-01"
+      "lastUpdated": "2025-08-02"
     },
     "aiMetaSpec": {
       "url": "/bots/ai-metadata-spec.html",
       "description": "Technical specification for AI metadata format used across the site",
       "format": "text/html",
-      "lastUpdated": "2025-08-01"
+      "lastUpdated": "2025-08-02"
     },
     "sitemap": {
       "url": "/sitemap.xml",
       "description": "Complete site structure for search engines and crawlers",
       "format": "application/xml",
-      "lastUpdated": "2025-08-01"
+      "lastUpdated": "2025-08-02"
     }
   },
   "aiMetadata": {
@@ -111,7 +113,7 @@
   },
   "generatedBy": {
     "script": "renderStaticPages.mjs",
-    "timestamp": "2025-08-01T23:36:02.759Z",
-    "isPartialUpdate": false
+    "timestamp": "2025-08-02T21:26:49.761Z",
+    "isPartialUpdate": true
   }
 }

@@ -18,13 +18,15 @@ const shemaData = {
 export const pageListingData = {
   'htmlName' : "gat_languageRules.htm",
   'name' : 'GAT & Language',
+  'title' : 'GAT & Language',
   'lastModified' : '2025-07-31',
+  'schemaData' : shemaData,
   'media' : [
     {
       'type' : 'video',
       'src' : '../pages/aiDev/images/dgat_generativeStrings_15.webm',
       'alt' : "Dynamic Graph Attention Network",
-      'style' : ['procPagesMediaStyle', 'procPagesNarrowWidthStyle'],
+      'style' : ['procPagesMediaStyle'],
       'caption' : ["Generative connections in a dynamic Graph Attention Network (GAT);",
           "Finding connections between a block of text I wrote up.",
           "The network is creating connections between 'usage rules' of different words.",

@@ -1,0 +1,25 @@
+{
+  "title": "GNN Exploration",
+  "description": "For my 'Useful AI' youtube video\n      (You can see on the 'My Introduction' page)\n      \n      I made a couple GNN sctructures to help describe how GNNs and MPNNs work visually,\n         But mispoke on how Two-Tower AIs and MPNNs work in Social Networks.",
+  "lastModified": "2025-08-02",
+  "media": [
+    {
+      "type": "video",
+      "src": "../pages/aiDev/images/shortest_path_propagation.webm",
+      "alt": "MPNN Shortest Path Propagation",
+      "caption": "A shortest path propagation in a Message Passing Neural Network (MPNN)."
+    },
+    {
+      "type": "video",
+      "src": "../pages/aiDev/images/mpnn_team_formation_singleMessage.webm",
+      "alt": "MPNN Team Formation",
+      "caption": "A single pass of a MPNN to form a team."
+    },
+    {
+      "type": "video",
+      "src": "../pages/aiDev/images/mpnn_team_formation_links.webm",
+      "alt": "Complex MPNN Team Formation",
+      "caption": "A MPNN team formation with multiple messages sent between nodes."
+    }
+  ]
+}

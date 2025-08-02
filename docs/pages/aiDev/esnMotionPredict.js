@@ -18,13 +18,15 @@ const shemaData = {
 export const pageListingData = {
   'htmlName' : "esn_motion.htm", 
   'name' : 'ESN & Motion Prediction',
+  'title' : 'ESN & Motion Prediction',
   'lastModified' : '2025-07-31',
+  'schemaData' : shemaData,
   'media' : [
     {
       'type' : 'video',
       'src' : '../pages/aiDev/images/learningGradients_dev02_18_loop.webm',
       'alt' : "ESN Horizontal-Vertical Slice",
-      'style' : ['procPagesMediaStyle', 'procPagesNarrowWidthStyle', 'setAspectRatio_2_1'],
+      'style' : ['procPagesMediaStyle','setAspectRatio_2_1'],
       'caption' : ["A vertical slice of horizontal movement in my Echo State Network (ESN) brain.",
           "I'm showing a 2D slice of a side-to-side movement.",
           "The repeating gray tones are patterns of 'relative' movement,",
@@ -35,7 +37,7 @@ export const pageListingData = {
       'type' : 'video',
       'src' : '../pages/aiDev/images/esnLearning.webm',
       'alt' : "ESN Learning Process",
-      'style' : ['procPagesMediaStyle', 'procPagesNarrowWidthStyle', 'setAspectRatio_1'],
+      'style' : ['procPagesMediaStyle','setAspectRatio_1'],
       'caption' : ["ESN test run; Upper Left are videos I made, Upper Right are learning rates in RGB,",
           "Red shows 'known' patterns, Green are pattern edges, & Blue 'might be' patterns.",
           "The Bottom is what the brain thinks its seeing & then predicting."
@@ -45,7 +47,7 @@ export const pageListingData = {
       'type' : 'video',
       'src' : '../pages/aiDev/images/learningGradients_84.webm',
       'alt' : "ESN Different Slices",
-      'style' : ['procPagesMediaStyle', 'procPagesNarrowWidthStyle', 'setAspectRatio_1'],
+      'style' : ['procPagesMediaStyle','setAspectRatio_1'],
       'caption' : ["Different slices from the same ESN, with different input video.",
         "Upper left is a video I made the AI's watching, upper right is detecting movement;",
         "Lower left is the brain's wrinkles, lower right is predicted movement."
@@ -55,7 +57,7 @@ export const pageListingData = {
       'type' : 'image',
       'src' : '../pages/aiDev/images/learningGradients_84_brainSlice.png',
       'alt' : "Custom ESN Learning Gradients",
-      'style' : ['procPagesImageStyle', 'procPagesNarrowWidthStyle', 'setAspectRatio_1'],
+      'style' : ['procPagesImageStyle','setAspectRatio_1'],
       'caption' : ["A slice of the ESN's brain by frame 101 of watching the X pattern video."]
     }
   ],
