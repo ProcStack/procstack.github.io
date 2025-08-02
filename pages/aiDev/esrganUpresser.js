@@ -28,7 +28,7 @@ export const pageListingData = {
       'alt' : "ESRGAN Training Visualization",
       'style' : ['procPagesMediaStyle', 'setAspectRatio_2_1'],
       'caption' : ["Training visualization of the ESRGAN Upresser.",
-        "The Generator (blue) creates images, and the Discriminator (red) checks if they look like the low resolution image.",
+        "The Generator (blue) creates images, and the Discriminator (red) checks if the generated images are realistic.",
         "As the training progresses, the Generator gets better at creating realistic images."
       ]
     },
@@ -68,8 +68,9 @@ export const pageListingData = {
       <br>And then using those associations to create a larger, clearer image.
 
       <br>
-      <br>In this video, you'll see two images and the 'Training Loss' or 'Discriminator Loss' graphs.
-      <br>These graphs show how well the GAN is learning to generate realistic images.
+      <br>In this video, you'll see 4 images and the 'Training Loss' or 'Discriminator Loss' graphs.
+      <br>Input Noise, Low Resolution Image, the Upresser Output, and the Original Image.
+      <br>The graph show how well the GAN is learning to generate realistic images.
 
       <br>
       <br>The training is being done by a Generator AI and a Discriminator AI.
@@ -121,7 +122,7 @@ export const pageListingData = {
       <br>
       <br>I only implemented this 'memory support' for the Generator,
       <br>&nbsp;&nbsp; As the Discriminator is more of a 'check' and doesn't need to remember past states.
-      <br>&nbsp;&nbsp; Perhaps if I grow this AI further, I may need to implement a memory for the Discriminator as well.
+      <br>&nbsp;&nbsp; Who knows, perhaps if I grow this AI further, I may need to implement a memory for the Discriminator as well.
 
       <br>
       <br>But it seems to be working so far!

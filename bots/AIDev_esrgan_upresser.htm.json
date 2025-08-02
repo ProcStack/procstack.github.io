@@ -7,7 +7,7 @@
       "type": "video",
       "src": "../pages/aiDev/images/gan_C_training_visualization_18.webm",
       "alt": "ESRGAN Training Visualization",
-      "caption": "Training visualization of the ESRGAN Upresser. The Generator (blue) creates images, and the Discriminator (red) checks if they look like the low resolution image. As the training progresses, the Generator gets better at creating realistic images."
+      "caption": "Training visualization of the ESRGAN Upresser. The Generator (blue) creates images, and the Discriminator (red) checks if the generated images are realistic. As the training progresses, the Generator gets better at creating realistic images."
     },
     {
       "type": "video",
