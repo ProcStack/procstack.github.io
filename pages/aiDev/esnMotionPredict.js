@@ -17,8 +17,8 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "esn_motion.htm", 
-  'name' : 'ESN & Motion Prediction',
-  'title' : 'ESN & Motion Prediction',
+  'name' : 'ESN Motion Prediction',
+  'title' : 'ESN Motion Prediction',
   'lastModified' : '2025-07-31',
   'schemaData' : shemaData,
   'media' : [
@@ -72,8 +72,10 @@ export const pageListingData = {
         <div class='procPagesAboutMeSpacer'></div>
       </span>
       
-      <br>Since an ESN brain can learn on the fly, why not feed it some videos I made?
-      
+      <br>Since my ESN can learn on the fly,
+      <br>&nbsp;&nbsp; Why not feed it some videos I made?
+
+      <br>
       <br>
         <div class='procPagesAboutMeSpacer'></div>
         Currently I'm not using my ESN's predicted movement for anything in python,

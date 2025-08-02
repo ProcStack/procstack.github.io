@@ -1,8 +1,6 @@
 # Notes & Research
 
 I made a whole 'blog' system for this... yet here we are....
-      
-   ( nudge, nudge )
 
 If you couldn't tell, I'm training my AIs on my own works.
       
@@ -100,10 +98,60 @@ Adversarial networks exist in nature to guide a 'single' thought's path.
    Yet in the case of Group Think between humans,
       
      Balance is never reached.
-      - August_A 2025
+      - August 1st 2025
 
-I've been looking into neural bundles in the brain.  There is an implicit "delay" in the flow of information.
+I've been looking into neural bundles in the brain.  There is an implicit "delay" in the flow of information that I'm interested in.
       
    As signals move between neurons, some connections take a longer path than others to get to the same destination.
       
      For as much as I interpreted it.
+
+There is 6 main layers of neurons in the cerebral cortex,
+      
+   Of these, the 4th seems to allow for delays in processing.
+      
+   The 5th layer then introduces a dense layer of pathways for the signals to travel through.
+      
+   This is where I think another form of delay is introduced.
+
+I was comparing Mice and Wallaby brains,
+      
+   While Mice are likely more intelligent,
+      
+   Wallabies have more connections with denser pathways, it seems.
+
+Wallabies have more glial cells within slices of the brain compared to Mice.
+      
+   But mice had more neurons in the same slices.
+
+I'd like to believe, this doesn't mean there is a "better" brain here.
+      
+   But rather, different types of brains that are suited for different tasks.
+
+Wallabies are known to be social animals when food is plentiful,
+      
+   Yet solitary when food is scarce.
+      
+Mice are known to be social animals,
+      
+   And have shown empathy towards other mice in distress,
+      
+   And share food with other mice when they are in need.
+
+Why do I bring this up?
+      
+   I believe there is similar deductive reasoning, just at a different scale.
+      
+Both Wallabies and Mice are making a choice based on the environment and situation,
+      
+   While considering the well-being of others, just in different ways.
+
+The delay in neural firing could be a factor in this.
+      
+   So I'd like to explore this in my own AI.
+
+We all know size of the brain can determine intelligence,
+      
+   But so does the structure of the brain.
+
+      - August 2nd 2025

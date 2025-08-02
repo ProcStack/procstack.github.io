@@ -9,7 +9,7 @@
       "url": "/bots/siteContent.json",
       "description": "Aggregated site content including all page data",
       "format": "json",
-      "size": "79KB",
+      "size": "81KB",
       "lastUpdated": "2025-08-02",
       "pages": 24
     },
@@ -113,7 +113,7 @@
   },
   "generatedBy": {
     "script": "renderStaticPages.mjs",
-    "timestamp": "2025-08-02T21:47:58.133Z",
+    "timestamp": "2025-08-02T23:07:46.227Z",
     "isPartialUpdate": true
   }
 }

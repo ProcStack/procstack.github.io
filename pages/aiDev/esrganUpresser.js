@@ -28,8 +28,9 @@ export const pageListingData = {
       'alt' : "ESRGAN Training Visualization",
       'style' : ['procPagesMediaStyle', 'setAspectRatio_2_1'],
       'caption' : ["Training visualization of the ESRGAN Upresser.",
-        "The Generator (blue) creates images, and the Discriminator (red) checks if the generated images are realistic.",
-        "As the training progresses, the Generator gets better at creating realistic images."
+        "The Generator (blue) creates images,",
+        "The Discriminator (red) checks if the generated image is realistic.",
+        "As it trains, the Generator gets better at creating images."
       ]
     },
     {
@@ -37,7 +38,8 @@ export const pageListingData = {
       'src' : '../pages/aiDev/images/gan_C_generator_evolution.webm',
       'alt' : "ESRGAN Generator Evolution",
       'style' : ['procPagesMediaStyle', 'setAspectRatio_1', 'setH55vh'],
-      'caption' : ["Upresser output of the ESRGAN's Generator."]
+      'caption' : ["The Generator's upscaled output as it trains;",
+        "Training 8x8 -> 32x32 resolution scaling; Running 50 epochs."]
     },
   ],
   'content' : `
@@ -69,8 +71,8 @@ export const pageListingData = {
 
       <br>
       <br>In this video, you'll see 4 images and the 'Training Loss' or 'Discriminator Loss' graphs.
-      <br>Input Noise, Low Resolution Image, the Upresser Output, and the Original Image.
-      <br>The graph show how well the GAN is learning to generate realistic images.
+      Input Noise, Low Resolution Image, the Upresser Output, and the Original Image.
+      <br>&nbsp;&nbsp; The graph shows how well the GAN is learning to generate realistic images.
 
       <br>
       <br>The training is being done by a Generator AI and a Discriminator AI.
