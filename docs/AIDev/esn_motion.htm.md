@@ -1,4 +1,4 @@
-# ESN & Motion Prediction
+# ESN Motion Prediction
 
 How about an Echo State Network (ESN) AI I wrote in the spring-summer of 2024?
 
@@ -8,7 +8,9 @@ Which considers time in its prediction.
         
 It thinks about past events to predict future ones.
 
-Since an ESN brain can learn on the fly, why not feed it some videos I made?
+Since my ESN can learn on the fly,
+      
+   Why not feed it some videos I made?
 
         Currently I'm not using my ESN's predicted movement for anything in python,
         

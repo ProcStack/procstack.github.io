@@ -27,10 +27,9 @@ This always seemed like magic to me,
 And then using those associations to create a larger, clearer image.
 
 In this video, you'll see 4 images and the 'Training Loss' or 'Discriminator Loss' graphs.
+      Input Noise, Low Resolution Image, the Upresser Output, and the Original Image.
       
-Input Noise, Low Resolution Image, the Upresser Output, and the Original Image.
-      
-The graph show how well the GAN is learning to generate realistic images.
+   The graph shows how well the GAN is learning to generate realistic images.
 
 The training is being done by a Generator AI and a Discriminator AI.
       
