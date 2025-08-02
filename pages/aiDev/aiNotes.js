@@ -18,7 +18,9 @@ const shemaData = {
 export const pageListingData = {
   'htmlName' : "aiNotes.htm",
   'name' : 'Notes & Research',
-  'lastModified' : '2025-07-31',
+  'title' : 'Notes & Research',
+  'lastModified' : '2025-08-01',
+  'schemaData' : shemaData,
   'media' : [],
   'content' : `
     <div class='textSpacer'></div>
@@ -77,9 +79,14 @@ export const pageListingData = {
       <br>
       <br>Having some Tiny Brains running around in hyperdimensional space like little buggers running around avoiding each other.
       <br>&nbsp;&nbsp; Because if they collide, double activation happens when it may not be desired.
-      <br>&nbsp;&nbsp; (I'm happy I finally saw a paper on Tiny Brains, giving my idea credence, cause it fits! .. in my mind.)
+      <br>&nbsp;&nbsp; (I'm happy I finally saw a paper on Tiny Brains, giving some of my ideas credence, cause it fits! .. in my mind.)
       <br>(Only difference is that it was a <a href="https://www.nature.com/articles/s41586-025-09142-4" target="_blank">study</a> into small biological systems, not artificial ones... but I'm gettin there!)
-      <div class="textFullRight">- July 2025</div>
+      
+      <br>Update : At the time, I had been seeing some papers talking about "Tiny Brains" being used in AI, hence the term.
+      <br>&nbsp;&nbsp; But this biological study really helped solidify some ethereal concepts.
+      <br>&nbsp;&nbsp; See August_B 2025 for some thoughts.
+
+      <div class="textFullRight">- July 2025, Updated August 2025</div>
 
       <br><br><div class='procPagesAboutMeBar'></div>
 
@@ -96,7 +103,21 @@ export const pageListingData = {
       <br><br>Adversarial networks exist in nature to guide a 'single' thought's path.
       <br>&nbsp;&nbsp; Yet in the case of Group Think between humans,
       <br>&nbsp;&nbsp;&nbsp;&nbsp; Balance is never reached.
-      <div class="textFullRight">- August 2025</div>
+      <div class="textFullRight">- August_A 2025</div>
+
+      <br><br><div class='procPagesAboutMeBar'></div>
+
+      <br>I've been looking into neural bundles in the brain.  There is an implicit "delay" in the flow of information.
+      <br>&nbsp;&nbsp; As signals move between neurons, some connections take a longer path than others to get to the same destination.
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; For as much as I interpreted it.
+
+
+
+      <br>&nbsp;&nbsp;&nbsp;&nbsp;
+      
+      <br>&nbsp;&nbsp;
+
+      <br>
       <br>
     </div>
   `,
