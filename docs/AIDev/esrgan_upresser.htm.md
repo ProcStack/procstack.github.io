@@ -26,9 +26,11 @@ This always seemed like magic to me,
       
 And then using those associations to create a larger, clearer image.
 
-In this video, you'll see two images and the 'Training Loss' or 'Discriminator Loss' graphs.
+In this video, you'll see 4 images and the 'Training Loss' or 'Discriminator Loss' graphs.
       
-These graphs show how well the GAN is learning to generate realistic images.
+Input Noise, Low Resolution Image, the Upresser Output, and the Original Image.
+      
+The graph show how well the GAN is learning to generate realistic images.
 
 The training is being done by a Generator AI and a Discriminator AI.
       
@@ -86,6 +88,6 @@ I only implemented this 'memory support' for the Generator,
       
    As the Discriminator is more of a 'check' and doesn't need to remember past states.
       
-   Perhaps if I grow this AI further, I may need to implement a memory for the Discriminator as well.
+   Who knows, perhaps if I grow this AI further, I may need to implement a memory for the Discriminator as well.
 
 But it seems to be working so far!
