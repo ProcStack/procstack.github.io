@@ -40,12 +40,11 @@
 }
 
 .aiDevPage-sectionNavListStyle{
-  background-color: rgba(59, 59, 59, 0.16);
+  background-color: rgba(45, 45, 55, 0.2);
 }
 
 @media screen and ((min-width: 1000px) or (min-aspect-ratio: 1)) {
   .aiDevPage-sectionNavListStyle{
-    background: linear-gradient(-45deg, rgba(59, 59, 59, 0.0), rgba(59, 59, 59, 0.56));
     height: 100%;
     overflow: auto;
   }
@@ -112,8 +111,8 @@
 }
 .procPagesNav_aiDevStyle a {
   border: 1px solid #8086fd;
-  color: #6e86ff;
-  background-color: rgba(77, 91, 140, 0.35);
+  color: #8ea0ff;
+  background-color: rgba(78, 86, 116, 0.35);
 }
 .procPagesNav_aiDevStyle a:hover {
   text-shadow: 1px 1.5px 4px #2a469b;
@@ -128,9 +127,9 @@
 
 .procPagesNav_aiDevActiveStyle {
   text-shadow: 1px 1.5px 4px #2a469b;
-  background-color: rgba(87, 112, 204, 0.532) !important;
-  border: 1px solid rgba(89, 164, 94, 0.94) !important;
-  color: #758cff !important;
+  background-color: rgba(55, 85, 196, 0.64) !important;
+  border: 1px solid rgba(95, 111, 255, 0.94) !important;
+  color: #b9c5ff !important;
 }
 
 /* -- -- -- */
