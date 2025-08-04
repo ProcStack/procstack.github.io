@@ -32,14 +32,6 @@ export const pageListingData = {
     },
     {
       'type' : 'video',
-      'src' : '../pages/aiDev/images/mpnn_team_formation_singleMessage.webm',
-      'alt' : "MPNN Team Formation",
-      'style' : ['procPagesMediaStyle','setAspectRatio_2_1'],
-      'caption' : ["A single pass of a MPNN to form a team.",
-      ]
-    },
-    {
-      'type' : 'video',
       'src' : '../pages/aiDev/images/mpnn_team_formation_links.webm',
       'alt' : "Complex MPNN Team Formation",
       'style' : ['procPagesMediaStyle','setAspectRatio_2_1'],
@@ -91,11 +83,19 @@ export const pageListingData = {
       <div class='procPagesAboutMeSpacer'></div>
       <br>
       <br>So I set up an 'online matchmaking' system,
-      <br>&nbsp;&nbsp; Showing a simple single pass of detecting connections between nodes.
+      <br>&nbsp;&nbsp; Showing neurons send multiple messages between connected nodes.
+
+      <br>
+      <br> Here the nodes have dashed orange lines to show the 'potential teammates' between nodes.
       
       <br>
-      <br>It asks all of the connected nodes for their 'player stats' for a new game,
+      <br>Multiple messages get sent between neighbors before the final 'prediction' is made.
+      <br>&nbsp;&nbsp; And the 'prediction' is the final team of 4 players that should help build a balanced team, connected in Red.
+
+      <br>
+      <br>It asks all of the connected nodes for their 'player affinity' for a new game,
       <br>&nbsp;&nbsp; Having individual stats 'shift' per game to mimic a player acting differently per game.
+      <br>&nbsp;&nbsp; Then to use those stats to find 'potential teammates' for a balanced team.
 
       <br>
       <br>Example Player Stats:
@@ -110,11 +110,12 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; Helping to construct a team of players that can work together.
 
       <br>
-      <br> The third video is showing a better representation of a GNN,
-      <br>&nbsp;&nbsp; Here the nodes have dashed orange lines to show the 'potential teammates' between nodes.
+      <br>This becomes the core influence on the messages sent between nodes.
+      <br>&nbsp;&nbsp; Which contains 'Team Affinity', 'Role Balance', 'Skill Match' and 'Selection Confidence'.
 
-      <br>Multiple messages get sent between neighbors before the final 'prediction' is made.
-      <br>&nbsp;&nbsp; And the 'prediction' is the final team of 4 players that should help build a balanced team, connected in Red.
+      <br>
+      <br>These 4 values are what's sent between nodes to help determine if a player is 'willing' to change teams,
+      <br>&nbsp;&nbsp; Influenced by the neighbor-of-neighbor player's stats.
 
       <br>
       <br>It's pretty interesting to me,
