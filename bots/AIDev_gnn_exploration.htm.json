@@ -11,12 +11,6 @@
     },
     {
       "type": "video",
-      "src": "../pages/aiDev/images/mpnn_team_formation_singleMessage.webm",
-      "alt": "MPNN Team Formation",
-      "caption": "A single pass of a MPNN to form a team."
-    },
-    {
-      "type": "video",
       "src": "../pages/aiDev/images/mpnn_team_formation_links.webm",
       "alt": "Complex MPNN Team Formation",
       "caption": "A MPNN team formation with multiple messages sent between nodes."

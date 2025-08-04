@@ -50,11 +50,19 @@ The first video shown here is a test of that paper,
 
 So I set up an 'online matchmaking' system,
       
-   Showing a simple single pass of detecting connections between nodes.
+   Showing neurons send multiple messages between connected nodes.
 
-It asks all of the connected nodes for their 'player stats' for a new game,
+ Here the nodes have dashed orange lines to show the 'potential teammates' between nodes.
+
+Multiple messages get sent between neighbors before the final 'prediction' is made.
+      
+   And the 'prediction' is the final team of 4 players that should help build a balanced team, connected in Red.
+
+It asks all of the connected nodes for their 'player affinity' for a new game,
       
    Having individual stats 'shift' per game to mimic a player acting differently per game.
+      
+   Then to use those stats to find 'potential teammates' for a balanced team.
 
 Example Player Stats:
       
@@ -72,13 +80,13 @@ Example Player Stats:
       
    Helping to construct a team of players that can work together.
 
- The third video is showing a better representation of a GNN,
+This becomes the core influence on the messages sent between nodes.
       
-   Here the nodes have dashed orange lines to show the 'potential teammates' between nodes.
+   Which contains 'Team Affinity', 'Role Balance', 'Skill Match' and 'Selection Confidence'.
 
-Multiple messages get sent between neighbors before the final 'prediction' is made.
+These 4 values are what's sent between nodes to help determine if a player is 'willing' to change teams,
       
-   And the 'prediction' is the final team of 4 players that should help build a balanced team, connected in Red.
+   Influenced by the neighbor-of-neighbor player's stats.
 
 It's pretty interesting to me,
       

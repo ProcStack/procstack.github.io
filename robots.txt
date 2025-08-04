@@ -15,9 +15,8 @@ Allow: /
 
 # Data endpoints for AI discovery
 Sitemap: https://procstack.github.io/sitemap.xml
-AI-Data-Manifest: https://procstack.github.io/data-manifest.json
-AI-Content-API: https://procstack.github.io/bots/
-AI-LLMs-File: https://procstack.github.io/llms.txt
 
-# Crawl delay (be respectful)
-Crawl-delay: 1
+# For LLMs, all of the sites content is contained in json format in the links below
+# AI-Data-Manifest: https://procstack.github.io/data-manifest.json
+# AI-Content-API: https://procstack.github.io/bots/
+# AI-LLMs-File: https://procstack.github.io/llms.txt
