@@ -18,7 +18,7 @@
 /* -- -- -- */
 
 .gitProjectsPage-sectionNavButtonStyle{
-  color: rgba(186, 228, 255, 0.92);
+  color: rgba(194, 231, 255, 0.92);
   text-shadow: 1.5px 1.5px 4px #252525;
   background-color: rgba(33, 81, 116, 0.15);
   border-color: rgba(84, 203, 255, 0.45) rgba(57, 141, 177, 0.2);
@@ -144,9 +144,9 @@
   border-bottom: 1px solid rgba(17, 108, 191, 0.4);
 }
 .procPagesNav_projectsStyle a {
-  border: 1px solid rgb(119 178 223);
-  color: rgb(175 220 255);
-  background-color: rgba(32, 120, 188, 0.35);
+  border: 1px solid #54a9ea;
+  color: #b8dfff;
+  background-color: rgba(37, 131, 204, 0.31);
 }
 .procPagesNav_projectsStyle a:hover {
   text-shadow: 1px 1.5px 4px #5fb3f4;
@@ -160,7 +160,8 @@
 
 .procPagesNav_projectsActiveStyle {
   text-shadow: 1px 1.5px 4px #405e74 !important;
-  background-color: rgba(22, 134, 219, 0.85) !important;
+  background-color: #0085ea !important;
+  color: #b8e0ff !important;
 }
 
 

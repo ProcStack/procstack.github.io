@@ -73,11 +73,11 @@
 .aiDevPageScrollbarStyle::-webkit-scrollbar-thumb {
   border-radius: 2px;
 	cursor: grab;
-	background-color: rgba(33, 53, 117, 0.75);
+	background-color: rgba(52, 78, 161, 0.55);
 }
 .aiDevPageScrollbarStyle::-webkit-scrollbar-thumb:hover {
   border-radius: 2px;
-	background-color: rgba(34, 61, 151, 0.811);
+	background-color: rgba(34, 72, 196, 0.81);
 }
 
 /* -- -- -- */
