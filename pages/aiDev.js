@@ -49,8 +49,8 @@ const pageContentObject = {
   },
   'sections' : [
     aiIntroData,
-    gatLanguageData,
     esnMotionPredictData,
+    gatLanguageData,
     esrganUpresserData,
     gnnExplorationData,
     aiNotesData

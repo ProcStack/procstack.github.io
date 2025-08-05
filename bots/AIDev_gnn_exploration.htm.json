@@ -1,6 +1,6 @@
 {
   "title": "GNN Exploration",
-  "description": "For my 'Useful AI' youtube video\n      (You can see on the 'My Introduction' page)\n      \n      I made a couple GNN sctructures to help describe how GNNs and MPNNs work visually,\n         But mispoke on how Two-Tower AIs and MPNNs work in Social Networks.",
+  "description": "I made a couple GNN sctructures to help show how GNNs and MPNNs work visually,\n         Mostly just to help me understand them.",
   "lastModified": "2025-08-02",
   "media": [
     {

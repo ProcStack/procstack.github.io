@@ -42,34 +42,22 @@ export const pageListingData = {
   'content' : `
     <div class='textSpacer'></div>
     <div class='procPagesAboutMe-infoStyle'>
-      <span class="textNudge">For my 'Useful AI' youtube video</span>
-      <br><span class="textDrinkMeAlice">(You can see on the 'My Introduction' page)</span>
-      <br>
-      <br>I made a couple GNN sctructures to help describe how GNNs and MPNNs work visually,
-      <br>&nbsp;&nbsp; But mispoke on how Two-Tower AIs and MPNNs work in Social Networks.
-      <br>So I cut the section on GNNs and MPNNs,
-      <br>&nbsp;&nbsp; And figured I'd share the cut content here--
-
+      <br>I made a couple GNN sctructures to help show how GNNs and MPNNs work visually,
+      <br>&nbsp;&nbsp; Mostly just to help me understand them.
+      
       <br>
       <br><span class="innerCenter">GNNs are Graph Neural Networks,
-        <br>And MPNNs are Message Passing Neural Networks.
-        <br>Both are types of neural networks,
-        <br>which consider the relationships between data points.
-        <br>But MPNNs send messages between connected node neighbors-of-neighbors to update node states.
-        <br>
-        <br>The newer 'Algorithm' is likely a Two-Towers AI where two AIs work together to figure out your preferences.
-        <br>In the case of Social Media sites like Instagram, YouTube, etc.
-        <br>One AI understands the User, and images/video content in the other.
-        <br>Working to compare two sets of data for similarity or 'potential connection'.
-        <br>Like suggesting images/videos to view based on what you like, watch-time, or search for.
-        <div class='procPagesAboutMeSpacer'></div>
+      <br>And MPNNs are Message Passing Neural Networks.
+      <br>Both are types of neural networks,
+      <br>which consider the relationships between data points.
+      <br>But MPNNs send messages between connected node neighbors-of-neighbors to update node states.
+      <div class='procPagesAboutMeSpacer'></div>
       </span>
       
-      <br>
-      <br>Back to GNNs and MPNNs,
-      <br>This structure can be used to predict connections between ideas / things / data in a system.
+      <br>They are AI networks that can be used to predict connections between ideas / things / data in a system.
       
-      <br>
+      <div class='procPagesAboutMeSpacer'></div>
+
       <div class='procPagesAboutMeSpacer'></div>
       While looking into Peter Velickovic's work on GNNs,
       <br>&nbsp;&nbsp; Saw a paper on mimicing a Dyjkstra Path Finding algorithm using a GNN.
