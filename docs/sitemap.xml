@@ -29,6 +29,14 @@
     </image:image>
   </url>
   <url>
+    <loc>https://procstack.github.io/ai-data.html</loc>
+    <lastmod>2025-08-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://procstack.github.io/AIDev/aiIntro.htm</loc>
     <lastmod>2025-08-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -79,6 +87,14 @@
   <url>
     <loc>https://procstack.github.io/Init.htm</loc>
     <lastmod>2025-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://procstack.github.io/Outlet.htm</loc>
+    <lastmod>2025-08-03</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -195,15 +211,5 @@
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
     </image:image>
-  </url>
-  <url>
-    <loc>https://procstack.github.io/Outlet.htm</loc>
-    <lastmod>2025-08-03</lastmod>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://procstack.github.io/ai-data.html</loc>
-    <lastmod>2025-08-03</lastmod>
-    <changefreq>monthly</changefreq>
   </url>
 </urlset>

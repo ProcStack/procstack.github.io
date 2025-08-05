@@ -1,40 +1,20 @@
 # GNN Exploration
 
-For my 'Useful AI' youtube video
+I made a couple GNN sctructures to help show how GNNs and MPNNs work visually,
       
-(You can see on the 'My Introduction' page)
-
-I made a couple GNN sctructures to help describe how GNNs and MPNNs work visually,
-      
-   But mispoke on how Two-Tower AIs and MPNNs work in Social Networks.
-      
-So I cut the section on GNNs and MPNNs,
-      
-   And figured I'd share the cut content here--
+   Mostly just to help me understand them.
 
 GNNs are Graph Neural Networks,
-        
+      
 And MPNNs are Message Passing Neural Networks.
-        
+      
 Both are types of neural networks,
-        
+      
 which consider the relationships between data points.
-        
+      
 But MPNNs send messages between connected node neighbors-of-neighbors to update node states.
 
-The newer 'Algorithm' is likely a Two-Towers AI where two AIs work together to figure out your preferences.
-        
-In the case of Social Media sites like Instagram, YouTube, etc.
-        
-One AI understands the User, and images/video content in the other.
-        
-Working to compare two sets of data for similarity or 'potential connection'.
-        
-Like suggesting images/videos to view based on what you like, watch-time, or search for.
-
-Back to GNNs and MPNNs,
-      
-This structure can be used to predict connections between ideas / things / data in a system.
+They are AI networks that can be used to predict connections between ideas / things / data in a system.
 
       While looking into Peter Velickovic's work on GNNs,
       
