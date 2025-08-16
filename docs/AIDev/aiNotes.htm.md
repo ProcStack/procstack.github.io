@@ -2,6 +2,12 @@
 
 I made a whole 'blog' system for this... yet here we are....
 
+No, I wont have ai write for me here.
+      
+   These are my thoughts,
+      
+     How ever scattered they may be.
+
 If you couldn't tell, I'm training my AIs on my own works.
       
 A personally made AI trained on personally made images / videos / photos / code / writing.
@@ -75,7 +81,7 @@ Update : At the time, I had been seeing some papers talking about "Tiny Brains" 
       
    But this biological study really helped solidify some ethereal concepts.
       
-   See August_B 2025 for some thoughts.
+   See August 2nd 2025 for some thoughts.
 
       - July 2025, Updated August 2025
 
@@ -155,3 +161,67 @@ We all know size of the brain can determine intelligence,
    But so does the structure of the brain.
 
       - August 2nd 2025
+
+So, more'n more there are some rather choice words about AI online.
+
+I wanted to put my personal ai dev views on record somewhere, for those who care.
+
+I read the I Ching and it put life into a different perspective.
+      
+   Letting me down the path of researching Taoism
+
+As with many of the other religious texts I looked into,
+      
+   Amazing imagery was used to teach morals and help guide the lost,
+      
+     But organized religion as a whole feels a little off to me.
+
+I don't hold any particular belief or religion at this point.
+      
+   But I would use the cliche 'spiritual' to describe my outlook
+
+I then visited the Buddhist monastery in Carmel NY,
+      
+   Greeted by the largest buddha statue in north america.
+      
+   In awe of the multitudes of multitudes of hand-carved buddha statues in audience of the massive statue of buddha I pale in comparison before.
+
+I'd highly suggest visiting the monastery if you ever find yourself in the area!
+
+I think it was walking through the rows of 18 arahants statues, of those who reached nirvana, helped me realize,
+      
+   Religion is about teaching the lessons of god(s),
+      
+   Yet understanding balance is what's inside all of us as Humans,
+      
+     Just gotta find it!
+
+So,
+      
+   I'd like to hope I'm nuance-first with my approach to my ai development.
+      
+   I'd like to believe in an AI which can understand...
+      
+     That overlooked concepts matter in Health and Wellbeing.
+
+Realistically, the Buddhist Precepts feel like a good place to start for alignment.
+      
+   Even as people.
+      
+     Which is more than I can say for myself....
+      
+     I'm a hedonist at times, absurdist the rest
+      
+       (Absolute terms are fun to use, hyperbole be a thing)
+
+I very much enjoyed working on family films,
+      
+   Seeing the fans in comments online,
+      
+   And wish to work on more animated features soon.
+      
+     I have hope in humanity
+
+May the few not ruin it for those of us trying to explore new horizons.
+
+      - August 15th 2025
