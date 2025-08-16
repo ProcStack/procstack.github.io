@@ -5,21 +5,27 @@
   "media": [
     {
       "type": "video",
-      "src": "../pages/projects/images/fallingCircles.webm",
+      "src": "../pages/projects/images/Dwitter_fallingCircles.webm",
       "alt": "Fallin circles",
-      "caption": ""
+      "caption": "Falling Circles"
     },
     {
       "type": "video",
-      "src": "../pages/projects/images/greenField.webm",
+      "src": "../pages/projects/images/Dwitter_greenField.webm",
       "alt": "A green field",
-      "caption": ""
+      "caption": "Green Field Note, it now works on any browser, there's an old warning, You'll need to uncomment the code to run it"
     },
     {
       "type": "video",
-      "src": "../pages/projects/images/undulations.webm",
+      "src": "../pages/projects/images/Dwitter_boidSystem.webm",
+      "alt": "Boid System",
+      "caption": "A basic boid/flocking system The squares move to the lower right, While trying to avoid collision, yet be near each other"
+    },
+    {
+      "type": "video",
+      "src": "../pages/projects/images/Dwitter_undulations.webm",
       "alt": "The ripples of undulations",
-      "caption": ""
+      "caption": "The ripples of undulations"
     }
   ]
 }

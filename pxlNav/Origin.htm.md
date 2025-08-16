@@ -14,17 +14,11 @@ However, pxlNav was pretty cool, so I decided to make it easier to install for y
     
    Aiming to turn your 3d modeling software into a level editor.
 
-As it stands, pxlNav supports FBX files for your Rooms (the environment / scene / levels) which can be made in your 3D program of choice.
-    
-   It supports rig + animation fbx files for your character animation, and a simple curve in your scene can act as your camera path ( add another if you want the camera to look somewhere as it's traveling the path ).
-    
-   Animated textures by using a second texture, particle effects, FPS navigation, obstacles, items, portals, and more.
-
-3d for web has come a far way, and it has less hurdles than getting your game ready for cross platform usability.
+3d for web has come a far way, and it has less hurdles than getting your game in Unreal/Unity ready for cross platform usability.
     
    Websites are just there, anywhere, and can be turned into apps easily these days.
     
-   So why not?
+     So why not?
 
       During the run of Antibody Club (2020), I had a helping hand on a couple shaders, camera animations, and some other odds'n'ends. 
 

@@ -37,7 +37,28 @@ export const pageListingData = {
       'alt' : 'Page builder with alphabet',
       'style' : 'procPagesImageStyle',
       'caption' : ["Page builder using your selected characters"]
-    }
+    },
+    {
+      'type' : 'video',
+      'src' : '../pages/projects/images/pxlTextGenerator_lowerY.webm',
+      'alt' : 'Character selector & builder',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["Gather your library of characters from photos/scans/images,","They'll save to disk as you work on your project."]
+    },
+    {
+      'type' : 'video',
+      'src' : '../pages/projects/images/pxlTextGenerator_sizingLetters.webm',
+      'alt' : 'Page builder with alphabet',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["Quickly see sizing tweaks in the <span class='textName'>Textbed</span>"]
+    },
+    {
+      'type' : 'video',
+      'src' : '../pages/projects/images/pxlTextGenerator_makingPage.webm',
+      'alt' : 'Character selector & builder',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["Build your pages for export to PNG", "Supports multiple pages, which save with your project + settings to disk"]
+    },
   ],
   'content' : `
     <a href='https://github.com/ProcStack/pxlTextGenerator' class='procPagesRepoLinkStyle' target='_blank'>pxlTextGenerator</a> <span class="textDrinkMeAlice textItalic">2018-2019</span>

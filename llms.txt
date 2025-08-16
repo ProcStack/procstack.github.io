@@ -128,6 +128,10 @@ I'm a technical artist with years of film, XR, & immersive experience.
       
       An ESN is a type of 'reservoir' network,
         Which considers time in its prediction.
+- [GNN Exploration](https://procstack.github.io/AIDev/gnn_exploration.htm.md)
+ Updated: 2025-08-02
+ Description : I made a couple GNN sctructures to help show how GNNs and MPNNs work visually,
+         Mostly just to help me understand them.
 - [GAT & Language](https://procstack.github.io/AIDev/gat_languageRules.htm.md)
  Updated: 2025-07-31
  Description : For my 2026 goal, I've been exploring Graph Attention Network (GAT) artificial intelligence.
@@ -136,10 +140,6 @@ I'm a technical artist with years of film, XR, & immersive experience.
  Description : ESRGAN Image Upresser!
       This was a fun one for me, I've been using ESRGANs for a while now,
          And wanted to build a GAN to better understand how they work.
-- [GNN Exploration](https://procstack.github.io/AIDev/gnn_exploration.htm.md)
- Updated: 2025-08-02
- Description : I made a couple GNN sctructures to help show how GNNs and MPNNs work visually,
-         Mostly just to help me understand them.
 - [Notes & Research](https://procstack.github.io/AIDev/aiNotes.htm.md)
  Updated: 2025-08-01
  Description : I made a whole 'blog' system for this.

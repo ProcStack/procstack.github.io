@@ -26,7 +26,7 @@ const pageContentObject = {
   'pageStyles' : {
     'block' : [ 'procPagesContentStyle', 'aiDevPageStyle' ],
     'before' : [ 'procPagesInnerBeforeBase', 'procPagesInnerBefore' ],
-    'parent' : [ 'procPagesParentStyle', 'aiDevPageParentStyle', 'procPagesLayoutTripleStyle' ],
+    'parent' : [ 'procPagesParentStyle', 'procPagesLayoutTripleStyle', 'aiDevPageParentStyle' ],
     'header' : [ 'procPagesHeaderStyle' ],
     'headerLine' : [ 'aiDevPage-headerLine' ],
     'subHeader' : [],
@@ -50,9 +50,9 @@ const pageContentObject = {
   'sections' : [
     aiIntroData,
     esnMotionPredictData,
+    gnnExplorationData,
     gatLanguageData,
     esrganUpresserData,
-    gnnExplorationData,
     aiNotesData
   ]
 }
