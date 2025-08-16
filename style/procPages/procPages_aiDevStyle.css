@@ -50,12 +50,12 @@
 
   
   .aiDevPageStyle{
-    width: calc( (100vw - 100vh)*-.6 + 100vw );
+    width: calc( (100vw - 100vh)*-.68 + 100vw );
     justify-items: right;
     z-index: 3;
     overflow: hidden;
     position: fixed;
-    right: 2vw;
+    left: 2.5vw;
     bottom: 2.5vmin;
   }
 }
