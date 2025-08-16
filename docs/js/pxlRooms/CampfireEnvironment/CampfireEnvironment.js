@@ -313,10 +313,10 @@ export class CampfireEnvironment extends RoomEnvironment{
     // This is optional, as the default settings is created for you
     //   If you don't pass one to the `build()` function
     let dustSystemSettings = dustSystem.getSettings();
-    dustSystemSettings["vertCount"] = 400; // Point Count
+    dustSystemSettings["vertCount"] = 450; // Point Count
     dustSystemSettings["pScale"] = 8.5;  // Point Base Scale
     dustSystemSettings["pOpacity"] = 1.35;  // Overall Opacity
-    dustSystemSettings["proxDist"] = 240;  // Proximity Distance from Camera
+    dustSystemSettings["proxDist"] = 260;  // Proximity Distance from Camera
     dustSystemSettings["fadeOutScalar"] = 1.2;  // Distance-opacity falloff multiplier
     dustSystemSettings["additiveBlend"] = false;
   

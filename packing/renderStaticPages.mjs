@@ -16,6 +16,9 @@
 //   - If parent doesn't match, only individual subpages matching the filter will be rendered
 
 
+// Known bugs :
+//   - Single Page / Subpage rendering still overwrites sitemap incorrectly.
+
 
 // renderStaticPages.mjs
 import puppeteer from 'puppeteer';

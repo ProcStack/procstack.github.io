@@ -27,21 +27,31 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'video',
-      'src' : '../pages/projects/images/fallingCircles.webm',
+      'src' : '../pages/projects/images/Dwitter_fallingCircles.webm',
       'alt' : 'Fallin circles',
       'style' : 'procPagesImageStyle',
+      'caption' : ['<a href="https://www.dwitter.net/d/7993" class="textNudge" target="_blank">Falling Circles</a>'],
     },
     {
       'type' : 'video',
-      'src' : '../pages/projects/images/greenField.webm',
+      'src' : '../pages/projects/images/Dwitter_greenField.webm',
       'alt' : 'A green field',
       'style' : 'procPagesImageStyle',
+      'caption' : ['<a href="https://www.dwitter.net/d/8041" class="textNudge" target="_blank">Green Field</a>', "Note, it now works on any browser, there's an old warning,", "You'll need to uncomment the code to run it"],
     },
     {
       'type' : 'video',
-      'src' : '../pages/projects/images/undulations.webm',
+      'src' : '../pages/projects/images/Dwitter_boidSystem.webm',
+      'alt' : 'Boid System',
+      'style' : 'procPagesImageStyle',
+      'caption' : ['<a href="https://www.dwitter.net/d/7893" class="textNudge" target="_blank">A basic boid/flocking system</a>', 'The squares move to the lower right,', 'While trying to avoid collision, yet be near each other'],
+    },
+    {
+      'type' : 'video',
+      'src' : '../pages/projects/images/Dwitter_undulations.webm',
       'alt' : 'The ripples of undulations',
       'style' : 'procPagesImageStyle',
+      'caption' : ['<a href="https://www.dwitter.net/d/7822" class="textNudge" target="_blank">The ripples of undulations</a>'],
     },
   ],
   'content' : `
