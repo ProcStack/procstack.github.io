@@ -833,6 +833,16 @@ export class ProcPage {
           }
         });
 
+      }else if(sectionData.type === 'spacer'){
+        let spacerHeight = sectionData.height || '3px';
+        let spacerDiv = document.createElement('div');
+        spacerDiv.style.height = spacerHeight;
+
+        if( sectionData.hasOwnProperty('style') && Array.isArray(sectionData.style) ){
+          sectionData.style.forEach(( style )=>{ style != '' && spacerDiv.classList.add(style) });
+        }
+
+        sectionNav.appendChild(spacerDiv);
       }
     });
   }
@@ -936,10 +946,10 @@ export class ProcPage {
       this.buildSection( sectionName );
     }
 
-    this.sectionData[ sectionName ].header.classList.add( 'procPagesNavActive' );
+    this.sectionData[ sectionName ].header?.classList?.add( 'procPagesNavActive' );
     if( this.pageStyles.hasOwnProperty('sectionNavButtonActive') && Array.isArray( this.pageStyles['sectionNavButtonActive'] ) ){
       this.pageStyles['sectionNavButtonActive'].forEach(( style )=>{
-        this.sectionData[ sectionName ].header.classList.add( style );
+        this.sectionData[ sectionName ].header?.classList?.add( style );
       });
     }
 
@@ -989,10 +999,10 @@ export class ProcPage {
  */
   deactivateSection( sectionName ){
     this.sectionData[ sectionName ].isActive = false;
-    this.sectionData[ sectionName] .header.classList.remove('procPagesNavActive');
+    this.sectionData[ sectionName ].header?.classList?.remove('procPagesNavActive');
     if( this.pageStyles.hasOwnProperty('sectionNavButtonActive') && Array.isArray( this.pageStyles['sectionNavButtonActive'] ) ){
       this.pageStyles['sectionNavButtonActive'].forEach(( style )=>{
-          this.sectionData[ sectionName ].header.classList.remove( style );
+          this.sectionData[ sectionName ].header?.classList?.remove( style );
       });
     }
     

@@ -1,0 +1,25 @@
+{
+  "title": "Misc.",
+  "description": "Miscellaneous random junk!\n    \n    \n  \n    \n      \n      \n       I felt like making some Compute Shaders that talked to each other in Unity,\n         So why not? Random boxes absorbing circles!\n\n      \n      To be fair, it's a work-in-progress and I'm making custom particle systems of atoms, 'molecules', and crystals form.",
+  "lastModified": "2025-08-16",
+  "media": [
+    {
+      "type": "video",
+      "src": "../pages/projects/images/Unity_computeShaderDev_zoomOut_halfRes.webm",
+      "alt": "Particle Merging",
+      "caption": "Unity; Interacting compute particle systems"
+    },
+    {
+      "type": "video",
+      "src": "../pages/projects/images/Unity_computeShaderDev_orb_halfRes.webm",
+      "alt": "Trippy Orb",
+      "caption": "Trippy Post-Processing!"
+    },
+    {
+      "type": "video",
+      "src": "../pages/projects/images/Unity_TesseractTo3D_spin_30fps_halfRes.webm",
+      "alt": "Tesseract to 3D",
+      "caption": "Unity; 3D Shadow of a spinning 4D Cube / Tesseract"
+    }
+  ]
+}

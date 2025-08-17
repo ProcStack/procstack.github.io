@@ -48,12 +48,12 @@ export const pageListingData = {
   ],
   'content' : `
     <a href='https://github.com/ProcStack/procPromo_ShaderPack' class='procPagesRepoLinkStyle' target='_blank'>procPromo Shader Pack</a> <span class="textDrinkMeAlice textItalic">2022-2025</span>
-    <br><span class="textBump">A Minecraft shader pack for Optifine & Iris.</span>
-    <br><span class="textShrink textItalic textName ">Language - <span class="textBold">GLSL 1.2, 3.3, & 4.5</span></span>
-    <br><span class="textShrink textItalic textName ">File Count - <span class="textBold">177</span></span>
+    <br><span class="textBump">A <span class="textName">Minecraft</span> shader pack for <span class="textName">Optifine</span> & <span class="textName">Iris</span></span>
+    <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">GLSL 1.2, 3.3, & 4.5</span></span>
+    <br><span class="textShrink textItalic textName ">File Count - <span class="textBold">180</span></span>
     <div class="pppHBar"></div>
     
-    I started writing <span class="textName">procPromo</span> in the spring of 2022 as a way to learn GLSL, as I was only using GLSL ES for WebGL at the time.
+    I started writing <span class="textName">procPromo</span> in the spring of 2022 as a way to learn GLSL, as I was mostly using GLSL ES for WebGL at the time.
     <br>&nbsp;&nbsp; Figured, if I was already playing minecraft, might as well make it look cool too!
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Like, while I built the sky villa and alien spore in the images.
 

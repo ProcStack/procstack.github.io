@@ -1,4 +1,4 @@
-# pxlmancer.com
+# pxlmancer
 
 [pxlmancer.com](https://pxlmancer.com) 2014-2019
 

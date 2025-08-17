@@ -16,7 +16,7 @@ Since my ESN can learn on the fly,
         
    The next step would be introducing a base image to motion-transfer / reference.
         
-   However, did build a simple version in Unity to learn player combos + movement over time.
+   However, did build a simple version in Unity to learn player button combos + movement over time.
 
         So I'm mostly just learnin' while watching my ai learnin'!
 

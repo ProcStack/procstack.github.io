@@ -51,7 +51,7 @@ const pageContentObject = {
       'content' : `
 <span class="procPagesHeaderStyle initHeaderStyle">Ahoi there!</span>
 <div class="initPage_hBarStyle">&nbsp;</div>
-<br>I'm <span class="textNudge">ProcStack</span>, <span class="textNudge">Trancor</span>, & <span class="textNudge">Kevin Edzenga</span>,
+I'm <span class="textNudge">ProcStack</span>, <span class="textNudge">Trancor</span>, & <span class="textNudge">Kevin Edzenga</span>,
 <br>&nbsp;&nbsp;Which ever ya feel like calling me!
 
 <div class='textSpacer'></div>

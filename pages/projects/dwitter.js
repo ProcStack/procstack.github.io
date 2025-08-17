@@ -23,7 +23,7 @@ export const pageListingData = {
   'description' : 'A collection of my code golfing projects on Dwitter.net',
   'keywords' : 'dwitter, code golf, javascript, procstack, procstack.github.io',
   'navGroup' : "The One'Offs",
-  'navStyle' : ['hideOnMobile'],
+  /*'navStyle' : ['hideOnMobile'],*/
   'media' : [
     {
       'type' : 'video',

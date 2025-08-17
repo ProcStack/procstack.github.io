@@ -7,12 +7,13 @@ import { pageListingData as procPromoData } from './projects/procPromo.js';
 import { pageListingData as pxlVisData } from './projects/pxlVisualizer.js';
 import { pageListingData as pxlTextGenData } from './projects/pxlTextGenerator.js';
 
-import { pageListingData as metalAsylumData } from './projects/Metal-Asylum.js';
+/*import { pageListingData as metalAsylumData } from './projects/Metal-Asylum.js';*/
 import { pageListingData as pxlmancerData } from './projects/pxlmancer.js';
 import { pageListingData as neurousNetData } from './projects/NeurousNet.js';
 import { pageListingData as pxlCamData } from './projects/pxlCam.js';
 import { pageListingData as shadertoyData } from './projects/shadertoy.js';
 import { pageListingData as dwitterData } from './projects/dwitter.js';
+import { pageListingData as miscData } from './projects/misc.js';
 
 
 const metaDataInput = {
@@ -68,21 +69,30 @@ const pageContentObject = {
     "Personal Projects",
     "The One'Offs"
   ],
-  'initialSection' : 1,
+  'initialSection' : 2,
   'sections' : [
         psghioData,
+
+        {'type':'spacer','height':'0px', 'style':['hideOnMobile']},
+
         cowData,
         procPromoData,
-        pxlVisData,
         pxlTextGenData,
 
         /* metalAsylumData, */
         pxlmancerData,
         neurousNetData,
         pxlCamData,
+        pxlVisData,
+
+        {'type':'spacer'},
 
         shadertoyData,
-        dwitterData
+        dwitterData,
+        
+        {'type':'spacer'},
+
+        miscData
   ]
 }
 // -- -- --

@@ -1,25 +1,26 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-08-16",
+  "lastUpdated": "2025-08-17",
   "description": "ProcStack.github.io Data Sources for AI/LLM consumption",
   "baseUrl": "https://procstack.github.io",
-  "totalPages": 24,
+  "totalPages": 28,
   "dataSources": {
     "siteContent": {
       "url": "/bots/siteContent.json",
       "description": "Aggregated site content including all page data",
       "format": "json",
-      "size": "85KB",
-      "lastUpdated": "2025-08-16",
-      "pages": 24
+      "size": "90KB",
+      "lastUpdated": "2025-08-17",
+      "pages": 28
     },
     "individualPages": {
       "baseUrl": "/bots/",
       "description": "Individual page content as separate JSON files",
       "format": "json",
-      "count": 24,
-      "lastUpdated": "2025-08-16",
+      "count": 28,
+      "lastUpdated": "2025-08-17",
       "files": [
+        "AIDev.htm.json",
         "AIDev_aiIntro.htm.json",
         "AIDev_aiNotes.htm.json",
         "AIDev_esn_motion.htm.json",
@@ -30,16 +31,19 @@
         "AboutMe_Plushies.htm.json",
         "AboutMe_What_am_I.htm.json",
         "Init.htm.json",
+        "ProjectsLinks.htm.json",
         "ProjectsLinks_Dwitter.htm.json",
         "ProjectsLinks_NeurousNet.htm.json",
         "ProjectsLinks_Shadertoy.htm.json",
         "ProjectsLinks_currentsOfWar.htm.json",
+        "ProjectsLinks_msic.htm.json",
         "ProjectsLinks_procPromo.htm.json",
         "ProjectsLinks_procstack.github.io.htm.json",
         "ProjectsLinks_pxlCam.htm.json",
         "ProjectsLinks_pxlTextGenerator.htm.json",
         "ProjectsLinks_pxlVisualizer.htm.json",
         "ProjectsLinks_pxlmancer.htm.json",
+        "pxlNav.htm.json",
         "pxlNav_Docs.htm.json",
         "pxlNav_Explore.htm.json",
         "pxlNav_Origin.htm.json",
@@ -50,19 +54,19 @@
       "url": "/llms.txt",
       "description": "LLM-friendly text summary of all site content",
       "format": "text/plain",
-      "lastUpdated": "2025-08-16"
+      "lastUpdated": "2025-08-17"
     },
     "aiMetaSpec": {
       "url": "/bots/ai-metadata-spec.html",
       "description": "Technical specification for AI metadata format used across the site",
       "format": "text/html",
-      "lastUpdated": "2025-08-16"
+      "lastUpdated": "2025-08-17"
     },
     "sitemap": {
       "url": "/sitemap.xml",
       "description": "Complete site structure for search engines and crawlers",
       "format": "application/xml",
-      "lastUpdated": "2025-08-16"
+      "lastUpdated": "2025-08-17"
     }
   },
   "aiMetadata": {
@@ -113,7 +117,7 @@
   },
   "generatedBy": {
     "script": "renderStaticPages.mjs",
-    "timestamp": "2025-08-16T19:21:03.806Z",
+    "timestamp": "2025-08-17T02:53:30.448Z",
     "isPartialUpdate": false
   }
 }

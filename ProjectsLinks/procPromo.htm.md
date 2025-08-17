@@ -2,13 +2,13 @@
 
 [procPromo Shader Pack](https://github.com/ProcStack/procPromo_ShaderPack) 2022-2025
     
-A Minecraft shader pack for Optifine & Iris.
+A Minecraft shader pack for Optifine & Iris
     
-Language - GLSL 1.2, 3.3, & 4.5
+Languages - GLSL 1.2, 3.3, & 4.5
     
-File Count - 177
+File Count - 180
 
-    I started writing procPromo in the spring of 2022 as a way to learn GLSL, as I was only using GLSL ES for WebGL at the time.
+    I started writing procPromo in the spring of 2022 as a way to learn GLSL, as I was mostly using GLSL ES for WebGL at the time.
     
    Figured, if I was already playing minecraft, might as well make it look cool too!
     
