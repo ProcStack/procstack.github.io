@@ -79,7 +79,7 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; Like in the human brain.
       <br><div class="textSkew">&nbsp;&nbsp;&nbsp;&nbsp; (When the purple circles go red in the GAT video, first vid)</div>
 
-      <br><br><div class='procPagesAboutMeBar'></div>
+      <br><br><div class='procPagesAIDevBar'></div>
 
       <br><br>Please note, I haven't mentioned the transformer for this GAT.
       <br>&nbsp;&nbsp; It was byte-pair 'tensors' encoded text block that I fed into the GAT.

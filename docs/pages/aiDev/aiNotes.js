@@ -20,6 +20,7 @@ export const pageListingData = {
   'name' : 'Notes & Research',
   'title' : 'Notes & Research',
   'lastModified' : '2025-08-01',
+  'features' : ['anchorListing'],
   'schemaData' : shemaData,
   'media' : [],
   'content' : `
@@ -28,13 +29,17 @@ export const pageListingData = {
       I made a whole 'blog' system for this... yet here we are....
       
       <br>
-      <br>No, I wont have ai write for me here.
+      <br>No, I'm not using ai to speak for me here.
       <br>&nbsp;&nbsp; These are my thoughts,
       <br>&nbsp;&nbsp;&nbsp;&nbsp; How ever scattered they may be.
 
-      <br><br><div class='procPagesAboutMeBar'></div>
+      <br>
+      <br>
+      <br><div class='procPagesAIDevBar'></div>
 
-      <br><br>If you couldn't tell, I'm training my AIs on my own works.
+      <br><a name="2025-02" data-listing="2025-02"></a>
+      <br>
+      <br>If you couldn't tell, I'm training my AIs on my own works.
       <br>A personally made AI trained on personally made images / videos / photos / code / writing.
       <br>&nbsp;&nbsp; That means I can copyright my generations, right?
       <br>&nbsp;&nbsp;&nbsp;&nbsp; If I made every aspect of the AI & training data?
@@ -42,9 +47,11 @@ export const pageListingData = {
       <br>
       <div class="textFullRight">- February 2025</div>
 
-      <br><div class='procPagesAboutMeBar'></div>
+      <br><br><div class='procPagesAIDevBar'></div>
 
-      <br><br>I've begun on the core of the AI, as of May 24th, 2025.
+      <br><a name="2025-05" data-listing="2025-05"></a>
+      <br>
+      <br>I've begun on the core of the AI, as of May 24th, 2025.
       <br>&nbsp;&nbsp; I have the beginnings of a 'Micro-Term' memory implemented to act as a gated-attention during inference.
       <br>This, paired with automatic graph edge splitting ('Dynamic' in DGNN or DGAT) and use of geometric clustering, seems to be giving me values of a "remembered" object when it's outside of the dataset.
       <br>&nbsp;&nbsp; Hopefully leading to bodily awareness of limbs, objects outside of the field of view, and other 'long term' tensors/classifications at a temporary scale.
@@ -60,8 +67,9 @@ export const pageListingData = {
       <br>You can assume that the 'ESN' is not a standard 'Echo State Network' anymore.
       <div class="textFullRight">- May 2025</div>
 
-      <br><br><div class='procPagesAboutMeBar'></div>
+      <br><br><div class='procPagesAIDevBar'></div>
       
+      <br><a name="2025-07" data-listing="2025-07"></a>
       <br>
       <br> With a bit more research into the types of minds that brought us DeepMind, and their work on GNN networks,
       <br> I read a bit of Petar Velickovic's work on topological deep learning and the geometry of GNNs.
@@ -92,8 +100,10 @@ export const pageListingData = {
 
       <div class="textFullRight">- July 2025, Updated August 2025</div>
 
-      <br><br><div class='procPagesAboutMeBar'></div>
+      <br><br><div class='procPagesAIDevBar'></div>
 
+      <br><a name="2025-08-01" data-listing="2025-08-01"></a>
+      <br>
       <br>I'd like to believe I'm moving in the right direction with the feedback systems I'm developing.
       <br>&nbsp;&nbsp; But been further creating other architectures to see how they operate.
 
@@ -109,8 +119,10 @@ export const pageListingData = {
       <br>&nbsp;&nbsp;&nbsp;&nbsp; Balance is never reached.
       <div class="textFullRight">- August 1st 2025</div>
 
-      <br><br><div class='procPagesAboutMeBar'></div>
+      <br><br><div class='procPagesAIDevBar'></div>
 
+      <br><a name="2025-08-02" data-listing="2025-08-02"></a>
+      <br>
       <br>I've been looking into neural bundles in the brain.  There is an implicit "delay" in the flow of information that I'm interested in.
       <br>&nbsp;&nbsp; As signals move between neurons, some connections take a longer path than others to get to the same destination.
       <br>&nbsp;&nbsp;&nbsp;&nbsp; For as much as I interpreted it.
@@ -157,8 +169,10 @@ export const pageListingData = {
 
       <div class="textFullRight">- August 2nd 2025</div>
 
-      <br><br><div class='procPagesAboutMeBar'></div>
+      <br><br><div class='procPagesAIDevBar'></div>
 
+      <br><a name="2025-08-16" data-listing="2025-08-16"></a>
+      <br>
       <br>So, more'n more there are some rather choice words about AI online.
 
       <br>
@@ -180,7 +194,7 @@ export const pageListingData = {
       <br>
       <br>I then visited the Buddhist monastery in Carmel NY,
       <br>&nbsp;&nbsp; Greeted by the largest buddha statue in north america.
-      <br>&nbsp;&nbsp; In awe of the multitudes of multitudes of hand-carved buddha statues in audience of the massive statue of buddha I pale in comparison before.
+      <br>&nbsp;&nbsp; In awe of the multitudes of multitudes of hand-carved buddha statuettes in audience of the massive statue of buddha I pale in comparison before.
 
       <br>
       <br>I'd highly suggest visiting the monastery if you ever find yourself in the area!
@@ -213,7 +227,7 @@ export const pageListingData = {
       <br>
       <br>May the few not ruin it for those of us trying to explore new horizons.
 
-      <div class="textFullRight">- August 15th 2025</div>
+      <div class="textFullRight">- August 15th,16th 2025</div>
       <br>
       <br>
     </div>

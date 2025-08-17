@@ -49,10 +49,12 @@ const pageContentObject = {
   },
   'sections' : [
     aiIntroData,
+    {'type':'spacer'},
+    esrganUpresserData,
     esnMotionPredictData,
     gnnExplorationData,
     gatLanguageData,
-    esrganUpresserData,
+    {'type':'spacer','height':'10px'},
     aiNotesData
   ]
 }

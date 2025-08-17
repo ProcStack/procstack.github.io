@@ -70,7 +70,7 @@ These 4 values are what's sent between nodes to help determine if a player is 'w
 
 It's pretty interesting to me,
       
-Seeing these changes in potential teammates as the game rounds progress.
+   Seeing these changes in potential teammates as the game rounds progress.
       
    As the players change their stats, the potential teammates change between game rounds.
 

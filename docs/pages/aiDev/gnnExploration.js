@@ -107,7 +107,7 @@ export const pageListingData = {
 
       <br>
       <br>It's pretty interesting to me,
-      <br>Seeing these changes in potential teammates as the game rounds progress.
+      <br>&nbsp;&nbsp; Seeing these changes in potential teammates as the game rounds progress.
       <br>&nbsp;&nbsp; As the players change their stats, the potential teammates change between game rounds.
 
       <div class='procPagesAboutMeSpacer'></div>

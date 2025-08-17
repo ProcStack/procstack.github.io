@@ -42,7 +42,7 @@ export const pageListingData = {
       <br>
       <br>Since then, I've been developing different multi-media AI structures in my spare time.
       <br>
-      <br><div class='procPagesAboutMeBar'></div>
+      <br><div class='procPagesAIDevBar'></div>
 
       <br>In 2015 I decided I'd cram a machine learning AI into a single-board computer, a Jetson TK1, by the end of 2026.
       <br>&nbsp;&nbsp; Something that could write down what I say,

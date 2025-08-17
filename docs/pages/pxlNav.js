@@ -50,8 +50,10 @@ const pageContentObject = {
   },
   'sections' : [
     exploreData,
+    {'type':'spacer'},
     whatsPxlNavData,
     documentationData,
+    {'type':'spacer'},
     originData
   ]
 }

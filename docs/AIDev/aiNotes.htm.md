@@ -2,7 +2,7 @@
 
 I made a whole 'blog' system for this... yet here we are....
 
-No, I wont have ai write for me here.
+No, I'm not using ai to speak for me here.
       
    These are my thoughts,
       
@@ -184,7 +184,7 @@ I then visited the Buddhist monastery in Carmel NY,
       
    Greeted by the largest buddha statue in north america.
       
-   In awe of the multitudes of multitudes of hand-carved buddha statues in audience of the massive statue of buddha I pale in comparison before.
+   In awe of the multitudes of multitudes of hand-carved buddha statuettes in audience of the massive statue of buddha I pale in comparison before.
 
 I'd highly suggest visiting the monastery if you ever find yourself in the area!
 
@@ -224,4 +224,4 @@ I very much enjoyed working on family films,
 
 May the few not ruin it for those of us trying to explore new horizons.
 
-      - August 15th 2025
+      - August 15th,16th 2025
