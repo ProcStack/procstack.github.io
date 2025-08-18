@@ -964,7 +964,9 @@ export class ProcPage {
         this.pageSectionsObject.classList.add('procPageNoMediaStyle');
         this.mediaViewObject.style.display = "none";
       }else if(this.sectionData[ sectionName ].media.length == 1){
-        this.mediaViewObject.style.alignContent = "center";
+        //this.mediaViewObject.style.alignContent = "center";
+        this.mediaViewObject.style.alignItems = "center";
+        
         this.mediaViewObject.style.height = "auto";
       }
     }else if( this.layout == "vertical" ){ // Vertical locked layout
@@ -972,7 +974,7 @@ export class ProcPage {
         this.pageSectionsObject.classList.add('procPageNoMediaLockVerticalStyle');
         this.mediaViewObject.style.display = "none";
       }else if( mediaLength == 1 ){
-        this.mediaViewObject.style.alignContent = "center";
+        this.mediaViewObject.style.alignItems = "center";
         this.mediaViewObject.style.height = "auto";
       }
     }

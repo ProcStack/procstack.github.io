@@ -99,11 +99,17 @@
 /* -- -- -- */
 
 
+.showOnMobile{
+  display: none !important;
+}
 
 
 @media screen and (max-width: 600px){
   .hideOnMobile{
     display: none;
+  }
+  .showOnMobile{
+    display: inherit !important;
   }
 }
 
