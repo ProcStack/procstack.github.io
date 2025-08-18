@@ -40,7 +40,7 @@ export const pageListingData = {
       <br><a name="2025-02" data-listing="2025-02"></a>
       <br>
       <br>If you couldn't tell, I'm training my AIs on my own works.
-      <br>A personally made AI trained on personally made images / videos / photos / code / writing.
+      <br>&nbsp;&nbsp; A personally made AI trained on personally made images / videos / photos / code / writing.
       <br>&nbsp;&nbsp; That means I can copyright my generations, right?
       <br>&nbsp;&nbsp;&nbsp;&nbsp; If I made every aspect of the AI & training data?
       <br>

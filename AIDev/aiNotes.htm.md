@@ -10,7 +10,7 @@ No, I'm not using ai to speak for me here.
 
 If you couldn't tell, I'm training my AIs on my own works.
       
-A personally made AI trained on personally made images / videos / photos / code / writing.
+   A personally made AI trained on personally made images / videos / photos / code / writing.
       
    That means I can copyright my generations, right?
       
