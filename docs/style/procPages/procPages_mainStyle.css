@@ -1,5 +1,5 @@
 :root {
-  --aspect-ratio: calc(100vw / 100vh);
+  --aspect-ratio: calc(100vw / 100dvh);
   --inner-before-after-height: 12px;
   --inner-before-after-margin: 5px;
   --inner-before-after-radiusBefore: 15px 15px 0px 0px;
@@ -20,7 +20,7 @@ BODY {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100dvh;
   margin: 0;
   font-size: 14px;
   font-family: 'Roboto', sans-serif;
@@ -217,7 +217,7 @@ text-shadow: 1px 1.5px 4px #252525;
 
 .pxlPagesContentBlockStyle {
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 .pxlPagesContentParentStyle{
@@ -296,7 +296,7 @@ text-shadow: 1px 1.5px 4px #252525;
 /*  -- -- --  */
 
 .gpcpVisibleStyle {
-  max-height: 100vh;
+  max-height: 100dvh;
 }
 
 .gpcpHiddenStyle {
@@ -310,8 +310,8 @@ text-shadow: 1px 1.5px 4px #252525;
   display: grid;
   place-items: baseline;
   overflow: auto;
-  /*max-height: 65vh;
-  min-height: 16vh;*/
+  /*max-height: 65dvh;
+  min-height: 16dvh;*/
   font-size: 1.2em;
   text-wrap-style: balance;
   position: relative;

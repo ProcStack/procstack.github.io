@@ -38,7 +38,7 @@
 .procPageSections-vertical{
   display: grid;
   grid-auto-flow: row;
-  grid-auto-rows: 150px auto 20vh ;
+  grid-auto-rows: 150px auto 20dvh ;
 }
 
 .procPagesSectionTitleStyle{
@@ -146,7 +146,7 @@
 
 
 .procPagesLayoutTripleStyle{
-  height : max(60vh, calc(97vh - 36px - 7vmax - clamp(100vw - 600px, 1vh, 60vh)));
+  height : max(60dvh, calc(97dvh - 36px - 7vmax - clamp(100vw - 600px, 1dvh, 60dvh)));
   display: grid;
   overflow: hidden;
   grid-template-areas:

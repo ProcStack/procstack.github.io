@@ -86,7 +86,7 @@
 
 .gitReposPageParentStyle{
   max-width: min(100vw, 1600px);
-  height : 65vh;
+  height : 65dvh;
   padding: var(--inner-padding);
   border-radius: 2px;
   background: linear-gradient(149deg, rgba(28, 76, 178, 0.4), rgba(29, 43, 66, 0.65), rgba(28, 48, 82, 0.4));
@@ -142,7 +142,7 @@
 
 .procPagesRepoImageStyle{
   width: calc(max(40vw,500px));
-  max-width: calc( max(min(100vw - 7vh, 480px), min( 100vw - 7vh, 40vw + ( (1000px - 100vw)*5) )) );
+  max-width: calc( max(min(100vw - 7dvh, 480px), min( 100vw - 7dvh, 40vw + ( (1000px - 100vw)*5) )) );
   height: auto;
   display: grid;
   justify-self: center;

@@ -3,7 +3,7 @@
 
 .gitBlogPageStyle{
   width: 75vw;
-  max-height: 86vh;
+  max-height: 86dvh;
   max-width: var(--procPage-width);
   z-index: 5;
   overflow: hidden;
@@ -88,7 +88,7 @@
 /* -- -- -- */
 
 .gitBlogPageParentStyle{
-  max-height: calc(86vh - var(--inner-height-reduce));
+  max-height: calc(86dvh - var(--inner-height-reduce));
   max-width: calc(100vw - var(--screen-padding));
   padding: var(--inner-padding);
   background-color: rgba(43, 9, 103, 0.45);
