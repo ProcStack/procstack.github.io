@@ -16,7 +16,7 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "NeurousNet.htm",
-  'name' : 'Neurous Net',
+  'name' : 'Neurous<span class="hideOnMobile"> Net</span>',
   'title' : 'Neurous.Net',
   'lastModified' : '2025-02-14',
   'schemaData' : shemaData,

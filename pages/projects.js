@@ -85,12 +85,12 @@ const pageContentObject = {
         pxlCamData,
         pxlVisData,
 
-        {'type':'spacer'},
+        {'type':'spacer', 'style':['hideOnMobile']},
 
         shadertoyData,
         dwitterData,
         
-        {'type':'spacer'},
+        {'type':'spacer', 'style':['hideOnMobile']},
 
         miscData
   ]

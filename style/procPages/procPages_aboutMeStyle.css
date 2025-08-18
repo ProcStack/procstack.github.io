@@ -65,7 +65,7 @@
 
 .gitAboutMePageParentStyle{
   width: min( calc(100vw - 2vmax), 1100px);
-  height: calc(90vh - 40px);
+  height: calc(90dvh - 40px);
   display: grid;
   grid-auto-flow: row;
   border-radius: 2px;
@@ -213,7 +213,7 @@
 }
 
 .setH55vh{
-    max-height: 55vh;
+    max-height: 55dvh;
 }
 
 .setAspectRatio_1{
