@@ -7,10 +7,18 @@
   z-index: 6;
   overflow: hidden;
   position: fixed;
-  left: max( 1vmax, calc(min(15vw, max(0px, 100vw - 1250px) / 4.5)) );
+  left: max( 1vw, calc(min(12vw, max(0px, 100vw - 1450px) / 7.5)) );
   bottom: 2.5vmin;
+  width: calc((100vw - 100dvh) * -.97 + 100vw);
+  max-width: 98vw;
 }
 
+@media screen and (max-width:100dvh) {
+  .gitAboutMePageStyle {
+    left: 1vw;
+    width: 98vw;
+  }
+}
 
 /* -- -- -- */
 
@@ -64,7 +72,8 @@
 
 
 .gitAboutMePageParentStyle{
-  width: min( calc(100vw - 2vmax), 1100px);
+  /*width: min( calc(100vw - 2vmax), 1100px);*/
+  max-width: 98dvw;
   height: calc(90dvh - 40px);
   display: grid;
   grid-auto-flow: row;
