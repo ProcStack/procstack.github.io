@@ -1,4 +1,4 @@
-import { blogEntry } from './blogEntryBase.js';
+import { baseEntryStruct, blogEntry } from './blogEntryBase.js';
 
 let entryTitle = "Site Progress";
 let entryDate = "2024-12-07";
@@ -52,7 +52,12 @@ I just got the camera location warping working from outside of pxlNav.
 <br>&nbsp; -Kevin Edzenga
 `;
 
+const entryData = baseEntryStruct();
+entryData.title = entryTitle;
+entryData.date = entryDate;
+entryData.tags = entryTags;
+entryData.body = entryBody;
 
-const blogEntryObj = new blogEntry(null, entryTitle, entryDate, entryTags, entryBody);
+const blogEntryObj = new blogEntry(null, entryData);
 
 export { blogEntryObj };

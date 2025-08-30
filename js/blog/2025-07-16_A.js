@@ -1,4 +1,4 @@
-import { blogEntry } from './blogEntryBase.js';
+import { baseEntryStruct, blogEntry } from './blogEntryBase.js';
 
 let entryTitle = "Boid Movement: Beyond the Basic Three Rules";
 let entryDate = "2025-07-16";
@@ -130,6 +130,12 @@ and it was just too much for the system to handle navigation, animation cycles, 
 `;
 
 
-const blogEntryObj = new blogEntry(null, entryTitle, entryDate, entryTags, entryBody);
+const entryData = baseEntryStruct();
+entryData.title = entryTitle;
+entryData.date = entryDate;
+entryData.tags = entryTags;
+entryData.body = entryBody;
+
+const blogEntryObj = new blogEntry(null, entryData);
 
 export { blogEntryObj };

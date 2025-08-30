@@ -1,4 +1,4 @@
-import { blogEntry } from './blogEntryBase.js';
+import { baseEntryStruct, blogEntry } from './blogEntryBase.js';
 
 let entryTitle = "Visibility in Design";
 let entryDate = "2025-02-08";
@@ -34,7 +34,12 @@ Welp, that's gotta change.
 <br>&nbsp; -Kevin Edzenga
 `;
 
+const entryData = baseEntryStruct();
+entryData.title = entryTitle;
+entryData.date = entryDate;
+entryData.tags = entryTags;
+entryData.body = entryBody;
 
-const blogEntryObj = new blogEntry(null, entryTitle, entryDate, entryTags, entryBody);
+const blogEntryObj = new blogEntry(null, entryData);
 
 export { blogEntryObj };

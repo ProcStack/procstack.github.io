@@ -29,6 +29,10 @@ const showOnboarding = true;
 const bootRoomList = ["OutletEnvironment"];//, "VoidEnvironment"];
 const startingRoom = bootRoomList[0];
 
+// Load all scenes during boot, true
+// Or only the first `startingRoom` scene, false
+const fullLoadPreBoot = false;
+
 // -- -- --
 
 // Set a list of phrases to display during the loading process
@@ -110,6 +114,8 @@ const skyHaze = pxlEnums.SKY_HAZE.VAPOR;
 //   Collision objects are split into a grid for faster collision detection
 //   gridSize - The size of the grid
 //   gridReference - Grid scene reference threshold to scale `gridSize`
+//                     (Will adjust `gridSize` to better fit your scene geometry detail)
+//                     (Use a value less than half your scene; if your scene is 3200 Unit wide, set it 1000-1600)
 const collisionScale = {
   'gridSize' : 150,
   'gridReference' : 1000
@@ -164,6 +170,7 @@ pxlNavOptions.collisionScale = collisionScale;
 pxlNavOptions.pxlRoomRoot = pxlRoomRootPath;
 pxlNavOptions.pxlAssetRoot = pxlAssetRoot;
 pxlNavOptions.showOnboarding = showOnboarding;
+pxlNavOptions.fullLoadPreBoot = fullLoadPreBoot;
 pxlNavOptions.staticCamera = enableStaticCamera;
 pxlNavOptions.allowStaticRotation = allowStaticRotation;
 pxlNavOptions.skyHaze = skyHaze;

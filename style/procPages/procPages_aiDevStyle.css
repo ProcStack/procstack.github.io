@@ -42,13 +42,22 @@
   background-color: rgba(45, 45, 55, 0.2);
 }
 
+.aiDevPage-blogStyle{
+  display:flex;
+  flex-direction: column;
+  justify-items: baseline;
+  height: 100%;
+}
+
+
+
+
 @media screen and ((min-width: 1000px) or (min-aspect-ratio: 1)) {
   .aiDevPage-sectionNavListStyle{
     height: 100%;
     overflow: auto;
   }
 
-  
   .aiDevPageStyle{
     width: calc( (100vw - 100dvh)*-.62 + 100vw );
     max-width: 95vw;
@@ -59,6 +68,14 @@
     left: 2.5vw;
     bottom: 2.5vmin;
   }
+
+  .aiDevPage-blogStyle{
+    display:flex;
+    flex-direction: row;
+    align-items: baseline;
+    height: 100%;
+  }
+
 }
 
 .aiDevPage-sectionCaptionStyle{
@@ -76,6 +93,13 @@
   overflow: hidden;
 }
 
+
+.procPagesAIDevHeaderSpacer{
+  height: 1.5px;
+  background: linear-gradient(90deg, rgba(80, 80, 80, 0.0) 0%, rgba(55,80,130,.45) 25%, rgba(55,80,130,.45) 75%, rgba(80, 80, 80, 0.0) 100%);
+  overflow: hidden;
+    width: 65%;
+}
 
 /* -- -- -- */
 
@@ -111,7 +135,8 @@
   text-shadow: 2px 2px 3px rgba(0, 0, 0, .75);
   pointer-events: auto;
   overflow: hidden;
-  grid-template-columns: max-content auto 45%;
+  grid-template-rows: max-content min-content min-content auto;
+  align-content: baseline;
 }
 
 .aiDevPageStyle .procPagesInnerBefore {
@@ -185,4 +210,13 @@
 .aiDevPage_footerBar a:active {
     color: #324bc9;
     text-shadow: 1px 1.5px 4px rgba(50,50,50,.75);
+}
+
+
+/* -- -- -- */
+
+.aiDevPage-blogContentStyle {
+  max-width: 97vw;
+  align-self: end;
+  justify-self: center;
 }

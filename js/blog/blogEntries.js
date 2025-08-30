@@ -12,9 +12,6 @@ import { blogEntryObj as blogEntry_20250208_A } from "./2025-02-08_A.js";
 import { blogEntryObj as blogEntry_20250716_A } from "./2025-07-16_A.js";
 
 
-export const blogEntries = {
-    "2024-12-07_A": blogEntry_20241207_A,
-    "2024-12-08_A": blogEntry_20241208_A,
-    "2025-02-08_A": blogEntry_20250208_A,
-    "2025-07-16_A": blogEntry_20250716_A
-}
+export const blogEntries = [
+    blogEntry_20241207_A, blogEntry_20241208_A, blogEntry_20250208_A, blogEntry_20250716_A
+];

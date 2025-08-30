@@ -1,4 +1,4 @@
-import { blogEntry } from './blogEntryBase.js';
+import { baseEntryStruct, blogEntry } from './blogEntryBase.js';
 
 let entryTitle = "State of AI; Late 2024";
 let entryDate = "2024-12-08";
@@ -220,7 +220,12 @@ We are embracing the monetary gain from that hope of AI.
 <br>&nbsp; -Kevin Edzenga
 `;
 
+const entryData = baseEntryStruct();
+entryData.title = entryTitle;
+entryData.date = entryDate;
+entryData.tags = entryTags;
+entryData.body = entryBody;
 
-const blogEntryObj = new blogEntry(null, entryTitle, entryDate, entryTags, entryBody);
+const blogEntryObj = new blogEntry(null, entryData);
 
 export { blogEntryObj };
