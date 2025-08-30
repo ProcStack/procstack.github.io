@@ -30,16 +30,8 @@
     </image:image>
   </url>
   <url>
-    <loc>https://procstack.github.io/ai-data.html</loc>
-    <lastmod>2025-08-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
     <loc>https://procstack.github.io/AIDev.htm</loc>
-    <lastmod>2025-08-18</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -55,7 +47,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/AIDev/aiNotes.htm</loc>
-    <lastmod>2025-08-01</lastmod>
+    <lastmod>2025-08-29</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -102,16 +94,8 @@
     </image:image>
   </url>
   <url>
-    <loc>https://procstack.github.io/Outlet.htm</loc>
-    <lastmod>2025-08-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
     <loc>https://procstack.github.io/ProjectsLinks.htm</loc>
-    <lastmod>2025-08-18</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -207,7 +191,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/pxlNav.htm</loc>
-    <lastmod>2025-08-18</lastmod>
+    <lastmod>2025-08-30</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -244,5 +228,15 @@
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
     </image:image>
+  </url>
+  <url>
+    <loc>https://procstack.github.io/Outlet.htm</loc>
+    <lastmod>2025-08-30</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://procstack.github.io/ai-data.html</loc>
+    <lastmod>2025-08-30</lastmod>
+    <changefreq>monthly</changefreq>
   </url>
 </urlset>

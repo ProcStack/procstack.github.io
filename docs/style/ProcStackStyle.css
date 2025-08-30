@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 @import 'procPages.css';
+@import 'procBlogStyles.css';
 
 
 
@@ -51,4 +52,3 @@ background-color: rgba(100, 100, 100, .85);
 
 
 /* -- -- -- -- -- -- -- -- -- */
-

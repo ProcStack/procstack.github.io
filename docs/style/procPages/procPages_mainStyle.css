@@ -454,6 +454,10 @@ text-shadow: 1px 1.5px 4px #252525;
   font-size: 0.81em;
 }
 
+.textShrinkRay{
+  font-size: 0.3em;
+}
+
 .textSuper{
   font-size: 0.7em;
   position: relative;

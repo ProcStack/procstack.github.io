@@ -1,0 +1,217 @@
+
+
+.blogManagerBlockStyle{
+  display:flex;
+  flex-direction: column;
+  justify-items: baseline;
+}
+
+
+.blogEntryListStyle{
+  display: none;
+}
+.blogEntryListMobileStyle{
+  display: grid;
+  grid-auto-flow: column;
+  align-self: start;
+  height: min-content;
+  margin-bottom: 10px;
+  width: 100%;
+  align-items: center;
+  justify-items: center;
+  border: .5em transparent solid;
+  width: 98%;
+}
+
+.blogEntryContentStyle{
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.blogEntryContentStyle::-webkit-scrollbar {
+  border-radius: 2px;
+	width: 10px;
+}
+
+.blogEntryContentStyle::-webkit-scrollbar-track {
+  border-radius: 2px;
+	background: rgba(51, 76, 161, 0.308);
+}
+
+.blogEntryContentStyle::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+	cursor: grab;
+	background-color: rgba(52, 78, 161, 0.55);
+}
+.blogEntryContentStyle::-webkit-scrollbar-thumb:hover {
+  border-radius: 2px;
+	background-color: rgba(34, 72, 196, 0.81);
+}
+
+@media screen and ((min-width: 1000px) or (min-aspect-ratio: 1)) {
+  .blogManagerBlockStyle{
+    display:flex;
+    flex-direction: row;
+    align-items: baseline;
+    width: 100%;
+    overflow: hidden;
+  }
+  .blogEntryListStyle{
+    display: grid;
+    grid-auto-flow: row;
+    align-self: start;
+    height: min-content;
+    padding: 10px;
+  }
+  .blogEntryListMobileStyle{
+    display: none;
+  }
+}
+
+
+.blogEntryListingStyle{
+  border: 2px solid rgba(107, 115, 219, 0.24);
+  text-decoration: none;
+  color: #cbdcf8;
+  background-color: rgba(33, 77, 143, 0.58);
+  margin: 3px 0px;
+  padding: 2px 3px 0px 3px;
+  font-size: 1.1em;
+  border-radius: .3em;
+  text-align: left;
+  line-height: .85em;
+  height: min-content;
+  min-width: 22.5ch;
+}
+.blogEntryListingStyle:hover {
+  cursor: pointer;
+  color: #dde8fb;
+  text-shadow: 1px 1.5px 4px #4b3e55;
+  background-color: rgba(51, 111, 202, 0.667);
+  border: 2px solid rgba(88, 99, 221, 0.715);
+}
+.blogEntryListingStyle:active {
+  cursor: pointer;
+  color: #b0c7ed;
+  text-shadow: 1px 1.5px 4px #51495a;
+  border: 2px solid rgba(35, 45, 153, 0.707);
+  background-color: rgba(23, 48, 86, 0.711);
+}
+
+.blogSubListingStyle {
+  font-size: 0.85em;
+  padding-left: 10px;
+  color: #bed7ffde;
+}
+
+
+
+.blogSpacer{
+  height: 2px;
+  width: 85%;
+  background-color: rgba(59, 15, 94, 0.87);
+  margin: 15px 0px 15px 0px;
+  justify-self: center;
+}
+
+/* -- -- -- -- -- -- -- -- */
+
+.blogMobilePopupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(rgba(5, 15, 35, .95) 0%, rgba(5, 15, 35, .7) 100%);
+  z-index: 1000;
+}
+
+.blogMobilePopupWindow {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+    font-size: 1.65em;
+}
+
+
+.blogMobilePopupList{
+    display: grid;
+    grid-auto-flow: row;
+}
+
+.blogMobilePrev{
+  min-width: min-content;
+  width: min-content;
+  height: 85%;
+  padding: 0px 10px;
+  text-wrap: nowrap;
+}
+.blogMobileCurrent{
+  padding: 5px 10px;
+}
+.blogMobileNext{
+  min-width: min-content;
+  width: min-content;
+  height: 85%;
+  padding: 0px 10px;
+  text-wrap: nowrap;
+}
+
+.blogMobilePopupEntry{
+  padding: 5px 8px 0px 8px
+}
+
+.blogEntryTitleRowStyle {
+    display: grid;
+    width: 100%;
+    align-items: center;
+    grid-auto-flow: column;
+    grid-template-columns: 3fr 1fr 1fr;
+}
+
+.blogEntryDateStyle {
+  font-size: 0.85em;
+  color: rgba(230, 230, 230, 0.65);
+  justify-self: end;
+}
+
+.blogEntryTagStyle {
+  text-align: right;
+  font-size: 0.75em;
+  color: rgba(230, 230, 230, 0.65);
+}
+
+.blogEntryReadTimeStyle{
+  font-size: 0.75em;
+  color: rgba(230, 230, 230, 0.65);
+  justify-self: end;
+  padding-right: .65em;
+}
+
+.procPagesTempContentStyle{
+  justify-self: center;
+  min-width: 85%;
+  justify-content: center;
+  display: grid;
+}
+
+.blogTempContentStyle{
+  justify-self: center;
+  width: 100%;
+  text-align: center;
+  background: rgba(47, 66, 118, 0.48);
+  border-radius: .65em;
+  padding: 20px 7px;
+}
+
+.blogEntryTitleStyle {
+  justify-self: center;
+}
+
+.blogDisabledButtonStyle {
+  opacity: 0.5;
+  pointer-events: none;
+}

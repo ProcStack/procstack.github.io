@@ -8,6 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js dist",
+    "live": "node index.js live",
     "deploy": "gh-pages -d docs",
     "gltf": "node ./packing/gltfpack.js",
     "fbx2glb": "node ./packing/fbx2gltf.js",

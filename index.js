@@ -1,7 +1,6 @@
 
 const projectName = "ProcStack.Github.io";
 let listenIP = 'localhost';
-//listenIP = '192.168.1.3'; // For testing on my phone
 var httpPort = 3000;
 
 const args = process.argv.slice(2);
@@ -29,17 +28,21 @@ const dirName = path.dirname( pathName );
 //app.use( express.static(path.join(dirName, '/Build')) );
 
 let publicDir = 'Public';
-if(args.length > 0 && args[0] == "dist"){
-  console.log("Booting in 'Live'")
-  console.log("Serving from: ./docs");
+if(args.length > 0 ){
   publicDir = 'docs';
+  if( args[0] == "dist" ){
+    console.log("Booting in 'Dev'")
+    console.log("Serving from: ./docs");
 
-  app.use( express.static(path.join(dirName, 'docs')) );
-}else{
-  console.log("Booting in Developer Mode");
-  console.log("Serving from: ./Public & ./Source");
-  app.use( express.static(path.join(dirName, 'Public')) );
-  app.use( express.static(path.join(dirName, 'Source')) );
+    app.use( express.static(path.join(dirName, 'docs')) );
+  }else if(args[0] == "live" ){
+    console.log("Booting in 'Live'")
+    console.log("Serving from: ./docs");
+
+    listenIP = '192.168.1.3'; // For testing on my phone
+
+    app.use( express.static(path.join(dirName, 'docs')) );
+  }
 }
 app.use('/three', express.static(path.join(dirName, 'node_modules/three')));
 

@@ -40,6 +40,8 @@
  * Class representing a ProcPage that manages page content and layout
  */
 
+import { BlogManager } from '../BlogManager.js';
+
 export class ProcPage {
   /**
    * Create a ProcPage
@@ -74,6 +76,9 @@ export class ProcPage {
     this.styleOverrides = contentObject.styleOverrides || {};
     this.initialSection = contentObject.initialSection || 0;
     this.activeNavButton = contentObject.activeNavButton || [];
+    
+    // Optional features - [ 'blogManager' ]
+    this.features = contentObject.features || [];
 
 
     this.layoutTypes = ['single', 'triple', 'vertical'];
@@ -723,6 +728,7 @@ export class ProcPage {
     pageSections.appendChild( pageContentView );
     this.pageContentView = pageContentView;
 
+
     // -- -- --
 
 
@@ -873,7 +879,7 @@ export class ProcPage {
     sectionContentBlock.classList.add('procPageSectionContentStyle');
     sectionContentBlock.classList.add('pagesVisOff');
     sectionContentBlock.id = sectionName;
-    
+
     if( sectionData.hasOwnProperty( 'contentStyle' ) && Array.isArray( sectionData.contentStyle ) ){
       sectionData.contentStyle.forEach(( style )=>{ style!=''&&sectionContentBlock.classList.add(style) });
     }
@@ -903,6 +909,10 @@ export class ProcPage {
     if( builtObjs['media'].length > 0 ){
       this.sectionData[sectionName].mediaObjects.push( ...builtObjs['media'] );
       this.sectionData[sectionName].mediaObjects.push( ...builtObjs['media'] );
+    }
+
+    if( builtObjs['blog'] != null ){
+      this.sectionData[sectionName].blogManager = builtObjs['blog'];
     }
 
     //pageSections.appendChild( section );
@@ -1088,6 +1098,8 @@ export class ProcPage {
  * @param {SectionData} sectionData - Section data to build
  * @param {HTMLElement} sectionContentParent - Parent element for section content
  */
+  // TODO : Since I'm only using this for Init right now,
+  //          I should add the blog system integration here
   buildSinglePageSection( sectionData, sectionContentParent ){
     if( sectionData.content != '' ){
       let sectionContentDiv = document.createElement('div');
@@ -1109,8 +1121,84 @@ export class ProcPage {
   buildTriplePageSection( sectionData, sectionContentParent, sectionMediaParent ){
     let ret = {
       'content' : [],
-      'media' : []
+      'media' : [],
+      'blog' : null
     };
+
+    if( sectionData.hasOwnProperty( 'features' ) && typeof sectionData.features === 'object' && Object.keys( sectionData.features ).length > 0 ){
+      // Build feature elements
+      // Currently supports - { 'blogManager' : {} }
+
+      // Build blog manager element
+      if( sectionData.features.hasOwnProperty('blogManager') && typeof sectionData.features.blogManager === 'object' ){
+
+        let sectionContentDiv = document.createElement('div');
+        sectionContentDiv.classList.add('blogManagerBlockStyle');
+        if( sectionData.hasOwnProperty('contentStyle') && Array.isArray(sectionData.contentStyle) ){
+          sectionData.contentStyle.forEach( style => {
+            sectionContentDiv.classList.add(style);
+          });
+        }
+
+        let blogListing = document.createElement('div');
+        blogListing.classList.add('blogEntryListStyle');
+        this.applyPageStyle( 'sectionListing', blogListing );
+
+        let blogListingMobile = document.createElement('div');
+        blogListingMobile.classList.add('blogEntryListMobileStyle');
+        this.applyPageStyle( 'sectionListing', blogListingMobile );
+
+        let blogContent = document.createElement('div');
+        blogContent.classList.add('blogEntryContentStyle');
+        this.applyPageStyle( 'blogEntryContent', blogContent );
+        
+        let tempContent = document.createElement('div');
+        tempContent.classList.add('procPagesTempContentStyle');
+        tempContent.innerHTML = sectionData.content;
+        blogContent.appendChild( tempContent );
+
+        let entries = sectionData.features.blogManager.entries || [];
+        let blogOptions = sectionData.features.blogManager;
+        delete blogOptions.entries;
+        if( blogOptions.hasOwnProperty('contentStyle') && Array.isArray(blogOptions.contentStyle) ){
+          blogOptions.contentStyle.forEach( style => {
+            blogContent.classList.add(style);
+          });
+        }
+
+        const blogData = {
+          listParent: blogListing,
+          listParentMobile: blogListingMobile,
+          contentParent: blogContent,
+          options: blogOptions,
+          entries: entries
+        };
+        let pageBlogManager = new BlogManager( sectionContentDiv, blogData );
+
+        sectionContentDiv.appendChild( blogListing );
+        sectionContentDiv.appendChild( blogListingMobile );
+        sectionContentDiv.appendChild( blogContent );
+        sectionContentParent.appendChild( sectionContentDiv );
+
+        pageBlogManager.init();
+        pageBlogManager.build();
+
+        
+        let entryContentStyles = sectionData.features.blogManager?.contentStyle || [];
+        entryContentStyles.forEach( style => {
+          pageBlogManager.applyEntryStyle(style);
+        });
+        let headerSpacerStyles = sectionData.features.blogManager?.spacerStyle || [];
+        headerSpacerStyles.forEach( style => {
+          pageBlogManager.addSpacerStyle(style);
+        });
+        
+        ret['blog'] = pageBlogManager;
+        ret['content'].push( blogListing );
+        ret['content'].push( blogContent );
+        return ret;
+      }
+    }
 
     if( sectionData.content != '' ){
       let sectionContentDiv = document.createElement('div');
