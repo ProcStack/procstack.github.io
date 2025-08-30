@@ -558,7 +558,7 @@
     "title": "Notes & Research",
     "description": "These are my random thoughts or research on AI.",
     "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      These are my random thoughts or research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.\n      <br>Or Tap the Left & Right arrow buttons to change Entry.</span>\n\n      <br>And no, I'm not using ai to speak for me here.\n      <br>These are my thoughts, how ever scattered they may be.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
+    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      These are my random thoughts or research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>And no, I'm not using ai to speak for me here.\n      <br>These are my thoughts, how ever scattered they may be.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
     "pageURL": "https://procstack.github.io/AIDev/aiNotes.htm",
     "relativeURL": "./AIDev/aiNotes.htm"
   },
