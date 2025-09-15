@@ -9,18 +9,18 @@ import {
   Color,
   AmbientLight,
   FogExp2
-} from "../../libs/three/three.module.min.js";
+} from "three";
 
 import { voidBaseVert, voidBaseFrag } from "./Shaders.js";
-import { RoomEnvironment, pxlEffects } from "../../pxlNav.esm.js";
+import { RoomEnvironment, pxlEffects } from "pxlNav";
 
 // To add in some particle effects, you can use the `pxlEffects` module
 const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
 
 
 export class VoidEnvironment extends RoomEnvironment{
-  constructor( roomName='VoidEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
-    super( roomName, assetPath, msRunner, camera, scene, cloud3dTexture );
+  constructor( roomName='VoidEnvironment', assetPath=null ){
+    super( roomName, assetPath );
 				
     // Your `Assets` folder path
     //   Defaults to " ./ pxlRooms / *YourRoomEnv* / Assets "

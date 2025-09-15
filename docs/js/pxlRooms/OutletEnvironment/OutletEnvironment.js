@@ -30,18 +30,19 @@ import {
   AmbientLight,
   FogExp2,
   SRGBColorSpace,
+  LinearSRGBColorSpace,
   RepeatWrapping,
   ClampToEdgeWrapping,
   UniformsUtils,
   UniformsLib,
   FrontSide,
   DoubleSide
-} from "../../libs/three/three.module.min.js";
+} from "three";
 /*ShaderMaterial*/
 
 // -- -- --
 
-import { RoomEnvironment, pxlEffects } from "../../pxlNav.esm.js";
+import { RoomEnvironment, pxlEffects } from "pxlNav";
 
 import {
   envGroundVert, envGroundFrag,
@@ -55,8 +56,8 @@ const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
 const HeightMapSpawner = pxlEffects.pxlParticles.HeightMap;
 
 export class OutletEnvironment extends RoomEnvironment{
-  constructor( roomName='OutletEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
-    super( roomName, assetPath, msRunner, camera, scene, cloud3dTexture );
+  constructor( roomName='OutletEnvironment', assetPath='' ){
+    super( roomName, assetPath );
 
     // Your `Assets` folder path
     //   Defaults to " ./ pxlRooms / *YourRoomEnv* / Assets "
@@ -259,7 +260,7 @@ builBugs(){
     }
     
     // Adding a basic ambient light
-    var ambientLight = new AmbientLight( 0x383838 ); // soft white light
+    var ambientLight = new AmbientLight( 0x989898 ); // soft white light
     this.scene.add( ambientLight );
     
     //this.addColliderHelper( this.geoList['colliderHelper'] );
@@ -281,7 +282,12 @@ builBugs(){
       'wrapT' : RepeatWrapping
     };
     let textureOptionsSRGB = {
-      'encoding':SRGBColorSpace,
+      'colorSpace':SRGBColorSpace,
+      'wrapS' : RepeatWrapping,
+      'wrapT' : RepeatWrapping
+    };
+    let textureOptionsLinearSRGB = {
+      'colorSpace':LinearSRGBColorSpace,
       'wrapS' : RepeatWrapping,
       'wrapT' : RepeatWrapping
     };
@@ -314,13 +320,13 @@ builBugs(){
     );
 
     envGroundUniforms.fogColor.value = this.scene.fog.color;
-    envGroundUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Diffuse.webp", null, textureOptionsSRGB );
+    envGroundUniforms.diffuse.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Diffuse.webp", null, textureOptionsRepeat );
 
-    envGroundUniforms.dirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"Dirt_Diffuse.webp", null, textureOptionsSRGB );
-    envGroundUniforms.crackedDirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"CrackedDirtGround_diffuse.webp", null, textureOptionsSRGB );
-    envGroundUniforms.hillDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"RockLayerDirtHill_diffuse.webp", null, textureOptionsSRGB );
-    envGroundUniforms.grassDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"GrassA_diffuse.webp", null, textureOptionsSRGB );
-    envGroundUniforms.mossDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"MossyB_diffuse.webp", null, textureOptionsSRGB );
+    envGroundUniforms.dirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"Dirt_Diffuse.webp", null, textureOptionsRepeat );
+    envGroundUniforms.crackedDirtDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"CrackedDirtGround_diffuse.webp", null, textureOptionsRepeat );
+    envGroundUniforms.hillDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"RockLayerDirtHill_diffuse.webp", null, textureOptionsRepeat );
+    envGroundUniforms.grassDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"GrassA_diffuse.webp", null, textureOptionsRepeat );
+    envGroundUniforms.mossDiffuse.value = this.pxlUtils.loadTexture( this.assetPath+"MossyB_diffuse.webp", null, textureOptionsRepeat );
 
     envGroundUniforms.dataTexture.value = this.pxlUtils.loadTexture( this.assetPath+"EnvGround_Data.webp", null, textureOptionsClamp );
 
@@ -485,9 +491,9 @@ builBugs(){
           'intensity': { type:'f', value:1 },
         }]
     )
-    waterWayUniforms.coastLineTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterWay_CoastLine.webp" );
-    waterWayUniforms.rippleTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterRipples_CoastalB.jpg" );
-    waterWayUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg", textureOptionsRepeat );
+    waterWayUniforms.coastLineTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterWay_CoastLine.webp", null, textureOptionsLinearSRGB );
+    waterWayUniforms.rippleTexture.value = this.pxlUtils.loadTexture( this.assetPath+"WaterRipples_CoastalB.jpg", null, textureOptionsLinearSRGB );
+    waterWayUniforms.noiseTexture.value = this.pxlUtils.loadTexture( this.assetPath+"Noise_UniformWebbing.jpg", null, textureOptionsRepeat );
 
     waterWayUniforms.rippleTexture.value.wrapS = RepeatWrapping;
     waterWayUniforms.rippleTexture.value.wrapT = RepeatWrapping;

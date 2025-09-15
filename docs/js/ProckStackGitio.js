@@ -9,11 +9,14 @@
 //   For `pxlNav` scripting, the entry-point is `./Source/js/pxlNavCore.js`
 //
 
-import { pxlNav, pxlNavVersion, pxlEnums, pxlUserSettings, pxlOptions } from './pxlNav.esm.js'; // v0.20
+import { pxlNav, pxlNavVersion, pxlEnums, pxlUserSettings, pxlOptions } from './pxlNav.module.js'; // v0.20
 import { ProcPageManager } from './procPages/ProcPageManager.js';
 import { pageListing } from '../pages/pageListing.js';
 import { BlogManager } from './BlogManager.js';
 
+
+import { CampfireEnvironment } from './pxlRooms/CampfireEnvironment/CampfireEnvironment.js';
+import { SaltFlatsEnvironment } from './pxlRooms/SaltFlatsEnvironment/SaltFlatsEnvironment.js';
 
 // Console logging level
 //   Options are - NONE, ERROR, WARN, INFO, DEBUG
@@ -34,7 +37,9 @@ const pxlAssetRoot = "../js/pxlAssets";
 const showOnboarding = false;
 
 // Current possible rooms - "CampfireEnvironment", "SaltFlatsEnvironment"
-const bootRoomList = ["CampfireEnvironment", "SaltFlatsEnvironment"];
+const CampfireRoom = new CampfireEnvironment( 'CampfireEnvironment', pxlRoomRootPath+"/CampfireEnvironment/" );
+const SaltFlatsRoom = new SaltFlatsEnvironment( 'SaltFlatsEnvironment', pxlRoomRootPath+"/SaltFlatsEnvironment/" );
+const bootRoomList = [ CampfireRoom, SaltFlatsRoom ];
 
 // -- -- --
 
@@ -120,6 +125,8 @@ const collisionScale = {
 };
 
 
+
+
 // -- -- -- -- --
 
 // Find search parameters in the URL for procstack.github.io
@@ -194,7 +201,8 @@ pxlNavOptions.shadowMapBiasing = shadowMapBiasing;
 pxlNavOptions.loaderPhrases = loaderPhrases;
 
 // Create the pxlNav environment manager
-const pxlNavEnv = new pxlNav( pxlNavOptions, projectTitle, procPages.curRoom, bootRoomList );
+let currentRoom = procPages.curRoom == "CampfireEnvironment" ? CampfireRoom : SaltFlatsRoom;
+const pxlNavEnv = new pxlNav( pxlNavOptions, projectTitle, currentRoom, bootRoomList );
 
 
 // -- -- -- -- --

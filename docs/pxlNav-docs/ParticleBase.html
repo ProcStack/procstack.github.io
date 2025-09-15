@@ -830,7 +830,17 @@
 
     <h5 class="h5-examples">Example</h5>
     
-    <pre class="prettyprint"><code>// Pick a random atlas value from an arrayimport { pxlNav } from 'pxlNav.esm.js';const pxlParticleBase = pxlNav.pxlEffects.pxlParticles.pxlParticlebuild(){  pxlParticleBase.atlasArrayPicker( [ [0.0,0.75], [0.0,0.5], [0.25,0.75], [0.25,0.5] ] );  // Output 1: [0.0,0.75]  // Output 2: [0.0,0.5]  // Output 3: [0.25,0.75]  // Output 4: [0.0,0.5]}</code></pre>
+    <pre class="prettyprint"><code>// Pick a random atlas value from an array
+import { pxlNav } from 'pxlNav.module.js';
+const pxlParticleBase = pxlNav.pxlEffects.pxlParticles.pxlParticle
+
+build(){
+  pxlParticleBase.atlasArrayPicker( [ [0.0,0.75], [0.0,0.5], [0.25,0.75], [0.25,0.5] ] );
+  // Output 1: [0.0,0.75]
+  // Output 2: [0.0,0.5]
+  // Output 3: [0.25,0.75]
+  // Output 4: [0.0,0.5]
+}</code></pre>
 
 
 
@@ -993,7 +1003,14 @@
 
     <h5 class="h5-examples">Example</h5>
     
-    <pre class="prettyprint"><code>// Generate random atlas valuesimport { pxlNav } from 'pxlNav.esm.js';const pxlParticleBase = pxlNav.pxlEffects.pxlParticles.pxlParticlebuild(){ pxlParticleBase.atlasRandomGen( 4, 2 );// Output: [0.0,0.75]}</code></pre>
+    <pre class="prettyprint"><code>// Generate random atlas values
+import { pxlNav } from 'pxlNav.module.js';
+const pxlParticleBase = pxlNav.pxlEffects.pxlParticles.pxlParticle
+
+build(){
+ pxlParticleBase.atlasRandomGen( 4, 2 );
+// Output: [0.0,0.75]
+}</code></pre>
 
 
 
@@ -1216,7 +1233,14 @@
 
     <h5 class="h5-examples">Example</h5>
     
-    <pre class="prettyprint"><code>// Generate a list of random atlas valuesimport { pxlNav } from 'pxlNav.esm.js';const pxlParticleBase = pxlNav.pxlEffects.pxlParticles.pxlParticlebuild(){  pxlParticleBase.atlasRandomList( 4, 4, 2 );  // Output: [ [0.0,0.75], [0.0,0.5], [0.25,0.75], [0.25,0.5] ]}</code></pre>
+    <pre class="prettyprint"><code>// Generate a list of random atlas values
+import { pxlNav } from 'pxlNav.module.js';
+const pxlParticleBase = pxlNav.pxlEffects.pxlParticles.pxlParticle
+
+build(){
+  pxlParticleBase.atlasRandomList( 4, 4, 2 );
+  // Output: [ [0.0,0.75], [0.0,0.5], [0.25,0.75], [0.25,0.5] ]
+}</code></pre>
 
 
 
@@ -1714,7 +1738,14 @@
 
     <h5 class="h5-examples">Example</h5>
     
-    <pre class="prettyprint"><code>// Duplicate an arrayimport { pxlNav } from 'pxlNav.esm.js';const pxlParticleBase = pxlNav.pxlEffects.pxlParticles.pxlParticlebuild(){ pxlParticleBase.dupeArray( [0.0,0.75], 4 ); // Output: [0.0,0.75], [0.0,0.75], [0.0,0.75], [0.0,0.75]}</code></pre>
+    <pre class="prettyprint"><code>// Duplicate an array
+import { pxlNav } from 'pxlNav.module.js';
+const pxlParticleBase = pxlNav.pxlEffects.pxlParticles.pxlParticle
+
+build(){
+ pxlParticleBase.dupeArray( [0.0,0.75], 4 );
+ // Output: [0.0,0.75], [0.0,0.75], [0.0,0.75], [0.0,0.75]
+}</code></pre>
 
 
 
@@ -1901,7 +1932,19 @@
 
     <h5 class="h5-examples">Example</h5>
     
-    <pre class="prettyprint"><code>// Duplicate an element in an arrayimport { pxlNav } from 'pxlNav.esm.js';const pxlParticleBase = pxlNav.pxlEffects.pxlParticles.pxlParticlebuild(){  pxlParticleBase.elementDuplicator([ [0.0,0.75], [0.0,0.5], [0.25,0.75], [0.25,0.5] ],4);  // Output: [  //    [0.0,0.75], [0.0,0.75], [0.0,0.75], [0.0,0.75],  //    [0.0,0.5], [0.0,0.5], [0.0,0.5], [0.0,0.5],     //    [0.25,0.75], [0.25,0.75], [0.25,0.75], [0.25,0.75],   //    [0.25,0.5], [0.25,0.5], [0.25,0.5], [0.25,0.5]  // ]}</code></pre>
+    <pre class="prettyprint"><code>// Duplicate an element in an array
+import { pxlNav } from 'pxlNav.module.js';
+const pxlParticleBase = pxlNav.pxlEffects.pxlParticles.pxlParticle
+
+build(){
+  pxlParticleBase.elementDuplicator([ [0.0,0.75], [0.0,0.5], [0.25,0.75], [0.25,0.5] ],4);
+  // Output: [
+  //    [0.0,0.75], [0.0,0.75], [0.0,0.75], [0.0,0.75],
+  //    [0.0,0.5], [0.0,0.5], [0.0,0.5], [0.0,0.5],   
+  //    [0.25,0.75], [0.25,0.75], [0.25,0.75], [0.25,0.75], 
+  //    [0.25,0.5], [0.25,0.5], [0.25,0.5], [0.25,0.5]
+  // ]
+}</code></pre>
 
 
 
@@ -2336,7 +2379,16 @@
 
     <h5 class="h5-examples">Example</h5>
     
-    <pre class="prettyprint"><code>// Run from your pxlRoom javascript file// Create an Atlas Materialimport { SphereGeometry, Mesh } from 'three';build(){ let sphere = new SphereGeometry( 1, 32, 32 ); let mtl = pxlNav.pxlEffects.pxlParticles.pxlParticleBase.newMaterial(); let mesh = new Mesh( sphere, mtl ); this.scene.add( mesh );}</code></pre>
+    <pre class="prettyprint"><code>// Run from your pxlRoom javascript file
+// Create an Atlas Material
+import { SphereGeometry, Mesh } from 'three';
+
+build(){
+ let sphere = new SphereGeometry( 1, 32, 32 );
+ let mtl = pxlNav.pxlEffects.pxlParticles.pxlParticleBase.newMaterial();
+ let mesh = new Mesh( sphere, mtl );
+ this.scene.add( mesh );
+}</code></pre>
 
 
 
@@ -2495,7 +2547,12 @@
 
     <h5 class="h5-examples">Example</h5>
     
-    <pre class="prettyprint"><code>// Run from your pxlRoom javascript file// Set the path for the atlas texture filebuild(){let dust = pxlNav.pxlEffects.pxlParticles.pxlParticleBase.newParticle();dust.setAtlasPath( "sprite_dustAtlas_rgb.jpg", "sprite_dustAtlas_alpha.jpg" );}</code></pre>
+    <pre class="prettyprint"><code>// Run from your pxlRoom javascript file
+// Set the path for the atlas texture file
+build(){
+let dust = pxlNav.pxlEffects.pxlParticles.pxlParticleBase.newParticle();
+dust.setAtlasPath( "sprite_dustAtlas_rgb.jpg", "sprite_dustAtlas_alpha.jpg" );
+}</code></pre>
 
 
 

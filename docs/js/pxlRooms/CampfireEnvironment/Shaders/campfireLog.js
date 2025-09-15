@@ -10,7 +10,7 @@
 // Charged, light ember, and heavy ember textures are used to create the effect.
 //
 
-import { pxlShaders }  from "../../../pxlNav.esm.js";
+import { pxlShaders }  from "../../../pxlNav.module.js";
 const shaderHeader = pxlShaders.core.shaderHeader;
 
 

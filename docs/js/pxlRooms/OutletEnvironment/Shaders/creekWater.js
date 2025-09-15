@@ -1,4 +1,4 @@
-import { pxlShaders }  from "../../../pxlNav.esm.js";
+import { pxlShaders }  from "pxlNav";
 const shaderHeader = pxlShaders.core.shaderHeader;
 
 export function creekWaterVert(){

@@ -795,6 +795,78 @@ const main = async () => {
             await pxlNavFailState.evaluate(el => el.remove());
           }
 
+          // Ensure pxlNav core canvas exists with required attributes
+          await page.evaluate(() => {
+            // Remove any existing canvas with same id to avoid duplicates
+            const existing = document.getElementById('pxlNav-coreCanvas');
+            if (existing) existing.remove();
+
+            const canvas = document.createElement('canvas');
+            canvas.id = 'pxlNav-coreCanvas';
+            canvas.setAttribute('height', '1');
+            canvas.setAttribute('width', '1');
+            canvas.className = 'pxlNav-coreCanvasStyle';
+
+            // Try to append near the end of body (matches original placement)
+            document.body.appendChild(canvas);
+          });
+
+          // Fix importmap entry for pxlNav to point to the correct relative JS path
+          // Determine relative path from page location: pages under a subfolder need "../js/.." else "./js/..."
+          await page.evaluate((outPath) => {
+            try {
+              const importmap = document.querySelector('script[type="importmap"]');
+              if (!importmap) return;
+
+              // Parse existing importmap JSON
+              let mapObj = {};
+              try {
+                mapObj = JSON.parse(importmap.textContent);
+              } catch (e) {
+                // If parse fails, attempt to extract the imports object manually
+                const match = importmap.textContent.match(/\{[\s\S]*\}/);
+                if (match) {
+                  mapObj = JSON.parse(match[0]);
+                }
+              }
+
+              if (!mapObj.imports) mapObj.imports = {};
+
+              // Normalize outPath to determine depth relative to site root
+              // outPath will be a server-side filesystem path; convert to URL-like by using forward slashes
+              const pathParts = outPath.replace(/\\/g, '/').split('/');
+
+              // Find the docs or render directory in path and determine relative depth from there
+              // We'll count how many segments after the docs/ folder the file lives in
+              let depth = 0;
+              const docsIndex = pathParts.indexOf('docs');
+              if (docsIndex >= 0) {
+                depth = pathParts.length - (docsIndex + 2); // subtract file itself
+                if (depth < 0) depth = 0;
+              } else {
+                // fallback: count segments before filename
+                depth = pathParts.length - 2;
+                if (depth < 0) depth = 0;
+              }
+
+              // Build relative prefix: if page is in a subfolder (depth >=1) prefix '../' else './'
+              let prefix = './';
+              if (depth >= 1) {
+                prefix = '../'.repeat(depth);
+              }
+
+              // Ensure prefix ends with './' or '../' accordingly and set the pxlNav path
+              const pxlPath = `${prefix}js/pxlNav.module.js`;
+              mapObj.imports['pxlNav'] = pxlPath;
+
+              // Write back the importmap content
+              importmap.textContent = JSON.stringify(mapObj, null, 2);
+            } catch (err) {
+              // swallow errors to not break overall rendering
+              console.warn('Failed to rewrite importmap for pxlNav:', err);
+            }
+          }, outPath);
+
           const content = await page.content();
 
           fs.mkdirSync(path.dirname(outPath), { recursive: true });
