@@ -31,9 +31,9 @@ import {
   LinearSRGBColorSpace,
   FrontSide,
   DoubleSide
-} from "../../libs/three/three.module.min.js";
+} from "three";
 
-import { RoomEnvironment, pxlEffects } from "../../pxlNav.esm.js";
+import { RoomEnvironment, pxlEffects } from "pxlNav";
 
 import { rabbitDruidVert, rabbitDruidFrag,
          envGroundVert, envGroundFrag,
@@ -43,8 +43,8 @@ import { rabbitDruidVert, rabbitDruidFrag,
 const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
 
 export class SaltFlatsEnvironment extends RoomEnvironment{
-  constructor( roomName='SaltFlatsEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
-    super( roomName, assetPath, msRunner, camera, scene, cloud3dTexture );
+  constructor( roomName='SaltFlatsEnvironment', assetPath=null ){
+    super( roomName, assetPath );
     
     this.assetPath=assetPath+"Assets/";
     

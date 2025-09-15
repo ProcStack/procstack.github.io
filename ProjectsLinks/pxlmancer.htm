@@ -220,7 +220,7 @@
             <div class="footerBarParent">
                 <div id="footerBar" pages-default-class="defaultPage_footerBar" class="footerBar projectsPage_footerBar">
                     <div class="leftFooter versionStyle">
-                        <a href="https://github.com/ProcStack/pxlNav" target="_blank">[: pxlNav <span class="pxlNavVersion" versionadded="v0.0.28-dev">v0.0.28-dev</span> :]</a>
+                        <a href="https://github.com/ProcStack/pxlNav" target="_blank">[: pxlNav <span class="pxlNavVersion" versionadded="v1.0.0">v1.0.0</span> :]</a>
                     </div>
                     <div>
                     </div>
@@ -232,11 +232,23 @@
         </div>
     </div>
 
-    <canvas id="pxlNav-coreCanvas" height="600" width="800" class="pxlNav-coreCanvasStyle" data-engine="three.js r171" style="width: 800px; height: 600px;"></canvas>
+    
+    <!-- Import map to resolve bare module specifiers (e.g. "three" and "three/addons/...") in the browser.
+         Adjust the version below if your project uses a different Three.js release. -->
+    <script type="importmap">{
+  "imports": {
+    "three": "https://unpkg.com/three@0.171.0/build/three.module.js",
+    "three/addons/postprocessing/": "./libs/three/",
+    "three/addons/shaders/": "./libs/three/",
+    "three/addons/loaders/": "./libs/three/",
+    "three/addons/libs/": "./libs/three/",
+    "three/addons/utils/": "./libs/three/",
+    "pxlNav": "../../../../../js/pxlNav.module.js"
+  }
+}</script>
+    <script type="module" id="pxlNavModule" src="../js/ProckStackGitio.js?v=2025-09-14"></script>
 
-    <script type="module" id="pxlNavModule" src="../js/ProckStackGitio.js?v=2025-02-08"></script>
 
 
 
-
-</body></html>
+<canvas id="pxlNav-coreCanvas" height="1" width="1" class="pxlNav-coreCanvasStyle"></canvas></body></html>

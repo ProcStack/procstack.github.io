@@ -1,6 +1,6 @@
 Room & Environment Requirements --
 
-You're main room javascript must be named how it is used in `pxlNav.esm.js`
+You're main room javascript must be named how it is used in `pxlNav.module.js`
 <br/>To start you're development, use this premade room for an example structure.
 
 

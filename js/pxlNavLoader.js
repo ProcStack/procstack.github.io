@@ -5,8 +5,10 @@
 //
 //
 
-import { pxlNav, pxlNavVersion, pxlEnums, pxlUserSettings, pxlOptions } from './pxlNav.esm.js'; // v0.20
+import { pxlNav, pxlNavVersion, pxlEnums, pxlUserSettings, pxlOptions } from './pxlNav.module.js'; // v0.20
 
+
+import { OutletEnvironment } from './pxlRooms/OutletEnvironment/OutletEnvironment.js';
 
 // Console logging level
 //   Options are - NONE, ERROR, WARN, INFO
@@ -14,7 +16,7 @@ const verbose = pxlEnums.VERBOSE_LEVEL.INFO;
 
 // The Title of your Project
 //   This will be displayed on the load bar
-const projectTitle = "pxlNav : The Outlet";
+const projectTitle = "pxlNav :: The Outlet";
 
 // pxlRoom folder path, available to change folder names or locations if desired
 const pxlRoomRootPath = "../js/pxlRooms";
@@ -25,8 +27,9 @@ const pxlAssetRoot = "./js/pxlAssets";
 // Show the onboarding screen after the loading bar completes
 const showOnboarding = true;
 
-// Current possible rooms - "OutletEnvironment", "VoidEnvironment"
-const bootRoomList = ["OutletEnvironment"];//, "VoidEnvironment"];
+// Set the available rooms here
+const OutletRoom = new OutletEnvironment( 'OutletEnvironment', pxlRoomRootPath+"/OutletEnvironment/" );
+const bootRoomList = [ OutletRoom ];
 const startingRoom = bootRoomList[0];
 
 // Load all scenes during boot, true

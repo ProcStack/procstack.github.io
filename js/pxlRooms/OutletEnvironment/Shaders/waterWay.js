@@ -1,4 +1,4 @@
-import { pxlShaders }  from "../../../pxlNav.esm.js";
+import { pxlShaders }  from "pxlNav";
 const shaderHeader = pxlShaders.core.shaderHeader;
 
 export function waterWayVert(){
@@ -88,7 +88,6 @@ export function waterWayFrag(){
 
   // -- -- --
   
-  
   void main(){
 
     float timer = time.x*0.01;
@@ -154,8 +153,7 @@ export function waterWayFrag(){
     
     float angleInf = clamp( (1.0-min(1.0, length( vToCam ) * pointToCamRolloff )) * rolloffTighten, 0.0, 1.0 );
     //angleInf *= angleInf;
-    float angleIncidence = 1.0 - clamp( dot( normalize( vToCam ), normalize(vN * nCd) )*3.50-.015, 0.0, 1.0)*(1.0-coastInf-nCd.g*.4) * angleInf ;
-    
+    float angleIncidence = 1.0 - clamp( dot( normalize( vToCam ), normalize(vec3(nCd.x,4.0,nCd.y)) )*7.0-nCd.r*1.0, 0.510, 1.0)*(1.0-coastInf-nCd.g*.5) * angleInf ;
     
     // -- -- --
     
@@ -171,8 +169,7 @@ export function waterWayFrag(){
     Cd.rgb += vec3( min( 1.0, max( 0.0, rippleInf-( whiteCapShift + nCd.x*whiteCapNoise ) )*6.0 ));
     
     
-    alpha = clamp( mix(Cd.a*angleIncidence, Cd.a-min(1.0, (1.0-rippleInf)*.035)*(1.0-angleIncidence), (-coastInf*.5+rippleInf)  ), 0.0, 1.0);
-    alpha *= min(1.0,vCd.r*10.0);
+    alpha = clamp( mix(Cd.a*angleIncidence*1.06, Cd.a-min(1.0, (1.0-rippleInf)*.035)*(1.0-angleIncidence), (-coastInf*.5+rippleInf)  ), 0.0, 1.0);
     Cd.a=alpha;
     
     

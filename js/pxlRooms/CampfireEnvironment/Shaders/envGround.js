@@ -15,9 +15,9 @@
 //
 // To be fully converted to RGB -> 6 textures for pxlNav soon
 
-import { ShaderChunk } from "../../../libs/three/three.module.min.js";
+import { ShaderChunk } from "three";
 
-import { pxlShaders }  from "../../../pxlNav.esm.js";
+import { pxlShaders }  from "../../../pxlNav.module.js";
 const shaderHeader = pxlShaders.core.shaderHeader;
 
 

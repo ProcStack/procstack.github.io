@@ -1,5 +1,5 @@
 
-import { pxlShaders }  from "../../pxlNav.esm.js";
+import { pxlShaders }  from "../../pxlNav.module.js";
 const shaderHeader = pxlShaders.core.shaderHeader;
 
 ///////////////////////////////////////////////////////////

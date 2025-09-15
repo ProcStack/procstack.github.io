@@ -43,7 +43,7 @@ import {
 	Vector3,
 	Vector4,
 	VectorKeyframeTrack
-} from './three.module.min.js';
+} from 'three';
 
 
 import * as fflate from './fflate.module.js';

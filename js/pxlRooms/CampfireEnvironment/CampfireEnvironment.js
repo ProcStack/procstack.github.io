@@ -30,9 +30,9 @@ import {
   SRGBColorSpace, LinearSRGBColorSpace,
   AmbientLight,
   MeshPhongMaterial
-} from "../../libs/three/three.module.min.js";
+} from "three";
 
-import { RoomEnvironment, pxlEffects } from "../../pxlNav.esm.js";
+import { RoomEnvironment, pxlEffects } from "pxlNav";
 
 import { rabbitDruidVert, rabbitDruidFrag,
          campfireLogVert, campfireLogFrag,
@@ -48,8 +48,8 @@ const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
 const ParticleBase = pxlEffects.pxlParticles.ParticleBase;
 
 export class CampfireEnvironment extends RoomEnvironment{
-  constructor( roomName='CampfireEnvironment', assetPath=null, msRunner=null, camera=null, scene=null, cloud3dTexture=null ){
-    super( roomName, assetPath, msRunner, camera, scene, cloud3dTexture );
+  constructor( roomName='CampfireEnvironment', assetPath=null ){
+    super( roomName, assetPath );
     
     this.assetPath=assetPath+"Assets/";
 		//this.assetPath="./pxlRooms/CampfireEnvironment/Assets/";
@@ -414,7 +414,7 @@ export class CampfireEnvironment extends RoomEnvironment{
     let particleSource = this.geoList['Scripted']['ParticleSource_loc'];
     let particleSourcePos = particleSource.position;
 
-    var ambientLight = new AmbientLight( 0x101010 ); // soft white light
+    var ambientLight = new AmbientLight( 0x505050 ); // soft white light
     this.scene.add( ambientLight );
 
     let campefireOrder = 0;
