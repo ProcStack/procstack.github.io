@@ -284,6 +284,8 @@ export function envGroundFrag(){
         vec3 snCd = texture2D(smoothNoiseTexture,nUv).rgb;
         vec3 snCdFit = texture2D(smoothNoiseTexture,nUv).rgb*2.0-1.0;
         
+        float glowInf = vCd.g*vCd.g*vCd.g;
+        
         
         // -- -- -- -- -- -- -- --
         // -- Normal Map Calc - -- --
@@ -313,17 +315,16 @@ export function envGroundFrag(){
         float facingDown = dot( normalize( nMap ), vec3(0.0,1.0,0.0) ) *.45 +.55;
         facingDown = clamp( (facingDown*facingDown)*1.4, 0.0, 1.0 );
         
-        //lights = mix( vec3(0.0), lights*facingDown, max( 0.0, nCd*vCd.g*.75 + vCd.r*.5 ) );
+        //lights = mix( vec3(0.0), lights*facingDown, max( 0.0, nCd*glowInf*.75 + vCd.r*.5 ) );
         
         // Add blue lighting around some of the crystals
         crystalGlow *= (nCd);
         lights = (lights + vec3( 0.4038, 0.643, 0.779 ) * (crystalGlow * nCd  )) * 1.5;
         
-        float scalar = sin( plantGrowth*2. + time.x*1.5 + vPos.z*.2 + vPos.x*.2 - vPos.y*.2 + snCd.x*2. + snCd.y*4. + snCd.z*5. )+1.0;
-        scalar = cos( scalar*2. - time.x*.3 + vPos.y*2. + snCd.x + snCd.y + snCd.z )*0.5 + scalar;
-        scalar =  clamp( (scalar*scalar*snCd.r+.5) * plantGrowth * 2. * vCd.y* vCd.y, 0.0, 1.0);
+        float scalar = sin( plantGrowth*2. + time.x*1.5 + vPos.z*.2 + vPos.x*.2 - vPos.y*.2*glowInf + snCd.x*2. + snCd.y*4. + snCd.z*5. )+1.0;
+        scalar = cos( scalar*2. - time.x*.3 + vPos.y*glowInf + snCd.x + snCd.y + snCd.z )*0.5 + scalar;
+        scalar =  clamp( (scalar*scalar*snCd.r+.5) * plantGrowth * 2. * glowInf, 0.0, 1.0);
         Cd.rgb += vec3( 0.4038, 0.643, 0.779 ) * ( (depthFade*.85)* scalar) ;
-        //Cd.rgb = vec3( scalar ) ;
         
         gl_FragColor=Cd;
     }`;
