@@ -27,8 +27,9 @@ import {
   UniformsUtils,
   UniformsLib,
   LinearFilter,
-  SRGBColorSpace,
+  RepeatWrapping,
   LinearSRGBColorSpace,
+  SRGBColorSpace,
   FrontSide,
   DoubleSide
 } from "three";
@@ -329,6 +330,23 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 // Build Scene and Assets
   build(){
 
+    let textureOptionsRepeat = {
+      'wrapS' : RepeatWrapping,
+      'wrapT' : RepeatWrapping
+    };
+
+    let textureOptionsLinearSRGB = {
+      'colorSpace':LinearSRGBColorSpace,
+      'wrapS' : RepeatWrapping,
+      'wrapT' : RepeatWrapping
+    };
+
+    let textureOptionsSRGB = {
+      'colorSpace':SRGBColorSpace,
+      'wrapS' : RepeatWrapping,
+      'wrapT' : RepeatWrapping
+    };
+
     let curCharacter = this.animRigName;
     let animFbxLoader = this.pxlFile.loadAnimFBX( this, curCharacter, this.animSource[curCharacter]['rig'], this.animSource[curCharacter]['anim'], this.animSource[curCharacter]['stateConnections']);
 
@@ -337,12 +355,16 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
         [
         UniformsLib[ "lights" ],
         {
+          'normalTexture' : { type:'t', value: null },
           'noiseTexture' : { type:'t', value: null },
+          'smoothNoiseTexture' : { type:'t', value: null },
           'cloudTexture' : { type:'t', value: this.cloud3dTexture },
           'fogColor' : { type: "c", value: this.fogColor },
         }]
     )
+    envGroundUniforms.normalTexture.value = this.pxlUtils.loadTexture( this.assetPath+"BasinTerraces_normal.webp", null, textureOptionsLinearSRGB );
     envGroundUniforms.noiseTexture.value = this.pxlUtils.loadTexture( "Noise_UniformWebbing.jpg" );
+    envGroundUniforms.smoothNoiseTexture.value = this.pxlUtils.loadTexture( "Noise_Soft3d.jpg", null, textureOptionsRepeat );
 
     let mat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag() );
     mat.side=FrontSide;
