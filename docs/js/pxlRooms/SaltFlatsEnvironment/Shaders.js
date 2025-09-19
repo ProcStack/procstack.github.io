@@ -183,6 +183,12 @@ export function rabbitDruidVert(){
 export function envGroundVert(){
   let ret=shaderHeader();
   ret+=`
+    #ifdef GL_FRAGMENT_PRECISION_HIGH
+      precision highp float;
+    #else
+      precision mediump float;
+    #endif
+        
     #define USE_INSTANCING
 
     attribute vec4 color;
@@ -194,6 +200,8 @@ export function envGroundVert(){
     varying vec3 vLocalN;
     varying vec3 vCd;
     
+    varying mat3 vTBN;
+
     void main(){
         vUv=uv;
         vCd=color.rgb;
@@ -211,7 +219,12 @@ export function envGroundVert(){
 
         vec4 mvPos=modelViewMatrix * pos;
         gl_Position = projectionMatrix*mvPos;
-        vPos = position;
+        vPos = mvPos.xyz;
+
+        // Create TBN Matrix for normal mapping
+        vec3 tangent =  normalize( mat3(modelMatrix) * vec3(1.0, 0.0, 0.0) );
+        vec3 bitangent = ( cross( vLocalN, tangent ) );
+        vTBN = mat3( tangent, bitangent, vLocalN );
         
     }`;
   return ret;
@@ -222,15 +235,22 @@ export function envGroundFrag(){
   let ret=shaderHeader();
   ret+=`
     uniform sampler2D diffuse;
+    uniform sampler2D normalTexture;
     uniform sampler2D noiseTexture;
+    uniform sampler2D smoothNoiseTexture;
+    uniform sampler2D cloudTexture;
+    
         
     uniform vec2 time;
     uniform vec3 fogColor;
      
     varying vec2 vUv;
     varying vec3 vPos;
+    varying vec3 vLocalPos;
     varying vec3 vN;
+    varying vec3 vLocalN;
     varying vec3 vCd;
+    varying mat3 vTBN;
     
     
     struct DirLight {
@@ -242,43 +262,68 @@ export function envGroundFrag(){
       uniform DirLight directionalLights[NUM_DIR_LIGHTS];
     #endif
     
+    #define EPSILON 0.00001
+    
     void main(){
-        float timer = time.x*.01;
+        float timer = time.x*.02;
         vec3 pos = vPos*0.006666666666666; // Loop point is 150 units
         vec2 uv = vUv;
         float depth = min(1.0, gl_FragCoord.z / gl_FragCoord.w * .0035 );
         float depthFade = max(0.0, min(1.0, 1.1-depth ));
         depthFade *= depthFade*depthFade;
         
-        float crystalGlow = max(0.0,vCd.b-.25);
+        float plantGrowth = mix( 0.0, pow(vCd.z, 1.0 / 2.2), step( EPSILON, vCd.z));
+        float crystalGlow = clamp( max(0.0,plantGrowth*plantGrowth*.8-.15), 0.0,1.0);
         
         // Initial color read
         vec4 Cd = texture2D(diffuse,vUv);
         
         vec2 nUv = fract( vec2( (pos.x*2.+pos.z*1.5 +  + timer*crystalGlow )*(1.0+ vCd.g*2.5) , pos.y*vCd.g ) );
         float nCd = texture2D(noiseTexture,nUv).r;
+        nUv = fract( vec2( (pos.x*1.+pos.z*.5 +  + timer + plantGrowth )*(1.0+ vCd.g*2.5) , pos.y*vCd.g ) );
+        vec3 snCd = texture2D(smoothNoiseTexture,nUv).rgb;
+        vec3 snCdFit = texture2D(smoothNoiseTexture,nUv).rgb*2.0-1.0;
         
+        
+        // -- -- -- -- -- -- -- --
+        // -- Normal Map Calc - -- --
+        // -- -- -- -- -- -- -- -- -- --
+
+        //vec3 nMap = (texture2D(normalTexture, vUv).xyz-.5) * 1.5 + .5;
+        vec3 nMap = (texture2D(normalTexture, vUv).xyz);// * 2.0 - 1.0;
+        //nMap = normalize( vTBN * nMap );
+        
+
         // -- -- -- -- -- -- -- --
         // -- Direction Lights  -- --
         // -- -- -- -- -- -- -- -- -- --
 
         vec3 lights = vec3(0.0, 0.0, 0.0);
         #if NUM_DIR_LIGHTS > 0
-
+          vec3 lightInf=vec3(0.0);
           for(int x = 0; x < NUM_DIR_LIGHTS; ++x) {
-            vec3 lightInf= ( max(0.0, dot(normalize(directionalLights[x].direction+nCd*.65), reflect( normalize(vPos), vN ) ))) * directionalLights[x].color;
+            vec3 lightInf=  max(0.0, dot(normalize(directionalLights[x].direction), reflect( -normalize(vPos), nMap ) )*.5+.5) * directionalLights[x].color;
+            //lightInf= ( max(0.0, dot(normalize(directionalLights[x].direction),  nMap ))) * directionalLights[x].color;
             lights += lightInf;
+            //lights = max(lights, vec3(dot( directionalLights[x].direction, nMap)*.5+.5 + plantGrowth));
           }
-          
-          lights = lights*(((1.0-vCd.g-vCd.r)*.5+.5)+ .5);
         #endif
         
-        lights = mix( vec3(0.0), lights, max( 0.0, nCd*vCd.g*.75 + vCd.r*.5 ) );
+        // Lighting Influence based on surface normals
+        float facingDown = dot( normalize( nMap ), vec3(0.0,1.0,0.0) ) *.45 +.55;
+        facingDown = clamp( (facingDown*facingDown)*1.4, 0.0, 1.0 );
+        
+        //lights = mix( vec3(0.0), lights*facingDown, max( 0.0, nCd*vCd.g*.75 + vCd.r*.5 ) );
         
         // Add blue lighting around some of the crystals
-        lights += vec3( 0.4038, 0.643, 0.779 ) * (crystalGlow * nCd  );
+        crystalGlow *= (nCd);
+        lights = (lights + vec3( 0.4038, 0.643, 0.779 ) * (crystalGlow * nCd  )) * 1.5;
         
-        Cd.rgb += Cd.rgb * lights * (depthFade*.5+.5) ;
+        float scalar = sin( plantGrowth*2. + time.x*1.5 + vPos.z*.2 + vPos.x*.2 - vPos.y*.2 + snCd.x*2. + snCd.y*4. + snCd.z*5. )+1.0;
+        scalar = cos( scalar*2. - time.x*.3 + vPos.y*2. + snCd.x + snCd.y + snCd.z )*0.5 + scalar;
+        scalar =  clamp( (scalar*scalar*snCd.r+.5) * plantGrowth * 2. * vCd.y* vCd.y, 0.0, 1.0);
+        Cd.rgb += vec3( 0.4038, 0.643, 0.779 ) * ( (depthFade*.85)* scalar) ;
+        //Cd.rgb = vec3( scalar ) ;
         
         gl_FragColor=Cd;
     }`;
@@ -312,7 +357,7 @@ export function salioaPlantVert(){
         vCd=color.rgb;
         
         vAlphaAdd = max(0.0, position.y);
-        vAlphaAdd = min(1.0, vAlphaAdd*vAlphaAdd*.014 + max(0.0,1.0-vAlphaAdd*1.3 ) );
+        vAlphaAdd = min(1.0, vAlphaAdd*vAlphaAdd*.035 + max(0.0,1.0-vAlphaAdd*1.3 ) );
         vCd.g = 1.0-vCd.g;
         
         vLocalPos = position;
@@ -410,14 +455,15 @@ export function salioaPlantFrag(){
         
         Cd.rgb = vec3( 0.4545, 0.8138, 1.0 ) * cnCrystal * vAlphaAdd;
         
-        Cd.rgb += vec3(0.3122, .3683,.4011) * ( min(.8, (nCd) * (1.0+cnCrystal*cnCd.g) )+0.75);
+        Cd.rgb += vec3(0.3122, .3683,.4011) * ( min(.8, (nCd) * (1.0+cnCrystal*cnCd.g) )+0.65);
         Cd.rgb += Cd.rgb * lights * (depthFade*.5+.5) ;
         
         
         float alpha = abs(dot( normalize(-vWorldPos), vLocalN ))*.35 * (cnCd.x * cnCd.y * cnCd.z+.5) ;
-        Cd.a=abs(.5-min(1.0,vCd.x*vN.z))+.5;
+        Cd.a=abs(.85-min(1.0,vCd.x*vN.z))+.5;
         alpha = clamp( alpha*cnCd.x + vAlphaAdd, 0.0, 0.5 )+.5;
         Cd.a = clamp( Cd.a*alpha + .2, 0.0, 1.0 );
+        //Cd.rgb = vec3(vAlphaAdd);
         
         gl_FragColor=Cd;
     }`;
