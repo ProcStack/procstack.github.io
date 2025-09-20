@@ -35,7 +35,7 @@ export const pageListingData = {
       'alt' : 'Showing User Details in different CGI programs',
       'style' : 'procPagesImageStyle',
       'caption' : ["Add custom User Details to objects in your 3d modeling software,",
-        "Allowing <span class='textNudge'>pxlNav</span> to better understand your FBX file."
+        "Allowing <span class='textNudge'>pxlNav</span> to better understand your FBX / GLTF file."
       ]
     }
   ],
@@ -72,9 +72,9 @@ export const pageListingData = {
     Giving you the ability in your modeling software to set up-
     <br>&nbsp;&nbsp; Teleporter colliders within scene or between <span class="textName">Rooms</span>, set item pick-ups, ground colliders, animated textures, and more set in your 3d modeling software of choice.
     <div class='textSpacer'></div>
-    <br>&nbsp;&nbsp; For customized object coding in javascript, mark objects as 'isScripted' and you can easily access that specific object by name in code.
+    <br>&nbsp;&nbsp; For customized object coding in javascript, mark objects as 'Scripted' and you can easily access that specific object by name in code.
     <div class='textSpacer'></div>
-    <br>&nbsp;&nbsp; Then <span class="textNudge">pxlNav</span> loads your FBX and acompanying javascript file as a <span class="textName">Room</span> that can be portal'ed to if ya wanted.
+    <br>&nbsp;&nbsp; Then <span class="textNudge">pxlNav</span> loads your 3d scene file and accompanying javascript file as a <span class="textName">Room</span> that can be portal'ed to if ya wanted.
 
     
     <br>

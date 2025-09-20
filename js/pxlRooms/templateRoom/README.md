@@ -112,13 +112,13 @@
 
 
     // Room warp data
-    this.camInitPos=null; - SET AUTOMATICALLY FROM YOUR FBX
-    this.camInitLookAt=null; - SET AUTOMATICALLY FROM YOUR FBX
-    this.camThumbPos=new THREE.Vector3(0,0,-30); - SET AUTOMATICALLY FROM YOUR FBX
-    this.camThumbLookAt=new THREE.Vector3(0,35,-1000); - SET AUTOMATICALLY FROM YOUR FBX
-    this.cameraBooted=false; - SET AUTOMATICALLY FROM YOUR FBX
-    this.cameraPrevPos=new THREE.Vector3(0,0,0); - SET AUTOMATICALLY FROM YOUR FBX
-    this.cameraAimTarget=new THREE.Object3D(0,0,0); - SET AUTOMATICALLY FROM YOUR FBX
+    this.camInitPos=null; - SET AUTOMATICALLY FROM YOUR FBX / GLTF
+    this.camInitLookAt=null; - SET AUTOMATICALLY FROM YOUR FBX / GLTF
+    this.camThumbPos=new THREE.Vector3(0,0,-30); - SET AUTOMATICALLY FROM YOUR FBX / GLTF
+    this.camThumbLookAt=new THREE.Vector3(0,35,-1000); - SET AUTOMATICALLY FROM YOUR FBX / GLTF
+    this.cameraBooted=false; - SET AUTOMATICALLY FROM YOUR FBX / GLTF
+    this.cameraPrevPos=new THREE.Vector3(0,0,0); - SET AUTOMATICALLY FROM YOUR FBX / GLTF
+    this.cameraAimTarget=new THREE.Object3D(0,0,0); - SET AUTOMATICALLY FROM YOUR FBX / GLTF
     
     this.camHoldWarpPos=true;
       - Prevent Camera from shifting position / rotation on room warping
@@ -169,24 +169,24 @@
         // Object to recieve "Return Portal" texture - OBSOLETE
 
     Collider Variables -
-      this.portalList={}; - SET AUTOMATICALLY FROM YOUR FBX
+      this.portalList={}; - SET AUTOMATICALLY FROM YOUR FBX / GLTF
         - Portals, jumps users WITHIN your room
-        - Any portal collision objects in your FBX Scene will be stored here
-      this.roomWarp=[]; - SET AUTOMATICALLY FROM YOUR FBX
+        - Any portal collision objects in your FBX / GLTF Scene will be stored here
+      this.roomWarp=[]; - SET AUTOMATICALLY FROM YOUR FBX / GLTF
         - Room Warp Zone, jumps users TO ANOTHER room
             Currently only supports the Time Square Canyon
         - You're Return Portal collision object to allow users back into the main canyon
-            If you set up your 3d Scene correctly, this is automatically set when loading your FBX
+            If you set up your 3d Scene correctly, this is automatically set when loading your FBX / GLTF
     
-      this.collidersExist=false; - SET AUTOMATICALLY FROM YOUR FBX
-        - If collision objects are found in your FBX, this will read `true`
-      this.colliderActive=false; - SET AUTOMATICALLY FROM YOUR FBX
+      this.collidersExist=false; - SET AUTOMATICALLY FROM YOUR FBX / GLTF
+        - If collision objects are found in your FBX / GLTF, this will read `true`
+      this.colliderActive=false; - SET AUTOMATICALLY FROM YOUR FBX / GLTF
         - Indicator if a collider is currently being stepped on
             True/False if Ground Colliders should be checked
-      this.antiColliderActive=false; - SET AUTOMATICALLY FROM YOUR FBX
+      this.antiColliderActive=false; - SET AUTOMATICALLY FROM YOUR FBX / GLTF
         - The "Ground" and "Obstacles" are treated differently in pxlNav, this indicates if Obstacles exist
             True/False if Obstacle Colliders should be checked
-      this.antiColliderTopActive=false; - SET AUTOMATICALLY FROM YOUR FBX
+      this.antiColliderTopActive=false; - SET AUTOMATICALLY FROM YOUR FBX / GLTF
         - This is if Obstacles exist you can stand upon
             True/False if Obstacle Tops Colliders should be checked
           
@@ -209,11 +209,11 @@
             
     ** Please see 3d Scene Organization for more details **
     
-      this.colliderList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] }; - SET AUTOMATICALLY FROM YOUR FBX
+      this.colliderList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] }; - SET AUTOMATICALLY FROM YOUR FBX / GLTF
         - Ground Collider Objects
-      this.antiColliderList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] }; - SET AUTOMATICALLY FROM YOUR FBX
+      this.antiColliderList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] }; - SET AUTOMATICALLY FROM YOUR FBX / GLTF
         - Obstacle Collider Objects
-      this.antiColliderTopList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] }; - SET AUTOMATICALLY FROM YOUR FBX
+      this.antiColliderTopList={ 'noAxis':[], '11':[], '01':[], '10':[], '00':[] }; - SET AUTOMATICALLY FROM YOUR FBX / GLTF
         - Obstacle Top Collider Objects
 
 
@@ -271,6 +271,7 @@
 
     fbxPostLoad(){}
       - Runs after `this.pxlFile.loadRoomFBX()` completes processing your FBX Scene
+      - This also automatically runs after `this.pxlFile.loadRoomGLTF()`
 
     build(){}
       - Build Scene and Assets

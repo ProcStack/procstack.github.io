@@ -234,7 +234,7 @@ export class TemplateEnvironment extends RoomEnvironment{
   }
   //%
     
-// Runs after `this.pxlFile.loadRoomFBX()` completes processing your FBX Scene
+// Runs after `this.pxlFile.loadRoomFBX()` completes processing your FBX or GLTF Scene
   fbxPostLoad(){
     this.booted=true;
   }
