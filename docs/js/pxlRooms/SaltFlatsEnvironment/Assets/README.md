@@ -1,4 +1,4 @@
-Texture files can be included/embeded within the FBX,
+Texture files can be included/embeded within the FBX / GLTF,
   But its advised against doing that.
 There is some image management done in pxlNav for easier accessibility to shared resources
   Being, if an already loaded image is requested again,

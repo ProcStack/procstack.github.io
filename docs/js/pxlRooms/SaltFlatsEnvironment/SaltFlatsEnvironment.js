@@ -50,6 +50,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     this.assetPath=assetPath+"Assets/";
     
     this.sceneFile = this.assetPath+"SaltFlatsEnvironment.fbx";
+    this.sceneMobileFile = this.assetPath+"SaltFlatsEnvironment_mobile.fbx";
     this.animInitCycle = "Walk";
 
     // Animation Source & Clips are managed under the hood,
@@ -355,18 +356,26 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
         [
         UniformsLib[ "lights" ],
         {
-          'normalTexture' : { type:'t', value: null },
           'noiseTexture' : { type:'t', value: null },
           'smoothNoiseTexture' : { type:'t', value: null },
           'cloudTexture' : { type:'t', value: this.cloud3dTexture },
           'fogColor' : { type: "c", value: this.fogColor },
         }]
     )
-    envGroundUniforms.normalTexture.value = this.pxlUtils.loadTexture( this.assetPath+"BasinTerraces_normal.webp", null, textureOptionsLinearSRGB );
     envGroundUniforms.noiseTexture.value = this.pxlUtils.loadTexture( "Noise_UniformWebbing.jpg" );
     envGroundUniforms.smoothNoiseTexture.value = this.pxlUtils.loadTexture( "Noise_Soft3d.jpg", null, textureOptionsRepeat );
+    
+    // No need for normal maps on mobile
+    //   Just wasted resources with little pay off
+    let enableNormalMap = !this.mobile;
+    if( enableNormalMap ){
+      //'normalTexture' : { type:'t', value: null },
+      envGroundUniforms.normalTexture = { type:'t', value: null };
+      envGroundUniforms.normalTexture.value = this.pxlUtils.loadTexture( this.assetPath+"BasinTerraces_normal.webp", null, textureOptionsLinearSRGB );
+    }
 
-    let mat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(), envGroundFrag() );
+
+    let mat=this.pxlFile.pxlShaderBuilder( envGroundUniforms, envGroundVert(enableNormalMap), envGroundFrag(enableNormalMap) );
     mat.side=FrontSide;
     mat.lights= true;
     
@@ -394,6 +403,15 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     this.materialList[ "SalioaPlant_geo" ]=salioaMtl;
 
 
+    
+    // -- -- -- 
+    
+    // Check for Mobile, use mobile scene file if so
+    //   I'll set up something more automatic for `pxlNav` in a future update
+    if( this.mobile && this.sceneMobileFile ){
+      this.sceneFile = this.sceneMobileFile;
+    }
+    
     // -- -- -- 
         
     return this.pxlFile.loadRoomFBX( this );

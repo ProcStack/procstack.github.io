@@ -27,9 +27,9 @@ Lets say, in Maya or Blender, you make a scene, add extra User Detail attributes
     
    Teleporter colliders within scene or between Rooms, set item pick-ups, ground colliders, animated textures, and more set in your 3d modeling software of choice.
 
-   For customized object coding in javascript, mark objects as 'isScripted' and you can easily access that specific object by name in code.
+   For customized object coding in javascript, mark objects as 'Scripted' and you can easily access that specific object by name in code.
 
-   Then pxlNav loads your FBX and acompanying javascript file as a Room that can be portal'ed to if ya wanted.
+   Then pxlNav loads your 3d scene file and accompanying javascript file as a Room that can be portal'ed to if ya wanted.
 
 Note : GLTF & GLB using Draco compression is nearly implemented & bug free, added to the next version of pxlNav, v1.0.0
     
