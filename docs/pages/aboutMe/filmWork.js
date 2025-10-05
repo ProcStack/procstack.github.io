@@ -56,7 +56,7 @@ export const pageListingData = {
       <br>
       <br><span class="innerCenter">
       I was part of 2 published Siggraph papers and was allowed the opportunity to speak at <span class="textBump">Siggraph 2015</span>.
-      <br>The talk was to a decently full room about camera based crowd navigation for <span class="textName">Peanuts</span>.
+      <br>The talk was to a decently full room, my bit was about camera based crowd navigation for <span class="textName">Peanuts</span>.
       </span>
 
       <br><div class='ppamHBar'></div>
