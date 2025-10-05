@@ -473,6 +473,10 @@ text-shadow: 1px 1.5px 4px #252525;
   font-weight: 700;
 }
 
+.textBoost{
+  font-size: 1.25em;
+}
+
 .textBump{
   font-size: 1.17em;
 }
@@ -552,7 +556,11 @@ text-shadow: 1px 1.5px 4px #252525;
   overflow-wrap: break-word;
 }
 
-
+.textSpoiler{
+  background-color:#ffffff;
+  text-decoration:none;
+  text-shadow:none;
+}
 
 .oneOffsBlockStyle{
   display: grid;
