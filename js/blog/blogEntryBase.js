@@ -48,10 +48,13 @@ export class blogEntry{
     this.dateObj.classList.add('blogEntryDateStyle');
     this.readTimeObj = document.createElement('p');
     this.readTimeObj.classList.add('blogEntryReadTimeStyle');
+    this.accessibilityObj = document.createElement('p');
+    this.accessibilityObj.classList.add('blogEntryAccessibilityStyle');
     // -- -- --
     this.headerBodySpacer = document.createElement('div');
     // -- -- --
     this.bodyObj = document.createElement('p');
+    this.bodyObj.style.fontSize = '1.2em';
     this.tagsObj = document.createElement('p');
     this.tagsObj.classList.add('blogEntryTagStyle');
     this.titleObj.innerHTML = this.title;
@@ -59,9 +62,32 @@ export class blogEntry{
     this.readTimeObj.innerHTML = this.getReadTime( this.body );
     this.bodyObj.innerHTML = this.body;
     this.tagsObj.innerHTML = this.tags.join(', ');
+    // -- -- --
+    // Accessibility Buttons; Font Size +/- for now
+    let plusBtn = document.createElement('button');
+    plusBtn.classList.add('blogEntryAccessibilityButtonStyle');
+    plusBtn.classList.add('procPagesNavSectionStyle');
+    plusBtn.classList.add('procPagesButtonStyle');
+    plusBtn.classList.add('procPagesSectionNavColor');
+    //procPagesNavSectionStyle procPagesButtonStyle procPagesSectionNavColor aiDevPage-sectionNavButtonStyle
+    plusBtn.innerHTML = '+';
+    plusBtn.title = 'Increase Font Size';
+    this.accessibilityObj.appendChild(plusBtn);
+    plusBtn.addEventListener('click', (e)=>{this.resizeText(.2);});
+    let minusBtn = document.createElement('button');
+    minusBtn.classList.add('blogEntryAccessibilityButtonStyle');
+    minusBtn.classList.add('procPagesNavSectionStyle');
+    minusBtn.classList.add('procPagesButtonStyle');
+    minusBtn.classList.add('procPagesSectionNavColor');
+    minusBtn.innerHTML = '-';
+    minusBtn.title = 'Decrease Font Size';
+    this.accessibilityObj.appendChild(minusBtn);
+    minusBtn.addEventListener('click', (e)=>{this.resizeText(-.2);});
+    // -- -- --
     this.titleRowObj.appendChild(this.titleObj);
     this.titleRowObj.appendChild(this.dateObj);
     this.titleRowObj.appendChild(this.readTimeObj);
+    this.titleRowObj.appendChild(this.accessibilityObj);
     this.blogEntryObj.appendChild(this.titleRowObj);
     this.blogEntryObj.appendChild(this.headerBodySpacer);
     this.blogEntryObj.appendChild(this.bodyObj);
@@ -80,6 +106,13 @@ export class blogEntry{
       retVal = `${readTime_low} min read`;
     }
     return retVal;
+  }
+
+  resizeText( dir ){
+      let currentSize = this.bodyObj.style.fontSize;
+      currentSize = parseFloat(currentSize);
+      let toSize = Math.min( Math.max( currentSize + dir, .6 ), 3.5 );
+      this.bodyObj.style.fontSize = toSize + 'em';
   }
 
   show(){

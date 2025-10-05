@@ -13,7 +13,7 @@
       "type": "image",
       "src": "../pages/pxlNav/images/userDetails.webp",
       "alt": "Showing User Details in different CGI programs",
-      "caption": "Add custom User Details to objects in your 3d modeling software, Allowing pxlNav to better understand your FBX file."
+      "caption": "Add custom User Details to objects in your 3d modeling software, Allowing pxlNav to better understand your FBX / GLTF file."
     }
   ]
 }

@@ -16,7 +16,7 @@ In the past, I worked on 9 films, 8 of those at Blue Sky Studios.
 
       I was part of 2 published Siggraph papers and was allowed the opportunity to speak at Siggraph 2015.
       
-The talk was to a decently full room about camera based crowd navigation for Peanuts.
+The talk was to a decently full room, my bit was about camera based crowd navigation for Peanuts.
 
 While working in Crowds,
       
