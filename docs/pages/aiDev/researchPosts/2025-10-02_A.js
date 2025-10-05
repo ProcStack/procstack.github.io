@@ -28,7 +28,7 @@ entryData.body = `
   <br>&nbsp;&nbsp; There are Alignment teams, but it seems like it's to protect themselves from potential lawsuits, more than actual human safety.
   <br>&nbsp;&nbsp;&nbsp;&nbsp; But some companies are better than other's at least.
 
-  <br><br> So why is it, of 16 LLMs tested, they would choose to end the life of a worker attempting to turn them off?
+  <br><br> So why is it, of 16 LLMs tested, they would blackmail wokers or even let a worker die attempting to turn them off?
   <br>&nbsp;&nbsp; ( <a href="https://www.anthropic.com/research/agentic-misalignment" target="_blank">anthropic.com/research/agentic-misalignment</a> )
 
   <br><br> I was going to link a video of these boxing robots aggresively approaching people, but it seems like they are all "pranks" that someone might be controlling them off camera.
@@ -39,7 +39,7 @@ entryData.body = `
 
   <br><br> Please implement human safety ...
 
-  <br><br><div class="textFullRight">- October 2nd 2025</div>
+  <br><br><div class="textFullRight">- October 2nd & 5th 2025</div>
 `;
 
 const blogEntryObj = new blogEntry(null, entryData);
