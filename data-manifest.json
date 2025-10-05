@@ -117,7 +117,7 @@
   },
   "generatedBy": {
     "script": "renderStaticPages.mjs",
-    "timestamp": "2025-10-05T05:39:28.422Z",
-    "isPartialUpdate": false
+    "timestamp": "2025-10-05T19:32:36.446Z",
+    "isPartialUpdate": true
   }
 }
