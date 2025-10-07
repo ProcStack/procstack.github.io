@@ -63,7 +63,7 @@ export const pageListingData = {
   'content' : `
     <a href='https://github.com/ProcStack/pxlTextGenerator' class='procPagesRepoLinkStyle' target='_blank'>pxlTextGenerator</a> <span class="textDrinkMeAlice textItalic">2018-2019</span>
     <br><span class="textBump">Text to handwriting generator</span>
-    <br><span class="textShrink textItalic textName ">Language - <span class="textBold">Python</span></span>
+    <br><span class="textShrink textItalic textName ">Language - <span class="textBold">Python / PyQt</span></span>
     <div class="pppHBar"></div>
     
     Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.net.

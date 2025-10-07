@@ -2,6 +2,10 @@
 
 [Currents of War](https://procstack.itch.io/currentsofwar) 2025
     
+Engine - Unity
+    
+Languages - C#, some Python for tools
+    
 A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie Game Clinic COLLAB JAM '25'
     
    Since then, we've expanded it quite a bit!

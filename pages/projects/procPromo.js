@@ -50,32 +50,32 @@ export const pageListingData = {
     <a href='https://github.com/ProcStack/procPromo_ShaderPack' class='procPagesRepoLinkStyle' target='_blank'>procPromo Shader Pack</a> <span class="textDrinkMeAlice textItalic">2022-2025</span>
     <br><span class="textBump">A <span class="textName">Minecraft</span> shader pack for <span class="textName">Optifine</span> & <span class="textName">Iris</span></span>
     <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">GLSL 1.2, 3.3, & 4.5</span></span>
-    <br><span class="textShrink textItalic textName ">File Count - <span class="textBold">180</span></span>
     <div class="pppHBar"></div>
     
-    I started writing <span class="textName">procPromo</span> in the spring of 2022 as a way to learn GLSL, as I was mostly using GLSL ES for WebGL at the time.
+    I started writing <span class="textName">procPromo</span> in the spring of 2022 as a way to learn GLSL better.
     <br>&nbsp;&nbsp; Figured, if I was already playing minecraft, might as well make it look cool too!
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Like, while I built the sky villa and alien spore in the images.
 
     <br>
     <br>I decided on a style inspired by the Minecraft Key or '<a href="https://www.minecraft.net/content/dam/games/minecraft/key-art/CC-Part%20I-Announce-Header.jpg" target="_blank">Promo</a>' art,
     <br>&nbsp;&nbsp; Writing a <span class='textInblockBox'>Texture Blur</span> similar to <span class='textName'>Smart Blur</span> in photoshop; smoothing regions of similar colors.
-    <br>&nbsp;&nbsp; To make block edges using <span class='textInblockBox'>Depth + Normals</span>
-    <br>&nbsp;&nbsp; Create a <span class='textInblockBox'>2-Pass Blur/Glow</span> with post-processing.
-    <br>&nbsp;&nbsp; And a <span class='textInblockBox'>Shadow Distortion</span> system with <span class='textName'>biasing</span> based on per-axis (X,Y) distance from camera/player.
+    <br>&nbsp;&nbsp; Then added block "edges" using <span class='textInblockBox'>Depth + Normals</span>,
+    <br>&nbsp;&nbsp; Created a <span class='textInblockBox'>2-Pass Blur/Glow</span> in post-processing.
+    <br>&nbsp;&nbsp; And a <span class='textInblockBox'>Shadow Distortion</span> system with <span class='textName'>biasing</span> based on per-axis (X,Y) from player.
 
     <br>
+    <br>
     <br>Shadows are fun to figure out in games,
-    <br>&nbsp;&nbsp; But they are all circlar, or 'radial', distance from the player.
+    <br>&nbsp;&nbsp; But they are all circular or 'radial distance' from the player.
 
     <div class='textSpacer'></div>
 
     <span class="innerCenter">
-    This is a block game though!
-    <br>So how about 90-degree angle shadows?</span>
+    But this is a block game though!
+    <br>So how about 90-degree angle shadows??</span>
 
-    <br> Distorting the objects in space by their X,Y to the player/camera allows for much sharper shadows than a radial player-centric shadow map.
-    <br>&nbsp;&nbsp; This let me get much sharper shadows from blocks, similar to Minecraft's promo art's shadows.
+    <br> Distorting the objects in space by their X & Y axis distance to the player/camera, instead of radial shadow maps,
+    <br>&nbsp;&nbsp; Let me get much sharper shadows from blocks, similar to the shadows in Minecraft's promo art.
 
     <div class='textSpacer'></div>
 

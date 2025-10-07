@@ -44,8 +44,13 @@ export const pageListingData = {
 
       <br>
       <br>
-      <div class="innerCenter">Install <span class='textNudge'>pxlNav</span> for your web project using NPM
-      <div class="textBoldBox">npm -i pxlnav</div></div>
+      <br>
+      <div class="innerCenter">
+        Install it for your web project using NPM
+        <div class="textBoldBox" style="margin: 4px;">npm -i pxlnav</div>
+        <span class="textBump">Native JavaScript ESM</span>, <span class="textBump">React</span>, & <span class="textBump">Next.js</span>
+        <br>examples are included when installed
+      </div>
       <br><br>
     </div>
   `

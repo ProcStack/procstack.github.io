@@ -55,6 +55,8 @@ export const pageListingData = {
   ],
   'content' : `
     <a href='https://procstack.itch.io/currentsofwar' class='procPagesRepoLinkStyle' target='_blank'>Currents of War</a> <span class="textDrinkMeAlice textItalic">2025</span>
+    <br><span class="textShrink textItalic textName ">Engine - <span class="textBold">Unity</span></span>
+    <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">C#, some Python for tools</span></span>
     <br><span class="textNudge">A 'NPC Simulator' game made in <span class="textName">Unity</span> for the April 2025 itch.io gamejam 'Indie Game Clinic COLLAB JAM '25'</span>
     <br>&nbsp;&nbsp; Since then, we've expanded it quite a bit!
     <br>

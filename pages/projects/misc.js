@@ -49,8 +49,6 @@ export const pageListingData = {
   'content' : `
     <div class="procPagesProjectsHeaderStyle textBump textBold">Miscellaneous random junk!</div>
     
-    <br><div class="pppHBar"></div>
-  
     <div class="procPagesProjectsDescriptionStyle">
       
       <br>

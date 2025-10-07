@@ -17,12 +17,21 @@ export class blogEntry{
     this.date = entryData.date;
     this.body = entryData.body;
     this.tags = entryData.tags;
-
+    
     this.blogEntryObj = null;
     this.titleObj = null;
     this.dateObj = null;
     this.bodyObj = null;
     this.tagsObj = null;
+    
+    this.urlRoute = "";
+    if( this.title && this.date ){
+      const formattedTitle = this.title.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]*/g, '').toLowerCase();
+      const blogRoute = `${this.date}/${formattedTitle}.htm`;
+      this.urlRoute = blogRoute;
+    }
+
+    this.callbacks = [];
   }
   setId( id ){
     this.id = id;
@@ -117,6 +126,7 @@ export class blogEntry{
 
   show(){
     this.blogEntryObj.style.display = 'block';
+    this.updateURL();
   }
   hide(){
     this.blogEntryObj.style.display = 'none';
@@ -134,4 +144,10 @@ export class blogEntry{
     }
   }
 
+  subscribeToURLChange( callback ){
+    this.callbacks.push( callback );
+  }
+  updateURL(){
+    this.callbacks.forEach( (cb)=>{ cb( this.urlRoute ); } );
+  }
 }

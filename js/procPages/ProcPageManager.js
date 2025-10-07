@@ -114,7 +114,7 @@ export class ProcPageManager {
     document.addEventListener("DOMContentLoaded", () => {
       const urlParams = new URLSearchParams(window.location.search);
       const redirectPath = urlParams.get('redirect');
-    
+
       if (redirectPath) {
         // Extract the page name
         const pageName = redirectPath.replace('/', '').replace('.htm', '');
@@ -732,43 +732,8 @@ export class ProcPageManager {
         if (tag === 'title') {
           document.title = content; // Update document title
         }
-
       });
     });
-
-
-
-    /*if( pageObj.hasOwnProperty("metaData") ){
-      let pageMetaData = pageObj["metaData"];
-      console.log("Updating page meta data for: " + pageName);
-
-      let metaObjs = pageMetaData.metaTagList;
-      if( metaObjs != null ){
-        let metaKeys = Object.keys(metaObjs);
-        metaKeys.forEach( (metaTags)=>{
-          let curMetaTags = metaObjs[metaTags];
-          curMetaTags.forEach( (tag)=>{
-            if( tag == "title" ){
-              document.title = pageMetaData[metaTags];
-              return;
-            }
-            let curMeta = document.querySelector("meta[name='"+tag+"']");
-            let curContent = pageMetaData[metaTags];
-            if( tag == "keywords" && curContent != "" && typeof(curContent) == "object" ){
-              curContent = curContent.join(", ");
-            }
-            if( curMeta ){
-              curMeta.setAttribute("body", curContent);
-            }else{
-              let newMeta = document.createElement("meta");
-              newMeta.setAttribute("name", tag);
-              newMeta.setAttribute("body", curContent);
-              document.head.appendChild(newMeta);
-            }
-          });
-        });
-      }
-    }*/
   }
 
 /**
@@ -962,7 +927,6 @@ export class ProcPageManager {
     }
     let url = window.location.origin + urlDisplay;
     window.history.pushState({path:url}, '', url);
-
   }
 
 /**
@@ -984,8 +948,14 @@ export class ProcPageManager {
       }
     }
 
-    let formattedURL = this.formatURL( pageName, sectionName );
+    let formattedURL = null;
+    if( sectionData.hasOwnProperty("urlOverride") ){
+      formattedURL = sectionData["urlOverride"];
+    }else{
+      formattedURL = this.formatURL( pageName, sectionName );
+    }
     this.shiftHistoryState( formattedURL );
+
 
     //this.curPageName = sectionName;
 
@@ -1008,16 +978,20 @@ export class ProcPageManager {
 
     // Update Meta Data
     this.updateDocumentMetaData( pageName );
+
   }
 
 /**
  * Format URL from page + section callback
  */
-  formatURL( pageName, sectionName ){
+  formatURL( pageName, ...sectionNames ){
     let urlDisplay = pageName;
 
-    if( sectionName != null ){
-      urlDisplay += "/" + sectionName;
+    if( sectionNames != null && sectionNames.length > 0 ){
+      sectionNames = sectionNames.filter( (name)=>{ return name != null && name != ""; } );
+      if( sectionNames.length > 0 ){
+        urlDisplay += "/" + sectionNames.join("/");
+      }
     }
     if( !urlDisplay.includes(".htm") ){
       urlDisplay += ".htm";
@@ -1035,9 +1009,24 @@ export class ProcPageManager {
     const redirectPath = urlParams.get('redirect');
     if (redirectPath) {
       // Extract the page name from the redirect path
-      const pageName = redirectPath.replace('/', '');
+      let urlPage = redirectPath.replace('/', '');
+      let urlSplit = redirectPath.split("/");
+      urlSplit = urlSplit.filter(( path )=> path !== "");
       
-      this.shiftHistoryState(pageName);
+      urlPage = urlSplit[0];
+      if( urlSplit.length > 1 ){
+        let pageStr = urlSplit[1];
+        if( !pageStr.includes(".htm") ){
+          pageStr += ".htm";
+        }
+        urlPage = urlSplit[0] + "/" + pageStr;
+      }else{
+        if( !urlPage.includes(".htm") ){
+          urlPage += ".htm";
+        }
+      }
+      
+      this.shiftHistoryState(urlPage);
     }
   }
 
@@ -1094,6 +1083,7 @@ export class ProcPageManager {
       urlPagePath = "";
     }
 
+    //console.log( urlFolderPath, urlPagePath );
     return {'page':urlFolderPath, 'section':urlPagePath};
   }
 

@@ -996,10 +996,18 @@ export class ProcPage {
       obj.scrollTop = 0;
     });
 
+    let curSection = this.sectionData[ sectionName ];
     let emitData = {
       'dir' : this.page,
-      'page' : this.sectionData[ sectionName ].htmlName
+      'page' : curSection.htmlName
     };
+
+    if( curSection?.features?.hasOwnProperty('blogManager') && typeof curSection.features.blogManager === 'object' ){
+      let blogManager = this.sectionData[ sectionName ].blogManager;
+      if(  blogManager?.currentUrlPath != '' ){
+        emitData['urlOverride'] = blogManager.currentUrlPath;
+      }
+    }
 
     this.emit( emitData );
   }
@@ -1171,8 +1179,14 @@ export class ProcPage {
           listParentMobile: blogListingMobile,
           contentParent: blogContent,
           options: blogOptions,
-          entries: entries
+          entries: entries,
+          pageName: this.page,
+          htmlName: sectionData.htmlName
         };
+        //console.log( this.page, this.name )
+        //console.log(sectionData.htmlName)
+        //console.log(sectionData.name)
+        //console.log(Object.keys(sectionData))
         let pageBlogManager = new BlogManager( sectionContentDiv, blogData );
 
         sectionContentDiv.appendChild( blogListing );
@@ -1192,6 +1206,8 @@ export class ProcPage {
         headerSpacerStyles.forEach( style => {
           pageBlogManager.addSpacerStyle(style);
         });
+
+        // Connect URL updates from the blog manager to the page manager
         
         ret['blog'] = pageBlogManager;
         ret['content'].push( blogListing );
