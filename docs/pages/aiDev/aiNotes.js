@@ -41,7 +41,7 @@ export const pageListingData = {
     <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>
       <span class='textBoost'>I'm an armchair AI researcher at best!</span>
       <br><span class='textBoost'>I'm not an authority on ai!!</span>
-      <br>These are just my random theories / thoughts / research on AI.
+      <br>These are my theories / thoughts / research on AI.
 
       <br>
       <span class="showOnMobile"><br>Tap the Entry Title above to open the Blog Entry List.</span>
@@ -50,8 +50,7 @@ export const pageListingData = {
       <br>These are my own rambly-ass thoughts.
 
       <br>-- -- --
-      <br>Turns out I write Dialectically, rather than Atomicly.
-      <br>...I didn't know this...
+      <br>It turns out I write Dialectically, rather than Atomicly.
       <br>So, the ideas I write about build on each other.
       <br>They aren't standalone concepts per 'paragraph'.
       <br>...

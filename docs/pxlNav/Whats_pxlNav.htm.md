@@ -4,35 +4,55 @@ The background of this page is running 'pxlNav',
     
    A javascript package to extend Three.js for more interactive / game like mechanics.
 
-pxlNav is a player controller + rendering set-up that brings more interactive functionality to Three.js.
+      Make scenes in any 3d CGI software,
+      
+& use pxlNav to walk through it in a browser!
+
+Set up collision objects, teleporters, animated textures, items to pick up, and more,
     
-   It's basically a wrapper for Three.js, using Three's renderer, character rig + animation features, to create something like a game engine... I guess.
+   All by adding specific Object Groups and custom User Details to objects in your 3d modeling software.
+    
+   ( Maya, Blender, Houdini, Cinema4D, 3DS Max, etc... )
+    
+     Any software that can export FBX or GLTF / GLB
+
+ Then, tell pxlNav to load your scene file as a Room 
+    
+ You'll just drop in to walk around!
+    
+ Or be a static camera & teleport to locations you define in your scene file.
 
       Install it for your web project using NPM
       npm -i pxlnav
 
-      If you are familiar with GLSL,
+      Native JavaScript ESM, React, & Next.js
       
-Press the Y key to use the Shader Editor in pxlNav.
+examples are included when installed
 
 You can use any 3d modeling software to make interactive environments called Rooms, making it a little easier to make games/interactive environments.
 
-It supports rig + animation fbx files for your character animation, and a simple curve in your scene can act as your camera path ( add another if you want the camera to look somewhere as it's traveling the path ).
+It supports rig + animation files for your character animation; and use the Animation State Machine in pxlNav to control which animation plays when.
+
+You can add a simple curve in your scene to act as a camera path,
     
-   Animated textures by using a second texture, particle effects, FPS navigation, ground collision, obstacles, items, portals, and more.
+   Then add another to control the camera's look-at target during the camera path animation.
 
-Lets say, in Maya or Blender, you make a scene, add extra User Detail attributes to your objects to tell pxlNav how to interact with them.
+ Sliding & Animated textures by using a second texture, particle effects, FPS navigation, ground collision, obstacles, items, portals, and more.
 
-    Giving you the ability in your modeling software to set up-
+Lets say, in Maya or Blender, you make a full scene, with lights and cameras and everything.
+
+You'd want to move certain things to individual groups, like "Camera", "Lights", "Colliders" & "Scene".
     
-   Teleporter colliders within scene or between Rooms, set item pick-ups, ground colliders, animated textures, and more set in your 3d modeling software of choice.
-
-   For customized object coding in javascript, mark objects as 'Scripted' and you can easily access that specific object by name in code.
-
-   Then pxlNav loads your 3d scene file and accompanying javascript file as a Room that can be portal'ed to if ya wanted.
-
-Note : GLTF & GLB using Draco compression is nearly implemented & bug free, added to the next version of pxlNav, v1.0.0
+   Then for things like instances of trees, rocks, or other objects you want to duplicate, make a group called "Instances" with the base object inside it.
     
-     To be released with support for React & Next and example projects for each.
+   Then, add an empty null/group with a custom string attribute 'Instance' with the name of the object in the Instances group you want to copy to that spot.
     
-       See the v1.0.0-dev branch for progress.
+   This also works with using an Object & 'Instance' attribute, it'll clone the object at every vertex of your object.
+
+If you're familiar with shaders for GLSL,
+    
+   Press the Y key to use the Shader Editor in pxlNav.
+    
+   That way you can easily edit your shader code, while walking around!
+
+You can find more details on the available custom User Detail Attributes in pxlNav's [Documentation](../pxlNav-docs).

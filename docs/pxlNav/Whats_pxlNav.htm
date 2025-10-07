@@ -177,43 +177,64 @@
     <br>&nbsp;&nbsp; A javascript package to extend Three.js for more interactive / game like mechanics.
 
     <br>
-    
-    <br><span class="textNudge">pxlNav</span> is a player controller + rendering set-up that brings more interactive functionality to Three.js.
-    <br>&nbsp;&nbsp; It's basically a wrapper for Three.js, using Three's renderer, character rig + animation features, to create something like a game engine... I guess.
-    
     <br>
+    <div class="innerCenter textBoost">
+      Make scenes in any 3d CGI software,
+      <br>&amp; use pxlNav to walk through it in a browser!
+    </div>
+    <br>
+    <br>Set up collision objects, teleporters, animated textures, items to pick up, and more,
+    <br>&nbsp;&nbsp; All by adding specific Object Groups and custom User Details to objects in your 3d modeling software.
+    <br>&nbsp;&nbsp; ( Maya, Blender, Houdini, Cinema4D, 3DS Max, etc... )
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Any software that can export FBX or GLTF / GLB
+    
+
+    <br>
+    <br> Then, tell <span class="textNudge">pxlNav</span> to load your scene file as a <span class="textName">Room</span> 
+    <br> You'll just drop in to walk around!
+    <br> Or be a static camera &amp; teleport to locations you define in your scene file.
+    
     <br>
     <br>
     <div class="innerCenter">
       Install it for your web project using NPM
-      <div class="textBoldBox">npm -i pxlnav</div>
-      <br>
-      If you are familiar with GLSL,
-      <br>Press the <span class="textBoldBox">Y</span> key to use the <span class="textName">Shader Editor</span> in <span class="textNudge">pxlNav</span>.
+      <div class="textBoldBox" style="margin: 4px;">npm -i pxlnav</div>
+      <span class="textBump">Native JavaScript ESM</span>, <span class="textBump">React</span>, &amp; <span class="textBump">Next.js</span>
+      <br>examples are included when installed
     </div>
 
-    <br>
+    <br><div class="ppnHBar"></div>
+  
     <br>You can use any 3d modeling software to make interactive environments called <span class="textName">Rooms</span>, making it a little easier to make games/interactive environments.
     
     <br>
-    <br>It supports rig + animation fbx files for your character animation, and a simple curve in your scene can act as your camera path ( add another if you want the camera to look somewhere as it's traveling the path ).
-    <br>&nbsp;&nbsp; Animated textures by using a second texture, particle effects, FPS navigation, ground collision, obstacles, items, portals, and more.
+    <br>It supports rig + animation files for your character animation; and use the Animation State Machine in <span class="textNudge">pxlNav</span> to control which animation plays when.
+    <br>
+    <br>You can add a simple curve in your scene to act as a camera path,
+    <br>&nbsp;&nbsp; Then add another to control the camera's look-at target during the camera path animation.
+    <br>
+    <br> Sliding &amp; Animated textures by using a second texture, particle effects, FPS navigation, ground collision, obstacles, items, portals, and more.
 
     <br>
-    <br>Lets say, in Maya or Blender, you make a scene, add extra User Detail attributes to your objects to tell <span class="textNudge">pxlNav</span> how to interact with them.
-    <div class="textSpacer"></div>
-    Giving you the ability in your modeling software to set up-
-    <br>&nbsp;&nbsp; Teleporter colliders within scene or between <span class="textName">Rooms</span>, set item pick-ups, ground colliders, animated textures, and more set in your 3d modeling software of choice.
-    <div class="textSpacer"></div>
-    <br>&nbsp;&nbsp; For customized object coding in javascript, mark objects as 'Scripted' and you can easily access that specific object by name in code.
-    <div class="textSpacer"></div>
-    <br>&nbsp;&nbsp; Then <span class="textNudge">pxlNav</span> loads your 3d scene file and accompanying javascript file as a <span class="textName">Room</span> that can be portal'ed to if ya wanted.
-
     
+    <br><div class="ppnHBar"></div>
+  
+    <br>Lets say, in Maya or Blender, you make a full scene, with lights and cameras and everything.
+
     <br>
-    <br>Note : GLTF &amp; GLB using Draco compression is nearly implemented &amp; bug free, added to the next version of pxlNav, v1.0.0
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; To be released with support for React &amp; Next and example projects for each.
-    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; See the <span class="textName">v1.0.0-dev</span> branch for progress.
+    <br>You'd want to move certain things to individual groups, like "Camera", "Lights", "Colliders" &amp; "Scene".
+    <br>&nbsp;&nbsp; Then for things like instances of trees, rocks, or other objects you want to duplicate, make a group called "Instances" with the base object inside it.
+    <br>&nbsp;&nbsp; Then, add an empty null/group with a custom string attribute 'Instance' with the name of the object in the Instances group you want to copy to that spot.
+    <br>&nbsp;&nbsp; This also works with using an Object &amp; 'Instance' attribute, it'll clone the object at every vertex of your object.
+
+    <br>
+    <br>If you're familiar with shaders for GLSL,
+    <br>&nbsp;&nbsp; Press the <span class="textBoldBox">Y</span> key to use the <span class="textName">Shader Editor</span> in <span class="textNudge">pxlNav</span>.
+    <br>&nbsp;&nbsp; That way you can easily edit your shader code, while walking around!
+
+    <br>
+    <br>You can find more details on the available custom User Detail Attributes in <span class="textNudge">pxlNav</span>'s <a href="../pxlNav-docs" target="_blank" alt="pxlNav Documentation" class="textBump">Documentation</a>.
+    
     <br>
     <br>
   </div></div></section></div><div class="procPagesInnerAfterBase procPagesInnerAfter"></div></div></div>

@@ -4,7 +4,7 @@ I'm an armchair AI researcher at best!
       
 I'm not an authority on ai!!
       
-These are just my random theories / thoughts / research on AI.
+These are my theories / thoughts / research on AI.
 
 Tap the Entry Title above to open the Blog Entry List.
 
@@ -14,9 +14,7 @@ These are my own rambly-ass thoughts.
 
 -- -- --
       
-Turns out I write Dialectically, rather than Atomicly.
-      
-...I didn't know this...
+It turns out I write Dialectically, rather than Atomicly.
       
 So, the ideas I write about build on each other.
       

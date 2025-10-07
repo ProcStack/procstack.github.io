@@ -21,6 +21,16 @@ export class BlogManager {
     this.currentEntry = null;
     this.tempContent = [...(this.contentParent?.childNodes || [])];
     this.runTempDestroy = false;
+
+    this.urlBasePath = "";
+    if( blogData.hasOwnProperty('pageName') ){
+      this.urlBasePath += `/${blogData.pageName}`;
+    }
+    if( blogData.hasOwnProperty('htmlName') ){
+      let urlStrip = blogData.htmlName.replace('.htm','').replace('.html','');
+      this.urlBasePath += `/${urlStrip}`;
+    }
+    this.currentUrlPath = "";
   }
 
   /**
@@ -41,8 +51,11 @@ export class BlogManager {
   loadFromObject( entriesObj ){
     //this.blogEntries = [];
     let blogEntryKeys = Object.keys(entriesObj || {});
+    console.log(blogEntryKeys.length)
     for( let i = 0; i < blogEntryKeys.length; i++ ){
-      this.blogEntries.push( entriesObj[blogEntryKeys[i]] );
+      let curEntry = entriesObj[blogEntryKeys[i]];
+      this.blogEntries.push( curEntry );
+      curEntry.subscribeToURLChange( this.entryURLChange.bind(this) )
     }
   }
   setListParent( listParent ){
@@ -53,8 +66,13 @@ export class BlogManager {
   }
   addBlogEntry( title, date, tags, body ){
     // Ensure we pass a sensible parent to the blogEntry constructor
+    console.log("NEW BLOG !!!!")
     let parentForEntry = this.contentParent || this.listParent || null;
+
     let newBlogEntry = new blogEntry( parentForEntry, title, date, tags, body );
+    newBlogEntry.setId( this.blogEntries.length );
+    newBlogEntry.subscribeToURLChange( this.entryURLChange.bind(this) );
+
     this.blogEntries.push( newBlogEntry );
   }
   build( parent=null ){
@@ -334,6 +352,16 @@ export class BlogManager {
     }
     this.currentEntry = this.blogEntries[index];
     this.currentEntry.show();
+
+    // Check for URL update
+    // TODO : Update how entries buttons are added to the DOM,
+    //          This seems like incorrect behaviour to include here in `showEntry()`
+    //        The entry object's callback isn't triggering, yet is added to the class.
+    let curEntryUrl = this.currentEntry.urlRoute;
+    if( curEntryUrl.length > 0 ){
+      this.entryURLChange( curEntryUrl );
+    }
+
     // keep mobile controls in sync
     if( typeof this.mobileIndex !== 'undefined' ){
       this.mobileIndex = index;
@@ -341,6 +369,18 @@ export class BlogManager {
       // close popup if it was open
       this.closeMobilePopup();
       this.updatePrevNextButtonStates();
+    }
+  }
+
+  entryURLChange( targetUrl ){
+    if( this.urlBasePath.length > 0 && targetUrl.length > 0 ){
+      let newUrl = `${this.urlBasePath}/${targetUrl}`;
+      this.currentUrlPath = newUrl;
+      if( window.history && window.history.pushState ){
+        setTimeout( () => {
+          window.history.pushState( { path: newUrl }, '', newUrl );
+        },100);
+      }
     }
   }
 }

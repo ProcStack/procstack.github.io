@@ -627,8 +627,68 @@ const main = async () => {
           outPath = path.join(renderDir, htmlName);
         }
 
+        const sectionName = pageData.name || folder;
+
         console.log(`-|  -- SubPage: ${cleanedName} (${subKey})`);
         console.log(`  Live URL: ${url}`);
+
+        const newPageEntries = {};
+        newPageEntries[ manifestKey ] = {
+          title: cleanedName,
+          type: "subpage",
+          subPageData,
+          localSubUrl,
+          relUrl,
+          url,
+          manifestKey,
+          outPath,
+          folder,
+          htmlName,
+          sectionName
+        };
+
+        // Checking for Sub-Page Feature flags
+        // This accounts for URL altering Features
+        //   Currently, only the Blog feature alters the URL path
+        if( subPageData.features?.blogManager ){
+          const blogEntries = subPageData.features.blogManager.entries || [];
+
+          for (const entry of blogEntries) {
+            const { date, title } = entry;
+            if (date && title) {
+              const currentSubFolder = htmlName.replace('.htm', '');
+              const formattedTitle = title.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]*/g, '').toLowerCase();
+              const blogRoute = `${folder}/${currentSubFolder}/${date}/${formattedTitle}.htm`;
+              const blogUrl = `${localUrl}/${blogRoute}`;
+              const blogOutPath = path.join(renderDir, folder, currentSubFolder, date, `${formattedTitle}.htm`);
+
+              /*console.log(`Rendering blog entry: ${blogUrl}`);
+              console.log(blogOutPath);
+              //console.log(entry);
+              console.log(Object.keys(entry));
+              console.log(htmlName);
+              console.log(`${siteRootUrl}/${blogRoute}`);
+              console.log(sectionName);
+              console.log("-- -- --");*/
+
+
+              /*if (writeToDisk) {
+                fs.mkdirSync(path.dirname(blogOutPath), { recursive: true });
+                const blogContent = `<html><head><title>${title}</title></head><body>${entry.content}</body></html>`;
+                fs.writeFileSync(blogOutPath, blogContent);
+                console.log(`Blog entry saved to: ${blogOutPath}`);
+              }*/
+
+              sitemapUrls.push({
+                url: `${siteRootUrl}/${blogRoute}`,
+                lastModified: new Date().toISOString().split('T')[0],
+              });
+            }
+          }
+        }
+        //continue;
+
+
 
 
         // Generate AI metadata
@@ -655,7 +715,6 @@ const main = async () => {
         const markdownContent = htmlToMarkdown(content, title);
         
         // Organize content for LLMs.txt by section
-        const sectionName = pageData.name || folder;
         if( !llmsContent.sections[sectionName] ){
           llmsContent.sections[sectionName] = [];
         }
@@ -668,6 +727,7 @@ const main = async () => {
           description,
           content: markdownContent
         });
+
 
         manifest[ manifestKey ] = { 'jsonURL':manifestJsonUrl, lastModified, title, description, media, content, 'pageURL':url, 'relativeURL':relUrl };
         const aiOut = path.join(jsonOutputDir, `${manifestKey}.json`);

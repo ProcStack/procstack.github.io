@@ -4,7 +4,7 @@
     
 Text to handwriting generator
     
-Language - Python
+Language - Python / PyQt
 
     Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.net.
     
