@@ -217,8 +217,9 @@
 
 .aiDevPage-blogContentStyle {
   max-width: 97vw;
-  align-self: end;
+  align-self: baseline;
   justify-self: center;
+  padding: 3px;
 }
 
 .aidevHBar{

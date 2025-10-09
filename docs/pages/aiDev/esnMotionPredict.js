@@ -72,8 +72,12 @@ export const pageListingData = {
         <div class='procPagesAboutMeSpacer'></div>
       </span>
       
-      <br>Since my ESN can learn on the fly,
+      <br><div class='aidevHBar'></div>
+      
+      <br><span class="innerCenter">
+      Since my ESN can learn on the fly,
       <br>&nbsp;&nbsp; Why not feed it some videos I made?
+      </span>
 
       <br>
       <br>
