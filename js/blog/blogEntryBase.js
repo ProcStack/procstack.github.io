@@ -105,7 +105,7 @@ export class blogEntry{
   }
 
   getReadTime( text ){
-    let wordsPerMinute_low = 180;
+    let wordsPerMinute_low = 150;
     let wordsPerMinute_high = 300;
     let textLength = text.split(' ').length;
     let readTime_low = Math.ceil( textLength / wordsPerMinute_low );

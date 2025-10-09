@@ -36,7 +36,7 @@ Currently general ambiance is my focus.
 I just got the camera location warping working from outside of pxlNav.
 <br>Trigger a camera warp from a button press using a flag on your tag.
 <br>
-<br>This brought me to add optional camera positions in your 3d cgi program of choice.
+<br>This brought me to add optional camera positions in your 3D CGI program of choice.
 <br>Add a new group under your Camera_grp in your scene,
 <br>&nbsp;&nbsp; Just add a Position and lookAt locator/null/empty object in that group,
 <br>&nbsp;&nbsp;&nbsp;&nbsp; Then add a "pxlRoomName" & "pxlCameraView" tag to your link on your site.

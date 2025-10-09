@@ -18,7 +18,13 @@ Enhance..... Enhance! .... ENHANCE!
 
 So I built an ESRGAN, more specifically a 'Real-ESRGAN',
       
-   Which is a more advanced version of the original ESRGAN.
+   Which learns from synthetic data;
+      
+     Images with noise added.
+      
+   Making guesses about the original image + variances / static / compression issues / etc.
+      
+     Learning to clean up & enhance the input image.
 
 This always seemed like magic to me,
       

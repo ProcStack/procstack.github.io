@@ -4,7 +4,7 @@ const entryData = baseEntryStruct();
 entryData.title = "Being & Becoming";
 entryData.date = "2025-10-05";
 entryData.eid = "A";
-entryData.tags = ["research","nothing","something","lighthouses","existence"];
+entryData.tags = ["theory","nothing","something","lighthouses","existence"];
 entryData.body = `
   On the topic of nothingness and somethingness, Hegel started with what it means to exist at all, before Being and Nothingness can even have meaning.
   <br>&nbsp;&nbsp; That, once something has a purpose beyond simply existing as a formless entity,

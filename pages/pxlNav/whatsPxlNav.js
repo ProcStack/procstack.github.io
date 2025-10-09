@@ -46,7 +46,7 @@ export const pageListingData = {
     <br>
     <br>
     <div class="innerCenter textBoost">
-      Make scenes in any 3d CGI software,
+      Make scenes in any 3D CGI software,
       <br>& use pxlNav to walk through it in a browser!
     </div>
     <br>

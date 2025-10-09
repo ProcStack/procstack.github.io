@@ -11,6 +11,7 @@ import { blogEntryObj as blogEntry_20250816_A } from './2025-08-16_A.js';
 import { blogEntryObj as blogEntry_20250830_A } from './2025-08-30_A.js';
 import { blogEntryObj as blogEntry_20251002_A } from './2025-10-02_A.js';
 import { blogEntryObj as blogEntry_20251005_A } from './2025-10-05_A.js';
+import { blogEntryObj as blogEntry_20251008_A } from './2025-10-08_A.js';
 
 
 export const blogEntries = [
@@ -22,5 +23,6 @@ export const blogEntries = [
   blogEntry_20250816_A,
   blogEntry_20250830_A,
   blogEntry_20251002_A,
-  blogEntry_20251005_A
+  blogEntry_20251005_A,
+  blogEntry_20251008_A
 ];
