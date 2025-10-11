@@ -1,0 +1,173 @@
+
+ -- pxlmancer Code Stats -- -- -- -- -- -- -- -- -- 
+ -- -- October 11, 2025  -- -- -- -- -- -- -- -- -- 
+    Stats Overview - 
+        File Types Checked - 
+             JS, PHP
+        Files Found - 
+             16
+        Total Size Of Files - 
+             456.5 KB
+        Total File Line Count - 
+             12474
+
+        Code Line Count - 
+             10360
+        Commented Line Count - 
+             1744
+
+ -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+
+    Web Only Line Counts - 
+        Server Side pxlNav Line Count - 
+             0
+        Front-End Core pxlNav Line Count - 
+             10360
+        Artist Room Line Count - 
+             0
+
+        Developer Only Function Line Count - 
+             0
+        Moderator Only Function Line Count - 
+             0
+
+ -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+
+
+** File #01 - /docs/pxlmancer/js/variables.js **
+** Add More Comments **
+   - File Size - 4.414 KB
+   - Total Line Count - 183
+   - White Space Count - 4
+   - Comment Line Count - 13
+  ******** Expecting - 27-54
+
+
+** File #02 - /docs/pxlmancer/js/selectTool.js **
+** Add More Comments **
+   - File Size - 30.53 KB
+   - Total Line Count - 714
+   - White Space Count - 50
+   - Comment Line Count - 36
+  ******** Expecting - 107-214
+
+
+** File #03 - /docs/pxlmancer/js/prePostTouch.js **
+** Add More Comments **
+   - File Size - 11.80 KB
+   - Total Line Count - 401
+   - White Space Count - 16
+   - Comment Line Count - 31
+  ******** Expecting - 60-120
+
+
+** File #04 - /docs/pxlmancer/js/menu.js **
+** Add More Comments **
+   - File Size - 67.63 KB
+   - Total Line Count - 1709
+   - White Space Count - 68
+   - Comment Line Count - 118
+  ******** Expecting - 256-512
+
+
+  File #05 - /docs/pxlmancer/js/math.js
+   - File Size - 30.46 KB
+   - Total Line Count - 990
+   - White Space Count - 43
+   - Comment Line Count - 288
+
+
+** File #06 - /docs/pxlmancer/js/loader.js **
+** Add More Comments **
+   - File Size - 1.810 KB
+   - Total Line Count - 34
+   - White Space Count - 1
+   - Comment Line Count - 1
+  ******** Expecting - 5-10
+
+
+** File #07 - /docs/pxlmancer/js/interface.js **
+** Add More Comments **
+   - File Size - 59.66 KB
+   - Total Line Count - 1758
+   - White Space Count - 67
+   - Comment Line Count - 131
+  ******** Expecting - 263-527
+
+
+  File #08 - /docs/pxlmancer/js/index.php
+   - File Size - 70 B
+   - Total Line Count - 4
+   - White Space Count - 0
+   - Comment Line Count - 1
+
+
+** File #09 - /docs/pxlmancer/js/imby.js **
+** Add More Comments **
+   - File Size - 6.632 KB
+   - Total Line Count - 230
+   - White Space Count - 31
+   - Comment Line Count - 16
+  ******** Expecting - 34-69
+
+
+** File #10 - /docs/pxlmancer/js/howTo.js **
+** Add More Comments **
+   - File Size - 34.11 KB
+   - Total Line Count - 823
+   - White Space Count - 26
+   - Comment Line Count - 12
+  ******** Expecting - 123-246
+
+
+** File #11 - /docs/pxlmancer/js/drawTouch.js **
+** Add More Comments **
+   - File Size - 40.98 KB
+   - Total Line Count - 1075
+   - White Space Count - 42
+   - Comment Line Count - 145
+  ******** Expecting - 161-322
+
+
+** File #12 - /docs/pxlmancer/js/dialogues.js **
+** Add More Comments **
+   - File Size - 37.01 KB
+   - Total Line Count - 775
+   - White Space Count - 42
+   - Comment Line Count - 64
+  ******** Expecting - 116-232
+
+
+  File #13 - /docs/pxlmancer/js/colorSphere.js
+   - File Size - 31.33 KB
+   - Total Line Count - 751
+   - White Space Count - 39
+   - Comment Line Count - 127
+
+
+  File #14 - /docs/pxlmancer/js/canvasEffects.js
+   - File Size - 29.65 KB
+   - Total Line Count - 801
+   - White Space Count - 60
+   - Comment Line Count - 432
+
+
+** File #15 - /docs/pxlmancer/js/brushTools.js **
+** Add More Comments **
+   - File Size - 43.27 KB
+   - Total Line Count - 1218
+   - White Space Count - 52
+   - Comment Line Count - 129
+  ******** Expecting - 182-365
+
+
+  File #16 - /docs/pxlmancer/js/boot.js
+   - File Size - 27.12 KB
+   - Total Line Count - 1008
+   - White Space Count - 55
+   - Comment Line Count - 200
+
+
+
+ -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+

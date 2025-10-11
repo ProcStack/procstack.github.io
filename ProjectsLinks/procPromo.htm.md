@@ -1,4 +1,4 @@
-# procPromo Shader Pack
+# procPromo :: Shader Pack
 
 [procPromo Shader Pack](https://github.com/ProcStack/procPromo_ShaderPack) 2022-2025
     

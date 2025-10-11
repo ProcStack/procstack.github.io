@@ -3,15 +3,15 @@
   "lastUpdated": "2025-10-11",
   "description": "ProcStack.github.io Data Sources for AI/LLM consumption",
   "baseUrl": "https://procstack.github.io",
-  "totalPages": 28,
+  "totalPages": 29,
   "dataSources": {
     "siteContent": {
       "url": "/bots/siteContent.json",
       "description": "Aggregated site content including all page data",
       "format": "json",
-      "size": "82KB",
+      "size": "87KB",
       "lastUpdated": "2025-10-11",
-      "pages": 28
+      "pages": 29
     },
     "individualPages": {
       "baseUrl": "/bots/",
@@ -117,7 +117,7 @@
   },
   "generatedBy": {
     "script": "renderStaticPages.mjs",
-    "timestamp": "2025-10-11T08:06:00.082Z",
+    "timestamp": "2025-10-11T17:26:43.727Z",
     "isPartialUpdate": true
   }
 }

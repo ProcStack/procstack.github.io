@@ -76,8 +76,8 @@ const pageContentObject = {
         {'type':'spacer','height':'0px', 'style':['hideOnMobile']},
 
         cowData,
-        procPromoData,
         pxlmancerData,
+        procPromoData,
         pxlTextGenData,
 
         /* metalAsylumData, */
