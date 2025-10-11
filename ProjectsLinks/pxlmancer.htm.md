@@ -10,7 +10,7 @@ Note : The site is currently having some https certificate issues.  I'll be fixi
     
    So the link is routed to [procstack.github.io/pxlmancer](https://procstack.github.io/pxlmancer/index.htm) for now.
     
-   Its buggy because I had to convert it from PHP to JS-Only for GitHub Pages.
+   It may be buggy because I had to convert it from PHP to JS-Only for GitHub Pages.
 
  On'n'off multi-year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)
 
