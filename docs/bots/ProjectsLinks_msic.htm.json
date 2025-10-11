@@ -1,8 +1,14 @@
 {
   "title": "Misc.",
-  "description": "Miscellaneous random junk!\n    \n    \n      \n      \n       I felt like making some Compute Shaders that talked to each other in Unity,\n         So why not? Random boxes absorbing circles!\n\n      \n      To be fair, it's a work-in-progress and I'm making custom particle systems of atoms, 'molecules', and crystals form.",
+  "description": "Miscellaneous random junk!\n    \n    \n\n       The green energy warpy portal is just a random Maya render.",
   "lastModified": "2025-08-16",
   "media": [
+    {
+      "type": "video",
+      "src": "../pages/projects/images/Beam-Xvid_short.webm",
+      "alt": "Warpy warpy!",
+      "caption": "Warpy warpy!"
+    },
     {
       "type": "video",
       "src": "../pages/projects/images/Unity_computeShaderDev_zoomOut_halfRes.webm",

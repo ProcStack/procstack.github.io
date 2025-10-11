@@ -129,7 +129,7 @@
   },
   "ProjectsLinks.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks.htm.json",
-    "lastModified": "2025-10-09",
+    "lastModified": "2025-10-11",
     "title": "",
     "description": ".",
     "media": [],
@@ -246,7 +246,7 @@
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_pxlmancer.htm.json",
     "lastModified": "2025-02-24",
     "title": "pxlmancer",
-    "description": "pxlmancer.",
+    "description": "pxlmancer 2014-2019\n    A full drawing/painting app on desktop, a fun fidget toy on mobile.",
     "media": [
       {
         "type": "image",
@@ -258,7 +258,25 @@
         "type": "video",
         "src": "../pages/projects/images/tvKid.webm",
         "alt": "TV Kid timelapse",
-        "caption": ""
+        "caption": "This was a fun one!"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/pxlBrushes.webm",
+        "alt": "Testing some brushes & smudges",
+        "caption": "Testing some brushes & smudges"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/pxlColorSphere.webm",
+        "alt": "Color sphere demo",
+        "caption": "The Color Sphere Click to Sample your desired color Swap Swatches with Number Keys! Click & Drag to mix colors; and they save to your `.pxlm` file"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/pxlLayers.webm",
+        "alt": "Layer support demo",
+        "caption": "Gotta have layers in a graphics editors!"
       },
       {
         "type": "image",
@@ -267,7 +285,7 @@
         "caption": "...of course, the cat tax..."
       }
     ],
-    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='https://pxlmancer.com' class=\"textBump\" target='_blank'>pxlmancer.com</a> <span class=\"textDrinkMeAlice textItalic\">2014-2019</span></div>\n    <span class=\"textBump\">A full drawing/painting app on desktop, a fun fidget toy on mobile.</span>\n    <br><span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">JavaScript & JQuery</span></span>\n    <div class=\"pppHBar\"></div>\n    \n    On'n'off multi-year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)\n    \n    <br>\n    <br>\n    <div class=\"procPagesProjectsDescriptionStyle selfCenter\">Use the mixing pallet to blend colors together to paint with, then save the pallet by pressing a number key.\n      <br>All of which can be saved to a .pxlm file; to store your layers, settings, and pallet swatches!\n    </div>\n    <div class=\"procPagesProjectsSpacer\"></div>\n\n    <br>&nbsp;&nbsp; Sadly, an update in javascript broke saving images, and I haven't had the time to fix it yet...\n    <br>You'll need to drag the image from the \"Save Image\" screen to a new tab to view and save it.\n    <br>But you can easily save your document to a pxlm file, and open it back up to continue working on your project!\n    \n    <div class=\"procPagesProjectsSpacer\"></div>\n\n    <br>&nbsp;&nbsp; A little tid-bit, <span class='textNudge'>pxlmancer.com</span> is the origin of my '<span class='textNudge'>pxl</span>' namespace for my projects.\n    <br>It's my indicator of a codebase with a visual output; such as pxlNav, pxlVisualizer, pxlTextGenerator, etc.\n    <br><br>More about pxlmancer.com on <a href='https://imgur.com/gallery/8lSW1' target='_blank'>Imgur</a>!\n    \n  ",
+    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='https://procstack.github.io/pxlmancer/index.htm' class=\"textBump\" target='_blank'>pxlmancer</a> <span class=\"textDrinkMeAlice textItalic\">2014-2019</span></div>\n    <span class=\"textBump\">A full drawing/painting app on desktop, a fun fidget toy on mobile.</span>\n    <br><span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">JavaScript & JQuery</span></span>\n    <div class=\"pppHBar\"></div>\n\n    <br><span class=\"textBoost textBold\">Note</span> : The site is currently having some <span class=\"textNudge\">https certificate</span> issues.  I'll be fixing it soon.\n    <br>&nbsp;&nbsp; So the link is routed to <a href='https://procstack.github.io/pxlmancer/index.htm' class=\"textBump\" target='_blank'>procstack.github.io/pxlmancer</a> for now.\n    \n    <br><br><div class=\"pppHBar\"></div>\n\n    <br> On'n'off multi-year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)\n    \n    <br>\n    <br>\n    <div class=\"procPagesProjectsDescriptionStyle selfCenter\">Use the mixing pallet to blend colors together to paint with, then save the pallet by pressing a number key.\n      <br>All of which can be saved to a .pxlm file; to store your layers, settings, and pallet swatches!\n    </div>\n    <div class=\"procPagesProjectsSpacer\"></div>\n\n    <br>&nbsp;&nbsp; Sadly, an update in javascript broke saving images, and I haven't had the time to fix it yet...\n    <br>You'll need to drag the image from the \"Save Image\" screen to a new tab to view and save it.\n    <br>But you can easily save your document to a pxlm file, and open it back up to continue working on your project!\n    \n    <div class=\"procPagesProjectsSpacer\"></div>\n\n    <br>&nbsp;&nbsp; A little tid-bit, <span class='textNudge'>pxlmancer.com</span> is the origin of my '<span class='textNudge'>pxl</span>' namespace for my projects.\n    <br>It's my indicator of a codebase with a visual output; such as pxlNav, pxlVisualizer, pxlTextGenerator, etc.\n    <br><br>More about pxlmancer.com on <a href='https://imgur.com/gallery/8lSW1' target='_blank'>Imgur</a>!\n    \n  ",
     "pageURL": "https://procstack.github.io/ProjectsLinks/pxlmancer.htm",
     "relativeURL": "./ProjectsLinks/pxlmancer.htm"
   },
@@ -402,8 +420,14 @@
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_msic.htm.json",
     "lastModified": "2025-08-16",
     "title": "Misc.",
-    "description": "Miscellaneous random junk!\n    \n    \n      \n      \n       I felt like making some Compute Shaders that talked to each other in Unity,\n         So why not? Random boxes absorbing circles!\n\n      \n      To be fair, it's a work-in-progress and I'm making custom particle systems of atoms, 'molecules', and crystals form.",
+    "description": "Miscellaneous random junk!\n    \n    \n\n       The green energy warpy portal is just a random Maya render.",
     "media": [
+      {
+        "type": "video",
+        "src": "../pages/projects/images/Beam-Xvid_short.webm",
+        "alt": "Warpy warpy!",
+        "caption": "Warpy warpy!"
+      },
       {
         "type": "video",
         "src": "../pages/projects/images/Unity_computeShaderDev_zoomOut_halfRes.webm",
@@ -423,7 +447,7 @@
         "caption": "Unity; 3D Shadow of a spinning 4D Cube / Tesseract"
       }
     ],
-    "content": "\n    <div class=\"procPagesProjectsHeaderStyle textBump textBold\">Miscellaneous random junk!</div>\n    \n    <div class=\"procPagesProjectsDescriptionStyle\">\n      \n      <br>\n      <br> I felt like making some Compute Shaders that talked to each other in <span class='textName'>Unity</span>,\n      <br>&nbsp;&nbsp; So why not? Random boxes absorbing circles!\n\n      <br>\n      <br>To be fair, it's a work-in-progress and I'm making custom particle systems of atoms, 'molecules', and crystals form.\n      <br>&nbsp;&nbsp; Progressing through the stages, but, ya know, work-in-progress\n      \n      <br>\n      <br>It's for a game I've been on'n'off making since january 2022,\n      <br>&nbsp;&nbsp; But I only just made this in July 2025 hah\n\n      <br>\n      <br>The game's not high on my priority list,\n      <br>&nbsp;&nbsp; But I did write 18 pages of story an 6-7 of dialogue,\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; Inspired by Undertale & Hollow Knight;\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; A side view fighting game with AI inspired by Rain World.\n\n      <br> To tell a story, not randomly generated collapsed-wave functions of level generation.\n      \n      <br>\n      <br><div class='procPagesAboutMeBar'></div>\n\n      <br>The chrome balls is the 3d shadow of a 4d Cube or a Tesseract, in <span class='textName'>Unity</span>.\n      <br>&nbsp;&nbsp; I'm calculating the 4d math of a spinning tesseract,\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; Then projecting it into 3d space to render\n      <br>\n      <br>\n\n    </div>\n  ",
+    "content": "\n    <div class=\"procPagesProjectsHeaderStyle textBump textBold\">Miscellaneous random junk!</div>\n    \n    <div class=\"procPagesProjectsDescriptionStyle\">\n\n      <br> The green energy warpy portal is just a random Maya render.\n      \n      <br>\n      <br><div class='procPagesAboutMeBar'></div>\n\n      <br> I felt like making some Compute Shaders that talked to each other in <span class='textName'>Unity</span>,\n      <br>&nbsp;&nbsp; So why not? Random boxes absorbing circles!\n\n      <br>\n      <br>To be fair, it's a work-in-progress and I'm making custom particle systems of atoms, 'molecules', and crystals form.\n      <br>&nbsp;&nbsp; Progressing through the stages, but, ya know, work-in-progress\n      \n      <br>\n      <br>It's for a game I've been on'n'off making since january 2022,\n      <br>&nbsp;&nbsp; But I only just made this in July 2025 hah\n\n      <br>\n      <br>The game's not high on my priority list,\n      <br>&nbsp;&nbsp; But I did write 18 pages of story an 6-7 of dialogue,\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; Inspired by Undertale & Hollow Knight;\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; A side view fighting game with AI inspired by Rain World.\n\n      <br> To tell a story, not randomly generated collapsed-wave functions of level generation.\n      \n      <br>\n      <br><div class='procPagesAboutMeBar'></div>\n\n      <br>The chrome balls is the 3d shadow of a 4d Cube or a Tesseract, in <span class='textName'>Unity</span>.\n      <br>&nbsp;&nbsp; I'm calculating the 4d math of a spinning tesseract,\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; Then projecting it into 3d space to render\n      <br>\n      <br>\n\n    </div>\n  ",
     "pageURL": "https://procstack.github.io/ProjectsLinks/msic.htm",
     "relativeURL": "./ProjectsLinks/msic.htm"
   },
@@ -446,7 +470,7 @@
   },
   "AIDev.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/AIDev.htm.json",
-    "lastModified": "2025-10-09",
+    "lastModified": "2025-10-11",
     "title": "",
     "description": ".",
     "media": [],
@@ -556,9 +580,9 @@
     "jsonURL": "https:\\procstack.github.io\\bots/AIDev_aiNotes.htm.json",
     "lastModified": "2025-08-29",
     "title": "Notes & Research",
-    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      These are my theories / thoughts / research on AI.",
+    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      \n      \n      These are my theories / thoughts / research on AI.",
     "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n\n      <br>-- -- --\n      <br>It turns out I write Dialectically, rather than Atomicly.\n      <br>So, the ideas I write about build on each other.\n      <br>They aren't standalone concepts per 'paragraph'.\n      <br>...\n      <br>Once you know the issue, course corrections can be made.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
+    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
     "pageURL": "https://procstack.github.io/AIDev/aiNotes.htm",
     "relativeURL": "./AIDev/aiNotes.htm"
   },

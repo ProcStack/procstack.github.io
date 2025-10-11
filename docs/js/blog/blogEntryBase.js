@@ -110,9 +110,9 @@ export class blogEntry{
     let textLength = text.split(' ').length;
     let readTime_low = Math.ceil( textLength / wordsPerMinute_low );
     let readTime_high = Math.ceil( textLength / wordsPerMinute_high );
-    let retVal = `${readTime_high}<span class="textShrinkRay">&nbsp;</span>-<span class="textShrinkRay">&nbsp;</span>${readTime_low} min read`;
+    let retVal = `${readTime_high}<span class="textShrinkRay">&nbsp;</span>-<span class="textShrinkRay">&nbsp;</span>${readTime_low} min<span class='hideOnMobile'> read</span>`;
     if( readTime_low === readTime_high ){
-      retVal = `${readTime_low} min read`;
+      retVal = `${readTime_low} min<span class='hideOnMobile'> read</span>`;
     }
     return retVal;
   }

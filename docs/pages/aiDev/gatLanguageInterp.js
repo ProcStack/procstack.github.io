@@ -16,6 +16,7 @@ const shemaData = {
 
 
 export const pageListingData = {
+  'visible' : false,
   'htmlName' : "gat_languageRules.htm",
   'name' : 'GAT & Language',
   'title' : 'GAT & Language',

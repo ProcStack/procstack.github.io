@@ -66,7 +66,7 @@ entryData.body = `
   
   <br><br> While I still feel like they shouldn't be required, most ai uses some form of stocastic noise pattern to help shift understanding of concepts while training, and sometimes inference.
   <br>&nbsp;&nbsp; It's Learning AI that will use random/noise,
-  <br>&nbsp;&nbsp; Ussually act as a Deterministic AI during inference/prediction.
+  <br>&nbsp;&nbsp; Ussually acting as a Deterministic AI during inference/prediction.
 
   <br><br> Should that noise pattern be altered while it's being used as a/the Lighthouse, the current step of math and logic in that AI becomes corrupted.
   <br>&nbsp;&nbsp; At least as far as I've seen in my tests.
@@ -82,7 +82,7 @@ entryData.body = `
   <br>&nbsp;&nbsp; But would I be stripping away the AI's personality for raw deterministic responses,
   <br>&nbsp;&nbsp;&nbsp;&nbsp; If I find a way around Lighthouses?
 
-  <br><br><div class="textFullRight">- October 5th,6th 2025</div>
+  <br><br><div class="textFullRight">- October 5th,6th,10th 2025</div>
 `;
 
 const blogEntryObj = new blogEntry(null, entryData);

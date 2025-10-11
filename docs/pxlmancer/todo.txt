@@ -1,0 +1,64 @@
+October 11th 2019
+	--- Done
+~ Add [xn,yn] textfield to Shape Tool
+~ Make UI more grey
+
+####--- Time Consuming To-Do's
++ Mobile Menu UI Remake
+ - Build menu into tables
+ - Populate options buttons
++Begin ThreeJS composite passes / general openGL effects
+  - Convert Intro to OpenGL
+  - Convert Filters to OpenGL
+  - Prep ThreeJS, convert menthods to custome written webGL later
+  -| Is there a simpler, cheaper, way to run OpenGL ES for pixel processing?
+-Boost SEO
+  + Submit to Google Play Store
+  + Submit to Apple Store
+    -| Whats needed for this?
+    -| Are progressive web apps enough?
+  - Ads on Menu Windows
+    -| When menus slide up, slide up leaderboard ad?
+    -| Feature unlock for pay for version?
+      - Can't think of any good reasoning for this
+         Open Source damn it! Or at least, not money driven
+  -| Would external companies assist in anyway where sitemaps and meta tags do not?
+  -| Page updates vs submitting new app version?
+    - I'd imagine any updates for JS Workers to allow for progressive web apps to update
+       should also be updated on the Play Store
++Prevent 2 finger zoom on Mobile
+ - Convert to 2 finger zoom, rotate, pan
+ - Options slide in for locking zoom, rotate, pan
+    slide back after couple seconds
+ - Convert 3 finger tap to clear screen
+
+####--- Easier To-Do's
+-Latch scroll menu drag, prevent pop within distance delta < mag latch
+-Generic pulldown menu element
+  -| How is the Color Mode menu set up?
+  
+  
+ ############################### 
+  
++Shape Tools --
+ - Store Shape Tool paths on layer
+ - Figure out shape tools for mobile
+  - Nearest point to tap most likely, instead of direct tap
++Reorganize Download Image menu
+-Mobile Layer Support
+-Tap away from color mode list to cancel
+-Sample Color for Mobile
++Change How-To to World Clock for mouse animation speed / Menu times
++Name Project text field in Save Document dialog
+ - Store to file
+ - Use in Save Image file name
+ - Use in Save Document PXLM file name
++More stable file loads
+~Delay draw vector animation for HowTo, Mobile Menu, General Icons
+ -| Constant redraw?
+ -| Build on single canvas for full screen icon overlay array?
+ 
+ 
+ 
+ 
+ 

@@ -1,6 +1,6 @@
 {
   "title": "pxlmancer",
-  "description": "pxlmancer.",
+  "description": "pxlmancer 2014-2019\n    A full drawing/painting app on desktop, a fun fidget toy on mobile.",
   "lastModified": "2025-02-24",
   "media": [
     {
@@ -13,7 +13,25 @@
       "type": "video",
       "src": "../pages/projects/images/tvKid.webm",
       "alt": "TV Kid timelapse",
-      "caption": ""
+      "caption": "This was a fun one!"
+    },
+    {
+      "type": "video",
+      "src": "../pages/projects/images/pxlBrushes.webm",
+      "alt": "Testing some brushes & smudges",
+      "caption": "Testing some brushes & smudges"
+    },
+    {
+      "type": "video",
+      "src": "../pages/projects/images/pxlColorSphere.webm",
+      "alt": "Color sphere demo",
+      "caption": "The Color Sphere Click to Sample your desired color Swap Swatches with Number Keys! Click & Drag to mix colors; and they save to your `.pxlm` file"
+    },
+    {
+      "type": "video",
+      "src": "../pages/projects/images/pxlLayers.webm",
+      "alt": "Layer support demo",
+      "caption": "Gotta have layers in a graphics editors!"
     },
     {
       "type": "image",
