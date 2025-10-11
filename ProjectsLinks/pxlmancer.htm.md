@@ -6,7 +6,7 @@
     
 Languages - JavaScript & JQuery
 
-Note : The site is currently having some https certificate issues.  I'll be fixing it soon.
+Note : The main site is currently having some https certificate issues.  I'll be fixing it soon.
     
    So the link is routed to [procstack.github.io/pxlmancer](https://procstack.github.io/pxlmancer/index.htm) for now.
     
