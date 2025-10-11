@@ -1,0 +1,114 @@
+<!--
+// Neurous Project - 2014-2019
+// By Kevin Edzenga
+// Kevin@pxlmancer.com
+// [: Bootstrapped from the Pxlmancer.com code base :]
+//
+// --
+// Wanted to push this sucker to the next level with 
+//   a custom build particle simulator in 3d.
+// Three.js backbone, but a cummulative particle vertex shader
+//   and data management my own.
+//   VBOs, or more like VAOs
+-->
+<!DOCUMENT>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<meta name='viewport' content="width=device-width, user-scalable=no">
+<meta name='theme-color' content='#002832'>
+</head>
+<style>
+BODY{
+	font-family:Tahoma,Verdana !important;
+}
+.introCards{
+	z-index:1;
+	text-align:center;
+	color:#aaaaaa; 
+	font-size:90%;
+	line-height:1.45;
+	position:fixed;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	
+	user-selection:none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-o-user-select:none;
+	visibility:hidden;
+	filter:alpha(opacity=100);
+	opacity:1.;
+}
+.introCards.fadeOut{
+	filter:alpha(opacity=0);
+	opacity:.0;
+	top:55%;
+	filter: blur(20px);
+	-moz-filter:  blur(20px);
+	-webkit-filter:  blur(20px);
+	-ms-filter:  blur(20px);
+	-o-filter:  blur(20px);
+	
+}
+.introCards.fadeOutMobile{
+	filter:alpha(opacity=0);
+	opacity:.0;
+	left:45%;
+	
+}
+.introBolds{
+	font-size:140%;
+	color:#cccccc;
+}
+.introSpacer{
+	height:1px;
+	width:300px;
+	background-color:#004488;
+	filter:alpha(opacity=65);
+	opacity:.65;
+	margin: 10px ;
+	position:fixed;
+	left:50%;
+	transform:translateX(-50%);
+	overflow:hidden;
+}
+.introClickText{
+	font-size:130%;
+	letter-spacing:2;
+	color:#a4aab0;
+}
+.introCardsInner{
+	transform:rotate(0deg);
+	transform-origin:50% 50%;
+}
+.introCardsInner.mobile{
+	transform:rotate(90deg);
+}
+</style>
+<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/variables.js?q=1234"></script>
+<script type="text/javascript" src="js/boot.js?q=1234"></script>
+<script type="text/javascript" src="js/math.js?q=1234"></script>
+<script type="text/javascript" src="js/interface.js?q=1234"></script>
+<body onLoad='init(1);'>
+<canvas id="markerCanvas" height='1' width='1' style='z-index:2;position:fixed;top:0px;left:0px;touch-action:none;' ></canvas>
+<canvas id="bkCanvas" height='1' width='1' style='z-index:0;position:fixed;top:0px;left:0px;'></canvas>
+<div id="stats" style='z-index:100;position:fixed;top:0px;left:0px;color:#ffffff;'></div>
+<div align='center' id="verbose" style='z-index:400;position:fixed;top:100px;left:10px;color:#cccccc;font-size:150%'> </div>
+<div align='center' id="score" style='z-index:200;position:fixed;top:0px;left:300px;color:#555555;visibility:hidden;'><span style='cursor:pointer;' onClick="$('#score').css('visibility','hidden');">[X]</span> Score : <span id='score_val' style="color:#777777">0</span></div>
+<div id="introCards" class="introCards">
+	<div id="introCardsInner" class="introCardsInner">
+		<img id="neurousTitle" src="NeurousNet.png" style="width:600px; max-width:600px; height:auto;user-selection:none;z-index:1;position:relative;top:0px;left:0px;">
+		<div id="hitSpace"> - <span id='intro_pause'>Hit <span class='introBolds'>Space</span></span> to <span class='introBolds'>Pause</span> the Site -</div>
+		<div id="leftClick">- <span  class='introBolds' id='intro_pull'>Left Click</span> to <span class='introBolds'>Pull In</span> nearby Points -</div>
+		<div id="middleClick">- <span class='introBolds' id='intro_newton'>Middle Click</span> to Spawn a <span class='introBolds'>Newton Orb</span> -</div>
+		<div id="rightClick" >- <span class='introBolds' id='intro_pullAll'>Right Click</span> to <span class='introBolds'>Pull In <span style='font-size:101%;font-weight:bold;'>All</span></span> Points -</div>
+		<div id="introSpacer" class="introSpacer"></div>
+		<div id="clickAnywhere" style="margin: 10px ;" >[ <span class='introClickText'><span id='intro_start'>Click</span> anywhere to mess with the site!</span> ]</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-# Currents of War
+# Currents of War :: Web Game
 
 [Currents of War](https://procstack.itch.io/currentsofwar) 2025
     

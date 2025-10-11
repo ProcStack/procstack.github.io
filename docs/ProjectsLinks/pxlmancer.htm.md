@@ -1,10 +1,12 @@
-# pxlmancer
+# Pxlmancer :: Drawing App
 
 [pxlmancer](https://procstack.github.io/pxlmancer/index.htm) 2014-2019
 
     A full drawing/painting app on desktop, a fun fidget toy on mobile.
     
-Languages - JavaScript & JQuery
+Languages - JavaScript, JQuery, & PHP
+    
+Solo written 14264 lines of JavaScript, ground up only using jquerry's oddness.
 
 Note : The main site is currently having some https certificate issues.  I'll be fixing it soon.
     

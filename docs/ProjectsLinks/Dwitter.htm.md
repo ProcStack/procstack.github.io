@@ -1,4 +1,4 @@
-# Dwitter
+# Dwitter :: Golfing
 
 [Dwitter](https://dwitter.net/u/trancor) 2018+
     
@@ -6,11 +6,11 @@ My account on a JavaScript code golfing website
     
 Language - JavaScript
 
-    'Code Golfing' is the art of annoying your coworkers + devs,
+    'Code Golfing' is the art of annoying your coworkers,
     
    By writing the most obtuse code as possible,
     
-      In the fewest characters you can.
+      In as few characters as you can.
 
  This is the 'dwitter' for the top video,
     
@@ -36,7 +36,7 @@ Language - JavaScript
 
 Hmmm, see how messy that looks?
     
-   Let me clean it up for you a bit!
+   Let me clean it up a bit for ya!
 
       Built-in Variables & Functions - 
       

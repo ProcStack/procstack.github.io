@@ -15,9 +15,9 @@ const shemaData = {
 };
 
 export const pageListingData = {
-  'htmlName' : "pxlmancer.htm",
-  'name' : 'pxlmancer',
-  'title' : 'pxlmancer',
+  'htmlName' : "Pxlmancer.htm",
+  'name' : 'Pxlmancer<span class="hideOnMobile testShrink">&nbsp;:: Drawing App</span>',
+  'title' : 'Pxlmancer :: Drawing App',
   'lastModified' : '2025-02-24',
   'schemaData' : shemaData,
   'description' : 'A full drawing/painting app on desktop, a fun fidget toy on mobile.',
@@ -71,7 +71,8 @@ export const pageListingData = {
   'content' : `
     <div class="procPagesProjectsHeaderStyle"><a href='https://procstack.github.io/pxlmancer/index.htm' class="textBump" target='_blank'>pxlmancer</a> <span class="textDrinkMeAlice textItalic">2014-2019</span></div>
     <span class="textBump">A full drawing/painting app on desktop, a fun fidget toy on mobile.</span>
-    <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">JavaScript & JQuery</span></span>
+    <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">JavaScript, JQuery, & PHP</span></span>
+    <br>Solo written <span class='textName'>14264</span> lines of JavaScript, ground up only using jquerry's oddness.
     <div class="pppHBar"></div>
 
     <br><span class="textBoost textBold">Note</span> : The main site is currently having some <span class="textNudge">https certificate</span> issues.  I'll be fixing it soon.

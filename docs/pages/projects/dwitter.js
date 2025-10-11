@@ -16,8 +16,8 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "Dwitter.htm",
-  'name' : 'Dwitter',
-  'title' : 'Dwitter',
+  'name' : 'Dwitter<span class="hideOnMobile">&nbsp;:: Golfing</span>',
+  'title' : 'Dwitter',  
   'lastModified' : '2025-02-24',
   'schemaData' : shemaData,
   'description' : 'A collection of my code golfing projects on Dwitter.net',
@@ -60,9 +60,9 @@ export const pageListingData = {
     <br><span class="textShrink textItalic textName ">Language - <span class="textBold">JavaScript</span></span>
     <div class="pppHBar"></div>
     
-    'Code Golfing' is the art of annoying your coworkers + devs,
+    'Code Golfing' is the art of annoying your coworkers,
     <br>&nbsp;&nbsp; By writing the most obtuse code as possible,
-    <br>&nbsp;&nbsp;&nbsp;&nbsp;  In the fewest characters you can.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;  In as few characters as you can.
 
     <br>
     <br> This is the 'dwitter' for the top video,
@@ -89,7 +89,7 @@ export const pageListingData = {
     <div class="textSpacer"></div>
 
     <br>Hmmm, see how messy that looks?
-    <br>&nbsp;&nbsp; Let me clean it up for you a bit!
+    <br>&nbsp;&nbsp; Let me clean it up a bit for ya!
 
     <div class="textSpacer"></div>
 
