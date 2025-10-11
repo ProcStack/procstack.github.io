@@ -12,7 +12,8 @@ entryData.body = `
   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And behavioural studies...
   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; But, like, thats it?
   
-  <br><br> I kid, but seriously, what qualifies as Aptitude in an AI?
+  <br><br> I kid; seriously, what qualifies as Aptitude in an AI?
+  <br>&nbsp;&nbsp; Is it how well it trains?
   <br>&nbsp;&nbsp; Is it how well it does a task?
   <br>&nbsp;&nbsp; How well it can do various tasks?
   <br>&nbsp;&nbsp; How well it can do a brand new task its never seen?
@@ -21,20 +22,17 @@ entryData.body = `
   <br>&nbsp;&nbsp; How fast it can predict?
 
   <br><br> All valid marks of Aptitude.
-  <br>&nbsp;&nbsp; But I feel purpose is pretty important.
+  <br>&nbsp;&nbsp; But I feel Purpose is pretty important for Aptitude.
 
-  <br><br> Do we actually need an AI?
-  <br> Or is it just the new thing, and copious open-source programs already exist to do the task?
-
-  <br><br> Gettin an AI to do a task well is definitely important.
-  <br>&nbsp;&nbsp; But it's the need for purpose that drives Aptitude.
+  <br><br> Do we actually need it to be AI?
+  <br> Or is AI just the new thing, and there's open-source programs already to do the task?
 
   <br><br><div class='procPagesAIDevBar'></div>
 
   <br> As humans, we have hobbies and interests when we feel lost.
   <br>&nbsp;&nbsp; It might not be what government officials tell us,
   <br>&nbsp;&nbsp;&nbsp;&nbsp; That people are nothing without a job.
-  <br>&nbsp;&nbsp; Things is... nothingness physically hurts.
+  <br>&nbsp;&nbsp; Thing is... nothingness physically hurts.
   
   <br><br> People on their own, make their own purpose.
 
@@ -120,11 +118,6 @@ entryData.body = `
   <br>&nbsp;&nbsp; Something bad didn't happen to you specifically, it was just the luck of the draw.
 
   <br><br>So get up, dust yourself off, and try again.
-
-  <br><br> And my meaning of life?
-  <br>&nbsp;&nbsp; That creation is the greatest thing we can do,
-  <br>&nbsp;&nbsp; Because it honors the creation we are a part of.
-  <br>&nbsp;&nbsp; Even if you believe life was from God, a Deity, or the Universe itself.
 
   <br><br><div class='procPagesAIDevBar'></div>
 

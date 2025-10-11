@@ -783,7 +783,7 @@ export class ProcPage {
 
       let sectionData = this.sectionData[sectionName];
 
-      if( sectionData.name != '' ){
+      if( sectionData.name != '' && sectionData.visible !== false && sectionData.type !== 'spacer' ){
         let sectionTitleDiv = document.createElement('div');
         if( this.layout == 'triple' ){
           sectionTitleDiv.classList.add('procPagesNavSectionStyle');

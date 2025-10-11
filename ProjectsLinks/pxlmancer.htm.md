@@ -1,12 +1,18 @@
 # pxlmancer
 
-[pxlmancer.com](https://pxlmancer.com) 2014-2019
+[pxlmancer](https://procstack.github.io/pxlmancer/index.htm) 2014-2019
 
     A full drawing/painting app on desktop, a fun fidget toy on mobile.
     
 Languages - JavaScript & JQuery
 
-    On'n'off multi-year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)
+Note : The site is currently having some https certificate issues.  I'll be fixing it soon.
+    
+   So the link is routed to [procstack.github.io/pxlmancer](https://procstack.github.io/pxlmancer/index.htm) for now.
+    
+   Its buggy because I had to convert it from PHP to JS-Only for GitHub Pages.
+
+ On'n'off multi-year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)
 
     Use the mixing pallet to blend colors together to paint with, then save the pallet by pressing a number key.
       

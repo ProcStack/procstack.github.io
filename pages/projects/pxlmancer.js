@@ -37,6 +37,28 @@ export const pageListingData = {
       'src' : '../pages/projects/images/tvKid.webm',
       'alt' : 'TV Kid timelapse',
       'style' : 'procPagesImageStyle',
+      'caption' : ["This was a fun one!"]
+    },
+    {
+      'type' : 'video',
+      'src' : '../pages/projects/images/pxlBrushes.webm',
+      'alt' : 'Testing some brushes & smudges',
+      'caption' : ['Testing some brushes & smudges'],
+      'style' : 'procPagesImageStyle',
+    },
+    {
+      'type' : 'video',
+      'src' : '../pages/projects/images/pxlColorSphere.webm',
+      'alt' : 'Color sphere demo',
+      'caption' : ['The Color Sphere','Click to Sample your desired color','Swap Swatches with Number Keys!','Click & Drag to mix colors; and they save to your `.pxlm` file'],
+      'style' : 'procPagesImageStyle',
+    },
+    {
+      'type' : 'video',
+      'src' : '../pages/projects/images/pxlLayers.webm',
+      'alt' : 'Layer support demo',
+      'caption' : ['Gotta have layers in a graphics editors!'],
+      'style' : 'procPagesImageStyle',
     },
     {
       'type' : 'image',
@@ -47,12 +69,18 @@ export const pageListingData = {
     },
   ],
   'content' : `
-    <div class="procPagesProjectsHeaderStyle"><a href='https://pxlmancer.com' class="textBump" target='_blank'>pxlmancer.com</a> <span class="textDrinkMeAlice textItalic">2014-2019</span></div>
+    <div class="procPagesProjectsHeaderStyle"><a href='https://procstack.github.io/pxlmancer/index.htm' class="textBump" target='_blank'>pxlmancer</a> <span class="textDrinkMeAlice textItalic">2014-2019</span></div>
     <span class="textBump">A full drawing/painting app on desktop, a fun fidget toy on mobile.</span>
     <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">JavaScript & JQuery</span></span>
     <div class="pppHBar"></div>
+
+    <br><span class="textBoost textBold">Note</span> : The site is currently having some <span class="textNudge">https certificate</span> issues.  I'll be fixing it soon.
+    <br>&nbsp;&nbsp; So the link is routed to <a href='https://procstack.github.io/pxlmancer/index.htm' class="textBump" target='_blank'>procstack.github.io/pxlmancer</a> for now.
+    <br>&nbsp;&nbsp; Its buggy because I had to convert it from PHP to JS-Only for GitHub Pages.
     
-    On'n'off multi-year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)
+    <br><br><div class="pppHBar"></div>
+
+    <br> On'n'off multi-year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)
     
     <br>
     <br>

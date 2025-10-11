@@ -26,6 +26,13 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'video',
+      'src' : '../pages/projects/images/Beam-Xvid_short.webm',
+      'alt' : 'Warpy warpy!',
+      'caption' : ['Warpy warpy!'],
+      'style' : 'procPagesImageStyle'
+    },
+    {
+      'type' : 'video',
       'src' : '../pages/projects/images/Unity_computeShaderDev_zoomOut_halfRes.webm',
       'alt' : 'Particle Merging',
       'caption' : ['Unity; Interacting compute particle systems'],
@@ -50,8 +57,12 @@ export const pageListingData = {
     <div class="procPagesProjectsHeaderStyle textBump textBold">Miscellaneous random junk!</div>
     
     <div class="procPagesProjectsDescriptionStyle">
+
+      <br> The green energy warpy portal is just a random Maya render.
       
       <br>
+      <br><div class='procPagesAboutMeBar'></div>
+
       <br> I felt like making some Compute Shaders that talked to each other in <span class='textName'>Unity</span>,
       <br>&nbsp;&nbsp; So why not? Random boxes absorbing circles!
 

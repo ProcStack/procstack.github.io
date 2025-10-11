@@ -5,10 +5,10 @@ import { pageListingData as cowData } from './projects/currentsofwar.js';
 import { pageListingData as psghioData } from './projects/procstackgithubio.js';
 import { pageListingData as procPromoData } from './projects/procPromo.js';
 import { pageListingData as pxlVisData } from './projects/pxlVisualizer.js';
+import { pageListingData as pxlmancerData } from './projects/pxlmancer.js';
 import { pageListingData as pxlTextGenData } from './projects/pxlTextGenerator.js';
 
 /*import { pageListingData as metalAsylumData } from './projects/Metal-Asylum.js';*/
-import { pageListingData as pxlmancerData } from './projects/pxlmancer.js';
 import { pageListingData as neurousNetData } from './projects/NeurousNet.js';
 import { pageListingData as pxlCamData } from './projects/pxlCam.js';
 import { pageListingData as shadertoyData } from './projects/shadertoy.js';
@@ -77,10 +77,10 @@ const pageContentObject = {
 
         cowData,
         procPromoData,
+        pxlmancerData,
         pxlTextGenData,
 
         /* metalAsylumData, */
-        pxlmancerData,
         neurousNetData,
         pxlCamData,
         pxlVisData,

@@ -41,6 +41,8 @@ export const pageListingData = {
     <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>
       <span class='textBoost'>I'm an armchair AI researcher at best!</span>
       <br><span class='textBoost'>I'm not an authority on ai!!</span>
+      
+      <br>
       <br>These are my theories / thoughts / research on AI.
 
       <br>
@@ -48,13 +50,6 @@ export const pageListingData = {
 
       <br>No LLMs here.
       <br>These are my own rambly-ass thoughts.
-
-      <br>-- -- --
-      <br>It turns out I write Dialectically, rather than Atomicly.
-      <br>So, the ideas I write about build on each other.
-      <br>They aren't standalone concepts per 'paragraph'.
-      <br>...
-      <br>Once you know the issue, course corrections can be made.
     </div>
 
       <br><br><br><div class='procPagesAIDevBar'></div>

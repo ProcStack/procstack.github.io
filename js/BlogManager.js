@@ -18,6 +18,7 @@ export class BlogManager {
     this.options = blogData.options || {};
     this.blogEntries = blogData.entries || [];
     this.mobileIndex = 0;
+    this.mobileListPage = 0;
     this.currentEntry = null;
     this.tempContent = [...(this.contentParent?.childNodes || [])];
     this.runTempDestroy = false;
@@ -66,7 +67,6 @@ export class BlogManager {
   }
   addBlogEntry( title, date, tags, body ){
     // Ensure we pass a sensible parent to the blogEntry constructor
-    console.log("NEW BLOG !!!!")
     let parentForEntry = this.contentParent || this.listParent || null;
 
     let newBlogEntry = new blogEntry( parentForEntry, title, date, tags, body );
@@ -97,7 +97,7 @@ export class BlogManager {
       // Listing Prep
       let curEntryName = `
         ${entryOrder[i].title}
-        <div class='blogSubListingStyle'>:: ${entryOrder[i].date}</div>`;
+        ${this.getDateDisplay(entryOrder[i].date)}`;
       this.addListing( curEntryName, i );
       // mobile listing is handled by a single control bar + popup
     }
@@ -118,6 +118,11 @@ export class BlogManager {
     this.showEntry( this.mobileIndex );
     
     this.runTempDestroy = true;
+  }
+
+  getDateDisplay( dateStr ){
+    let ret = `<div class='blogSubListingStyle'>:: ${dateStr}</div>`;
+    return ret;
   }
 
   addListing( titleHtml, index ){
@@ -210,7 +215,7 @@ export class BlogManager {
       this.mobileIndex = this.blogEntries.length - 1;
     }
     let entry = this.blogEntries[this.mobileIndex];
-    let curEntryName = `\n      ${entry.title}\n      <div class='blogSubListingStyle'>:: ${entry.date}</div>`;
+    let curEntryName = `\n      ${entry.title}\n      ${this.getDateDisplay(entry.date)}`;
     this._mobile.curBtn.innerHTML = curEntryName;
   }
 
@@ -277,13 +282,13 @@ export class BlogManager {
     let overlay = document.createElement('div');
     overlay.classList.add('blogMobilePopupOverlay');
 
-    // stop clicks on overlay from propagating to page
+    // Stop the bubble!
     overlay.addEventListener('click', () => { this.closeMobilePopup(); });
 
     // popup window
     let popup = document.createElement('div');
     popup.classList.add('blogMobilePopupWindow');
-    // prevent clicks inside popup from closing overlay
+    // Stop the bubble!
     popup.addEventListener('click', (e) => { e.stopPropagation(); });
 
     // title row
@@ -305,7 +310,7 @@ export class BlogManager {
       let btn = document.createElement('button');
       btn.classList.add('blogEntryListingStyle');
       btn.classList.add('blogMobilePopupEntry');
-      btn.innerHTML = `\n        ${entryOrder[i].title}\n        <div class='blogSubListingStyle'>:: ${entryOrder[i].date}</div>`;
+      btn.innerHTML = `\n        ${entryOrder[i].title}\n        ${this.getDateDisplay(entryOrder[i].date)}`;
       // clicking an entry should close popup and show entry
 
       btn.addEventListener('click', (e) => {
@@ -316,6 +321,28 @@ export class BlogManager {
       list.appendChild(btn);
     }
     popup.appendChild(list);
+
+
+    // Mobile Page Controls
+    //  - Prev, Current, Next -
+
+    // Previous page button
+    let prevPageBtn = document.createElement('button');
+    prevPageBtn.classList.add('blogEntryListingStyle');
+    prevPageBtn.innerText = '\u25C0 Prev'; // ◀
+    prevPageBtn.addEventListener('click', (e) => { e.stopPropagation(); this.mobileChangePage(-1); });
+
+    // Article Count & Current Page of Pages
+    let curPageBtn = document.createElement('div');
+    curPageBtn.classList.add('blogEntryListingStyle');
+    curPageBtn.classList.add('blogMobileCurrent');
+    
+    // Next page button
+    let nextPageBtn = document.createElement('button');
+    nextPageBtn.classList.add('blogEntryListingStyle');
+    nextPageBtn.classList.add('blogMobileNext');
+    nextPageBtn.innerText = 'Next \u25B6'; // ▶
+    nextPageBtn.addEventListener('click', (e) => { e.stopPropagation(); this.mobileChangePage(1); });
 
     overlay.appendChild(popup);
     document.body.appendChild(overlay);
@@ -328,6 +355,10 @@ export class BlogManager {
     let overlay = this._mobile.popup;
     if( overlay.parentNode ) overlay.parentNode.removeChild( overlay );
     this._mobile.popup = null;
+  }
+
+  mobileChangePage( dir=0 ){
+
   }
 
   showEntry( index ){

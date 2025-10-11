@@ -2,6 +2,8 @@
 
 Miscellaneous random junk!
 
+ The green energy warpy portal is just a random Maya render.
+
  I felt like making some Compute Shaders that talked to each other in Unity,
       
    So why not? Random boxes absorbing circles!
