@@ -10,10 +10,10 @@
 //  - Pushing forward with WebGL2 means no backwards compatability, create fallback
 
 import * as THREE from "../libs/three/build/three.module.js" 
-import { EffectComposer } from  '../libs/three/examples/jsm/postprocessing/EffectComposer.js' 
-import { RenderPass } from  '../libs/three/examples/jsm/postprocessing/RenderPass.js' 
-import { ShaderPass } from  '../libs/three/examples/jsm/postprocessing/ShaderPass.js' 
-import { UnrealBloomPass } from '../libs/three/examples/jsm/postprocessing/UnrealBloomPass.js'
+import { EffectComposer } from  '../libs/three/postprocessing/EffectComposer.js' 
+import { RenderPass } from  '../libs/three/postprocessing/RenderPass.js' 
+import { ShaderPass } from  '../libs/three/postprocessing/ShaderPass.js' 
+import { UnrealBloomPass } from '../libs/three/postprocessing/UnrealBloomPass.js'
 
 import Shaders from  "./Shaders/Shaders.js" 
 
