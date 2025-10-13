@@ -1,7 +1,7 @@
 const shemaData = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "My Film Work",
+  "name": "Film Work",
   "description": "My work at Blue Sky Studios, including character simulation, effects, and crowds.",
   "keywords": "film work, Blue Sky Studios, character simulation, effects, crowds, animated films",
   "url": "https://procstack.github.io/AboutMe/Film_Work.htm",
@@ -18,8 +18,8 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "Film_Work.htm",
-  'name' : 'My Film Work',
-  'title' : 'My Film Work',
+  'name' : 'Film Work',
+  'title' : 'Film Work',
   'lastModified' : '2025-03-24',
   'schemaData' : shemaData,
   'description' : 'My work at Blue Sky Studios',
@@ -53,19 +53,27 @@ export const pageListingData = {
       <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textName">Ferdinand</span>, <span class="textName">Rio 2</span>, <span class="textName">Peanuts</span>, <span class="textName">Ice Age 5</span>, & <span class="textName">Spies In Disguise</span>
       
       
-      <br>
+      <br><br><div class='ppamHBar'></div>
+
       <br><span class="innerCenter">
       I was part of 2 published Siggraph papers and was allowed the opportunity to speak at <span class="textBump">Siggraph 2015</span>.
       <br>The talk was to a decently full room, my bit was about camera based crowd navigation for <span class="textName">Peanuts</span>.
+
+      <br><br> For <span class="textName">Peanuts</span>, I built an angle-to-camera locking system to drive agent's Movement and Head, Torso, & Legs joint orientation to match the 2D style of the original cartoons. Along with Rails, Agents could choose to break free from, yet stay in rows on screen.
+      <br><br> For <span class="textName">Ferdinand</span>, I built dynamic Arm IK to have drivers hold 10&2 on steering wheels, passengers to sit, and co-developed a horse-and-jockey system to keep the Passengers (Jockeys) in the Cars (Horses) while they drive the streets.
+      <br>
+      <br>Please note, prior to Ferdinand, Houdini didn't have Crowd Simulation yet.
+      <br>We developed our crowd tools & pipeline in-house.
       </span>
 
       <br><div class='ppamHBar'></div>
       
       <br>While working in <span class="textName">Crowds</span>,
-      <br>&nbsp;&nbsp; I built most of the navigation tools, placement, pathing, obstacle detection, and made the usual crowd/boid navigation logic itself in Houdini for Birds & Land critters.
+      <br>&nbsp;&nbsp; I built most of the navigation tools, placement, pathing, obstacle detection, and the usual crowd/boid navigation logic itself in Houdini for Birds & Land critters.
       
       <br>
       <br>I wrote systems to understand the terrain and how to follow the flow of the ground,
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class='textItalic'>(Hence why I like AI Development now.)</span>
       <br>&nbsp;&nbsp; Multi-limb IK for the people & animals to walk over uneven terrain, and a 'lookAt' system for the characters to look around with multiple neck joints smoothly.
       <br>&nbsp;&nbsp; While calculating the linear algebra to limit joint rotation in the neck to determine if the agent could look at their target or not.
 
@@ -75,7 +83,7 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; This gave the crowd a more natural feel, as if a few had "somewhere to be".
 
       <br>
-      <br>I could talk about the horse-and-jockey system I helped build, or the post-simulation joint editing tools, or the IK heel offsets & foot locking,
+      <br>I could talk about the post-simulation joint editing & cycle shifting tools, or the IK heel offsets & foot locking;
       <br>&nbsp;&nbsp; But I think I'll save that for another time.
 
       <br>

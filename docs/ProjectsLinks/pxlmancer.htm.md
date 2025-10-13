@@ -8,11 +8,11 @@ Languages - JavaScript, JQuery, & PHP
     
 Solo written 14264 lines of JavaScript, ground up only using jquerry's oddness.
 
-Note : The main site is currently having some https certificate issues.  I'll be fixing it soon.
+Note : pxlmancer.com is currently having some https certificate issues.  I'll be fixing it soon.
     
-   So the link is routed to [procstack.github.io/pxlmancer](https://procstack.github.io/pxlmancer/index.htm) for now.
+   Please use [procstack.github.io/pxlmancer](https://procstack.github.io/pxlmancer/index.htm) for now.
     
-   It may be buggy because I had to convert it from PHP to JS-Only for GitHub Pages.
+   But, it may be buggy because I had to convert it from PHP to JS-Only for GitHub Pages.
 
  On'n'off multi-year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)
 

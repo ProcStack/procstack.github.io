@@ -1,29 +1,75 @@
 # Neurous Net :: Particles
 
-[Neurous.net](http://neurous.net/?) 2017
+[Neurous.net](http://neurous.net/) 2014-2025
 
     Language - JavaScript
 
-    *More fun on phone!*
+    More fun on phone!
 
- If the link doesn't work for you,
+ Some browsers may alert you of the site being unsecure, http
     
-   You can try [neurousnet/index.htm](../neurousnet/index.htm) instead.
+   You can try [procstack.github.io/NeurousNet](../NeurousNet/index.htm) instead.
 
-     A few day project.
+ A few day project to learn Canvas in HTML5, 2014.
     
-   Just a page you can play around with particles.  A random project to make a custom emitter and particle class structure in javascript.
+   Make a custom emitter and particle class structure in javascript;
+    
+     Just a page you can play around with some particles.
 
- Tap & drag to grab near by particles.
+ On desktop,
+    
+   Left-Click to grab near by particles.
+    
+   Right-Click to pull in all the particles!
+    
+   Middle-Click to spawn a black hole!
+
+ On mobile,
+    
+   Tap & drag to grab near by particles.
     
    Tap & hold to pull in all the particles!
     
-      (Or Right-Click & drag with a mouse)
+   Tap with two fingers to spawn a black hole!
+    
+     Here's a tip, hold one finger down, and tap with the second to spawn them in faster!
 
-Tap with two fingers to spawn a black hole!
+ Just a note, clicking will spawn in 2 new particles as well,
     
-  (Or Middle-Click with a mouse)
+   Your screen will fill eventually!
     
-   Here's a tip, hold one finger down, and tap with the second to spawn them in faster!
+     It's fun heheh
 
  Enjoy!
+
+ The site was bootstrapped from pxlmancer, hence the similar style.
+
+ Originally written in Functional JavaScript before Classes existed,
+    
+   The trick was reading function elements on the dictionary object from within the dictionary variable.
+    
+     Some make-shift Methods on a 'Class' object
+
+ Also adding Prototypes to a custom function,
+    
+   Which could have just been a class.
+
+ Functional Native JavaScript, gotta love it
+    
+   Luckily, times have changed!
+
+ Rewritten in 2021 to use Classes, added basic WebGL features (glow), and cleaned up movement logic.
+    
+   Then 2024-2025 to add more WebGL support, better generalization, and visual features.
+
+ When you've been using JavaScript for decades,
+    
+   Looking back at an old project,
+    
+     Not only do you get to read your bad old code,
+    
+     But also the lack of basic JavaScript features hahah.
+
+ No let, no const, no class, no arrow functions, no ... array spread operator, 
+    
+   Heck, Array.forEach() actually exists now!

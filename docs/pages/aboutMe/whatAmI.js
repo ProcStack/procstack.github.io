@@ -14,6 +14,41 @@ const shemaData = {
   }
 };
 
+// Run a check to see if the `Nginx` skill should be hidden from the list
+//   Overflow Item list, when there is an Odd item count with a thin screen width
+//     FILL THE EMPTY SLOT!!
+function onResize( e ){
+  let listParent = document.getElementById('ppamSkillListParent')
+  let overflowList = document.getElementById('ppamOverflowListing')
+  
+  if( !listParent || !overflowList ){
+    return;
+  }
+
+  const listItems = listParent.getElementsByClassName('ppamSkillListing')
+  if( listItems.length == 0 ){
+    return;
+  }
+
+  const itemTop = listItems[0].getBoundingClientRect().top
+  let columnsPerRow = 1;
+  for( let i=1; i<listItems.length; ++i ){
+    let curItemTop = listItems[i].getBoundingClientRect().top
+    if( curItemTop == itemTop ){
+      columnsPerRow += 1;
+    }else{
+      break;
+    }
+  }
+
+  // If it's an odd count, show the overflow item
+  if( columnsPerRow % 2 == 1 ){ // Odd
+    overflowList.style.display = 'inherit'
+  }else{ // Even
+    overflowList.style.display = 'none'
+  }
+
+}
   
 export const pageListingData = {
   'htmlName' : "What_am_I.htm",
@@ -31,13 +66,16 @@ export const pageListingData = {
       'style' : ['procPagesMediaStyle', 'procPagesLimitWidthStyle'], 
     }
   ],
+  'callbacks' : {
+    'resize' : onResize,
+  },
   'content' : `
       <div class='textSpacer'></div>
 
     <div class='procPagesAboutMe-topTextStyle'>
       <span class="textBold">Technical Artist</span>; particles, shaders, asset optimization, & pipeline
     </div>
-    <div class='procPagesAboutMe-skillListStyle'>
+    <div class='procPagesAboutMe-skillListStyle' id='ppamSkillListParent'>
       <span class="ppamSkillListing">Houdini <span class="textDrinkMeAlice">&nbsp;/&nbsp;</span> VEX</span>
       <span class="ppamSkillListing">Maya <span class="textDrinkMeAlice">&nbsp;/&nbsp;</span> MEL</span>
       <span class="ppamSkillListing">Unity <span class="textDrinkMeAlice">&nbsp;/&nbsp;</span> C<span class="textSuper">#</span></span>
@@ -47,6 +85,9 @@ export const pageListingData = {
       <span class="ppamSkillListing">PyQT</span>
       <span class="ppamSkillListing">GLSL</span>
       <span class="ppamSkillListing">JavaScript</span>
+
+      <span class="ppamSkillListing" id="ppamOverflowListing">Nginx</span>
+
     </div>
 
     <div class='procPagesAboutMe-subHeaderStyle'>
@@ -76,6 +117,7 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; I just know I like figuring out puzzles, and for the life of me, can't seem to stop my fidgety fingers.
       
       <br><br>Always gotta be tapping away at some code, 
+      <br>&nbsp;&nbsp; or making particle effects,
       <br>&nbsp;&nbsp; or building some diy contraption, 
       <br>&nbsp;&nbsp; or 3d modeling, 
       <br>&nbsp;&nbsp; or sewing, 
@@ -84,8 +126,32 @@ export const pageListingData = {
 
       <br><br>An undiagnosed something-or-another,
       <br>&nbsp;&nbsp; Who spawned-in with the energy befitting a gift from the mythical Red Bull itself!
-      <br>
-      <br>
+
+
+    <br><br><div class='ppamHBar'></div>
+
+    <br> <span class="textBump">Web Dev Note</span> : I'm a <span class="textNudge">3D & Shader Technical Artist</span> first, that brings me the most joy.
+    <br>&nbsp;&nbsp; <span class="textNudge">JavaScript</span> has been a personal <span class="textNudge">hobby</span> of mine for <span class="textNudge">28-29 years</span> now,
+    <br>&nbsp;&nbsp; But I barely know any frameworks, only working knowledge of React & Node.js.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; For my projects, I make ESM modules in <span class="textNudge">Native JavaScript</span>, served using <span class="textNudge">Node.js</span> & <span class="textNudge">Nginx</span> or <span class="textNudge">Plex</span>
+
+    <br><br> I can always learn frameworks if needed.
+
+    <br><br> They're usually just a lot of bloat, so I never wanted to use them.
+    <br>&nbsp;&nbsp; JQuery ruined it for me hahah.
+    <br>
+    <br> Then after a decade, you end up with your own frameworks anyway.
+    <br>&nbsp;&nbsp; Let alone the NPM horror stories of packages like 'isEven()'
+    <br>&nbsp;&nbsp; Just use - <span class="textName">let isEven = ( v ) => !(v & 0x0001);</span>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; And call it a day!
+
+    <br><br> Bootstraps of Bootstraps of Bootstraps,
+    <br>&nbsp;&nbsp; Over the years, creating tools for most web, style, & network situations.
+
+    <br><br> React Native does seem cool though.
+
     </div>
+    <br>
+    <br>
   `,
 };

@@ -75,9 +75,9 @@ export const pageListingData = {
     <br>Solo written <span class='textName'>14264</span> lines of JavaScript, ground up only using jquerry's oddness.
     <div class="pppHBar"></div>
 
-    <br><span class="textBoost textBold">Note</span> : The main site is currently having some <span class="textNudge">https certificate</span> issues.  I'll be fixing it soon.
-    <br>&nbsp;&nbsp; So the link is routed to <a href='https://procstack.github.io/pxlmancer/index.htm' class="textBump" target='_blank'>procstack.github.io/pxlmancer</a> for now.
-    <br>&nbsp;&nbsp; It may be buggy because I had to convert it from PHP to JS-Only for GitHub Pages.
+    <br><span class="textBoost textBold">Note</span> : <span class="textName">pxlmancer.com</span> is currently having some <span class="textNudge">https certificate</span> issues.  I'll be fixing it soon.
+    <br>&nbsp;&nbsp; Please use <a href='https://procstack.github.io/pxlmancer/index.htm' class="textBump" target='_blank'>procstack.github.io/pxlmancer</a> for now.
+    <br>&nbsp;&nbsp; But, it may be buggy because I had to convert it from PHP to JS-Only for GitHub Pages.
     
     <br><br><div class="pppHBar"></div>
 
