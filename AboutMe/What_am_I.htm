@@ -137,13 +137,13 @@
             <!-- -- -- -- -->
             
             <div id="pxlPagesContentBlock" class="pxlPagesContentBlockStyle gpcpVisibleStyle heightFader">
-              <div id="pxlPagesContentParent" class="pxlPagesContentParentStyle"><div class="gpcpVisibleStyle procPagesContentStyle procPagesPlacementVerticalStyle procPagesLockVertical gitAboutMePageStyle pagesFader pagesVisOn"><div class="procPagesInnerBeforeBase procPagesInnerBefore"></div><div class="procPagesParentStyle gitAboutMePageParentStyle procPagesLockVertical" id="pxlPage_AboutMe"><div class="procPageHeader procPagesHeaderStyle">About Me</div><nav role="navigation" aria-label="Page sections" class="procPageVerticalLockSectionList gitAboutMePage-sectionNavListStyle"><div class="procPagesVerticalLockNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitAboutMePage-sectionNavButtonStyle procPagesNavActive gitAboutMePage-sectionNavButtonActiveStyle" role="button" tabindex="0" aria-label="Navigate to What am I? section">What am I?</div><div class="procPagesVerticalLockNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitAboutMePage-sectionNavButtonStyle" role="button" tabindex="0" aria-label="Navigate to My Film Work section">My Film Work</div><div class="procPagesVerticalLockNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitAboutMePage-sectionNavButtonStyle" role="button" tabindex="0" aria-label="Navigate to Plushies section">Plushies</div></nav><section class="procPageMediaView procPagesScrollbarStyle" role="region" aria-label="Media gallery for AboutMe page sections" aria-describedby="Dynamic media content that changes based on selected section" style="align-items: center; height: auto;"><div class="procPagesMediaListStyle procPagesSectionActive pagesVisOn"><iframe src="https://www.youtube-nocookie.com/embed/trt9dGUYevs" title="Technical Art Reel 2024" frameborder="0" allow="encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="true" class="procPagesMediaStyle procPagesLimitWidthStyle"></iframe></div></section><section class="procPageVerticalLockContentView procPagesScrollbarStyle" role="main" aria-label="Primary content area for AboutMe page" aria-describedby="Main content that updates dynamically based on selected section navigation"><div class="procPageSectionContentStyle procPagesSectionActive pagesVisOn" id="0"><div class="procPagesInnerContentStyle procPagesSectionActive pagesVisOn">
+              <div id="pxlPagesContentParent" class="pxlPagesContentParentStyle"><div class="gpcpVisibleStyle procPagesContentStyle procPagesPlacementVerticalStyle procPagesLockVertical gitAboutMePageStyle pagesFader pagesVisOn"><div class="procPagesInnerBeforeBase procPagesInnerBefore"></div><div class="procPagesParentStyle gitAboutMePageParentStyle procPagesLockVertical" id="pxlPage_AboutMe"><div class="procPageHeader procPagesHeaderStyle">About Me</div><nav role="navigation" aria-label="Page sections" class="procPageVerticalLockSectionList gitAboutMePage-sectionNavListStyle"><div class="procPagesVerticalLockNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitAboutMePage-sectionNavButtonStyle procPagesNavActive gitAboutMePage-sectionNavButtonActiveStyle" role="button" tabindex="0" aria-label="Navigate to What am I? section">What am I?</div><div class="procPagesVerticalLockNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitAboutMePage-sectionNavButtonStyle" role="button" tabindex="0" aria-label="Navigate to Film Work section">Film Work</div><div class="procPagesVerticalLockNavSectionStyle procPagesButtonStyle procPagesSectionNavColor gitAboutMePage-sectionNavButtonStyle" role="button" tabindex="0" aria-label="Navigate to Plushies section">Plushies</div></nav><section class="procPageMediaView procPagesScrollbarStyle" role="region" aria-label="Media gallery for AboutMe page sections" aria-describedby="Dynamic media content that changes based on selected section" style="align-items: center; height: auto;"><div class="procPagesMediaListStyle procPagesSectionActive pagesVisOn"><iframe src="https://www.youtube-nocookie.com/embed/trt9dGUYevs" title="Technical Art Reel 2024" frameborder="0" allow="encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="true" class="procPagesMediaStyle procPagesLimitWidthStyle"></iframe></div></section><section class="procPageVerticalLockContentView procPagesScrollbarStyle" role="main" aria-label="Primary content area for AboutMe page" aria-describedby="Main content that updates dynamically based on selected section navigation"><div class="procPageSectionContentStyle procPagesSectionActive pagesVisOn" id="0"><div class="procPagesInnerContentStyle procPagesSectionActive pagesVisOn">
       <div class="textSpacer"></div>
 
     <div class="procPagesAboutMe-topTextStyle">
       <span class="textBold">Technical Artist</span>; particles, shaders, asset optimization, &amp; pipeline
     </div>
-    <div class="procPagesAboutMe-skillListStyle">
+    <div class="procPagesAboutMe-skillListStyle" id="ppamSkillListParent">
       <span class="ppamSkillListing">Houdini <span class="textDrinkMeAlice">&nbsp;/&nbsp;</span> VEX</span>
       <span class="ppamSkillListing">Maya <span class="textDrinkMeAlice">&nbsp;/&nbsp;</span> MEL</span>
       <span class="ppamSkillListing">Unity <span class="textDrinkMeAlice">&nbsp;/&nbsp;</span> C<span class="textSuper">#</span></span>
@@ -153,6 +153,9 @@
       <span class="ppamSkillListing">PyQT</span>
       <span class="ppamSkillListing">GLSL</span>
       <span class="ppamSkillListing">JavaScript</span>
+
+      <span class="ppamSkillListing" id="ppamOverflowListing" style="display: inherit;">Nginx</span>
+
     </div>
 
     <div class="procPagesAboutMe-subHeaderStyle">
@@ -182,6 +185,7 @@
       <br>&nbsp;&nbsp; I just know I like figuring out puzzles, and for the life of me, can't seem to stop my fidgety fingers.
       
       <br><br>Always gotta be tapping away at some code, 
+      <br>&nbsp;&nbsp; or making particle effects,
       <br>&nbsp;&nbsp; or building some diy contraption, 
       <br>&nbsp;&nbsp; or 3d modeling, 
       <br>&nbsp;&nbsp; or sewing, 
@@ -190,9 +194,33 @@
 
       <br><br>An undiagnosed something-or-another,
       <br>&nbsp;&nbsp; Who spawned-in with the energy befitting a gift from the mythical Red Bull itself!
-      <br>
-      <br>
+
+
+    <br><br><div class="ppamHBar"></div>
+
+    <br> <span class="textBump">Web Dev Note</span> : I'm a <span class="textNudge">3D &amp; Shader Technical Artist</span> first, that brings me the most joy.
+    <br>&nbsp;&nbsp; <span class="textNudge">JavaScript</span> has been a personal <span class="textNudge">hobby</span> of mine for <span class="textNudge">28-29 years</span> now,
+    <br>&nbsp;&nbsp; But I barely know any frameworks, only working knowledge of React &amp; Node.js.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; For my projects, I make ESM modules in <span class="textNudge">Native JavaScript</span>, served using <span class="textNudge">Node.js</span> &amp; <span class="textNudge">Nginx</span> or <span class="textNudge">Plex</span>
+
+    <br><br> I can always learn frameworks if needed.
+
+    <br><br> They're usually just a lot of bloat, so I never wanted to use them.
+    <br>&nbsp;&nbsp; JQuery ruined it for me hahah.
+    <br>
+    <br> Then after a decade, you end up with your own frameworks anyway.
+    <br>&nbsp;&nbsp; Let alone the NPM horror stories of packages like 'isEven()'
+    <br>&nbsp;&nbsp; Just use - <span class="textName">let isEven = ( v ) =&gt; !(v &amp; 0x0001);</span>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; And call it a day!
+
+    <br><br> Bootstraps of Bootstraps of Bootstraps,
+    <br>&nbsp;&nbsp; Over the years, creating tools for most web, style, &amp; network situations.
+
+    <br><br> React Native does seem cool though.
+
     </div>
+    <br>
+    <br>
   </div></div></section></div><div class="procPagesInnerAfterBase procPagesInnerAfter"></div></div></div>
             </div>
             

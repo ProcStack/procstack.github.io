@@ -1,0 +1,72 @@
+<!--
+// Neurous Project - 2014-2025
+// By Kevin Edzenga
+// Kevin@pxlmancer.com
+// [: Bootstrapped from the Pxlmancer.com code base :]
+//
+// --
+// Wanted to push this sucker to the next level with 
+//   a custom build particle simulator in 3d.
+// Three.js backbone, but a cummulative particle vertex shader
+//   and data management my own.
+//   VBOs, or more like VAOs
+// --
+// Gettin some love in October 2025,
+//   Frame rate limiting
+//   Finalized wall bouncing
+//     (I was turning Neurous into a multiplayer game, with local space math)
+//       (It broke stuff, so I fixed)
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+  <meta name='theme-color' content='#000822'>
+</head>
+<link type="text/css" rel="stylesheet" href="style/Neurous.css?v=2024-11-22">
+
+<body>
+  <canvas id="NeurousGLCanvas" height='1' width='1' style='z-index:3;position:fixed;top:0px;left:0px;touch-action:none;' ></canvas>
+  <canvas id="markerCanvas" height='1' width='1' style='z-index:2;position:fixed;top:0px;left:0px;touch-action:none;' ></canvas>
+  <canvas id="bkCanvas" height='1' width='1' style='z-index:0;position:fixed;top:0px;left:0px;'></canvas>
+  
+  <div id="stats" style='z-index:100;position:fixed;top:0px;left:0px;color:#ffffff;'></div>
+  
+  <div align='center' id="verbose" style='z-index:400;position:fixed;top:100px;left:10px;color:#cccccc;font-size:150%'> </div>
+  <div align='center' id="score" style='z-index:200;position:fixed;top:0px;left:300px;color:#555555;visibility:hidden;'>
+    <span style='cursor:pointer;' onClick="$('#score').css('visibility','hidden');">[X]</span> Score : <span id='score_val' style="color:#777777">0</span>
+  </div>
+  <div id="introCards" class="introCards" style="display:none;" vis=1>
+    <div id="introCardsInner" class="introCardsInner">
+      <div id="splashScreen">
+
+        <img id="neurousTitle" src="NeurousNet.png" style="width:600px; max-width:600px; height:auto;user-selection:none;z-index:1;position:relative;top:0px;left:0px;">
+        
+        <div id="hitSpace">
+          - <span id='intro_pause'>Hit <span class='introBolds'>Space</span></span> to <span class='introBolds'>Pause</span> the Site -
+        </div>
+        <div id="leftClick">
+          - <span  class='introBolds' id='intro_pull'>Left Click</span> to <span class='introBolds'>Pull In</span> nearby Points -
+        </div>
+        <div id="middleClick">
+          - <span class='introBolds' id='intro_newton'>Middle Click</span> to Spawn a <span class='introBolds'>Newton Orb</span> -
+        </div>
+        
+        <div id="rightClick" >
+          - <span class='introBolds' id='intro_pullAll'>Right Click</span> to <span class='introBolds'>Pull In <span style='font-size:101%;font-weight:bold;'>All</span></span> Points -
+        </div>
+        
+        <div id="introSpacer" class="introSpacer"></div>
+        
+        <div id="clickAnywhere" style="margin: 10px ;" >
+          [ <span class='introClickText'><span id='intro_start'>Click</span> anywhere to mess with the site!</span> ]
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+	<script type="module" src="js/Neurous.js?v=2024-11-22"></script>
+</body>
+</html>

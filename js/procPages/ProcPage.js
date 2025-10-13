@@ -996,6 +996,27 @@ export class ProcPage {
       obj.scrollTop = 0;
     });
 
+
+    // Connect any per-page callbacks
+    //   Callbacks should be { 'eventName' : function(){} }
+    if( this.sectionData[ sectionName ].hasOwnProperty('callbacks') ){
+      let callbacks = this.sectionData[ sectionName ].callbacks;
+      if( typeof callbacks === 'object' ){
+        Object.keys( callbacks ).forEach(( eventName )=>{
+          let callbackFunc = callbacks[ eventName ];
+          if( typeof callbackFunc === 'function' ){
+            window.addEventListener( eventName, callbackFunc );
+            if( eventName == 'resize' ){
+              // Trigger a resize event to ensure proper layout
+              window.dispatchEvent( new Event('resize') );
+            }
+          }
+        });
+      }
+    }
+
+    // Gather Callback Emit Data
+
     let curSection = this.sectionData[ sectionName ];
     let emitData = {
       'dir' : this.page,
@@ -1052,6 +1073,22 @@ export class ProcPage {
     });
 
     this.stopSectionMedia( sectionName );
+
+    // -- -- --
+
+    // Disconnect any per-page callbacks
+    //   Callbacks should be { 'eventName' : function(){} }
+    if( this.sectionData[ sectionName ].hasOwnProperty('callbacks') ){
+      let callbacks = this.sectionData[ sectionName ].callbacks;
+      if( typeof callbacks === 'object' ){
+        Object.keys( callbacks ).forEach(( eventName )=>{
+          let callbackFunc = callbacks[ eventName ];
+          if( typeof callbackFunc === 'function' ){
+            window.removeEventListener( eventName, callbackFunc );
+          }
+        });
+      }
+    }
 
   }
 

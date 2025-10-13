@@ -1,4 +1,4 @@
-# My Film Work
+# Film Work
 
 In the past, I worked on 9 films, 8 of those at Blue Sky Studios.
 
@@ -18,11 +18,21 @@ In the past, I worked on 9 films, 8 of those at Blue Sky Studios.
       
 The talk was to a decently full room, my bit was about camera based crowd navigation for Peanuts.
 
+ For Peanuts, I built an angle-to-camera locking system to drive agent's Movement and Head, Torso, & Legs joint orientation to match the 2D style of the original cartoons. Along with Rails, Agents could choose to break free from, yet stay in rows on screen.
+
+ For Ferdinand, I built dynamic Arm IK to have drivers hold 10&2 on steering wheels, passengers to sit, and co-developed a horse-and-jockey system to keep the Passengers (Jockeys) in the Cars (Horses) while they drive the streets.
+
+Please note, prior to Ferdinand, Houdini didn't have Crowd Simulation yet.
+      
+We developed our crowd tools & pipeline in-house.
+
 While working in Crowds,
       
-   I built most of the navigation tools, placement, pathing, obstacle detection, and made the usual crowd/boid navigation logic itself in Houdini for Birds & Land critters.
+   I built most of the navigation tools, placement, pathing, obstacle detection, and the usual crowd/boid navigation logic itself in Houdini for Birds & Land critters.
 
 I wrote systems to understand the terrain and how to follow the flow of the ground,
+      
+     (Hence why I like AI Development now.)
       
    Multi-limb IK for the people & animals to walk over uneven terrain, and a 'lookAt' system for the characters to look around with multiple neck joints smoothly.
       
@@ -34,6 +44,6 @@ One of the personality traits I gave the crowd agents was 'rudeness';
       
    This gave the crowd a more natural feel, as if a few had "somewhere to be".
 
-I could talk about the horse-and-jockey system I helped build, or the post-simulation joint editing tools, or the IK heel offsets & foot locking,
+I could talk about the post-simulation joint editing & cycle shifting tools, or the IK heel offsets & foot locking;
       
    But I think I'll save that for another time.
