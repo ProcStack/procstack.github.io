@@ -1,4 +1,4 @@
-# Neurous.Net :: Web Particles
+# Neurous.Net :: Particles App
 
 [Neurous.Net](http://neurous.net/) 2014-2025
 

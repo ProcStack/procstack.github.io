@@ -1,4 +1,4 @@
-# Dwitter :: Golfing
+# Dwitter :: JS Golfing
 
 [Dwitter](https://dwitter.net/u/trancor) 2018+
     

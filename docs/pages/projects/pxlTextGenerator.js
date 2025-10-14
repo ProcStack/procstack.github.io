@@ -14,9 +14,10 @@ const shemaData = {
   }
 };
 
+
 export const pageListingData = {
   'htmlName' : "pxlTextGenerator.htm",
-  'name' : 'pxlTextGenerator :: PyQt',
+  'name' : 'pxlTextGenerator<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: PyQt</span>',
   'title' : 'pxlTextGenerator',
   'lastModified' : '2025-02-24',
   'schemaData' : shemaData,
@@ -77,7 +78,7 @@ export const pageListingData = {
     <div class="pppHBar"></div>
 
     <br>Now with ai resources so prevelant,
-    <br>&nbsp;&nbsp; I've been on and off developing a CNN (Convolutional Neural Network) to generate new characters based on the ones you have saved.
+    <br>&nbsp;&nbsp; I've been on and off developing a CNN (Convolutional Neural Network) to identify new characters based on the ones you have saved.
     <br>&nbsp;&nbsp; Along with a much better segmenter, where the letters will highlight as you hover over them, and you can select the ones you want to save.
 
     <br>

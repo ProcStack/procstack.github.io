@@ -120,7 +120,7 @@
   "ProjectsLinks_procstack.github.io.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_procstack.github.io.htm.json",
     "lastModified": "2025-03-24",
-    "title": "procstack.github.io",
+    "title": "procstack.github.io :: this.",
     "description": "procstack.",
     "media": [],
     "content": "\n    <a href='https://github.com/ProcStack/procstack.github.io' class='procPagesRepoLinkStyle' target='_blank'>procstack.github.io github repository</a> <span class=\"textDrinkMeAlice textItalic\">2024-2025</span>\n    <br><span class=\"textShrink textItalic textName \">Language - <span class=\"textBold\">JavaScript</span></span>\n    <div class=\"pppHBar\"></div>\n    \n    <span class='textNudge'>Eyyyyy, check out this sites code!</span>\n    <br>&nbsp;&nbsp; It mostly has examples of pxlNav rooms and the page & content system I wrote\n\n    <br>\n    <br>\n    <br>It's funny, out of all the projects I can bootstrap together with my personal boilerplates over the years,\n    <br>&nbsp;&nbsp; I never built a single-page site system before this one.\n\n    <br>\n    <br>Maybe I should write a 'server-side' pre-render for this pages system,\n    <br>&nbsp;&nbsp; Turn this into a proper framework for others to use! haha\n\n    <br>\n    <br>Update : I did do that ...\n    <br>&nbsp;&nbsp; It helps a ton to quickly render the dynamically generated pages into static pages,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Then build out the sitemap.xml and llms.txt + htm.md files for SEO and LLM crawling.\n    <br>&nbsp;&nbsp; There are still some bugs in it, but I'm working on fixing them.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; See the <span class=\"textName\">./packing/renderStaticPages.mjs</span> script for more details.\n\n    <br>\n    <br>I like vanilla javascript too much....\n    <br>&nbsp;&nbsp; Its a detriment for getting a React/Next job, but I can't help it!\n\n    <br>\n    <br>So soooo many years using JS on its own,\n    <br>&nbsp;&nbsp; I started messing with it in 1996 for my <span class='textBump'>GeoCities</span> <span class='textName'>Dragon Ball Z</span> fan website,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Making an image gallery for my first script from an example, age 10.\n    <br>&nbsp;&nbsp; So environments like React.js/Next.js, Svelte, Angular, etc. don't feel as fun as just writing it out myself, dang it!\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class=\"textItalic\">Ragga fragga, get off my lawn ya dang kids!</span>\n    <br>\n    <br>\n  ",
@@ -140,7 +140,7 @@
   "ProjectsLinks_currentsOfWar.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_currentsOfWar.htm.json",
     "lastModified": "2025-06-19",
-    "title": "Currents of War :: Unity",
+    "title": "Currents of War :: Unity Game",
     "description": "Currents of War 2025\n    Engine - Unity\n    Languages - C#, some Python for tools\n    A 'NPC Simulator' game made in Unity for the April 2025 itch.",
     "media": [
       {
@@ -285,14 +285,14 @@
         "caption": "Build your pages for export to PNG Supports multiple pages, which save with your project + settings to disk"
       }
     ],
-    "content": "\n    <a href='https://github.com/ProcStack/pxlTextGenerator' class='procPagesRepoLinkStyle' target='_blank'>pxlTextGenerator</a> <span class=\"textDrinkMeAlice textItalic\">2018-2019</span>\n    <br><span class=\"textBump\">Text to handwriting generator</span>\n    <br><span class=\"textShrink textItalic textName \">Language - <span class=\"textBold\">Python & PyQt</span></span>\n    <div class=\"pppHBar\"></div>\n    \n    Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.net.\n    <br>&nbsp;&nbsp; Letting them write the very words written in the tome perched upon the desk.\n    <br>\n    <br>A segmenter, labeler, and scripting language was written to allow saving individual characters, variants, and written pages, with text effects like opacity, scale, and kearning.\n    \n    <br>\n    <br>Scan some writing, click the letters, adjust the spacing, type your page with those letters, and hit save!\n\n    <div class=\"pppHBar\"></div>\n\n    <br>Now with ai resources so prevelant,\n    <br>&nbsp;&nbsp; I've been on and off developing a CNN (Convolutional Neural Network) to generate new characters based on the ones you have saved.\n    <br>&nbsp;&nbsp; Along with a much better segmenter, where the letters will highlight as you hover over them, and you can select the ones you want to save.\n\n    <br>\n    <br>This is pretty low on my project list, so it may take awhile before the support is fully working and implemented.\n\n    \n  ",
+    "content": "\n    <a href='https://github.com/ProcStack/pxlTextGenerator' class='procPagesRepoLinkStyle' target='_blank'>pxlTextGenerator</a> <span class=\"textDrinkMeAlice textItalic\">2018-2019</span>\n    <br><span class=\"textBump\">Text to handwriting generator</span>\n    <br><span class=\"textShrink textItalic textName \">Language - <span class=\"textBold\">Python & PyQt</span></span>\n    <div class=\"pppHBar\"></div>\n    \n    Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.net.\n    <br>&nbsp;&nbsp; Letting them write the very words written in the tome perched upon the desk.\n    <br>\n    <br>A segmenter, labeler, and scripting language was written to allow saving individual characters, variants, and written pages, with text effects like opacity, scale, and kearning.\n    \n    <br>\n    <br>Scan some writing, click the letters, adjust the spacing, type your page with those letters, and hit save!\n\n    <div class=\"pppHBar\"></div>\n\n    <br>Now with ai resources so prevelant,\n    <br>&nbsp;&nbsp; I've been on and off developing a CNN (Convolutional Neural Network) to identify new characters based on the ones you have saved.\n    <br>&nbsp;&nbsp; Along with a much better segmenter, where the letters will highlight as you hover over them, and you can select the ones you want to save.\n\n    <br>\n    <br>This is pretty low on my project list, so it may take awhile before the support is fully working and implemented.\n\n    \n  ",
     "pageURL": "https://procstack.github.io/ProjectsLinks/pxlTextGenerator.htm",
     "relativeURL": "./ProjectsLinks/pxlTextGenerator.htm"
   },
   "ProjectsLinks_NeurousNet.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_NeurousNet.htm.json",
     "lastModified": "2025-02-14",
-    "title": "Neurous.Net :: Web Particles",
+    "title": "Neurous.Net :: Particles App",
     "description": "Neurous.",
     "media": [
       {
@@ -321,7 +321,7 @@
   "ProjectsLinks_pxlCam.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_pxlCam.htm.json",
     "lastModified": "2025-02-24",
-    "title": "pxlCam",
+    "title": "pxlCam :: Filter App",
     "description": "pxlCam 2020\n    A photo filter camera web app\n    Languages - JavaScript, Three.",
     "media": [
       {
@@ -355,7 +355,7 @@
         "caption": ""
       }
     ],
-    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='https://pxlmancer.com/gl/pxlCam' class=\"textBump\" target='_blank'>pxlCam</a> <span class=\"textDrinkMeAlice textItalic\">2020</span></div>\n    <span class=\"textBump\">A photo filter camera web app</span>\n    <span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">JavaScript, Three.js, & GLSL ES</span></span>\n    <div class=\"pppHBar\"></div>\n  \n    <div class=\"procPagesProjectsDescriptionStyle\">\n      <span class=\"textNudge\">*Use on phone!!*</span>\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; A few day project.\n\n      \n      <br><span class=\"textBoost textBold\">Note</span> : <span class=\"textName\">pxlCam</span> was hosted on <span class=\"textName\">pxlmancer</span>.\n      <br>&nbsp;&nbsp; Please use <a href='https://procstack.github.io/pxlCam/index.htm' class=\"textBump\" target='_blank'>procstack.github.io/pxlCam</a> for now.\n\n      \n      <br>&nbsp;&nbsp; - Tap the right arrows to switch between the cameras.\n      <br>&nbsp;&nbsp; - Tap the triple down arrow to change the filter.\n      <br>&nbsp;&nbsp; - The lightning bolt will make the screen white in selfie mode; use your phones light with your back camera\n      <br>&nbsp;&nbsp; - The grid toggles the overlay you can use to align and position your shot\n\n      <br>&nbsp;&nbsp; - Tap & drag left/right or up/down to change the current filter's hue shifting or edge detection size & brightness\n      <br>\n      <br> Each filter has a different effect for the finger drag + direction, so play around with it!\n\n      <br>\n      <br>\n      <br> This is a camera filter web site I wrote with interactive color and edge effects opengl shaders,\n      <br>\n      <br> I've added camera checks + access, resolution checkings + switching\n      <br>&nbsp;&nbsp; The photo-bin temp photo storage handling. Once you take a photo, a thumbnail will appear.  Tap the icon to load a screen to save the image to any number of resoultions. Tap a resolution to load the file size, if you want to send the photo on discord or something.\n      <br>\n\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; And your multiple phone cameras in-browser.\n      \n      <br>\n    </div>\n  ",
+    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='https://pxlmancer.com/gl/pxlCam' class=\"textBump\" target='_blank'>pxlCam</a> <span class=\"textDrinkMeAlice textItalic\">2020</span></div>\n    <span class=\"textBump\">A photo filter camera web app</span>\n    <span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">JavaScript, Three.js, & GLSL ES</span></span>\n    <div class=\"pppHBar\"></div>\n  \n    <div class=\"procPagesProjectsDescriptionStyle\">\n      <span class=\"textNudge\">*Use on phone!!*</span>\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; A few day project.\n\n      \n      <br>\n      <br><span class=\"textItch textBold\">Note</span> : <span class=\"textName\">pxlCam</span> was hosted on <span class=\"textName\">pxlmancer</span>.\n      <br>&nbsp;&nbsp; Please use <a href='https://procstack.github.io/pxlCam/index.htm' class=\"textBump\" target='_blank'>procstack.github.io/pxlCam</a> for now.\n\n      \n      <br>\n      <br>&nbsp;&nbsp; - Tap the right arrows to switch between the cameras.\n      <br>&nbsp;&nbsp; - Tap the triple down arrow to change the filter.\n      <br>&nbsp;&nbsp; - The lightning bolt will make the screen white in selfie mode; use your phones light with your back camera\n      <br>&nbsp;&nbsp; - The grid toggles the overlay you can use to align and position your shot\n\n      <br>&nbsp;&nbsp; - Tap & drag left/right or up/down to change the current filter's hue shifting or edge detection size & brightness\n      <br>\n      <br> Each filter has a different effect for the finger drag + direction, so play around with it!\n\n      <br>\n      <br>\n      <br> This is a camera filter web site I wrote with interactive color and edge effects opengl shaders,\n      <br>\n      <br> I've added camera checks + access, resolution checkings + switching\n      <br>&nbsp;&nbsp; The photo-bin temp photo storage handling. Once you take a photo, a thumbnail will appear.  Tap the icon to load a screen to save the image to any number of resoultions. Tap a resolution to load the file size, if you want to send the photo on discord or something.\n      <br>\n\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; And your multiple phone cameras in-browser.\n      \n      <br>\n    </div>\n  ",
     "pageURL": "https://procstack.github.io/ProjectsLinks/pxlCam.htm",
     "relativeURL": "./ProjectsLinks/pxlCam.htm"
   },
@@ -396,7 +396,7 @@
   "ProjectsLinks_Dwitter.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_Dwitter.htm.json",
     "lastModified": "2025-02-24",
-    "title": "Dwitter :: Golfing",
+    "title": "Dwitter :: JS Golfing",
     "description": "Dwitter 2018+\n    My account on a JavaScript code golfing website\n    Language - JavaScript\n    \n    \n    'Code Golfing' is the art of annoying your coworkers,\n       By writing the most obtuse code as possible,\n          In as few characters as you can.",
     "media": [
       {

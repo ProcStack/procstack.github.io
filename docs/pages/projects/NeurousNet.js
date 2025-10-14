@@ -14,9 +14,10 @@ const shemaData = {
   }
 };
 
+
 export const pageListingData = {
   'htmlName' : "NeurousNet.htm",
-  'name' : 'Neurous<span class="hideOnMobile">.Net :: Web Particles</span>',
+  'name' : 'Neurous<span class="hideOnMobile textDrinkMeAlice textBottom">.Net :: Particles App</span>',
   'title' : 'Neurous.Net',
   'lastModified' : '2025-02-14',
   'schemaData' : shemaData,

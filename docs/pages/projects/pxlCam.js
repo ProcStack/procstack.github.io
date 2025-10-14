@@ -16,7 +16,7 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "pxlCam.htm",
-  'name' : 'pxlCam :: Filter App',
+  'name' : 'pxlCam<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: Filter App</span>',
   'title' : 'pxlCam',
   'lastModified' : '2025-02-24',
   'schemaData' : shemaData,

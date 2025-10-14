@@ -469,6 +469,10 @@ text-shadow: 1px 1.5px 4px #252525;
   top: -1.5px;
 }
 
+.textBottom{
+    align-self: end;
+}
+
 .textBold{
   font-weight: 700;
 }

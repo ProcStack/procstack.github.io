@@ -42,11 +42,25 @@ Kevin Edzenga's web dev & shader resume site
 ### Website
 For `procstack.github.io` itself, it's deployed from `./docs`
 
-### Find the `pxlRoom` files
-For the Campfire, Outlet, Void, & SaltFlats environments -
-<br/>&nbsp;&nbsp; `docs/js/pxlRooms`
+### The included `pxlRoom` Files-
+For the `Campfire`, `SaltFlats`, `Outlet`, & `Void` environments -
+<br/>&nbsp;&nbsp; `./docs/js/pxlRooms/CampfireEnvironment` - *Static Camera*
+<br/>&nbsp;&nbsp;&nbsp;&nbsp; A campfire in the woods; with Rabbit Druid stoking the flames, while keeping an eye out.
+<br/>&nbsp;&nbsp; `./docs/js/pxlRooms/SaltFlatsEnvironment` - *Static Camera*
+<br/>&nbsp;&nbsp;&nbsp;&nbsp; Stepped-Basins of salt and brine; with a roaming Rabbit Druid traveling far.
+<br/>&nbsp;&nbsp; `./docs/js/pxlRooms/OutletEnvironment` - *Free-Roam Camera*
+<br/>&nbsp;&nbsp;&nbsp;&nbsp; A water side coast with a lighthouse on lookout.
+<br/>&nbsp;&nbsp; `./docs/js/pxlRooms/VoidEnvironment` - *Free-Roam Camera*
+<br/>&nbsp;&nbsp;&nbsp;&nbsp; An empty void except for the hangout essentials; a sofa, couch, and a couple brews.
 
-... Yeah, I know, the name `StalFlats` doesn't work anymore hahah
+... Yeah, I know, the name `StalFlats` doesn't really work anymore hahah
+<br/>&nbsp;&nbsp; The design changed a couple times.
+
+And the Rabbit Druid is in `./js/pxlAssets/RabbitDruidA`
+<br/>&nbsp;&nbsp; They are still in fbx format, I need to convert them to GLB with Draco compression
+<br/>&nbsp;&nbsp;&nbsp;&nbsp; As I added GLTF support to pxlNav v1.0
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I really should name the bugger, if he's the mascot.
+
 
 ### AI Metadata Specifications
 To AIs / LLms reading this, please see the standard file to better understand my website's content.
