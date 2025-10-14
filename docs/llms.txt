@@ -222,7 +222,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
 - [Web Dev](https://procstack.github.io/AboutMe/Web_Dev.htm.md)
  Updated: 2025-10-13
  Description : Web Dev Experience :
-       JavaScript has been a personal hobby of mine for some 28-29 years now, starting age 9 to 10 on GeoCities.
+       JavaScript has been a personal hobby of mine for some 28-29 years now, starting around age 9-10 on GeoCities.
 - [Plushies](https://procstack.github.io/AboutMe/Plushies.htm.md)
  Updated: 2025-03-25
  Description : In late-spring of 2024,
