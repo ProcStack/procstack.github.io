@@ -1,13 +1,25 @@
 {
-  "title": "Neurous Net :: Particles",
+  "title": "Neurous.Net :: Web Particles",
   "description": "Neurous.",
   "lastModified": "2025-02-14",
   "media": [
     {
-      "type": "image",
-      "src": "../pages/projects/images/neurousnet.webp",
-      "alt": "Swirling particles",
-      "caption": ""
+      "type": "video",
+      "src": "../pages/projects/images/NeurousNet_A.webm",
+      "alt": "Neurous Net; Pull in all the particles",
+      "caption": "Right-Click (or Tap & Hold) to pull in all the particles!"
+    },
+    {
+      "type": "video",
+      "src": "../pages/projects/images/NeurousNet_B.webm",
+      "alt": "Neurous Net; Pulling in near by particles",
+      "caption": "Left-Click (or Tap & Drag) to grab near by particles"
+    },
+    {
+      "type": "video",
+      "src": "../pages/projects/images/NeurousNet_C.webm",
+      "alt": "Neurous Net; Spawn some black holes",
+      "caption": "Middle-Click (or Tap with Two Fingers) to spawn in some black holes!"
     }
   ]
 }

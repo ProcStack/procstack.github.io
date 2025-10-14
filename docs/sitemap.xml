@@ -22,6 +22,14 @@
     </image:image>
   </url>
   <url>
+    <loc>https://procstack.github.io/AboutMe/Web_Dev.htm</loc>
+    <lastmod>2025-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://procstack.github.io/AboutMe/What_am_I.htm</loc>
     <lastmod>2025-03-25</lastmod>
     <changefreq>monthly</changefreq>
@@ -30,16 +38,8 @@
     </image:image>
   </url>
   <url>
-    <loc>https://procstack.github.io/ai-data.html</loc>
-    <lastmod>2025-10-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
     <loc>https://procstack.github.io/AIDev.htm</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2025-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -63,7 +63,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/AIDev/aiNotes/2025-02/my-training-data.htm</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2025-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -71,7 +71,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/AIDev/aiNotes/2025-05/stack-crunching.htm</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2025-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -79,7 +79,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/AIDev/aiNotes/2025-07/tensor-terrain-adaptation.htm</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2025-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -87,7 +87,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/AIDev/aiNotes/2025-08-01/feedback-systems.htm</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2025-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -95,7 +95,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/AIDev/aiNotes/2025-08-02/neural-bundles.htm</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2025-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -103,7 +103,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/AIDev/aiNotes/2025-08-16/hoping-for-nuance.htm</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2025-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -111,7 +111,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/AIDev/aiNotes/2025-08-30/dreamy-meanderings.htm</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2025-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -119,7 +119,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/AIDev/aiNotes/2025-10-02/bodily-autonomy.htm</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2025-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -127,15 +127,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/AIDev/aiNotes/2025-10-05/being--becoming.htm</loc>
-    <lastmod>2025-10-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://procstack.github.io/AIDev/aiNotes/2025-10-08/aptitude.htm</loc>
-    <lastmod>2025-10-09</lastmod>
+    <lastmod>2025-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -182,16 +174,8 @@
     </image:image>
   </url>
   <url>
-    <loc>https://procstack.github.io/Outlet.htm</loc>
-    <lastmod>2025-10-09</lastmod>
-    <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
     <loc>https://procstack.github.io/ProjectsLinks.htm</loc>
-    <lastmod>2025-10-13</lastmod>
+    <lastmod>2025-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -254,14 +238,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://procstack.github.io/ProjectsLinks/pxlmancer.htm</loc>
-    <lastmod>2025-02-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
     <loc>https://procstack.github.io/ProjectsLinks/Pxlmancer.htm</loc>
     <lastmod>2025-02-24</lastmod>
     <changefreq>monthly</changefreq>
@@ -295,7 +271,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/pxlNav.htm</loc>
-    <lastmod>2025-10-09</lastmod>
+    <lastmod>2025-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -332,5 +308,15 @@
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
     </image:image>
+  </url>
+  <url>
+    <loc>https://procstack.github.io/Outlet.htm</loc>
+    <lastmod>2025-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://procstack.github.io/ai-data.html</loc>
+    <lastmod>2025-10-14</lastmod>
+    <changefreq>monthly</changefreq>
   </url>
 </urlset>

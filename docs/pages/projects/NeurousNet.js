@@ -16,7 +16,7 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "NeurousNet.htm",
-  'name' : 'Neurous<span class="hideOnMobile"> Net :: Particles</span>',
+  'name' : 'Neurous<span class="hideOnMobile">.Net :: Web Particles</span>',
   'title' : 'Neurous.Net',
   'lastModified' : '2025-02-14',
   'schemaData' : shemaData,
@@ -25,14 +25,29 @@ export const pageListingData = {
   'navGroup' : 'Personal Projects',
   'media' : [
     {
-      'type' : 'image',
-      'src' : '../pages/projects/images/neurousnet.webp',
-      'alt' : 'Swirling particles',
-      'style' : 'procPagesImageStyle'
+      'type' : 'video',
+      'src' : '../pages/projects/images/NeurousNet_A.webm',
+      'alt' : 'Neurous Net; Pull in all the particles',
+      'caption' : ['Right-Click (or Tap & Hold) to pull in all the particles!'],
+      'style' : 'procPagesImageStyle',
     },
+    {
+      'type' : 'video',
+      'src' : '../pages/projects/images/NeurousNet_B.webm',
+      'alt' : 'Neurous Net; Pulling in near by particles',
+      'caption' : ['Left-Click (or Tap & Drag) to grab near by particles'],
+      'style' : 'procPagesImageStyle',
+    },
+    {
+      'type' : 'video',
+      'src' : '../pages/projects/images/NeurousNet_C.webm',
+      'alt' : 'Neurous Net; Spawn some black holes',
+      'caption' : ['Middle-Click (or Tap with Two Fingers) to spawn in some black holes!'],
+      'style' : 'procPagesImageStyle',
+    }
   ],
   'content' : `
-    <div class="procPagesProjectsHeaderStyle"><a href='http://neurous.net/' class="textBump" target='_new'>Neurous.net</a> <span class="textDrinkMeAlice textItalic">2014-2025</span></div>
+    <div class="procPagesProjectsHeaderStyle"><a href='http://neurous.net/' class="textBump" target='_new'>Neurous.Net</a> <span class="textDrinkMeAlice textItalic">2014-2025</span></div>
     <span class="textShrink textItalic textName ">Language - <span class="textBold">JavaScript</span></span>
     <div class="pppHBar"></div>
     <span class="textBump textBold">More fun on phone!</span>
@@ -68,7 +83,7 @@ export const pageListingData = {
 
     <br><br> Originally written in Functional JavaScript before Classes existed,
     <br>&nbsp;&nbsp; The trick was reading function elements on the dictionary object from within the dictionary variable.
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; Some make-shift Methods on a 'Class' object
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Some make-shift '<span class="textItalic">Methods</span>' on a '<span class="textItalic">Class</span>' object
     <br>
     <br> Also adding Prototypes to a custom function,
     <br>&nbsp;&nbsp; Which could have just been a class.

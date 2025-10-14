@@ -1,0 +1,25 @@
+{
+  "title": "Web Dev",
+  "description": "Web Dev Experience :\n       JavaScript has been a personal hobby of mine for some 28-29 years now, starting age 9 to 10 on GeoCities.",
+  "lastModified": "2025-10-13",
+  "media": [
+    {
+      "type": "youtube",
+      "src": "_vzqZ2sNjaw",
+      "alt": "Huge holiday party thank you video",
+      "caption": "A Thank You video for a holiday party held in Antibody Club [defunct], 2020 See the pxlNav's Origin page for more info!"
+    },
+    {
+      "type": "video",
+      "src": "../pages/projects/images/tvKid.webm",
+      "alt": "TV Kid timelapse",
+      "caption": "The timelapse of 'TV Kid' See the Pxlmancer project page for more info!"
+    },
+    {
+      "type": "video",
+      "src": "../pages/projects/images/NeurousNet_A.webm",
+      "alt": "Neurous Net; Pull in all the particles",
+      "caption": "Particle Playground! See the Neurous.Net project page for more info!"
+    }
+  ]
+}

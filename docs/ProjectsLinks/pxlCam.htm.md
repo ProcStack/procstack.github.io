@@ -1,4 +1,4 @@
-# pxlCam
+# pxlCam :: Filter App
 
 [pxlCam](https://pxlmancer.com/gl/pxlCam) 2020
 
@@ -8,6 +8,10 @@
       *Use on phone!!*
       
      A few day project.
+
+Note : pxlCam was hosted on pxlmancer.
+      
+   Please use [procstack.github.io/pxlCam](https://procstack.github.io/pxlCam/index.htm) for now.
 
    - Tap the right arrows to switch between the cameras.
       

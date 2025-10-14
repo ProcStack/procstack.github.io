@@ -1,6 +1,6 @@
-# Neurous Net :: Particles
+# Neurous.Net :: Web Particles
 
-[Neurous.net](http://neurous.net/) 2014-2025
+[Neurous.Net](http://neurous.net/) 2014-2025
 
     Language - JavaScript
 
@@ -48,7 +48,7 @@
     
    The trick was reading function elements on the dictionary object from within the dictionary variable.
     
-     Some make-shift Methods on a 'Class' object
+     Some make-shift 'Methods' on a 'Class' object
 
  Also adding Prototypes to a custom function,
     

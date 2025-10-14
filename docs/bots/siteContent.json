@@ -46,7 +46,7 @@
   },
   "pxlNav.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/pxlNav.htm.json",
-    "lastModified": "2025-10-09",
+    "lastModified": "2025-10-14",
     "title": "",
     "description": ".",
     "media": [],
@@ -129,7 +129,7 @@
   },
   "ProjectsLinks.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks.htm.json",
-    "lastModified": "2025-10-13",
+    "lastModified": "2025-10-14",
     "title": "",
     "description": ".",
     "media": [],
@@ -140,7 +140,7 @@
   "ProjectsLinks_currentsOfWar.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_currentsOfWar.htm.json",
     "lastModified": "2025-06-19",
-    "title": "Currents of War :: Web Game",
+    "title": "Currents of War :: Unity",
     "description": "Currents of War 2025\n    Engine - Unity\n    Languages - C#, some Python for tools\n    A 'NPC Simulator' game made in Unity for the April 2025 itch.",
     "media": [
       {
@@ -172,80 +172,10 @@
     "pageURL": "https://procstack.github.io/ProjectsLinks/currentsOfWar.htm",
     "relativeURL": "./ProjectsLinks/currentsOfWar.htm"
   },
-  "ProjectsLinks_procPromo.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_procPromo.htm.json",
-    "lastModified": "2025-06-19",
-    "title": "procPromo :: Shader Pack",
-    "description": "procPromo Shader Pack 2022-2025\n    A Minecraft shader pack for Optifine & Iris\n    Languages - GLSL 1.",
-    "media": [
-      {
-        "type": "image",
-        "src": "../pages/projects/images/CloudPillar_2024-01-08.webp",
-        "alt": "A Minecraft cloud pillar in procPromo",
-        "caption": "Cloud pillar!"
-      },
-      {
-        "type": "image",
-        "src": "../pages/projects/images/AlienFlora_2024-01-08.webp",
-        "alt": "The alien fungal bloom has spread!",
-        "caption": "The spores have spread!"
-      },
-      {
-        "type": "image",
-        "src": "../pages/projects/images/NetherLavaLake_2024-01-10.webp",
-        "alt": "A cool day in Minecraft Palm Springs!",
-        "caption": "A chill day in Palm Springs"
-      }
-    ],
-    "content": "\n    <a href='https://github.com/ProcStack/procPromo_ShaderPack' class='procPagesRepoLinkStyle' target='_blank'>procPromo Shader Pack</a> <span class=\"textDrinkMeAlice textItalic\">2022-2025</span>\n    <br><span class=\"textBump\">A <span class=\"textName\">Minecraft</span> shader pack for <span class=\"textName\">Optifine</span> & <span class=\"textName\">Iris</span></span>\n    <br><span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">GLSL 1.2, 3.3, & 4.5</span></span>\n    <div class=\"pppHBar\"></div>\n    \n    I started writing <span class=\"textName\">procPromo</span> in the spring of 2022 as a way to learn GLSL better.\n    <br>&nbsp;&nbsp; Figured, if I was already playing minecraft, might as well make it look cool too!\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Like, while I built the sky villa and alien spore in the images.\n\n    <br>\n    <br>I decided on a style inspired by the Minecraft Key or '<a href=\"https://www.minecraft.net/content/dam/games/minecraft/key-art/CC-Part%20I-Announce-Header.jpg\" target=\"_blank\">Promo</a>' art,\n    <br>&nbsp;&nbsp; Writing a <span class='textInblockBox'>Texture Blur</span> similar to <span class='textName'>Smart Blur</span> in photoshop; smoothing regions of similar colors.\n    <br>&nbsp;&nbsp; Then added block \"edges\" using <span class='textInblockBox'>Depth + Normals</span>,\n    <br>&nbsp;&nbsp; Created a <span class='textInblockBox'>2-Pass Blur/Glow</span> in post-processing.\n    <br>&nbsp;&nbsp; And a <span class='textInblockBox'>Shadow Distortion</span> system with <span class='textName'>biasing</span> based on per-axis (X,Y) from player.\n\n    <br>\n    <br>\n    <br>Shadows are fun to figure out in games,\n    <br>&nbsp;&nbsp; But they are all circular or 'radial distance' from the player.\n\n    <div class='textSpacer'></div>\n\n    <span class=\"innerCenter\">\n    But this is a block game though!\n    <br>So how about 90-degree angle shadows??</span>\n\n    <br> Distorting the objects in space by their X & Y axis distance to the player/camera, instead of radial shadow maps,\n    <br>&nbsp;&nbsp; Let me get much sharper shadows from blocks, similar to the shadows in Minecraft's promo art.\n\n    <div class='textSpacer'></div>\n\n    <br> It was a fun experiment for shadowing,\n    <br>&nbsp;&nbsp; But it has it's time and place;\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Like in a block game.\n    <br>\n    <br>\n  ",
-    "pageURL": "https://procstack.github.io/ProjectsLinks/procPromo.htm",
-    "relativeURL": "./ProjectsLinks/procPromo.htm"
-  },
-  "ProjectsLinks_pxlTextGenerator.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_pxlTextGenerator.htm.json",
+  "ProjectsLinks_Pxlmancer.htm": {
+    "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_Pxlmancer.htm.json",
     "lastModified": "2025-02-24",
-    "title": "pxlTextGenerator",
-    "description": "pxlTextGenerator 2018-2019\n    Text to handwriting generator\n    Language - Python / PyQt\n    \n    \n    Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.",
-    "media": [
-      {
-        "type": "image",
-        "src": "../pages/projects/images/pxlTextGenerator_characterBuilder.webp",
-        "alt": "Character selector & builder",
-        "caption": "Character selector & builder"
-      },
-      {
-        "type": "image",
-        "src": "../pages/projects/images/pxlTextGenerator_pageView.webp",
-        "alt": "Page builder with alphabet",
-        "caption": "Page builder using your selected characters"
-      },
-      {
-        "type": "video",
-        "src": "../pages/projects/images/pxlTextGenerator_lowerY.webm",
-        "alt": "Character selector & builder",
-        "caption": "Gather your library of characters from photos/scans/images, They'll save to disk as you work on your project."
-      },
-      {
-        "type": "video",
-        "src": "../pages/projects/images/pxlTextGenerator_sizingLetters.webm",
-        "alt": "Page builder with alphabet",
-        "caption": "Quickly see sizing tweaks in the Textbed"
-      },
-      {
-        "type": "video",
-        "src": "../pages/projects/images/pxlTextGenerator_makingPage.webm",
-        "alt": "Character selector & builder",
-        "caption": "Build your pages for export to PNG Supports multiple pages, which save with your project + settings to disk"
-      }
-    ],
-    "content": "\n    <a href='https://github.com/ProcStack/pxlTextGenerator' class='procPagesRepoLinkStyle' target='_blank'>pxlTextGenerator</a> <span class=\"textDrinkMeAlice textItalic\">2018-2019</span>\n    <br><span class=\"textBump\">Text to handwriting generator</span>\n    <br><span class=\"textShrink textItalic textName \">Language - <span class=\"textBold\">Python / PyQt</span></span>\n    <div class=\"pppHBar\"></div>\n    \n    Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.net.\n    <br>&nbsp;&nbsp; Letting them write the very words written in the tome perched upon the desk.\n    <br>\n    <br>A segmenter, labeler, and scripting language was written to allow saving individual characters, variants, and written pages, with text effects like opacity, scale, and kearning.\n    \n    <br>\n    <br>Scan some writing, click the letters, adjust the spacing, type your page with those letters, and hit save!\n\n    <div class=\"pppHBar\"></div>\n\n    <br>Now with ai resources so prevelant,\n    <br>&nbsp;&nbsp; I've been on and off developing a CNN (Convolutional Neural Network) to generate new characters based on the ones you have saved.\n    <br>&nbsp;&nbsp; Along with a much better segmenter, where the letters will highlight as you hover over them, and you can select the ones you want to save.\n\n    <br>\n    <br>This is pretty low on my project list, so it may take awhile before the support is fully working and implemented.\n\n    \n  ",
-    "pageURL": "https://procstack.github.io/ProjectsLinks/pxlTextGenerator.htm",
-    "relativeURL": "./ProjectsLinks/pxlTextGenerator.htm"
-  },
-  "ProjectsLinks_pxlmancer.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_pxlmancer.htm.json",
-    "lastModified": "2025-02-24",
-    "title": "pxlmancer",
+    "title": "Pxlmancer :: Drawing App",
     "description": "pxlmancer 2014-2019\n    A full drawing/painting app on desktop, a fun fidget toy on mobile.",
     "media": [
       {
@@ -285,24 +215,106 @@
         "caption": "...of course, the cat tax..."
       }
     ],
-    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='https://procstack.github.io/pxlmancer/index.htm' class=\"textBump\" target='_blank'>pxlmancer</a> <span class=\"textDrinkMeAlice textItalic\">2014-2019</span></div>\n    <span class=\"textBump\">A full drawing/painting app on desktop, a fun fidget toy on mobile.</span>\n    <br><span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">JavaScript & JQuery</span></span>\n    <div class=\"pppHBar\"></div>\n\n    <br><span class=\"textBoost textBold\">Note</span> : The site is currently having some <span class=\"textNudge\">https certificate</span> issues.  I'll be fixing it soon.\n    <br>&nbsp;&nbsp; So the link is routed to <a href='https://procstack.github.io/pxlmancer/index.htm' class=\"textBump\" target='_blank'>procstack.github.io/pxlmancer</a> for now.\n    <br>&nbsp;&nbsp; Its buggy because I had to convert it from PHP to JS-Only for GitHub Pages.\n    \n    <br><br><div class=\"pppHBar\"></div>\n\n    <br> On'n'off multi-year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)\n    \n    <br>\n    <br>\n    <div class=\"procPagesProjectsDescriptionStyle selfCenter\">Use the mixing pallet to blend colors together to paint with, then save the pallet by pressing a number key.\n      <br>All of which can be saved to a .pxlm file; to store your layers, settings, and pallet swatches!\n    </div>\n    <div class=\"procPagesProjectsSpacer\"></div>\n\n    <br>&nbsp;&nbsp; Sadly, an update in javascript broke saving images, and I haven't had the time to fix it yet...\n    <br>You'll need to drag the image from the \"Save Image\" screen to a new tab to view and save it.\n    <br>But you can easily save your document to a pxlm file, and open it back up to continue working on your project!\n    \n    <div class=\"procPagesProjectsSpacer\"></div>\n\n    <br>&nbsp;&nbsp; A little tid-bit, <span class='textNudge'>pxlmancer.com</span> is the origin of my '<span class='textNudge'>pxl</span>' namespace for my projects.\n    <br>It's my indicator of a codebase with a visual output; such as pxlNav, pxlVisualizer, pxlTextGenerator, etc.\n    <br><br>More about pxlmancer.com on <a href='https://imgur.com/gallery/8lSW1' target='_blank'>Imgur</a>!\n    \n  ",
-    "pageURL": "https://procstack.github.io/ProjectsLinks/pxlmancer.htm",
-    "relativeURL": "./ProjectsLinks/pxlmancer.htm"
+    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='https://procstack.github.io/pxlmancer/index.htm' class=\"textBump\" target='_blank'>pxlmancer</a> <span class=\"textDrinkMeAlice textItalic\">2014-2019</span></div>\n    <span class=\"textBump\">A full drawing/painting app on desktop, a fun fidget toy on mobile.</span>\n    <br><span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">JavaScript, JQuery, & PHP</span></span>\n    <br>Solo written <span class='textName'>14264</span> lines of JavaScript, ground up only using jquerry's oddness.\n    <div class=\"pppHBar\"></div>\n\n    <br><span class=\"textBoost textBold\">Note</span> : <span class=\"textName\">pxlmancer.com</span> is currently having some <span class=\"textNudge\">https certificate</span> issues.  I'll be fixing it soon.\n    <br>&nbsp;&nbsp; Please use <a href='https://procstack.github.io/pxlmancer/index.htm' class=\"textBump\" target='_blank'>procstack.github.io/pxlmancer</a> for now.\n    <br>&nbsp;&nbsp; But, it may be buggy because I had to convert it from PHP to JS-Only for GitHub Pages.\n    \n    <br><br><div class=\"pppHBar\"></div>\n\n    <br> On'n'off multi-year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)\n    \n    <br>\n    <br>\n    <div class=\"procPagesProjectsDescriptionStyle selfCenter\">Use the mixing pallet to blend colors together to paint with, then save the pallet by pressing a number key.\n      <br>All of which can be saved to a .pxlm file; to store your layers, settings, and pallet swatches!\n    </div>\n    <div class=\"procPagesProjectsSpacer\"></div>\n\n    <br>&nbsp;&nbsp; Sadly, an update in javascript broke saving images, and I haven't had the time to fix it yet...\n    <br>You'll need to drag the image from the \"Save Image\" screen to a new tab to view and save it.\n    <br>But you can easily save your document to a pxlm file, and open it back up to continue working on your project!\n    \n    <div class=\"procPagesProjectsSpacer\"></div>\n\n    <br>&nbsp;&nbsp; A little tid-bit, <span class='textNudge'>pxlmancer.com</span> is the origin of my '<span class='textNudge'>pxl</span>' namespace for my projects.\n    <br>It's my indicator of a codebase with a visual output; such as pxlNav, pxlVisualizer, pxlTextGenerator, etc.\n    <br><br>More about pxlmancer.com on <a href='https://imgur.com/gallery/8lSW1' target='_blank'>Imgur</a>!\n    \n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/Pxlmancer.htm",
+    "relativeURL": "./ProjectsLinks/Pxlmancer.htm"
+  },
+  "ProjectsLinks_procPromo.htm": {
+    "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_procPromo.htm.json",
+    "lastModified": "2025-06-19",
+    "title": "procPromo :: Shader Pack",
+    "description": "procPromo Shader Pack 2022-2025\n    A Minecraft shader pack for Optifine & Iris\n    Languages - GLSL 1.",
+    "media": [
+      {
+        "type": "image",
+        "src": "../pages/projects/images/CloudPillar_2024-01-08.webp",
+        "alt": "A Minecraft cloud pillar in procPromo",
+        "caption": "Cloud pillar!"
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/AlienFlora_2024-01-08.webp",
+        "alt": "The alien fungal bloom has spread!",
+        "caption": "The spores have spread!"
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/NetherLavaLake_2024-01-10.webp",
+        "alt": "A cool day in Minecraft Palm Springs!",
+        "caption": "A chill day in Palm Springs"
+      }
+    ],
+    "content": "\n    <a href='https://github.com/ProcStack/procPromo_ShaderPack' class='procPagesRepoLinkStyle' target='_blank'>procPromo Shader Pack</a> <span class=\"textDrinkMeAlice textItalic\">2022-2025</span>\n    <br><span class=\"textBump\">A <span class=\"textName\">Minecraft</span> shader pack for <span class=\"textName\">Optifine</span> & <span class=\"textName\">Iris</span></span>\n    <br><span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">GLSL 1.2, 3.3, & 4.5</span></span>\n    <div class=\"pppHBar\"></div>\n    \n    I started writing <span class=\"textName\">procPromo</span> in the spring of 2022 as a way to learn GLSL better.\n    <br>&nbsp;&nbsp; Figured, if I was already playing minecraft, might as well make it look cool too!\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Like, while I built the sky villa and alien spore in the images.\n\n    <br>\n    <br>I decided on a style inspired by the Minecraft Key or '<a href=\"https://www.minecraft.net/content/dam/games/minecraft/key-art/CC-Part%20I-Announce-Header.jpg\" target=\"_blank\">Promo</a>' art,\n    <br>&nbsp;&nbsp; Writing a <span class='textInblockBox'>Texture Blur</span> similar to <span class='textName'>Smart Blur</span> in photoshop; smoothing regions of similar colors.\n    <br>&nbsp;&nbsp; Then added block \"edges\" using <span class='textInblockBox'>Depth + Normals</span>,\n    <br>&nbsp;&nbsp; Created a <span class='textInblockBox'>2-Pass Blur/Glow</span> in post-processing.\n    <br>&nbsp;&nbsp; And a <span class='textInblockBox'>Shadow Distortion</span> system with <span class='textName'>biasing</span> based on per-axis (X,Y) from player.\n\n    <br>\n    <br>\n    <br>Shadows are fun to figure out in games,\n    <br>&nbsp;&nbsp; But they are all circular or 'radial distance' from the player.\n\n    <div class='textSpacer'></div>\n\n    <span class=\"innerCenter\">\n    But this is a block game though!\n    <br>So how about 90-degree angle shadows??</span>\n\n    <br> Distorting the objects in space by their X & Y axis distance to the player/camera, instead of radial shadow maps,\n    <br>&nbsp;&nbsp; Let me get much sharper shadows from blocks, similar to the shadows in Minecraft's promo art.\n\n    <div class='textSpacer'></div>\n\n    <br> It was a fun experiment for shadowing,\n    <br>&nbsp;&nbsp; But it has it's time and place;\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Like in a block game.\n    <br>\n    <br>\n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/procPromo.htm",
+    "relativeURL": "./ProjectsLinks/procPromo.htm"
+  },
+  "ProjectsLinks_pxlTextGenerator.htm": {
+    "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_pxlTextGenerator.htm.json",
+    "lastModified": "2025-02-24",
+    "title": "pxlTextGenerator :: PyQt",
+    "description": "pxlTextGenerator 2018-2019\n    Text to handwriting generator\n    Language - Python & PyQt\n    \n    \n    Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.",
+    "media": [
+      {
+        "type": "video",
+        "src": "../pages/projects/images/pxlTextGenerator_lowerY.webm",
+        "alt": "Character selector & builder",
+        "caption": "Gather your library of characters from photos/scans/images, They'll save to disk as you work on your project."
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/pxlTextGenerator_characterBuilder.webp",
+        "alt": "Character selector & builder",
+        "caption": "Character selector & builder"
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/pxlTextGenerator_pageView.webp",
+        "alt": "Page builder with alphabet",
+        "caption": "Page builder using your selected characters"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/pxlTextGenerator_sizingLetters.webm",
+        "alt": "Page builder with alphabet",
+        "caption": "Quickly see sizing tweaks in the Textbed"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/pxlTextGenerator_makingPage.webm",
+        "alt": "Character selector & builder",
+        "caption": "Build your pages for export to PNG Supports multiple pages, which save with your project + settings to disk"
+      }
+    ],
+    "content": "\n    <a href='https://github.com/ProcStack/pxlTextGenerator' class='procPagesRepoLinkStyle' target='_blank'>pxlTextGenerator</a> <span class=\"textDrinkMeAlice textItalic\">2018-2019</span>\n    <br><span class=\"textBump\">Text to handwriting generator</span>\n    <br><span class=\"textShrink textItalic textName \">Language - <span class=\"textBold\">Python & PyQt</span></span>\n    <div class=\"pppHBar\"></div>\n    \n    Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.net.\n    <br>&nbsp;&nbsp; Letting them write the very words written in the tome perched upon the desk.\n    <br>\n    <br>A segmenter, labeler, and scripting language was written to allow saving individual characters, variants, and written pages, with text effects like opacity, scale, and kearning.\n    \n    <br>\n    <br>Scan some writing, click the letters, adjust the spacing, type your page with those letters, and hit save!\n\n    <div class=\"pppHBar\"></div>\n\n    <br>Now with ai resources so prevelant,\n    <br>&nbsp;&nbsp; I've been on and off developing a CNN (Convolutional Neural Network) to generate new characters based on the ones you have saved.\n    <br>&nbsp;&nbsp; Along with a much better segmenter, where the letters will highlight as you hover over them, and you can select the ones you want to save.\n\n    <br>\n    <br>This is pretty low on my project list, so it may take awhile before the support is fully working and implemented.\n\n    \n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/pxlTextGenerator.htm",
+    "relativeURL": "./ProjectsLinks/pxlTextGenerator.htm"
   },
   "ProjectsLinks_NeurousNet.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_NeurousNet.htm.json",
     "lastModified": "2025-02-14",
-    "title": "Neurous Net :: Particles",
+    "title": "Neurous.Net :: Web Particles",
     "description": "Neurous.",
     "media": [
       {
-        "type": "image",
-        "src": "../pages/projects/images/neurousnet.webp",
-        "alt": "Swirling particles",
-        "caption": ""
+        "type": "video",
+        "src": "../pages/projects/images/NeurousNet_A.webm",
+        "alt": "Neurous Net; Pull in all the particles",
+        "caption": "Right-Click (or Tap & Hold) to pull in all the particles!"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/NeurousNet_B.webm",
+        "alt": "Neurous Net; Pulling in near by particles",
+        "caption": "Left-Click (or Tap & Drag) to grab near by particles"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/NeurousNet_C.webm",
+        "alt": "Neurous Net; Spawn some black holes",
+        "caption": "Middle-Click (or Tap with Two Fingers) to spawn in some black holes!"
       }
     ],
-    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='http://neurous.net/' class=\"textBump\" target='_new'>Neurous.net</a> <span class=\"textDrinkMeAlice textItalic\">2014-2025</span></div>\n    <span class=\"textShrink textItalic textName \">Language - <span class=\"textBold\">JavaScript</span></span>\n    <div class=\"pppHBar\"></div>\n    <span class=\"textBump textBold\">More fun on phone!</span>\n\n    <br><br> Some browsers may alert you of the site being unsecure, http\n    <br>&nbsp;&nbsp; You can try <a href='../NeurousNet/index.htm' class='procPagesRepoLinkStyle' target='_blank'>procstack.github.io/NeurousNet</a> instead.\n    \n    <br>\n    <br> A few day project to learn Canvas in HTML5, 2014.\n    <br>&nbsp;&nbsp; Make a custom emitter and particle class structure in javascript;\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Just a page you can play around with some particles.\n\n    <br><br> On desktop,\n    <br>&nbsp;&nbsp; Left-Click to grab near by particles.\n    <br>&nbsp;&nbsp; Right-Click to pull in all the particles!\n    <br>&nbsp;&nbsp; Middle-Click to spawn a black hole!\n    \n    <br><br> On mobile,\n    <br>&nbsp;&nbsp; Tap & drag to grab near by particles.\n    <br>&nbsp;&nbsp; Tap & hold to pull in all the particles!\n    <br>&nbsp;&nbsp; Tap with two fingers to spawn a black hole!\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Here's a tip, hold one finger down, and tap with the second to spawn them in faster!\n    \n    <br><br> Just a note, clicking will spawn in 2 new particles as well,\n    <br>&nbsp;&nbsp; Your screen will fill eventually!\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; It's fun heheh\n\n    <br><br> Enjoy!\n\n    <br><br><div class=\"pppHBar\"></div>\n\n    <br> The site was bootstrapped from pxlmancer, hence the similar style.\n\n    <br><br> Originally written in Functional JavaScript before Classes existed,\n    <br>&nbsp;&nbsp; The trick was reading function elements on the dictionary object from within the dictionary variable.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Some make-shift Methods on a 'Class' object\n    <br>\n    <br> Also adding Prototypes to a custom function,\n    <br>&nbsp;&nbsp; Which could have just been a class.\n\n    <br><br> Functional Native JavaScript, gotta love it\n    <br>&nbsp;&nbsp; Luckily, times have changed!\n\n    <br><br> Rewritten in 2021 to use Classes, added basic WebGL features (glow), and cleaned up movement logic.\n    <br>&nbsp;&nbsp; Then 2024-2025 to add more WebGL support, better generalization, and visual features.\n\n    <br><br> When you've been using JavaScript for decades,\n    <br>&nbsp;&nbsp; Looking back at an old project,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Not only do you get to read your bad old code,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; But also the lack of basic JavaScript features hahah.\n\n    <br><br> No <span class=\"textItalic textName\">let</span>, no <span class=\"textItalic textName\">const</span>, no <span class=\"textItalic textName\">class</span>, no <span class=\"textItalic textName\">arrow functions</span>, no <span class=\"textItalic textName\">...</span> array spread operator, \n    <br>&nbsp;&nbsp; Heck, <span class=\"textItalic textName\">Array.forEach()</span> actually exists now!\n\n    <br><br> \n  ",
+    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='http://neurous.net/' class=\"textBump\" target='_new'>Neurous.Net</a> <span class=\"textDrinkMeAlice textItalic\">2014-2025</span></div>\n    <span class=\"textShrink textItalic textName \">Language - <span class=\"textBold\">JavaScript</span></span>\n    <div class=\"pppHBar\"></div>\n    <span class=\"textBump textBold\">More fun on phone!</span>\n\n    <br><br> Some browsers may alert you of the site being unsecure, http\n    <br>&nbsp;&nbsp; You can try <a href='../NeurousNet/index.htm' class='procPagesRepoLinkStyle' target='_blank'>procstack.github.io/NeurousNet</a> instead.\n    \n    <br>\n    <br> A few day project to learn Canvas in HTML5, 2014.\n    <br>&nbsp;&nbsp; Make a custom emitter and particle class structure in javascript;\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Just a page you can play around with some particles.\n\n    <br><br> On desktop,\n    <br>&nbsp;&nbsp; Left-Click to grab near by particles.\n    <br>&nbsp;&nbsp; Right-Click to pull in all the particles!\n    <br>&nbsp;&nbsp; Middle-Click to spawn a black hole!\n    \n    <br><br> On mobile,\n    <br>&nbsp;&nbsp; Tap & drag to grab near by particles.\n    <br>&nbsp;&nbsp; Tap & hold to pull in all the particles!\n    <br>&nbsp;&nbsp; Tap with two fingers to spawn a black hole!\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Here's a tip, hold one finger down, and tap with the second to spawn them in faster!\n    \n    <br><br> Just a note, clicking will spawn in 2 new particles as well,\n    <br>&nbsp;&nbsp; Your screen will fill eventually!\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; It's fun heheh\n\n    <br><br> Enjoy!\n\n    <br><br><div class=\"pppHBar\"></div>\n\n    <br> The site was bootstrapped from pxlmancer, hence the similar style.\n\n    <br><br> Originally written in Functional JavaScript before Classes existed,\n    <br>&nbsp;&nbsp; The trick was reading function elements on the dictionary object from within the dictionary variable.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Some make-shift '<span class=\"textItalic\">Methods</span>' on a '<span class=\"textItalic\">Class</span>' object\n    <br>\n    <br> Also adding Prototypes to a custom function,\n    <br>&nbsp;&nbsp; Which could have just been a class.\n\n    <br><br> Functional Native JavaScript, gotta love it\n    <br>&nbsp;&nbsp; Luckily, times have changed!\n\n    <br><br> Rewritten in 2021 to use Classes, added basic WebGL features (glow), and cleaned up movement logic.\n    <br>&nbsp;&nbsp; Then 2024-2025 to add more WebGL support, better generalization, and visual features.\n\n    <br><br> When you've been using JavaScript for decades,\n    <br>&nbsp;&nbsp; Looking back at an old project,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Not only do you get to read your bad old code,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; But also the lack of basic JavaScript features hahah.\n\n    <br><br> No <span class=\"textItalic textName\">let</span>, no <span class=\"textItalic textName\">const</span>, no <span class=\"textItalic textName\">class</span>, no <span class=\"textItalic textName\">arrow functions</span>, no <span class=\"textItalic textName\">...</span> array spread operator, \n    <br>&nbsp;&nbsp; Heck, <span class=\"textItalic textName\">Array.forEach()</span> actually exists now!\n\n    <br><br> \n  ",
     "pageURL": "https://procstack.github.io/ProjectsLinks/NeurousNet.htm",
     "relativeURL": "./ProjectsLinks/NeurousNet.htm"
   },
@@ -343,7 +355,7 @@
         "caption": ""
       }
     ],
-    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='https://pxlmancer.com/gl/pxlCam' class=\"textBump\" target='_blank'>pxlCam</a> <span class=\"textDrinkMeAlice textItalic\">2020</span></div>\n    <span class=\"textBump\">A photo filter camera web app</span>\n    <span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">JavaScript, Three.js, & GLSL ES</span></span>\n    <div class=\"pppHBar\"></div>\n  \n    <div class=\"procPagesProjectsDescriptionStyle\">\n      <span class=\"textNudge\">*Use on phone!!*</span>\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; A few day project.\n      \n      <br>&nbsp;&nbsp; - Tap the right arrows to switch between the cameras.\n      <br>&nbsp;&nbsp; - Tap the triple down arrow to change the filter.\n      <br>&nbsp;&nbsp; - The lightning bolt will make the screen white in selfie mode; use your phones light with your back camera\n      <br>&nbsp;&nbsp; - The grid toggles the overlay you can use to align and position your shot\n\n      <br>&nbsp;&nbsp; - Tap & drag left/right or up/down to change the current filter's hue shifting or edge detection size & brightness\n      <br>\n      <br> Each filter has a different effect for the finger drag + direction, so play around with it!\n\n      <br>\n      <br>\n      <br> This is a camera filter web site I wrote with interactive color and edge effects opengl shaders,\n      <br>\n      <br> I've added camera checks + access, resolution checkings + switching\n      <br>&nbsp;&nbsp; The photo-bin temp photo storage handling. Once you take a photo, a thumbnail will appear.  Tap the icon to load a screen to save the image to any number of resoultions. Tap a resolution to load the file size, if you want to send the photo on discord or something.\n      <br>\n\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; And your multiple phone cameras in-browser.\n      \n      <br>\n    </div>\n  ",
+    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='https://pxlmancer.com/gl/pxlCam' class=\"textBump\" target='_blank'>pxlCam</a> <span class=\"textDrinkMeAlice textItalic\">2020</span></div>\n    <span class=\"textBump\">A photo filter camera web app</span>\n    <span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">JavaScript, Three.js, & GLSL ES</span></span>\n    <div class=\"pppHBar\"></div>\n  \n    <div class=\"procPagesProjectsDescriptionStyle\">\n      <span class=\"textNudge\">*Use on phone!!*</span>\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; A few day project.\n\n      \n      <br><span class=\"textBoost textBold\">Note</span> : <span class=\"textName\">pxlCam</span> was hosted on <span class=\"textName\">pxlmancer</span>.\n      <br>&nbsp;&nbsp; Please use <a href='https://procstack.github.io/pxlCam/index.htm' class=\"textBump\" target='_blank'>procstack.github.io/pxlCam</a> for now.\n\n      \n      <br>&nbsp;&nbsp; - Tap the right arrows to switch between the cameras.\n      <br>&nbsp;&nbsp; - Tap the triple down arrow to change the filter.\n      <br>&nbsp;&nbsp; - The lightning bolt will make the screen white in selfie mode; use your phones light with your back camera\n      <br>&nbsp;&nbsp; - The grid toggles the overlay you can use to align and position your shot\n\n      <br>&nbsp;&nbsp; - Tap & drag left/right or up/down to change the current filter's hue shifting or edge detection size & brightness\n      <br>\n      <br> Each filter has a different effect for the finger drag + direction, so play around with it!\n\n      <br>\n      <br>\n      <br> This is a camera filter web site I wrote with interactive color and edge effects opengl shaders,\n      <br>\n      <br> I've added camera checks + access, resolution checkings + switching\n      <br>&nbsp;&nbsp; The photo-bin temp photo storage handling. Once you take a photo, a thumbnail will appear.  Tap the icon to load a screen to save the image to any number of resoultions. Tap a resolution to load the file size, if you want to send the photo on discord or something.\n      <br>\n\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; And your multiple phone cameras in-browser.\n      \n      <br>\n    </div>\n  ",
     "pageURL": "https://procstack.github.io/ProjectsLinks/pxlCam.htm",
     "relativeURL": "./ProjectsLinks/pxlCam.htm"
   },
@@ -470,7 +482,7 @@
   },
   "AIDev.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/AIDev.htm.json",
-    "lastModified": "2025-10-11",
+    "lastModified": "2025-10-14",
     "title": "",
     "description": ".",
     "media": [],
@@ -590,7 +602,7 @@
     "jsonURL": "https:\\procstack.github.io\\bots/AboutMe_What_am_I.htm.json",
     "lastModified": "2025-03-25",
     "title": "What am I?",
-    "description": "Technical Artist; particles, shaders, asset optimization, & pipeline\n    \n    \n      Houdini  /  VEX\n      Maya  /  MEL\n      Unity  /  C#\n      Photoshop\n\n      Python\n      PyQT\n      GLSL\n      JavaScript\n\n      Nginx\n\n    \n\n    \n      New York Metropolitan Area\n      email\n    \n    \n    \n\n    \n    \n      I'm given the title 'Technical Artist' (when doing real-time jobs)\n         or 'Technical Director' (on films)\n           or 'Creative Technologist' (for immersive)\n      It's all the same types of mental challenges though,\n         Just in different mediums of digital graphics.",
+    "description": "Technical Artist; particles, shaders, asset optimization, & pipeline\n    \n    \n      Houdini  /  VEX\n      Maya  /  MEL\n      Unity  /  C#\n      Photoshop\n\n      Python\n      PyQT\n      GLSL\n      JavaScript\n\n      Nginx\n\n    \n\n    \n      New York Metropolitan Area\n      email\n    \n    \n    \n\n    \n    \n      I'm given the title\n         'Technical Artist' (on real-time jobs)\n           or 'Technical Director' (on films)\n             or 'Creative Technologist' (for XR)\n      \n      It's all the same types of mental challenges though,\n         Just in different mediums of digital graphics.",
     "media": [
       {
         "type": "youtube",
@@ -599,7 +611,7 @@
         "caption": ""
       }
     ],
-    "content": "\n      <div class='textSpacer'></div>\n\n    <div class='procPagesAboutMe-topTextStyle'>\n      <span class=\"textBold\">Technical Artist</span>; particles, shaders, asset optimization, & pipeline\n    </div>\n    <div class='procPagesAboutMe-skillListStyle' id='ppamSkillListParent'>\n      <span class=\"ppamSkillListing\">Houdini <span class=\"textDrinkMeAlice\">&nbsp;/&nbsp;</span> VEX</span>\n      <span class=\"ppamSkillListing\">Maya <span class=\"textDrinkMeAlice\">&nbsp;/&nbsp;</span> MEL</span>\n      <span class=\"ppamSkillListing\">Unity <span class=\"textDrinkMeAlice\">&nbsp;/&nbsp;</span> C<span class=\"textSuper\">#</span></span>\n      <span class=\"ppamSkillListing\">Photoshop</span>\n\n      <span class=\"ppamSkillListing\">Python</span>\n      <span class=\"ppamSkillListing\">PyQT</span>\n      <span class=\"ppamSkillListing\">GLSL</span>\n      <span class=\"ppamSkillListing\">JavaScript</span>\n\n      <span class=\"ppamSkillListing\" id=\"ppamOverflowListing\">Nginx</span>\n\n    </div>\n\n    <div class='procPagesAboutMe-subHeaderStyle'>\n      <span>New York Metropolitan Area</span>\n      <span><a href=\"mailto:trancor@metal-asylum.net\" alt=\"Email me!\">email</a></span>\n    </div>\n    \n    <br><div class='ppamHBar'></div>\n\n    <br>\n    <br><div class='procPagesAboutMe-infoStyle'>\n      I'm given the title '<span class=\"textNudge\">Technical Artist</span>' (<span class=\"textItalic\">when doing real-time jobs</span>)\n      <br>&nbsp;&nbsp; or '<span class=\"textNudge\">Technical Director</span>' (<span class=\"textItalic\">on films</span>)\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; or '<span class=\"textNudge\">Creative Technologist</span>' (<span class=\"textItalic\">for immersive</span>)\n      <br>It's all the same types of mental challenges though,\n      <br>&nbsp;&nbsp; Just in different mediums of digital graphics.\n    </div>\n    \n\n    <br>\n    <div class=\"textItalicBox\">So I says, blue M&M, red M&M, they all wind up the same color in the end.</div>\n    <div class=\"textDrinkMeAlice innerTextEnd\"> - <span class=\"textNudge\">Homer Simpson</span></div>\n    \n    <br>\n    <div class='procPagesAboutMe-infoStyle'>\n      Ya know... I don't really know what I am,\n      <br>&nbsp;&nbsp; I just know I like figuring out puzzles, and for the life of me, can't seem to stop my fidgety fingers.\n      \n      <br><br>Always gotta be tapping away at some code, \n      <br>&nbsp;&nbsp; or making particle effects,\n      <br>&nbsp;&nbsp; or building some diy contraption, \n      <br>&nbsp;&nbsp; or 3d modeling, \n      <br>&nbsp;&nbsp; or sewing, \n      <br>&nbsp;&nbsp; or writing, \n      <br>&nbsp;&nbsp; or ... well, you get the idea.\n\n      <br><br>An undiagnosed something-or-another,\n      <br>&nbsp;&nbsp; Who spawned-in with the energy befitting a gift from the mythical Red Bull itself!\n\n\n    <br><br><div class='ppamHBar'></div>\n\n    <br> <span class=\"textBump\">Web Dev Note</span> : I'm a <span class=\"textNudge\">3D & Shader Technical Artist</span> first, that brings me the most joy.\n    <br>&nbsp;&nbsp; <span class=\"textNudge\">JavaScript</span> has been a personal <span class=\"textNudge\">hobby</span> of mine for <span class=\"textNudge\">28-29 years</span> now,\n    <br>&nbsp;&nbsp; But I barely know any frameworks, only working knowledge of React & Node.js.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; For my projects, I make ESM modules in <span class=\"textNudge\">Native JavaScript</span>, served using <span class=\"textNudge\">Node.js</span> & <span class=\"textNudge\">Nginx</span> or <span class=\"textNudge\">Plex</span>\n\n    <br><br> I can always learn frameworks if needed.\n\n    <br><br> They're usually just a lot of bloat, so I never wanted to use them.\n    <br>&nbsp;&nbsp; JQuery ruined it for me hahah.\n    <br>\n    <br> Then after a decade, you end up with your own frameworks anyway.\n    <br>&nbsp;&nbsp; Let alone the NPM horror stories of packages like 'isEven()'\n    <br>&nbsp;&nbsp; Just use - <span class=\"textName\">let isEven = ( v ) => !(v & 0x0001);</span>\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; And call it a day!\n\n    <br><br> Bootstraps of Bootstraps of Bootstraps,\n    <br>&nbsp;&nbsp; Over the years, creating tools for most web, style, & network situations.\n\n    <br><br> React Native does seem cool though.\n\n    </div>\n    <br>\n    <br>\n  ",
+    "content": "\n      <div class='textSpacer'></div>\n\n    <div class='procPagesAboutMe-topTextStyle'>\n      <span class=\"textBold\">Technical Artist</span>; particles, shaders, asset optimization, & pipeline\n    </div>\n    <div class='procPagesAboutMe-skillListStyle' id='ppamSkillListParent'>\n      <span class=\"ppamSkillListing\">Houdini <span class=\"textDrinkMeAlice\">&nbsp;/&nbsp;</span> VEX</span>\n      <span class=\"ppamSkillListing\">Maya <span class=\"textDrinkMeAlice\">&nbsp;/&nbsp;</span> MEL</span>\n      <span class=\"ppamSkillListing\">Unity <span class=\"textDrinkMeAlice\">&nbsp;/&nbsp;</span> C<span class=\"textSuper\">#</span></span>\n      <span class=\"ppamSkillListing\">Photoshop</span>\n\n      <span class=\"ppamSkillListing\">Python</span>\n      <span class=\"ppamSkillListing\">PyQT</span>\n      <span class=\"ppamSkillListing\">GLSL</span>\n      <span class=\"ppamSkillListing\">JavaScript</span>\n\n      <span class=\"ppamSkillListing\" style=\"display:none\" id=\"ppamOverflowListing\">Nginx</span>\n\n    </div>\n\n    <div class='procPagesAboutMe-subHeaderStyle'>\n      <span>New York Metropolitan Area</span>\n      <span><a href=\"mailto:trancor@metal-asylum.net\" alt=\"Email me!\">email</a></span>\n    </div>\n    \n    <br><div class='ppamHBar'></div>\n\n    <br>\n    <br><div class='procPagesAboutMe-infoStyle'>\n      I'm given the title\n      <br>&nbsp;&nbsp; '<span class=\"textNudge\">Technical Artist</span>' (<span class=\"textItalic\">on real-time jobs</span>)\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; or '<span class=\"textNudge\">Technical Director</span>' (<span class=\"textItalic\">on films</span>)\n      <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; or '<span class=\"textNudge\">Creative Technologist</span>' (<span class=\"textItalic\">for XR</span>)\n      <br>\n      <br>It's all the same types of mental challenges though,\n      <br>&nbsp;&nbsp; Just in different mediums of digital graphics.\n    </div>\n    \n\n    <br>\n    <div class=\"textItalicBox\">So I says, blue M&M, red M&M, they all wind up the same color in the end.</div>\n    <div class=\"textDrinkMeAlice innerTextEnd\"> - <span class=\"textNudge\">Homer Simpson</span></div>\n    \n    <br>\n    <div class='procPagesAboutMe-infoStyle'>\n      Ya know... I don't really know what I am,\n      <br>&nbsp;&nbsp; I just know I like figuring out puzzles, and for the life of me, can't seem to stop my fidgety fingers.\n      \n      <br><br>Always gotta be tapping away at some code, \n      <br>&nbsp;&nbsp; or Houdini effects,\n      <br>&nbsp;&nbsp; or building some diy contraption, \n      <br>&nbsp;&nbsp; or 3d modeling, \n      <br>&nbsp;&nbsp; or sewing, \n      <br>&nbsp;&nbsp; or writing, \n      <br>&nbsp;&nbsp; or ... well, you get the idea.\n\n      <br><br>An undiagnosed something-or-another,\n      <br>&nbsp;&nbsp; Who spawned-in with the energy befitting a gift from the mythical <span class=\"textNudge\">Red Bull</span> itself!\n\n    </div>\n    <br>\n    <br>\n  ",
     "pageURL": "https://procstack.github.io/AboutMe/What_am_I.htm",
     "relativeURL": "./AboutMe/What_am_I.htm"
   },
@@ -619,6 +631,35 @@
     "content": "\n      <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle'>\n      In the past, I worked on <span class=\"textNudge\">9</span> films, <span class=\"textNudge\">8</span> of those at <span class=\"textBump\">Blue Sky Studios</span>.\n      \n      <div class='procPagesAboutMeSpacer'></div>\n      \n      &nbsp;&nbsp;<span class=\"textInblockBox\">Character Simulation Technical Director (TD)</span> for hair / clothing sims & tools in <span class=\"textName\">Maya</span> on -\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class=\"textName\">Epic</span>, <span class=\"textName\">Rio 1</span> & <span class=\"textName\">Rio 2</span>\n      \n      <div class='textSpacer'></div>\n\n      &nbsp;&nbsp;<span class=\"textInblockBox\">Effects TD</span> doing volume sims (snow & dust plumes), particles, some RBDs, & tools in <span class=\"textName\">Houdini</span> & <span class=\"textName\">Maya</span> on -\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class=\"textName\">Ice Age 4</span>\n      \n      <div class='textSpacer'></div>\n\n      &nbsp;&nbsp;<span class=\"textInblockBox\">Crowds TD</span> navigation, sims, & tools in <span class=\"textName\">Houdini</span> on -\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class=\"textName\">Ferdinand</span>, <span class=\"textName\">Rio 2</span>, <span class=\"textName\">Peanuts</span>, <span class=\"textName\">Ice Age 5</span>, & <span class=\"textName\">Spies In Disguise</span>\n      \n      \n      <br><br><div class='ppamHBar'></div>\n\n      <br><span class=\"innerCenter\">\n      I was part of 2 published Siggraph papers and was allowed the opportunity to speak at <span class=\"textBump\">Siggraph 2015</span>.\n      <br>The talk was to a decently full room, my bit was about camera based crowd navigation for <span class=\"textName\">Peanuts</span>.\n\n      <br><br> For <span class=\"textName\">Peanuts</span>, I built an angle-to-camera locking system to drive agent's Movement and Head, Torso, & Legs joint orientation to match the 2D style of the original cartoons. Along with Rails, Agents could choose to break free from, yet stay in rows on screen.\n      <br><br> For <span class=\"textName\">Ferdinand</span>, I built dynamic Arm IK to have drivers hold 10&2 on steering wheels, passengers to sit, and co-developed a horse-and-jockey system to keep the Passengers (Jockeys) in the Cars (Horses) while they drive the streets.\n      <br>\n      <br>Please note, prior to Ferdinand, Houdini didn't have Crowd Simulation yet.\n      <br>We developed our crowd tools & pipeline in-house.\n      </span>\n\n      <br><div class='ppamHBar'></div>\n      \n      <br>While working in <span class=\"textName\">Crowds</span>,\n      <br>&nbsp;&nbsp; I built most of the navigation tools, placement, pathing, obstacle detection, and the usual crowd/boid navigation logic itself in Houdini for Birds & Land critters.\n      \n      <br>\n      <br>I wrote systems to understand the terrain and how to follow the flow of the ground,\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class='textItalic'>(Hence why I like AI Development now.)</span>\n      <br>&nbsp;&nbsp; Multi-limb IK for the people & animals to walk over uneven terrain, and a 'lookAt' system for the characters to look around with multiple neck joints smoothly.\n      <br>&nbsp;&nbsp; While calculating the linear algebra to limit joint rotation in the neck to determine if the agent could look at their target or not.\n\n      <br>\n      <br>One of the personality traits I gave the crowd agents was 'rudeness';\n      <br>&nbsp;&nbsp; This allowed some agents to push past each other, while others would slow/stop and wait for them to pass.\n      <br>&nbsp;&nbsp; This gave the crowd a more natural feel, as if a few had \"somewhere to be\".\n\n      <br>\n      <br>I could talk about the post-simulation joint editing & cycle shifting tools, or the IK heel offsets & foot locking;\n      <br>&nbsp;&nbsp; But I think I'll save that for another time.\n\n      <br>\n      <br>\n    </div>\n  ",
     "pageURL": "https://procstack.github.io/AboutMe/Film_Work.htm",
     "relativeURL": "./AboutMe/Film_Work.htm"
+  },
+  "AboutMe_Web_Dev.htm": {
+    "jsonURL": "https:\\procstack.github.io\\bots/AboutMe_Web_Dev.htm.json",
+    "lastModified": "2025-10-13",
+    "title": "Web Dev",
+    "description": "Web Dev Experience :\n       JavaScript has been a personal hobby of mine for some 28-29 years now, starting age 9 to 10 on GeoCities.",
+    "media": [
+      {
+        "type": "youtube",
+        "src": "_vzqZ2sNjaw",
+        "alt": "Huge holiday party thank you video",
+        "caption": "A Thank You video for a holiday party held in Antibody Club [defunct], 2020 See the pxlNav's Origin page for more info!"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/tvKid.webm",
+        "alt": "TV Kid timelapse",
+        "caption": "The timelapse of 'TV Kid' See the Pxlmancer project page for more info!"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/NeurousNet_A.webm",
+        "alt": "Neurous Net; Pull in all the particles",
+        "caption": "Particle Playground! See the Neurous.Net project page for more info!"
+      }
+    ],
+    "content": "\n    <div class='textSpacer'></div>\n\n    <div class='procPagesAboutMe-infoStyle'>\n\n    <span class=\"textBump\"> Web Dev Experience</span> :\n    <br>&nbsp;&nbsp; <span class=\"textItch\">JavaScript</span> has been a personal <span class=\"textNudge\">hobby</span> of mine for some <span class=\"textNudge\">28-29 years</span> now, starting age 9 to 10 on GeoCities.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; But I barely know any frameworks,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Only enough <span class=\"textNudge\">React</span> & <span class=\"textNudge\">Node.js</span> for <span class=\"textName\">pxlNav</span> support with the help of Copilot in VS Code.\n    <br>\n    <br> For my projects, I make them cause I enjoy making random web sites,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Copilot only steals my fun these days.\n    <br>&nbsp;&nbsp; I make ESM modules in <span class=\"textNudge\">Native JavaScript</span>, served using <span class=\"textNudge\">Node.js</span> & <span class=\"textNudge\">Nginx</span> or <span class=\"textNudge\">Plex</span>\n\n    <br><br> Like, I made the <span class=\"textName\">single-page</span> system for procstack.github.io,\n    <br>&nbsp;&nbsp; Mostly cause I noticed I didn't have a static-serving <span class=\"textNudge\">single-page</span>'r in my toolkit.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Thought it'd be fun!\n\n    <br><br><div class='ppamHBar'></div>\n\n    <br> I'm a <span class=\"textNudge\">3D & Shader Technical Artist</span> first, that brings me the most joy.\n    <br>&nbsp;&nbsp; I mostly use JS professionally in certain XR graphics programs, when I do.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Or if a game needs a backend with Websocket support.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Like the GDC + St. Jude's virtual fundraiser I helped build & run during covid, using Unreal + Node.js + Nginx.\n\n    <br><br><div class='ppamHBar'></div>\n\n    <br> I set up <span class=\"textName\">Antib0dy.club</span>'s full stack, and still hand-rolled the text chat display, websocket multiplayer characters in 3d, server websocket \"chat rooms\", mic audio with distance fall off, moderator tools, and more for <span class=\"textName\">pxlNav</span>.\n    <br>&nbsp;&nbsp; I used <span class=\"textName\">Jitsi</span> for the video, audio, & text chat over WebRTC,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Which I forked to add in some custom features for <span class=\"textName\">Antib0dy.club</span>.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Displaying the chat messages using unique identifiers so people could recognize who's talking by color & name.\n    <br>&nbsp;&nbsp; Then telling the front-end to calculate people's volume to free up server resources, and lazy voice disconnection server-side when users got too far from each other.\n    <br>&nbsp;&nbsp; Only periodically checking player distances for server performance.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; It was fun to develop, but not developed like <span class=\"textNudge\">React</span>'s workflow in the <span class=\"textItch\">least</span>!\n\n    <br><br> What was fun for <span class=\"textName\">Antib0dy.club</span> was making a \"Socket.io chatroom balancer\" on the server.\n    <br>&nbsp;&nbsp; <span class=\"textNudge\">Jitsi</span> was great, but would cap out at about 70 people video + voice in the <span class=\"textName\">pxlNav</span> environment.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; So I'd distribute a cluster of users to a new WebSocket & Jitsi room when the threshold was met.\n\n    <br><br> I'd have it ask the user with a pop-up if they didn't mind switching rooms,\n    <br>&nbsp;&nbsp; Like, maybe they were having a conversation.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; If they didn't mind, it would move them to a new room with about 20 other people.\n    <br>&nbsp;&nbsp; I set it up so if it picked a user, it would find the nearest couple within a distance.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Electing those specific users to move rooms together.\n    <br>&nbsp;&nbsp; It worked out pretty well, and I'd see groups of people transform into \"Colored Diamond\" avatars of people in different rooms.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; If they wanted to hang out with their friends,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bring the group!\n    \n  \n    <br><br> And just click into a different room if you wanted to go back through the \"Verses\" of other rooms.\n    <br>&nbsp;&nbsp; ... This was before Meta made the Metaverse, and I like physics haha.\n\n    <br><br><div class='ppamHBar'></div>\n\n    <br> Honestly though, one of my favorite web projects was the regex powered Shader Text Editor for <span class=\"textName\">pxlNav</span>.\n    <br>&nbsp;&nbsp; If you're on a computer, just hit <span class=\"textName textBold\">Y</span> to open it up.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; In the upper right, you'll see all the keyboard shortcuts for the editor.\n\n    <br><br> Like a quick search, where any text you have highlighted, hit <span class=\"textName\">Ctrl + Arrow Direction</span> to find the next occurrence in that direction.\n    <br>&nbsp;&nbsp; I want that in VS Code now! haha\n\n    <br><br><div class='ppamHBar'></div>\n\n    <br><br> Frameworks usually have a lot of bloat, so I haven't wanted to use them.\n    <br>&nbsp;&nbsp; <span class=\"textNudge\">JQuery</span> kinda ruined it for me.\n    <br>&nbsp;&nbsp; Let alone the NPM horror stories of packages like '<span class=\"textName\">isEven()</span>'\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Just use - <span class=\"textName\">let isEven = ( v ) => !(v & 0x0001);</span>\n    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And call it a day!\n    \n    <br><br> Bootstraps of Bootstraps of Bootstraps,\n    <br>&nbsp;&nbsp; Over the years, creating tools for js, css styling, & networking middleware.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Then after a decade, you end up with your own framework anyway.\n\n    <br><br> But <span class=\"textNudge\">React Native</span> does look cool.\n\n    </div>\n    <br>\n    <br>\n  ",
+    "pageURL": "https://procstack.github.io/AboutMe/Web_Dev.htm",
+    "relativeURL": "./AboutMe/Web_Dev.htm"
   },
   "AboutMe_Plushies.htm": {
     "jsonURL": "https:\\procstack.github.io\\bots/AboutMe_Plushies.htm.json",
@@ -654,52 +695,5 @@
     "content": "\n      <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle'>\n      In late-spring of 2024,\n      <br>&nbsp;&nbsp; I made a tool to turn any 3d model into a fabric pattern in Houdini.\n      <br>&nbsp;&nbsp; It'll show me the ammount of stretch in a design, let me label the panels, add notches to neighboring panels, and more!\n      \n      <br><span class=\"innerCenter\">So I've been making plushies in my free time!</span>\n      \n      <br>&nbsp;&nbsp; I started with anti-pil fleece fabric. I realized pretty quickly it gives off plumes of micro-plastics as you play with them; but its super easy to work with.\n      <br><span class=\"innerCenter textSkew\">Anti-pil fleece is definitely a hobbyist fabric.</span>\n      \n      <br>&nbsp;&nbsp; Then I moved to minky, which is a bit more difficult to work with, but is so soft and cuddly!  It's a bit more expensive, has less stretch than anti-pil, but it's a much better fabric for the feel of the plushies.\n      <br><span class=\"innerCenter textSkew\">Minky is definitely for a more skilled crafter.</span>\n      \n      <br>&nbsp;&nbsp; In the long run, I can get an idea from my head to a plushie in about 4 days now.  So I've been making a bunch of different designs, and I'm really happy with how they've been turning out!\n      <br>\n      <br>\n    </div>\n  ",
     "pageURL": "https://procstack.github.io/AboutMe/Plushies.htm",
     "relativeURL": "./AboutMe/Plushies.htm"
-  },
-  "ProjectsLinks_Pxlmancer.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/ProjectsLinks_Pxlmancer.htm.json",
-    "lastModified": "2025-02-24",
-    "title": "Pxlmancer :: Drawing App",
-    "description": "pxlmancer 2014-2019\n    A full drawing/painting app on desktop, a fun fidget toy on mobile.",
-    "media": [
-      {
-        "type": "image",
-        "src": "../pages/projects/images/tvKid.webp",
-        "alt": "TV was king!",
-        "caption": "vv Watch the timelapse of me making 'TV Kid' in Pxlmancer vv"
-      },
-      {
-        "type": "video",
-        "src": "../pages/projects/images/tvKid.webm",
-        "alt": "TV Kid timelapse",
-        "caption": "This was a fun one!"
-      },
-      {
-        "type": "video",
-        "src": "../pages/projects/images/pxlBrushes.webm",
-        "alt": "Testing some brushes & smudges",
-        "caption": "Testing some brushes & smudges"
-      },
-      {
-        "type": "video",
-        "src": "../pages/projects/images/pxlColorSphere.webm",
-        "alt": "Color sphere demo",
-        "caption": "The Color Sphere Click to Sample your desired color Swap Swatches with Number Keys! Click & Drag to mix colors; and they save to your `.pxlm` file"
-      },
-      {
-        "type": "video",
-        "src": "../pages/projects/images/pxlLayers.webm",
-        "alt": "Layer support demo",
-        "caption": "Gotta have layers in a graphics editors!"
-      },
-      {
-        "type": "image",
-        "src": "../pages/projects/images/kitty.webp",
-        "alt": "Digital drawing a friends cat",
-        "caption": "...of course, the cat tax..."
-      }
-    ],
-    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='https://procstack.github.io/pxlmancer/index.htm' class=\"textBump\" target='_blank'>pxlmancer</a> <span class=\"textDrinkMeAlice textItalic\">2014-2019</span></div>\n    <span class=\"textBump\">A full drawing/painting app on desktop, a fun fidget toy on mobile.</span>\n    <br><span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">JavaScript, JQuery, & PHP</span></span>\n    <br>Solo written <span class='textName'>14264</span> lines of JavaScript, ground up only using jquerry's oddness.\n    <div class=\"pppHBar\"></div>\n\n    <br><span class=\"textBoost textBold\">Note</span> : <span class=\"textName\">pxlmancer.com</span> is currently having some <span class=\"textNudge\">https certificate</span> issues.  I'll be fixing it soon.\n    <br>&nbsp;&nbsp; Please use <a href='https://procstack.github.io/pxlmancer/index.htm' class=\"textBump\" target='_blank'>procstack.github.io/pxlmancer</a> for now.\n    <br>&nbsp;&nbsp; But, it may be buggy because I had to convert it from PHP to JS-Only for GitHub Pages.\n    \n    <br><br><div class=\"pppHBar\"></div>\n\n    <br> On'n'off multi-year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)\n    \n    <br>\n    <br>\n    <div class=\"procPagesProjectsDescriptionStyle selfCenter\">Use the mixing pallet to blend colors together to paint with, then save the pallet by pressing a number key.\n      <br>All of which can be saved to a .pxlm file; to store your layers, settings, and pallet swatches!\n    </div>\n    <div class=\"procPagesProjectsSpacer\"></div>\n\n    <br>&nbsp;&nbsp; Sadly, an update in javascript broke saving images, and I haven't had the time to fix it yet...\n    <br>You'll need to drag the image from the \"Save Image\" screen to a new tab to view and save it.\n    <br>But you can easily save your document to a pxlm file, and open it back up to continue working on your project!\n    \n    <div class=\"procPagesProjectsSpacer\"></div>\n\n    <br>&nbsp;&nbsp; A little tid-bit, <span class='textNudge'>pxlmancer.com</span> is the origin of my '<span class='textNudge'>pxl</span>' namespace for my projects.\n    <br>It's my indicator of a codebase with a visual output; such as pxlNav, pxlVisualizer, pxlTextGenerator, etc.\n    <br><br>More about pxlmancer.com on <a href='https://imgur.com/gallery/8lSW1' target='_blank'>Imgur</a>!\n    \n  ",
-    "pageURL": "https://procstack.github.io/ProjectsLinks/Pxlmancer.htm",
-    "relativeURL": "./ProjectsLinks/Pxlmancer.htm"
   }
 }

@@ -86,7 +86,7 @@ export const pageListingData = {
       <span class="ppamSkillListing">GLSL</span>
       <span class="ppamSkillListing">JavaScript</span>
 
-      <span class="ppamSkillListing" id="ppamOverflowListing">Nginx</span>
+      <span class="ppamSkillListing" style="display:none" id="ppamOverflowListing">Nginx</span>
 
     </div>
 
@@ -99,9 +99,11 @@ export const pageListingData = {
 
     <br>
     <br><div class='procPagesAboutMe-infoStyle'>
-      I'm given the title '<span class="textNudge">Technical Artist</span>' (<span class="textItalic">when doing real-time jobs</span>)
-      <br>&nbsp;&nbsp; or '<span class="textNudge">Technical Director</span>' (<span class="textItalic">on films</span>)
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; or '<span class="textNudge">Creative Technologist</span>' (<span class="textItalic">for immersive</span>)
+      I'm given the title
+      <br>&nbsp;&nbsp; '<span class="textNudge">Technical Artist</span>' (<span class="textItalic">on real-time jobs</span>)
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; or '<span class="textNudge">Technical Director</span>' (<span class="textItalic">on films</span>)
+      <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; or '<span class="textNudge">Creative Technologist</span>' (<span class="textItalic">for XR</span>)
+      <br>
       <br>It's all the same types of mental challenges though,
       <br>&nbsp;&nbsp; Just in different mediums of digital graphics.
     </div>
@@ -117,7 +119,7 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; I just know I like figuring out puzzles, and for the life of me, can't seem to stop my fidgety fingers.
       
       <br><br>Always gotta be tapping away at some code, 
-      <br>&nbsp;&nbsp; or making particle effects,
+      <br>&nbsp;&nbsp; or Houdini effects,
       <br>&nbsp;&nbsp; or building some diy contraption, 
       <br>&nbsp;&nbsp; or 3d modeling, 
       <br>&nbsp;&nbsp; or sewing, 
@@ -125,30 +127,7 @@ export const pageListingData = {
       <br>&nbsp;&nbsp; or ... well, you get the idea.
 
       <br><br>An undiagnosed something-or-another,
-      <br>&nbsp;&nbsp; Who spawned-in with the energy befitting a gift from the mythical Red Bull itself!
-
-
-    <br><br><div class='ppamHBar'></div>
-
-    <br> <span class="textBump">Web Dev Note</span> : I'm a <span class="textNudge">3D & Shader Technical Artist</span> first, that brings me the most joy.
-    <br>&nbsp;&nbsp; <span class="textNudge">JavaScript</span> has been a personal <span class="textNudge">hobby</span> of mine for <span class="textNudge">28-29 years</span> now,
-    <br>&nbsp;&nbsp; But I barely know any frameworks, only working knowledge of React & Node.js.
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; For my projects, I make ESM modules in <span class="textNudge">Native JavaScript</span>, served using <span class="textNudge">Node.js</span> & <span class="textNudge">Nginx</span> or <span class="textNudge">Plex</span>
-
-    <br><br> I can always learn frameworks if needed.
-
-    <br><br> They're usually just a lot of bloat, so I never wanted to use them.
-    <br>&nbsp;&nbsp; JQuery ruined it for me hahah.
-    <br>
-    <br> Then after a decade, you end up with your own frameworks anyway.
-    <br>&nbsp;&nbsp; Let alone the NPM horror stories of packages like 'isEven()'
-    <br>&nbsp;&nbsp; Just use - <span class="textName">let isEven = ( v ) => !(v & 0x0001);</span>
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; And call it a day!
-
-    <br><br> Bootstraps of Bootstraps of Bootstraps,
-    <br>&nbsp;&nbsp; Over the years, creating tools for most web, style, & network situations.
-
-    <br><br> React Native does seem cool though.
+      <br>&nbsp;&nbsp; Who spawned-in with the energy befitting a gift from the mythical <span class="textNudge">Red Bull</span> itself!
 
     </div>
     <br>

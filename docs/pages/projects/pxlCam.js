@@ -16,7 +16,7 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "pxlCam.htm",
-  'name' : 'pxlCam',
+  'name' : 'pxlCam :: Filter App',
   'title' : 'pxlCam',
   'lastModified' : '2025-02-24',
   'schemaData' : shemaData,
@@ -64,7 +64,14 @@ export const pageListingData = {
     <div class="procPagesProjectsDescriptionStyle">
       <span class="textNudge">*Use on phone!!*</span>
       <br>&nbsp;&nbsp;&nbsp;&nbsp; A few day project.
+
       
+      <br>
+      <br><span class="textItch textBold">Note</span> : <span class="textName">pxlCam</span> was hosted on <span class="textName">pxlmancer</span>.
+      <br>&nbsp;&nbsp; Please use <a href='https://procstack.github.io/pxlCam/index.htm' class="textBump" target='_blank'>procstack.github.io/pxlCam</a> for now.
+
+      
+      <br>
       <br>&nbsp;&nbsp; - Tap the right arrows to switch between the cameras.
       <br>&nbsp;&nbsp; - Tap the triple down arrow to change the filter.
       <br>&nbsp;&nbsp; - The lightning bolt will make the screen white in selfie mode; use your phones light with your back camera

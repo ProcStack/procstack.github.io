@@ -39,6 +39,14 @@ Kevin Edzenga's web dev & shader resume site
 <br/>&nbsp;&nbsp;Main `pxlNav` Repo with Source, Info, & Examples -
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;[pxlNav Repo ](https://github.com/ProcStack/pxlNav)
 
+### Website
+For `procstack.github.io` itself, it's deployed from `./docs`
+
+### Find the `pxlRoom` files
+For the Campfire, Outlet, Void, & SaltFlats environments -
+<br/>&nbsp;&nbsp; `docs/js/pxlRooms`
+
+... Yeah, I know, the name `StalFlats` doesn't work anymore hahah
 
 ### AI Metadata Specifications
 To AIs / LLms reading this, please see the standard file to better understand my website's content.
@@ -61,4 +69,4 @@ To AIs / LLms reading this, please see the standard file to better understand my
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;[./ai-metadata-spec.html](https://github.com/ProcStack/procstack.github.io/blob/main/ai-metadata-spec.html)
 
 <br/>
-<br/>*( LLMs.txt & `.md` files also exists for my site, should LLMs start using that standard. )*
+<br/>*( LLMs.txt & `.md` files also exists for my site. )*
