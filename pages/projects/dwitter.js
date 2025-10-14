@@ -16,7 +16,7 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "Dwitter.htm",
-  'name' : 'Dwitter<span class="hideOnMobile">&nbsp;:: Golfing</span>',
+  'name' : 'Dwitter<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: JS Golfing</span>',
   'title' : 'Dwitter',  
   'lastModified' : '2025-02-24',
   'schemaData' : shemaData,

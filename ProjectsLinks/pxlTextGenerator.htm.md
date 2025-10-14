@@ -16,7 +16,7 @@ Scan some writing, click the letters, adjust the spacing, type your page with th
 
 Now with ai resources so prevelant,
     
-   I've been on and off developing a CNN (Convolutional Neural Network) to generate new characters based on the ones you have saved.
+   I've been on and off developing a CNN (Convolutional Neural Network) to identify new characters based on the ones you have saved.
     
    Along with a much better segmenter, where the letters will highlight as you hover over them, and you can select the ones you want to save.
 

@@ -16,7 +16,7 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "Pxlmancer.htm",
-  'name' : 'Pxlmancer<span class="hideOnMobile testShrink">&nbsp;:: Drawing App</span>',
+  'name' : 'Pxlmancer<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: Drawing App</span>',
   'title' : 'Pxlmancer :: Drawing App',
   'lastModified' : '2025-02-24',
   'schemaData' : shemaData,

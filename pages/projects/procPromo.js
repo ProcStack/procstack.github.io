@@ -16,7 +16,7 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "procPromo.htm",
-  'name' : 'procPromo<span class="hideOnMobile">&nbsp;:: Shader Pack</span>',
+  'name' : 'procPromo<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: Shader Pack</span>',
   'title' : 'procPromo :: Shader Pack',
   'lastModified' : '2025-06-19',
   'schemaData' : shemaData,
