@@ -16,7 +16,7 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "pxlTextGenerator.htm",
-  'name' : 'pxlTextGenerator',
+  'name' : 'pxlTextGenerator :: PyQt',
   'title' : 'pxlTextGenerator',
   'lastModified' : '2025-02-24',
   'schemaData' : shemaData,
@@ -24,6 +24,13 @@ export const pageListingData = {
   'keywords' : 'pxlTextGenerator, pxl text generator, handwriting generator, text to handwriting, character builder, page editor, python',
   'navGroup' : 'Repos to Check Out',
   'media' : [
+    {
+      'type' : 'video',
+      'src' : '../pages/projects/images/pxlTextGenerator_lowerY.webm',
+      'alt' : 'Character selector & builder',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["Gather your library of characters from photos/scans/images,","They'll save to disk as you work on your project."]
+    },
     {
       'type' : 'image',
       'src' : '../pages/projects/images/pxlTextGenerator_characterBuilder.webp',
@@ -37,13 +44,6 @@ export const pageListingData = {
       'alt' : 'Page builder with alphabet',
       'style' : 'procPagesImageStyle',
       'caption' : ["Page builder using your selected characters"]
-    },
-    {
-      'type' : 'video',
-      'src' : '../pages/projects/images/pxlTextGenerator_lowerY.webm',
-      'alt' : 'Character selector & builder',
-      'style' : 'procPagesImageStyle',
-      'caption' : ["Gather your library of characters from photos/scans/images,","They'll save to disk as you work on your project."]
     },
     {
       'type' : 'video',
@@ -63,7 +63,7 @@ export const pageListingData = {
   'content' : `
     <a href='https://github.com/ProcStack/pxlTextGenerator' class='procPagesRepoLinkStyle' target='_blank'>pxlTextGenerator</a> <span class="textDrinkMeAlice textItalic">2018-2019</span>
     <br><span class="textBump">Text to handwriting generator</span>
-    <br><span class="textShrink textItalic textName ">Language - <span class="textBold">Python / PyQt</span></span>
+    <br><span class="textShrink textItalic textName ">Language - <span class="textBold">Python & PyQt</span></span>
     <div class="pppHBar"></div>
     
     Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.net.

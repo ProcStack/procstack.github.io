@@ -1,8 +1,14 @@
 {
-  "title": "pxlTextGenerator",
-  "description": "pxlTextGenerator 2018-2019\n    Text to handwriting generator\n    Language - Python / PyQt\n    \n    \n    Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.",
+  "title": "pxlTextGenerator :: PyQt",
+  "description": "pxlTextGenerator 2018-2019\n    Text to handwriting generator\n    Language - Python & PyQt\n    \n    \n    Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.",
   "lastModified": "2025-02-24",
   "media": [
+    {
+      "type": "video",
+      "src": "../pages/projects/images/pxlTextGenerator_lowerY.webm",
+      "alt": "Character selector & builder",
+      "caption": "Gather your library of characters from photos/scans/images, They'll save to disk as you work on your project."
+    },
     {
       "type": "image",
       "src": "../pages/projects/images/pxlTextGenerator_characterBuilder.webp",
@@ -14,12 +20,6 @@
       "src": "../pages/projects/images/pxlTextGenerator_pageView.webp",
       "alt": "Page builder with alphabet",
       "caption": "Page builder using your selected characters"
-    },
-    {
-      "type": "video",
-      "src": "../pages/projects/images/pxlTextGenerator_lowerY.webm",
-      "alt": "Character selector & builder",
-      "caption": "Gather your library of characters from photos/scans/images, They'll save to disk as you work on your project."
     },
     {
       "type": "video",

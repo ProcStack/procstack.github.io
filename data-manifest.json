@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-10-13",
+  "lastUpdated": "2025-10-14",
   "description": "ProcStack.github.io Data Sources for AI/LLM consumption",
   "baseUrl": "https://procstack.github.io",
   "totalPages": 29,
@@ -9,16 +9,16 @@
       "url": "/bots/siteContent.json",
       "description": "Aggregated site content including all page data",
       "format": "json",
-      "size": "91KB",
-      "lastUpdated": "2025-10-13",
+      "size": "94KB",
+      "lastUpdated": "2025-10-14",
       "pages": 29
     },
     "individualPages": {
       "baseUrl": "/bots/",
       "description": "Individual page content as separate JSON files",
       "format": "json",
-      "count": 28,
-      "lastUpdated": "2025-10-13",
+      "count": 29,
+      "lastUpdated": "2025-10-14",
       "files": [
         "AIDev.htm.json",
         "AIDev_aiIntro.htm.json",
@@ -29,6 +29,7 @@
         "AIDev_gnn_exploration.htm.json",
         "AboutMe_Film_Work.htm.json",
         "AboutMe_Plushies.htm.json",
+        "AboutMe_Web_Dev.htm.json",
         "AboutMe_What_am_I.htm.json",
         "Init.htm.json",
         "ProjectsLinks.htm.json",
@@ -54,19 +55,19 @@
       "url": "/llms.txt",
       "description": "LLM-friendly text summary of all site content",
       "format": "text/plain",
-      "lastUpdated": "2025-10-13"
+      "lastUpdated": "2025-10-14"
     },
     "aiMetaSpec": {
       "url": "/bots/ai-metadata-spec.html",
       "description": "Technical specification for AI metadata format used across the site",
       "format": "text/html",
-      "lastUpdated": "2025-10-13"
+      "lastUpdated": "2025-10-14"
     },
     "sitemap": {
       "url": "/sitemap.xml",
       "description": "Complete site structure for search engines and crawlers",
       "format": "application/xml",
-      "lastUpdated": "2025-10-13"
+      "lastUpdated": "2025-10-14"
     }
   },
   "aiMetadata": {
@@ -117,7 +118,7 @@
   },
   "generatedBy": {
     "script": "renderStaticPages.mjs",
-    "timestamp": "2025-10-13T18:04:56.499Z",
-    "isPartialUpdate": true
+    "timestamp": "2025-10-14T00:45:23.934Z",
+    "isPartialUpdate": false
   }
 }

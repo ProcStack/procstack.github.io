@@ -2,6 +2,7 @@ import { PageMetaData } from '../js/procPages/PageMetaData.js';
 import { ProcPage } from '../js/procPages/ProcPage.js';
 
 import { pageListingData as filmWorkData } from './aboutMe/filmWork.js';
+import { pageListingData as webDevData } from './aboutMe/webDev.js';
 import { pageListingData as plushiesData } from './aboutMe/plushies.js';
 import { pageListingData as whatAmIData } from './aboutMe/whatAmI.js';
 
@@ -48,6 +49,7 @@ const pageContentObject = {
   'sections' : [
     whatAmIData,
     filmWorkData,
+    webDevData,
     plushiesData
   ]
 }

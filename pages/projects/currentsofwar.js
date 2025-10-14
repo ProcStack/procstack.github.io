@@ -16,7 +16,7 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "currentsOfWar.htm",
-  'name' : 'Currents of War<span class="hideOnMobile">&nbsp;:: Web Game</span>',
+  'name' : 'Currents of War<span class="hideOnMobile">&nbsp;:: Unity Game</span>',
   'title' : 'Currents of War',
   'lastModified' : '2025-06-19',
   'schemaData' : shemaData,
