@@ -2,7 +2,7 @@
 
 Web Dev Experience :
     
-   JavaScript has been a personal hobby of mine for some 28-29 years now, starting age 9 to 10 on GeoCities.
+   JavaScript has been a personal hobby of mine for some 28-29 years now, starting around age 9-10 on GeoCities.
     
      But I barely know any frameworks,
     
