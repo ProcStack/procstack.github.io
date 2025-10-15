@@ -41,6 +41,7 @@
  */
 
 import { BlogManager } from '../BlogManager.js';
+import { ImageViewer } from '../ImageViewer.js';
 
 export class ProcPage {
   /**
@@ -96,6 +97,7 @@ export class ProcPage {
     this.pageSectionListObject = null;
     this.pageContentView = null;
     this.mediaViewObject = null;
+    this.imageViewer = null;
 
     // -- -- --
 
@@ -314,29 +316,13 @@ export class ProcPage {
   }
 
   openImageViewer( imgData ){
-    let viewerDiv = document.createElement('div');
-    viewerDiv.classList.add('procPagesImageViewerOverlay');
-    if( this.styleOverrides.hasOwnProperty('imageViewer') ){
-      Object.assign(viewerDiv.style, this.styleOverrides.imageViewer);
+    if( !this.imageViewer ){
+      this.imageViewer = new ImageViewer( document.body, this.styleOverrides.imageViewer || {} );
+      this.imageViewer.init();
     }
-    document.body.appendChild(viewerDiv);
-    viewerDiv.addEventListener('click', ()=>{
-      document.body.removeChild(viewerDiv);
-    });
-
-    let viewerImg = document.createElement('img');
-    viewerImg.src = imgData.src;
-    viewerImg.alt = imgData.alt || '';
-    viewerImg.classList.add('procPagesImageViewerImage');
-    viewerDiv.appendChild(viewerImg);
-    if( this.styleOverrides.hasOwnProperty('imageViewerImage') ){
-      Object.assign(viewerImg.style, this.styleOverrides.imageViewerImage);
-    }
-    viewerImg.addEventListener('click', (e)=>{
-      document.body.removeChild(viewerDiv);
-      e.stopPropagation();
-    });
+    this.imageViewer.openImageViewer( imgData );
   }
+
 /**
  * Creates a lazy-loading image container with placeholder
  * @param {MediaData|string} mediaData - Media data or image URL

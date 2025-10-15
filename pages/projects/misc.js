@@ -23,6 +23,7 @@ export const pageListingData = {
   'description' : 'Miscellaneous randous junk of the ages!',
   'keywords' : 'randous, misc, miscellaneous, junk, personal projects',
   'navGroup' : 'Personal Projects',
+  'navStyle' : ['hideOnMobile'],
   'media' : [
     {
       'type' : 'video',
