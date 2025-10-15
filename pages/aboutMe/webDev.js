@@ -90,17 +90,18 @@ export const pageListingData = {
     <div class='procPagesAboutMe-infoStyle'>
 
     <span class="textBump"> Web Dev Experience</span> :
-    <br>&nbsp;&nbsp; <span class="textItch">JavaScript</span> has been a personal <span class="textNudge">hobby</span> of mine for some <span class="textNudge">28-29 years</span> now, starting around age 9-10 on GeoCities.
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; But I barely know any frameworks,
-    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Only enough <span class="textNudge">React</span> & <span class="textNudge">Node.js</span> for <span class="textName">pxlNav</span> support with the help of Copilot in VS Code.
+    <br>&nbsp;&nbsp; <span class="textItch">JavaScript</span> has been a personal <span class="textNudge">hobby</span> of mine for some <span class="textNudge">28-29 years</span> now,
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Starting html around age 8-9 on GeoCities before JavaScript or CSS existed.
+    <br> Issue is, I barely know any frameworks,
+    <br>&nbsp;&nbsp; Only enough <span class="textNudge">React</span> & <span class="textNudge">Node.js</span> for <span class="textName">pxlNav</span> support with the help of Copilot in VS Code.
     <br>
     <br> For my projects, I make them cause I enjoy making random web sites,
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; Copilot only steals my fun these days.
     <br>&nbsp;&nbsp; I make ESM modules in <span class="textNudge">Native JavaScript</span>, served using <span class="textNudge">Node.js</span> & <span class="textNudge">Nginx</span> or <span class="textNudge">Plex</span>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Copilot steals a lot of my fun these days...
 
-    <br><br> Like, I made the <span class="textName">single-page</span> system for procstack.github.io,
+    <br><br> Like, I made this <span class="textName">single-page</span> system for <span class="textName">procstack.github.io</span>,
     <br>&nbsp;&nbsp; Mostly cause I noticed I didn't have a static-serving <span class="textNudge">single-page</span>'r in my toolkit.
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; Thought it'd be fun!
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Thought it'd be fun to make!
 
     <br><br><div class='ppamHBar'></div>
 
@@ -111,15 +112,18 @@ export const pageListingData = {
 
     <br><br><div class='ppamHBar'></div>
 
-    <br> I set up <span class="textName">Antib0dy.club</span>'s full stack, and still hand-rolled the text chat display, websocket multiplayer characters in 3d, server websocket "chat rooms", mic audio with distance fall off, moderator tools, and more for <span class="textName">pxlNav</span>.
+    <br> I set up the full-stack for <span class="textName">Antib0dy.club</span>, and home-rolled the text chat display, websocket multiplayer characters in 3d, server websocket "chat rooms", mic audio with distance fall off, moderator tools, and more for <span class="textName">pxlNav</span>.
     <br>&nbsp;&nbsp; I used <span class="textName">Jitsi</span> for the video, audio, & text chat over WebRTC,
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Which I forked to add in some custom features for <span class="textName">Antib0dy.club</span>.
-    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Displaying the chat messages using unique identifiers so people could recognize who's talking by color & name.
-    <br>&nbsp;&nbsp; Then telling the front-end to calculate people's volume to free up server resources, and lazy voice disconnection server-side when users got too far from each other.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Displaying the chat messages using unique identifiers to help people recognize who's talking by 'random' color & name.
+    
+    <br><br> Then telling the client's front-end to calculate people's volume to free up server resources, and lazy voice disconnection server-side when users got too far from each other.
     <br>&nbsp;&nbsp; Only periodically checking player distances for server performance.
     <br>&nbsp;&nbsp;&nbsp;&nbsp; It was fun to develop, but not developed like <span class="textNudge">React</span>'s workflow in the <span class="textItch">least</span>!
 
-    <br><br> What was fun for <span class="textName">Antib0dy.club</span> was making a "Socket.io chatroom balancer" on the server.
+    <br><br><div class='ppamHBar'></div>
+
+    <br> What was fun for <span class="textName">Antib0dy.club</span> was making a "Socket.io Chatroom Balancer" on the server.
     <br>&nbsp;&nbsp; <span class="textNudge">Jitsi</span> was great, but would cap out at about 70 people video + voice in the <span class="textName">pxlNav</span> environment.
     <br>&nbsp;&nbsp;&nbsp;&nbsp; So I'd distribute a cluster of users to a new WebSocket & Jitsi room when the threshold was met.
 

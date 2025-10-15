@@ -2,23 +2,25 @@
 
 Web Dev Experience :
     
-   JavaScript has been a personal hobby of mine for some 28-29 years now, starting around age 9-10 on GeoCities.
+   JavaScript has been a personal hobby of mine for some 28-29 years now,
     
-     But I barely know any frameworks,
+     Starting html around age 8-9 on GeoCities before JavaScript or CSS existed.
     
-       Only enough React & Node.js for pxlNav support with the help of Copilot in VS Code.
+ Issue is, I barely know any frameworks,
+    
+   Only enough React & Node.js for pxlNav support with the help of Copilot in VS Code.
 
  For my projects, I make them cause I enjoy making random web sites,
     
-     Copilot only steals my fun these days.
-    
    I make ESM modules in Native JavaScript, served using Node.js & Nginx or Plex
+    
+     Copilot steals a lot of my fun these days...
 
- Like, I made the single-page system for procstack.github.io,
+ Like, I made this single-page system for procstack.github.io,
     
    Mostly cause I noticed I didn't have a static-serving single-page'r in my toolkit.
     
-     Thought it'd be fun!
+     Thought it'd be fun to make!
 
  I'm a 3D & Shader Technical Artist first, that brings me the most joy.
     
@@ -28,21 +30,21 @@ Web Dev Experience :
     
        Like the GDC + St. Jude's virtual fundraiser I helped build & run during covid, using Unreal + Node.js + Nginx.
 
- I set up Antib0dy.club's full stack, and still hand-rolled the text chat display, websocket multiplayer characters in 3d, server websocket "chat rooms", mic audio with distance fall off, moderator tools, and more for pxlNav.
+ I set up the full-stack for Antib0dy.club, and home-rolled the text chat display, websocket multiplayer characters in 3d, server websocket "chat rooms", mic audio with distance fall off, moderator tools, and more for pxlNav.
     
    I used Jitsi for the video, audio, & text chat over WebRTC,
     
      Which I forked to add in some custom features for Antib0dy.club.
     
-       Displaying the chat messages using unique identifiers so people could recognize who's talking by color & name.
-    
-   Then telling the front-end to calculate people's volume to free up server resources, and lazy voice disconnection server-side when users got too far from each other.
+       Displaying the chat messages using unique identifiers to help people recognize who's talking by 'random' color & name.
+
+ Then telling the client's front-end to calculate people's volume to free up server resources, and lazy voice disconnection server-side when users got too far from each other.
     
    Only periodically checking player distances for server performance.
     
      It was fun to develop, but not developed like React's workflow in the least!
 
- What was fun for Antib0dy.club was making a "Socket.io chatroom balancer" on the server.
+ What was fun for Antib0dy.club was making a "Socket.io Chatroom Balancer" on the server.
     
    Jitsi was great, but would cap out at about 70 people video + voice in the pxlNav environment.
     

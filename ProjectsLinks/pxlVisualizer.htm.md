@@ -1,4 +1,4 @@
-# pxlVisualizer
+# pxlVisualizer :: GLSL
 
 [pxlVisualizer](https://github.com/ProcStack/pxlVisualizer) 2019
     

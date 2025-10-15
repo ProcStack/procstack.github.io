@@ -8,6 +8,18 @@ Language - JavaScript
     
    It mostly has examples of pxlNav rooms and the page & content system I wrote
 
+ Some stats on the page -
+
+ Rabbit Druid A -
+    
+    - 5,823 triangles
+    
+    - 38 Joints
+
+ The Ears and Cape did me in for the joint count.
+    
+   3 per Ear, 2 for the Cape
+
 It's funny, out of all the projects I can bootstrap together with my personal boilerplates over the years,
     
    I never built a single-page site system before this one.
@@ -34,7 +46,7 @@ So soooo many years using JS on its own,
     
    I started messing with it in 1996 for my GeoCities Dragon Ball Z fan website,
     
-     Making an image gallery for my first script from an example, age 10.
+     Making an image gallery for my first script from an example, age 9 or 10.
     
    So environments like React.js/Next.js, Svelte, Angular, etc. don't feel as fun as just writing it out myself, dang it!
     

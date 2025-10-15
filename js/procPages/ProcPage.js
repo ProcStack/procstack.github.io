@@ -274,6 +274,9 @@ export class ProcPage {
  * @returns {HTMLImageElement} Created image element
  */
   buildImage( mediaData ){
+    let parentDiv = document.createElement('div');
+    parentDiv.classList.add('procPagesImageContainer');
+
     let img = document.createElement('img');
     img.src = mediaData.src;
     img.alt = mediaData.alt;
@@ -283,12 +286,57 @@ export class ProcPage {
     }else{
       img.classList.add('procPagesMediaImage');
     }
-    
-    this.applyStyle( mediaData, img );
 
-    return img;
+    //this.applyStyle( mediaData, img );
+    this.applyStyle( mediaData, parentDiv );
+
+    // -- -- --
+
+    let fullScreenBtn = document.createElement('button'); 
+    fullScreenBtn.classList.add('procPagesImageFullScreenButton');
+    fullScreenBtn.innerHTML = '&#x26F6;'; // Unicode for diagonal arrows
+    let btnParent = document.createElement('div');
+    btnParent.classList.add('procPagesImageFullScreenButtonParent');
+    btnParent.appendChild(fullScreenBtn);
+    parentDiv.appendChild(btnParent);
+
+    fullScreenBtn.addEventListener('click', (e)=>{
+      this.openImageViewer( mediaData );
+      e.preventDefault();
+    });
+
+    // -- -- --
+
+    parentDiv.appendChild(img);
+
+    //return img;
+    return {container:parentDiv, media:img};
   }
 
+  openImageViewer( imgData ){
+    let viewerDiv = document.createElement('div');
+    viewerDiv.classList.add('procPagesImageViewerOverlay');
+    if( this.styleOverrides.hasOwnProperty('imageViewer') ){
+      Object.assign(viewerDiv.style, this.styleOverrides.imageViewer);
+    }
+    document.body.appendChild(viewerDiv);
+    viewerDiv.addEventListener('click', ()=>{
+      document.body.removeChild(viewerDiv);
+    });
+
+    let viewerImg = document.createElement('img');
+    viewerImg.src = imgData.src;
+    viewerImg.alt = imgData.alt || '';
+    viewerImg.classList.add('procPagesImageViewerImage');
+    viewerDiv.appendChild(viewerImg);
+    if( this.styleOverrides.hasOwnProperty('imageViewerImage') ){
+      Object.assign(viewerImg.style, this.styleOverrides.imageViewerImage);
+    }
+    viewerImg.addEventListener('click', (e)=>{
+      document.body.removeChild(viewerDiv);
+      e.stopPropagation();
+    });
+  }
 /**
  * Creates a lazy-loading image container with placeholder
  * @param {MediaData|string} mediaData - Media data or image URL
@@ -535,9 +583,12 @@ export class ProcPage {
  */
   buildMedia( parentObj, mediaData ){
     let media = null;
+    let container = null;
     switch( mediaData.type ){
       case 'image':
-        media = this.buildImage( mediaData );
+        let imgObj = this.buildImage( mediaData );
+        media = imgObj.media;
+        container = imgObj.container;
         break;
       case 'manualLoad':
         media = this.buildManualLoad( mediaData );
@@ -558,15 +609,25 @@ export class ProcPage {
 
     mediaData.object = media;
 
+    let returnObj =  container != null ? container : media;
+
     if( mediaData.hasOwnProperty('href') && mediaData.href != '' ){
       let mediaLink = document.createElement('a');
       mediaLink.href = mediaData.href;
       mediaLink.target = "_blank";
-      mediaLink.appendChild( media );
-      media = mediaLink;
+      
+      if( container!= null ){
+        container.removeChild( media );
+        mediaLink.appendChild( media );
+        container.appendChild( mediaLink );
+        returnObj = container;
+      }else{
+        mediaLink.appendChild( media );
+        returnObj = mediaLink;
+      }
     }
 
-    return media;
+    return returnObj;
   }
 
 
@@ -843,6 +904,7 @@ export class ProcPage {
         let spacerHeight = sectionData.height || '3px';
         let spacerDiv = document.createElement('div');
         spacerDiv.style.height = spacerHeight;
+        spacerDiv.style.userSelect = 'none';
 
         if( sectionData.hasOwnProperty('style') && Array.isArray(sectionData.style) ){
           sectionData.style.forEach(( style )=>{ style != '' && spacerDiv.classList.add(style) });
