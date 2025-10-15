@@ -141,7 +141,7 @@
 @media screen and (max-width: 500px) {
   .procPageVerticalLockSectionList{
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto;
   }
 }
 
@@ -432,46 +432,3 @@
   overflow: visible;
 }
 
-
-/* -- -- -- */
-
-.procPagesImageFullScreenButton{
-  max-width: 40px;
-  position: relative;
-  right: 10px;
-  top: 10px;
-  justify-self: end;
-  z-index: 1;
-  font-size: 1.25em;
-  color: #ffffff;
-  text-shadow: 1px 1px 3px #252525;
-  cursor: pointer;
-  background-color: rgba(20, 20, 20, .45);
-  text-decoration: none;
-  border-radius: 8px;
-  border : 2px solid rgba(200, 200, 200, .35);
-}
-
-.procPagesImageViewerOverlay{
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(20, 20, 20, .95);
-  display: grid;
-  justify-items: center;
-  align-items: center;
-  z-index: 500;
-  user-select: none;
-}
-
-.procPagesImageViewerImage{
-  max-width: 95vw;
-  max-height: 95vh;
-  width: auto;
-  height: auto;
-  user-select: none;
-}
-
-/* -- -- -- */

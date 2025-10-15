@@ -26,6 +26,9 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 
+const siteRootUrl = "https://procstack.github.io";
+const liveUrlReplace = "procstack.github.io";
+const localUrl = 'http://localhost:3000';
 
 // Get the directory of this script file
 const __filename = fileURLToPath(import.meta.url);
@@ -71,8 +74,6 @@ if (pageFilter) {
 }
 
 
-const siteRootUrl = "https://procstack.github.io";
-const localUrl = 'http://localhost:3000';
 
 const outputRoot = path.join( projectRoot, 'docs' );
 const snapshotDir = path.join( projectRoot, 'staticPages' );
@@ -767,6 +768,8 @@ const main = async () => {
               if( path ){
                 console.log(`   Processing ${attr} - ${path}`);
               }
+
+              path = path.replace("localhost:3000", liveUrlReplace);
               
               // Only process relative paths that don't already start with ../ or /
               if( path && !path.startsWith('/') && !path.startsWith('http') && !path.startsWith('../') ){
@@ -808,6 +811,7 @@ const main = async () => {
 
           const canonicalLink = await page.$('link[rel="canonical"]');
           if( canonicalLink ){
+            let canonicalHref = canonicalLink.replace
             await hrefToAbsolute(canonicalLink, 'href');
           } else {
             // If no canonical link exists, create one

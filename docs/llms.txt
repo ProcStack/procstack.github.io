@@ -16,7 +16,7 @@ JSON-API: https://procstack.github.io/bots/
 Data-Manifest: https://procstack.github.io/data-manifest.json
 Site-Content: https://procstack.github.io/bots/siteContent.json
 Content-Type: application/json
-Last-Updated: 2025-10-14
+Last-Updated: 2025-10-15
 AI-Metadata-Spec: https://procstack.github.io/bots/ai-metadata-spec.html
 
 # Preferred crawl endpoints
@@ -45,7 +45,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
       Run around in this water side environment,
       A water-way with a lighthouse & coastal plant life.
 - [](https://procstack.github.io/pxlNav.htm.md)
- Updated: 2025-10-14
+ Updated: 2025-10-15
  Description : .
 - [What's pxlNav?What?](https://procstack.github.io/pxlNav/Whats_pxlNav.htm.md)
  Updated: 2025-03-12
@@ -59,20 +59,20 @@ I'm a technical artist with years of film, XR, & immersive experience.
       Create your own interactive environments,
       Using pxlNav for your Three.
 - [](https://procstack.github.io/pxlNav.htm.md)
- Updated: 2025-10-14
+ Updated: 2025-10-15
  Description : .
 - [Origin](https://procstack.github.io/pxlNav/Origin.htm.md)
  Updated: 2025-03-12
  Description : Originally pxlNav was made for a virtual event space named "Antibody Club" [defunct] during 2020 Covid lockdowns.
 
 ## ProjectsLinks
-- [procstack.github.io](https://procstack.github.io/ProjectsLinks/procstack.github.io.htm.md)
+- [procstack.github.io :: this.](https://procstack.github.io/ProjectsLinks/procstack.github.io.htm.md)
  Updated: 2025-03-24
  Description : procstack.
 - [](https://procstack.github.io/ProjectsLinks.htm.md)
- Updated: 2025-10-14
+ Updated: 2025-10-15
  Description : .
-- [Currents of War :: Unity](https://procstack.github.io/ProjectsLinks/currentsOfWar.htm.md)
+- [Currents of War :: Unity Game](https://procstack.github.io/ProjectsLinks/currentsOfWar.htm.md)
  Updated: 2025-06-19
  Description : Currents of War 2025
     Engine - Unity
@@ -95,15 +95,15 @@ I'm a technical artist with years of film, XR, & immersive experience.
     
     
     Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.
-- [Neurous.Net :: Web Particles](https://procstack.github.io/ProjectsLinks/NeurousNet.htm.md)
+- [Neurous.Net :: Particles App](https://procstack.github.io/ProjectsLinks/NeurousNet.htm.md)
  Updated: 2025-02-14
  Description : Neurous.
-- [pxlCam](https://procstack.github.io/ProjectsLinks/pxlCam.htm.md)
+- [pxlCam :: Filter App](https://procstack.github.io/ProjectsLinks/pxlCam.htm.md)
  Updated: 2025-02-24
  Description : pxlCam 2020
     A photo filter camera web app
     Languages - JavaScript, Three.
-- [pxlVisualizer](https://procstack.github.io/ProjectsLinks/pxlVisualizer.htm.md)
+- [pxlVisualizer :: GLSL](https://procstack.github.io/ProjectsLinks/pxlVisualizer.htm.md)
  Updated: 2025-02-14
  Description : pxlVisualizer 2019
     Different switchable trippy visuals
@@ -112,9 +112,9 @@ I'm a technical artist with years of film, XR, & immersive experience.
     
     Originally written in Python for PyGame, decided it would be a fun project to learn C++ on.
 - [](https://procstack.github.io/ProjectsLinks.htm.md)
- Updated: 2025-10-14
+ Updated: 2025-10-15
  Description : .
-- [Shadertoy](https://procstack.github.io/ProjectsLinks/Shadertoy.htm.md)
+- [Shadertoy :: GLSL](https://procstack.github.io/ProjectsLinks/Shadertoy.htm.md)
  Updated: 2025-02-24
  Description : Shadertoy 2020+
     My account on a social shader playground website
@@ -123,7 +123,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
     
     Most of the shaders are utilitarian, 
        'Utility' like an exploration into the Kuwahara Filter.
-- [Dwitter :: Golfing](https://procstack.github.io/ProjectsLinks/Dwitter.htm.md)
+- [Dwitter :: JS Golfing](https://procstack.github.io/ProjectsLinks/Dwitter.htm.md)
  Updated: 2025-02-24
  Description : Dwitter 2018+
     My account on a JavaScript code golfing website
@@ -134,7 +134,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
        By writing the most obtuse code as possible,
           In as few characters as you can.
 - [](https://procstack.github.io/ProjectsLinks.htm.md)
- Updated: 2025-10-14
+ Updated: 2025-10-15
  Description : .
 - [Misc.](https://procstack.github.io/ProjectsLinks/msic.htm.md)
  Updated: 2025-08-16
@@ -149,7 +149,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
  Updated: 2025-08-01
  Description : I started my dive into AI in 2008 writing a Boid / Crowd system for my thesis while in art college, School of Visual Arts.
 - [](https://procstack.github.io/AIDev.htm.md)
- Updated: 2025-10-14
+ Updated: 2025-10-15
  Description : .
 - [ESRGAN Upresser](https://procstack.github.io/AIDev/esrgan_upresser.htm.md)
  Updated: 2025-08-02
@@ -170,7 +170,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
  Updated: 2025-07-31
  Description : For my 2026 goal, I've been exploring Graph Attention Network (GAT) artificial intelligence.
 - [](https://procstack.github.io/AIDev.htm.md)
- Updated: 2025-10-14
+ Updated: 2025-10-15
  Description : .
 - [Notes & Research](https://procstack.github.io/AIDev/aiNotes.htm.md)
  Updated: 2025-08-29
@@ -222,7 +222,8 @@ I'm a technical artist with years of film, XR, & immersive experience.
 - [Web Dev](https://procstack.github.io/AboutMe/Web_Dev.htm.md)
  Updated: 2025-10-13
  Description : Web Dev Experience :
-       JavaScript has been a personal hobby of mine for some 28-29 years now, starting age 9 to 10 on GeoCities.
+       JavaScript has been a personal hobby of mine for some 28-29 years now,
+         Starting html around age 8-9 on GeoCities before JavaScript or CSS existed.
 - [Plushies](https://procstack.github.io/AboutMe/Plushies.htm.md)
  Updated: 2025-03-25
  Description : In late-spring of 2024,
