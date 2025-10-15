@@ -16,7 +16,7 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "pxlVisualizer.htm",
-  'name' : 'pxlVisualizer',
+  'name' : 'pxlVisualizer<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: GLSL</span>',
   'title' : 'pxlVisualizer',
   'lastModified' : '2025-02-14',
   'schemaData' : shemaData,

@@ -134,6 +134,7 @@ left: calc(max(3.5vw, 50vw - 765px));
   width: var(--max-inner-width);
   max-width: 1600px;
   margin-bottom: var(--inner-before-after-margin);
+  user-select: none;
 }
 
 .procPagesInnerAfterBase {
@@ -147,6 +148,7 @@ left: calc(max(3.5vw, 50vw - 765px));
   width: var(--max-inner-width);
   max-width: 1600px;
   margin-top: var(--inner-before-after-margin);
+  user-select: none;
 }
 
 @media (max-width: 400px){
@@ -276,6 +278,7 @@ text-shadow: 1px 1.5px 4px #252525;
   border-radius: 6px;
   overflow: hidden;
   border-width: 1px;
+  user-select: none;
 }
 
 .blogEntryAccessibilityStyle{
@@ -286,6 +289,7 @@ text-shadow: 1px 1.5px 4px #252525;
 @media screen and (max-width: 500px) {
   .procPagesVerticalLockNavSectionStyle{
     padding: 2px 4px 2px 4px;
+    user-select: none;
   }
   .procPagesNavSectionStyle{
     padding: 2px 4px 2px 4px;
@@ -391,6 +395,7 @@ text-shadow: 1px 1.5px 4px #252525;
   grid-auto-flow: column;
   grid-auto-columns: max-content auto;
   align-items: baseline;
+  user-select: none;
 }
 
 .pageLinkStyle{
@@ -449,6 +454,11 @@ text-shadow: 1px 1.5px 4px #252525;
 .textFullRight{
   text-align: right;
   width: 100%;
+}
+
+.textDehydrated{
+  font-size: 0.95em;
+  line-height: 1.0em;
 }
 
 .textShrink{

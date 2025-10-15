@@ -24,7 +24,35 @@ export const pageListingData = {
   'keywords' : 'procstack, procstack.github.io, javascript, pxlNav, pages system, personal projects',
   'navGroup' : 'Repos to Check Out',
   'navStyle' : ['hideOnMobile'],
-  'media' : [],
+  'media' : [
+    {
+      'type' : 'image',
+      'src' : '../pages/projects/images/procstack.github.io.webp',
+      'alt' : 'My portfolio site, procstack.github.io',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["My portfolio site, procstack.github.io"]
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/projects/images/RabbitDruidA_DiffuseWireAndData.webp',
+      'alt' : "Rabbit Druid's wireframe, diffuse, and data textures",
+      'style' : 'procPagesImageStyle',
+      'caption' : ["Rabbit Druid's wireframe, diffuse, and data textures"]
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/projects/images/RabbitDruidA_useThatPokinStick.webp',
+      'alt' : "Rabbit Druid's use that pokin' stick",
+      'style' : 'procPagesImageStyle',
+      'caption' : ["poke dah barrel... POKE DAH BARREL!"]
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/projects/images/RabbitDruidA_stressTesting.webp',
+      'alt' : "Rabbit Druid's stress testing",
+      'style' : 'procPagesImageStyle'
+    },
+  ],
   'content' : `
     <a href='https://github.com/ProcStack/procstack.github.io' class='procPagesRepoLinkStyle' target='_blank'>procstack.github.io github repository</a> <span class="textDrinkMeAlice textItalic">2024-2025</span>
     <br><span class="textShrink textItalic textName ">Language - <span class="textBold">JavaScript</span></span>
@@ -32,6 +60,19 @@ export const pageListingData = {
     
     <span class='textNudge'>Eyyyyy, check out this sites code!</span>
     <br>&nbsp;&nbsp; It mostly has examples of pxlNav rooms and the page & content system I wrote
+
+
+    <br><br><div class="pppHBar"></div>
+    
+    <br> Some stats on the page -
+    <br><br> <span class="textItch">Rabbit Druid A</span> -
+    <br>&nbsp;&nbsp;  - <span class="textItch">5,823</span> triangles
+    <br>&nbsp;&nbsp;  - <span class="textItch">38</span> Joints
+    
+    <br><br> The Ears and Cape did me in for the joint count.
+    <br>&nbsp;&nbsp; 3 per Ear, 2 for the Cape
+    
+    <br><br><div class="pppHBar"></div>
 
     <br>
     <br>
@@ -53,10 +94,12 @@ export const pageListingData = {
     <br>I like vanilla javascript too much....
     <br>&nbsp;&nbsp; Its a detriment for getting a React/Next job, but I can't help it!
 
-    <br>
+    <br><br><div class="pppHBar"></div>
+
+
     <br>So soooo many years using JS on its own,
     <br>&nbsp;&nbsp; I started messing with it in 1996 for my <span class='textBump'>GeoCities</span> <span class='textName'>Dragon Ball Z</span> fan website,
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; Making an image gallery for my first script from an example, age 10.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Making an image gallery for my first script from an example, age 9 or 10.
     <br>&nbsp;&nbsp; So environments like React.js/Next.js, Svelte, Angular, etc. don't feel as fun as just writing it out myself, dang it!
     <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textItalic">Ragga fragga, get off my lawn ya dang kids!</span>
     <br>

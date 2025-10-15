@@ -1,4 +1,4 @@
-# Shadertoy
+# Shadertoy :: GLSL
 
 [Shadertoy](https://www.shadertoy.com/user/trancor) 2020+
     

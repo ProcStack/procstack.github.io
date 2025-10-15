@@ -15,7 +15,7 @@ const shemaData = {
 };
 export const pageListingData = {
   'htmlName' : "Shadertoy.htm",
-  'name' : 'Shadertoy',
+  'name' : 'Shadertoy<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: GLSL</span>',
   'title' : 'Shadertoy',
   'lastModified' : '2025-02-24',
   'schemaData' : shemaData,

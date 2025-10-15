@@ -2,5 +2,30 @@
   "title": "procstack.github.io :: this.",
   "description": "procstack.",
   "lastModified": "2025-03-24",
-  "media": []
+  "media": [
+    {
+      "type": "image",
+      "src": "../pages/projects/images/procstack.github.io.webp",
+      "alt": "My portfolio site, procstack.github.io",
+      "caption": "My portfolio site, procstack.github.io"
+    },
+    {
+      "type": "image",
+      "src": "../pages/projects/images/RabbitDruidA_DiffuseWireAndData.webp",
+      "alt": "Rabbit Druid's wireframe, diffuse, and data textures",
+      "caption": "Rabbit Druid's wireframe, diffuse, and data textures"
+    },
+    {
+      "type": "image",
+      "src": "../pages/projects/images/RabbitDruidA_useThatPokinStick.webp",
+      "alt": "Rabbit Druid's use that pokin' stick",
+      "caption": "poke dah barrel... POKE DAH BARREL!"
+    },
+    {
+      "type": "image",
+      "src": "../pages/projects/images/RabbitDruidA_stressTesting.webp",
+      "alt": "Rabbit Druid's stress testing",
+      "caption": ""
+    }
+  ]
 }
