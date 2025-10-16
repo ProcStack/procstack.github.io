@@ -28,7 +28,8 @@ import { fileURLToPath, pathToFileURL } from 'url';
 
 const siteRootUrl = "https://procstack.github.io";
 const liveUrlReplace = "procstack.github.io";
-const localUrl = 'http://localhost:3000';
+const localBaseUrl = 'localhost:3000';
+const localUrl = 'http://' + localBaseUrl;
 
 // Get the directory of this script file
 const __filename = fileURLToPath(import.meta.url);
@@ -759,7 +760,7 @@ const main = async () => {
           await page.goto(redirectUrl, { waitUntil: 'networkidle0' });
 
           // Convert style and pxlNav modules to absolute paths
-            const hrefToAbsolute = async (element, attr='href') => {
+          const hrefToAbsolute = async (element, attr='href') => {
             if( element ){
               let path = await element.evaluate((el, attr) => el.getAttribute(attr), attr);
               if( path.startsWith('../.') ){
@@ -768,8 +769,6 @@ const main = async () => {
               if( path ){
                 console.log(`   Processing ${attr} - ${path}`);
               }
-
-              path = path.replace("localhost:3000", liveUrlReplace);
               
               // Only process relative paths that don't already start with ../ or /
               if( path && !path.startsWith('/') && !path.startsWith('http') && !path.startsWith('../') ){
@@ -800,6 +799,17 @@ const main = async () => {
             return null;
           }
 
+          const removeLocalhost = async (element, attr='href') => {
+            if( element ){
+              let path = await element.evaluate((el, attr) => el.getAttribute(attr), attr);
+              if( path && path.includes(localBaseUrl) ){
+                path = path.replace(localBaseUrl, liveUrlReplace);
+                await element.evaluate((el, attr, absPath) => el.setAttribute(attr, absPath), attr, path);
+              }
+            }
+            return null;
+          }
+
           const procPagesStylesheet = await page.$('#procPagesStylesheet');
           await hrefToAbsolute(procPagesStylesheet, 'href');
 
@@ -811,22 +821,30 @@ const main = async () => {
 
           const canonicalLink = await page.$('link[rel="canonical"]');
           if( canonicalLink ){
-            let canonicalHref = canonicalLink.replace
             await hrefToAbsolute(canonicalLink, 'href');
+            await removeLocalhost(canonicalLink, 'href');
           } else {
             // If no canonical link exists, create one
             await page.evaluate((absPath) => {
+              
+              let toPath = absPath.replace(localBaseUrl, liveUrlReplace);
+
               const link = document.createElement('link');
               link.setAttribute('rel', 'canonical');
-              link.setAttribute('href', absPath);
+              link.setAttribute('href', toPath);
               document.head.appendChild(link);
             }, url);
           }
 
+          const ogUrl = await page.$('meta[name="og:url"]');
+          if( ogUrl ){
+            await removeLocalhost(ogUrl, 'content');
+          }
+
           // Replace all instances of localhost URLs with production URLs in the HTML
-          await page.evaluate((localUrl, siteRootUrl) => {
+          await page.evaluate((curLocalUrl, siteRootUrl) => {
             const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, null, false);
-                let regex = new RegExp(localUrl, 'g');
+                let regex = new RegExp(curLocalUrl, 'g');
             while (walker.nextNode()) {
               const node = walker.currentNode;
               if (node.nodeType === Node.TEXT_NODE) {
@@ -837,7 +855,7 @@ const main = async () => {
                 for (const attr of ['href', 'src', 'data-src']) {
                   if (node.hasAttribute && node.hasAttribute(attr)) {
                   const val = node.getAttribute(attr);
-                    if (typeof val === 'string' && val.includes(localUrl)) {
+                    if (typeof val === 'string' && val.includes(curLocalUrl)) {
                       node.setAttribute(attr, val.replace(regex, siteRootUrl));
                     }
                   }
