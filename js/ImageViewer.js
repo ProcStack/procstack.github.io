@@ -19,6 +19,8 @@ export class ImageViewer{
     this.viewerDiv = null;
     this.viewerImg = null;
 
+    this.verbose = false;
+    this.debug = false;
 
     this.viewerStats = {
       offsetX: 0,
@@ -31,7 +33,15 @@ export class ImageViewer{
       zoom: 1.0,
       zoomMin: 0.1,
       zoomMax: 10.0,
-      zoomStep: 0.1
+      zoomStep: 0.1,
+
+      isZooming: false,
+      zoomStartDist: 0,
+      zoomStart: 1.0,
+      zoomPosA:{ x: 0, y: 0 },
+      zoomPosB:{ x: 0, y: 0 },
+      zoomPosCentroid:{ x: 0, y: 0 }
+
     };
 
     this.imageElem = null;
@@ -53,14 +63,37 @@ export class ImageViewer{
 
     // -- -- --
 
+    let touchCount = 0;
+
     this.viewerDiv.addEventListener('click', ()=>{
       //document.body.removeChild(this.viewerDiv);
-      this.viewerDiv.style.display = 'none';
-      this.viewerDiv.style.zIndex = -1;
-      this.active = false;
+      this.toggleVisibility( false );
     });
     this.viewerDiv.addEventListener('wheel', (e)=>{
       this.zoomInStepped(e);
+    });
+    
+    this.viewerDiv.addEventListener('touchstart', (e)=>{
+      touchCount = 0;
+      if( e.touches.length > 1 ){
+        this.zoomPrep( e );
+        e.preventDefault();
+      }
+    });
+    this.viewerDiv.addEventListener('touchmove', (e)=>{
+      touchCount += 1;
+      if( e.touches.length > 1 ){
+        this.zoomScale( e );
+        e.preventDefault();
+      }
+    });
+    this.viewerDiv.addEventListener('touchend', (e)=>{
+      if( touchCount < 6 ){
+        this.toggleVisibility( false );
+      }
+      this.onMouseUp( e );
+      this.zoomEnd( e );
+      e.preventDefault();
     });
   }
   
@@ -94,16 +127,21 @@ export class ImageViewer{
     this.viewerImg.addEventListener('touchstart', (e)=>{
       if( e.touches.length === 1 ){
         this.onMouseDown(e.touches[0]);
+      }else{
+        this.zoomPrep( e );
       }
       e.preventDefault();
     });
     this.viewerImg.addEventListener('touchend', (e)=>{
-      this.onMouseUp(e);
+      this.onMouseUp( e );
+      this.zoomEnd( e );
       e.preventDefault();
     });
     this.viewerImg.addEventListener('touchmove', (e)=>{
       if( e.touches.length === 1 ){
         this.onMouseMove(e.touches[0]);
+      }else if( e.touches.length === 2 ){
+        this.zoomScale( e );
       }
       e.preventDefault();
     });
@@ -128,11 +166,28 @@ export class ImageViewer{
     });
   }
 
+
+  toggleVisibility( state=null ){
+    if( state === null ){
+      state = !this.active;
+    }
+    this.active = state;
+    if( this.active ){
+      this.viewerDiv.style.display = 'grid';
+      this.viewerDiv.style.zIndex = 500;
+    } else {
+      this.viewerDiv.style.display = 'none';
+      this.viewerDiv.style.zIndex = -1;
+      this.active = false;
+    }
+  }
+
   // -- -- --
 
   // Mouse wheel stepped zoom
   zoomInStepped( e ){
     if( this.imageLoaded ){
+      this.checkDebug();
       if( e.deltaY < 0 ){
         // Zoom in
         this.viewerStats.zoom = Math.min( this.viewerStats.zoom + this.viewerStats.zoomStep, this.viewerStats.zoomMax );
@@ -141,8 +196,70 @@ export class ImageViewer{
         this.viewerStats.zoom = Math.max( this.viewerStats.zoom - this.viewerStats.zoomStep, this.viewerStats.zoomMin );
       }
       this.viewerImg.style.transform = `translate(${this.viewerStats.offsetX}px, ${this.viewerStats.offsetY}px) scale(${this.viewerStats.zoom})`;
+      this.log(`Zoom: ${this.viewerStats.zoom.toFixed(2)}`);
     }
     e.preventDefault();
+  }
+
+
+  zoomPrep(){
+    if( this.viewerStats.isZooming ) return;
+    this.viewerStats.isZooming = true;
+    const touches = event.touches;
+    if( touches.length < 2 ) return;
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    const curDist = ( dx*dx + dy*dy ) ** .5;
+    this.viewerStats.zoomStart = this.viewerStats.zoom;
+    this.viewerStats.zoomStartDist = curDist;
+
+    this.viewerStats.zoomPosA.x = touches[0].clientX;
+    this.viewerStats.zoomPosA.y = touches[0].clientY;
+    this.viewerStats.zoomPosB.x = touches[1].clientX;
+    this.viewerStats.zoomPosB.y = touches[1].clientY;
+    this.viewerStats.zoomPosCentroid.x = (touches[0].clientX + touches[1].clientX) * .5;
+    this.viewerStats.zoomPosCentroid.y = (touches[0].clientY + touches[1].clientY) * .5;
+    
+    e.preventDefault && e.preventDefault();
+  }
+
+  zoomScale(e){
+    if( e.touches.length < 2 ) return;
+
+    this.checkDebug();
+
+    let dx = e.touches[0].clientX - e.touches[1].clientX;
+    let dy = e.touches[0].clientY - e.touches[1].clientY;
+    let curDist = ( dx*dx + dy*dy ) ** .5;
+    let scale = curDist / this.viewerStats.zoomStartDist;
+    this.viewerStats.zoom = Math.min( Math.max( this.viewerStats.zoomStart * scale, this.viewerStats.zoomMin), this.viewerStats.zoomMax );
+
+    let offx = (e.touches[0].clientX + e.touches[1].clientX) * .5 - this.viewerStats.zoomPosCentroid.x;
+    let offy = (e.touches[0].clientY + e.touches[1].clientY) * .5 - this.viewerStats.zoomPosCentroid.y;
+    this.viewerStats.offsetX += offx;
+    this.viewerStats.offsetY += offy;
+    this.viewerStats.zoomPosCentroid.x += offx;
+    this.viewerStats.zoomPosCentroid.y += offy;
+
+    this.viewerImg.style.transform = `translate(${this.viewerStats.offsetX}px, ${this.viewerStats.offsetY}px) scale(${this.viewerStats.zoom})`;
+
+    if( this.verbose ){
+      let debugText = '';
+      debugText += `Zoom: ${this.viewerStats.zoom.toFixed(2)}\n`;
+      debugText += `Touch 1: (${e.touches[0].clientX}, ${e.touches[0].clientY})\n`;
+      debugText += `Touch 2: (${e.touches[1].clientX}, ${e.touches[1].clientY})\n`;
+      this.log(debugText);
+    }
+
+    e.preventDefault && e.preventDefault();
+  }
+
+  zoomEnd(e){
+    if( this.viewerStats.isZooming ){
+      this.viewerStats.isZooming = false;
+      this.viewerStats.zoom = Math.min( Math.max(this.viewerStats.zoom, this.viewerStats.zoomMin), this.viewerStats.zoomMax );
+    }
+    e.preventDefault && e.preventDefault();
   }
 
   // -- -- --
@@ -171,6 +288,30 @@ export class ImageViewer{
 
   // -- -- --
 
+  checkDebug(){
+    if( this.verbose && !this.debug ){
+      this.debug = document.createElement('div');
+      this.debug.style.position = 'fixed';
+      this.debug.style.top = '0px';
+      this.debug.style.left = '0px';
+      this.debug.style.backgroundColor = 'rgba(0,0,0,0.5)';
+      this.debug.style.color = 'white';
+      this.debug.style.padding = '5px';
+      this.debug.style.zIndex = 1000;
+      this.debug.style.fontSize = '2.5em';
+      document.body.appendChild(this.debug);
+    }
+  }
+
+  log(msg){
+    if( this.verbose && this.debug ){
+      this.debug.innerText += `${msg}\n`;
+    }
+  }
+
+
+  // -- -- --
+
   openImageViewer( imgData, styleOverrides={} ){
     if( !this.viewerImg ){
       this.buildImageElement();
@@ -179,8 +320,7 @@ export class ImageViewer{
       Object.assign(this.viewerImg.style, styleOverrides);
     }
 
-    this.viewerDiv.style.display = 'grid';
-    this.viewerDiv.style.zIndex = 500;
+    this.toggleVisibility( true );
 
     this.viewerImg.src = imgData.src;
     this.viewerImg.alt = imgData.alt || '';
