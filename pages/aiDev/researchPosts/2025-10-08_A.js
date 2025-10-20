@@ -90,8 +90,7 @@ entryData.body = `
   <br>&nbsp;&nbsp; This is often where I hear the conflation of Stoicism and Existentialism.
   
   <br><br> The core idea of the 'Red Pill' or Manosphere is to learn confidence and realizing you are your own person.
-  <br>&nbsp;&nbsp; The issue that arrose in the Manosphere, was when men started blaming their problems on women. Which lead to try-hards deciding women needed to be taken down a peg or two.
-  <br>&nbsp;&nbsp;&nbsp;&nbsp; ...Andrew Tate is not a good person...
+  <br>&nbsp;&nbsp; The issue that arrose in the Manosphere, was when men started blaming their problems on women. Which lead to try-hards deciding women needed to be taken down a peg or two...
   <br>&nbsp;&nbsp; Stoicism was an established idea in the community, but then it was twisted to justify misogyny and toxic masculinity.
   <br>&nbsp;&nbsp;&nbsp;&nbsp; ...and, as always, someone trying to make a buck off the situation.
   <br>&nbsp;&nbsp; In the begining, the message was "don't change yourself for others, be confident in who you are."
