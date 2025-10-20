@@ -42,7 +42,12 @@ entryData.body = `
   <br>&nbsp;&nbsp;&nbsp;&nbsp; My drives probably hate me for raising them from the dead.
   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tiz the season!!
 
-  <br><br> I know I got older stuff on floppy disks...
+  <br><br> <span class='innerCenter'>
+  <img src='../../../pages/aiDev/images/camoPlato_updated2025.png' alt='Camo Plato'>
+  <br> <span class='textItalic textDrinkMeAlice'>Camouflage Platypus! - Macromedia Flash - 1999</span>
+  </span>
+
+  <br> I know I got older stuff on floppy disks...
   <br>&nbsp;&nbsp; MR. GUMMY HEAD!!
   <br>&nbsp;&nbsp; The checking of floppies might need to happen soon...
   <br>&nbsp;&nbsp;&nbsp;&nbsp; They're likely all wiped by now though.
@@ -54,14 +59,14 @@ entryData.body = `
   <br>&nbsp;&nbsp;&nbsp;&nbsp; And associate with labels for image generation, CLIP embeddings.
 
 
-  <br><br> But I've been using the tool to also label objects, pre-process images, organize things for you,
-  <br>&nbsp;&nbsp; All that training prep stuff.
+  <br><br> But I've been using the tool to also label objects, pre-process images, organize things for me,
+  <br>&nbsp;&nbsp; All that training prep stuff!
 
   <br><br> I didn't intend it to become a one stop shop;
   <br>&nbsp;&nbsp; But if I'm making my own generative ai network,
   <br>&nbsp;&nbsp;&nbsp;&nbsp; Why not?
 
-  <br><br><div class="textFullRight">- October 10th, 2025</div>
+  <br><br><div class="textFullRight">- October 10th,19th 2025</div>
 `;
 
 const blogEntryObj = new blogEntry(null, entryData);
