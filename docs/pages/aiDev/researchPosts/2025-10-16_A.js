@@ -62,7 +62,11 @@ entryData.body = `
   <br>&nbsp;&nbsp;&nbsp;&nbsp; Then we flatten out for major improvements until the next big breakthrough.
   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Been like this a while now. 
 
-  <br><br> Some think we'll get to ASI before AGI, and I believe it's a possibility. 
+
+  <br><br><div class='procPagesAIDevBar'></div>
+
+
+  <br> Some think we'll get to ASI before AGI, and I believe it's a possibility. 
   <br>&nbsp;&nbsp; I think with our "data first" approach to AI development, we might jump AGI;
   <br>&nbsp;&nbsp;&nbsp;&nbsp; Shown by its ability to make the most money in our economic system.
 
@@ -84,7 +88,7 @@ entryData.body = `
 
   <br><br> So, I'm figuring, we should be saying, "Good Morning," to our neighbors a bit more.
 
-  <br><br><div class="textFullRight">- October 16th,19th 2025</div>
+  <br><br><div class="textFullRight">- October 16th,20th 2025</div>
 `;
 
 const blogEntryObj = new blogEntry(null, entryData);
