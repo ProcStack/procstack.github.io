@@ -76,14 +76,15 @@
   text-decoration: none;
   color: #cbdcf8;
   background-color: rgba(33, 77, 143, 0.58);
-  margin: 3px 0px;
+  margin: 3px 4px;
   padding: 2px 3px 0px 3px;
   font-size: 1.1em;
   border-radius: .3em;
   text-align: left;
   line-height: .85em;
   height: min-content;
-  min-width: 22.5ch;
+  min-width: 15.5ch;
+  max-width: 90vw;
 }
 .blogEntryListingStyle:hover {
   cursor: pointer;
@@ -101,11 +102,13 @@
 }
 
 .blogSubListingStyle {
-  font-size: 0.85em;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: left;
+  font-size: 0.75em;
   padding-left: 10px;
   color: #bed7ffde;
 }
-
 
 
 .blogSpacer{
@@ -129,19 +132,32 @@
 }
 
 .blogMobilePopupWindow {
+  background: rgba(24, 55, 100, 0.58);
+  border: 2px solid rgba(107, 115, 219, 0.24);
+  border-width: 2px 2px 0px 2px;
+  border-radius: 7px;
+  padding: 0px 0px 3px 0px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1001;
-    font-size: 1.65em;
+  font-size: 1.65em;
 }
 
 
 .blogMobilePopupList{
-    display: grid;
-    grid-auto-flow: row;
+  display: grid;
+  grid-auto-flow: row;
+  max-height: 40vh;
+  overflow: auto;
 }
+
+.blogMobilePopupHeading{
+  padding: 5px 5px 2px 20px;
+  font-weight: 700;
+}
+
 
 .blogMobilePrev{
   min-width: min-content;
@@ -166,7 +182,14 @@
 }
 
 .blogMobilePopupEntry{
-  padding: 5px 8px 0px 8px
+  border-width: 1.5px 2px;
+  padding: 2px 4px 0px 4px;
+}
+.blogMobilePopupEntry:hover{
+  border-width: 1.5px 2px;
+}
+.blogMobilePopupEntry:active{
+  border-width: 1.5px 2px;
 }
 
 .blogEntryTitleRowStyle {

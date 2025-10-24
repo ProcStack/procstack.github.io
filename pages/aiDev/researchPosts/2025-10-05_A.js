@@ -55,7 +55,7 @@ entryData.body = `
 
   <br><br> To Exist and Become in AI requires similar perturbations, using noise patterns to shift an AI's current understanding.
   <br>&nbsp;&nbsp; Stochastically shifting back'n'forth trying to get better perspectives to understand 'ideas' from patterns.
-  <br>&nbsp;&nbsp; Allowing Algernon to see his reality better, while walking through Tensor Fields.
+  <br>&nbsp;&nbsp; Allowing Algernon to see his reality better, while walking through the maze of Tensor Fields.
   <br> ( <a href="https://en.wikipedia.org/wiki/Flowers_for_Algernon" target="_blank">wikipedia.org/wiki/Flowers_for_Algernon</a> )
   <br> <span class="textDrinkMeAlice">( I mostly picked this reference for the <span class="textSpoiler">meat-space over-fitting; Algernon got too smart and burnt out</span>.... <span class="textShrink">highlight for spoilers.</span>)</span>
 

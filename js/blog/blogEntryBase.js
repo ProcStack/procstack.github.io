@@ -104,13 +104,18 @@ export class blogEntry{
     parentObj.appendChild(this.blogEntryObj);
   }
 
-  getReadTime( text ){
+  getReadTime( text, toggleMobileView=true ){
     let wordsPerMinute_low = 150;
     let wordsPerMinute_high = 300;
     let textLength = text.split(' ').length;
     let readTime_low = Math.ceil( textLength / wordsPerMinute_low );
     let readTime_high = Math.ceil( textLength / wordsPerMinute_high );
-    let retVal = `${readTime_high}<span class="textShrinkRay">&nbsp;</span>-<span class="textShrinkRay">&nbsp;</span>${readTime_low} min<span class='hideOnMobile'> read</span>`;
+    let retVal = `${readTime_high}<span class="textShrinkRay">&nbsp;</span>-<span class="textShrinkRay">&nbsp;</span>${readTime_low} min`;
+    if( toggleMobileView ){
+      retVal += `<span class='hideOnMobile'> read</span>`;
+    }else{
+      retVal += ` read`;
+    }
     if( readTime_low === readTime_high ){
       retVal = `${readTime_low} min<span class='hideOnMobile'> read</span>`;
     }

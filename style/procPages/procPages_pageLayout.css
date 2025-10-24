@@ -111,8 +111,6 @@
   grid-gap: 3px;
   justify-items: center;
   justify-content: space-around;
-  border: solid 1px rgba(130, 130, 130, 0.51);
-  border-width: 1px 0px;
   padding: 6px 0px;
   background-color: rgba(59, 59, 59, 0.16);
   height: max-content;
@@ -336,7 +334,6 @@
     align-content: baseline;
     justify-self: baseline;
     grid-gap: 4px;
-    border-width: 1px 0px 0px 0px;
     margin-right: 2px;
     height: auto;
     max-width: var(--procPage-width);

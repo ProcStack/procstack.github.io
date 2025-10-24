@@ -132,7 +132,6 @@ left: calc(max(3.5vw, 50vw - 765px));
   border-style: solid;
   height: var(--inner-before-after-height);
   width: var(--max-inner-width);
-  max-width: 1600px;
   margin-bottom: var(--inner-before-after-margin);
   user-select: none;
 }
@@ -146,7 +145,6 @@ left: calc(max(3.5vw, 50vw - 765px));
   border-style: solid;
   height: var(--inner-before-after-height);
   width: var(--max-inner-width);
-  max-width: 1600px;
   margin-top: var(--inner-before-after-margin);
   user-select: none;
 }
@@ -469,6 +467,10 @@ text-shadow: 1px 1.5px 4px #252525;
   font-size: 0.81em;
 }
 
+.textTiny{
+  font-size: 0.65em;
+}
+
 .textShrinkRay{
   font-size: 0.3em;
 }
@@ -578,6 +580,15 @@ text-shadow: 1px 1.5px 4px #252525;
   background-color:#ffffff;
   text-decoration:none;
   text-shadow:none;
+}
+
+.textDelimiter{
+  letter-spacing: -1px;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+  font-weight: 700;
+  position: relative;
+  bottom: 1.5px;
 }
 
 .oneOffsBlockStyle{
