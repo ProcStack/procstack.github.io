@@ -1058,7 +1058,7 @@ export class ProcPageManager {
           subPage = urlSplit.slice(2)
         }
       }else{
-        if( !urlPage.includes(".htm") ){
+        if( urlPage && !urlPage.includes(".htm") ){
           urlPage += ".htm";
         }
       }
