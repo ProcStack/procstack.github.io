@@ -916,6 +916,14 @@ export class ProcPageManager {
  * @description Updates browser history state with new page URL
  */
   shiftHistoryState( pageName ){
+    // TODO : Check for null page and re-route them to Init.htm before `shiftHistoryState()` is called.
+    //          `pageName` can now be 'undefined' from re-directing URLs after initial load.
+    //            It shouldn't.
+    //          Currently `domain/index.htm` != `domain/` when rerouting in `procPages`
+    //  vv This If is a temporary fix for undefined pageNames
+    if(!pageName || pageName == "" ){
+      return;
+    }
     let urlDisplay = pageName;
     
     let urlCheck = urlDisplay.split("/")[0];
