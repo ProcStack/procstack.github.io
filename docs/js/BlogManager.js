@@ -22,6 +22,8 @@ export class BlogManager {
     this.currentEntry = null;
     this.tempContent = [...(this.contentParent?.childNodes || [])];
     this.runTempDestroy = false;
+    
+    this.entryPath = blogData.entryPath || []; // path to init entry
 
     this.urlBasePath = "";
     if( blogData.hasOwnProperty('pageName') ){
@@ -106,11 +108,26 @@ export class BlogManager {
       this.buildMobileControls();
     }
 
-    
+     
+    // I don't like this index display method....
+    //   It's just flip-flop'n and not making much functional sense
+    //   Just gonna leave it be for now
+    //     If it aint broke...
     if( this.options.order === 'descending' ){
       this.mobileIndex = 0;
     }else{
       this.mobileIndex = this.blogEntries.length - 1;
+    }
+
+    if( this.entryPath.length > 0 ){
+      let urlPathStr = this.entryPath.join('/');
+      for( let x = 0; x < this.blogEntries.length; ++x ){
+        let entry = this.blogEntries[x];
+        if( entry.urlRoute === urlPathStr ){
+          this.mobileIndex = this.options.order === 'descending' ? (this.blogEntries.length - 1 - x) : x;
+          break;
+        }
+      }
     }
 
     this.runTempDestroy = false;
@@ -120,8 +137,8 @@ export class BlogManager {
     this.runTempDestroy = true;
   }
 
-  getDateDisplay( dateStr ){
-    let ret = `<div class='blogSubListingStyle'>:: ${dateStr}</div>`;
+  getDateDisplay( ...dateParts ){
+    let ret = `<div class='blogSubListingStyle textDrinkMeAlice textItalic'>  ${dateParts.join('<span class="textDrinkMeAlice textDelimiter">&nbsp;::&nbsp; </span>')}</div>`;
     return ret;
   }
 
@@ -294,29 +311,34 @@ export class BlogManager {
     // title row
     let heading = document.createElement('div');
     heading.classList.add('blogMobilePopupHeading');
-    heading.innerText = 'All Entries';
+    heading.innerHTML = `All Entries <span class="textDrinkMeAlice textItalic">- - ${this.blogEntries.length} total</span>`;
     popup.appendChild(heading);
 
     // list
     let list = document.createElement('div');
     list.classList.add('blogMobilePopupList');
+    list.classList.add('blogEntryContentStyle'); // Hyjacking the scrollbar style
 
     
     let entryOrder = this.blogEntries;
     if( this.options.order === 'descending' ){
       entryOrder = [...entryOrder].reverse();
     }
-    for( let i = 0; i < entryOrder.length; i++ ){
+    for( let x = 0; x < entryOrder.length; x++ ){
       let btn = document.createElement('button');
       btn.classList.add('blogEntryListingStyle');
       btn.classList.add('blogMobilePopupEntry');
-      btn.innerHTML = `\n        ${entryOrder[i].title}\n        ${this.getDateDisplay(entryOrder[i].date)}`;
+      //let numVal =  `<span class='textTiny textItalic'>${entryOrder.length - x}</span>`;
+      let readTime = entryOrder[x].getReadTime( entryOrder[x].body, false );
+      readTime = `<span class='textDrinkMeAlice textItalic'>${readTime}</span>`;
+      //let readTime = entryOrder[x].getReadTime();
+      btn.innerHTML = `\n        ${entryOrder[x].title}\n       ${this.getDateDisplay( entryOrder[x].date, readTime )}`;
       // clicking an entry should close popup and show entry
 
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         this.closeMobilePopup();
-        this.showEntry(entryOrder[i].id);
+        this.showEntry(entryOrder[x].id);
       });
       list.appendChild(btn);
     }

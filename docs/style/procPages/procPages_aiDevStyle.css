@@ -67,6 +67,7 @@
     position: fixed;
     left: 2.5vw;
     bottom: 2.5vmin;
+    justify-items: center;
   }
 
   .aiDevPage-blogStyle{

@@ -79,7 +79,7 @@ if (pageFilter) {
 const outputRoot = path.join( projectRoot, 'docs' );
 const snapshotDir = path.join( projectRoot, 'staticPages' );
 const botsDir = path.join( projectRoot, 'bots' );
-const botsRootUrl = path.join( siteRootUrl, 'bots' );
+const botsRootUrl = siteRootUrl + '/bots';
 const siteMapAppend = "sitemapAppend.json";
 
 const thumbnailUrl = siteRootUrl + "/images/ProcStack_th.jpg";
@@ -506,9 +506,12 @@ const main = async () => {
 
   for( const [key, pageData] of Object.entries(pageListing) ){
     const folder = key;
-    const htmlName = pageData.htmlName || 'index.htm';
-    const route = `${folder}/${htmlName}`;
-    const url = `${localUrl}/${route}`;
+
+    /*if( pageData.page === "AIDev" ){
+      let sectionTitles = pageData['sectionTitles'];
+      let lastTitle = sectionTitles[ sectionTitles.length - 1 ];
+      console.log( pageData['sectionData'][lastTitle].features );
+    }*/
 
     // Apply page filter if specified
     if (pageFilter) {
@@ -610,60 +613,43 @@ const main = async () => {
           console.log(` ++ Including subpage: ${subKey} (parent matches filter)`);
         }
         
-        const cleanedName = cleanText(subPageData.name || '');
-        const htmlName = subPageData.htmlName || `${folder}.htm`;
+        // -- -- --
 
-        let localSubUrl = `${localUrl}/${folder}/${htmlName}`;
-        let relUrl = `./${folder}/${htmlName}`;
-        let url = `${siteRootUrl}/${folder}/${htmlName}`;
-        let manifestKey = `${folder}_${htmlName}`;
-        let relPathUpdate = "../";
-        let outPath = path.join(renderDir, folder, htmlName);
         
-        if( !subPageData.htmlName || subPageData.htmlName === '' ){
-          localSubUrl = `${localUrl}/${folder}.htm`;
-          relUrl = `./${folder}.htm`;
-          url = `${siteRootUrl}/${htmlName}`;
-          manifestKey = htmlName;
-          relPathUpdate = "./";
-          outPath = path.join(renderDir, htmlName);
-        }
-
-        const sectionName = pageData.name || folder;
-
-        console.log(`-|  -- SubPage: ${cleanedName} (${subKey})`);
-        console.log(`  Live URL: ${url}`);
-
-        const newPageEntries = {};
-        newPageEntries[ manifestKey ] = {
-          title: cleanedName,
-          type: "subpage",
-          subPageData,
-          localSubUrl,
-          relUrl,
-          url,
-          manifestKey,
-          outPath,
-          folder,
-          htmlName,
-          sectionName
+        const urlCleanedName = cleanText(subPageData.name || '');
+        const urlHtmlName = subPageData.htmlName || `${folder}.htm`;
+        const urlOutPath = path.join(renderDir, folder, urlHtmlName);
+        
+        const defaultEntry = { 
+          cleanedName: urlCleanedName,
+          folder: folder,
+          htmlName: urlHtmlName, 
+          outPath: urlOutPath
         };
+
+        let urlEntryList = [];
+        urlEntryList.push( Object.assign({},defaultEntry) );
 
         // Checking for Sub-Page Feature flags
         // This accounts for URL altering Features
         //   Currently, only the Blog feature alters the URL path
         if( subPageData.features?.blogManager ){
           const blogEntries = subPageData.features.blogManager.entries || [];
+          //console.log( subPageData.features.blogManager );
 
           for (const entry of blogEntries) {
-            const { date, title } = entry;
+            const { date, title, urlRoute } = entry;
             if (date && title) {
-              const currentSubFolder = htmlName.replace('.htm', '');
+              const currentSubFolder = urlHtmlName.replace('.htm', '');
               const formattedTitle = title.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9\-]*/g, '').toLowerCase();
-              const blogRoute = `${folder}/${currentSubFolder}/${date}/${formattedTitle}.htm`;
+              //const blogRoute = `${folder}/${currentSubFolder}/${date}/${formattedTitle}.htm`;
+              const blogRoute = `${folder}/${currentSubFolder}/${urlRoute}`;
               const blogUrl = `${localUrl}/${blogRoute}`;
               const blogOutPath = path.join(renderDir, folder, currentSubFolder, date, `${formattedTitle}.htm`);
 
+              console.log(`   Blog Entry: ${title} - ${blogUrl}`);
+              console.log(`   --- : ${blogOutPath}`);
+              console.log(`   --- : ${blogRoute}`);
               /*console.log(`Rendering blog entry: ${blogUrl}`);
               console.log(blogOutPath);
               //console.log(entry);
@@ -672,6 +658,13 @@ const main = async () => {
               console.log(`${siteRootUrl}/${blogRoute}`);
               console.log(sectionName);
               console.log("-- -- --");*/
+              let newUrlEntry = Object.assign({}, defaultEntry);
+              newUrlEntry.cleanedName = title;
+              newUrlEntry.folder += "/"+currentSubFolder;
+              newUrlEntry.htmlName = blogRoute;
+              newUrlEntry.outPath = blogOutPath;
+
+              urlEntryList.push( newUrlEntry );
 
 
               /*if (writeToDisk) {
@@ -690,270 +683,347 @@ const main = async () => {
         }
         //continue;
 
+        // -- -- --
 
+        for( const urlEntry of urlEntryList ){
+          let { cleanedName, htmlName, outPath } = urlEntry;
 
-
-        // Generate AI metadata
-        const manifestJsonUrl = `${botsRootUrl}/${manifestKey}.json`;
-        const title = cleanedName;
-        const description = cleanText( subPageData.content || '' ).split('.')[0] + '.';
-        const media = (subPageData.media || []).map(entry => ({
-          type: entry.type,
-          src: entry.src,
-          alt: entry.alt || '',
-          caption: cleanText((entry.caption || []).join(' '))
-        }));
-        const content = subPageData.content || '';
-        let lastModified = subPageData.lastModified || new Date().toISOString();
-        lastModified = lastModified.split('T')[0]; // Keep only the date part
-
-        // Add to sitemap
-        sitemapUrls.push({
-          url,
-          lastModified
-        });
-
-        // Convert content to markdown for LLMs.txt
-        const markdownContent = htmlToMarkdown(content, title);
-        
-        // Organize content for LLMs.txt by section
-        if( !llmsContent.sections[sectionName] ){
-          llmsContent.sections[sectionName] = [];
-        }
-        
-        const mdUrl = url+".md";
-        llmsContent.sections[sectionName].push({
-          title,
-          url: mdUrl,
-          lastModified,
-          description,
-          content: markdownContent
-        });
-
-
-        manifest[ manifestKey ] = { 'jsonURL':manifestJsonUrl, lastModified, title, description, media, content, 'pageURL':url, 'relativeURL':relUrl };
-        const aiOut = path.join(jsonOutputDir, `${manifestKey}.json`);
-        if( writeToDisk ){
-          // Increment counter for pages being processed
-          pagesProcessedCount++;
-          
-          fs.mkdirSync(path.dirname(aiOut), { recursive: true });
-          fs.writeFileSync(aiOut, JSON.stringify({ title, description, lastModified, media }, null, 2));
-          console.log(`  AI Metadata saved to: ${aiOut}`);
-
-
-          // Generate individual markdown file for LLMs.txt standard
-          if( llmsGenerate ){
-            const mdPath = outPath+".md";
-            const mdContent = `# ${title}\n\n${markdownContent}`;
-            fs.mkdirSync(path.dirname(mdPath), { recursive: true });
-            fs.writeFileSync(mdPath, mdContent);
-            console.log(`  Markdown file saved to: ${mdPath}`);
+          // TODO : Figure out why the htmlName sometimes has the folder prefixed
+          let nameSplit = htmlName.split('/');
+          if( nameSplit.length > 1 && folder === nameSplit[0] ){
+            htmlName = nameSplit.slice(1).join('/');
           }
 
-          // Render the page using Puppeteer
-          // Use redirect logic to load dynamic content with latest layout
-          const targetPath = url.replace(siteRootUrl, '');
-          const redirectUrl = `${localUrl}/index.htm?redirect=${targetPath}`;
-          console.log(` - Rendering subpage with redirect... ${redirectUrl}`);
-          const page = await browser.newPage();
-          await page.goto(redirectUrl, { waitUntil: 'networkidle0' });
+          let localSubUrl = `${localUrl}/${folder}/${htmlName}`;
+          let relUrl = `./${folder}/${htmlName}`;
+          let url = `${siteRootUrl}/${folder}/${htmlName}`;
+          let manifestKey = `${folder}_${htmlName}`;
+          let relPathUpdate = "../";
 
-          // Convert style and pxlNav modules to absolute paths
-          const hrefToAbsolute = async (element, attr='href') => {
-            if( element ){
-              let path = await element.evaluate((el, attr) => el.getAttribute(attr), attr);
-              if( path.startsWith('../.') ){
-                path = path.substring(4);
-              }
-              if( path ){
-                console.log(`   Processing ${attr} - ${path}`);
-              }
-              
-              // Only process relative paths that don't already start with ../ or /
-              if( path && !path.startsWith('/') && !path.startsWith('http') && !path.startsWith('../') ){
-                // Remove leading ./ if present
-                if( path.startsWith('./') ){
-                  path = path.substring(2);
+          
+          console.log("-----");
+          console.log( siteRootUrl );
+          console.log( folder );
+          console.log( htmlName );
+          console.log( `${botsRootUrl}/${manifestKey}.json` );
+          if( !subPageData.htmlName || subPageData.htmlName === '' ){
+            console.log(" !!!!!!! HITTING DEFAULT HTML NAME LOGIC !!!!!!! ");
+            localSubUrl = `${localUrl}/${folder}.htm`;
+            relUrl = `./${folder}.htm`;
+            url = `${siteRootUrl}/${htmlName}`;
+            manifestKey = htmlName;
+            relPathUpdate = "./";
+            outPath = path.join(renderDir, htmlName);
+          }
+
+          const sectionName = pageData.name || folder;
+
+          console.log(`-|  -- SubPage: ${cleanedName} (${subKey})`);
+          console.log(`  Live URL: ${url}`);
+
+          const newPageEntries = {};
+          newPageEntries[ manifestKey ] = {
+            title: cleanedName,
+            type: "subpage",
+            subPageData,
+            localSubUrl,
+            relUrl,
+            url,
+            manifestKey,
+            outPath,
+            folder,
+            htmlName,
+            sectionName
+          };
+
+
+          // -- -- --
+
+
+          // Generate AI metadata
+          const manifestJsonUrl = `${botsRootUrl}/${manifestKey}.json`;
+          const title = cleanedName;
+          const description = cleanText( subPageData.content || '' ).split('.')[0] + '.';
+          const media = (subPageData.media || []).map(entry => ({
+            type: entry.type,
+            src: entry.src,
+            alt: entry.alt || '',
+            caption: cleanText((entry.caption || []).join(' '))
+          }));
+          const content = subPageData.content || '';
+          let lastModified = subPageData.lastModified || new Date().toISOString();
+          lastModified = lastModified.split('T')[0]; // Keep only the date part
+
+          // Add to sitemap
+          sitemapUrls.push({
+            url,
+            lastModified
+          });
+
+          // Convert content to markdown for LLMs.txt
+          const markdownContent = htmlToMarkdown(content, title);
+          
+          // Organize content for LLMs.txt by section
+          if( !llmsContent.sections[sectionName] ){
+            llmsContent.sections[sectionName] = [];
+          }
+          
+          const mdUrl = url+".md";
+          llmsContent.sections[sectionName].push({
+            title,
+            url: mdUrl,
+            lastModified,
+            description,
+            content: markdownContent
+          });
+
+          manifest[ manifestKey ] = { 'jsonURL':manifestJsonUrl, lastModified, title, description, media, content, 'pageURL':url, 'relativeURL':relUrl };
+          const aiOut = path.join(jsonOutputDir, `${manifestKey}.json`);
+          if( writeToDisk ){
+            // Increment counter for pages being processed
+            pagesProcessedCount++;
+            
+            fs.mkdirSync(path.dirname(aiOut), { recursive: true });
+            fs.writeFileSync(aiOut, JSON.stringify({ title, description, lastModified, media }, null, 2));
+            console.log(`  AI Metadata saved to: ${aiOut}`);
+
+
+            // Generate individual markdown file for LLMs.txt standard
+            if( llmsGenerate ){
+              const mdPath = outPath+".md";
+              const mdContent = `# ${title}\n\n${markdownContent}`;
+              fs.mkdirSync(path.dirname(mdPath), { recursive: true });
+              fs.writeFileSync(mdPath, mdContent);
+              console.log(`  Markdown file saved to: ${mdPath}`);
+            }
+
+            // Render the page using Puppeteer
+            // Use redirect logic to load dynamic content with latest layout
+            const targetPath = url.replace(siteRootUrl, '');
+            const redirectUrl = `${localUrl}/index.htm?redirect=${targetPath}`;
+            console.log(` - Rendering subpage with redirect... ${redirectUrl}`);
+            const page = await browser.newPage();
+            await page.goto(redirectUrl, { waitUntil: 'networkidle0' });
+
+            // Convert style and pxlNav modules to absolute paths
+            const hrefToAbsolute = async (element, attr='href') => {
+              if( element ){
+                let path = await element.evaluate((el, attr) => el.getAttribute(attr), attr);
+                if( path.startsWith('../.') ){
+                  path = path.substring(4);
+                }
+                if( path ){
+                  console.log(`  __Processing ${attr} - ${path}`);
                 }
                 
-                //const absolutePath = `${siteRootUrl}/${path}`;
-                const absolutePath = `${relPathUpdate}${path}`;
-                await element.evaluate((el, attr, absPath) => el.setAttribute(attr, absPath), attr, absolutePath);
-              }
-
-              // Find last div object and remove it
-              // TODO : Fix this from pxlNav, not everything is in the content div, or has an id
-              await element.evaluate(() => {
-                const divs = document.body.getElementsByTagName("div");
-                if( divs.length > 0 ){
-                  divs[divs.length - 1].remove();
+                // Only process relative paths that don't already start with ../ or /
+                if( path && !path.startsWith('/') && !path.startsWith('http') && !path.startsWith('../') ){
+                  // Remove leading ./ if present
+                  if( path.startsWith('./') ){
+                    path = path.substring(2);
+                  }
+                  
+                  //const absolutePath = `${siteRootUrl}/${path}`;
+                  const absolutePath = `${relPathUpdate}${path}`;
+                  let relDepth = htmlName.split('/').length - 1;
+                  let relPath = Array(relDepth).fill('..').join('/') + '/' + path;
+                  
+                  await element.evaluate((el, attr, absPath) => el.setAttribute(attr, absPath), attr, relPath);
                 }
 
-                const faderStyleObj = document.head.lastChild;
-                if( faderStyleObj && faderStyleObj.tagName === 'STYLE' ){
-                  faderStyleObj.remove();
-                }
-              });
-            }
-            return null;
-          }
+                // Find last div object and remove it
+                // TODO : Fix this from pxlNav, not everything is in the content div, or has an id
+                await element.evaluate(() => {
+                  const divs = document.body.getElementsByTagName("div");
+                  if( divs.length > 0 ){
+                    divs[divs.length - 1].remove();
+                  }
 
-          const removeLocalhost = async (element, attr='href') => {
-            if( element ){
-              let path = await element.evaluate((el, attr) => el.getAttribute(attr), attr);
-              if( path && path.includes(localBaseUrl) ){
-                path = path.replace(localBaseUrl, liveUrlReplace);
-                await element.evaluate((el, attr, absPath) => el.setAttribute(attr, absPath), attr, path);
+                  const faderStyleObj = document.head.lastChild;
+                  if( faderStyleObj && faderStyleObj.tagName === 'STYLE' ){
+                    faderStyleObj.remove();
+                  }
+                });
               }
+              return null;
             }
-            return null;
-          }
 
-          const procPagesStylesheet = await page.$('#procPagesStylesheet');
-          await hrefToAbsolute(procPagesStylesheet, 'href');
+            const removeLocalhost = async (element, attr='href') => {
+              if( element ){
+                let path = await element.evaluate((el, attr) => el.getAttribute(attr), attr);
+                if( path && path.includes(localBaseUrl) ){
+                  path = path.replace(localBaseUrl, liveUrlReplace);
+                  console.log(`   Removing localhost from ${attr} - ${path}`);
+                  await element.evaluate((el, attr, absPath) => el.setAttribute(attr, absPath), attr, path);
+                }
+              }
+              return null;
+            }
 
-          const pxlNavStylesheet = await page.$('#pxlNavStylesheet');
-          await hrefToAbsolute(pxlNavStylesheet, 'href');
+            const setToURL = async (element, attr='href', toUrl='') => {
+              if( element && toUrl !== '' ){
+                //console.log(`   Setting ${attr} to URL - ${toUrl}`);
+                await element.evaluate((el, attr, absPath) => el.setAttribute(attr, absPath), attr, toUrl);
+              }
+              return null;
+            }
 
-          const pxlNavModule = await page.$('#pxlNavModule');
-          await hrefToAbsolute(pxlNavModule, 'src');
+            const procPagesStylesheet = await page.$('#procPagesStylesheet');
+            await hrefToAbsolute(procPagesStylesheet, 'href');
 
-          const canonicalLink = await page.$('link[rel="canonical"]');
-          if( canonicalLink ){
-            await hrefToAbsolute(canonicalLink, 'href');
-            await removeLocalhost(canonicalLink, 'href');
-          } else {
-            // If no canonical link exists, create one
-            await page.evaluate((absPath) => {
-              
-              let toPath = absPath.replace(localBaseUrl, liveUrlReplace);
+            const pxlNavStylesheet = await page.$('#pxlNavStylesheet');
+            await hrefToAbsolute(pxlNavStylesheet, 'href');
 
-              const link = document.createElement('link');
-              link.setAttribute('rel', 'canonical');
-              link.setAttribute('href', toPath);
-              document.head.appendChild(link);
-            }, url);
-          }
+            const pxlNavModule = await page.$('#pxlNavModule');
+            await hrefToAbsolute(pxlNavModule, 'src');
 
-          const ogUrl = await page.$('meta[name="og:url"]');
-          if( ogUrl ){
-            await removeLocalhost(ogUrl, 'content');
-          }
+            const toURL = `${siteRootUrl}/${htmlName}`;
+            const canonicalLink = await page.$('link[rel="canonical"]');
+            if( canonicalLink ){
+              await hrefToAbsolute(canonicalLink, 'href');
+              await setToURL(canonicalLink, 'href', toURL);
+            } else {
+              // If no canonical link exists, create one
+              await page.evaluate((absPath) => {
+                
+                let toPath = absPath.replace(localBaseUrl, liveUrlReplace);
 
-          // Replace all instances of localhost URLs with production URLs in the HTML
-          await page.evaluate((curLocalUrl, siteRootUrl) => {
-            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, null, false);
-                let regex = new RegExp(curLocalUrl, 'g');
-            while (walker.nextNode()) {
-              const node = walker.currentNode;
-              if (node.nodeType === Node.TEXT_NODE) {
-                // Replace localhost URLs in text nodes
-                node.textContent = node.textContent.replace(regex, siteRootUrl);
-              } else if (node.nodeType === Node.ELEMENT_NODE) {
-                // Replace in attributes like href, src, etc.
-                for (const attr of ['href', 'src', 'data-src']) {
-                  if (node.hasAttribute && node.hasAttribute(attr)) {
-                  const val = node.getAttribute(attr);
-                    if (typeof val === 'string' && val.includes(curLocalUrl)) {
-                      node.setAttribute(attr, val.replace(regex, siteRootUrl));
+                const link = document.createElement('link');
+                link.setAttribute('rel', 'canonical');
+                link.setAttribute('href', toPath);
+                document.head.appendChild(link);
+              }, url);
+            }
+
+
+            const ogUrl = await page.$('meta[name="og:url"]');
+            if( ogUrl ){
+              await removeLocalhost(ogUrl, 'content');
+              await setToURL(ogUrl, 'content', toURL);
+            }
+
+            const alternateLink = await page.$('link[rel="alternate"]');
+            if( alternateLink ){
+              await hrefToAbsolute(alternateLink, 'href');
+              await setToURL(alternateLink, 'href', toURL);
+            }
+
+continue;
+
+            // Replace all instances of localhost URLs with production URLs in the HTML
+            await page.evaluate((curLocalUrl, siteRootUrl) => {
+              const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, null, false);
+                  let regex = new RegExp(curLocalUrl, 'g');
+              while (walker.nextNode()) {
+                const node = walker.currentNode;
+                if (node.nodeType === Node.TEXT_NODE) {
+                  // Replace localhost URLs in text nodes
+                  node.textContent = node.textContent.replace(regex, siteRootUrl);
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                  // Replace in attributes like href, src, etc.
+                  for (const attr of ['href', 'src', 'data-src']) {
+                    if (node.hasAttribute && node.hasAttribute(attr)) {
+                    const val = node.getAttribute(attr);
+                      if (typeof val === 'string' && val.includes(curLocalUrl)) {
+                        node.setAttribute(attr, val.replace(regex, siteRootUrl));
+                      }
                     }
                   }
                 }
               }
+            }, localUrl, siteRootUrl);
+
+
+            // Remove pxlNav runtime container - id="pxlNav-container"
+            const pxlNavContainer = await page.$('#pxlNav-container');
+            if( pxlNavContainer ){
+              await pxlNavContainer.evaluate(el => el.remove());
             }
-          }, localUrl, siteRootUrl);
 
+            // Remove pxlNav error container - id="pxlNav-failState"
+            const pxlNavFailState = await page.$('#pxlNav-failState');
+            if( pxlNavFailState ){
+              await pxlNavFailState.evaluate(el => el.remove());
+            }
 
-          // Remove pxlNav runtime container - id="pxlNav-container"
-          const pxlNavContainer = await page.$('#pxlNav-container');
-          if( pxlNavContainer ){
-            await pxlNavContainer.evaluate(el => el.remove());
-          }
+            // Ensure pxlNav core canvas exists with required attributes
+            await page.evaluate(() => {
+              // Remove any existing canvas with same id to avoid duplicates
+              const existing = document.getElementById('pxlNav-coreCanvas');
+              if (existing) existing.remove();
 
-          // Remove pxlNav error container - id="pxlNav-failState"
-          const pxlNavFailState = await page.$('#pxlNav-failState');
-          if( pxlNavFailState ){
-            await pxlNavFailState.evaluate(el => el.remove());
-          }
+              const canvas = document.createElement('canvas');
+              canvas.id = 'pxlNav-coreCanvas';
+              canvas.setAttribute('height', '1');
+              canvas.setAttribute('width', '1');
+              canvas.className = 'pxlNav-coreCanvasStyle';
 
-          // Ensure pxlNav core canvas exists with required attributes
-          await page.evaluate(() => {
-            // Remove any existing canvas with same id to avoid duplicates
-            const existing = document.getElementById('pxlNav-coreCanvas');
-            if (existing) existing.remove();
+              // Try to append near the end of body (matches original placement)
+              document.body.appendChild(canvas);
+            });
 
-            const canvas = document.createElement('canvas');
-            canvas.id = 'pxlNav-coreCanvas';
-            canvas.setAttribute('height', '1');
-            canvas.setAttribute('width', '1');
-            canvas.className = 'pxlNav-coreCanvasStyle';
-
-            // Try to append near the end of body (matches original placement)
-            document.body.appendChild(canvas);
-          });
-
-          // Fix importmap entry for pxlNav to point to the correct relative JS path
-          // Determine relative path from page location: pages under a subfolder need "../js/.." else "./js/..."
-          await page.evaluate((outPath) => {
-            try {
-              const importmap = document.querySelector('script[type="importmap"]');
-              if (!importmap) return;
-
-              // Parse existing importmap JSON
-              let mapObj = {};
+            // Fix importmap entry for pxlNav to point to the correct relative JS path
+            // Determine relative path from page location: pages under a subfolder need "../js/.." else "./js/..."
+            await page.evaluate((outPath) => {
               try {
-                mapObj = JSON.parse(importmap.textContent);
-              } catch (e) {
-                // If parse fails, attempt to extract the imports object manually
-                const match = importmap.textContent.match(/\{[\s\S]*\}/);
-                if (match) {
-                  mapObj = JSON.parse(match[0]);
+                const importmap = document.querySelector('script[type="importmap"]');
+                if (!importmap) return;
+
+                // Parse existing importmap JSON
+                let mapObj = {};
+                try {
+                  mapObj = JSON.parse(importmap.textContent);
+                } catch (e) {
+                  // If parse fails, attempt to extract the imports object manually
+                  const match = importmap.textContent.match(/\{[\s\S]*\}/);
+                  if (match) {
+                    mapObj = JSON.parse(match[0]);
+                  }
                 }
+
+                if (!mapObj.imports) mapObj.imports = {};
+
+                // Normalize outPath to determine depth relative to site root
+                // outPath will be a server-side filesystem path; convert to URL-like by using forward slashes
+                const pathParts = outPath.replace(/\\/g, '/').split('/');
+
+                // Find the docs or render directory in path and determine relative depth from there
+                // We'll count how many segments after the docs/ folder the file lives in
+                let depth = 0;
+                const docsIndex = pathParts.indexOf('docs');
+                if (docsIndex >= 0) {
+                  depth = pathParts.length - (docsIndex + 2); // subtract file itself
+                  if (depth < 0) depth = 0;
+                } else {
+                  // fallback: count segments before filename
+                  depth = pathParts.length - 2;
+                  if (depth < 0) depth = 0;
+                }
+
+                // Build relative prefix: if page is in a subfolder (depth >=1) prefix '../' else './'
+                let prefix = './';
+                if (depth >= 1) {
+                  prefix = '../'.repeat(depth);
+                }
+
+                // Ensure prefix ends with './' or '../' accordingly and set the pxlNav path
+                const pxlPath = `${prefix}js/pxlNav.module.js`;
+                mapObj.imports['pxlNav'] = pxlPath;
+
+                // Write back the importmap content
+                importmap.textContent = JSON.stringify(mapObj, null, 2);
+              } catch (err) {
+                // swallow errors to not break overall rendering
+                console.warn('Failed to rewrite importmap for pxlNav:', err);
               }
+            }, outPath);
 
-              if (!mapObj.imports) mapObj.imports = {};
+            const content = await page.content();
 
-              // Normalize outPath to determine depth relative to site root
-              // outPath will be a server-side filesystem path; convert to URL-like by using forward slashes
-              const pathParts = outPath.replace(/\\/g, '/').split('/');
-
-              // Find the docs or render directory in path and determine relative depth from there
-              // We'll count how many segments after the docs/ folder the file lives in
-              let depth = 0;
-              const docsIndex = pathParts.indexOf('docs');
-              if (docsIndex >= 0) {
-                depth = pathParts.length - (docsIndex + 2); // subtract file itself
-                if (depth < 0) depth = 0;
-              } else {
-                // fallback: count segments before filename
-                depth = pathParts.length - 2;
-                if (depth < 0) depth = 0;
-              }
-
-              // Build relative prefix: if page is in a subfolder (depth >=1) prefix '../' else './'
-              let prefix = './';
-              if (depth >= 1) {
-                prefix = '../'.repeat(depth);
-              }
-
-              // Ensure prefix ends with './' or '../' accordingly and set the pxlNav path
-              const pxlPath = `${prefix}js/pxlNav.module.js`;
-              mapObj.imports['pxlNav'] = pxlPath;
-
-              // Write back the importmap content
-              importmap.textContent = JSON.stringify(mapObj, null, 2);
-            } catch (err) {
-              // swallow errors to not break overall rendering
-              console.warn('Failed to rewrite importmap for pxlNav:', err);
-            }
-          }, outPath);
-
-          const content = await page.content();
-
-          fs.mkdirSync(path.dirname(outPath), { recursive: true });
-          fs.writeFileSync(outPath, content);
-          console.log(`   Saved subpage to - ${outPath}`);
+            fs.mkdirSync(path.dirname(outPath), { recursive: true });
+            fs.writeFileSync(outPath, content);
+            console.log(`   Saved subpage to - ${outPath}`);
+          }
         }
       }
     }

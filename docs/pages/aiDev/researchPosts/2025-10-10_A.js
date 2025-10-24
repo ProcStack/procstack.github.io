@@ -12,11 +12,9 @@ entryData.body = `
   <br>&nbsp;&nbsp; It'll run OpenPose or similar to get joint and other landmark data.
   <br>&nbsp;&nbsp; That you'd be able to just grab a point and move it around to pose a character in the image,
   <br>&nbsp;&nbsp;&nbsp;&nbsp; Or move and morph objects around by interacting with the model.
-  <br>&nbsp;&nbsp; It's a Private repository for now, until I figure out a plan with it,
+  <br>&nbsp;&nbsp; It's a Private repository for now, until I figure out a plan for it,
   <br>&nbsp;&nbsp;&nbsp;&nbsp; I'm considering selling it somehow to help fund my research while making these research tools.
   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; But it's only Alpha right now.
-
-  <br><br> All but 3 of my repos are private on GitHub.
 
   <br><br>  It's called 'pxlDataManager' which is a horrific name.
   <br>&nbsp;&nbsp; But it's grown into a bit of a Suite of tools.
@@ -26,23 +24,22 @@ entryData.body = `
 
   <br><br> It gathers data in the provided single photo/image from -
   <br>&nbsp;&nbsp; From monocular depth estimation, light estimation, object segmentation, and OpenPose landmarks.
-  <br>&nbsp;&nbsp; Slap it all together and build a 3d object of the person in the photo.
+  <br>&nbsp;&nbsp; Slap it all together and build your rigged object of the person / bi-ped in the photo.
   <br>&nbsp;&nbsp; Or build out a proxy of the found 3d object, if the photo was of objects or animals.
 
   <br><br> I wrote polygon winding code,
   <br>&nbsp;&nbsp; And the most part of auto UVing & texture building.
 
   <br><br> I've only been on and off working on it since then.
-  <br>&nbsp;&nbsp; Life has been life.
-  <br>&nbsp;&nbsp; But also had some reservations about making it at all.
+  <br>&nbsp;&nbsp; Mostly had some reservations about making it at all.
   
   <br><br><div class='procPagesAIDevBar'></div>
 
-  <br><br> One of the reasons I've left it private is that I don't want people to misuse it.
-  <br>&nbsp;&nbsp; I'm not sure how to set up propper guardrails for it.
+  <br> One of the reasons I've left it private is that I don't want people to misuse it.
+  <br>&nbsp;&nbsp; I'm not sure how the guardrails should be set up.
 
   <br><br> If you're able to make a garbage-pass for 3d model, texture maps, and rig estimation from a single image,
-  <br>&nbsp;&nbsp; That could lead to some ethical concerns over illicit content or other image modification.
+  <br>&nbsp;&nbsp; The tool could be used for deepfakes or other such'ness.
 
   <br><br> I intended this more as a "indie game developer tool" to help make quick proxies for characters or objects from concept art.
   <br>&nbsp;&nbsp; But there is potential for misuse.
@@ -55,7 +52,7 @@ entryData.body = `
   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tiz the season!!
 
   <br><br> <span class='innerCenter'>
-  <img src='../../../pages/aiDev/images/camoPlato_updated2025.png' alt='Camo Plato'>
+  <img src='../../../pages/aiDev/images/camoPlato_updated2025.png' alt='Camo Plato' style='max-width:75vw;'>
   <br> <span class='textItalic textDrinkMeAlice'>Camouflage Platypus!
   <br> Macromedia Flash - 1999</span>
   </span>
@@ -79,7 +76,7 @@ entryData.body = `
   <br>&nbsp;&nbsp; But if I'm making my own generative ai network,
   <br>&nbsp;&nbsp;&nbsp;&nbsp; Why not?
 
-  <br><br><div class="textFullRight">- October 10th,20th 2025</div>
+  <br><br><div class="textFullRight">- October 10th,20th,24th 2025</div>
 `;
 
 const blogEntryObj = new blogEntry(null, entryData);

@@ -70,6 +70,7 @@ export class ProcPageManager {
     this.navBarObjs = {};
     this.pageDisplayURL = [];
     this.verifiedPages = {};
+    this.subPagePath = this.getSubPagePath();
     this.toggleDomEvents = {};
     this.resObjsVis = true;
     this.resBasedObjs = [];
@@ -110,8 +111,8 @@ export class ProcPageManager {
   }
 
   domContentListener(){
-    let tmpThis = this;
-    document.addEventListener("DOMContentLoaded", () => {
+    //let tmpThis = this;
+    /*document.addEventListener("DOMContentLoaded", () => {
       const urlParams = new URLSearchParams(window.location.search);
       const redirectPath = urlParams.get('redirect');
 
@@ -121,8 +122,9 @@ export class ProcPageManager {
         
         // Navigate to the appropriate page
         this.changePage(pageName);
+
       }
-    });
+    });*/
 
     // Check for forward-back history navigation
     window.addEventListener("popstate", (e) => {
@@ -181,6 +183,28 @@ export class ProcPageManager {
         curPNV.innerText = version;
       }
     });
+  }
+
+  getSubPagePath(){
+    let metaUrl = new URL(import.meta.url); // Script File Search
+    let searchParams = new URLSearchParams(window.location.search); // Window URL Search
+    let redirectSearch = searchParams.get('redirect');
+    let depthPrefix = [];
+    if( redirectSearch && redirectSearch.includes("aiNotes") ){
+      let pathParts = redirectSearch.split('/');
+      if( pathParts.length > 2 ){
+        depthPrefix = pathParts.slice(3, pathParts.length);
+      }
+    }
+
+    if( depthPrefix.length == 0 ){
+      let pathParts = window.location.pathname.split("/");
+      if( pathParts.length > 2 ){
+        depthPrefix = pathParts.slice(3, pathParts.length);
+      }
+    }
+
+    return depthPrefix;
   }
 
 /**
@@ -604,7 +628,7 @@ export class ProcPageManager {
         this.pageListing[pageKey][ "metaData" ] = pageData[pageKey].metaData;
       }
 
-      let pageObj = pageData[pageKey].buildPage();
+      let pageObj = pageData[pageKey].buildPage( this.subPagePath );
       this.pageListing[pageKey][ "obj" ] = pageObj;
 
       // Connect when sections change, to update the page manager
@@ -819,8 +843,10 @@ export class ProcPageManager {
       if( sectionData && sectionData.hasOwnProperty("htmlName") ){
         let htmlName = sectionData["htmlName"];
         let formattedURL = this.formatURL( pageName, htmlName );
+        //console.log( "Formatted URL: " + formattedURL );
         this.shiftHistoryState( formattedURL );
       }else{
+        //console.log( "Formatted URL: " + pageName );
         this.shiftHistoryState( pageName );
       }
 
@@ -896,6 +922,8 @@ export class ProcPageManager {
     if( urlCheck.includes(".htm") ){
       urlCheck = urlCheck.split(".")[0];
     }
+
+    //console.log( pageName, urlCheck, this.verifiedPages );
 
     // Check for specific capitalization of file url names
     let verifiedKeys = Object.keys(this.pageListing);
@@ -1006,26 +1034,46 @@ export class ProcPageManager {
  */
   checkForRedirect(){
     const urlParams = new URLSearchParams(window.location.search);
-    const redirectPath = urlParams.get('redirect');
-    if (redirectPath) {
+    let redirectPath = urlParams.get('redirect');
+      
+    if( !redirectPath ){
+      redirectPath = window.location.pathname;
+    }
+
+    if( redirectPath ){
       // Extract the page name from the redirect path
       let urlPage = redirectPath.replace('/', '');
       let urlSplit = redirectPath.split("/");
       urlSplit = urlSplit.filter(( path )=> path !== "");
       
       urlPage = urlSplit[0];
+      let subPage = [];
       if( urlSplit.length > 1 ){
         let pageStr = urlSplit[1];
         if( !pageStr.includes(".htm") ){
           pageStr += ".htm";
         }
         urlPage = urlSplit[0] + "/" + pageStr;
+        if( urlSplit.length > 2 ){
+          subPage = urlSplit.slice(2)
+        }
       }else{
         if( !urlPage.includes(".htm") ){
           urlPage += ".htm";
         }
       }
       
+      // If there is a sub page, pass it to the page data
+      //   Used for the Blog subpage posts
+      this.subPagePath = subPage;
+      if( subPage.length > 0 ){
+        let basePage = urlPage.split("/")[0];
+        if( this.pageListing.hasOwnProperty(basePage) ){
+          let pageData = this.pageListing[basePage]["pageData"];
+          pageData.subPagePath = subPage;
+        }
+      }
+
       this.shiftHistoryState(urlPage);
     }
   }

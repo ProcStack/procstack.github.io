@@ -1,0 +1,18 @@
+{
+  "AppActiveStyle": "Light",
+  "managerInitSize": [
+    600,
+    450
+  ],
+  "managerInitPos": [
+    980,
+    495
+  ],
+  "projectLoadMinSize": [
+    1920,
+    1080
+  ],
+  "projectLoadFullScreen": false,
+  "previousProjectName": "",
+  "bypassEmptyAndFoldersOnly": true
+}

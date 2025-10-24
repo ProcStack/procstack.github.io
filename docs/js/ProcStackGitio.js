@@ -22,16 +22,41 @@ import { SaltFlatsEnvironment } from './pxlRooms/SaltFlatsEnvironment/SaltFlatsE
 //   Options are - NONE, ERROR, WARN, INFO, DEBUG
 const verbose = pxlEnums.VERBOSE_LEVEL.NONE;
 
+// Find folder depth, if exists
+let metaUrl = new URL(import.meta.url); // Script File Search
+let searchParams = new URLSearchParams(window.location.search); // Window URL Search
+
+let dSearch = metaUrl.searchParams.get('d');
+let depthPrefix = "../";
+if( dSearch ){
+  let dCount = parseInt(dSearch);
+  depthPrefix = Array(dCount).fill("../").join("");
+}
+let redirectSearch = searchParams.get('redirect');
+if( redirectSearch && redirectSearch.includes("aiNotes") ){
+  depthPrefix = "../../../";
+}
+
+if( depthPrefix == "../" ){
+  let pathParts = window.location.pathname.split("/");
+  if( pathParts.length > 2 ){
+    depthPrefix = Array(pathParts.length - 2).fill("../").join("");
+  }
+}
+
+
+// -- -- --
+
 
 // The Title of your Project
 //   This will be displayed on the 
 const projectTitle = "procstack.github.io";
 
 // pxlRoom folder path, available to change folder names or locations if desired
-const pxlRoomRootPath = "../js/pxlRooms";
+const pxlRoomRootPath = depthPrefix + "js/pxlRooms";
 
 // Asset root path
-const pxlAssetRoot = "../js/pxlAssets";
+const pxlAssetRoot = depthPrefix + "js/pxlAssets";
 
 // Show the onboarding screen after the loading bar completes
 const showOnboarding = false;
@@ -134,10 +159,8 @@ const collisionScale = {
 // Note : procPages clears the search parameters on the page
 //          So search is lost on page change,
 //            Running before procPages.init() is needed
-let uriSearch = window.location.search;
 
 // Check hash for fps and renderScale
-let searchParams = new URLSearchParams(uriSearch);
 let showFPS = searchParams.has('showfps') ? !!parseInt(searchParams.get('showfps')) : false;
 if( searchParams.has('fps') ){
   let fps = parseInt(searchParams.get('fps'));

@@ -80,18 +80,19 @@ export class ProcPage {
     
     // Optional features - [ 'blogManager' ]
     this.features = contentObject.features || [];
-
-
+    
+    
     this.layoutTypes = ['single', 'triple', 'vertical'];
     this.layout = 'triple';
     if( contentObject.hasOwnProperty('layout') && this.layoutTypes.includes(contentObject.layout) ){
       this.layout = contentObject.layout;
     }
-
+    
     this.navButton = null;
     this.pageObject = null;
     this.pageContent = {};
     this.currentPageUrl = null;
+    this.subPagePath = [];
     this.prevSection = null;
     this.pageSectionsObject = null;
     this.pageSectionListObject = null;
@@ -626,7 +627,14 @@ export class ProcPage {
  * Creates the page layout structure
  * @returns {HTMLDivElement} Root page content element
  */
-  buildPage(){
+  buildPage( subPath=[] ){
+
+    // Store subPath for later use
+    // At this point,
+    //   -URL -> Page Redirection has completed
+    //   -Blog Rerouting yet to occur
+    //      Blog routing requires subPagePath to determine correct blog entry to display
+    this.subPagePath = subPath;
 
     let pageContent = document.createElement('div');
     
@@ -960,7 +968,9 @@ export class ProcPage {
     }
 
     if( builtObjs['blog'] != null ){
+
       this.sectionData[sectionName].blogManager = builtObjs['blog'];
+
     }
 
     //pageSections.appendChild( section );
@@ -969,12 +979,14 @@ export class ProcPage {
 
   }
 
+
+// -- -- --
+
 /**
  * Activates a section and displays its content
  * @param {string|number} sectionName - Section name or index to activate
  */
   activateSection( sectionName ){
-
     if( Number.isInteger(sectionName) ){
       sectionName = this.sectionTitles[sectionName];
       this.currentPageUrl = sectionName;
@@ -1249,6 +1261,10 @@ export class ProcPage {
         tempContent.classList.add('procPagesTempContentStyle');
         tempContent.innerHTML = sectionData.content;
         blogContent.appendChild( tempContent );
+        tempContent.addEventListener('click', (e)=>{
+          blogContent.removeChild( tempContent );
+          e.preventDefault();
+        });
 
         let entries = sectionData.features.blogManager.entries || [];
         let blogOptions = sectionData.features.blogManager;
@@ -1266,7 +1282,8 @@ export class ProcPage {
           options: blogOptions,
           entries: entries,
           pageName: this.page,
-          htmlName: sectionData.htmlName
+          htmlName: sectionData.htmlName,
+          entryPath: this.subPagePath
         };
         //console.log( this.page, this.name )
         //console.log(sectionData.htmlName)
