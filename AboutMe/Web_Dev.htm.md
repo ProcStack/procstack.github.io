@@ -60,7 +60,7 @@ Web Dev Experience :
     
      Electing those specific users to move rooms together.
     
-   It worked out pretty well, and I'd see groups of people transform into "Colored Diamond" avatars of people in different rooms.
+   It worked out pretty well, and I'd see groups of people transform into "Colored Diamond" avatars of people in different verses.
     
      If they wanted to hang out with their friends,
     

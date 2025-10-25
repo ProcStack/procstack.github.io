@@ -132,7 +132,7 @@ export const pageListingData = {
     <br>&nbsp;&nbsp;&nbsp;&nbsp; If they didn't mind, it would move them to a new room with about 20 other people.
     <br>&nbsp;&nbsp; I set it up so if it picked a user, it would find the nearest couple within a distance.
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Electing those specific users to move rooms together.
-    <br>&nbsp;&nbsp; It worked out pretty well, and I'd see groups of people transform into "Colored Diamond" avatars of people in different rooms.
+    <br>&nbsp;&nbsp; It worked out pretty well, and I'd see groups of people transform into "Colored Diamond" avatars of people in different verses.
     <br>&nbsp;&nbsp;&nbsp;&nbsp; If they wanted to hang out with their friends,
     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bring the group!
     

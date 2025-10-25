@@ -6,13 +6,13 @@ A Minecraft shader pack for Optifine & Iris
     
 Languages - GLSL 1.2, 3.3, & 4.5
 
-    I started writing procPromo in the spring of 2022 as a way to learn GLSL better.
+    I started writing procPromo in the spring of 2022 to learn GLSL.
     
    Figured, if I was already playing minecraft, might as well make it look cool too!
     
      Like, while I built the sky villa and alien spore in the images.
 
-I decided on a style inspired by the Minecraft Key or '[Promo](https://www.minecraft.net/content/dam/games/minecraft/key-art/CC-Part%20I-Announce-Header.jpg)' art,
+I decided on a style inspired by the Minecraft [Key](https://www.minecraft.net/content/dam/games/minecraft/key-art/CC-Part%20I-Announce-Header.jpg) or [Promo](https://www.youtube.com/watch?v=jLuJbSjo7NA) art,
     
    Writing a Texture Blur similar to Smart Blur in photoshop; smoothing regions of similar colors.
     
@@ -26,9 +26,9 @@ Shadows are fun to figure out in games,
     
    But they are all circular or 'radial distance' from the player.
 
-    But this is a block game though!
+    But this is a block game!
     
-So how about 90-degree angle shadows??
+How about 90-degree angle shadows??
 
  Distorting the objects in space by their X & Y axis distance to the player/camera, instead of radial shadow maps,
     
