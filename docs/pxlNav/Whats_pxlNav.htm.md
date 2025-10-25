@@ -6,7 +6,7 @@ The background of this page is running 'pxlNav',
 
       Make scenes in any 3D CGI software,
       
-& use pxlNav to walk through it in a browser!
+& use pxlNav to walk through them in a web browser!
 
 Set up collision objects, teleporters, animated textures, items to pick up, and more,
     

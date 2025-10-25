@@ -1,4 +1,618 @@
 {
+  "Init.htm": {
+    "jsonURL": "https://procstack.github.io/bots/Init.htm.json",
+    "lastModified": "2025-06-19",
+    "title": "Init.",
+    "description": "Ahoi there!\n \nI'm ProcStack, Trancor, & Kevin Edzenga,\n  Which ever ya feel like calling me!\n\n\n\nI'm a technical artist with years of film, XR, & immersive experience.",
+    "media": [],
+    "content": "\n<span class=\"procPagesHeaderStyle initHeaderStyle\">Ahoi there!</span>\n<div class=\"initPage_hBarStyle\">&nbsp;</div>\nI'm <span class=\"textNudge\">ProcStack</span>, <span class=\"textNudge\">Trancor</span>, & <span class=\"textNudge\">Kevin Edzenga</span>,\n<br>&nbsp;&nbsp;Which ever ya feel like calling me!\n\n<div class='textSpacer'></div>\n\nI'm a technical artist with years of film, XR, & immersive experience.\n<br>&nbsp;&nbsp;This site is a show of my work.\n\n<div class='textSpacer'></div>\n\n<span class=\"textNudge\">Trancor</span> is my pre-rendered graphics & diy builds,\n<br><span class=\"textNudge\">ProcStack</span> is coding & real-time graphics creations <span class=\"textDrinkMeAlice\">('Trancor' was taken on github)</span>,\n<br><span class=\"textNudge\">Kevin Edzenga</span> is just ... Me.\n<br><br>\n      ",
+    "pageURL": "https://procstack.github.io/Init.htm",
+    "relativeURL": "./Init.htm"
+  },
+  "pxlNav_Explore.htm": {
+    "jsonURL": "https://procstack.github.io/bots/pxlNav_Explore.htm.json",
+    "lastModified": "2025-03-12",
+    "title": "Explore",
+    "description": "pxlNav Example :: The Outlet\n\n      \n      Run around in this water side environment,\n      A water-way with a lighthouse & coastal plant life.",
+    "media": [
+      {
+        "type": "image",
+        "src": "../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_coastline.webp",
+        "alt": "The coastline of the Outlet",
+        "caption": "An overlook of the Outlet"
+      },
+      {
+        "type": "image",
+        "src": "../pages/pxlNav/images/pxlNav_TheOutlet_2025-03-12_lightHouse_mobile.webp",
+        "alt": "The lighthouse at the Outlet",
+        "caption": "Mobile controls; they expand when dragged out"
+      },
+      {
+        "type": "image",
+        "src": "../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_spawn.webp",
+        "alt": "The Outlets spawn location",
+        "caption": ""
+      },
+      {
+        "type": "image",
+        "src": "../pages/pxlNav/images/pxlNav_The-Outlet_2025-3-12_dockBarrels.webp",
+        "alt": "Overview of the foothills next to the Outlet",
+        "caption": ""
+      }
+    ],
+    "content": "\n    <div class=\"innerCenter\" style=\"padding : 1.5em 0px 0px 0px;\">\n      <span class=\"textBump\">pxlNav Example :: <a href=\"../Outlet.htm\" target=\"_blank\" alt=\"Outlet Environment\" class=\"textBump\">The Outlet</a></span>\n\n      <br>\n      <br>Run around in this water side environment,\n      <br>A water-way with a lighthouse & coastal plant life.\n\n      <br>\n      <br><span class=\"textBold\">On Mobile</span>, your <span class=\"textBoldBox\">Left</span> thumbstick is <span class=\"textNudge\">Movement</span>\n      <br>While your <span class=\"textBoldBox\">Right</span> thumbstick is <span class=\"textNudge\">Look / Rotation</span>\n      <br>Tap the <span class=\"textBoldBox\">Upper Half</span> of the screen to <span class=\"textNudge\">Jump</span>\n\n      <div class='textSpacer'></div>\n      \n      <br><span class=\"textBold\">On PC</span>, use <span class=\"textBoldBox\">WASD</span> <span class=\"textNudge\">or</span> <span class=\"textBoldBox\">Arrow</span> keys to <span class=\"textNudge\">Move</span>\n      <div class=\"textSpacer\"></div>\n      <span class=\"textBoldBox\">Left Click & Drag</span> <span class=\"textNudge\">or</span> <span class=\"textBoldBox\">Right Click Toggle</span>\n      <br>With your <span class=\"textNudge\">mouse</span> <span class=\"textNudge\">to</span> <span class=\"textNudge\">Look</span> around\n      <div class=\"textSpacer\"></div>\n      <span class=\"textBoldBox\">Space</span> to <span class=\" \">Jump</span> <span class=\"textNudge\">- & -</span> <span class=\"textBoldBox\">Shift</span> to <span class=\"textBump\">Run</span>\n      \n      \n      <div class='textSpacer'></div>\n      <br>Press the <span class=\"textBoldBox\">P</span> key <span class=\"textNudge\">to</span> <span class=\"textNudge\">pause</span> the system\n      <br>Tap the <span class=\"textBoldBox\">Y</span> key <span class=\"textNudge\">to</span> open the <span class=\"textName\">Shader Editor</span>\n\n      \n      <div class='textSpacer'></div>\n      Bump <span class=\"textBoldBox\">G</span> to open <span class=\"textName\">Graphics</span> settings\n      <br>Nudge <span class=\"textBoldBox\">H</span> for the <span class=\"textName\">Help</span> menu\n      <br>Bop <span class=\"textBoldBox\">I</span> to squeek an <span class=\"textName\">Info</span> screen\n      <br>\n      <br>\n    </div>\n  ",
+    "pageURL": "https://procstack.github.io/pxlNav/Explore.htm",
+    "relativeURL": "./pxlNav/Explore.htm"
+  },
+  "pxlNav.htm": {
+    "jsonURL": "https://procstack.github.io/bots/pxlNav.htm.json",
+    "lastModified": "2025-10-25",
+    "title": "",
+    "description": ".",
+    "media": [],
+    "content": "",
+    "pageURL": "https://procstack.github.io/pxlNav.htm",
+    "relativeURL": "./pxlNav.htm"
+  },
+  "pxlNav_Whats_pxlNav.htm": {
+    "jsonURL": "https://procstack.github.io/bots/pxlNav_Whats_pxlNav.htm.json",
+    "lastModified": "2025-03-12",
+    "title": "What's pxlNav?What?",
+    "description": "The background of this page is running 'pxlNav',\n       A javascript package to extend Three.",
+    "media": [
+      {
+        "type": "image",
+        "src": "../pages/pxlNav/images/whatIs_theOutlet.webp",
+        "alt": "Showing The Outlet environment in Houdini",
+        "caption": "Using Houdini as my level editor for The Outlet"
+      },
+      {
+        "type": "image",
+        "src": "../pages/pxlNav/images/userDetails.webp",
+        "alt": "Showing User Details in different CGI programs",
+        "caption": "Add custom User Details to objects in your 3d modeling software, Allowing pxlNav to better understand your FBX / GLTF file."
+      }
+    ],
+    "content": "\n    The background of this page is running '<span class=\"textNudge\">pxlNav</span>',\n    <br>&nbsp;&nbsp; A javascript package to extend Three.js for more interactive / game like mechanics.\n\n    <br>\n    <br>\n    <div class=\"innerCenter textBoost\">\n      Make scenes in any 3D CGI software,\n      <br>& use pxlNav to walk through them in a web browser!\n    </div>\n    <br>\n    <br>Set up collision objects, teleporters, animated textures, items to pick up, and more,\n    <br>&nbsp;&nbsp; All by adding specific Object Groups and custom User Details to objects in your 3d modeling software.\n    <br>&nbsp;&nbsp; ( Maya, Blender, Houdini, Cinema4D, 3DS Max, etc... )\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Any software that can export FBX or GLTF / GLB\n    \n\n    <br>\n    <br> Then, tell <span class=\"textNudge\">pxlNav</span> to load your scene file as a <span class=\"textName\">Room</span> \n    <br> You'll just drop in to walk around!\n    <br> Or be a static camera & teleport to locations you define in your scene file.\n    \n    <br>\n    <br>\n    <div class=\"innerCenter\">\n      Install it for your web project using NPM\n      <div class=\"textBoldBox\" style=\"margin: 4px;\">npm -i pxlnav</div>\n      <span class=\"textBump\">Native JavaScript ESM</span>, <span class=\"textBump\">React</span>, & <span class=\"textBump\">Next.js</span>\n      <br>examples are included when installed\n    </div>\n\n    <br><div class=\"ppnHBar\"></div>\n  \n    <br>You can use any 3d modeling software to make interactive environments called <span class=\"textName\">Rooms</span>, making it a little easier to make games/interactive environments.\n    \n    <br>\n    <br>It supports rig + animation files for your character animation; and use the Animation State Machine in <span class=\"textNudge\">pxlNav</span> to control which animation plays when.\n    <br>\n    <br>You can add a simple curve in your scene to act as a camera path,\n    <br>&nbsp;&nbsp; Then add another to control the camera's look-at target during the camera path animation.\n    <br>\n    <br> Sliding & Animated textures by using a second texture, particle effects, FPS navigation, ground collision, obstacles, items, portals, and more.\n\n    <br>\n    \n    <br><div class=\"ppnHBar\"></div>\n  \n    <br>Lets say, in Maya or Blender, you make a full scene, with lights and cameras and everything.\n\n    <br>\n    <br>You'd want to move certain things to individual groups, like \"Camera\", \"Lights\", \"Colliders\" & \"Scene\".\n    <br>&nbsp;&nbsp; Then for things like instances of trees, rocks, or other objects you want to duplicate, make a group called \"Instances\" with the base object inside it.\n    <br>&nbsp;&nbsp; Then, add an empty null/group with a custom string attribute 'Instance' with the name of the object in the Instances group you want to copy to that spot.\n    <br>&nbsp;&nbsp; This also works with using an Object & 'Instance' attribute, it'll clone the object at every vertex of your object.\n\n    <br>\n    <br>If you're familiar with shaders for GLSL,\n    <br>&nbsp;&nbsp; Press the <span class=\"textBoldBox\">Y</span> key to use the <span class=\"textName\">Shader Editor</span> in <span class=\"textNudge\">pxlNav</span>.\n    <br>&nbsp;&nbsp; That way you can easily edit your shader code, while walking around!\n\n    <br>\n    <br>You can find more details on the available custom User Detail Attributes in <span class=\"textNudge\">pxlNav</span>'s <a href=\"../pxlNav-docs\" target=\"_blank\" alt=\"pxlNav Documentation\" class=\"textBump\">Documentation</a>.\n    \n    <br>\n    <br>\n  ",
+    "pageURL": "https://procstack.github.io/pxlNav/Whats_pxlNav.htm",
+    "relativeURL": "./pxlNav/Whats_pxlNav.htm"
+  },
+  "pxlNav_Docs.htm": {
+    "jsonURL": "https://procstack.github.io/bots/pxlNav_Docs.htm.json",
+    "lastModified": "2025-03-12",
+    "title": "Documentation",
+    "description": "View the pxlNav Documentation\n      \n      \n      Create your own interactive environments,\n      Using pxlNav for your Three.",
+    "media": [
+      {
+        "type": "image",
+        "src": "../pages/pxlNav/images/glslScriptEditor.webp",
+        "alt": "pxlNav Shader Editor",
+        "caption": "See pxlNav Documentation"
+      }
+    ],
+    "content": "\n    <div class=\"innerCenter\" style=\"padding : 2.5em 0px 0px 0px;\">\n      <span class=\"textBump\">View the <a href=\"../pxlNav-docs\" target=\"_blank\" alt=\"pxlNav Documentation\" class=\"textBump\">pxlNav Documentation</a></span>\n      <br>\n      <br>\n      Create your own interactive environments,\n      <br>Using <span class='textNudge'>pxlNav</span> for your Three.js projects.\n\n      <br>\n      <br>\n      <br>\n      <div class=\"innerCenter\">\n        Install it for your web project using NPM\n        <div class=\"textBoldBox\" style=\"margin: 4px;\">npm -i pxlnav</div>\n        <span class=\"textBump\">Native JavaScript ESM</span>, <span class=\"textBump\">React</span>, & <span class=\"textBump\">Next.js</span>\n        <br>examples are included when installed\n      </div>\n      <br><br>\n    </div>\n  ",
+    "pageURL": "https://procstack.github.io/pxlNav/Docs.htm",
+    "relativeURL": "./pxlNav/Docs.htm"
+  },
+  "pxlNav_Origin.htm": {
+    "jsonURL": "https://procstack.github.io/bots/pxlNav_Origin.htm.json",
+    "lastModified": "2025-03-12",
+    "title": "Origin",
+    "description": "Originally pxlNav was made for a virtual event space named \"Antibody Club\" [defunct] during 2020 Covid lockdowns.",
+    "media": [
+      {
+        "type": "youtube",
+        "src": "_vzqZ2sNjaw",
+        "alt": "Huge holiday party thank you video",
+        "caption": ""
+      },
+      {
+        "type": "image",
+        "src": "../pages/pxlNav/images/Antib0dyClub_10_chatImplemented.webp",
+        "alt": "Chat features in Antibody Club",
+        "caption": "Antibody Club [defunct] - Showing some of the, now removed, network features."
+      }
+    ],
+    "content": "\n    Originally <span class=\"textNudge\">pxlNav</span> was made for a virtual event space named \"Antibody Club\" [defunct] during 2020 Covid lockdowns.\n    <br>Hosted virtual events, album releases, dj sets, & holiday parties while we couldn't in meat space.\n\n    <br>\n    <br>Run around as a display of your webcam, chat with others within a visible distance, grab some items to get \"effects\" and explore a couple different artist's created environments.\n\n    <br>\n    <br>But since then, society walked back into the sun and stretched their legs a bit,\n    <br>&nbsp;&nbsp; The needs for a virtual event space had waned.\n    \n    <br>\n    <br>However, pxlNav was pretty cool, so I decided to make it easier to install for your own Three.js projects.\n    <br>&nbsp;&nbsp; Aiming to turn your 3d modeling software into a level editor.\n\n    <br><br>3d for web has come a far way, and it has less hurdles than getting your game in Unreal/Unity ready for cross platform usability.\n    <br>&nbsp;&nbsp; Websites are just there, anywhere, and can be turned into apps easily these days.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; So why not?\n\n    <br>\n    <br>\n    <div class=\"procPagesPxlNavEndNoteStyle\">\n      During the run of Antibody Club (2020), I had a helping hand on a couple shaders, camera animations, and some other odds'n'ends. \n      <div class=\"procPagesPxlNavSpacer\"></div>\n      So, I'd be remiss if I didn't mention <span class=\"textNudge\">Michael Lee</span> & <span class=\"textNudge\">Charles Wang</span> for helping on Antibody Club / pxlNav.\n    </div>\n  ",
+    "pageURL": "https://procstack.github.io/pxlNav/Origin.htm",
+    "relativeURL": "./pxlNav/Origin.htm"
+  },
+  "ProjectsLinks_procstack.github.io.htm": {
+    "jsonURL": "https://procstack.github.io/bots/ProjectsLinks_procstack.github.io.htm.json",
+    "lastModified": "2025-03-24",
+    "title": "procstack.github.io :: this.",
+    "description": "procstack.",
+    "media": [
+      {
+        "type": "image",
+        "src": "../pages/projects/images/procstack.github.io.webp",
+        "alt": "My portfolio site, procstack.github.io",
+        "caption": "My portfolio site, procstack.github.io"
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/RabbitDruidA_DiffuseWireAndData.webp",
+        "alt": "Rabbit Druid's wireframe, diffuse, and data textures",
+        "caption": "Rabbit Druid's wireframe, diffuse, and data textures"
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/RabbitDruidA_useThatPokinStick.webp",
+        "alt": "Rabbit Druid's use that pokin' stick",
+        "caption": "poke dah barrel... POKE DAH BARREL!"
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/RabbitDruidA_stressTesting.webp",
+        "alt": "Rabbit Druid's stress testing",
+        "caption": ""
+      }
+    ],
+    "content": "\n    <a href='https://github.com/ProcStack/procstack.github.io' class='procPagesRepoLinkStyle' target='_blank'>procstack.github.io github repository</a> <span class=\"textDrinkMeAlice textItalic\">2024-2025</span>\n    <br><span class=\"textShrink textItalic textName \">Language - <span class=\"textBold\">JavaScript</span></span>\n    <div class=\"pppHBar\"></div>\n    \n    <span class='textNudge'>Eyyyyy, check out this sites code!</span>\n    <br>&nbsp;&nbsp; It mostly has examples of pxlNav rooms and the page & content system I wrote\n\n\n    <br><br><div class=\"pppHBar\"></div>\n    \n    <br> Some stats on the page -\n    <br><br> <span class=\"textItch\">Rabbit Druid A</span> -\n    <br>&nbsp;&nbsp;  - <span class=\"textItch\">5,823</span> triangles\n    <br>&nbsp;&nbsp;  - <span class=\"textItch\">38</span> Joints\n    \n    <br><br> The Ears and Cape did me in for the joint count.\n    <br>&nbsp;&nbsp; 3 per Ear, 2 for the Cape\n    \n    <br><br><div class=\"pppHBar\"></div>\n\n    <br>\n    <br>\n    <br>It's funny, out of all the projects I can bootstrap together with my personal boilerplates over the years,\n    <br>&nbsp;&nbsp; I never built a single-page site system before this one.\n\n    <br>\n    <br>Maybe I should write a 'server-side' pre-render for this pages system,\n    <br>&nbsp;&nbsp; Turn this into a proper framework for others to use! haha\n\n    <br>\n    <br>Update : I did do that ...\n    <br>&nbsp;&nbsp; It helps a ton to quickly render the dynamically generated pages into static pages,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Then build out the sitemap.xml and llms.txt + htm.md files for SEO and LLM crawling.\n    <br>&nbsp;&nbsp; There are still some bugs in it, but I'm working on fixing them.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; See the <span class=\"textName\">./packing/renderStaticPages.mjs</span> script for more details.\n\n    <br>\n    <br>I like vanilla javascript too much....\n    <br>&nbsp;&nbsp; Its a detriment for getting a React/Next job, but I can't help it!\n\n    <br><br><div class=\"pppHBar\"></div>\n\n\n    <br>So soooo many years using JS on its own,\n    <br>&nbsp;&nbsp; I started messing with it in 1996 for my <span class='textBump'>GeoCities</span> <span class='textName'>Dragon Ball Z</span> fan website,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Making an image gallery for my first script from an example, age 9 or 10.\n    <br>&nbsp;&nbsp; So environments like React.js/Next.js, Svelte, Angular, etc. don't feel as fun as just writing it out myself, dang it!\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class=\"textItalic\">Ragga fragga, get off my lawn ya dang kids!</span>\n    <br>\n    <br>\n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/procstack.github.io.htm",
+    "relativeURL": "./ProjectsLinks/procstack.github.io.htm"
+  },
+  "ProjectsLinks.htm": {
+    "jsonURL": "https://procstack.github.io/bots/ProjectsLinks.htm.json",
+    "lastModified": "2025-10-25",
+    "title": "",
+    "description": ".",
+    "media": [],
+    "content": "",
+    "pageURL": "https://procstack.github.io/ProjectsLinks.htm",
+    "relativeURL": "./ProjectsLinks.htm"
+  },
+  "ProjectsLinks_currentsOfWar.htm": {
+    "jsonURL": "https://procstack.github.io/bots/ProjectsLinks_currentsOfWar.htm.json",
+    "lastModified": "2025-06-19",
+    "title": "Currents of War :: Unity Game",
+    "description": "Currents of War 2025\n    Engine - Unity\n    Languages - C#, some Python for tools\n    A 'NPC Simulator' game made in Unity for the April 2025 itch.",
+    "media": [
+      {
+        "type": "video",
+        "src": "../pages/projects/images/CharacterRenderer_liveUpdate_2025-05-16_mod.webm",
+        "alt": "Picking Character Colors",
+        "caption": "Changing character's look & colors in Unity's Editor real-time!"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/CoW_AnimatedCursor_2025-06-02_mod.webm",
+        "alt": "Cursor Animations",
+        "caption": "Why not an animated cursor?"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/ShopWindowLight_2025-05-11_mod.webm",
+        "alt": "Window Sunlight",
+        "caption": "Gotta show the time of day somehow!"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/WindowLightHoudini_2025-05-11_mod.webm",
+        "alt": "The sunlight rig in Houdini",
+        "caption": "The sunlight rig to make a data texture in HoudiniUsing a mesh, I can shape the light on 'walls' in the scene easier."
+      }
+    ],
+    "content": "\n    <a href='https://procstack.itch.io/currentsofwar' class='procPagesRepoLinkStyle' target='_blank'>Currents of War</a> <span class=\"textDrinkMeAlice textItalic\">2025</span>\n    <br><span class=\"textShrink textItalic textName \">Engine - <span class=\"textBold\">Unity</span></span>\n    <br><span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">C#, some Python for tools</span></span>\n    <br><span class=\"textNudge\">A 'NPC Simulator' game made in <span class=\"textName\">Unity</span> for the April 2025 itch.io gamejam 'Indie Game Clinic COLLAB JAM '25'</span>\n    <br>&nbsp;&nbsp; Since then, we've expanded it quite a bit!\n    <br>\n    <br>Play the <a href='https://procstack.itch.io/currentsofwar' class='procPagesRepoLinkStyle' target='_blank'>Game Jam Release</a> in your browser!\n    <div class=\"pppHBar\"></div>\n    \n    The game jam was a collab jam, primarily consisting of 3 of us doing art and programming for <span class=\"textName\">Currents of War</span>.\n    <br>&nbsp;&nbsp; I helped out doing the primary art and game's look, while another two did the programming and some art assets.\n    \n    <br> I set up the shop, drew all the items, ui, and the characters,\n    <br>&nbsp;&nbsp; I also wrote the code + shaders to handle animation & dynamically coloring the character's faces, hair, & armor.\n\n    <br>\n    <br> For the art inspiration, I pulled from -\n    <br>&nbsp;&nbsp; Gameboy Advance games like <span class=\"textName\">Zelda Minish Cap</span>,\n    <br>&nbsp;&nbsp; Super Nintendo games like <span class=\"textName\">Secret of Mana</span> & <span class=\"textName\">Final Fantasy 3/6</span>,\n    <br>&nbsp;&nbsp; And Original Nintendo games like <span class=\"textName\">River City Ransom</span>.\n    <br>\n    <br> I wanted to create a semi 'tacky' weapons shop for the style.\n    <br>&nbsp;&nbsp; To give some room for gags & chicanery!\n\n    <div class='textSpacer'></div> \n    <div class=\"pppHBar\"></div>\n\n    <br> One of the challenges was making sure the character's displayed with custom colors for their hair, face, armor, gloves/boots, and leggings.\n    <br>&nbsp;&nbsp; I wrote a shader to handle the colorization of the character's face, hair, and armor.\n    <br>&nbsp;&nbsp; Along with the sprite animation system to handle the character's idle, walk, and talk animations.\n    <br>&nbsp;&nbsp; I also wrote a custom editor script to allow the character's colors to be changed in Unity's Editor, and have it update in real-time.\n\n    <br>\n    <br> Among other fun things like adding an animated cursor, outlines around items on hover, ui borders that auto size to the text and stay pixel perfect, among other things\n    \n    <div class='textSpacer'></div> \n    <div class=\"pppHBar\"></div>\n\n    Give the game a try, it's a little game with some neat mechanics!\n    <br>&nbsp;&nbsp; Try to make as much money as you can off these heroes coming to your shop!\n    <br>\n    <br>Play the <a href='https://procstack.itch.io/currentsofwar' class='procPagesRepoLinkStyle' target='_blank'>Game Jam Release</a> in your browser!\n    <br>\n    <br>\n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/currentsOfWar.htm",
+    "relativeURL": "./ProjectsLinks/currentsOfWar.htm"
+  },
+  "ProjectsLinks_Pxlmancer.htm": {
+    "jsonURL": "https://procstack.github.io/bots/ProjectsLinks_Pxlmancer.htm.json",
+    "lastModified": "2025-02-24",
+    "title": "Pxlmancer :: Drawing App",
+    "description": "pxlmancer 2014-2019\n    A full drawing/painting app on desktop, a fun fidget toy on mobile.",
+    "media": [
+      {
+        "type": "image",
+        "src": "../pages/projects/images/tvKid.webp",
+        "alt": "TV was king!",
+        "caption": "vv Watch the timelapse of me making 'TV Kid' in Pxlmancer vv"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/tvKid.webm",
+        "alt": "TV Kid timelapse",
+        "caption": "This was a fun one!"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/pxlBrushes.webm",
+        "alt": "Testing some brushes & smudges",
+        "caption": "Testing some brushes & smudges"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/pxlColorSphere.webm",
+        "alt": "Color sphere demo",
+        "caption": "The Color Sphere Click to Sample your desired color Swap Swatches with Number Keys! Click & Drag to mix colors; and they save to your `.pxlm` file"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/pxlLayers.webm",
+        "alt": "Layer support demo",
+        "caption": "Gotta have layers in a graphics editors!"
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/kitty.webp",
+        "alt": "Digital drawing a friends cat",
+        "caption": "...of course, the cat tax..."
+      }
+    ],
+    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='https://procstack.github.io/pxlmancer/index.htm' class=\"textBump\" target='_blank'>pxlmancer</a> <span class=\"textDrinkMeAlice textItalic\">2014-2019</span></div>\n    <span class=\"textBump\">A full drawing/painting app on desktop, a fun fidget toy on mobile.</span>\n    <br><span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">JavaScript, JQuery, & PHP</span></span>\n    <br>Solo written <span class='textName'>14264</span> lines of JavaScript, ground up only using jquerry's oddness.\n    <div class=\"pppHBar\"></div>\n\n    <br><span class=\"textBoost textBold\">Note</span> : <span class=\"textName\">pxlmancer.com</span> is currently having some <span class=\"textNudge\">https certificate</span> issues.  I'll be fixing it soon.\n    <br>&nbsp;&nbsp; Please use <a href='https://procstack.github.io/pxlmancer/index.htm' class=\"textBump\" target='_blank'>procstack.github.io/pxlmancer</a> for now.\n    <br>&nbsp;&nbsp; But, it may be buggy because I had to convert it from PHP to JS-Only for GitHub Pages.\n    \n    <br><br><div class=\"pppHBar\"></div>\n\n    <br> On'n'off multi-year project to make a full fledge drawing site with layer support, brush types, vector tools, brush effects (cpu based pixel effects, this was pre-learning about opengl shaders or webgl)\n    \n    <br>\n    <br>\n    <div class=\"procPagesProjectsDescriptionStyle selfCenter\">Use the mixing pallet to blend colors together to paint with, then save the pallet by pressing a number key.\n      <br>All of which can be saved to a .pxlm file; to store your layers, settings, and pallet swatches!\n    </div>\n    <div class=\"procPagesProjectsSpacer\"></div>\n\n    <br>&nbsp;&nbsp; Sadly, an update in javascript broke saving images, and I haven't had the time to fix it yet...\n    <br>You'll need to drag the image from the \"Save Image\" screen to a new tab to view and save it.\n    <br>But you can easily save your document to a pxlm file, and open it back up to continue working on your project!\n    \n    <div class=\"procPagesProjectsSpacer\"></div>\n\n    <br>&nbsp;&nbsp; A little tid-bit, <span class='textNudge'>pxlmancer.com</span> is the origin of the '<span class='textNudge'>pxl</span>' namespace for my projects.\n    <br>It's my indicator of a codebase with a visual output; such as pxlNav, pxlVisualizer, pxlTextGenerator, etc.\n    <br><br>More about pxlmancer.com on <a href='https://imgur.com/gallery/8lSW1' target='_blank'>Imgur</a>!\n    \n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/Pxlmancer.htm",
+    "relativeURL": "./ProjectsLinks/Pxlmancer.htm"
+  },
+  "ProjectsLinks_procPromo.htm": {
+    "jsonURL": "https://procstack.github.io/bots/ProjectsLinks_procPromo.htm.json",
+    "lastModified": "2025-06-19",
+    "title": "procPromo :: Shader Pack",
+    "description": "procPromo Shader Pack 2022-2025\n    A Minecraft shader pack for Optifine & Iris\n    Languages - GLSL 1.",
+    "media": [
+      {
+        "type": "image",
+        "src": "../pages/projects/images/CloudPillar_2024-01-08.webp",
+        "alt": "A Minecraft cloud pillar in procPromo",
+        "caption": "Cloud pillar!"
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/AlienFlora_2024-01-08.webp",
+        "alt": "The alien fungal bloom has spread!",
+        "caption": "The spores have spread!"
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/NetherLavaLake_2024-01-10.webp",
+        "alt": "A cool day in Minecraft Palm Springs!",
+        "caption": "A chill day in Palm Springs"
+      }
+    ],
+    "content": "\n    <a href='https://github.com/ProcStack/procPromo_ShaderPack' class='procPagesRepoLinkStyle' target='_blank'>procPromo Shader Pack</a> <span class=\"textDrinkMeAlice textItalic\">2022-2025</span>\n    <br><span class=\"textBump\">A <span class=\"textName\">Minecraft</span> shader pack for <span class=\"textName\">Optifine</span> & <span class=\"textName\">Iris</span></span>\n    <br><span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">GLSL 1.2, 3.3, & 4.5</span></span>\n    <div class=\"pppHBar\"></div>\n\n    I started writing <span class=\"textName\">procPromo</span> in the spring of 2022 to learn <span class=\"textName\">GLSL</span>.\n    <br>&nbsp;&nbsp; Figured, if I was already playing minecraft, might as well make it look cool too!\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Like, while I built the sky villa and alien spore in the images.\n\n    <br>\n    <br>I decided on a style inspired by the Minecraft <a href=\"https://www.minecraft.net/content/dam/games/minecraft/key-art/CC-Part%20I-Announce-Header.jpg\" target=\"_blank\">Key</a> or <a href=\"https://www.youtube.com/watch?v=jLuJbSjo7NA\" target=\"_blank\">Promo</a> art,\n    <br>&nbsp;&nbsp; Writing a <span class='textInblockBox'>Texture Blur</span> similar to <span class='textName'>Smart Blur</span> in photoshop; smoothing regions of similar colors.\n    <br>&nbsp;&nbsp; Then added block \"edges\" using <span class='textInblockBox'>Depth + Normals</span>,\n    <br>&nbsp;&nbsp; Created a <span class='textInblockBox'>2-Pass Blur/Glow</span> in post-processing.\n    <br>&nbsp;&nbsp; And a <span class='textInblockBox'>Shadow Distortion</span> system with <span class='textName'>biasing</span> based on per-axis (X,Y) from player.\n\n    <br>\n    <br>\n    <br>Shadows are fun to figure out in games,\n    <br>&nbsp;&nbsp; But they are all circular or 'radial distance' from the player.\n\n    <div class='textSpacer'></div>\n\n    <span class=\"innerCenter\">\n    But this is a block game!\n    <br>How about 90-degree angle shadows??</span>\n\n    <br> Distorting the objects in space by their X & Y axis distance to the player/camera, instead of radial shadow maps,\n    <br>&nbsp;&nbsp; Let me get much sharper shadows from blocks, similar to the shadows in Minecraft's promo art.\n\n    <div class='textSpacer'></div>\n\n    <br> It was a fun experiment for shadowing,\n    <br>&nbsp;&nbsp; But it has it's time and place;\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Like in a block game.\n    <br>\n    <br>\n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/procPromo.htm",
+    "relativeURL": "./ProjectsLinks/procPromo.htm"
+  },
+  "ProjectsLinks_pxlTextGenerator.htm": {
+    "jsonURL": "https://procstack.github.io/bots/ProjectsLinks_pxlTextGenerator.htm.json",
+    "lastModified": "2025-02-24",
+    "title": "pxlTextGenerator :: PyQt",
+    "description": "pxlTextGenerator 2018-2019\n    Text to handwriting generator\n    Language - Python & PyQt\n    \n    \n    Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.",
+    "media": [
+      {
+        "type": "video",
+        "src": "../pages/projects/images/pxlTextGenerator_lowerY.webm",
+        "alt": "Character selector & builder",
+        "caption": "Gather your library of characters from photos/scans/images, They'll save to disk as you work on your project."
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/pxlTextGenerator_characterBuilder.webp",
+        "alt": "Character selector & builder",
+        "caption": "Character selector & builder"
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/pxlTextGenerator_pageView.webp",
+        "alt": "Page builder with alphabet",
+        "caption": "Page builder using your selected characters"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/pxlTextGenerator_sizingLetters.webm",
+        "alt": "Page builder with alphabet",
+        "caption": "Quickly see sizing tweaks in the Textbed"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/pxlTextGenerator_makingPage.webm",
+        "alt": "Character selector & builder",
+        "caption": "Build your pages for export to PNG Supports multiple pages, which save with your project + settings to disk"
+      }
+    ],
+    "content": "\n    <a href='https://github.com/ProcStack/pxlTextGenerator' class='procPagesRepoLinkStyle' target='_blank'>pxlTextGenerator</a> <span class=\"textDrinkMeAlice textItalic\">2018-2019</span>\n    <br><span class=\"textBump\">Text to handwriting generator</span>\n    <br><span class=\"textShrink textItalic textName \">Language - <span class=\"textBold\">Python & PyQt</span></span>\n    <div class=\"pppHBar\"></div>\n    \n    Created to capture the personality of one of my characters, Diece; the very one who lives in the cabin of Metal-Asylum.net.\n    <br>&nbsp;&nbsp; Letting them write the very words written in the tome perched upon the desk.\n    <br>\n    <br>A segmenter, labeler, and scripting language was written to allow saving individual characters, variants, and written pages, with text effects like opacity, scale, and kearning.\n    \n    <br>\n    <br>Scan some writing, click the letters, adjust the spacing, type your page with those letters, and hit save!\n\n    <div class=\"pppHBar\"></div>\n\n    <br>Now with ai resources so prevelant,\n    <br>&nbsp;&nbsp; I've been on and off developing a CNN (Convolutional Neural Network) to identify new characters based on the ones you have saved.\n    <br>&nbsp;&nbsp; Along with a much better segmenter, where the letters will highlight as you hover over them, and you can select the ones you want to save.\n\n    <br>\n    <br>This is pretty low on my project list, so it may take awhile before the support is fully working and implemented.\n\n    \n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/pxlTextGenerator.htm",
+    "relativeURL": "./ProjectsLinks/pxlTextGenerator.htm"
+  },
+  "ProjectsLinks_NeurousNet.htm": {
+    "jsonURL": "https://procstack.github.io/bots/ProjectsLinks_NeurousNet.htm.json",
+    "lastModified": "2025-02-14",
+    "title": "Neurous.Net :: Particles App",
+    "description": "Neurous.",
+    "media": [
+      {
+        "type": "video",
+        "src": "../pages/projects/images/NeurousNet_A.webm",
+        "alt": "Neurous Net; Pull in all the particles",
+        "caption": "Right-Click (or Tap & Hold) to pull in all the particles!"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/NeurousNet_B.webm",
+        "alt": "Neurous Net; Pulling in near by particles",
+        "caption": "Left-Click (or Tap & Drag) to grab near by particles"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/NeurousNet_C.webm",
+        "alt": "Neurous Net; Spawn some black holes",
+        "caption": "Middle-Click (or Tap with Two Fingers) to spawn in some black holes!"
+      }
+    ],
+    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='http://neurous.net/' class=\"textBump\" target='_new'>Neurous.Net</a> <span class=\"textDrinkMeAlice textItalic\">2014-2025</span></div>\n    <span class=\"textShrink textItalic textName \">Language - <span class=\"textBold\">JavaScript</span></span>\n    <div class=\"pppHBar\"></div>\n    <span class=\"textBump textBold\">More fun on phone!</span>\n\n    <br><br> Some browsers may alert you of the site being unsecure, http\n    <br>&nbsp;&nbsp; You can try <a href='../NeurousNet/index.htm' class='procPagesRepoLinkStyle' target='_blank'>procstack.github.io/NeurousNet</a> instead.\n    \n    <br>\n    <br> A few day project to learn Canvas in HTML5, 2014.\n    <br>&nbsp;&nbsp; Make a custom emitter and particle class structure in javascript;\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Just a page you can play around with some particles.\n\n    <br><br> On desktop,\n    <br>&nbsp;&nbsp; Left-Click to grab near by particles.\n    <br>&nbsp;&nbsp; Right-Click to pull in all the particles!\n    <br>&nbsp;&nbsp; Middle-Click to spawn a black hole!\n    \n    <br><br> On mobile,\n    <br>&nbsp;&nbsp; Tap & drag to grab near by particles.\n    <br>&nbsp;&nbsp; Tap & hold to pull in all the particles!\n    <br>&nbsp;&nbsp; Tap with two fingers to spawn a black hole!\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Here's a tip, hold one finger down, and tap with the second to spawn them in faster!\n    \n    <br><br> Just a note, clicking will spawn in 2 new particles as well,\n    <br>&nbsp;&nbsp; Your screen will fill eventually!\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; It's fun heheh\n\n    <br><br> Enjoy!\n\n    <br><br><div class=\"pppHBar\"></div>\n\n    <br> The site was bootstrapped from pxlmancer, hence the similar style.\n\n    <br><br> Originally written in Functional JavaScript before Classes existed,\n    <br>&nbsp;&nbsp; The trick was reading function elements on the dictionary object from within the dictionary variable.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Some make-shift '<span class=\"textItalic\">Methods</span>' on a '<span class=\"textItalic\">Class</span>' object\n    <br>\n    <br> Also adding Prototypes to a custom function,\n    <br>&nbsp;&nbsp; Which could have just been a class.\n\n    <br><br> Functional Native JavaScript, gotta love it\n    <br>&nbsp;&nbsp; Luckily, times have changed!\n\n    <br><br> Rewritten in 2021 to use Classes, added basic WebGL features (glow), and cleaned up movement logic.\n    <br>&nbsp;&nbsp; Then 2024-2025 to add more WebGL support, better generalization, and visual features.\n\n    <br><br> When you've been using JavaScript for decades,\n    <br>&nbsp;&nbsp; Looking back at an old project,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Not only do you get to read your bad old code,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; But also the lack of basic JavaScript features hahah.\n\n    <br><br> No <span class=\"textItalic textName\">let</span>, no <span class=\"textItalic textName\">const</span>, no <span class=\"textItalic textName\">class</span>, no <span class=\"textItalic textName\">arrow functions</span>, no <span class=\"textItalic textName\">...</span> array spread operator, \n    <br>&nbsp;&nbsp; Heck, <span class=\"textItalic textName\">Array.forEach()</span> actually exists now!\n\n    <br><br> \n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/NeurousNet.htm",
+    "relativeURL": "./ProjectsLinks/NeurousNet.htm"
+  },
+  "ProjectsLinks_pxlCam.htm": {
+    "jsonURL": "https://procstack.github.io/bots/ProjectsLinks_pxlCam.htm.json",
+    "lastModified": "2025-02-24",
+    "title": "pxlCam :: Filter App",
+    "description": "pxlCam 2020\n    A photo filter camera web app\n    Languages - JavaScript, Three.",
+    "media": [
+      {
+        "type": "image",
+        "src": "../pages/projects/images/pxlCam_treeStump.webp",
+        "alt": "Trippy tree stump",
+        "caption": ""
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/pxlCam_trainTracks.webp",
+        "alt": "Train track edges",
+        "caption": ""
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/pxlCam_fungi.webp",
+        "alt": "Fungi on a log",
+        "caption": ""
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/pxlCam_treeBark.webp",
+        "alt": "Funky tree bark",
+        "caption": ""
+      },
+      {
+        "type": "image",
+        "src": "../pages/projects/images/pxlCam_empireStateBuilding.webp",
+        "alt": "Tweaked Empire State Building",
+        "caption": ""
+      }
+    ],
+    "content": "\n    <div class=\"procPagesProjectsHeaderStyle\"><a href='https://pxlmancer.com/gl/pxlCam' class=\"textBump\" target='_blank'>pxlCam</a> <span class=\"textDrinkMeAlice textItalic\">2020</span></div>\n    <span class=\"textBump\">A photo filter camera web app</span>\n    <span class=\"textShrink textItalic textName \">Languages - <span class=\"textBold\">JavaScript, Three.js, & GLSL ES</span></span>\n    <div class=\"pppHBar\"></div>\n  \n    <div class=\"procPagesProjectsDescriptionStyle\">\n      <span class=\"textNudge\">*Use on phone!!*</span>\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; A few day project.\n\n      \n      <br>\n      <br><span class=\"textItch textBold\">Note</span> : <span class=\"textName\">pxlCam</span> was hosted on <span class=\"textName\">pxlmancer</span>.\n      <br>&nbsp;&nbsp; Please use <a href='https://procstack.github.io/pxlCam/index.htm' class=\"textBump\" target='_blank'>procstack.github.io/pxlCam</a> for now.\n\n      \n      <br>\n      <br>&nbsp;&nbsp; - Tap the right arrows to switch between the cameras.\n      <br>&nbsp;&nbsp; - Tap the triple down arrow to change the filter.\n      <br>&nbsp;&nbsp; - The lightning bolt will make the screen white in selfie mode; use your phones light with your back camera\n      <br>&nbsp;&nbsp; - The grid toggles the overlay you can use to align and position your shot\n\n      <br>&nbsp;&nbsp; - Tap & drag left/right or up/down to change the current filter's hue shifting or edge detection size & brightness\n      <br>\n      <br> Each filter has a different effect for the finger drag + direction, so play around with it!\n\n      <br>\n      <br>\n      <br> This is a camera filter web site I wrote with interactive color and edge effects opengl shaders,\n      <br>\n      <br> I've added camera checks + access, resolution checkings + switching\n      <br>&nbsp;&nbsp; The photo-bin temp photo storage handling. Once you take a photo, a thumbnail will appear.  Tap the icon to load a screen to save the image to any number of resoultions. Tap a resolution to load the file size, if you want to send the photo on discord or something.\n      <br>\n\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; And your multiple phone cameras in-browser.\n      \n      <br>\n    </div>\n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/pxlCam.htm",
+    "relativeURL": "./ProjectsLinks/pxlCam.htm"
+  },
+  "ProjectsLinks_pxlVisualizer.htm": {
+    "jsonURL": "https://procstack.github.io/bots/ProjectsLinks_pxlVisualizer.htm.json",
+    "lastModified": "2025-02-14",
+    "title": "pxlVisualizer :: GLSL",
+    "description": "pxlVisualizer 2019\n    Different switchable trippy visuals\n    Language - C++ / OpenFrameWorks & GLSL\n    \n    \n    Originally written in Python for PyGame, decided it would be a fun project to learn C++ on.",
+    "media": [
+      {
+        "type": "youtube",
+        "src": "1QPy7r63IRs?si=v8YY5M--7YLTNUeC",
+        "alt": "pxlVisualizer demo",
+        "caption": ""
+      }
+    ],
+    "content": "\n    <a href='https://github.com/ProcStack/pxlVisualizer' class='procPagesRepoLinkStyle' target='_blank'>pxlVisualizer</a> <span class=\"textDrinkMeAlice textItalic\">2019</span>\n    <br><span class=\"textBump\">Different switchable trippy visuals</span>\n    <br><span class=\"textShrink textItalic textName \">Language - <span class=\"textBold\">C++ / OpenFrameWorks & GLSL</span></span>\n    <div class=\"pppHBar\"></div>\n    \n    Originally written in Python for PyGame, decided it would be a fun project to learn C++ on.\n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/pxlVisualizer.htm",
+    "relativeURL": "./ProjectsLinks/pxlVisualizer.htm"
+  },
+  "ProjectsLinks_Shadertoy.htm": {
+    "jsonURL": "https://procstack.github.io/bots/ProjectsLinks_Shadertoy.htm.json",
+    "lastModified": "2025-02-24",
+    "title": "Shadertoy :: GLSL",
+    "description": "Shadertoy 2020+\n    My account on a social shader playground website\n    Language - GLSL ES\n    \n    \n    Most of the shaders are utilitarian, \n       'Utility' like an exploration into the Kuwahara Filter.",
+    "media": [
+      {
+        "type": "video",
+        "src": "../pages/projects/images/datNya.webm",
+        "alt": "Dat Nya!",
+        "caption": ""
+      }
+    ],
+    "content": "\n    <a href='https://www.shadertoy.com/user/trancor' class=\"textBump\" target='_blank'>Shadertoy</a> <span class=\"textDrinkMeAlice textItalic\">2020+</span>\n    <br><span class=\"textBump\">My account on a social shader playground website</span>\n    <br><span class=\"textShrink textItalic textName \">Language - <span class=\"textBold\">GLSL ES</span></span>\n    <div class=\"pppHBar\"></div>\n    \n    Most of the shaders are utilitarian, \n    <br>&nbsp;&nbsp; 'Utility' like an exploration into the <a href='https://www.shadertoy.com/view/cdSSW1' class=\"textNudge\" target='_blank'>Kuwahara Filter</a>.\n    <br> Or a Ray Marching shader to learn about sdf math.\n    \n    <br>\n    <br>&nbsp;&nbsp; Click + Drag <a href='https://www.shadertoy.com/view/lXffz7' class=\"textNudge\" target='_blank'>dat cat!</a>\n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/Shadertoy.htm",
+    "relativeURL": "./ProjectsLinks/Shadertoy.htm"
+  },
+  "ProjectsLinks_Dwitter.htm": {
+    "jsonURL": "https://procstack.github.io/bots/ProjectsLinks_Dwitter.htm.json",
+    "lastModified": "2025-02-24",
+    "title": "Dwitter :: JS Golfing",
+    "description": "Dwitter 2018+\n    My account on a JavaScript code golfing website\n    Language - JavaScript\n    \n    \n    'Code Golfing' is the art of annoying your coworkers,\n       By writing the most obtuse code as possible,\n          In as few characters as you can.",
+    "media": [
+      {
+        "type": "video",
+        "src": "../pages/projects/images/Dwitter_fallingCircles.webm",
+        "alt": "Fallin circles",
+        "caption": "Falling Circles"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/Dwitter_greenField.webm",
+        "alt": "A green field",
+        "caption": "Green Field Note, it now works on any browser, there's an old warning, You'll need to uncomment the code to run it"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/Dwitter_boidSystem.webm",
+        "alt": "Boid System",
+        "caption": "A basic boid/flocking system The squares move to the lower right, While trying to avoid collision, yet be near each other"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/Dwitter_undulations.webm",
+        "alt": "The ripples of undulations",
+        "caption": "The ripples of undulations"
+      }
+    ],
+    "content": "\n    <a href='https://dwitter.net/u/trancor' class=\"textBump\" target='_blank'>Dwitter</a> <span class=\"textDrinkMeAlice textItalic\">2018+</span>\n    <br><span class=\"textBump\">My account on a JavaScript code golfing website</span>\n    <br><span class=\"textShrink textItalic textName \">Language - <span class=\"textBold\">JavaScript</span></span>\n    <div class=\"pppHBar\"></div>\n    \n    'Code Golfing' is the art of annoying your coworkers,\n    <br>&nbsp;&nbsp; By writing the most obtuse code as possible,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp;  In as few characters as you can.\n\n    <br>\n    <br> This is the 'dwitter' for the top video,\n    <br>&nbsp;&nbsp; <span class=\"textName\">Falling Circles</span> <span class=\"textItalic\">[139/140 chars.]</span>\n    \n    <div class=\"textSpacer\"></div>\n    \n    <br> I'm running a <span class=\"textName\">recursive</span> function to draw circles over & over,\n    <br>&nbsp;&nbsp; That are getting smaller as they go up.\n    <br>&nbsp;&nbsp; After a short amount of time,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; using Tan() to have them fall off the screen.\n    <br>\n    <br> Since you want to use as few chars as possible,\n    <br>&nbsp;&nbsp; You'll see variable assignment in the arguments of functions.\n    <br> This might make things tricky to follow-\n\n    <div class=\"textSpacer\"></div>\n\n    <div class=\"textInblockBox\">\n      d=(j,r)=>{x.beginPath(),x.arc(j*4+S(t*3+r)*r,T(t)*r+r*5,S(t+=j&6)*r/5+r,0,7),x.fill(),r>2&&(r/=2,d(j-r,r),d(j,r))}\n      <br> d(w=(c.width=999)/2,600)\n    </div>\n\n    <div class=\"textSpacer\"></div>\n\n    <br>Hmmm, see how messy that looks?\n    <br>&nbsp;&nbsp; Let me clean it up a bit for ya!\n\n    <div class=\"textSpacer\"></div>\n\n    <div class=\"textBox textInner\">\n      Built-in Variables & Functions - \n      <br>&nbsp;&nbsp function u(t) { [...] } - Call the code below\n      <br>&nbsp;&nbsp t - time in seconds.\n      <br>&nbsp;&nbsp c - A 1920x1080 canvas.\n      <br>&nbsp;&nbsp x - A 2D context for that canvas.\n      <br>&nbsp;&nbsp S()- Math.sin;  C()- Math.cos; T()- Math.tan.\n    </div>\n    \n    <div class=\"textSpacer\"></div>\n\n    <div class=\"textInblockBox\">\n      d=(j,r)=>{  <span class=\"codeAccentStyle\">// Define 'd()' to call later vvv</span>\n      <br>&nbsp;&nbsp; x.beginPath(), <span class=\"codeAccentStyle\">// Start a 'path' to draw</span>\n      \n    <div class=\"textBox procPagesBgColor\">\n      &nbsp;&nbsp; x.arc( <span class=\"codeAccentStyle\">// Define a circle path to draw</span>\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; j*4 + S(t*3+r) * r, <span class=\"codeAccentStyle\">// Horizontal movement</span> \n      <br>&nbsp;&nbsp;&nbsp;&nbsp; T(t)*r + r*5, <span class=\"codeAccentStyle\">// Vertical 'random' animation + perspective</span>\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; S( t+=j&6 ) * r/5 + r,  <span class=\"codeAccentStyle\">// Make 'time' unique per + radius </span>\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; 0,7), <span class=\"codeAccentStyle\">// Circle arc, draw a full circle</span>\n    </div>\n      &nbsp;&nbsp; x.fill(), <span class=\"codeAccentStyle\">// Draw the circle</span>\n      \n    <div class=\"textBox procPagesBgColor\">\n      &nbsp;&nbsp; r>2 && (  <span class=\"codeAccentStyle\">// Stop making circles when r gets low enough</span>\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; r/=2, <span class=\"codeAccentStyle\">// Divide r by 2</span>\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; d( j-r, r ), <span class=\"codeAccentStyle\">// Run 1st child Recursion</span>\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; d( j, r ) <span class=\"codeAccentStyle\">// Run 2nd child Recursion </span>\n      <br>&nbsp;&nbsp; )\n    </div>\n       }\n      \n    <div class=\"textBox procPagesBgColor\">\n      d( <span class=\"codeAccentStyle\">// Start Recursion </span>\n      <br>&nbsp;&nbsp; w=(c.width=999)/2, <span class=\"codeAccentStyle\">// Sets resolution & X placement</span>\n      <br>&nbsp;&nbsp; 600 <span class=\"codeAccentStyle\">// Circle generation count + seed </span>\n      <br> )\n    </div>\n\n    </div>\n\n    <div class=\"textSpacer\"></div>\n\n    <div class=\"innerCenter\">\n      ... doin a wee bit in there, haha\n    </div>\n    \n    <br> When all you get is 140 characters,\n    <br>&nbsp;&nbsp; Better make each one count!\n    <br>\n    <br>\n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/Dwitter.htm",
+    "relativeURL": "./ProjectsLinks/Dwitter.htm"
+  },
+  "ProjectsLinks_msic.htm": {
+    "jsonURL": "https://procstack.github.io/bots/ProjectsLinks_msic.htm.json",
+    "lastModified": "2025-08-16",
+    "title": "Misc.",
+    "description": "Miscellaneous random junk!\n    \n    \n\n       The green energy warpy portal is just a random Maya render.",
+    "media": [
+      {
+        "type": "video",
+        "src": "../pages/projects/images/Beam-Xvid_short.webm",
+        "alt": "Warpy warpy!",
+        "caption": "Warpy warpy!"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/Unity_computeShaderDev_zoomOut_halfRes.webm",
+        "alt": "Particle Merging",
+        "caption": "Unity; Interacting compute particle systems"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/Unity_computeShaderDev_orb_halfRes.webm",
+        "alt": "Trippy Orb",
+        "caption": "Trippy Post-Processing!"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/Unity_TesseractTo3D_spin_30fps_halfRes.webm",
+        "alt": "Tesseract to 3D",
+        "caption": "Unity; 3D Shadow of a spinning 4D Cube / Tesseract"
+      }
+    ],
+    "content": "\n    <div class=\"procPagesProjectsHeaderStyle textBump textBold\">Miscellaneous random junk!</div>\n    \n    <div class=\"procPagesProjectsDescriptionStyle\">\n\n      <br> The green energy warpy portal is just a random Maya render.\n      \n      <br>\n      <br><div class='procPagesAboutMeBar'></div>\n\n      <br> I felt like making some Compute Shaders that talked to each other in <span class='textName'>Unity</span>,\n      <br>&nbsp;&nbsp; So why not? Random boxes absorbing circles!\n\n      <br>\n      <br>To be fair, it's a work-in-progress and I'm making custom particle systems of atoms, 'molecules', and crystals form.\n      <br>&nbsp;&nbsp; Progressing through the stages, but, ya know, work-in-progress\n      \n      <br>\n      <br>It's for a game I've been on'n'off making since january 2022,\n      <br>&nbsp;&nbsp; But I only just made this in July 2025 hah\n\n      <br>\n      <br>The game's not high on my priority list,\n      <br>&nbsp;&nbsp; But I did write 18 pages of story an 6-7 of dialogue,\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; Inspired by Undertale & Hollow Knight;\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; A side view fighting game with AI inspired by Rain World.\n\n      <br> To tell a story, not randomly generated collapsed-wave functions of level generation.\n      \n      <br>\n      <br><div class='procPagesAboutMeBar'></div>\n\n      <br>The chrome balls is the 3d shadow of a 4d Cube or a Tesseract, in <span class='textName'>Unity</span>.\n      <br>&nbsp;&nbsp; I'm calculating the 4d math of a spinning tesseract,\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; Then projecting it into 3d space to render\n      <br>\n      <br>\n\n    </div>\n  ",
+    "pageURL": "https://procstack.github.io/ProjectsLinks/msic.htm",
+    "relativeURL": "./ProjectsLinks/msic.htm"
+  },
+  "AIDev_aiIntro.htm": {
+    "jsonURL": "https://procstack.github.io/bots/AIDev_aiIntro.htm.json",
+    "lastModified": "2025-08-01",
+    "title": "My Introduction",
+    "description": "I started my dive into AI in 2008 writing a Boid / Crowd system for my thesis while in art college, School of Visual Arts.",
+    "media": [
+      {
+        "type": "youtube",
+        "src": "XJu-UJrI6yk",
+        "alt": "Useful AI for Visual Graphics",
+        "caption": ""
+      }
+    ],
+    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle'>\n      <br>I started my dive into AI in 2008 writing a Boid / Crowd system for my thesis while in art college, School of Visual Arts.\n      <br>&nbsp;&nbsp; It was an insane particle script + 3d animation cycles in Maya haha.\n      <br>Then I did Boid movement, navigation, & obstacle detection in animated films for 5 years at Blue Sky Studios, using Houdini.\n      <br>\n      <br>I dove into Style-Transfer AI & Long Short-Term Memory (LSTM) training in 2019-2020,\n      <br>&nbsp;&nbsp; Like making a Node.js server (web site) understand my voice & auto google search for me.\n      <br>\n      <br>Since then, I've been developing different multi-media AI structures in my spare time.\n      <br>\n      <br><div class='procPagesAIDevBar'></div>\n\n      <br>In 2015 I decided I'd cram a machine learning AI into a single-board computer, a Jetson TK1, by the end of 2026.\n      <br>&nbsp;&nbsp; Something that could write down what I say,\n      <br>&nbsp;&nbsp; Use vision to understand an object simply went out of frame.\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; Yet \"knows\" if it looks over, the object is still there; 'Attention'\n      <br>\n      <br>At the end of 2023, this evolved into a deep learning AI crammed into, likely, a Jetson Nano.\n      <br>&nbsp;&nbsp; As something to infer what I mean, from what I say,\n      <br>&nbsp;&nbsp; Or give a \"thought\" on what it saw or heard in the world around it.\n      <br>\n\n      <br><span class=\"innerCenter\">\n        'Machine Learning' is AI that can learn basic patterns.\n        <br>'Deep Learning' is Machine Learning,\n        <br>But uses neural networks to form patterns of patterns.\n      </span>\n\n      <br>\n      <br>Realistically, I'd just be happy to make something that can understand what I say and can give a <span class='textItalic'>semi</span> coherent response without an internet connection.\n      <br>\n      <br>As of May 24th 2025, I've started on the core of the AI,\n      <br>&nbsp;&nbsp; But still testing different structure's ability in adapting to stimuli.\n      <br>&nbsp;&nbsp; ... It really seems like any network could work for most things, but some are better than others per task.\n      <br>\n\n      <br><span class=\"innerCenter\">\n        You could guess,\n        <br>All the recent AI hullabaloo (2019-...)\n        <br>Has been quite serendipitous for my creation!\n      </span>\n    </div>\n  ",
+    "pageURL": "https://procstack.github.io/AIDev/aiIntro.htm",
+    "relativeURL": "./AIDev/aiIntro.htm"
+  },
+  "AIDev.htm": {
+    "jsonURL": "https://procstack.github.io/bots/AIDev.htm.json",
+    "lastModified": "2025-10-25",
+    "title": "",
+    "description": ".",
+    "media": [],
+    "content": "",
+    "pageURL": "https://procstack.github.io/AIDev.htm",
+    "relativeURL": "./AIDev.htm"
+  },
+  "AIDev_esrgan_upresser.htm": {
+    "jsonURL": "https://procstack.github.io/bots/AIDev_esrgan_upresser.htm.json",
+    "lastModified": "2025-08-02",
+    "title": "ESRGAN Upresser",
+    "description": "ESRGAN Image Upresser!\n      This was a fun one for me, I've been using ESRGANs for a while now,\n         And wanted to build a GAN to better understand how they work.",
+    "media": [
+      {
+        "type": "video",
+        "src": "../pages/aiDev/images/gan_C_training_visualization_18.webm",
+        "alt": "ESRGAN Training Visualization",
+        "caption": "Training visualization of the ESRGAN Upresser. The Generator (blue) creates images, The Discriminator (red) checks if the generated image is realistic. As it trains, the Generator gets better at creating images."
+      },
+      {
+        "type": "video",
+        "src": "../pages/aiDev/images/gan_C_generator_evolution.webm",
+        "alt": "ESRGAN Generator Evolution",
+        "caption": "The Generator's upscaled output as it trains; Training 8x8 -> 32x32 resolution scaling; Running 50 epochs."
+      }
+    ],
+    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle'>\n      <span class=\"textNudge\">ESRGAN Image Upresser!</span>\n      <br>This was a fun one for me, I've been using ESRGANs for a while now,\n      <br>&nbsp;&nbsp; And wanted to build a GAN to better understand how they work.\n\n      <br>\n      <br><span class=\"innerCenter\">ESRGANs are a type of Generative Adversarial Network (GAN),\n      <br>An 'Enhanced Super Resolution GAN' to be specific.\n      <br>They are used to upscale images, making them larger and clearer.\n      <br>Like in FBI shows where they enhance the security footage,\n      <br>Enhance..... Enhance! .... ENHANCE!\n        <div class='procPagesAboutMeSpacer'></div>\n      </span>\n      \n      <br>\n      <br>So I built an ESRGAN, more specifically a 'Real-ESRGAN',\n      <br>&nbsp;&nbsp; Which learns from synthetic data;\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; Images with noise added.\n      <br>&nbsp;&nbsp; Making guesses about the original image + variances / static / compression issues / etc.\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; Learning to clean up & enhance the input image.\n\n      <div class='procPagesAboutMeSpacer'></div>\n\n      <br>\n      <br>This always seemed like magic to me,\n      <br>&nbsp;&nbsp; Figuring out the associations between pixels in an image,\n      <br>And then using those associations to create a larger, clearer image.\n\n      <br>\n      <br>In this video, you'll see 4 images and the 'Training Loss' or 'Discriminator Loss' graphs.\n      Input Noise, Low Resolution Image, the Upresser Output, and the Original Image.\n      <br>&nbsp;&nbsp; The graph shows how well the GAN is learning to generate realistic images.\n\n      <br>\n      <br>The training is being done by a Generator AI and a Discriminator AI.\n      <br>The Generator creates images, and the Discriminator checks if they look like the original images.\n\n      <br>\n      <br>As the training progresses, the Generator gets better at creating realistic images,\n      <br>&nbsp;&nbsp; You can see how well the AI Upress looks after just a few epochs.\n\n      <br>\n      <br>But, it takes a lot of training before it has a good understanding of the images.\n      <br>Once the Generator has a reasonable understanding of the images,\n      <br>And the Discriminator has a good understanding of what a real image looks like,\n      <br>The two ai's begin to work together, becoming 'balanced' in their understanding.\n      <br>\n      <br>This is what happens at the end of the video here.\n      <br>&nbsp;&nbsp; The two converge on an 'understanding' of the image,\n      <br>And the Generator starts to create images that look even closer to the original image.\n\n      <div class='procPagesAboutMeSpacer'></div>\n\n      <br>\n      <br>The biggest aspect of a GAN is the 'adversarial' part,\n      <br>&nbsp;&nbsp; The Generator and Discriminator are constantly trying to outsmart each other.\n      <br>The Generator tries to create images that look like the original images,\n      <br>And the Discriminator tries to figure out if the images are real or fake.\n      <br>\n      <br>As they train, they get better and better at their tasks.\n\n      <br><br><div class='procPagesAIDevBar'></div>\n\n      <br>\n      <br>What's not shown here?\n      <br>I implemented a 'memory supported' training method.\n      \n      <br>\n      <br>Should confidence change too drastically for too many epochs,\n      <br>&nbsp;&nbsp; Or loss increases too much too quickly,\n      <br>\n      <br>The training will adapt by 'remembering' the last 'good direction' of changing pixels.\n      <br>&nbsp;&nbsp; Allowing the model to maintain a sense of continuity,\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; Even if it loses confidence in itself.\n\n      <br>\n      <br>As a result, the Generator seemed to learn faster and smoother.\n      <br>&nbsp;&nbsp; If this is causing a negative effect, I'm yet to see it.\n      <br>&nbsp;&nbsp; More testing is needed with larger datasets and more complex images.\n\n      <br>\n      <br>I only implemented this 'memory support' for the Generator,\n      <br>&nbsp;&nbsp; As the Discriminator is more of a 'check' and doesn't need to remember past states.\n      <br>&nbsp;&nbsp; Who knows, perhaps if I grow this AI further, I may need to implement a memory for the Discriminator as well.\n\n      <br>\n      <br>But it seems to be working so far!\n      <br>\n\n    </div>\n  ",
+    "pageURL": "https://procstack.github.io/AIDev/esrgan_upresser.htm",
+    "relativeURL": "./AIDev/esrgan_upresser.htm"
+  },
+  "AIDev_esn_motion.htm": {
+    "jsonURL": "https://procstack.github.io/bots/AIDev_esn_motion.htm.json",
+    "lastModified": "2025-07-31",
+    "title": "ESN Motion Prediction",
+    "description": "How about an Echo State Network (ESN) AI I wrote in the spring-summer of 2024?\n      \n      An ESN is a type of 'reservoir' network,\n        Which considers time in its prediction.",
+    "media": [
+      {
+        "type": "video",
+        "src": "../pages/aiDev/images/learningGradients_dev02_18_loop.webm",
+        "alt": "ESN Horizontal-Vertical Slice",
+        "caption": "A vertical slice of horizontal movement in my Echo State Network (ESN) brain. I'm showing a 2D slice of a side-to-side movement. The repeating gray tones are patterns of 'relative' movement, Like a 'motion offset' found in similar prior frames."
+      },
+      {
+        "type": "video",
+        "src": "../pages/aiDev/images/esnLearning.webm",
+        "alt": "ESN Learning Process",
+        "caption": "ESN test run; Upper Left are videos I made, Upper Right are learning rates in RGB, Red shows 'known' patterns, Green are pattern edges, & Blue 'might be' patterns. The Bottom is what the brain thinks its seeing & then predicting."
+      },
+      {
+        "type": "video",
+        "src": "../pages/aiDev/images/learningGradients_84.webm",
+        "alt": "ESN Different Slices",
+        "caption": "Different slices from the same ESN, with different input video. Upper left is a video I made the AI's watching, upper right is detecting movement; Lower left is the brain's wrinkles, lower right is predicted movement."
+      },
+      {
+        "type": "image",
+        "src": "../pages/aiDev/images/learningGradients_84_brainSlice.png",
+        "alt": "Custom ESN Learning Gradients",
+        "caption": "A slice of the ESN's brain by frame 101 of watching the X pattern video."
+      }
+    ],
+    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle'>\n      <span class=\"textNudge\">How about an <span class=\"textNudge\">Echo State Network</span> (<span class=\"textNudge\">ESN</span>) AI I wrote in the spring-summer of 2024?</span>\n      <br>\n      <br><span class=\"innerCenter\">An ESN is a type of '<span class=\"textNudge\">reservoir</span>' network,\n        <br>Which considers time in its prediction.\n        <br>It thinks about past events to predict future ones.\n        <div class='procPagesAboutMeSpacer'></div>\n      </span>\n      \n      <br><div class='aidevHBar'></div>\n      \n      <br><span class=\"innerCenter\">\n      Since my ESN can learn on the fly,\n      <br>&nbsp;&nbsp; Why not feed it some videos I made?\n      </span>\n\n      <br>\n      <br>\n        <div class='procPagesAboutMeSpacer'></div>\n        Currently I'm not using my ESN's predicted movement for anything in python,\n        <br>&nbsp;&nbsp; The next step would be introducing a base image to motion-transfer / reference.\n        <br>&nbsp;&nbsp; However, did build a simple version in Unity to learn player button combos + movement over time.\n        <div class='procPagesAboutMeSpacer'></div>\n        <span class=\"innerCenter\">So I'm mostly just learnin' while watching my ai learnin'!</span>\n        <div class='procPagesAboutMeSpacer'></div>\n        \n        <br>In the videos, I had the \"reservoir\" set to 15 time steps, you'll notice about every 15 frames the brain shifts.\n        <br>By frame ~45, it's learned some patterns in the X video.\n        <br>The brain seems to completely melt at ~75 & rebuild itself by ~95. \n        \n        <br><br>It should be happenstance that the brain shifts when the reservoir fills;\n        <br>The brain should shift to account for the reservoir size,\n        <br>So the 15-frame fill might be a bug in my logic, if the looping isn't correct.\n        <br>&nbsp;&nbsp; Or maybe its just a coincidence ::shrugs::\n        <br>But it's detecting patterns in motion!\n      </span>\n    </div>\n  ",
+    "pageURL": "https://procstack.github.io/AIDev/esn_motion.htm",
+    "relativeURL": "./AIDev/esn_motion.htm"
+  },
+  "AIDev_gnn_exploration.htm": {
+    "jsonURL": "https://procstack.github.io/bots/AIDev_gnn_exploration.htm.json",
+    "lastModified": "2025-08-02",
+    "title": "GNN Exploration",
+    "description": "I made a couple GNN sctructures to help show how GNNs and MPNNs work visually,\n         Mostly just to help me understand them.",
+    "media": [
+      {
+        "type": "video",
+        "src": "../pages/aiDev/images/shortest_path_propagation.webm",
+        "alt": "MPNN Shortest Path Propagation",
+        "caption": "A shortest path propagation in a Message Passing Neural Network (MPNN)."
+      },
+      {
+        "type": "video",
+        "src": "../pages/aiDev/images/mpnn_team_formation_links.webm",
+        "alt": "Complex MPNN Team Formation",
+        "caption": "A MPNN team formation with multiple messages sent between nodes."
+      }
+    ],
+    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle'>\n      <br>I made a couple GNN sctructures to help show how GNNs and MPNNs work visually,\n      <br>&nbsp;&nbsp; Mostly just to help me understand them.\n      \n      <br>\n      <br><span class=\"innerCenter\">GNNs are Graph Neural Networks,\n      <br>And MPNNs are Message Passing Neural Networks.\n      <br>Both are types of neural networks,\n      <br>which consider the relationships between data points.\n      <br>But MPNNs send messages between connected node neighbors-of-neighbors to update node states.\n      <div class='procPagesAboutMeSpacer'></div>\n      </span>\n      \n      <br>They are AI networks that can be used to predict connections between ideas / things / data in a system.\n      \n      <div class='procPagesAboutMeSpacer'></div>\n\n      <div class='procPagesAboutMeSpacer'></div>\n      While looking into Peter Velickovic's work on GNNs,\n      <br>&nbsp;&nbsp; Saw a paper on mimicing a Dyjkstra Path Finding algorithm using a GNN.\n      <br>The first video shown here is a test of that paper,\n      <br>&nbsp;&nbsp; With my own implementation.\n\n      <br>\n      <div class='procPagesAboutMeSpacer'></div>\n      Then decided it would be best to show a better use case for GNNs.\n      <br>&nbsp;&nbsp; To show off their capibilities in what they're best at.\n      <div class='procPagesAboutMeSpacer'></div>\n      <br>\n      <br>So I set up an 'online matchmaking' system,\n      <br>&nbsp;&nbsp; Showing neurons send multiple messages between connected nodes.\n\n      <br>\n      <br> Here the nodes have dashed orange lines to show the 'potential teammates' between nodes.\n      \n      <br>\n      <br>Multiple messages get sent between neighbors before the final 'prediction' is made.\n      <br>&nbsp;&nbsp; And the 'prediction' is the final team of 4 players that should help build a balanced team, connected in Red.\n\n      <br>\n      <br>It asks all of the connected nodes for their 'player affinity' for a new game,\n      <br>&nbsp;&nbsp; Having individual stats 'shift' per game to mimic a player acting differently per game.\n      <br>&nbsp;&nbsp; Then to use those stats to find 'potential teammates' for a balanced team.\n\n      <br>\n      <br>Example Player Stats:\n      <br>&nbsp; - Name: 'P1' or 'Player 1'\n      <br>&nbsp; - Offense: 0.80\n      <br>&nbsp; - Support: 0.40\n      <br>&nbsp; - Tank: 0.20\n      <br>&nbsp; - Engineer: 0.65\n\n      <br>\n      <br> The values will be used to find other players that have supportive traits,\n      <br>&nbsp;&nbsp; Helping to construct a team of players that can work together.\n\n      <br>\n      <br>This becomes the core influence on the messages sent between nodes.\n      <br>&nbsp;&nbsp; Which contains 'Team Affinity', 'Role Balance', 'Skill Match' and 'Selection Confidence'.\n\n      <br>\n      <br>These 4 values are what's sent between nodes to help determine if a player is 'willing' to change teams,\n      <br>&nbsp;&nbsp; Influenced by the neighbor-of-neighbor player's stats.\n\n      <br>\n      <br>It's pretty interesting to me,\n      <br>&nbsp;&nbsp; Seeing these changes in potential teammates as the game rounds progress.\n      <br>&nbsp;&nbsp; As the players change their stats, the potential teammates change between game rounds.\n\n      <div class='procPagesAboutMeSpacer'></div>\n\n      <br>\n      <br>I'd like to imaginge some multiplayer games are using these type of statistics to help build teams.\n      <br>&nbsp;&nbsp; Most games have \"stat screens\" that show off a player's stats,\n      <br>&nbsp;&nbsp; But I wonder if they use these stats to help build teams.\n      \n      <br>\n      <br>Most seem to go off XP,\n      <br>&nbsp;&nbsp; But I'm sure the systems are more complex than that.\n\n    </div>\n  ",
+    "pageURL": "https://procstack.github.io/AIDev/gnn_exploration.htm",
+    "relativeURL": "./AIDev/gnn_exploration.htm"
+  },
+  "AIDev_gat_languageRules.htm": {
+    "jsonURL": "https://procstack.github.io/bots/AIDev_gat_languageRules.htm.json",
+    "lastModified": "2025-07-31",
+    "title": "GAT & Language",
+    "description": "For my 2026 goal, I've been exploring Graph Attention Network (GAT) artificial intelligence.",
+    "media": [
+      {
+        "type": "video",
+        "src": "../pages/aiDev/images/dgat_generativeStrings_15.webm",
+        "alt": "Dynamic Graph Attention Network",
+        "caption": "Generative connections in a dynamic Graph Attention Network (GAT); Finding connections between a block of text I wrote up. The network is creating connections between 'usage rules' of different words."
+      }
+    ],
+    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle'>\n      For my 2026 goal, I've been exploring <span class=\"textNudge\">Graph Attention Network</span> (<span class=\"textNudge\">GAT</span>) artificial intelligence.\n      &nbsp;As GATs allow me to treat 'concepts' as 'objects', rather than sections of words/pixels as a tensor or 'piece of a chunk of a concept'.\n      <br>\n      <br><span class=\"innerCenter\">\n        GATs are a type of neural network that considers the relationships between data points.\n        <br>As a type of Graph Neural Network (GNN),\n        <br>Its best for predicting connections between ideas / things / data in a system.\n      </span>\n      \n      <br><div class='procPagesAboutMe-infoStyle'>\n        GNNs are commonly used for \"<span class=\"textNudge\">Recommendation Systems</span>\",\n        <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class=\"textItalicBox\">Hey, you might know <span class=\"textNudge\">Jim Bob McGee</span>!!</span>\n        <br>&nbsp;&nbsp; But GATs could be used for so much more!\n      </div>\n\n      <br>I've been working on a general-purpose neuron that adjusts its own connections during prediction;\n      <br>&nbsp;&nbsp; So the same system could learn my voice on the fly, as well as sensor signals connected to the Jetson computer.\n      <br>\n      <br>Since its the Structure in a GAT that causes regions of neural activation based on stimuli,\n      <br>&nbsp;&nbsp; It forms a result <span class=\"textDrinkMeAlice\">(prediction)</span> after subsequent activations, as-though compounding ripples in a pond.\n\n      <br>\n      <br><span class=\"innerCenter\">Rather than a field of numbers aligning to yield a prediction,\n      <br>&nbsp;&nbsp; It's the structure of neural connections which manipulates the data.\n      </span>\n      \n      <br>I've been going in a direction that should yield a similar result to a Recurrent Neural Network (RNN), but with a different mental structure.\n      <br>&nbsp;&nbsp; With that general-purpose neuron, I can provide text, images, audio histograms, etc. to the network.\n      <br>\n      <br><span class=\"innerCenter\">RNNs can be used for/in many types of ai,\n        <br>Best for detecting patterns in sequential data,\n        <br>Like time-based events or words in text.\n        <div class='procPagesAboutMeSpacer'></div>\n        They are the basis for many types of ai, like LSTMs.\n      </span>\n\n      <br> The GAT will create connections from initial random data points, sample the differences, then pass the 'prediction' forward and 'back' in the chain, and adjust the connections based on their revisit to the same data in the current 'prediction'.\n      <br>&nbsp;&nbsp; Relying on localized regions of sub-networks to recurrently process the data\n      <br>\n      <br>It should be self-taught discrimination of attention between neurons;\n      <br>&nbsp;&nbsp; Like in the human brain.\n      <br><div class=\"textSkew\">&nbsp;&nbsp;&nbsp;&nbsp; (When the purple circles go red in the GAT video, first vid)</div>\n\n      <br><br><div class='procPagesAIDevBar'></div>\n\n      <br><br>Please note, I haven't mentioned the transformer for this GAT.\n      <br>&nbsp;&nbsp; It was byte-pair 'tensors' encoded text block that I fed into the GAT.\n      <br>&nbsp;&nbsp; The GAT then found connections between the occurance of 'tensors' in \"sessions\" of other 'tensors'.\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; So the nodes are \"occurences\" of neighboring 'tensors' in the text block.\n      <br>It was like a, \"find my neighbors\" type of search for the GAT.\n\n      <br><br>What's not visualized here?\n      <br>The \"ripple\" through the GAT nodes during training epochs.\n      <br>... And the attributes of the nodes.\n      <br>&nbsp;&nbsp; I have a new GAT use-case in mind that should better show how \"language connects\" in a visual way soon.\n\n      <br><br>What it's trying to do?\n      <br>&nbsp;&nbsp; Link multiple nodes together in series to recreate the \"rule\" for those tensor neighbors.\n      <br>&nbsp;&nbsp; By recreating 'use cases' of the 'tensors' in the text block.\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; Which is why there are so few nodes here.\n\n      <br><br>What I didn't know? This is more of an MPNN than a GAT.\n      <br>&nbsp;&nbsp; A message passing neural network (MPNN) is a type of GNN that passes messages between nodes to update their states.\n\n      <br><br>It could really use some better visuals for this anyhow....\n\n      <br>\n      <br>But hey!\n      <br>I'm a toys'r'us kid after all, so....\n      <br>&nbsp;&nbsp;Hooked on Phonics worked for me!\n      <br>\n    </div>\n  ",
+    "pageURL": "https://procstack.github.io/AIDev/gat_languageRules.htm",
+    "relativeURL": "./AIDev/gat_languageRules.htm"
+  },
   "AIDev_aiNotes.htm": {
     "jsonURL": "https://procstack.github.io/bots/AIDev_aiNotes.htm.json",
     "lastModified": "2025-08-29",
@@ -8,126 +622,6 @@
     "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
     "pageURL": "https://procstack.github.io/AIDev/aiNotes.htm",
     "relativeURL": "./AIDev/aiNotes.htm"
-  },
-  "AIDev_AIDev/aiNotes/2025-02/my-training-data.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/AIDev_AIDev/aiNotes/2025-02/my-training-data.htm.json",
-    "lastModified": "2025-08-29",
-    "title": "My Training Data",
-    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      \n      \n      These are my theories / thoughts / research on AI.",
-    "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
-    "pageURL": "https://procstack.github.io/AIDev/AIDev/aiNotes/2025-02/my-training-data.htm",
-    "relativeURL": "./AIDev/AIDev/aiNotes/2025-02/my-training-data.htm"
-  },
-  "AIDev_AIDev/aiNotes/2025-05/stack-crunching.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/AIDev_AIDev/aiNotes/2025-05/stack-crunching.htm.json",
-    "lastModified": "2025-08-29",
-    "title": "Stack Crunching",
-    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      \n      \n      These are my theories / thoughts / research on AI.",
-    "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
-    "pageURL": "https://procstack.github.io/AIDev/AIDev/aiNotes/2025-05/stack-crunching.htm",
-    "relativeURL": "./AIDev/AIDev/aiNotes/2025-05/stack-crunching.htm"
-  },
-  "AIDev_AIDev/aiNotes/2025-07/tensor-terrain-adaptation.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/AIDev_AIDev/aiNotes/2025-07/tensor-terrain-adaptation.htm.json",
-    "lastModified": "2025-08-29",
-    "title": "Tensor Terrain Adaptation",
-    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      \n      \n      These are my theories / thoughts / research on AI.",
-    "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
-    "pageURL": "https://procstack.github.io/AIDev/AIDev/aiNotes/2025-07/tensor-terrain-adaptation.htm",
-    "relativeURL": "./AIDev/AIDev/aiNotes/2025-07/tensor-terrain-adaptation.htm"
-  },
-  "AIDev_AIDev/aiNotes/2025-08-01/feedback-systems.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/AIDev_AIDev/aiNotes/2025-08-01/feedback-systems.htm.json",
-    "lastModified": "2025-08-29",
-    "title": "Feedback Systems",
-    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      \n      \n      These are my theories / thoughts / research on AI.",
-    "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
-    "pageURL": "https://procstack.github.io/AIDev/AIDev/aiNotes/2025-08-01/feedback-systems.htm",
-    "relativeURL": "./AIDev/AIDev/aiNotes/2025-08-01/feedback-systems.htm"
-  },
-  "AIDev_AIDev/aiNotes/2025-08-02/neural-bundles.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/AIDev_AIDev/aiNotes/2025-08-02/neural-bundles.htm.json",
-    "lastModified": "2025-08-29",
-    "title": "Neural Bundles",
-    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      \n      \n      These are my theories / thoughts / research on AI.",
-    "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
-    "pageURL": "https://procstack.github.io/AIDev/AIDev/aiNotes/2025-08-02/neural-bundles.htm",
-    "relativeURL": "./AIDev/AIDev/aiNotes/2025-08-02/neural-bundles.htm"
-  },
-  "AIDev_AIDev/aiNotes/2025-08-16/hoping-for-nuance.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/AIDev_AIDev/aiNotes/2025-08-16/hoping-for-nuance.htm.json",
-    "lastModified": "2025-08-29",
-    "title": "Hoping for Nuance",
-    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      \n      \n      These are my theories / thoughts / research on AI.",
-    "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
-    "pageURL": "https://procstack.github.io/AIDev/AIDev/aiNotes/2025-08-16/hoping-for-nuance.htm",
-    "relativeURL": "./AIDev/AIDev/aiNotes/2025-08-16/hoping-for-nuance.htm"
-  },
-  "AIDev_AIDev/aiNotes/2025-08-30/dreamy-meanderings.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/AIDev_AIDev/aiNotes/2025-08-30/dreamy-meanderings.htm.json",
-    "lastModified": "2025-08-29",
-    "title": "Dreamy Meanderings",
-    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      \n      \n      These are my theories / thoughts / research on AI.",
-    "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
-    "pageURL": "https://procstack.github.io/AIDev/AIDev/aiNotes/2025-08-30/dreamy-meanderings.htm",
-    "relativeURL": "./AIDev/AIDev/aiNotes/2025-08-30/dreamy-meanderings.htm"
-  },
-  "AIDev_AIDev/aiNotes/2025-10-02/bodily-autonomy.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/AIDev_AIDev/aiNotes/2025-10-02/bodily-autonomy.htm.json",
-    "lastModified": "2025-08-29",
-    "title": "Bodily Autonomy",
-    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      \n      \n      These are my theories / thoughts / research on AI.",
-    "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
-    "pageURL": "https://procstack.github.io/AIDev/AIDev/aiNotes/2025-10-02/bodily-autonomy.htm",
-    "relativeURL": "./AIDev/AIDev/aiNotes/2025-10-02/bodily-autonomy.htm"
-  },
-  "AIDev_AIDev/aiNotes/2025-10-05/being--becoming.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/AIDev_AIDev/aiNotes/2025-10-05/being--becoming.htm.json",
-    "lastModified": "2025-08-29",
-    "title": "Being & Becoming",
-    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      \n      \n      These are my theories / thoughts / research on AI.",
-    "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
-    "pageURL": "https://procstack.github.io/AIDev/AIDev/aiNotes/2025-10-05/being--becoming.htm",
-    "relativeURL": "./AIDev/AIDev/aiNotes/2025-10-05/being--becoming.htm"
-  },
-  "AIDev_AIDev/aiNotes/2025-10-08/aptitude.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/AIDev_AIDev/aiNotes/2025-10-08/aptitude.htm.json",
-    "lastModified": "2025-08-29",
-    "title": "Aptitude",
-    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      \n      \n      These are my theories / thoughts / research on AI.",
-    "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
-    "pageURL": "https://procstack.github.io/AIDev/AIDev/aiNotes/2025-10-08/aptitude.htm",
-    "relativeURL": "./AIDev/AIDev/aiNotes/2025-10-08/aptitude.htm"
-  },
-  "AIDev_AIDev/aiNotes/2025-10-10/pixel-mapping.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/AIDev_AIDev/aiNotes/2025-10-10/pixel-mapping.htm.json",
-    "lastModified": "2025-08-29",
-    "title": "Pixel Mapping",
-    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      \n      \n      These are my theories / thoughts / research on AI.",
-    "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
-    "pageURL": "https://procstack.github.io/AIDev/AIDev/aiNotes/2025-10-10/pixel-mapping.htm",
-    "relativeURL": "./AIDev/AIDev/aiNotes/2025-10-10/pixel-mapping.htm"
-  },
-  "AIDev_AIDev/aiNotes/2025-10-16/morality.htm": {
-    "jsonURL": "https:\\procstack.github.io\\bots/AIDev_AIDev/aiNotes/2025-10-16/morality.htm.json",
-    "lastModified": "2025-08-29",
-    "title": "Morality",
-    "description": "I'm an armchair AI researcher at best!\n      I'm not an authority on ai!!\n      \n      \n      These are my theories / thoughts / research on AI.",
-    "media": [],
-    "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
-    "pageURL": "https://procstack.github.io/AIDev/AIDev/aiNotes/2025-10-16/morality.htm",
-    "relativeURL": "./AIDev/AIDev/aiNotes/2025-10-16/morality.htm"
   },
   "AIDev_aiNotes/2025-02/my-training-data.htm": {
     "jsonURL": "https://procstack.github.io/bots/AIDev_aiNotes/2025-02/my-training-data.htm.json",
@@ -248,5 +742,103 @@
     "content": "\n    <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle blogTempContentStyle'>\n      <span class='textBoost'>I'm an armchair AI researcher at best!</span>\n      <br><span class='textBoost'>I'm not an authority on ai!!</span>\n      \n      <br>\n      <br>These are my theories / thoughts / research on AI.\n\n      <br>\n      <span class=\"showOnMobile\"><br>Tap the Entry Title above to open the Blog Entry List.</span>\n\n      <br>No LLMs here.\n      <br>These are my own rambly-ass thoughts.\n    </div>\n\n      <br><br><br><div class='procPagesAIDevBar'></div>\n  ",
     "pageURL": "https://procstack.github.io/AIDev/aiNotes/2025-10-16/morality.htm",
     "relativeURL": "./AIDev/aiNotes/2025-10-16/morality.htm"
+  },
+  "AboutMe_What_am_I.htm": {
+    "jsonURL": "https://procstack.github.io/bots/AboutMe_What_am_I.htm.json",
+    "lastModified": "2025-03-25",
+    "title": "What am I?",
+    "description": "Technical Artist; particles, shaders, asset optimization, & pipeline\n    \n    \n      Houdini  /  VEX\n      Maya  /  MEL\n      Unity  /  C#\n      Photoshop\n\n      Python\n      PyQT\n      GLSL\n      JavaScript\n\n      Nginx\n\n    \n\n    \n      New York Metropolitan Area\n      email\n    \n    \n    \n\n    \n    \n      I'm given the title\n         'Technical Artist' (on real-time jobs)\n           or 'Technical Director' (on films)\n             or 'Creative Technologist' (for XR)\n      \n      It's all the same types of mental challenges though,\n         Just in different mediums of digital graphics.",
+    "media": [
+      {
+        "type": "youtube",
+        "src": "trt9dGUYevs",
+        "alt": "Technical Art Reel 2024",
+        "caption": ""
+      }
+    ],
+    "content": "\n      <div class='textSpacer'></div>\n\n    <div class='procPagesAboutMe-topTextStyle'>\n      <span class=\"textBold\">Technical Artist</span>; particles, shaders, asset optimization, & pipeline\n    </div>\n    <div class='procPagesAboutMe-skillListStyle' id='ppamSkillListParent'>\n      <span class=\"ppamSkillListing\">Houdini <span class=\"textDrinkMeAlice\">&nbsp;/&nbsp;</span> VEX</span>\n      <span class=\"ppamSkillListing\">Maya <span class=\"textDrinkMeAlice\">&nbsp;/&nbsp;</span> MEL</span>\n      <span class=\"ppamSkillListing\">Unity <span class=\"textDrinkMeAlice\">&nbsp;/&nbsp;</span> C<span class=\"textSuper\">#</span></span>\n      <span class=\"ppamSkillListing\">Photoshop</span>\n\n      <span class=\"ppamSkillListing\">Python</span>\n      <span class=\"ppamSkillListing\">PyQT</span>\n      <span class=\"ppamSkillListing\">GLSL</span>\n      <span class=\"ppamSkillListing\">JavaScript</span>\n\n      <span class=\"ppamSkillListing\" style=\"display:none\" id=\"ppamOverflowListing\">Nginx</span>\n\n    </div>\n\n    <div class='procPagesAboutMe-subHeaderStyle'>\n      <span>New York Metropolitan Area</span>\n      <span><a href=\"mailto:trancor@metal-asylum.net\" alt=\"Email me!\">email</a></span>\n    </div>\n    \n    <br><div class='ppamHBar'></div>\n\n    <br>\n    <br><div class='procPagesAboutMe-infoStyle'>\n      I'm given the title\n      <br>&nbsp;&nbsp; '<span class=\"textNudge\">Technical Artist</span>' (<span class=\"textItalic\">on real-time jobs</span>)\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; or '<span class=\"textNudge\">Technical Director</span>' (<span class=\"textItalic\">on films</span>)\n      <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; or '<span class=\"textNudge\">Creative Technologist</span>' (<span class=\"textItalic\">for XR</span>)\n      <br>\n      <br>It's all the same types of mental challenges though,\n      <br>&nbsp;&nbsp; Just in different mediums of digital graphics.\n    </div>\n    \n\n    <br>\n    <div class=\"textItalicBox\">So I says, blue M&M, red M&M, they all wind up the same color in the end.</div>\n    <div class=\"textDrinkMeAlice innerTextEnd\"> - <span class=\"textNudge\">Homer Simpson</span></div>\n    \n    <br>\n    <div class='procPagesAboutMe-infoStyle'>\n      Ya know... I don't really know what I am,\n      <br>&nbsp;&nbsp; I just know I like figuring out puzzles, and for the life of me, can't seem to stop my fidgety fingers.\n      \n      <br><br>Always gotta be tapping away at some code, \n      <br>&nbsp;&nbsp; or Houdini effects,\n      <br>&nbsp;&nbsp; or building some diy contraption, \n      <br>&nbsp;&nbsp; or 3d modeling, \n      <br>&nbsp;&nbsp; or sewing, \n      <br>&nbsp;&nbsp; or writing, \n      <br>&nbsp;&nbsp; or ... well, you get the idea.\n\n      <br><br>An undiagnosed something-or-another,\n      <br>&nbsp;&nbsp; Who spawned-in with the energy befitting a gift from the mythical <span class=\"textNudge\">Red Bull</span> itself!\n\n    </div>\n    <br>\n    <br>\n  ",
+    "pageURL": "https://procstack.github.io/AboutMe/What_am_I.htm",
+    "relativeURL": "./AboutMe/What_am_I.htm"
+  },
+  "AboutMe_Film_Work.htm": {
+    "jsonURL": "https://procstack.github.io/bots/AboutMe_Film_Work.htm.json",
+    "lastModified": "2025-03-24",
+    "title": "Film Work",
+    "description": "In the past, I worked on 9 films, 8 of those at Blue Sky Studios.",
+    "media": [
+      {
+        "type": "youtube",
+        "src": "er4E9K_4jpU",
+        "alt": "Blue Sky Studios film reel",
+        "caption": ""
+      }
+    ],
+    "content": "\n      <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle'>\n      <br> In the past, I worked on <span class=\"textItch\">9</span> films, <span class=\"textItch\">8</span> of those at <span class=\"textItch\">Blue Sky Studios</span>.\n      \n      <div class='procPagesAboutMeSpacer'></div>\n      \n      &nbsp;&nbsp;<span class=\"textInblockBox\">Character Simulation Technical Director (TD)</span> for Hair & Clothing simulations in Shots and Tools in <span class=\"textName\">Maya</span> on -\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class=\"textName\">Epic</span>, <span class=\"textName\">Rio 1</span> & <span class=\"textName\">Rio 2</span>\n      \n      <div class='textSpacer'></div>\n\n      &nbsp;&nbsp;<span class=\"textInblockBox\">Effects TD</span> doing Volume (snow & dust plumes), Particles, some RBDs Shots, and tools in <span class=\"textName\">Houdini</span> & <span class=\"textName\">Maya</span> on -\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class=\"textName\">Ice Age 4</span>\n      \n      <div class='textSpacer'></div>\n\n      &nbsp;&nbsp;<span class=\"textInblockBox\">Crowds TD</span> Navigation, Terrain Adaptation, Swarming, Shot Work, Tools, and Pipeline in <span class=\"textName\">Houdini</span> on -\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class=\"textName\">Ferdinand</span>, <span class=\"textName\">Rio 2</span>, <span class=\"textName\">Peanuts</span>, <span class=\"textName\">Ice Age 5</span>, & <span class=\"textName\">Spies In Disguise</span>\n      \n      \n      <br><br><div class='ppamHBar'></div>\n\n      <br><span class=\"innerCenter\">\n      I was part of 2 published <span class=\"textNudge\">Siggraph</span> papers and was allowed the opportunity to speak at <span class=\"textBump\">Siggraph 2015</span>.\n      <br>The talk was to a decently full room, my bit was about camera based crowd navigation for <span class=\"textName\">Peanuts</span>.\n\n      <br><br> <a href=\"https://dl.acm.org/doi/10.1145/2775280.2792517\" target=\"_blank\">You've got a lot of friends, Charlie Brown</a> -- <span class=\"textName\">Peanuts</span><span class=\"textItalic textDrinkMeAlice\">(2015)</span>\n      <details>\n        <summary class=\"collapsibleField\">Details</summary>\n        <div class='procPagesCollapsible'>\n          I setup camera guided crowd navigation. Keeping the kids perpendicular to the camera as they turned & moved,\n          <br> Distributing themselves across 3-4 rows, along '<span class=\"textNudge\">guide-vector rails</span> on screen, like <span class=\"textName\">Peanuts</span> 2d cartoons would do.\n          <br>\n          <br> Also developing tools to orient heads, torsos, and legs to the camera as well.\n        </div>\n      </details>\n\n      <br> <a href=\"https://dl.acm.org/doi/10.1145/3084363.3085055\" target=\"_blank\">Populating the crowds in Ferdinand</a> -- <span class=\"textName\">Ferdinand</span><span class=\"textItalic textDrinkMeAlice\">(2017)</span>\n      <details>\n        <summary class=\"collapsibleField\">Details</summary>\n        <div class='procPagesCollapsible'>\n          I built dynamic Arm Inverse-Kinematics, having Agents hold steering wheels 10'n'2 while driving cars & buses,\n          <br> Passengers to sit without legs in the ground,\n          <br>\n          <br> And co-developed a <span class=\"textNudge\">Horse-&-Jockey</span> system;\n          <br> Keeping Passengers <span class=\"textItalic textShrink\">(Jockeys)</span> in the Cars <span class=\"textItalic textShrink\">(Horses)</span> while they drive the streets of Barcelona.\n        </div>\n      </details>\n\n      \n      <br> <div class='ppamHBar'></div>\n\n      <br><br>  Before <span class=\"textName\">Ice Age 5</span><span class=\"textItalic textDrinkMeAlice\">(2016)</span>, <span class=\"textName\">Houdini</span> didn't have <span class=\"textName\">Crowd Simulation</span><span class=\"textItalic textDrinkMeAlice\">(2015)</span>;\n      <br> We developed our own Houdini crowd tools & pipeline in-house for <span class=\"textName\">Rio 2</span> & <span class=\"textName\">Peanuts</span>.\n\n      <br><br> <div class='ppamHBar'></div>\n      \n      <br>While working in <span class=\"textName\">Crowds</span>,\n      <br>&nbsp;&nbsp; I built most of the navigation, placement, pathing, obstacle detection tools, and the usual crowd/boid navigation logic itself in Houdini for Birds & Land critters.\n      \n      <br>\n      <br>I wrote systems to understand terrain; to follow the flow of the ground they walked,\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class='textItalic textDehydrated'>( Hence why I like AI Development now, <span class='textName'>Training Optimization</span> )</span>\n      <br>&nbsp;&nbsp; Multi-limb IK for the people & animals to walk over uneven terrain, and a '<span class='textNudge'>Look At</span>' system for the characters to look around with their full neck, smoothly across multiple joints.\n      <br>&nbsp;&nbsp; While calculating the linear algebra to limit joint rotation in the neck to determine if the agent could look at their target or not; relative joint space is fun!\n\n      <br><br> <div class='ppamHBar'></div>\n\n      <br>One of the personality traits I gave the crowd agents was 'rudeness';\n      <br>&nbsp;&nbsp; This allowed some agents to push past each other, while others would slow/stop and wait for them to pass.\n      <br>&nbsp;&nbsp;&nbsp;&nbsp; This gave the crowd a more natural feel, as if a few had \"somewhere to be\".\n\n      <br>\n      <br>I could talk about the post-simulation joint editing & cycle shifting tools, or the IK heel offsets & foot locking;\n      <br>&nbsp;&nbsp; But I think I'll save that for another time.\n\n      <br>\n      <br>\n    </div>\n  ",
+    "pageURL": "https://procstack.github.io/AboutMe/Film_Work.htm",
+    "relativeURL": "./AboutMe/Film_Work.htm"
+  },
+  "AboutMe_Web_Dev.htm": {
+    "jsonURL": "https://procstack.github.io/bots/AboutMe_Web_Dev.htm.json",
+    "lastModified": "2025-10-13",
+    "title": "Web Dev",
+    "description": "Web Dev Experience :\n       JavaScript has been a personal hobby of mine for some 28-29 years now,\n         Starting html around age 8-9 on GeoCities before JavaScript or CSS existed.",
+    "media": [
+      {
+        "type": "youtube",
+        "src": "_vzqZ2sNjaw",
+        "alt": "Huge holiday party thank you video",
+        "caption": "A Thank You video for a holiday party held in Antibody Club [defunct], 2020 See the pxlNav's Origin page for more info!"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/tvKid.webm",
+        "alt": "TV Kid timelapse",
+        "caption": "The timelapse of 'TV Kid' See the Pxlmancer project page for more info!"
+      },
+      {
+        "type": "video",
+        "src": "../pages/projects/images/NeurousNet_A.webm",
+        "alt": "Neurous Net; Pull in all the particles",
+        "caption": "Particle Playground! See the Neurous.Net project page for more info!"
+      }
+    ],
+    "content": "\n    <div class='textSpacer'></div>\n\n    <div class='procPagesAboutMe-infoStyle'>\n\n    <span class=\"textBump\"> Web Dev Experience</span> :\n    <br>&nbsp;&nbsp; <span class=\"textItch\">JavaScript</span> has been a personal <span class=\"textNudge\">hobby</span> of mine for some <span class=\"textNudge\">28-29 years</span> now,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Starting html around age 8-9 on GeoCities before JavaScript or CSS existed.\n    <br> Issue is, I barely know any frameworks,\n    <br>&nbsp;&nbsp; Only enough <span class=\"textNudge\">React</span> & <span class=\"textNudge\">Node.js</span> for <span class=\"textName\">pxlNav</span> support with the help of Copilot in VS Code.\n    <br>\n    <br> For my projects, I make them cause I enjoy making random web sites,\n    <br>&nbsp;&nbsp; I make ESM modules in <span class=\"textNudge\">Native JavaScript</span>, served using <span class=\"textNudge\">Node.js</span> & <span class=\"textNudge\">Nginx</span> or <span class=\"textNudge\">Plex</span>\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Copilot steals a lot of my fun these days...\n\n    <br><br> Like, I made this <span class=\"textName\">single-page</span> system for <span class=\"textName\">procstack.github.io</span>,\n    <br>&nbsp;&nbsp; Mostly cause I noticed I didn't have a static-serving <span class=\"textNudge\">single-page</span>'r in my toolkit.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Thought it'd be fun to make!\n\n    <br><br><div class='ppamHBar'></div>\n\n    <br> I'm a <span class=\"textNudge\">3D & Shader Technical Artist</span> first, that brings me the most joy.\n    <br>&nbsp;&nbsp; I mostly use JS professionally in certain XR graphics programs, when I do.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Or if a game needs a backend with Websocket support.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Like the GDC + St. Jude's virtual fundraiser I helped build & run during covid, using Unreal + Node.js + Nginx.\n\n    <br><br><div class='ppamHBar'></div>\n\n    <br> I set up the full-stack for <span class=\"textName\">Antib0dy.club</span>, and home-rolled the text chat display, websocket multiplayer characters in 3d, server websocket \"chat rooms\", mic audio with distance fall off, moderator tools, and more for <span class=\"textName\">pxlNav</span>.\n    <br>&nbsp;&nbsp; I used <span class=\"textName\">Jitsi</span> for the video, audio, & text chat over WebRTC,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Which I forked to add in some custom features for <span class=\"textName\">Antib0dy.club</span>.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Displaying the chat messages using unique identifiers to help people recognize who's talking by 'random' color & name.\n    \n    <br><br> Then telling the client's front-end to calculate people's volume to free up server resources, and lazy voice disconnection server-side when users got too far from each other.\n    <br>&nbsp;&nbsp; Only periodically checking player distances for server performance.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; It was fun to develop, but not developed like <span class=\"textNudge\">React</span>'s workflow in the <span class=\"textItch\">least</span>!\n\n    <br><br><div class='ppamHBar'></div>\n\n    <br> What was fun for <span class=\"textName\">Antib0dy.club</span> was making a \"Socket.io Chatroom Balancer\" on the server.\n    <br>&nbsp;&nbsp; <span class=\"textNudge\">Jitsi</span> was great, but would cap out at about 70 people video + voice in the <span class=\"textName\">pxlNav</span> environment.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; So I'd distribute a cluster of users to a new WebSocket & Jitsi room when the threshold was met.\n\n    <br><br> I'd have it ask the user with a pop-up if they didn't mind switching rooms,\n    <br>&nbsp;&nbsp; Like, maybe they were having a conversation.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; If they didn't mind, it would move them to a new room with about 20 other people.\n    <br>&nbsp;&nbsp; I set it up so if it picked a user, it would find the nearest couple within a distance.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Electing those specific users to move rooms together.\n    <br>&nbsp;&nbsp; It worked out pretty well, and I'd see groups of people transform into \"Colored Diamond\" avatars of people in different verses.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; If they wanted to hang out with their friends,\n    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Bring the group!\n    \n  \n    <br><br> And just click into a different room if you wanted to go back through the \"Verses\" of other rooms.\n    <br>&nbsp;&nbsp; ... This was before Meta made the Metaverse, and I like physics haha.\n\n    <br><br><div class='ppamHBar'></div>\n\n    <br> Honestly though, one of my favorite web projects was the regex powered Shader Text Editor for <span class=\"textName\">pxlNav</span>.\n    <br>&nbsp;&nbsp; If you're on a computer, just hit <span class=\"textName textBold\">Y</span> to open it up.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; In the upper right, you'll see all the keyboard shortcuts for the editor.\n\n    <br><br> Like a quick search, where any text you have highlighted, hit <span class=\"textName\">Ctrl + Arrow Direction</span> to find the next occurrence in that direction.\n    <br>&nbsp;&nbsp; I want that in VS Code now! haha\n\n    <br><br><div class='ppamHBar'></div>\n\n    <br><br> Frameworks usually have a lot of bloat, so I haven't wanted to use them.\n    <br>&nbsp;&nbsp; <span class=\"textNudge\">JQuery</span> kinda ruined it for me.\n    <br>&nbsp;&nbsp; Let alone the NPM horror stories of packages like '<span class=\"textName\">isEven()</span>'\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Just use - <span class=\"textName\">let isEven = ( v ) => !(v & 0x0001);</span>\n    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And call it a day!\n    \n    <br><br> Bootstraps of Bootstraps of Bootstraps,\n    <br>&nbsp;&nbsp; Over the years, creating tools for js, css styling, & networking middleware.\n    <br>&nbsp;&nbsp;&nbsp;&nbsp; Then after a decade, you end up with your own framework anyway.\n\n    <br><br> But <span class=\"textNudge\">React Native</span> does look cool.\n\n    </div>\n    <br>\n    <br>\n  ",
+    "pageURL": "https://procstack.github.io/AboutMe/Web_Dev.htm",
+    "relativeURL": "./AboutMe/Web_Dev.htm"
+  },
+  "AboutMe_Plushies.htm": {
+    "jsonURL": "https://procstack.github.io/bots/AboutMe_Plushies.htm.json",
+    "lastModified": "2025-03-25",
+    "title": "Plushies",
+    "description": "In late-spring of 2024,\n         I made a tool to turn any 3d model into a fabric pattern in Houdini.",
+    "media": [
+      {
+        "type": "image",
+        "src": "../pages/aboutMe/images/plushies_YearReview_2024_Overview.webp",
+        "alt": "The plushies I made in 2024",
+        "caption": "My 2024 year in plushies!"
+      },
+      {
+        "type": "image",
+        "src": "../pages/aboutMe/images/pl_uvToFabricPattern.webp",
+        "alt": "Houdini screenshot of Daryll getting flattened",
+        "caption": "My Houdini tool to turn 3d models into fabric patterns"
+      },
+      {
+        "type": "image",
+        "src": "../pages/aboutMe/images/a04_DaryllTheDuck_A_main.webp",
+        "alt": "Daryll the 'Rubber Duckie'",
+        "caption": "Daryll all done!"
+      },
+      {
+        "type": "image",
+        "src": "../pages/aboutMe/images/FrankTheFish_n_Pinky.webp",
+        "alt": "Frank the Fish on his Pinky Flamingotube!",
+        "caption": ""
+      }
+    ],
+    "content": "\n      <div class='textSpacer'></div>\n    <div class='procPagesAboutMe-infoStyle'>\n      In late-spring of 2024,\n      <br>&nbsp;&nbsp; I made a tool to turn any 3d model into a fabric pattern in Houdini.\n      <br>&nbsp;&nbsp; It'll show me the ammount of stretch in a design, let me label the panels, add notches to neighboring panels, and more!\n      \n      <br><span class=\"innerCenter\">So I've been making plushies in my free time!</span>\n      \n      <br>&nbsp;&nbsp; I started with anti-pil fleece fabric. I realized pretty quickly it gives off plumes of micro-plastics as you play with them; but its super easy to work with.\n      <br><span class=\"innerCenter textSkew\">Anti-pil fleece is definitely a hobbyist fabric.</span>\n      \n      <br>&nbsp;&nbsp; Then I moved to minky, which is a bit more difficult to work with, but is so soft and cuddly!  It's a bit more expensive, has less stretch than anti-pil, but it's a much better fabric for the feel of the plushies.\n      <br><span class=\"innerCenter textSkew\">Minky is definitely for a more skilled crafter.</span>\n      \n      <br>&nbsp;&nbsp; In the long run, I can get an idea from my head to a plushie in about 4 days now.  So I've been making a bunch of different designs, and I'm really happy with how they've been turning out!\n      <br>\n      <br>\n    </div>\n  ",
+    "pageURL": "https://procstack.github.io/AboutMe/Plushies.htm",
+    "relativeURL": "./AboutMe/Plushies.htm"
   }
 }

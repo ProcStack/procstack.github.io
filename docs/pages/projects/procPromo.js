@@ -51,13 +51,13 @@ export const pageListingData = {
     <br><span class="textBump">A <span class="textName">Minecraft</span> shader pack for <span class="textName">Optifine</span> & <span class="textName">Iris</span></span>
     <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">GLSL 1.2, 3.3, & 4.5</span></span>
     <div class="pppHBar"></div>
-    
-    I started writing <span class="textName">procPromo</span> in the spring of 2022 as a way to learn GLSL better.
+
+    I started writing <span class="textName">procPromo</span> in the spring of 2022 to learn <span class="textName">GLSL</span>.
     <br>&nbsp;&nbsp; Figured, if I was already playing minecraft, might as well make it look cool too!
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Like, while I built the sky villa and alien spore in the images.
 
     <br>
-    <br>I decided on a style inspired by the Minecraft Key or '<a href="https://www.minecraft.net/content/dam/games/minecraft/key-art/CC-Part%20I-Announce-Header.jpg" target="_blank">Promo</a>' art,
+    <br>I decided on a style inspired by the Minecraft <a href="https://www.minecraft.net/content/dam/games/minecraft/key-art/CC-Part%20I-Announce-Header.jpg" target="_blank">Key</a> or <a href="https://www.youtube.com/watch?v=jLuJbSjo7NA" target="_blank">Promo</a> art,
     <br>&nbsp;&nbsp; Writing a <span class='textInblockBox'>Texture Blur</span> similar to <span class='textName'>Smart Blur</span> in photoshop; smoothing regions of similar colors.
     <br>&nbsp;&nbsp; Then added block "edges" using <span class='textInblockBox'>Depth + Normals</span>,
     <br>&nbsp;&nbsp; Created a <span class='textInblockBox'>2-Pass Blur/Glow</span> in post-processing.
@@ -71,8 +71,8 @@ export const pageListingData = {
     <div class='textSpacer'></div>
 
     <span class="innerCenter">
-    But this is a block game though!
-    <br>So how about 90-degree angle shadows??</span>
+    But this is a block game!
+    <br>How about 90-degree angle shadows??</span>
 
     <br> Distorting the objects in space by their X & Y axis distance to the player/camera, instead of radial shadow maps,
     <br>&nbsp;&nbsp; Let me get much sharper shadows from blocks, similar to the shadows in Minecraft's promo art.

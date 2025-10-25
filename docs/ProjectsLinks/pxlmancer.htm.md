@@ -26,7 +26,7 @@ You'll need to drag the image from the "Save Image" screen to a new tab to view 
     
 But you can easily save your document to a pxlm file, and open it back up to continue working on your project!
 
-   A little tid-bit, pxlmancer.com is the origin of my 'pxl' namespace for my projects.
+   A little tid-bit, pxlmancer.com is the origin of the 'pxl' namespace for my projects.
     
 It's my indicator of a codebase with a visual output; such as pxlNav, pxlVisualizer, pxlTextGenerator, etc.
 
