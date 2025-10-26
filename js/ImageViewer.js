@@ -46,6 +46,7 @@ export class ImageViewer{
 
     this.imageElem = null;
     this.imageLoaded = false;
+    this.rightClickDown = false;
   }
   init(){
 
@@ -65,25 +66,45 @@ export class ImageViewer{
 
     let touchCount = 0;
 
-    this.viewerDiv.addEventListener('click', ()=>{
+    this.viewerDiv.addEventListener('click', (e)=>{
       //document.body.removeChild(this.viewerDiv);
       this.toggleVisibility( false );
     });
-    this.viewerDiv.addEventListener('wheel', (e)=>{
-      this.zoomInStepped(e);
-    });
     
+
+    this.viewerDiv.addEventListener('mousedown', (e)=>{
+      if( e.button === 2 ){
+        this.rightClickDown = true;
+        this.zoomPrep( e );
+      }else{
+        this.onMouseDown(e);
+      }
+    });
+    this.viewerDiv.addEventListener('mouseup', (e)=>{
+      this.onMouseUp(e);
+      this.zoomEnd( e );
+      this.rightClickDown = false;
+    });
+    this.viewerDiv.addEventListener('mousemove', (e)=>{
+      if( this.rightClickDown ){
+        this.zoomScale( e );
+      }else{
+        this.onMouseMove( e );
+      }
+    });
+
+
     this.viewerDiv.addEventListener('touchstart', (e)=>{
       touchCount = 0;
       if( e.touches.length > 1 ){
-        this.zoomPrep( e );
+        this.zoomPrepMobile( e );
         e.preventDefault();
       }
     });
     this.viewerDiv.addEventListener('touchmove', (e)=>{
       touchCount += 1;
       if( e.touches.length > 1 ){
-        this.zoomScale( e );
+        this.zoomScaleMobile( e );
         e.preventDefault();
       }
     });
@@ -92,8 +113,12 @@ export class ImageViewer{
         this.toggleVisibility( false );
       }
       this.onMouseUp( e );
-      this.zoomEnd( e );
+      this.zoomEndMobile( e );
       e.preventDefault();
+    });
+
+    this.viewerDiv.addEventListener('wheel', (e)=>{
+      this.zoomInStepped(e);
     });
   }
   
@@ -115,33 +140,44 @@ export class ImageViewer{
     });
 
     this.viewerImg.addEventListener('mousedown', (e)=>{
-      this.onMouseDown(e);
+      if( e.button === 2 ){
+        this.rightClickDown = true;
+        this.zoomPrep( e );
+      }else{
+        this.onMouseDown(e);
+      }
     });
     this.viewerImg.addEventListener('mouseup', (e)=>{
       this.onMouseUp(e);
+      this.zoomEnd( e );
+      this.rightClickDown = false;
     });
     this.viewerImg.addEventListener('mousemove', (e)=>{
-      this.onMouseMove(e);
+      if( this.rightClickDown ){
+        this.zoomScale( e );
+      }else{
+        this.onMouseMove( e );
+      }
     });
 
     this.viewerImg.addEventListener('touchstart', (e)=>{
       if( e.touches.length === 1 ){
         this.onMouseDown(e.touches[0]);
       }else{
-        this.zoomPrep( e );
+        this.zoomPrepMobile( e );
       }
       e.preventDefault();
     });
     this.viewerImg.addEventListener('touchend', (e)=>{
       this.onMouseUp( e );
-      this.zoomEnd( e );
+      this.zoomEndMobile( e );
       e.preventDefault();
     });
     this.viewerImg.addEventListener('touchmove', (e)=>{
       if( e.touches.length === 1 ){
         this.onMouseMove(e.touches[0]);
       }else if( e.touches.length === 2 ){
-        this.zoomScale( e );
+        this.zoomScaleMobile( e );
       }
       e.preventDefault();
     });
@@ -183,7 +219,7 @@ export class ImageViewer{
   }
 
   // -- -- --
-
+  
   // Mouse wheel stepped zoom
   zoomInStepped( e ){
     if( this.imageLoaded ){
@@ -200,12 +236,59 @@ export class ImageViewer{
     }
     e.preventDefault();
   }
+  
 
+  // -- -- --
 
-  zoomPrep(){
+  // Zoom helper functions for Mouse
+  
+  zoomPrep( e ){
+    if( this.imageLoaded ){
+      this.viewerStats.isZooming = true;
+      this.viewerStats.zoomStart = this.viewerStats.zoom;
+      this.viewerStats.zoomPosA.x = e.clientX;
+      this.viewerStats.zoomPosA.y = e.clientY;
+    } 
+    e.preventDefault && e.preventDefault();
+  }
+
+  zoomScale( e ){
+    if( this.imageLoaded && this.viewerStats.isZooming ){
+      this.checkDebug();
+      let dy = e.clientY - this.viewerStats.zoomPosA.y;
+      let dx = e.clientX - this.viewerStats.zoomPosA.x;
+      let dist = -dx;//(dx*dx + dy*dy) ** .5;
+      //dist *= dy<0 || dx<0 ? -1 : 1;
+      let scale = 1.0 - (dist * 0.005);
+      this.viewerStats.zoom = Math.min( Math.max( this.viewerStats.zoomStart * scale, this.viewerStats.zoomMin), this.viewerStats.zoomMax );
+      this.viewerImg.style.transform = `translate(${this.viewerStats.offsetX}px, ${this.viewerStats.offsetY}px) scale(${this.viewerStats.zoom})`;
+
+      if( this.verbose ){
+        let debugText = '';
+        debugText += `Zoom: ${this.viewerStats.zoom.toFixed(2)}\n`;
+        debugText += `Mouse Pos: (${e.clientX}, ${e.clientY})\n`;
+        this.log(debugText);
+      }
+      e.preventDefault && e.preventDefault();
+    }
+  }
+
+  zoomEnd( e ){
+    if( this.viewerStats.isZooming ){
+      this.viewerStats.isZooming = false;
+      this.viewerStats.zoom = Math.min( Math.max(this.viewerStats.zoom, this.viewerStats.zoomMin), this.viewerStats.zoomMax );
+    }
+    e.preventDefault && e.preventDefault();
+  }
+
+  // -- -- --
+
+  // Zoom helper functions for Touch
+
+  zoomPrepMobile( e ){
     if( this.viewerStats.isZooming ) return;
     this.viewerStats.isZooming = true;
-    const touches = event.touches;
+    const touches = e.touches;
     if( touches.length < 2 ) return;
     const dx = touches[0].clientX - touches[1].clientX;
     const dy = touches[0].clientY - touches[1].clientY;
@@ -223,7 +306,7 @@ export class ImageViewer{
     e.preventDefault && e.preventDefault();
   }
 
-  zoomScale(e){
+  zoomScaleMobile(e){
     if( e.touches.length < 2 ) return;
 
     this.checkDebug();
@@ -254,7 +337,7 @@ export class ImageViewer{
     e.preventDefault && e.preventDefault();
   }
 
-  zoomEnd(e){
+  zoomEndMobile(e){
     if( this.viewerStats.isZooming ){
       this.viewerStats.isZooming = false;
       this.viewerStats.zoom = Math.min( Math.max(this.viewerStats.zoom, this.viewerStats.zoomMin), this.viewerStats.zoomMax );
