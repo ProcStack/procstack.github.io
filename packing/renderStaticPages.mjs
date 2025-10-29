@@ -31,6 +31,7 @@ const liveUrlReplace = "procstack.github.io";
 const localBaseUrl = 'localhost:3000';
 const localUrl = 'http://' + localBaseUrl;
 
+
 // Get the directory of this script file
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -60,6 +61,7 @@ const directToDocs = process.argv.includes('live');
 const dryRun = process.argv.includes('dry');
 const sitemapOnly = process.argv.includes('sitemap');
 const llmsGenerate = process.argv.includes('llms') || !sitemapOnly; // Generate LLMs files by default unless sitemap-only
+const verboseLogging = process.argv.includes('verbose');
 const writeToDisk = !dryRun;
 
 // Check for specific page filter argument
@@ -101,9 +103,9 @@ fs.mkdirSync( jsonOutputDir, { recursive: true });
 // Copy the sitemap XSL file if it exists
 if( fs.existsSync(sitemapXslSource) ){
   fs.copyFileSync(sitemapXslSource, sitemapPathXSL);
-  console.log(`Sitemap XSL copied to: ${sitemapPathXSL}`);
+  verboseLogging && console.log(`Sitemap XSL copied to: ${sitemapPathXSL}`);
 }else{
-  console.warn(`!! Sitemap XSL file not found at: ${sitemapXslSource}`);
+  verboseLogging && console.warn(`!! Sitemap XSL file not found at: ${sitemapXslSource}`);
 }
 
 
@@ -113,12 +115,12 @@ if( fs.existsSync(aiMetaSpecFile) ){
   const aiMetaSpecDest = path.join( jsonOutputDir, 'ai-metadata-spec.html' );
   if( !fs.existsSync(aiMetaSpecDest) ){
     fs.copyFileSync(aiMetaSpecFile, aiMetaSpecDest);
-    console.log(`AI metadata spec file copied to: ${aiMetaSpecDest}`);
+    verboseLogging && console.log(`AI metadata spec file copied to: ${aiMetaSpecDest}`);
   }else{
-    console.log(`AI metadata spec file already exists at: ${aiMetaSpecDest}`);
+    verboseLogging && console.log(`AI metadata spec file already exists at: ${aiMetaSpecDest}`);
   }
 } else {
-  console.warn(`!! AI metadata spec file not found at: ${aiMetaSpecFile}`);
+  verboseLogging && console.warn(`!! AI metadata spec file not found at: ${aiMetaSpecFile}`);
 }
 
 
@@ -499,9 +501,11 @@ const main = async () => {
   let existingSitemapUrls = [];
   
   if (isPartialUpdate) {
-    console.log(`Partial update mode: Only updating entries for "${pageFilter}"`);
     existingSitemapUrls = parseExistingSitemap(sitemapPath);
-    console.log(`Found ${existingSitemapUrls.length} existing sitemap entries`);
+    if( verboseLogging ){
+      console.log(`Partial update mode: Only updating entries for "${pageFilter}"`);
+      console.log(`Found ${existingSitemapUrls.length} existing sitemap entries`);
+    }
   }
 
   for( const [key, pageData] of Object.entries(pageListing) ){
@@ -562,12 +566,12 @@ const main = async () => {
       }
     }
 
-    console.log( `Page - ${key}` );
+    verboseLogging && console.log( `Page - ${key}` );
     const subPageKeys = pageData.sectionData;
 
     let isVisible = !pageData.hasOwnProperty('visible') || pageData.visible !== false;
     if( !isVisible ){
-      console.log(` !! Skipping hidden page: ${key}`);
+      verboseLogging && console.log(` !! Skipping hidden page: ${key}`);
       continue;
     }
 
@@ -606,11 +610,11 @@ const main = async () => {
                          normalizedHtmlName.includes(normalizedFilter);
           
           if (!matches) {
-            console.log(` !! Skipping subpage: ${subKey} (doesn't match filter: ${pageFilter})`);
+            verboseLogging && console.log(` !! Skipping subpage: ${subKey} (doesn't match filter: ${pageFilter})`);
             continue;
           }
         } else if (pageFilter && renderAllSubpages) {
-          console.log(` ++ Including subpage: ${subKey} (parent matches filter)`);
+          verboseLogging && console.log(` ++ Including subpage: ${subKey} (parent matches filter)`);
         }
         
         // -- -- --
@@ -650,14 +654,7 @@ const main = async () => {
               console.log(`   Blog Entry: ${title} - ${blogUrl}`);
               console.log(`   --- : ${blogOutPath}`);
               console.log(`   --- : ${blogRoute}`);
-              /*console.log(`Rendering blog entry: ${blogUrl}`);
-              console.log(blogOutPath);
-              //console.log(entry);
-              console.log(Object.keys(entry));
-              console.log(htmlName);
-              console.log(`${siteRootUrl}/${blogRoute}`);
-              console.log(sectionName);
-              console.log("-- -- --");*/
+
               let newUrlEntry = Object.assign({}, defaultEntry);
               newUrlEntry.cleanedName = title;
               newUrlEntry.folder += "/"+currentSubFolder;
@@ -700,12 +697,14 @@ const main = async () => {
           let manifestKey = `${folder}_${htmlName}`;
           let relPathUpdate = "../";
 
-          
-          console.log("-----");
-          console.log( siteRootUrl );
-          console.log( folder );
-          console.log( htmlName );
-          console.log( `${botsRootUrl}/${manifestKey}.json` );
+          if( verboseLogging ){
+            console.log("-----");
+            console.log( siteRootUrl );
+            console.log( folder );
+            console.log( htmlName );
+            console.log( `${botsRootUrl}/${manifestKey}.json` );
+          }
+
           if( !subPageData.htmlName || subPageData.htmlName === '' ){
             console.log(" !!!!!!! HITTING DEFAULT HTML NAME LOGIC !!!!!!! ");
             localSubUrl = `${localUrl}/${folder}.htm`;
@@ -812,7 +811,7 @@ const main = async () => {
                 if( path.startsWith('../.') ){
                   path = path.substring(4);
                 }
-                if( path ){
+                if( verboseLogging && path ){
                   console.log(`  __Processing ${attr} - ${path}`);
                 }
                 
@@ -853,7 +852,7 @@ const main = async () => {
                 let path = await element.evaluate((el, attr) => el.getAttribute(attr), attr);
                 if( path && path.includes(localBaseUrl) ){
                   path = path.replace(localBaseUrl, liveUrlReplace);
-                  console.log(`   Removing localhost from ${attr} - ${path}`);
+                  verboseLogging && console.log(`   Removing localhost from ${attr} - ${path}`);
                   await element.evaluate((el, attr, absPath) => el.setAttribute(attr, absPath), attr, path);
                 }
               }
@@ -907,8 +906,6 @@ const main = async () => {
               await hrefToAbsolute(alternateLink, 'href');
               await setToURL(alternateLink, 'href', toURL);
             }
-
-continue;
 
             // Replace all instances of localhost URLs with production URLs in the HTML
             await page.evaluate((curLocalUrl, siteRootUrl) => {
@@ -1045,14 +1042,16 @@ continue;
       const dataManifestPath = path.join(renderDir, 'data-manifest.json');
       fs.writeFileSync(dataManifestPath, JSON.stringify(dataManifest, null, 2));
       
-      if (isPartialUpdate) {
-        console.log(`Updated ${Object.keys(manifest).length} entries in AI manifest (partial update)`);
-        console.log(`AI manifest location: ${path.join(jsonOutputDir, 'siteContent.json')}`);
-        console.log(`Data manifest updated at: ${dataManifestPath}`);
-      } else {
-        console.log(`Generated complete AI manifest with ${Object.keys(finalManifest).length} entries`);
-        console.log(`AI manifest location: ${path.join(jsonOutputDir, 'siteContent.json')}`);
-        console.log(`Data manifest generated at: ${dataManifestPath}`);
+      if( verboseLogging ){
+        if (isPartialUpdate) {
+          console.log(`Updated ${Object.keys(manifest).length} entries in AI manifest (partial update)`);
+          console.log(`AI manifest location: ${path.join(jsonOutputDir, 'siteContent.json')}`);
+          console.log(`Data manifest updated at: ${dataManifestPath}`);
+        } else {
+          console.log(`Generated complete AI manifest with ${Object.keys(finalManifest).length} entries`);
+          console.log(`AI manifest location: ${path.join(jsonOutputDir, 'siteContent.json')}`);
+          console.log(`Data manifest generated at: ${dataManifestPath}`);
+        }
       }
     } 
 
@@ -1061,25 +1060,27 @@ continue;
       const llmsTxtContent = generateLLMsTxt(llmsContent);
       const llmsTxtPath = path.join(renderDir, 'llms.txt');
       fs.writeFileSync(llmsTxtPath, llmsTxtContent);
-      console.log(`LLMs.txt generated at: ${llmsTxtPath}`);
+      verboseLogging && console.log(`LLMs.txt generated at: ${llmsTxtPath}`);
     } else if (isPartialUpdate && llmsGenerate) {
-      console.log(`Skipping LLMs.txt generation for partial update (to preserve existing content)`);
+      verboseLogging && console.log(`Skipping LLMs.txt generation for partial update (to preserve existing content)`);
     }
 
     // Save sitemap.xml - merge with existing for partial updates
     const sitemapContent = generateSitemap(sitemapUrls, existingSitemapUrls, isPartialUpdate);
     fs.writeFileSync(sitemapPath, sitemapContent);
 
-    if (isPartialUpdate) {
-      console.log(`Sitemap updated with ${sitemapUrls.length} new/modified entries (partial update): ${sitemapPath}`);
-    } else {
-      console.log(`Complete sitemap generated with ${sitemapUrls.length} entries: ${sitemapPath}`);
+    if( verboseLogging ){
+      if(isPartialUpdate) {
+        console.log(`Sitemap updated with ${sitemapUrls.length} new/modified entries (partial update): ${sitemapPath}`);
+      } else {
+        console.log(`Complete sitemap generated with ${sitemapUrls.length} entries: ${sitemapPath}`);
+      }
     }
   }
     if( sitemapOnly ){
-    console.log('Sitemap only generation complete. No other files written to disk.');
+    verboseLogging && console.log('Sitemap only generation complete. No other files written to disk.');
   }else if( dryRun ){
-    console.log('Dry run complete. No files written to disk.');
+    verboseLogging && console.log('Dry run complete. No files written to disk.');
   } else {
     let message = '';
     if (isPartialUpdate) {
@@ -1093,16 +1094,14 @@ continue;
         message += `\n llms.txt generated with individual .md files for LLM consumption.`;
       }
     }
-    console.log(message);
+    verboseLogging && console.log(message);
   }
 
   // Report pages processed count
   if( pagesProcessedCount === 0 ){
-    console.log(`\n  !! WARNING !! -- NO PAGES WERE PROCESSED! (Count: ${pagesProcessedCount})`);
-    console.log("        ( '"+pageFilter+"' not found in any page/sub-page names )");
+    verboseLogging && console.log(`\n  !! WARNING !! -- NO PAGES WERE PROCESSED! (Count: ${pagesProcessedCount})`);
+    verboseLogging && console.log("        ( '"+pageFilter+"' not found in any page/sub-page names )");
     returnSuccessWarning = false;
-  } else {
-    console.log(`\n  Something worked right!`);
   }
 
   // No need for reject when we have VARIABLES!

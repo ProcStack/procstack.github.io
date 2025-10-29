@@ -13,7 +13,8 @@
     "gltf": "node ./packing/gltfpack.js",
     "fbx2glb": "node ./packing/fbx2gltf.js",
     "checkglb": "python ./packing/glbAnalyzer.py ",
-    "renderPages": "node ./packing/renderStaticPages.mjs"
+    "renderPages": "node ./packing/renderStaticPages.mjs",
+    "renderPages:verbose": "node ./packing/renderStaticPages.mjs verbose"
   },
   "repository": {
     "type": "git",
