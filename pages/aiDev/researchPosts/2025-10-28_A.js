@@ -7,12 +7,8 @@ entryData.eid = "A";
 entryData.tags = ["theory","AGI","Pathway AI","architecture"];
 entryData.body = `
   Happy birthday me!
-  <br>&nbsp;&nbsp; 39, I'll take it.
   <br>&nbsp;&nbsp; Computer games from Commander Keen (1990) to Silk Song (2025),
   <br>&nbsp;&nbsp;&nbsp;&nbsp; Let life keep being told through story and mythos.
-
-  <br><br> So I'm contemplating over negative value vectors as a "malleable" space for learning.
-  <br>&nbsp;&nbsp; But need to play it out a bit more first.
 
   <br><br><div class='procPagesAIDevBar'></div>
 
