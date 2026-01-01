@@ -4,9 +4,9 @@ The background of this page is running 'pxlNav',
     
    A javascript package to extend Three.js for more interactive / game like mechanics.
 
-      Make scenes in any 3D CGI software,
+      Make your scene in any 3D CGI software
       
-& use pxlNav to walk through them in a web browser!
+& use pxlNav to walk through it in your web browser!
 
 Set up collision objects, teleporters, animated textures, items to pick up, and more,
     

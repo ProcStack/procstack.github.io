@@ -16,7 +16,7 @@ JSON-API: https://procstack.github.io/bots/
 Data-Manifest: https://procstack.github.io/data-manifest.json
 Site-Content: https://procstack.github.io/bots/siteContent.json
 Content-Type: application/json
-Last-Updated: 2025-10-25
+Last-Updated: 2026-01-01
 AI-Metadata-Spec: https://procstack.github.io/bots/ai-metadata-spec.html
 
 # Preferred crawl endpoints
@@ -45,7 +45,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
       Run around in this water side environment,
       A water-way with a lighthouse & coastal plant life.
 - [](https://procstack.github.io/pxlNav.htm.md)
- Updated: 2025-10-25
+ Updated: 2026-01-01
  Description : .
 - [What's pxlNav?What?](https://procstack.github.io/pxlNav/Whats_pxlNav.htm.md)
  Updated: 2025-03-12
@@ -59,7 +59,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
       Create your own interactive environments,
       Using pxlNav for your Three.
 - [](https://procstack.github.io/pxlNav.htm.md)
- Updated: 2025-10-25
+ Updated: 2026-01-01
  Description : .
 - [Origin](https://procstack.github.io/pxlNav/Origin.htm.md)
  Updated: 2025-03-12
@@ -70,7 +70,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
  Updated: 2025-03-24
  Description : procstack.
 - [](https://procstack.github.io/ProjectsLinks.htm.md)
- Updated: 2025-10-25
+ Updated: 2026-01-01
  Description : .
 - [Currents of War :: Unity Game](https://procstack.github.io/ProjectsLinks/currentsOfWar.htm.md)
  Updated: 2025-06-19
@@ -112,7 +112,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
     
     Originally written in Python for PyGame, decided it would be a fun project to learn C++ on.
 - [](https://procstack.github.io/ProjectsLinks.htm.md)
- Updated: 2025-10-25
+ Updated: 2026-01-01
  Description : .
 - [Shadertoy :: GLSL](https://procstack.github.io/ProjectsLinks/Shadertoy.htm.md)
  Updated: 2025-02-24
@@ -134,7 +134,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
        By writing the most obtuse code as possible,
           In as few characters as you can.
 - [](https://procstack.github.io/ProjectsLinks.htm.md)
- Updated: 2025-10-25
+ Updated: 2026-01-01
  Description : .
 - [Misc.](https://procstack.github.io/ProjectsLinks/msic.htm.md)
  Updated: 2025-08-16
@@ -148,8 +148,14 @@ I'm a technical artist with years of film, XR, & immersive experience.
 - [My Introduction](https://procstack.github.io/AIDev/aiIntro.htm.md)
  Updated: 2025-08-01
  Description : I started my dive into AI in 2008 writing a Boid / Crowd system for my thesis while in art college, School of Visual Arts.
+- [AI Terminology](https://procstack.github.io/AIDev/aiTerms.htm.md)
+ Updated: 2025-10-31
+ Description : If you are new to AI Development or want to understand some of the terminology or logic used in AI research,
+         Here's a list of some common terms and explations of them here --
+
+       At the bottom are my own terms I use in my research notes & posts.
 - [](https://procstack.github.io/AIDev.htm.md)
- Updated: 2025-10-25
+ Updated: 2026-01-01
  Description : .
 - [ESRGAN Upresser](https://procstack.github.io/AIDev/esrgan_upresser.htm.md)
  Updated: 2025-08-02
@@ -170,7 +176,7 @@ I'm a technical artist with years of film, XR, & immersive experience.
  Updated: 2025-07-31
  Description : For my 2026 goal, I've been exploring Graph Attention Network (GAT) artificial intelligence.
 - [](https://procstack.github.io/AIDev.htm.md)
- Updated: 2025-10-25
+ Updated: 2026-01-01
  Description : .
 - [Notes & Research](https://procstack.github.io/AIDev/aiNotes.htm.md)
  Updated: 2025-08-29
@@ -257,6 +263,20 @@ I'm a technical artist with years of film, XR, & immersive experience.
       
       These are my theories / thoughts / research on AI.
 - [Morality](https://procstack.github.io/AIDev/aiNotes/2025-10-16/morality.htm.md)
+ Updated: 2025-08-29
+ Description : I'm an armchair AI researcher at best!
+      I'm not an authority on ai!!
+      
+      
+      These are my theories / thoughts / research on AI.
+- [First AGI Architecture](https://procstack.github.io/AIDev/aiNotes/2025-10-28/first-agi-architecture.htm.md)
+ Updated: 2025-08-29
+ Description : I'm an armchair AI researcher at best!
+      I'm not an authority on ai!!
+      
+      
+      These are my theories / thoughts / research on AI.
+- [Projection Balance](https://procstack.github.io/AIDev/aiNotes/2025-12-26/projection-balance.htm.md)
  Updated: 2025-08-29
  Description : I'm an armchair AI researcher at best!
       I'm not an authority on ai!!

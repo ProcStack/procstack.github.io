@@ -10,27 +10,71 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
     
    Since then, we've expanded it quite a bit!
 
-Play the [Game Jam Release](https://procstack.itch.io/currentsofwar) in your browser!
-
-    The game jam was a collab jam, primarily consisting of 3 of us doing art and programming for Currents of War.
+    You can play the older game jam submission for free in your browser,
     
-   I helped out doing the primary art and game's look, while another two did the programming and some art assets.
+   Check out the [Game Jam Release](https://procstack.itch.io/currentsofwar)
 
- I set up the shop, drew all the items, ui, and the characters,
+ If you'd like to support us,
+    
+   You can find the further developed version released for sale on itch.io
+    
+     With future plans if we find time/funds to keep working on it!
+    
+   Buy & Download [Currents of War](https://ellipsis9.itch.io/currents-of-war) on itch.io
+
+ The game jam was a collab jam, primarily consisting of 3 of us doing art and programming for Currents of War.
+    
+   _ ellipsis9 - Programming; Background-Battle Logic using character/enemy stats like a RPG, end more
+    
+   _ F2ptach  - Programming & some Art assets; Events Handling, Player Input, and more
+    
+   _ ProcStack(me) - Art & Visual Programming; character state machine shader, shop & item art, ui, and more
+
+    I set up the shop, drew the items & most of the shop with help on a couple assets, the adjustable ui, animated cursor, and characters.
     
    I also wrote the code + shaders to handle animation & dynamically coloring the character's faces, hair, & armor.
 
- For the art inspiration, I pulled from -
+ For the art inspiration, I looked to -
     
    Gameboy Advance games like Zelda Minish Cap,
     
+     Everything should be outlined with similar color hues blended!
+    
    Super Nintendo games like Secret of Mana & Final Fantasy 3/6,
     
+     Fantasy character designs with some reason for details
+    
    And Original Nintendo games like River City Ransom.
+    
+     Character proportions and vibes.
 
  I wanted to create a semi 'tacky' weapons shop for the style.
     
    To give some room for gags & chicanery!
+
+    I drew up most of the shop assets & many items done in a single night,
+    
+   Just had some [chiptune fusion](https://ex-lyd.bandcamp.com/album/till-sunrise) tunes blasting and my huion screen-table going in photoshop.
+    
+     Yes... I realize my age, but old habbits!
+    
+   Felt good getting into pixel art, I've never done much of it before.
+    
+     Was like my highschool photoshop exploration years all over again,
+    
+       But a new musician this time.
+
+   yeah photoshop for pixel art, pencil & mask layers
+    
+     use what you know best!
+
+ Then I isolated all the limbs & body parts of the characters on different layers in photoshop,
+    
+   And used the Puppet Tool in After Effects to animate the idle breathe, walking, & talking cycles.
+    
+     Exporting in Draft mode to keep no anti-aliasing on the pixel art.
+    
+   Letting me animate & adjust quickly without having to draw out each frame.
 
  One of the challenges was making sure the character's displayed with custom colors for their hair, face, armor, gloves/boots, and leggings.
     
@@ -38,7 +82,11 @@ Play the [Game Jam Release](https://procstack.itch.io/currentsofwar) in your bro
     
    Along with the sprite animation system to handle the character's idle, walk, and talk animations.
     
-   I also wrote a custom editor script to allow the character's colors to be changed in Unity's Editor, and have it update in real-time.
+     Running individual animation cycles/clips at their own FPS rates.
+    
+   Neeing to write a custom editor script to allow the character's colors to be changed in Unity's Editor/Viewport,
+    
+     And have it update in real-time for easier character creation.
 
  Among other fun things like adding an animated cursor, outlines around items on hover, ui borders that auto size to the text and stay pixel perfect, among other things
 
@@ -47,3 +95,5 @@ Play the [Game Jam Release](https://procstack.itch.io/currentsofwar) in your bro
    Try to make as much money as you can off these heroes coming to your shop!
 
 Play the [Game Jam Release](https://procstack.itch.io/currentsofwar) in your browser!
+    
+ Or support us with a purchase, [Currents of War!](https://ellipsis9.itch.io/currents-of-war)
