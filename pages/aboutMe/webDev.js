@@ -74,6 +74,15 @@ export const pageListingData = {
       'caption' : ["The timelapse of 'TV Kid'","See the <span class='textName'>Pxlmancer</span> project page for more info!"]
     },
     {
+      'type' : 'image',
+      'src' : '../pages/pxlNav/images/glslScriptEditor.webp',
+      'href' : '../pxlNav-docs',
+      'alt' : 'pxlNav Shader Editor',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["Regex assisted Shader Editor in pxlNav","Press <span class='textName textBold'>Y</span> to use the editor!"]
+    
+    },
+    {
       'type' : 'video',
       'src' : '../pages/projects/images/NeurousNet_A.webm',
       'alt' : 'Neurous Net; Pull in all the particles',
@@ -105,21 +114,26 @@ export const pageListingData = {
 
     <br><br><div class='ppamHBar'></div>
 
-    <br> I'm a <span class="textNudge">3D & Shader Technical Artist</span> first, that brings me the most joy.
+    <br> <span class="textNudge">I'm a <span class="textNudge">3D & Shader Technical Artist</span> first, that brings me the most joy.</span>
     <br>&nbsp;&nbsp; I mostly use JS professionally in certain XR graphics programs, when I do.
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; Or if a game needs a backend with Websocket support.
-    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Like the GDC + St. Jude's virtual fundraiser I helped build & run during covid, using Unreal + Node.js + Nginx.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Or if a game needs a backend with WebSocket support.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And now WebTransport, I gotta try out
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Like the GDC + St. Jude's virtual fundraiser I helped build & run during covid, using Unreal + Node.js + Nginx.
 
     <br><br><div class='ppamHBar'></div>
 
-    <br> I set up the full-stack for <span class="textName">Antib0dy.club</span>, and home-rolled the text chat display, websocket multiplayer characters in 3d, server websocket "chat rooms", mic audio with distance fall off, moderator tools, and more for <span class="textName">pxlNav</span>.
+    <br> I set up the full-stack for <span class="textName">Antib0dy.club</span>,
+    <br>&nbsp;&nbsp; A virtual hangout and event space which gave birth to <span class="textName">pxlNav</span>.
+    
+    <br><br> I home-rolled the text chat display, websocket multiplayer characters in 3d, server websocket "chat rooms", mic audio with distance fall off, moderator tools, and more for <span class="textName">pxlNav</span>.
     <br>&nbsp;&nbsp; I used <span class="textName">Jitsi</span> for the video, audio, & text chat over WebRTC,
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Which I forked to add in some custom features for <span class="textName">Antib0dy.club</span>.
     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Displaying the chat messages using unique identifiers to help people recognize who's talking by 'random' color & name.
     
-    <br><br> Then telling the client's front-end to calculate people's volume to free up server resources, and lazy voice disconnection server-side when users got too far from each other.
-    <br>&nbsp;&nbsp; Only periodically checking player distances for server performance.
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; It was fun to develop, but not developed like <span class="textNudge">React</span>'s workflow in the <span class="textItch">least</span>!
+    <br><br> I calcuated who should be able to hear each other on the server periodically,
+    <br>&nbsp;&nbsp; Then on the client side, I'd calculate the attentuation of each audible player.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Displaying usernames of those within earshot in the corner of the screen.
+    <br>&nbsp;&nbsp; Proximity voice chat, bayybeee!
 
     <br><br><div class='ppamHBar'></div>
 
@@ -138,7 +152,8 @@ export const pageListingData = {
     
   
     <br><br> And just click into a different room if you wanted to go back through the "Verses" of other rooms.
-    <br>&nbsp;&nbsp; ... This was before Meta made the Metaverse, and I like physics haha.
+    <br>&nbsp;&nbsp; ... Just a note about 'Verses',
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; This was before Meta announced the Metaverse, and I like physics haha.
 
     <br><br><div class='ppamHBar'></div>
 

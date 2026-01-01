@@ -4,6 +4,18 @@
   "lastModified": "2025-06-19",
   "media": [
     {
+      "type": "image",
+      "src": "../pages/projects/images/CoW_ShopScene.webp",
+      "alt": "Currents of War screenshot",
+      "caption": "Currents of War!! You are the shopkeeper! Its Action Packed Money Making Action!!!"
+    },
+    {
+      "type": "image",
+      "src": "../pages/projects/images/TechDev_CharacterColorAnim_DataTexture.webp",
+      "alt": "Character Color Animation Data Texture",
+      "caption": "Character Animation & Color Data Texture Each row is a different character type. Each column is a frame in the Idle, Walk, or Talk animation cycles."
+    },
+    {
       "type": "video",
       "src": "../pages/projects/images/CharacterRenderer_liveUpdate_2025-05-16_mod.webm",
       "alt": "Picking Character Colors",
@@ -26,6 +38,12 @@
       "src": "../pages/projects/images/WindowLightHoudini_2025-05-11_mod.webm",
       "alt": "The sunlight rig in Houdini",
       "caption": "The sunlight rig to make a data texture in HoudiniUsing a mesh, I can shape the light on 'walls' in the scene easier."
+    },
+    {
+      "type": "image",
+      "src": "../pages/projects/images/FEEESSHHH.webp",
+      "alt": "FEEEEESSSSHHH",
+      "caption": "Fish Armor is not for sale! FEEEEESSSSHHH!"
     }
   ]
 }

@@ -1,28 +1,29 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-10-29",
+  "lastUpdated": "2026-01-01",
   "description": "ProcStack.github.io Data Sources for AI/LLM consumption",
   "baseUrl": "https://procstack.github.io",
-  "totalPages": 42,
+  "totalPages": 44,
   "dataSources": {
     "siteContent": {
       "url": "/bots/siteContent.json",
       "description": "Aggregated site content including all page data",
       "format": "json",
-      "size": "112KB",
-      "lastUpdated": "2025-10-29",
-      "pages": 42
+      "size": "136KB",
+      "lastUpdated": "2026-01-01",
+      "pages": 44
     },
     "individualPages": {
       "baseUrl": "/bots/",
       "description": "Individual page content as separate JSON files",
       "format": "json",
-      "count": 29,
-      "lastUpdated": "2025-10-29",
+      "count": 30,
+      "lastUpdated": "2026-01-01",
       "files": [
         "AIDev.htm.json",
         "AIDev_aiIntro.htm.json",
         "AIDev_aiNotes.htm.json",
+        "AIDev_aiTerms.htm.json",
         "AIDev_esn_motion.htm.json",
         "AIDev_esrgan_upresser.htm.json",
         "AIDev_gat_languageRules.htm.json",
@@ -55,19 +56,19 @@
       "url": "/llms.txt",
       "description": "LLM-friendly text summary of all site content",
       "format": "text/plain",
-      "lastUpdated": "2025-10-29"
+      "lastUpdated": "2026-01-01"
     },
     "aiMetaSpec": {
       "url": "/bots/ai-metadata-spec.html",
       "description": "Technical specification for AI metadata format used across the site",
       "format": "text/html",
-      "lastUpdated": "2025-10-29"
+      "lastUpdated": "2026-01-01"
     },
     "sitemap": {
       "url": "/sitemap.xml",
       "description": "Complete site structure for search engines and crawlers",
       "format": "application/xml",
-      "lastUpdated": "2025-10-29"
+      "lastUpdated": "2026-01-01"
     }
   },
   "aiMetadata": {
@@ -118,7 +119,7 @@
   },
   "generatedBy": {
     "script": "renderStaticPages.mjs",
-    "timestamp": "2025-10-29T00:46:12.984Z",
-    "isPartialUpdate": true
+    "timestamp": "2026-01-01T08:15:13.285Z",
+    "isPartialUpdate": false
   }
 }

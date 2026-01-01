@@ -16,6 +16,12 @@
       "caption": "The timelapse of 'TV Kid' See the Pxlmancer project page for more info!"
     },
     {
+      "type": "image",
+      "src": "../pages/pxlNav/images/glslScriptEditor.webp",
+      "alt": "pxlNav Shader Editor",
+      "caption": "Regex assisted Shader Editor in pxlNav Press Y to use the editor!"
+    },
+    {
       "type": "video",
       "src": "../pages/projects/images/NeurousNet_A.webm",
       "alt": "Neurous Net; Pull in all the particles",

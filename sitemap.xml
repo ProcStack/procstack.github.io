@@ -38,16 +38,8 @@
     </image:image>
   </url>
   <url>
-    <loc>https://procstack.github.io/ai-data.html</loc>
-    <lastmod>2025-10-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
     <loc>https://procstack.github.io/AIDev.htm</loc>
-    <lastmod>2025-10-29</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -174,6 +166,22 @@
     </image:image>
   </url>
   <url>
+    <loc>https://procstack.github.io/AIDev/aiNotes/2025-12-26/projection-balance.htm</loc>
+    <lastmod>2025-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://procstack.github.io/AIDev/aiTerms.htm</loc>
+    <lastmod>2025-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://procstack.github.io/AIDev/esn_motion.htm</loc>
     <lastmod>2025-07-31</lastmod>
     <changefreq>monthly</changefreq>
@@ -214,16 +222,8 @@
     </image:image>
   </url>
   <url>
-    <loc>https://procstack.github.io/Outlet.htm</loc>
-    <lastmod>2025-10-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
-    </image:image>
-  </url>
-  <url>
     <loc>https://procstack.github.io/ProjectsLinks.htm</loc>
-    <lastmod>2025-10-25</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -319,7 +319,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/pxlNav.htm</loc>
-    <lastmod>2025-10-25</lastmod>
+    <lastmod>2026-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -356,5 +356,15 @@
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
     </image:image>
+  </url>
+  <url>
+    <loc>https://procstack.github.io/Outlet.htm</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://procstack.github.io/ai-data.html</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>monthly</changefreq>
   </url>
 </urlset>

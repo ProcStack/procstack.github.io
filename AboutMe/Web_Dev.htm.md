@@ -26,11 +26,17 @@ Web Dev Experience :
     
    I mostly use JS professionally in certain XR graphics programs, when I do.
     
-     Or if a game needs a backend with Websocket support.
+     Or if a game needs a backend with WebSocket support.
     
-       Like the GDC + St. Jude's virtual fundraiser I helped build & run during covid, using Unreal + Node.js + Nginx.
+       And now WebTransport, I gotta try out
+    
+     Like the GDC + St. Jude's virtual fundraiser I helped build & run during covid, using Unreal + Node.js + Nginx.
 
- I set up the full-stack for Antib0dy.club, and home-rolled the text chat display, websocket multiplayer characters in 3d, server websocket "chat rooms", mic audio with distance fall off, moderator tools, and more for pxlNav.
+ I set up the full-stack for Antib0dy.club,
+    
+   A virtual hangout and event space which gave birth to pxlNav.
+
+ I home-rolled the text chat display, websocket multiplayer characters in 3d, server websocket "chat rooms", mic audio with distance fall off, moderator tools, and more for pxlNav.
     
    I used Jitsi for the video, audio, & text chat over WebRTC,
     
@@ -38,11 +44,13 @@ Web Dev Experience :
     
        Displaying the chat messages using unique identifiers to help people recognize who's talking by 'random' color & name.
 
- Then telling the client's front-end to calculate people's volume to free up server resources, and lazy voice disconnection server-side when users got too far from each other.
+ I calcuated who should be able to hear each other on the server periodically,
     
-   Only periodically checking player distances for server performance.
+   Then on the client side, I'd calculate the attentuation of each audible player.
     
-     It was fun to develop, but not developed like React's workflow in the least!
+     Displaying usernames of those within earshot in the corner of the screen.
+    
+   Proximity voice chat, bayybeee!
 
  What was fun for Antib0dy.club was making a "Socket.io Chatroom Balancer" on the server.
     
@@ -68,7 +76,9 @@ Web Dev Experience :
 
  And just click into a different room if you wanted to go back through the "Verses" of other rooms.
     
-   ... This was before Meta made the Metaverse, and I like physics haha.
+   ... Just a note about 'Verses',
+    
+     This was before Meta announced the Metaverse, and I like physics haha.
 
  Honestly though, one of my favorite web projects was the regex powered Shader Text Editor for pxlNav.
     
