@@ -26,6 +26,13 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'image',
+      'src' : '../pages/aboutMe/images/Pinky_v2_actuallyPink.webp',
+      'alt' : "Pinky v2",
+      'style' : ['procPagesImageStyle', 'procPagesLimitWidthStyle'],
+      'caption' : ["Pinky v2, the actually pink version", "Made with minky fabric" ],
+    },
+    {
+      'type' : 'image',
       'src' : '../pages/aboutMe/images/plushies_YearReview_2024_Overview.webp',
       'alt' : "The plushies I made in 2024",
       'style' : ['procPagesImageStyle', 'procPagesLimitWidthStyle'],
