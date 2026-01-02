@@ -54,7 +54,7 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
 
     I drew up most of the shop assets & many items done in a single night,
     
-   Just had some [chiptune fusion](https://ex-lyd.bandcamp.com/album/till-sunrise) tunes blasting and my huion screen-table going in photoshop.
+   Just had some [chiptune fusion](https://ex-lyd.bandcamp.com/album/till-sunrise) blasting and my huion screen-table going in photoshop.
     
      Yes... I realize my age, but old habbits!
     
