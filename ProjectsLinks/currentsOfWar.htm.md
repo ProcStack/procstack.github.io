@@ -24,13 +24,13 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
 
  The game jam was a collab jam, primarily consisting of 3 of us doing art and programming for Currents of War.
     
-   _ ellipsis9 - Programming; Background-Battle Logic using character/enemy stats like a RPG, end more
+   _ ellipsis9 - Programming; Background-Battle Logic using character/enemy stats like a RPG, and more
     
    _ F2ptach  - Programming & some Art assets; Events Handling, Player Input, and more
     
    _ ProcStack(me) - Art & Visual Programming; character state machine shader, shop & item art, ui, and more
 
-    I set up the shop, drew the items & most of the shop with help on a couple assets, the adjustable ui, animated cursor, and characters.
+    I set up the shop, the adjustable ui, animated cursor, characters, animations, and drew the items & most of the shop assets with help on a couple of 'em by F2ptach.
     
    I also wrote the code + shaders to handle animation & dynamically coloring the character's faces, hair, & armor.
 
@@ -42,11 +42,11 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
     
    Super Nintendo games like Secret of Mana & Final Fantasy 3/6,
     
-     Fantasy character designs with some reason for details
+     Fantasy character designs with reason for the details
     
    And Original Nintendo games like River City Ransom.
     
-     Character proportions and vibes.
+     Character proportions & vibes.
 
  I wanted to create a semi 'tacky' weapons shop for the style.
     
@@ -64,9 +64,11 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
     
        But a new musician this time.
 
-   yeah photoshop for pixel art, pencil & mask layers
+   yeah photoshop for pixel art
     
-     use what you know best!
+     pencil & mask layers
+    
+       use what you know best!
 
  Then I isolated all the limbs & body parts of the characters on different layers in photoshop,
     
@@ -74,7 +76,7 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
     
      Exporting in Draft mode to keep no anti-aliasing on the pixel art.
     
-   Letting me animate & adjust quickly without having to draw out each frame.
+   After Effects let me quickly animate & adjust without drawing out each frame.
 
  One of the challenges was making sure the character's displayed with custom colors for their hair, face, armor, gloves/boots, and leggings.
     
