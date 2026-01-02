@@ -96,13 +96,13 @@ export const pageListingData = {
     <div class="pppHBar"></div>
     
     <br> The game jam was a collab jam, primarily consisting of 3 of us doing art and programming for <span class="textName">Currents of War</span>.
-    <br>&nbsp;&nbsp; _ <span class="textName">ellipsis9</span> - Programming; Background-Battle Logic using character/enemy stats like a RPG, end more
+    <br>&nbsp;&nbsp; _ <span class="textName">ellipsis9</span> - Programming; Background-Battle Logic using character/enemy stats like a RPG, and more
     <br>&nbsp;&nbsp; _ <span class="textName">F2ptach</span>  - Programming & some Art assets; Events Handling, Player Input, and more
     <br>&nbsp;&nbsp; _ <span class="textName">ProcStack</span><span class="textItalic textDrinkMeAlice">(me)</span> - Art & Visual Programming; character state machine shader, shop & item art, ui, and more
     
     <br><br> <div class="pppHBar"></div>
 
-    I set up the shop, drew the items & most of the shop with help on a couple assets, the adjustable ui, animated cursor, and characters.
+    I set up the shop, the adjustable ui, animated cursor, characters, animations, and drew the items & most of the shop assets with help on a couple of 'em by <span class="textName">F2ptach</span>.
     <br>&nbsp;&nbsp; I also wrote the code + shaders to handle animation & dynamically coloring the character's faces, hair, & armor.
 
     <br>
@@ -110,9 +110,9 @@ export const pageListingData = {
     <br>&nbsp;&nbsp; Gameboy Advance games like <span class="textName">Zelda Minish Cap</span>,
     <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textShrink textItalic">Everything should be outlined with similar color hues blended!</span>
     <br>&nbsp;&nbsp; Super Nintendo games like <span class="textName">Secret of Mana</span> & <span class="textName">Final Fantasy 3/6</span>,
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textShrink textItalic">Fantasy character designs with some reason for details</span>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textShrink textItalic">Fantasy character designs with reason for the details</span>
     <br>&nbsp;&nbsp; And Original Nintendo games like <span class="textName">River City Ransom</span>.
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textShrink textItalic">Character proportions and vibes.</span>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textShrink textItalic">Character proportions & vibes.</span>
     <br>
     <br> I wanted to create a semi 'tacky' weapons shop for the style.
     <br>&nbsp;&nbsp; To give some room for gags & chicanery!
@@ -126,13 +126,15 @@ export const pageListingData = {
     <br>&nbsp;&nbsp; Felt good getting into pixel art, I've never done much of it before.
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Was like my highschool photoshop exploration years all over again,
     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; But a new musician this time.
-    <br><br>&nbsp;&nbsp; <span class="textItalic">yeah photoshop for pixel art, pencil & mask layers</span>
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textItalic">use what you know best!</span>
+
+    <br><br>&nbsp;&nbsp; <span class="textItalic">yeah photoshop for pixel art
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; pencil & mask layers</span>
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="textItalic">use what you know best!</span>
 
     <br><br> Then I isolated all the limbs & body parts of the characters on different layers in photoshop,
     <br>&nbsp;&nbsp; And used the <span class="textNudge">Puppet Tool</span> in <span class="textName">After Effects</span> to animate the idle breathe, walking, & talking cycles.
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Exporting in Draft mode to keep no anti-aliasing on the pixel art.
-    <br>&nbsp;&nbsp; Letting me animate & adjust quickly without having to draw out each frame.
+    <br>&nbsp;&nbsp; <span class="textNudge">After Effects</span> let me quickly animate & adjust without drawing out each frame.
 
     <div class='textSpacer'></div> 
     <div class="pppHBar"></div>
