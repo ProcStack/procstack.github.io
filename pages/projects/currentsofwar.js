@@ -133,7 +133,7 @@ export const pageListingData = {
 
     <br><br> Then I isolated all the limbs & body parts of the characters on different layers in photoshop,
     <br>&nbsp;&nbsp; And used the <span class="textNudge">Puppet Tool</span> in <span class="textName">After Effects</span> to animate the idle breathe, walking, & talking cycles.
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; Exporting in Draft mode to keep no anti-aliasing on the pixel art.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Exporting in Draft mode to keep the pixel aliasing on the art.
     <br>&nbsp;&nbsp; <span class="textNudge">After Effects</span> let me quickly animate & adjust without drawing out each frame.
 
     <div class='textSpacer'></div> 
