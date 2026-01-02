@@ -74,7 +74,7 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
     
    And used the Puppet Tool in After Effects to animate the idle breathe, walking, & talking cycles.
     
-     Exporting in Draft mode to keep no anti-aliasing on the pixel art.
+     Exporting in Draft mode to keep the pixel aliasing on the art.
     
    After Effects let me quickly animate & adjust without drawing out each frame.
 
