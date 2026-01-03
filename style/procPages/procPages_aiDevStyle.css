@@ -39,7 +39,7 @@
 }
 
 .aiDevPage-sectionNavListStyle{
-  background-color: rgba(45, 45, 55, 0.2);
+  background: linear-gradient(149deg, rgba(16, 32, 73, 0.85), rgba(18, 36, 69, 0.5));
 }
 
 .aiDevPage-blogStyle{
@@ -218,9 +218,9 @@
 
 .aiDevPage-blogContentStyle {
   max-width: 97vw;
+  width: 100%;
   align-self: baseline;
   justify-self: center;
-  padding: 3px;
 }
 
 .aidevHBar{

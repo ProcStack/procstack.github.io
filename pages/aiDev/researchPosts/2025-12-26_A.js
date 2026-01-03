@@ -51,11 +51,6 @@ entryData.body = `
   <br>&nbsp;&nbsp; Given to the data centers being built in our farmlands and forests.
   <br>&nbsp;&nbsp;&nbsp;&nbsp; Soon our networking gear, cpus, and minds of those engineers will be given to the data centers too.
 
-  <br><br> So why would ai researchers share their ideas?
-  <br>&nbsp;&nbsp; Survival of the fittest?
-  <br>&nbsp;&nbsp;&nbsp;&nbsp; Right?
-  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pad them pockets, right?
-
   <br><br><div class='procPagesAIDevBar'></div>
 
   <br> Sooooo... anywhoo...
@@ -72,7 +67,7 @@ entryData.body = `
   <br>&nbsp;&nbsp;&nbsp;&nbsp; A new years epiphany, yippy!
 
   <br><br><div class="textFullRight">- December 26th 2025</div>
-  <div class="textFullRight">&nbsp;&nbsp; & January 1st 2025</div>
+  <div class="textFullRight">&nbsp;&nbsp; & January 1st,3rd 2025</div>
 `;
 
 const blogEntryObj = new blogEntry(null, entryData);

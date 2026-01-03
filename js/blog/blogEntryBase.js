@@ -1,7 +1,16 @@
+
+export const ENTRY_MARK_ENUM = {
+  NONE: 0,
+  FEATURED: 1,
+  PICK: 2,
+  IMPORTANT: 3
+};
+
 export const baseEntryStruct = () =>{
   return {
     'eid': '',
     'title': '',
+    'marked': ENTRY_MARK_ENUM.NONE,
     'date': '',
     'tags': [],
     'body': ''
@@ -14,6 +23,7 @@ export class blogEntry{
     this.parent = parent;
     //this.rawEntryData = entryData; // I have no need for it yet, but maybe
     this.title = entryData.title;
+    this.marked = entryData.marked || ENTRY_MARK_ENUM.NONE;
     this.date = entryData.date;
     this.body = entryData.body;
     this.tags = entryData.tags;
@@ -60,6 +70,12 @@ export class blogEntry{
     this.accessibilityObj = document.createElement('p');
     this.accessibilityObj.classList.add('blogEntryAccessibilityStyle');
     // -- -- --
+    
+    let titlePadding = document.createElement('div');
+    titlePadding.classList.add('blogEntryTitlePaddingStyle');
+    titlePadding.appendChild( this.titleRowObj );
+    
+    // -- -- --
     this.headerBodySpacer = document.createElement('div');
     // -- -- --
     this.bodyObj = document.createElement('p');
@@ -96,17 +112,47 @@ export class blogEntry{
     this.titleRowObj.appendChild(this.titleObj);
     this.titleRowObj.appendChild(this.dateObj);
     this.titleRowObj.appendChild(this.readTimeObj);
+
+    let clonedTitleRow = this.titleRowObj.cloneNode( true );
+
     this.titleRowObj.appendChild(this.accessibilityObj);
-    this.blogEntryObj.appendChild(this.titleRowObj);
-    this.blogEntryObj.appendChild(this.headerBodySpacer);
-    this.blogEntryObj.appendChild(this.bodyObj);
-    this.blogEntryObj.appendChild(this.tagsObj);
-    parentObj.appendChild(this.blogEntryObj);
+
+    // -- -- --
+
+    // Duplicate accessibility objects for sticky header
+    // Remake Plus & Minus buttons to get listeners working again
+    let stickyAccessibilityObj = document.createElement('div');
+    stickyAccessibilityObj.classList.add('blogEntryAccessibilityStyle');
+    let stickyPlusBtn = plusBtn.cloneNode( true );
+    stickyPlusBtn.addEventListener('click', (e)=>{this.resizeText(.2);});
+    let stickyMinusBtn = minusBtn.cloneNode( true );
+    stickyMinusBtn.addEventListener('click', (e)=>{this.resizeText(-.2);});
+    stickyAccessibilityObj.appendChild( stickyPlusBtn );
+    stickyAccessibilityObj.appendChild( stickyMinusBtn );
+
+    clonedTitleRow.appendChild(stickyAccessibilityObj);
+
+
+    // -- -- --
+
+    this.blogEntryObj.appendChild( titlePadding );
+    this.blogEntryObj.appendChild( this.headerBodySpacer );
+
+    // -- -- --
+
+    let bodyPadding = document.createElement('div');
+    bodyPadding.classList.add('blogEntryPaddingStyle');
+    bodyPadding.appendChild( this.bodyObj );
+    //this.bodyObj = bodyPadding;
+
+    this.blogEntryObj.appendChild( bodyPadding );
+    this.blogEntryObj.appendChild( this.tagsObj );
+    parentObj.appendChild( this.blogEntryObj );
   }
 
   getReadTime( text, toggleMobileView=true ){
     let wordsPerMinute_low = 150;
-    let wordsPerMinute_high = 300;
+    let wordsPerMinute_high = 280;
     let textLength = text.split(' ').length;
     let readTime_low = Math.ceil( textLength / wordsPerMinute_low );
     let readTime_high = Math.ceil( textLength / wordsPerMinute_high );

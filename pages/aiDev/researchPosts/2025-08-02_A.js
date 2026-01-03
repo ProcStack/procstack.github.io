@@ -1,7 +1,8 @@
-import { baseEntryStruct, blogEntry } from '../../../js/blog/blogEntryBase.js';
+import { baseEntryStruct, blogEntry, ENTRY_MARK_ENUM } from '../../../js/blog/blogEntryBase.js';
 
 const entryData = baseEntryStruct();
 entryData.title = "Neural Bundles";
+entryData.marked = ENTRY_MARK_ENUM.FEATURED;
 entryData.date = "2025-08-02";
 entryData.eid = "A";
 entryData.tags = ["research","brain","structure"];

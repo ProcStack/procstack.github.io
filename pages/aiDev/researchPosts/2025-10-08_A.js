@@ -1,7 +1,8 @@
-import { baseEntryStruct, blogEntry } from '../../../js/blog/blogEntryBase.js';
+import { baseEntryStruct, blogEntry, ENTRY_MARK_ENUM } from '../../../js/blog/blogEntryBase.js';
 
 const entryData = baseEntryStruct();
 entryData.title = "Aptitude";
+entryData.marked = ENTRY_MARK_ENUM.PICK;
 entryData.date = "2025-10-08";
 entryData.eid = "A";
 entryData.tags = ["theory","aptitude","testing","needs","safety"];

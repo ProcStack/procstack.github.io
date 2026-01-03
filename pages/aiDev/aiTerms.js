@@ -21,19 +21,7 @@ export const pageListingData = {
   'title' : 'AI Terminology',
   'lastModified' : '2025-10-31',
   'schemaData' : shemaData,
-  'media' : [
-    {
-      'type' : 'video',
-      'src' : '../pages/aiDev/images/gan_C_training_visualization_18.webm',
-      'alt' : "ESRGAN Training Visualization",
-      'style' : ['procPagesMediaStyle', 'setAspectRatio_2_1'],
-      'caption' : ["Training visualization of the ESRGAN Upresser.",
-        "The Generator (blue) creates images,",
-        "The Discriminator (red) checks if the generated image is realistic.",
-        "As it trains, the Generator gets better at creating images."
-      ]
-    },
-  ],
+  'media' : [],
   'content' : `
     <div class='textSpacer'></div>
     <div class='procPagesAboutMe-infoStyle'>
