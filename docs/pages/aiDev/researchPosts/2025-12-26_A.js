@@ -67,7 +67,7 @@ entryData.body = `
   <br>&nbsp;&nbsp;&nbsp;&nbsp; A new years epiphany, yippy!
 
   <br><br><div class="textFullRight">- December 26th 2025</div>
-  <div class="textFullRight">&nbsp;&nbsp; & January 1st,3rd 2025</div>
+  <div class="textFullRight">&nbsp;&nbsp; & January 1st,3rd 2026</div>
 `;
 
 const blogEntryObj = new blogEntry(null, entryData);
