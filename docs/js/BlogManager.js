@@ -2,7 +2,7 @@
 
 
 import { blogEntries as procBlogEntries } from './blog/blogEntries.js';
-import { blogEntry } from './blog/blogEntryBase.js';
+import { blogEntry, ENTRY_MARK_ENUM } from './blog/blogEntryBase.js';
 
 export class BlogManager {
   /**
@@ -22,6 +22,7 @@ export class BlogManager {
     this.currentEntry = null;
     this.tempContent = [...(this.contentParent?.childNodes || [])];
     this.runTempDestroy = false;
+    this.navNoticeObj = blogData.navNotice || null;
     
     this.entryPath = blogData.entryPath || []; // path to init entry
 
@@ -96,18 +97,23 @@ export class BlogManager {
       entryOrder[i].build( parentObj );
       entryOrder[i].hide();
 
+      // Get marked title html
+      let titleText = this.stylizeMarkedTitle( entryOrder[i].title, entryOrder[i].marked );
+
       // Listing Prep
       let curEntryName = `
-        ${entryOrder[i].title}
+        ${titleText}
         ${this.getDateDisplay(entryOrder[i].date)}`;
       this.addListing( curEntryName, i );
       // mobile listing is handled by a single control bar + popup
     }
+
     // create mobile controls after entries are prepared
     if( this.listParentMobile ){
       this.buildMobileControls();
     }
-
+    
+    this.buildNavNotice();
      
     // I don't like this index display method....
     //   It's just flip-flop'n and not making much functional sense
@@ -232,7 +238,8 @@ export class BlogManager {
       this.mobileIndex = this.blogEntries.length - 1;
     }
     let entry = this.blogEntries[this.mobileIndex];
-    let curEntryName = `\n      ${entry.title}\n      ${this.getDateDisplay(entry.date)}`;
+    let titleText = this.stylizeMarkedTitle( entry.title, entry.marked );     
+    let curEntryName = `\n      ${titleText}\n      ${this.getDateDisplay(entry.date)}`;
     this._mobile.curBtn.innerHTML = curEntryName;
   }
 
@@ -332,7 +339,9 @@ export class BlogManager {
       let readTime = entryOrder[x].getReadTime( entryOrder[x].body, false );
       readTime = `<span class='textDrinkMeAlice textItalic'>${readTime}</span>`;
       //let readTime = entryOrder[x].getReadTime();
-      btn.innerHTML = `\n        ${entryOrder[x].title}\n       ${this.getDateDisplay( entryOrder[x].date, readTime )}`;
+
+      let titleText = this.stylizeMarkedTitle( entryOrder[x].title, entryOrder[x].marked );      
+      btn.innerHTML = `\n        ${titleText}\n       ${this.getDateDisplay( entryOrder[x].date, readTime )}`;
       // clicking an entry should close popup and show entry
 
       btn.addEventListener('click', (e) => {
@@ -382,6 +391,57 @@ export class BlogManager {
   mobileChangePage( dir=0 ){
 
   }
+
+  // -- -- --
+
+  stylizeMarkedTitle( titleText, markType ){
+    let retText = titleText;
+    switch( markType ){
+      case ENTRY_MARK_ENUM.FEATURED:
+        retText = `<span class='blogMarkedFeatured'>${titleText}</span>`;
+        break;
+      case ENTRY_MARK_ENUM.PICK:
+        retText = `<span class='blogMarkedPick'>${titleText}</span>`;
+        break;
+      case ENTRY_MARK_ENUM.IMPORTANT:
+        retText = `<span class='blogMarkedImportant'>${titleText}</span>`;
+        break;
+      default:
+        break;
+    }
+    return retText;
+  }
+
+  // -- -- --
+
+  buildNavNotice(){
+      console.log( this.listParentMobile );
+      let navNoticeStr = "";
+      let navNoticeObj = this.navNoticeObj;
+
+      // If the notice is a string, use that
+      if( typeof navNoticeObj === 'string' ){
+        navNoticeStr = navNoticeObj;
+        navNoticeObj = null;
+      }
+
+      // If we have no nav notice object,
+      //   Build and add to bottom of nav listings
+      if( navNoticeObj == null ){
+        let noticeObj = document.createElement('div');
+        noticeObj.classList.add('blogNavNoticeStyle');
+        navNoticeObj = noticeObj;
+      }
+
+      // If preset div was passed or created, string it up!
+      if( navNoticeObj != null ){
+        navNoticeObj.innerText = navNoticeStr;
+      }
+
+      this.listParent.appendChild( navNoticeObj );
+  }
+
+  // -- -- --
 
   showEntry( index ){
     if( this.runTempDestroy && this.tempContent.length > 0 ){

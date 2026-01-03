@@ -103,13 +103,20 @@
   display: none !important;
 }
 
+.showGridOnMobile{
+  display: none !important;
+}
+
 
 @media screen and (max-width: 1000px){
   .hideOnMobile{
-    display: none;
+    display: none !important;
   }
   .showOnMobile{
     display: inherit !important;
+  }
+  .showGridOnMobile{
+    display: grid !important;
   }
 }
 
