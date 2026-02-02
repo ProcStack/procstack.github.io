@@ -47,7 +47,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/AIDev.htm</loc>
-    <lastmod>2026-01-01</lastmod>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -182,6 +182,14 @@
     </image:image>
   </url>
   <url>
+    <loc>https://procstack.github.io/AIDev/aiNotes/2026-02-01/baby-with-a-hand-granade.htm</loc>
+    <lastmod>2025-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://procstack.github.io/AIDev/aiTerms.htm</loc>
     <lastmod>2025-10-31</lastmod>
     <changefreq>monthly</changefreq>
@@ -239,7 +247,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/ProjectsLinks.htm</loc>
-    <lastmod>2026-01-01</lastmod>
+    <lastmod>2026-02-02</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>

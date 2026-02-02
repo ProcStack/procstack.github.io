@@ -2,12 +2,5 @@
   "title": "AI Terminology",
   "description": "If you are new to AI Development or want to understand some of the terminology or logic used in AI research,\n         Here's a list of some common terms and explations of them here --\n\n       At the bottom are my own terms I use in my research notes & posts.",
   "lastModified": "2025-10-31",
-  "media": [
-    {
-      "type": "video",
-      "src": "../pages/aiDev/images/gan_C_training_visualization_18.webm",
-      "alt": "ESRGAN Training Visualization",
-      "caption": "Training visualization of the ESRGAN Upresser. The Generator (blue) creates images, The Discriminator (red) checks if the generated image is realistic. As it trains, the Generator gets better at creating images."
-    }
-  ]
+  "media": []
 }
