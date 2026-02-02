@@ -505,6 +505,10 @@ text-shadow: 1px 1.5px 4px #252525;
   font-size: 1.07em;
 }
 
+.textSquidge{
+  font-size: 1.02em;
+}
+
 .textName{
   font-size: 1.05em;
   border-radius: 6px;
