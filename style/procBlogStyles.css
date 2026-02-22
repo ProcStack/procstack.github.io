@@ -7,9 +7,19 @@
 }
 
 
-.blogEntryListStyle{
+.blogEntryListParentStyle{
   display: none;
 }
+
+
+.blogEntryListStyle{
+  display: grid;
+  grid-auto-flow: row;
+  align-self: start;
+  height: min-content;
+  padding: 10px;
+}
+
 .blogEntryListMobileStyle{
   display: grid;
   grid-auto-flow: column;
@@ -23,29 +33,38 @@
   width: 98%;
 }
 
+
+.blogEntryCountStyle{
+  display: none;
+}
+
+
 .blogEntryContentStyle{
   width: 100%;
   height: 100%;
+}
+
+.blogScrollStyle{
   overflow-y: auto;
   overflow-x: clip;
 }
 
-.blogEntryContentStyle::-webkit-scrollbar {
+.blogScrollStyle::-webkit-scrollbar {
   border-radius: 2px;
 	width: 10px;
 }
 
-.blogEntryContentStyle::-webkit-scrollbar-track {
+.blogScrollStyle::-webkit-scrollbar-track {
   border-radius: 2px;
 	background: rgba(51, 76, 161, 0.308);
 }
 
-.blogEntryContentStyle::-webkit-scrollbar-thumb {
+.blogScrollStyle::-webkit-scrollbar-thumb {
   border-radius: 2px;
 	cursor: grab;
 	background-color: rgba(52, 78, 161, 0.55);
 }
-.blogEntryContentStyle::-webkit-scrollbar-thumb:hover {
+.blogScrollStyle::-webkit-scrollbar-thumb:hover {
   border-radius: 2px;
 	background-color: rgba(34, 72, 196, 0.81);
 }
@@ -58,13 +77,19 @@
     width: 100%;
     overflow: hidden;
   }
-  .blogEntryListStyle{
-    display: grid;
-    grid-auto-flow: row;
-    align-self: start;
-    height: min-content;
-    padding: 10px;
+
+  .blogEntryListParentStyle{
+    display: block;
+    height: min( 500px, 70vh );
   }
+  .blogEntryCountStyle{
+    display: block;
+    font-size: 0.75em;
+    color: rgb(115 168 255);
+    justify-self: end;
+    margin-top: 3px;
+  }
+
   .blogEntryListMobileStyle{
     display: none;
   }
