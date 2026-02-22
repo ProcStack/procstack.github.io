@@ -1,4 +1,4 @@
-# Neural Bundles
+# Id, Ego, & Super Ego of Society
 
 I'm an armchair AI researcher at best!
       

@@ -1245,6 +1245,16 @@ export class ProcPage {
           });
         }
 
+        // -- -- --
+        
+        let blogListingBlock = document.createElement('div');
+        blogListingBlock.classList.add('blogListingBlockStyle');
+
+        let blogListingParent = document.createElement('div');
+        blogListingParent.classList.add('blogEntryListParentStyle');
+        blogListingParent.classList.add('blogScrollStyle');
+        this.applyPageStyle( 'sectionListingParent', blogListingParent );
+
         let blogListing = document.createElement('div');
         blogListing.classList.add('blogEntryListStyle');
         this.applyPageStyle( 'sectionListing', blogListing );
@@ -1253,8 +1263,15 @@ export class ProcPage {
         blogListingMobile.classList.add('blogEntryListMobileStyle');
         this.applyPageStyle( 'sectionListing', blogListingMobile );
 
+        let blogEntryCount = document.createElement('div');
+        blogEntryCount.classList.add('blogEntryCountStyle');
+        this.applyPageStyle( 'blogEntryCount', blogEntryCount );
+
+        // -- -- --
+
         let blogContent = document.createElement('div');
         blogContent.classList.add('blogEntryContentStyle');
+        blogContent.classList.add('blogScrollStyle');
         this.applyPageStyle( 'blogEntryContent', blogContent );
         
         let tempContent = document.createElement('div');
@@ -1278,6 +1295,7 @@ export class ProcPage {
         const blogData = {
           listParent: blogListing,
           listParentMobile: blogListingMobile,
+          listingCount: blogEntryCount,
           contentParent: blogContent,
           options: blogOptions,
           entries: entries,
@@ -1285,13 +1303,16 @@ export class ProcPage {
           htmlName: sectionData.htmlName,
           entryPath: this.subPagePath
         };
-        //console.log( this.page, this.name )
-        //console.log(sectionData.htmlName)
-        //console.log(sectionData.name)
-        //console.log(Object.keys(sectionData))
         let pageBlogManager = new BlogManager( sectionContentDiv, blogData );
 
-        sectionContentDiv.appendChild( blogListing );
+        // -- -- --
+
+        blogListingParent.appendChild( blogListing );
+
+        blogListingBlock.appendChild( blogListingParent );
+        blogListingBlock.appendChild( blogEntryCount );
+
+        sectionContentDiv.appendChild( blogListingBlock );
         sectionContentDiv.appendChild( blogListingMobile );
         sectionContentDiv.appendChild( blogContent );
         sectionContentParent.appendChild( sectionContentDiv );

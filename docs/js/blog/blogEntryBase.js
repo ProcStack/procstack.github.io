@@ -27,6 +27,8 @@ export class blogEntry{
     this.date = entryData.date;
     this.body = entryData.body;
     this.tags = entryData.tags;
+
+    this.readTimes = null;
     
     this.blogEntryObj = null;
     this.titleObj = null;
@@ -58,6 +60,11 @@ export class blogEntry{
       }
       parentObj = this.parent;
     }
+
+    // Calculate read times for the entry
+    //   Used in the pc & mobile listing, and in the entry header on
+    this.readTimes = this.getReadTimes( this.body );
+
     this.blogEntryObj = document.createElement('div');
     this.titleRowObj = document.createElement('div');
     this.titleRowObj.classList.add('blogEntryTitleRowStyle');
@@ -65,8 +72,10 @@ export class blogEntry{
     this.titleObj.classList.add('blogEntryTitleStyle');
     this.dateObj = document.createElement('p');
     this.dateObj.classList.add('blogEntryDateStyle');
-    this.readTimeObj = document.createElement('p');
-    this.readTimeObj.classList.add('blogEntryReadTimeStyle');
+
+    this.readTimeBodyObj = document.createElement('p');
+    this.readTimeBodyObj.classList.add('blogEntryReadTimeStyle');
+
     this.accessibilityObj = document.createElement('p');
     this.accessibilityObj.classList.add('blogEntryAccessibilityStyle');
     // -- -- --
@@ -84,7 +93,7 @@ export class blogEntry{
     this.tagsObj.classList.add('blogEntryTagStyle');
     this.titleObj.innerHTML = this.title;
     this.dateObj.innerHTML = this.date;
-    this.readTimeObj.innerHTML = this.getReadTime( this.body );
+    this.readTimeBodyObj.innerHTML = this.getReadTimeContent();
     this.bodyObj.innerHTML = this.body;
     this.tagsObj.innerHTML = this.tags.join(', ');
     // -- -- --
@@ -111,7 +120,7 @@ export class blogEntry{
     // -- -- --
     this.titleRowObj.appendChild(this.titleObj);
     this.titleRowObj.appendChild(this.dateObj);
-    this.titleRowObj.appendChild(this.readTimeObj);
+    this.titleRowObj.appendChild(this.readTimeBodyObj);
 
     let clonedTitleRow = this.titleRowObj.cloneNode( true );
 
@@ -150,20 +159,43 @@ export class blogEntry{
     parentObj.appendChild( this.blogEntryObj );
   }
 
-  getReadTime( text, toggleMobileView=true ){
+  getReadTimes( text ){
+    // Average is 200-250 words per minute,
+    //   But I was a slow reader when I was younger.
+    //     Benefit of the doubt
     let wordsPerMinute_low = 150;
-    let wordsPerMinute_high = 280;
+    let wordsPerMinute_high = 270;
+
     let textLength = text.split(' ').length;
     let readTime_low = Math.ceil( textLength / wordsPerMinute_low );
     let readTime_high = Math.ceil( textLength / wordsPerMinute_high );
-    let retVal = `${readTime_high}<span class="textShrinkRay">&nbsp;</span>-<span class="textShrinkRay">&nbsp;</span>${readTime_low} min`;
-    if( toggleMobileView ){
-      retVal += `<span class='hideOnMobile'> read</span>`;
-    }else{
-      retVal += ` read`;
+
+    return {
+      low: readTime_low,
+      high: readTime_high
+    };
+  }
+
+  getReadTimeContent( addReadText=true, toggleMobileView=true ){
+
+    if( this.readTimes == null ){
+      this.readTimes = this.getReadTimes( this.body );
     }
-    if( readTime_low === readTime_high ){
-      retVal = `${readTime_low} min<span class='hideOnMobile'> read</span>`;
+
+    let retVal = "";
+
+    if( this.readTimes.low === this.readTimes.high ){
+      retVal = `${this.readTimes.low} min`;
+    }else{
+      retVal = `${this.readTimes.high}<span class="textShrinkRay">&nbsp;</span>-<span class="textShrinkRay">&nbsp;</span>${this.readTimes.low} min`;
+    }
+
+    if( addReadText ){
+      if( toggleMobileView ){
+        retVal += `<span class='hideOnMobile'> read</span>`;
+      }else{
+        retVal += ` read`;
+      }
     }
     return retVal;
   }

@@ -43,7 +43,8 @@ export const pageListingData = {
       <br><span class='textBoost'>I'm not an authority on ai!!</span>
       
       <br>
-      <br>These are my theories / thoughts / research on AI.
+      <br>These are my theories / thoughts / research on AI,
+      <br>While I develop a novel graph network.
 
       <br>
       <span class="showOnMobile"><br>Tap the Entry Title above to open the Blog Entry List.</span>

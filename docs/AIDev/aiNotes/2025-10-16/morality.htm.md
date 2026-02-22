@@ -4,7 +4,9 @@ I'm an armchair AI researcher at best!
       
 I'm not an authority on ai!!
 
-These are my theories / thoughts / research on AI.
+These are my theories / thoughts / research on AI,
+      
+While I develop a novel graph network.
 
 Tap the Entry Title above to open the Blog Entry List.
 

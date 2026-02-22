@@ -14,6 +14,7 @@ export class BlogManager {
     this.blockParent = blockParent;
     this.listParent = blogData.listParent || null;
     this.listParentMobile = blogData.listParentMobile || null;
+    this.listingCount = blogData.listingCount || null;
     this.contentParent = blogData.contentParent || null;
     this.options = blogData.options || {};
     this.blogEntries = blogData.entries || [];
@@ -103,7 +104,7 @@ export class BlogManager {
       // Listing Prep
       let curEntryName = `
         ${titleText}
-        ${this.getDateDisplay(entryOrder[i].date)}`;
+        ${this.getEntryDisplayData( entryOrder[i] )}`;
       this.addListing( curEntryName, i );
       // mobile listing is handled by a single control bar + popup
     }
@@ -113,6 +114,7 @@ export class BlogManager {
       this.buildMobileControls();
     }
     
+    this.buildListCount();
     this.buildNavNotice();
      
     // I don't like this index display method....
@@ -143,8 +145,18 @@ export class BlogManager {
     this.runTempDestroy = true;
   }
 
+  getEntryDisplayData( entry ){
+
+    let dateData = this.getDateDisplay( entry.date );
+    let readTimeData = entry.getReadTimeContent( false );
+
+    let ret = `<div class='blogSubListingStyle textDrinkMeAlice textItalic'>  ${dateData} :: ${readTimeData}</div>`;
+
+    return ret;
+  }
+
   getDateDisplay( ...dateParts ){
-    let ret = `<div class='blogSubListingStyle textDrinkMeAlice textItalic'>  ${dateParts.join('<span class="textDrinkMeAlice textDelimiter">&nbsp;::&nbsp; </span>')}</div>`;
+    let ret = ` ${dateParts.join('<span class="textDrinkMeAlice textDelimiter">&nbsp;::&nbsp; </span>')}`;
     return ret;
   }
 
@@ -324,7 +336,8 @@ export class BlogManager {
     // list
     let list = document.createElement('div');
     list.classList.add('blogMobilePopupList');
-    list.classList.add('blogEntryContentStyle'); // Hyjacking the scrollbar style
+    list.classList.add('blogEntryContentStyle');
+    list.classList.add('blogScrollStyle');
 
     
     let entryOrder = this.blogEntries;
@@ -414,8 +427,16 @@ export class BlogManager {
 
   // -- -- --
 
+  buildListCount(){
+    if( !this.listingCount ) return;
+    let entryCount = this.blogEntries.length;
+    let innerText = `${entryCount} ${entryCount === 1 ? 'Entry' : 'Entries'}`;
+    this.listingCount.innerText = innerText;
+  }
+
+  // -- -- --
+
   buildNavNotice(){
-      console.log( this.listParentMobile );
       let navNoticeStr = "";
       let navNoticeObj = this.navNoticeObj;
 

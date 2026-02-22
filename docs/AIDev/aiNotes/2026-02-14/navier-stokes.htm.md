@@ -1,4 +1,4 @@
-# Neural Bundles
+# Navier-Stokes
 
 I'm an armchair AI researcher at best!
       
