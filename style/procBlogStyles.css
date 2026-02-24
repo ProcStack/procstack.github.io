@@ -109,7 +109,7 @@
   line-height: .85em;
   height: min-content;
   min-width: 15.5ch;
-  max-width: 90vw;
+  max-width: 50vw;
 }
 .blogEntryListingStyle:hover {
   cursor: pointer;
@@ -194,8 +194,8 @@
 }
 .blogMobileCurrent{
     padding: 1vw 2vw;
+    text-align: center;
     width: max-content;
-    min-width: max-content;
 }
 .blogMobileNext{
   min-width: min-content;
