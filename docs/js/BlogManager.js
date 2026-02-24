@@ -156,7 +156,7 @@ export class BlogManager {
   }
 
   getDateDisplay( ...dateParts ){
-    let ret = ` ${dateParts.join('<span class="textDrinkMeAlice textDelimiter">&nbsp;::&nbsp; </span>')}`;
+    let ret = ` ${dateParts.join('<span class="textTiny textDelimiter">&nbsp;::&nbsp; </span>')}`;
     return ret;
   }
 
@@ -251,7 +251,7 @@ export class BlogManager {
     }
     let entry = this.blogEntries[this.mobileIndex];
     let titleText = this.stylizeMarkedTitle( entry.title, entry.marked );     
-    let curEntryName = `\n      ${titleText}\n      ${this.getDateDisplay(entry.date)}`;
+    let curEntryName = `\n      ${titleText}`;
     this._mobile.curBtn.innerHTML = curEntryName;
   }
 
@@ -349,12 +349,13 @@ export class BlogManager {
       btn.classList.add('blogEntryListingStyle');
       btn.classList.add('blogMobilePopupEntry');
       //let numVal =  `<span class='textTiny textItalic'>${entryOrder.length - x}</span>`;
-      let readTime = entryOrder[x].getReadTime( entryOrder[x].body, false );
-      readTime = `<span class='textDrinkMeAlice textItalic'>${readTime}</span>`;
-      //let readTime = entryOrder[x].getReadTime();
+      let readTime = entryOrder[x].getReadTimeContent( entryOrder[x].body, false );
+      readTime = `<div class='textTiny textItalic'>${readTime}</div>`;
+      //let readTime = entryOrder[x].getReadTimeContent();
 
-      let titleText = this.stylizeMarkedTitle( entryOrder[x].title, entryOrder[x].marked );      
-      btn.innerHTML = `\n        ${titleText}\n       ${this.getDateDisplay( entryOrder[x].date, readTime )}`;
+      let titleText = this.stylizeMarkedTitle( entryOrder[x].title, entryOrder[x].marked );
+      let dateRead = this.getEntryDisplayData( entryOrder[x] );
+      btn.innerHTML = `\n        ${titleText}\n       ${dateRead}`;
       // clicking an entry should close popup and show entry
 
       btn.addEventListener('click', (e) => {
