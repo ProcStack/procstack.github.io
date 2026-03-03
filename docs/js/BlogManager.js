@@ -3,6 +3,22 @@
 
 import { blogEntries as procBlogEntries } from './blog/blogEntries.js';
 import { blogEntry, ENTRY_MARK_ENUM } from './blog/blogEntryBase.js';
+import { CommentManager } from './blog/CommentManager.js';
+
+/* comment manager -
+
+const comments = new CommentManager({
+  repo: "YOUR_NAME/YOUR_REPO",
+  repoId: "YOUR_REPO_ID",
+  category: "General",
+  categoryId: "YOUR_CATEGORY_ID",
+  containerId: "comments",
+});
+
+  comments.load(post.slug);
+  comments.unload();
+*/
+
 
 export class BlogManager {
   /**
@@ -36,6 +52,14 @@ export class BlogManager {
       this.urlBasePath += `/${urlStrip}`;
     }
     this.currentUrlPath = "";
+
+    this.comments = new CommentManager({
+      repo: "ProcStack/procDiscussions",
+      repoId: "R_kgDORc_LJw",
+      category: "General",
+      categoryId: "DIC_kwDORc_LJ84C3kiH",
+      containerId: "comments", // placeholder, will be updated in showEntry
+    });
   }
 
   /**
@@ -484,9 +508,15 @@ export class BlogManager {
     }
     if( this.currentEntry != null ){
       this.currentEntry.hide();
+      this.comments.unload();
     }
     this.currentEntry = this.blogEntries[index];
     this.currentEntry.show();
+
+    // Trigger Comment Load
+    const commentId = `giscus-container-${this.currentEntry.id}`;
+    this.comments.containerId = commentId;
+    this.comments.load( this.currentEntry.urlRoute );
 
     // Check for URL update
     // TODO : Update how entries buttons are added to the DOM,

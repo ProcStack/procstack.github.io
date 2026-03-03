@@ -42,7 +42,7 @@ export class blogEntry{
       const blogRoute = `${this.date}/${formattedTitle}.htm`;
       this.urlRoute = blogRoute;
     }
-
+    
     this.callbacks = [];
   }
   setId( id ){
@@ -156,6 +156,12 @@ export class blogEntry{
 
     this.blogEntryObj.appendChild( bodyPadding );
     this.blogEntryObj.appendChild( this.tagsObj );
+
+    // Giscus Comment Container
+    this.commentObj = document.createElement('div');
+    this.commentObj.id = `giscus-container-${this.id}`;
+    this.blogEntryObj.appendChild(this.commentObj);
+
     parentObj.appendChild( this.blogEntryObj );
   }
 

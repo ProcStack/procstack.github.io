@@ -6,6 +6,21 @@ If you are new to AI Development or want to understand some of the terminology o
 
  At the bottom are my own terms I use in my research notes & posts.
 
+ Index
+
+ AI Architectures : RNN | GRU | LSTM | GAN | ESN | GNN | GAT | ESRGAN
+
+ General Terms : Attention Head | Attention Mechanism | Convolution | Convolutional Layer | Discriminator | Epochs | 
+      Fully Connected | Generator | Graph Node | Heuristics | Hidden State | 
+      Laplacian Pyramids | Landmark | Meta-Learning | Perceptual Loss | Pooling Layer | Projection | Rabbit Hole | 
+      Residual | Residual Block | Time/Session | Vanishing Gradients
+
+ My Terms :
+      
+   dPA-MPNN | d- | 
+      Lighthouse | Time | 
+      The Particle System
+
  AI Terms
 
   Recurrent Neural Network (RNN) 
@@ -32,7 +47,7 @@ If you are new to AI Development or want to understand some of the terminology o
       
    A complete pass through the entire training dataset while the neural network learns.
 
-  Meta-Learnings 
+  Meta-Learning 
       
    Learning how to learn.
       
