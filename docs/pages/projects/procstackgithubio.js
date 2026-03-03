@@ -23,7 +23,6 @@ export const pageListingData = {
   'description' : 'The source code for this site, procstack.github.io',
   'keywords' : 'procstack, procstack.github.io, javascript, pxlNav, pages system, personal projects',
   'navGroup' : 'Repos to Check Out',
-  'navStyle' : ['hideOnMobile'],
   'media' : [
     {
       'type' : 'image',
@@ -74,8 +73,6 @@ export const pageListingData = {
     
     <br><br><div class="pppHBar"></div>
 
-    <br>
-    <br>
     <br>It's funny, out of all the projects I can bootstrap together with my personal boilerplates over the years,
     <br>&nbsp;&nbsp; I never built a single-page site system before this one.
 
