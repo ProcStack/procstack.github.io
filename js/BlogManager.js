@@ -1,31 +1,15 @@
 // Simple blog manager for my procstack blog
+//   Update : Not so simple blog manager
+//     Being added into ProcPages as a module for displaying blogs and comments
+//       Still working out making the comments more universal, but it's newly added
 
 
 import { blogEntries as procBlogEntries } from './blog/blogEntries.js';
 import { blogEntry, ENTRY_MARK_ENUM } from './blog/blogEntryBase.js';
 import { CommentManager } from './blog/CommentManager.js';
 
-/* comment manager -
-
-const comments = new CommentManager({
-  repo: "YOUR_NAME/YOUR_REPO",
-  repoId: "YOUR_REPO_ID",
-  category: "General",
-  categoryId: "YOUR_CATEGORY_ID",
-  containerId: "comments",
-});
-
-  comments.load(post.slug);
-  comments.unload();
-*/
-
 
 export class BlogManager {
-  /**
-   * @param {HTMLElement} listParent - DOM parent for the blog listing (buttons/links)
-   * @param {HTMLElement} contentParent - DOM parent where blog content entries will be built
-   * @param {Object} [options] - Optional settings: { entryData: blogEntry[], listingContainer: String, entryContainer: String, spacerStyle: String[] }
-   */
   constructor( blockParent, blogData = {} ){
     this.blockParent = blockParent;
     this.listParent = blogData.listParent || null;
@@ -87,12 +71,15 @@ export class BlogManager {
       curEntry.subscribeToURLChange( this.entryURLChange.bind(this) )
     }
   }
+
   setListParent( listParent ){
     this.listParent = listParent;
   }
+
   setContentParent( contentParent ){
     this.contentParent = contentParent;
   }
+
   addBlogEntry( title, date, tags, body ){
     // Ensure we pass a sensible parent to the blogEntry constructor
     let parentForEntry = this.contentParent || this.listParent || null;
@@ -103,6 +90,7 @@ export class BlogManager {
 
     this.blogEntries.push( newBlogEntry );
   }
+
   build( parent=null ){
     let parentObj = parent;
     if( parentObj == null ){
@@ -517,6 +505,11 @@ export class BlogManager {
     const commentId = `giscus-container-${this.currentEntry.id}`;
     this.comments.containerId = commentId;
     this.comments.load( this.currentEntry.urlRoute );
+
+    // Scroll top baby!
+    if( this.contentParent ){
+      this.contentParent.scrollTo( 0, 0 );
+    }
 
     // Check for URL update
     // TODO : Update how entries buttons are added to the DOM,

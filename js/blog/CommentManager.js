@@ -14,6 +14,20 @@ const giscusThemeList = [
   "catppuccin_latte", "catppuccin_frappe", "catppuccin_macchiato", "catppuccin_mocha", "fro"
 ];
 
+
+// comment manager -
+
+const comments = new CommentManager({
+  repo: "YOUR_NAME/YOUR_REPO",
+  repoId: "YOUR_REPO_ID",
+  category: "General",
+  categoryId: "YOUR_CATEGORY_ID",
+  containerId: "comments",
+});
+
+comments.load(post.slug);
+comments.unload();
+
 */
 
 
@@ -26,7 +40,7 @@ export class CommentManager {
     containerId = "comments",
     theme = "cobalt",
     lang = "en",
-  }) {
+  }){
     this.booted = false;
     this.repo = repo;
     this.repoId = repoId;
@@ -35,53 +49,34 @@ export class CommentManager {
     this.containerId = containerId;
     this.theme = theme;
     this.lang = lang;
+    this.script = null;
 
     this.handleMessage = this.handleMessage.bind(this);
     window.addEventListener("message", this.handleMessage);
   }
 
-  handleMessage(event) {
-    if (event.origin !== "https://giscus.app") return;
-    if (!(event.data && typeof event.data === "object" && event.data.giscus)) return;
+  handleMessage( event ){
+    if( event.origin !== "https://giscus.app" ) return;
+    if( !(event.data && typeof event.data === "object" && event.data.giscus) ) return;
 
     const giscus = event.data.giscus;
-    if (giscus.resizeHeight) {
+    if( giscus.resizeHeight ) {
       const container = document.getElementById(this.containerId);
-      if (container) {
+      if( container ) {
         container.style.height = `${giscus.resizeHeight + 30}px`;
       }
     }
   }
 
-  load(postId) {
-
+  load( postId ){
     const container = document.getElementById(this.containerId);
-    if (!container) {
+    if( !container ){
       console.warn("[CommentManager] Container not found:", this.containerId);
       return;
     }
 
     this.booted = true;
     container.innerHTML = "";
-
-    /* Generated from Giscus.app --
-    <script src="https://giscus.app/client.js"
-        data-repo="ProcStack/procDiscussions"
-        data-repo-id="R_kgDORc_LJw"
-        data-category="General"
-        data-category-id="DIC_kwDORc_LJ84C3kiH"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="cobalt"
-        data-lang="en"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-    </script>
-    */
 
     const script = document.createElement("script");
     script.src = "https://giscus.app/client.js";
@@ -99,30 +94,37 @@ export class CommentManager {
     script.dataset.strict = "0";
 
     script.dataset.reactionsEnabled = "1";
-    script.dataset.emitMetadata = "1";
+    script.dataset.emitMetadata = "0";
     script.dataset.inputPosition = "top";
     script.dataset.theme = this.theme;
     script.dataset.lang = this.lang;
     script.dataset.loading = "lazy";
 
-
-
-    container.appendChild(script);
+    // Add and store script reference
+    container.appendChild( script );
+    this.script = script;
   }
 
-  unload() {
+  unload(){
     const container = document.getElementById(this.containerId);
-    if (!container) return;
+    if( !container ) return;
 
     container.innerHTML = "";
     this.booted = false;
+
+    // Clean up for easier pre-rendered procPages
+    //  Repo - ./packing/renderPages.jsx
+    if( this.script ){
+      this.script.remove();
+      this.script = null;
+    }
   }
 
-  setTheme(theme) {
+  setTheme( theme ){
     this.theme = theme;
 
     const iframe = document.querySelector("iframe.giscus-frame");
-    if (!iframe) return;
+    if( !iframe ) return;
 
     iframe.contentWindow.postMessage(
       {
@@ -134,7 +136,7 @@ export class CommentManager {
     );
   }
 
-  isBooted() {
+  isBooted(){
     return this.booted;
   }
 }
