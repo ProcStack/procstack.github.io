@@ -973,10 +973,41 @@ export class ProcPage {
 
     }
 
-    //pageSections.appendChild( section );
-
     this.sectionData[sectionName].isLoaded = true;
 
+    this.postProcessSection( sectionName );
+  }
+
+/**
+ * Post-processes a section after it's built to add interactive features
+ * @param {string} sectionName - Name of section to post-process
+ */
+  postProcessSection( sectionName ){
+    let sectionData = this.sectionData[sectionName];
+    if( !sectionData || !this.pageContentView ) return;
+
+    // Find all elements with data-tag attribute within the content view
+    let tagLinks = this.pageContentView.querySelectorAll('[data-tag]');
+    tagLinks.forEach( link => {
+      link.style.cursor = 'pointer';
+      link.addEventListener('click', (e) => {
+        let tagId = link.getAttribute('data-tag');
+        this.scrollToTag( tagId );
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    });
+  }
+
+/**
+ * Scrolls a container to a specific element by ID
+ * @param {string} tagId - ID of element to scroll to
+ */
+  scrollToTag( tagId ){
+    let target = document.getElementById( tagId );
+    if( target ){
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
 
