@@ -1,81 +1,73 @@
 # procPages DSL v0.1 Specification
 
 ## Overview
-`procPages` DSL is a declarative, JavaScript-based language for defining website pages, sections, and blog entries. It integrates seamlessly with `pxlNav` for 3D environment orchestration.
+`procPages` DSL is a declarative, JavaScript-based language for defining website pages, sections, and logic. It uses a React-like functional syntax for better readability and a signal-based backend for real-time responsiveness to `pxlNav` events.
 
-The DSL aims to:
-- Reduce boilerplate in page definitions.
-- Automate metadata and schema generation.
-- Provide a structured way to include blog posts.
-- Support pre-compilation for SEO and faster runtime performance.
-- Easy integration of pxlNav game logic at a top level.
-  - Accompanied by an interface to create + edit pxlNav rooms, to be released later 2026.
+## DSL Syntax (Functional)
 
-## DSL Syntax (Conceptual)
-
-### Page Definition
+### Design Pattern
+The DSL uses functional node definitions:
 ```javascript
-page("Projects") {
-  title: "Projects & Links",
-  description: "See a collection of projects and links by ProcStack",
-  keywords: ["ProcStack", "Portfolio", "3D"],
-  theme: "#184d76",
-  layout: "triple",
-  
-  // Optional pxlNav Integration
-  pxlNav: {
-    room: "OutletEnvironment",
-    settings: {
-        gravity: 0.5,
-        movement: { scalar: 1.1 }
-    }
-  },
+const Page = defineNodeType("Page");
+const Button = defineNodeType("Button");
+```
 
-  sections: [
-    section("Featured") {
-        content: "Check out my latest work...",
-        media: [
-            image("thumb.jpg", "A cool project")
-        ]
+### Authoring Example
+```javascript
+Header(
+  Type( ProcPagesEnums.ISLAND_TYPE.MEDIA_PLAYER ),
+  Signals({
+    "playCount" : 0
+  }),
+  Funcs({
+    playOnClick: () => {
+      // Signals are exposed to the scope
+      playCount.set( playCount.get() + 1 );
+      console.log(`Play Press Count: ${playCount.get()}`);
     }
-  ],
+  }),
+  Load(() => console.log("Video Player loaded")),
+  Unload(() => console.log(`Played ${playCount.get()} times`))
+)
 
-  blog: {
-    source: "./researchPosts",
-    tags: ["physics", "ai"]
-  }
-}
+Page(
+  { id: "Home", layout: "vertical" },
+  [
+    Section({ name: "Intro", content: "Video Player --" }),
+    Button({ text: "Play", onClick: playOnClick })
+  ]
+)
 ```
 
 ## DSL Components
 
-### 1. Global Page Object
-- `id`: Unique page identifier.
-- `meta`: Metadata (title, desc, keywords).
-- `style`: Theme colors and CSS overrides.
-- `layout`: Single, Triple, or Vertical.
+### 1. Functional Nodes
+- `Page`: Root container for a document.
+- `Section`: A distinct area of content within a page.
+- `Button`: Interactive element.
+- `Header`: Metadata and global logic container.
 
-### 2. Sections
-- `name`: Section title.
-- `content`: HTML or Markdown (to be parsed).
-- `media`: Array of media objects (image, video, youtube).
+### 2. Signals & Logic
+- `Signals({})`: Defines state variables that notify listeners on change.
+- `Funcs({})`: Defines local functions accessible within the component scope.
+- `Signal(val, onSet)`: Creates a reactive variable.
 
-### 3. Blog Integration
-- `blog`: Automatically aggregates files from a directory.
-- `entry`: Individual blog posts with metadata (date, id, tags).
+### 3. Life-cycle Events
+- `Load`: Triggered when the component is initialized in the DOM.
+- `Unload`: Triggered when the component is destroyed.
+- `Error`: Executed on runtime exceptions within the component context.
 
 ### 4. pxlNav Integration
-- `pxlNav`: Triggers and callbacks for the 3D environment.
-- `onEnter`: Callback when page/section is focused.
-- `view`: Camera view settings for the 3D room.
+- DSL variables and signals can be shared with the pxlNav engine.
+- `pxlNav` events can trigger DSL functions.
 
-## Pre-Compile Pipeline
-1. **Source**: `.pp` (procPage) or `.js` (DSL variant) files.
-2. **Parser**: Reads DSL and converts to standard `ProcPage` objects.
-3. **Aggregator**: Collects blog entries and generates `blogEntries.js`.
-4. **Static Renderer**: Produces static HTML for SEO (using `renderStaticPages.mjs`).
+## Implementation Details
 
-## Security Considerations
-- **Sanitization**: All HTML content in `body` and `content` fields must be sanitized during compilation.
-- **Path Validation**: Source paths for assets and blog posts must stay within workspace boundaries.
-- **Script Injection**: Avoid `eval()` in the parser; use a proper AST traversal or a safe declarative parser.
+### Parser
+The `parser.js` provides the `defineNodeType` factory and built-in type definitions. It handles the transformation of functional calls into internal node objects.
+
+### Compiler
+The `compiler.js` processes these nodes, resolves signals, and bundles life-cycle events. It generates the final object format consumed by `ProcPage.js`.
+
+### Schema
+Validation is handled via `schema.js`, which ensures nodes have required properties and correct types for signals/functions.

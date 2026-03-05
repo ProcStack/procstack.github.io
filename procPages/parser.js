@@ -2,130 +2,153 @@
  * procPages DSL Parser - v0.1
  *   Designed for procstack.github.io by Kevin Edzenga; 2026
  * 
- * This parser provides the foundation for the ProcPages DSL.
- * It's built to be used in both pre-compilation Scripts (SEO)
- * and Runtime (Fast Dev).
+ * This parser provides a React-like functional interface for defining
+ * ProcPages nodes, signals, and lifecycle events.
  */
 
+/**
+ * Define a signal-based variable
+ */
+export function Signal(value, onSet = null) {
+  return {
+    _type: 'signal',
+    _value: value,
+    get: function() { return this._value; },
+    set: function(val) {
+      this._value = val;
+      if (onSet) onSet(val);
+    }
+  };
+}
+
+/**
+ * Base Node Type Factory
+ */
+export function defineNodeType(name) {
+  return function(props = {}, children = []) {
+    // If first arg is an array, it's children with no props
+    if (Array.isArray(props)) {
+      children = props;
+      props = {};
+    }
+
+    const node = {
+      type: name,
+      props: props,
+      children: Array.isArray(children) ? children : [children],
+      signals: props.signals || {},
+      funcs: props.funcs || {},
+      load: props.onLoad || null,
+      unload: props.onUnload || null,
+      error: props.onError || null
+    };
+
+    // Handle specific React-like syntax for common node types
+    if (props.content && !children.length) {
+      node.children.push(props.content);
+    }
+
+    return node;
+  };
+}
+
+// Built-in Node Types
+export const Page = defineNodeType("Page");
+export const Section = defineNodeType("Section");
+export const Button = defineNodeType("Button");
+export const Header = defineNodeType("Header");
+export const PxlNav = defineNodeType("PxlNav");
+
+export const Type = (val) => ({ type: 'type', value: val });
+export const Signals = (map) => ({ type: 'signals', value: map });
+export const Funcs = (map) => ({ type: 'funcs', value: map });
+export const Load = (fn) => ({ type: 'load', value: fn });
+export const Unload = (fn) => ({ type: 'unload', value: fn });
+export const Error = (fn) => ({ type: 'error', value: fn });
+export const Global = (props) => ({ type: 'global', value: props });
+
+// pxlNav Specific Helpers
+export const Settings = (map) => ({ type: 'pxlSettings', value: map });
+export const Onboarding = (config) => ({ type: 'pxlOnboarding', value: config });
+export const FPS = (pc, mobile) => ({ type: 'pxlFPS', value: { pc, mobile } });
+export const RenderScale = (pc, mobile) => ({ type: 'pxlRenderScale', value: { pc, mobile } });
+
 export class ProcPagesDSL {
-    constructor() {
-        this.pages = {};
-        this.blogEntries = [];
-        this.pxlNavIntegration = null;
+  constructor() {
+    this.nodes = [];
+    this.pages = {};
+  }
+
+  /**
+   * Parse a functional node tree into the internal format
+   */
+  parseNode(node) {
+    if (node.type === "Page") {
+      const id = node.props.id || `page_${Object.keys(this.pages).length}`;
+      this.pages[id] = this.transformNodeToPage(node);
     }
+    this.nodes.push(node);
+    return node;
+  }
 
-    /**
-     * Define a new page using the DSL
-     * @param {string} id - The Unique Identifier for the page
-     * @param {Object} config - Page configuration object
-     */
-    page(id, config = {}) {
-        const pageData = {
-            id: id,
-            page: config.page || id,
-            title: config.title || id,
-            description: config.description || "",
-            keywords: config.keywords || [],
-            theme: config.theme || "#000000",
-            layout: config.layout || "triple",
-            sections: [],
-            pxlNav: config.pxlNav || null,
-            blog: config.blog || null,
-            metaData: {
-                title: config.title || id,
-                description: config.description || "",
-                keywords: config.keywords || [],
-                image: config.image || ""
-            }
-        };
+  transformNodeToPage(node) {
+    const pageData = {
+      id: node.props.id,
+      title: node.props.title || node.props.id,
+      layout: node.props.layout || "triple",
+      sections: [],
+      signals: node.props.signals || {},
+      funcs: node.props.funcs || {},
+      onLoad: node.props.onLoad || null,
+      pxlNav: null
+    };
 
-        if (config.sections && Array.isArray(config.sections)) {
-            config.sections.forEach(s => {
-                pageData.sections.push(this.section(s.name, s));
-            });
-        }
+    // Process children to find sections and pxlNav
+    node.children.forEach(child => {
+      if (child.type === "Section") {
+        pageData.sections.push({
+          name: child.props.name,
+          content: child.props.content || "",
+          signals: child.props.signals || {}
+        });
+      } else if (child.type === "PxlNav") {
+        pageData.pxlNav = this.transformNodeToPxlNav(child);
+      }
+    });
 
-        this.pages[id] = pageData;
-        return pageData;
-    }
+    return pageData;
+  }
 
-    /**
-     * Define a section within a page
-     * @param {string} name - Section title
-     * @param {Object} config - Section content and media
-     */
-    section(name, config = {}) {
-        return {
-            name: name,
-            content: config.content || "",
-            media: config.media || [],
-            navGroup: config.navGroup || "Default",
-            type: config.type || "section",
-            style: config.style || []
-        };
-    }
+  transformNodeToPxlNav(node) {
+    const pxlNav = {
+      room: node.props.room,
+      view: node.props.view || "default",
+      settings: node.props.settings || {},
+      onEnter: node.props.onEnter || null,
+      onExit: node.props.onExit || null,
+      options: {}
+    };
 
-    /**
-     * Define a media item (image, video, etc)
-     */
-    media(type, src, options = {}) {
-        return {
-            type: type,
-            src: src,
-            caption: options.caption || [],
-            alt: options.alt || "",
-            style: options.style || ""
-        };
-    }
+    // Process functional children within PxlNav node
+    node.children.forEach(child => {
+      if (child.type === 'pxlSettings') {
+        pxlNav.settings = { ...pxlNav.settings, ...child.value };
+      } else if (child.type === 'pxlFPS') {
+        pxlNav.options.fps = child.value;
+      } else if (child.type === 'pxlRenderScale') {
+        pxlNav.options.renderScale = child.value;
+      } else if (child.type === 'pxlOnboarding') {
+        pxlNav.options.onboarding = child.value;
+        pxlNav.options.showOnboarding = true;
+      } else if (child.type === 'signals') {
+        pxlNav.signals = child.value;
+      }
+    });
 
-    /**
-     * Process a blog entry for the DSL
-     * @param {Object} entryData - Data from a blog entry file
-     */
-    blogEntry(entryData) {
-        const entry = {
-            eid: entryData.eid || "",
-            title: entryData.title || "Untitled",
-            date: entryData.date || "",
-            tags: entryData.tags || [],
-            body: entryData.body || "",
-            marked: entryData.marked || 0
-        };
-        this.blogEntries.push(entry);
-        return entry;
-    }
+    return pxlNav;
+  }
 
-    /**
-     * Compile the DSL state into a format readable by ProcPage.js
-     * @returns {Object} - Compiled ProcPage objects
-     */
-    compile() {
-        const result = {};
-        for (const [id, data] of Object.entries(this.pages)) {
-            // Transform internal DSL format to ProcPage compatible object
-            result[id] = {
-                page: data.id,
-                header: data.title,
-                theme: data.theme,
-                layout: data.layout,
-                sections: data.sections,
-                metaData: data.metaData
-                // pxlNav config can be extra data for the manager
-            };
-
-            if (data.pxlNav) {
-                result[id].pxlNav = data.pxlNav;
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Security check for content
-     * TODO: Implement proper sanitization
-     */
-    sanitize(content) {
-        // Placeholder for future security logic
-        return content;
-    }
+  compile() {
+    return this.pages;
+  }
 }
