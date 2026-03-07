@@ -6,7 +6,7 @@
  * into the standard format used by ProcPage.js and ProcPageManager.js.
  * 
  * Since the compiler makes an assumption for possible human error,
- * Please don't run your ProcPages site in real time mode,
+ * Please don't run your ProcPages site in real time mode live on the web,
  *   Pre-compile your pages before publishing changes to the web for the best security and performance.
  * 
  * I'd like to allow the most flexibility possible for users to define their pages in a way that makes the most sense to them,
