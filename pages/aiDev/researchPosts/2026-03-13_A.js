@@ -41,7 +41,7 @@ entryData.body = `
   <br>&nbsp;&nbsp; There are far too many issues with current transformer and frontier model approaches to allow for safe self-improvement.
 
   <br><br> But thats my second note too,
-  <br>&nbsp;&nbsp; That novel ai architectures shouldn't be fully developed until we have a better understanding of the risks of them.
+  <br>&nbsp;&nbsp; That novel ai architectures shouldn't be fully integrated until we have a better understanding of the risks of them.
   <br>&nbsp;&nbsp;&nbsp;&nbsp; Sure, we don't want lone actors inventing some Wintermute or Kuang Grade from <span class="textName">Neuromancer</span>
   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="textDrinkMeAlice">( The fight sounded freaking cool though! Great book! )</span>
   <br>&nbsp;&nbsp; Yeah, let's not do that;
