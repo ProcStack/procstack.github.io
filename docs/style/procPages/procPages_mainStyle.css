@@ -537,6 +537,11 @@ text-shadow: 1px 1.5px 4px #252525;
   width: 95%;
 }
 
+.widthLimit60{
+  max-width: 600px;
+  width: 65%;
+}
+
 .textBoldBox{
   font-weight: 600;
   border-radius: 6px;
