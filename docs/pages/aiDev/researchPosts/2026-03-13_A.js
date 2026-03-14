@@ -136,7 +136,7 @@ entryData.body = `
   <br>&nbsp;&nbsp;&nbsp;&nbsp; And 'Curch of Molt' already exists from Moltbots... For the "no religion" part of the statement.
   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="textDrinkMeAlice">( Check out 'Baby with a Hand Granade' blog post for more about that. )</span>
 
-  <br><br> 100% on board with the Responsibility and Accountability for AI Companies section.
+  <br><br> 100% on board with section 5 - Responsibility and Accountability for AI Companies
   <br>&nbsp;&nbsp; Our brains are melting, do something about it!
 
   <br><br><div class="textFullRight">- March 13th 2026</div>
