@@ -114,7 +114,7 @@ entryData.body = `
   <br>&nbsp;&nbsp;&nbsp;&nbsp; I've just been waiting for AIs to attack REST APIs and PUT/GET PHP for years now...
   <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; That wouldn't be good.
 
-  <br><br> I'd assume there is be enough evidence of hidden urls that could be exploited if an ai is left on its own,
+  <br><br> I'd assume there is enough evidence of hidden urls that could be exploited if an ai is left on its own,
   <br>&nbsp;&nbsp; I'm looking to prevent issues like that.
   
   <br><br> While I may be classed as a lone actor, I don't think I'm the one to worry about.
