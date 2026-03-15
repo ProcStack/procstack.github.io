@@ -2,6 +2,7 @@ import { baseEntryStruct, blogEntry } from '../../../js/blog/blogEntryBase.js';
 
 const entryData = baseEntryStruct();
 entryData.title = "Spoon Tapping";
+entryData.marked = ENTRY_MARK_ENUM.FEATURED;
 entryData.date = "2026-02-13";
 entryData.eid = "A";
 entryData.tags = ["theory", "philosophy", "training", "neuroscience"];
