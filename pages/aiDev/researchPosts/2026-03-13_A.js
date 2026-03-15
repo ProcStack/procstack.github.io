@@ -2,6 +2,7 @@ import { baseEntryStruct, blogEntry } from '../../../js/blog/blogEntryBase.js';
 
 const entryData = baseEntryStruct();
 entryData.title = "HumanStatement.org";
+entryData.marked = ENTRY_MARK_ENUM.PICK;
 entryData.date = "2026-03-13";
 entryData.eid = "A";
 entryData.tags = [];
