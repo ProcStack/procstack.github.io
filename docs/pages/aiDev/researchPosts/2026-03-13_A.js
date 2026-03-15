@@ -1,7 +1,7 @@
-import { baseEntryStruct, blogEntry } from '../../../js/blog/blogEntryBase.js';
+import { baseEntryStruct, blogEntry, ENTRY_MARK_ENUM } from '../../../js/blog/blogEntryBase.js';
 
 const entryData = baseEntryStruct();
-entryData.title = "HumanStatement.org";
+entryData.title = "Human Statement";
 entryData.marked = ENTRY_MARK_ENUM.PICK;
 entryData.date = "2026-03-13";
 entryData.eid = "A";

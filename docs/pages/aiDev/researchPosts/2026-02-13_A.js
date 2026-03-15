@@ -1,4 +1,4 @@
-import { baseEntryStruct, blogEntry } from '../../../js/blog/blogEntryBase.js';
+import { baseEntryStruct, blogEntry, ENTRY_MARK_ENUM } from '../../../js/blog/blogEntryBase.js';
 
 const entryData = baseEntryStruct();
 entryData.title = "Spoon Tapping";
