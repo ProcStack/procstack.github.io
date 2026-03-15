@@ -2,9 +2,9 @@ import { baseEntryStruct, blogEntry, ENTRY_MARK_ENUM } from '../../../js/blog/bl
 
 const entryData = baseEntryStruct();
 entryData.title = "Neural Bundles";
-entryData.marked = ENTRY_MARK_ENUM.FEATURED;
 entryData.date = "2025-08-02";
 entryData.eid = "A";
+entryData.marked = ENTRY_MARK_ENUM.FEATURED;
 entryData.tags = ["research","brain","structure"];
 entryData.body = `
   I've been looking into neural bundles in the brain.  There is an implicit "delay" in the flow of information that I'm interested in.
