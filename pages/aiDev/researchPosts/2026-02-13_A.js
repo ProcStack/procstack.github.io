@@ -1,10 +1,10 @@
-import { baseEntryStruct, blogEntry } from '../../../js/blog/blogEntryBase.js';
+import { baseEntryStruct, blogEntry, ENTRY_MARK_ENUM } from '../../../js/blog/blogEntryBase.js';
 
 const entryData = baseEntryStruct();
 entryData.title = "Spoon Tapping";
-entryData.marked = ENTRY_MARK_ENUM.FEATURED;
 entryData.date = "2026-02-13";
 entryData.eid = "A";
+entryData.marked = ENTRY_MARK_ENUM.FEATURED;
 entryData.tags = ["theory", "philosophy", "training", "neuroscience"];
 entryData.body = `
   I'm rummaging through Nietzsche & Schopenhauer a little more.

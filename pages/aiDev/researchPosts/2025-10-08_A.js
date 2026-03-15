@@ -2,9 +2,9 @@ import { baseEntryStruct, blogEntry, ENTRY_MARK_ENUM } from '../../../js/blog/bl
 
 const entryData = baseEntryStruct();
 entryData.title = "Aptitude";
-entryData.marked = ENTRY_MARK_ENUM.PICK;
 entryData.date = "2025-10-08";
 entryData.eid = "A";
+entryData.marked = ENTRY_MARK_ENUM.PICK;
 entryData.tags = ["theory","aptitude","testing","needs","safety"];
 entryData.body = `
   Since we don't have a ton to go off of for Aptitude,

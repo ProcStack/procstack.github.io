@@ -1,9 +1,10 @@
-import { baseEntryStruct, blogEntry } from '../../../js/blog/blogEntryBase.js';
+import { baseEntryStruct, blogEntry, ENTRY_MARK_ENUM } from '../../../js/blog/blogEntryBase.js';
 
 const entryData = baseEntryStruct();
 entryData.title = "Navier-Stokes";
 entryData.date = "2026-02-14";
 entryData.eid = "A";
+entryData.marked = ENTRY_MARK_ENUM.FEATURED;
 entryData.tags = ["physics", "math", "theory", "fluid dynamics"];
 entryData.body = `
   The one Millennium Prize Problem I feel the most attracted to, yet don't have enough physics + math knowledge to do the problem itself,

@@ -2,9 +2,9 @@ import { baseEntryStruct, blogEntry, ENTRY_MARK_ENUM } from '../../../js/blog/bl
 
 const entryData = baseEntryStruct();
 entryData.title = "Dreamy Meanderings";
-entryData.marked = ENTRY_MARK_ENUM.FEATURED;
 entryData.date = "2025-08-30";
 entryData.eid = "A";
+entryData.marked = ENTRY_MARK_ENUM.FEATURED;
 entryData.tags = ["research","dreams","qualia"];
 entryData.body = `
   I've been looking into dream research again.

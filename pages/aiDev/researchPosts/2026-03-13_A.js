@@ -1,11 +1,11 @@
-import { baseEntryStruct, blogEntry } from '../../../js/blog/blogEntryBase.js';
+import { baseEntryStruct, blogEntry, ENTRY_MARK_ENUM } from '../../../js/blog/blogEntryBase.js';
 
 const entryData = baseEntryStruct();
-entryData.title = "HumanStatement.org";
-entryData.marked = ENTRY_MARK_ENUM.PICK;
+entryData.title = "Human Statement";
 entryData.date = "2026-03-13";
 entryData.eid = "A";
-entryData.tags = [];
+entryData.marked = ENTRY_MARK_ENUM.PICK;
+entryData.tags = ['ai safety', 'ai ethics', 'ai development', 'ai principles'];
 entryData.body = `
   
   A bunch of the lead AI researchers in the world have come together to design a statement of values & principles for AI development.
