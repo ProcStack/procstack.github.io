@@ -63,6 +63,15 @@
 
 /* -- -- -- */
 
+.bionicToggleButtonStyle{
+    font-size: 0.9em;
+    align-self: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+/* -- -- -- */
+
 
 .gitBlogPageScrollbarStyle::-webkit-scrollbar {
   border-radius: 2px;

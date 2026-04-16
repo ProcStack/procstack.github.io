@@ -20,6 +20,7 @@ export const baseEntryStruct = () =>{
 export class blogEntry{
   constructor( parent, entryData ){
     this.id = null;
+    this.isMobile = false;
     this.parent = parent;
     //this.rawEntryData = entryData; // I have no need for it yet, but maybe
     this.title = entryData.title;
@@ -27,10 +28,33 @@ export class blogEntry{
     this.date = entryData.date;
     this.body = entryData.body;
     this.tags = entryData.tags;
+    
+    // -- -- --
+    // Bionic Reading Data & State
+    //   Neurodivergent Text Mode for Autism & ADHD
+    //   Bolded initial letters of words to allow the brain to fill in the rest of the word for easier reading.
+    //     https://bionic-reading.com/
+    
+    this.autoBuildBionic = true;
+    this.bionicMode = false;
+    this.isBionicTextBuilding = false;
 
+    this.bionicPercentConversion = .5; // Percent of the word to convert to bold 
+    this.bionicPercentConversion_desktop = .5;
+    this.bionicPercentConversion_mobile = .35;
+    this.bionicBuildWaitTime = 50; // MS Waittime between building chunks of bionic text
+    this.bionicBuildRunMax = 10; // Number of lines of text to convert per wait time timeout into bionic text, avoids thread locking the browser on long entries.
+    this.body_bionic_toProcess = entryData.body.split('\n'); // To Convert; Unprocessed body -> bionic conversion
+    this.body_bionic = null; // Built on demand
+    this.body_typical = entryData.body;
+    this.bionicTimeout = null;
+    
+    // -- -- --
+    
     this.readTimes = null;
     
     this.blogEntryObj = null;
+    this.accessibilityObj = null;
     this.titleObj = null;
     this.dateObj = null;
     this.bodyObj = null;
@@ -51,6 +75,27 @@ export class blogEntry{
   setParent( parent ){
     this.parent = parent;
   }
+  setMobile( isMobile ){
+    this.isMobile = !!isMobile;
+    if( this.isMobile ){
+      this.bionicPercentConversion = this.bionicPercentConversion_mobile;
+    }else{
+      this.bionicPercentConversion = this.bionicPercentConversion_desktop;
+    }
+
+    // Re-trigger Bionic Text Building from scratch
+    //  TODO : I should pass bionic build through the pageManager, but for now, I'm just re-running it.
+    if( this.isBionicTextBuilding ){
+      clearTimeout( this.bionicTimeout );
+      this.isBionicTextBuilding = false;
+      this.body_bionic = null;
+      this.body_bionic_toProcess = this.body.split('\n');
+      this.buildBionicBody();
+    }
+  }
+
+  // -- -- -- 
+
   build( parent=null ){
     let parentObj = parent;
     if( parentObj == null ){
@@ -100,7 +145,7 @@ export class blogEntry{
     // Accessibility Buttons; Font Size +/- for now
     let plusBtn = document.createElement('button');
     plusBtn.classList.add('blogEntryAccessibilityButtonStyle');
-    plusBtn.classList.add('procPagesNavSectionStyle');
+    plusBtn.classList.add('accessibilitySectionStyle');
     plusBtn.classList.add('procPagesButtonStyle');
     plusBtn.classList.add('procPagesSectionNavColor');
     //procPagesNavSectionStyle procPagesButtonStyle procPagesSectionNavColor aiDevPage-sectionNavButtonStyle
@@ -110,14 +155,34 @@ export class blogEntry{
     plusBtn.addEventListener('click', (e)=>{this.resizeText(.2);});
     let minusBtn = document.createElement('button');
     minusBtn.classList.add('blogEntryAccessibilityButtonStyle');
-    minusBtn.classList.add('procPagesNavSectionStyle');
+    minusBtn.classList.add('accessibilitySectionStyle');
     minusBtn.classList.add('procPagesButtonStyle');
     minusBtn.classList.add('procPagesSectionNavColor');
     minusBtn.innerHTML = '-';
     minusBtn.title = 'Decrease Font Size';
     this.accessibilityObj.appendChild(minusBtn);
     minusBtn.addEventListener('click', (e)=>{this.resizeText(-.2);});
+
+    // Bionic Reading Toggle
+    //   Neurodivergent Text Mode for Autism & ADHD
+    //   Bolded initial letters of words to allow the brain to fill in the rest of the word for easier reading.
+    //     https://bionic-reading.com/
+    let bionicButton = document.createElement('button');
+    bionicButton.classList.add('blogEntryAccessibilityButtonStyle');
+    bionicButton.classList.add('accessibilitySectionStyle');
+    bionicButton.classList.add('procPagesButtonStyle');
+    bionicButton.classList.add('procPagesSectionNavColor');
+    bionicButton.classList.add('bionicToggleButtonStyle');
+    bionicButton.innerHTML = '<span class="hideOnMobile">To&nbsp;</span>Bionic';
+    bionicButton.title = 'Toggle Bionic Reading';
+    this.accessibilityObj.appendChild(bionicButton);
+    bionicButton.addEventListener('click', (e)=>{this.toggleBionicReading( bionicButton );});
+
+
     // -- -- --
+
+    // Build title row
+
     this.titleRowObj.appendChild(this.titleObj);
     this.titleRowObj.appendChild(this.dateObj);
     this.titleRowObj.appendChild(this.readTimeBodyObj);
@@ -163,7 +228,17 @@ export class blogEntry{
     this.blogEntryObj.appendChild(this.commentObj);
 
     parentObj.appendChild( this.blogEntryObj );
+
+
+    // -- -- --
+
+    // Initialize Bionic Text Conversion
+    if( this.autoBuildBionic ){
+      this.buildBionicBody();
+    }
   }
+
+  // -- -- --
 
   getReadTimes( text ){
     // Average is 200-250 words per minute,
@@ -205,6 +280,8 @@ export class blogEntry{
     }
     return retVal;
   }
+  
+  // -- -- --
 
   resizeText( dir ){
       let currentSize = this.bodyObj.style.fontSize;
@@ -212,6 +289,128 @@ export class blogEntry{
       let toSize = Math.min( Math.max( currentSize + dir, .6 ), 3.5 );
       this.bodyObj.style.fontSize = toSize + 'em';
   }
+
+  // -- -- --
+
+  toggleBionicReading(  buttonObj=null ){
+
+    let isBuilding = this.isBionicTextBuilding;
+    if( this.isBionicTextBuilding ){
+      if( this.bionicTimeout ){
+        clearTimeout( this.bionicTimeout );
+      }
+      this.isBionicTextBuilding = false;
+    }
+
+    this.bionicMode = !this.bionicMode;
+
+    // End processing and process the rest of the toProcess bionic body text
+    if( this.bionicMode && this.verifyBionicBuilt() ){
+      this.bodyObj.innerHTML = this.body_bionic;
+    }else{
+      this.bodyObj.innerHTML = this.body_typical;
+    }
+
+    // Update button text
+    if( buttonObj ){
+      if( this.bionicMode ){
+        buttonObj.innerHTML = '<span class="hideOnMobile">To&nbsp;</span>Typical';
+      }else{
+        buttonObj.innerHTML = '<span class="hideOnMobile">To&nbsp;</span>Bionic';
+      }
+    }
+  }
+
+  // Process line chunks of the body text into bionic text,
+  //   Building up `this.body_bionic` until all lines are processed.
+  buildBionicBody(){
+    this.isBionicTextBuilding = true;
+
+    let selectedLines = this.body_bionic_toProcess.splice( 0, this.bionicBuildRunMax );
+    this.processBionicLines( selectedLines );
+    if( this.body_bionic_toProcess.length > 0 ){
+      this.bionicTimeout = setTimeout( () => { this.buildBionicBody(); }, this.bionicBuildWaitTime );
+    }else{
+      this.isBionicTextBuilding = false;
+      this.body_bionic_toProcess = null;
+      this.bionicTimeout = null;
+    }
+  }
+
+  // Process a provided array of lines into bionic text
+  //   This will process all lines if the full `this.body_bionic_toProcess` is provided
+  processBionicLines( lines ){
+    let keepMatch = /(&nbsp;|[</](br|div|span|p|)|(class.+>))/g;
+    if( lines.length === 0 ){
+      this.isBionicTextBuilding = false;
+      return;
+    }
+    let toProcess = lines.splice( 0, this.bionicBuildRunMax );
+    toProcess.forEach( (line) => {
+      let textBreaks = line.split(' ');
+      let convertedLine = textBreaks.map( word => { 
+                            // Find and return HTML tags & &nbsp;
+                            let hasMatch = word.match( keepMatch );
+                            if( hasMatch != null && hasMatch.length > 0 ){
+                              return word;
+                            }
+
+                            // Find dashes in word
+                            let hyph = word.split('-');
+                            if( hyph.length > 1 ){
+                              return hyph.map( part => this.convertToBionic(part) ).join('-');
+                            }
+
+                            hyph = word.split('+');
+                            if( hyph.length > 1 ){
+                              return hyph.map( part => this.convertToBionic(part) ).join('+');
+                            }
+                            
+                            // Convert word to bionic
+                            return this.convertToBionic(word);
+                          } ).join(' ');
+      if( this.body_bionic == null ){
+        this.body_bionic = convertedLine;
+      }else{
+        this.body_bionic += '\n' + convertedLine;
+      }
+    });
+  }
+
+  // Verify if the body needs to be fully processed in one go
+  //   The user clicked the Bionic button before processing finished
+  verifyBionicBuilt(){
+    if( this.body_bionic_toProcess != null && this.body_bionic_toProcess.length > 0 ){
+      clearTimeout( this.bionicTimeout );
+      this.processBionicLines( this.body_bionic_toProcess );
+      this.body_bionic_toProcess = null;
+      this.isBionicTextBuilding = false;
+    }
+    return true;
+  }
+
+  // Bolden the first X% of the word, minimum 1 letter
+  //   Percentage set in `this.bionicPercentConversion`
+  convertToBionic( text ){
+    if( text.trim().length === 0 ){
+      return text;
+    }
+    let matchReg = /(?!.*[<>])([\d\D])/g;
+    let matchOnce = text.match( matchReg );
+    if( matchOnce == null ){
+      return text;
+    }
+    
+    let stringRun = Math.ceil(text.length * this.bionicPercentConversion);
+    stringRun = Math.max( stringRun, 1 );
+
+    let retVal = "";
+    retVal += `<span class="textBold">${text.substring(0, stringRun)}</span>`;
+    retVal += text.substring(stringRun);
+    return retVal;
+  }
+
+  // -- -- --
 
   show(){
     this.blogEntryObj.style.display = 'block';

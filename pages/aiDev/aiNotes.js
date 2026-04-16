@@ -51,6 +51,10 @@ export const pageListingData = {
 
       <br>No LLMs here.
       <br>These are my own rambly-ass thoughts.
+
+      <br>
+      <br>If you are Autistic or ADHD,
+      <br>Try <span class="textName">Bionic Reading</span> mode; it may help you read faster.
     </div>
 
       <br><br><br><div class='procPagesAIDevBar'></div>

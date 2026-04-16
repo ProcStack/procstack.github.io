@@ -64,6 +64,7 @@ export class ProcPage {
    * @param {Object} [contentObject.sections] - Section definitions
    */
   constructor( contentObject ){
+    this.isMobile = false;
     this.metaData = contentObject.metaData || {};
     this.visible = contentObject.hasOwnProperty('visible') ? contentObject.visible : true;
     this.id = contentObject.id || null;
@@ -169,6 +170,12 @@ export class ProcPage {
     return Object.assign({}, this.defaultMediaData);
   }
   
+  // -- -- --
+  
+  setMobile( isMobile ){
+    this.isMobile = isMobile;
+  }
+
   // -- -- --
 
 /**
@@ -968,9 +975,10 @@ export class ProcPage {
     }
 
     if( builtObjs['blog'] != null ){
-
       this.sectionData[sectionName].blogManager = builtObjs['blog'];
-
+      builtObjs['blog'].blogEntries.forEach(( entry )=>{
+        entry.setMobile( this.isMobile );
+      });
     }
 
     this.sectionData[sectionName].isLoaded = true;

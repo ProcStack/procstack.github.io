@@ -221,15 +221,21 @@
 /* -- -- -- -- -- -- -- -- */
 
 
-.blogEntryTitleRowStyle {
-    display: grid;
-    width: 100%;
-    align-items: center;
-    grid-auto-flow: column;
-    grid-template-columns: auto .5fr max-content max-content;
-    grid-gap: 1ch;
+
+.blogEntryTitleRowStyle{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1ch;
+}
+.blogEntryTitleRowStyle :first-child{
+  flex: 0 0 100%;
+  text-align: center;
 }
 
+.blogEntryTitleRowStyle :not(:first-child){
+  flex: 1;
+  align-content: center;
+}
 
 .blogEntryTitlePaddingStyle {
   padding: 5px;
@@ -247,6 +253,20 @@
     z-index: 10;
     padding: 5px;
     background: linear-gradient(149deg, rgb(16 32 73), rgb(18 33 61), rgb(20 29 48));
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .blogEntryTitleRowStyle {
+      display: grid;
+      align-items: center;
+      grid-auto-flow: column;
+      grid-template-columns: auto .5fr max-content max-content;
+      grid-gap: 1ch;
+  }
+
+  .blogEntryTitleRowStyle > *:first-child {
+      flex: 0 0 auto;
   }
 }
 
