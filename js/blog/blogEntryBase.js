@@ -41,7 +41,7 @@ export class blogEntry{
 
     this.bionicPercentConversion = .5; // Percent of the word to convert to bold 
     this.bionicPercentConversion_desktop = .5;
-    this.bionicPercentConversion_mobile = .35;
+    this.bionicPercentConversion_mobile = .4;
     this.bionicBuildWaitTime = 50; // MS Waittime between building chunks of bionic text
     this.bionicBuildRunMax = 10; // Number of lines of text to convert per wait time timeout into bionic text, avoids thread locking the browser on long entries.
     this.body_bionic_toProcess = entryData.body.split('\n'); // To Convert; Unprocessed body -> bionic conversion
