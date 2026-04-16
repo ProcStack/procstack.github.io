@@ -179,10 +179,16 @@ if( searchParams.has('scale') ){
 
 // -- -- -- -- --
 
+// I should add a "isMobile" callback on pxlNav boot, but for now -
+let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test( navigator.userAgent );
+
+// -- -- -- -- --
+
 // Create the main page manager
 //  - Not related to pxlNav -
 const procPages = new ProcPageManager();
 procPages.setVersion( pxlNavVersion );
+procPages.setMobile( isMobile );
 // Set the Meta Data per page
 //   Page changes will update the meta data automatically if the page is in the list
 //procPages.setPageMetaData( ProcPageMetaData );

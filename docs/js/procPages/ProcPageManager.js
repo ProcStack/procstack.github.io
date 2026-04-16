@@ -37,6 +37,7 @@ export class ProcPageManager {
    */
   constructor(originUrl) {
     this.originUrl = originUrl || window.location.origin;
+    this.isMobile = false;
     this.mainDiv = null;
     this.curPage = null;
     this.curRoom = null;
@@ -206,6 +207,12 @@ export class ProcPageManager {
 
     return depthPrefix;
   }
+  
+  setMobile( isMobile ){
+    this.isMobile = isMobile;
+  }
+  
+  // -- -- --
 
 /**
  * @method init
@@ -622,6 +629,8 @@ export class ProcPageManager {
       if( !listingKeys.includes(pageKey) ){
         this.pageListing[pageKey] = Object.assign({}, this.defaultPageListing);
       }
+
+      pageData[pageKey].setMobile( this.isMobile );
       
       this.pageListing[pageKey][ "pageData" ] = pageData[pageKey];
       if( pageData[pageKey].hasOwnProperty("metaData") ){
