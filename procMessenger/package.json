@@ -1,0 +1,17 @@
+{
+  "type": "commonjs",
+  "name": "procmessenger",
+  "version": "1.0.0",
+  "main": "blog_client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "uuid": "^11.1.1",
+    "ws": "^8.20.0"
+  }
+}
