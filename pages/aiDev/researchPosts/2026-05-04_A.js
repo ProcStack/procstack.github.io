@@ -23,7 +23,7 @@ entryData.body = `
 
   <br><br> Normally for me,
   <br>&nbsp;&nbsp; It's a scattering of geometric shapes which form into faces, very many faces, in rapid succession.
-  <br>&nbsp;&nbsp; This was the first time I saw anything cogent enough to visualize as a moving subject in my minds eye.
+  <br>&nbsp;&nbsp; This was the first time I saw anything cogent enough to visualize as a moving subject in my mind's eye.
 
   <br><br> As I mentioned above, the wings looked blocky; like low resolution animation smearing.
   <br>&nbsp;&nbsp; I knew I was seeing flapping wings, but it was as though my convolutional deep-learning graph network of neurons showed itself,
