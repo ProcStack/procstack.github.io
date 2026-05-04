@@ -59,7 +59,7 @@ entryData.body = `
   <br>&nbsp;&nbsp;&nbsp;&nbsp; The "context window" also moves frame by frame.
 
   <br><br> Lets say I have a window of 15 frames, after that 15th frame, it loops back to 0,1,2,3...
-  <br>&nbsp;&nbsp; All 15 frames are weighted against each other to find the current frames motion-edges, or the edges of movement.
+  <br>&nbsp;&nbsp; All 15 frames are weighted against each other to find the current frame's motion-edges, or the edges of movement.
   
   <br><br> So it constantly re-writes prior frames of recorded motion,
   <br>&nbsp;&nbsp; Unless continuous motion is found within the last 15 frames to update the current frame...
