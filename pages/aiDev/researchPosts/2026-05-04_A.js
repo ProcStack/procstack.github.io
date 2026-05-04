@@ -124,7 +124,7 @@ entryData.body = `
   <br><br> But sometimes in our most sleep deprived states,
   <br>&nbsp;&nbsp; The ridiculous becomes the answer we were looking for.
 
-  <br><br><div class="textFullRight">- May 5th 2026</div>
+  <br><br><div class="textFullRight">- May 4th 2026</div>
 `;
 
 const blogEntryObj = new blogEntry(null, entryData);
