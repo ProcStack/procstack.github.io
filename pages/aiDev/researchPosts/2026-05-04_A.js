@@ -85,7 +85,7 @@ entryData.body = `
 
   <br><br> If consciousness only starts to take hold while the brain is producing Gama waves,
   <br>&nbsp;&nbsp; Yet the motion I saw in the bird's wings, in my minds eye,
-  <br>&nbsp;&nbsp;&nbsp;&nbsp; Are be the result of Alpha and Theta waves, influenced by my Frontal Cortex to produce those "meaningless" hypnagogic hallucinations.
+  <br>&nbsp;&nbsp;&nbsp;&nbsp; Are the result of Alpha and Theta waves, influenced by my Frontal Cortex to produce those "meaningless" hypnagogic hallucinations.
   <br>&nbsp;&nbsp; That would mean there is a distinct line in behaviour between frquencies in sections of the brain.
 
   <br><br><br><div class='procPagesAIDevBar'></div>
