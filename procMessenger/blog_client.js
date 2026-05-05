@@ -359,6 +359,7 @@ function startClient() {
         ws.send(buildMessage("register", CLIENT_NAME, "server", {
             clientType: CLIENT_TYPE,
             capabilities: ["blog_entry"],
+            functions:  ["blog_entry"],
             hostname:   os.hostname(),
             nickname:   "Blog Client",
         }));
