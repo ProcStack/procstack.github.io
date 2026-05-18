@@ -1,6 +1,6 @@
 # Currents of War :: Unity Game
 
-[Currents of War](https://procstack.itch.io/currentsofwar) 2025
+[Currents of War](https://store.steampowered.com/app/4072230/Currents_of_War/) 2025
     
 Engine - Unity
     
@@ -16,11 +16,11 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
 
  If you'd like to support us,
     
-   You can find the further developed version released for sale on itch.io
+   You can find a more developed version on Steam & Itch.io
     
-     With future plans if we find time/funds to keep working on it!
-    
-   Buy & Download [Currents of War](https://ellipsis9.itch.io/currents-of-war) on itch.io
+     With future plans if we gain more interest!
+
+   Get Currents of War on [Steam](https://store.steampowered.com/app/4072230/Currents_of_War/) -or- [Itch.io](https://ellipsis9.itch.io/currents-of-war)
 
  The game jam was a collab jam, primarily consisting of 3 of us doing art and programming for Currents of War.
     
@@ -34,17 +34,17 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
     
    I also wrote the code + shaders to handle animation & dynamically coloring the character's faces, hair, & armor.
 
- For the art inspiration, I looked to -
-    
+ For art inspiration, I looked to -
+
    Gameboy Advance games like Zelda Minish Cap,
     
      Everything should be outlined with similar color hues blended!
-    
+
    Super Nintendo games like Secret of Mana & Final Fantasy 3/6,
     
      Fantasy character designs with reason for the details
-    
-   And Original Nintendo games like River City Ransom.
+
+   Original Nintendo games like River City Ransom.
     
      Character proportions & vibes.
 
@@ -52,7 +52,7 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
     
    To give some room for gags & chicanery!
 
-    I drew up most of the shop assets & many items done in a single night,
+ I drew up most of the shop assets & many items done in a single night,
     
    Just had some [chiptune fusion](https://ex-lyd.bandcamp.com/album/till-sunrise) blasting and my huion screen-table going in photoshop.
     

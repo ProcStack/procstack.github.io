@@ -40,6 +40,13 @@ export const pageListingData = {
     },
     {
       'type' : 'image',
+      'src' : '../pages/projects/images/RabbitDruidA_Campfire.webp',
+      'alt' : "This.Init's campfire scene",
+      'style' : 'procPagesImageStyle',
+      'caption' : ["This.Init's campfire scene"]
+    },
+    {
+      'type' : 'image',
       'src' : '../pages/projects/images/RabbitDruidA_useThatPokinStick.webp',
       'alt' : "Rabbit Druid's use that pokin' stick",
       'style' : 'procPagesImageStyle',
@@ -57,19 +64,25 @@ export const pageListingData = {
     <br><span class="textShrink textItalic textName ">Language - <span class="textBold">JavaScript</span></span>
     <div class="pppHBar"></div>
     
-    <span class='textNudge'>Eyyyyy, check out this sites code!</span>
-    <br>&nbsp;&nbsp; It mostly has examples of pxlNav rooms and the page & content system I wrote
-
-
+    <span class="textBump">Some stats on the Assets & Environments -</span>
+    <br><br> <span class="textItch">Rabbit Druid </span> -
+    <br>&nbsp;&nbsp;  - <span class="textNudge textName">5,823</span> triangles
+    <br>&nbsp;&nbsp;  - <span class="textNudge textName">38</span> Joints
+    
+    <br> The Ears & Cape did me in for the joint count.
+    <br>&nbsp;&nbsp; 3 joints per Ear, 2 corrective joints for the Cape
+    
     <br><br><div class="pppHBar"></div>
+
+    <span class="textItch">The Campfire </span> -
+    <br>&nbsp;&nbsp;  - <span class="textNudge textName">10,497</span> triangles; without Instances
+    <br>&nbsp;&nbsp;  - <span class="textNudge textName">33,298</span> triangles; with Instances
     
-    <br> Some stats on the page -
-    <br><br> <span class="textItch">Rabbit Druid A</span> -
-    <br>&nbsp;&nbsp;  - <span class="textItch">5,823</span> triangles
-    <br>&nbsp;&nbsp;  - <span class="textItch">38</span> Joints
-    
-    <br><br> The Ears and Cape did me in for the joint count.
-    <br>&nbsp;&nbsp; 3 per Ear, 2 for the Cape
+    <br><br><div class="pppHBar"></div>
+
+    <span class="textItch">The <span class="textItalic textShrink">'not-so'</span>&nbsp; Salt-Flats <span class="textItalic textDrinkMeAlice">(this page)</span></span> -
+    <br>&nbsp;&nbsp;  - <span class="textNudge textName">62,788</span> triangles; without Instances
+    <br>&nbsp;&nbsp;  - <span class="textNudge textName">192,588</span> triangles; with Instances
     
     <br><br><div class="pppHBar"></div>
 
