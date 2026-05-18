@@ -4,21 +4,29 @@
     
 Language - JavaScript
 
-    Eyyyyy, check out this sites code!
-    
-   It mostly has examples of pxlNav rooms and the page & content system I wrote
+    Some stats on the Assets & Environments -
 
- Some stats on the page -
-
- Rabbit Druid A -
+ Rabbit Druid  -
     
     - 5,823 triangles
     
     - 38 Joints
 
- The Ears and Cape did me in for the joint count.
+ The Ears & Cape did me in for the joint count.
     
-   3 per Ear, 2 for the Cape
+   3 joints per Ear, 2 corrective joints for the Cape
+
+    The Campfire  -
+    
+    - 10,497 triangles; without Instances
+    
+    - 33,298 triangles; with Instances
+
+    The 'not-so'  Salt-Flats (this page) -
+    
+    - 62,788 triangles; without Instances
+    
+    - 192,588 triangles; with Instances
 
 It's funny, out of all the projects I can bootstrap together with my personal boilerplates over the years,
     
