@@ -55,7 +55,9 @@ export const pageListingData = {
     <div class="procPagesProjectsHeaderStyle"><a href='https://github.com/ProcStack/procMessenger' class="textBump" target='_blank'>procMessenger</a> <span class="textDrinkMeAlice textItalic">2020</span></div>
     <span class="textBump">Home Network Device-to-Device Messaging System</span>
     <br>&nbsp;&nbsp; With direct control from a mobile app on your phone
-    <br> <span class="textShrink textItalic ">Languages - <span class="textBold textName">Python, JavaScript, nodejs</span></span>
+    <br> <span class="textShrink textItalic ">Languages - <span class="textBold textName">Python, Java, JavaScript, nodejs</span></span>
+    
+    <br><br> <span class="textItalic"> <span class="textName textNudge">procMessenger</span> is a <span class="textNudge">Work-in-Progress!</span> </span>
     
     <br><br> <span class="textNudge"> Server + Client Network Messaging to perform taks;
     <br>&nbsp;&nbsp; Allowing mobile app controlled clients on the network </span> 
@@ -65,9 +67,8 @@ export const pageListingData = {
     <br>&nbsp;&nbsp; With allowed access to <span class="textBump">Whitelisted</span> functions,
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Chat, Research, & Automation</span>
 
-    <br><br> <span class="textItalic"> <span class="textName textNudge">procMessenger</span> is a <span class="textNudge">Work-in-Progress!</span> </span>
     
-    <br> <div class="pppHBar"></div>
+    <br><br> <div class="pppHBar"></div>
   
     <br><div class="procPagesProjectsDescriptionStyle">
 
@@ -92,10 +93,10 @@ export const pageListingData = {
 
     <br><br> <div class="pppHBar"></div>
 
-      <br> Baby with a freaking hand grenade,
+      Baby with a freaking hand grenade,
       <br>&nbsp;&nbsp; That's what OpenClaw is....
 
-    <br><br> <div class="pppHBar"></div>
+    <br> <div class="pppHBar"></div>
 
       <br> <span class="textItalic"> Again, <span class="textName textNudge">procMessenger</span> is a Work-in-Progress!
       <br>&nbsp;&nbsp; The Mobile App's GUI needs a major facelift... </span>

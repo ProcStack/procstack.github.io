@@ -1,6 +1,6 @@
 {
   "title": "Currents of War :: Unity Game",
-  "description": "Currents of War 2025\n    Engine - Unity\n    Languages - C#, HLSL, & Python for tools\n    A 'NPC Simulator' game made in Unity for the April 2025 itch.",
+  "description": "Currents of War 2025\n     A turn-based item-selling strategy game\n       Sell items to shift heroes' chances of winning in battle\n         Make a profit!\n\n    Languages - Unity - C#, HLSL;  Python for pipeline tools\n    \n     A 'NPC Simulator' game made in Unity for the April 2025 itch.",
   "lastModified": "2026-05-18",
   "media": [
     {

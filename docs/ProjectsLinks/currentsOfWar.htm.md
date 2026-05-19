@@ -2,15 +2,19 @@
 
 [Currents of War](https://store.steampowered.com/app/4072230/Currents_of_War/) 2025
     
-Engine - Unity
+ A turn-based item-selling strategy game
     
-Languages - C#, HLSL, & Python for tools
+   Sell items to shift heroes' chances of winning in battle
     
-A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie Game Clinic COLLAB JAM '25'
+     Make a profit!
+
+Languages - Unity - C#, HLSL;  Python for pipeline tools
+
+ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie Game Clinic COLLAB JAM '25'
     
    Since then, we've expanded it quite a bit!
 
-    You can play the older game jam submission for free in your browser,
+ You can play the older game jam submission for free in your browser,
     
    Check out the [Game Jam Release](https://procstack.itch.io/currentsofwar)
 
