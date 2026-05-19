@@ -76,15 +76,19 @@ export const pageListingData = {
   ],
   'content' : `
     <a href='https://store.steampowered.com/app/4072230/Currents_of_War/' class='procPagesRepoLinkStyle' target='_blank'>Currents of War</a> <span class="textDrinkMeAlice textItalic">2025</span>
-    <br><span class="textShrink textItalic textName ">Engine - <span class="textBold">Unity</span></span>
-    <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">C#, HLSL, & Python for tools</span></span>
-    <br><span class="textNudge">A 'NPC Simulator' game made in <span class="textName">Unity</span> for the April 2025 itch.io gamejam 'Indie Game Clinic COLLAB JAM '25'</span>
+    <br> <span class="textBump">A turn-based item-selling strategy game</span>
+    <br>&nbsp;&nbsp; Sell items to shift heroes' chances of winning in battle
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textItalic">Make a profit!
+
+    <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">Unity - C#, HLSL;  Python</span> for pipeline tools</span>
+    
+    <br><br> <span class="textNudge">A 'NPC Simulator' game made in <span class="textName">Unity</span> for the April 2025 itch.io gamejam 'Indie Game Clinic COLLAB JAM '25'</span>
     <br>&nbsp;&nbsp; Since then, we've expanded it quite a bit!
     <br> 
     
     <br><div class="pppHBar"></div>
 
-    You can play the older game jam submission for free in your browser,
+    <br> You can play the older game jam submission for free in your browser,
     <br>&nbsp;&nbsp; Check out the <a href='https://procstack.itch.io/currentsofwar' class='procPagesRepoLinkStyle' target='_blank'>Game Jam Release</a>
 
     <br><br> <span class="textBump">If you'd like to support us,</span>

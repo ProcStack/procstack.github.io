@@ -6,7 +6,9 @@
     
    With direct control from a mobile app on your phone
     
- Languages - Python, JavaScript, nodejs
+ Languages - Python, Java, JavaScript, nodejs
+
+  procMessenger is a Work-in-Progress! 
 
   Server + Client Network Messaging to perform taks;
     
@@ -19,8 +21,6 @@
    With allowed access to Whitelisted functions,
     
      Chat, Research, & Automation
-
-  procMessenger is a Work-in-Progress! 
 
       So, ya know how OpenClaw is this AI system that takes over your computer and deletes emails and reads private-keys and leaks them to the internet?
       
@@ -40,7 +40,7 @@
 
  Let's make sure it's through a script that can make API calls, rather than an AI running rampant on its own...
 
- Baby with a freaking hand grenade,
+      Baby with a freaking hand grenade,
       
    That's what OpenClaw is....
 
