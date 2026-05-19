@@ -17,6 +17,12 @@
     },
     {
       "type": "image",
+      "src": "../pages/projects/images/RabbitDruidA_Campfire.webp",
+      "alt": "This.Init's campfire scene",
+      "caption": "This.Init's campfire scene"
+    },
+    {
+      "type": "image",
       "src": "../pages/projects/images/RabbitDruidA_useThatPokinStick.webp",
       "alt": "Rabbit Druid's use that pokin' stick",
       "caption": "poke dah barrel... POKE DAH BARREL!"

@@ -251,6 +251,12 @@
 
 /* -- -- -- */
 
+.imgLimitWidth60{
+  max-width: 60%;
+}
+
+/* -- -- -- */
+
 .pppHBar{
   width: 100%;
   height: 1px;

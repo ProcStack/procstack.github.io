@@ -1,4 +1,4 @@
-const shemaData = {
+const shcemaData = {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
   "name": "Dwitter",
@@ -18,8 +18,8 @@ export const pageListingData = {
   'htmlName' : "Dwitter.htm",
   'name' : 'Dwitter<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: JS Golfing</span>',
   'title' : 'Dwitter',  
-  'lastModified' : '2025-02-24',
-  'schemaData' : shemaData,
+  'lastModified' : '2026-05-18',
+  'schemaData' : shcemaData,
   'description' : 'A collection of my code golfing projects on Dwitter.net',
   'keywords' : 'dwitter, code golf, javascript, procstack, procstack.github.io',
   'navGroup' : "The One'Offs",

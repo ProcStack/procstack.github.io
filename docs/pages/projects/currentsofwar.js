@@ -1,4 +1,4 @@
-const shemaData = {
+const shcemaData = {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
   "name": "Currents of War",
@@ -18,8 +18,8 @@ export const pageListingData = {
   'htmlName' : "currentsOfWar.htm",
   'name' : 'Currents of War<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: Unity Game</span>',
   'title' : 'Currents of War',
-  'lastModified' : '2025-06-19',
-  'schemaData' : shemaData,
+  'lastModified' : '2026-05-18',
+  'schemaData' : shcemaData,
   'description' : 'A NPC Simulator made in Unity for the April 2025 itch.io gamejam "Indie Game Clinic COLLAB JAM \'25"',
   'keywords' : 'currents of war, game jam, itch.io, indie game clinic, collab jam, 2025, unity, npc simulator',
   'navGroup' : 'Personal Projects',
