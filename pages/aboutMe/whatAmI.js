@@ -18,24 +18,22 @@ const shemaData = {
 //   Overflow Item list, when there is an Odd item count with a thin screen width
 //     FILL THE EMPTY SLOT!!
 function onResize( e ){
-  let listParent = document.getElementById('ppamSkillListParent')
-
-  let overflowList = document.getElementsByClassName('ppamOverflowListing')
-  console.log(overflowList)
+  let listParent = document.getElementById('ppamSkillListParent');
+  let overflowList = document.getElementsByClassName('ppamOverflowListing');
   
   if( !listParent || !overflowList.length ){
     return;
   }
 
-  const listItems = listParent.getElementsByClassName('ppamSkillListing')
+  const listItems = listParent.getElementsByClassName('ppamSkillListing');
   if( listItems.length == 0 ){
     return;
   }
 
-  const itemTop = listItems[0].getBoundingClientRect().top
+  const itemTop = listItems[0].getBoundingClientRect().top;
   let columnsPerRow = 1;
   for( let i=1; i<listItems.length; ++i ){
-    let curItemTop = listItems[i].getBoundingClientRect().top
+    let curItemTop = listItems[i].getBoundingClientRect().top;
     if( curItemTop == itemTop ){
       columnsPerRow += 1;
     }else{

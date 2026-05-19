@@ -1,0 +1,25 @@
+{
+  "title": "procMessenger :: Client Control",
+  "description": "procMessenger 2020\n    Home Network Device-to-Device Messaging System\n       With direct control from a mobile app on your phone\n     Languages - Python, JavaScript, nodejs\n    \n      Server + Client Network Messaging to perform taks;\n       Allowing mobile app controlled clients on the network  \n         Using a custom Protocol for WebSocket connected Clients \n\n      Local-LLM or API-Key LLM AI Integration\n       With allowed access to Whitelisted functions,\n         Chat, Research, & Automation\n\n      procMessenger is a Work-in-Progress! \n    \n     \n  \n    \n\n      So, ya know how OpenClaw is this AI system that takes over your computer and deletes emails and reads private-keys and leaks them to the internet?\n         Yeah, lets not do that.",
+  "lastModified": "2026-05-18",
+  "media": [
+    {
+      "type": "image",
+      "src": "../pages/projects/images/procMessenger_04_apkBuild.webp",
+      "alt": "Funky tree bark",
+      "caption": "Connect to Client scripts & programs from your Phone; Run scripts, such as the mobile app apk build script Then download the build through the file browser in the mobile app!"
+    },
+    {
+      "type": "image",
+      "src": "../pages/projects/images/procMessenger_01-02_llmGatherResearch.webp",
+      "alt": "Local LLM Gather Research",
+      "caption": "Gather Research refined and reviewed by Local-network LLM Then have a conversation about the results, including its own take on the info."
+    },
+    {
+      "type": "image",
+      "src": "../pages/projects/images/procMessenger_03_branchShredder.webp",
+      "alt": "Fungi on a log",
+      "caption": "Access a non-linear story builder BranchShredder Write stories or build networks of ideas and concepts in a graph view! All controllable from your phone"
+    }
+  ]
+}

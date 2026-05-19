@@ -1,7 +1,7 @@
 {
   "title": "Currents of War :: Unity Game",
-  "description": "Currents of War 2025\n    Engine - Unity\n    Languages - C#, some Python for tools\n    A 'NPC Simulator' game made in Unity for the April 2025 itch.",
-  "lastModified": "2025-06-19",
+  "description": "Currents of War 2025\n    Engine - Unity\n    Languages - C#, HLSL, & Python for tools\n    A 'NPC Simulator' game made in Unity for the April 2025 itch.",
+  "lastModified": "2026-05-18",
   "media": [
     {
       "type": "image",
@@ -11,9 +11,9 @@
     },
     {
       "type": "image",
-      "src": "../pages/projects/images/TechDev_CharacterColorAnim_DataTexture.webp",
+      "src": "../pages/projects/images/TechDev_characterColorAnim_dataNormal_sm.webp",
       "alt": "Character Color Animation Data Texture",
-      "caption": "Character Animation & Color Data Texture Each row is a different character type. Each column is a frame in the Idle, Walk, or Talk animation cycles."
+      "caption": "Character Color Data, Light Normals, & Animation Atlases Each row is a different armor/class type. Each column is a frame of Idle, Walk, or Talk animations."
     },
     {
       "type": "video",
