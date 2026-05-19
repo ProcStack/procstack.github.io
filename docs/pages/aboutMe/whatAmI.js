@@ -19,9 +19,11 @@ const shemaData = {
 //     FILL THE EMPTY SLOT!!
 function onResize( e ){
   let listParent = document.getElementById('ppamSkillListParent')
-  let overflowList = document.getElementById('ppamOverflowListing')
+
+  let overflowList = document.getElementsByClassName('ppamOverflowListing')
+  console.log(overflowList)
   
-  if( !listParent || !overflowList ){
+  if( !listParent || !overflowList.length ){
     return;
   }
 
@@ -41,11 +43,18 @@ function onResize( e ){
     }
   }
 
+
   // If it's an odd count, show the overflow item
   if( columnsPerRow % 2 == 1 ){ // Odd
-    overflowList.style.display = 'inherit'
+    for (let i = 0; i < overflowList.length; i++) {
+      overflowList[i].style.display = 'inherit';
+      console.log('Showing overflow item:', overflowList[i].id);
+    }
   }else{ // Even
-    overflowList.style.display = 'none'
+    for (let i = 0; i < overflowList.length; i++) {
+      overflowList[i].style.display = 'none';
+      console.log('Hiding overflow item:', overflowList[i].id);
+    }
   }
 
 }
@@ -83,10 +92,11 @@ export const pageListingData = {
 
       <span class="ppamSkillListing">Python</span>
       <span class="ppamSkillListing">PyQT</span>
-      <span class="ppamSkillListing">GLSL</span>
+      <span class="ppamSkillListing">GLSL<span class="textDrinkMeAlice">&nbsp;/&nbsp;</span>HLSL</span>
       <span class="ppamSkillListing">JavaScript</span>
 
-      <span class="ppamSkillListing" style="display:none" id="ppamOverflowListing">Nginx</span>
+      <span class="ppamSkillListing ppamOverflowListing" style="display:none" id="ppamOverflowListing_A">WebSocket</span>
+      <span class="ppamSkillListing ppamOverflowListing" style="display:none" id="ppamOverflowListing_B">Nginx</span>
 
     </div>
 

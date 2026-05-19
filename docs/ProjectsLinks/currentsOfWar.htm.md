@@ -4,7 +4,7 @@
     
 Engine - Unity
     
-Languages - C#, some Python for tools
+Languages - C#, HLSL, & Python for tools
     
 A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie Game Clinic COLLAB JAM '25'
     
@@ -52,13 +52,23 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
     
    To give some room for gags & chicanery!
 
- I drew up most of the shop assets & many items done in a single night,
+ No AI used in the creation of the art assets
+    
+   The Fish Armor is not for sale!
+
+ I drew up most of the shop assets & many items in a single night,
     
    Just had some [chiptune fusion](https://ex-lyd.bandcamp.com/album/till-sunrise) blasting and my huion screen-table going in photoshop.
     
      Yes... I realize my age, but old habbits!
     
-   Felt good getting into pixel art, I've never done much of it before.
+   The animations blocked in another night
+    
+     Everything in total, 3-4 days of art and asset prep for the game jam.
+    
+       Besides tonal tweaks && end screens
+    
+   Felt good getting into pixel art, I really haven't done much of it before.
     
      Was like my highschool photoshop exploration years all over again,
     
@@ -74,9 +84,25 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
     
    And used the Puppet Tool in After Effects to animate the idle breathe, walking, & talking cycles.
     
+     Puppeting each body part as Pre-Comps,
+    
+       Toggling Layer visibility of each armor type
+    
+         Animating 4 characters at once!
+    
+       [It's free Real Estate](https://www.youtube.com/watch?v=cd4-UnU8lWY)
+    
      Exporting in Draft mode to keep the pixel aliasing on the art.
     
-   After Effects let me quickly animate & adjust without drawing out each frame.
+   After Effects let me quickly animate & adjust without re-drawing each frame.
+
+    Made a tool in python to process a kernel around pixels in an image;
+    
+   Helping me make normal maps for the face, hair, & armor for the character's shader.
+    
+     So now I got a little B/W to Normal Map converter tool!
+    
+       Numpy feels like a super power sometimes...
 
  One of the challenges was making sure the character's displayed with custom colors for their hair, face, armor, gloves/boots, and leggings.
     
@@ -90,7 +116,7 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
     
      And have it update in real-time for easier character creation.
 
- Among other fun things like adding an animated cursor, outlines around items on hover, ui borders that auto size to the text and stay pixel perfect, among other things
+ Among other fun things like adding an animated cursor, outlines around items on hover, ui borders that auto size to the text and stay pixel perfect, etc.
 
     Give the game a try, it's a little game with some neat mechanics!
     
@@ -98,4 +124,4 @@ A 'NPC Simulator' game made in Unity for the April 2025 itch.io gamejam 'Indie G
 
 Play the [Game Jam Release](https://procstack.itch.io/currentsofwar) in your browser!
     
- Or support us with a purchase, [Currents of War!](https://ellipsis9.itch.io/currents-of-war)
+ Or support us with a purchase on [Steam](https://store.steampowered.com/app/4072230/Currents_of_War/) -or- [Itch.io](https://ellipsis9.itch.io/currents-of-war)

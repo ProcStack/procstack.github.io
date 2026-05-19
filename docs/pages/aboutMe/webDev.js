@@ -19,9 +19,10 @@ const shemaData = {
 //     FILL THE EMPTY SLOT!!
 function onResize( e ){
   let listParent = document.getElementById('ppamSkillListParent')
-  let overflowList = document.getElementById('ppamOverflowListing')
+  let overflowList = document.getElementsByClassName('ppamOverflowListing')
+  console.log(overflowList)
   
-  if( !listParent || !overflowList ){
+  if( !listParent || !overflowList.length ){
     return;
   }
 
@@ -43,9 +44,15 @@ function onResize( e ){
 
   // If it's an odd count, show the overflow item
   if( columnsPerRow % 2 == 1 ){ // Odd
-    overflowList.style.display = 'inherit'
+    for (let i = 0; i < overflowList.length; i++) {
+      overflowList[i].style.display = 'inherit';
+      console.log('Showing overflow item:', overflowList[i].id);
+    }
   }else{ // Even
-    overflowList.style.display = 'none'
+    for (let i = 0; i < overflowList.length; i++) {
+      overflowList[i].style.display = 'none';
+      console.log('Hiding overflow item:', overflowList[i].id);
+    }
   }
 
 }

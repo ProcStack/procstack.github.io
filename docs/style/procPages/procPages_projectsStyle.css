@@ -230,14 +230,22 @@
 }
 
 .codeAccentStyle{
-  color: #90ecff;
+  color: #a0e7f4;
   background-color: #5b7b994a;
   padding: 0px 2px;
   border-radius: 3px;
+  text-shadow: 2px 3px 4px rgba(9, 23, 36, 0.9)
 }
 
 .procPagesBgColor{
-  background-color: rgba(40, 122, 185, 0.30)
+  background-color: rgba(80, 145, 194, 0.2)
+}
+
+.procPagesThinText{
+  font-weight: 500;
+}
+.procPagesLightenText{
+  color: #c4f5fe;
 }
 
 

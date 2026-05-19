@@ -1108,6 +1108,9 @@ export class ProcPage {
             if( eventName == 'resize' ){
               // Trigger a resize event to ensure proper layout
               window.dispatchEvent( new Event('resize') );
+            }else if( eventName == 'load' ){
+              //trigger on load
+              window.dispatchEvent( new Event('load') );
             }
           }
         });
