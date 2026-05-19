@@ -77,7 +77,7 @@ export const pageListingData = {
   'content' : `
     <a href='https://store.steampowered.com/app/4072230/Currents_of_War/' class='procPagesRepoLinkStyle' target='_blank'>Currents of War</a> <span class="textDrinkMeAlice textItalic">2025</span>
     <br><span class="textShrink textItalic textName ">Engine - <span class="textBold">Unity</span></span>
-    <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">C#, some Python for tools</span></span>
+    <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">C#, HLSL, & Python for tools</span></span>
     <br><span class="textNudge">A 'NPC Simulator' game made in <span class="textName">Unity</span> for the April 2025 itch.io gamejam 'Indie Game Clinic COLLAB JAM '25'</span>
     <br>&nbsp;&nbsp; Since then, we've expanded it quite a bit!
     <br> 
@@ -120,13 +120,19 @@ export const pageListingData = {
     <br> I wanted to create a semi 'tacky' weapons shop for the style.
     <br>&nbsp;&nbsp; To give some room for gags & chicanery!
 
+    <br><br> <span class="textShrink textItalic">No AI used in the creation of the art assets</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">The Fish Armor is not for sale!</span>
+
     <br><div class='textSpacer'></div> 
     <br><div class="pppHBar"></div>
 
-    <br> I drew up most of the shop assets & many items done in a single night,
+    <br> I drew up most of the shop assets & many items in a single night,
     <br>&nbsp;&nbsp; Just had some <a href="https://ex-lyd.bandcamp.com/album/till-sunrise" target="_blank">chiptune fusion</a> blasting and my huion screen-table going in photoshop.
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Yes... I realize my age, but old habbits!
-    <br>&nbsp;&nbsp; Felt good getting into pixel art, I've never done much of it before.
+    <br>&nbsp;&nbsp; The animations blocked in another night
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Everything in total, 3-4 days of art and asset prep for the game jam.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Besides tonal tweaks && end screens
+    <br>&nbsp;&nbsp; Felt good getting into pixel art, I really haven't done much of it before.
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Was like my highschool photoshop exploration years all over again,
     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; But a new musician this time.
 
@@ -136,10 +142,22 @@ export const pageListingData = {
 
     <br><br><br> Then I isolated all the limbs & body parts of the characters on different layers in photoshop,
     <br>&nbsp;&nbsp; And used the <span class="textNudge">Puppet Tool</span> in <span class="textName">After Effects</span> to animate the idle breathe, walking, & talking cycles.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; Puppeting each body part as Pre-Comps,
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Toggling Layer visibility of each armor type
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Animating 4 characters at once!
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="textItalic textDrinkMeAlice"><a href="https://www.youtube.com/watch?v=cd4-UnU8lWY" target="_blank">It's free Real Estate</a></span>
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Exporting in Draft mode to keep the pixel aliasing on the art.
-    <br>&nbsp;&nbsp; <span class="textNudge">After Effects</span> let me quickly animate & adjust without drawing out each frame.
+    <br>&nbsp;&nbsp; <span class="textNudge">After Effects</span> let me quickly animate & adjust without re-drawing each frame.
 
     <div class='textSpacer'></div> 
+    <div class="pppHBar"></div>
+
+    Made a tool in python to process a kernel around pixels in an image;
+    <br>&nbsp;&nbsp; Helping me make normal maps for the face, hair, & armor for the character's shader.
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; So now I got a little B/W to Normal Map converter tool!
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="textName">Numpy</span> feels like a super power sometimes...
+
+    <br> <div class='textSpacer'></div> 
     <div class="pppHBar"></div>
 
     <br> One of the challenges was making sure the character's displayed with custom colors for their hair, face, armor, gloves/boots, and leggings.
@@ -152,7 +170,7 @@ export const pageListingData = {
     <div class='textSpacer'></div> 
     <br><div class="pppHBar"></div>
 
-    <br> Among other fun things like adding an animated cursor, outlines around items on hover, ui borders that auto size to the text and stay pixel perfect, among other things
+    <br> Among other fun things like adding an animated cursor, outlines around items on hover, ui borders that auto size to the text and stay pixel perfect, etc.
     
     <div class='textSpacer'></div> 
     <div class="pppHBar"></div>
@@ -161,7 +179,7 @@ export const pageListingData = {
     <br>&nbsp;&nbsp; Try to make as much money as you can off these heroes coming to your shop!
     <br>
     <br>Play the <a href='https://procstack.itch.io/currentsofwar' class='procPagesRepoLinkStyle' target='_blank'>Game Jam Release</a> in your browser!
-    <br> Or support us with a purchase, <a href='https://ellipsis9.itch.io/currents-of-war' class='procPagesRepoLinkStyle' target='_blank'>Currents of War!</a>
+    <br> Or support us with a purchase on <a href='https://store.steampowered.com/app/4072230/Currents_of_War/' class='procPagesRepoLinkStyle' target='_blank'>Steam</a> -or- <a href='https://ellipsis9.itch.io/currents-of-war' class='procPagesRepoLinkStyle' target='_blank'>Itch.io</a>
     <br>
     <br>
   `,

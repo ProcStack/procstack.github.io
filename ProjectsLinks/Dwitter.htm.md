@@ -56,15 +56,15 @@ Hmmm, see how messy that looks?
 
          x.arc( // Define a circle path to draw
       
-     j*4 + S(t*3+r) * r, // Horizontal movement 
+     j*4 + S( t*3+r ) * r, // Horizontal movement 
       
-     T(t)*r + r*5, // Vertical 'random' animation + perspective
+     T( t )*r + r*5, // Vertical 'random' animation + perspective
       
      S( t+=j&6 ) * r/5 + r,  // Make 'time' unique per + radius 
       
-     0,7), // Circle arc, draw a full circle
+     0, 7), // Circle arc, draw a full circle
     
-         x.fill(), // Draw the circle
+         x.fill(), // --- Draw the circle ---
 
          r>2 && (  // Stop making circles when r gets low enough
       
@@ -80,7 +80,7 @@ Hmmm, see how messy that looks?
 
       d( // Start Recursion 
       
-   w=(c.width=999)/2, // Sets resolution & X placement
+   w=( c.width=999 )/2, // Sets resolution & X placement
       
    600 // Circle generation count + seed 
       

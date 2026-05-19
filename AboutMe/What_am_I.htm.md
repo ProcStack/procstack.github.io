@@ -12,7 +12,7 @@ Technical Artist; particles, shaders, asset optimization, & pipeline
       GLSL
       JavaScript
 
-      Nginx
+      WebSocket
 
       New York Metropolitan Area
       [email](mailto:trancor@metal-asylum.net)

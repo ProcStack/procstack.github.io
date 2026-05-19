@@ -57,7 +57,7 @@ export const pageListingData = {
   'content' : `
     <a href='https://dwitter.net/u/trancor' class="textBump" target='_blank'>Dwitter</a> <span class="textDrinkMeAlice textItalic">2018+</span>
     <br><span class="textBump">My account on a JavaScript code golfing website</span>
-    <br><span class="textShrink textItalic textName ">Language - <span class="textBold">JavaScript</span></span>
+    <br><span class="textShrink procPagesThinText textItalic textName ">Language - <span class="textBold">JavaScript</span></span>
     <div class="pppHBar"></div>
     
     'Code Golfing' is the art of annoying your coworkers,
@@ -105,31 +105,31 @@ export const pageListingData = {
     <div class="textSpacer"></div>
 
     <div class="textInblockBox">
-      d=(j,r)=>{  <span class="codeAccentStyle">// Define 'd()' to call later vvv</span>
-      <br>&nbsp;&nbsp; x.beginPath(), <span class="codeAccentStyle">// Start a 'path' to draw</span>
+      d=(j,r)=>{  <span class="codeAccentStyle textShrink procPagesThinText">// Define 'd()' to call later vvv</span>
+      <br>&nbsp;&nbsp; x.beginPath(), <span class="codeAccentStyle textShrink procPagesThinText">// Start a 'path' to draw</span>
       
     <div class="textBox procPagesBgColor">
-      &nbsp;&nbsp; x.arc( <span class="codeAccentStyle">// Define a circle path to draw</span>
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; j*4 + S(t*3+r) * r, <span class="codeAccentStyle">// Horizontal movement</span> 
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; T(t)*r + r*5, <span class="codeAccentStyle">// Vertical 'random' animation + perspective</span>
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; S( t+=j&6 ) * r/5 + r,  <span class="codeAccentStyle">// Make 'time' unique per + radius </span>
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; 0,7), <span class="codeAccentStyle">// Circle arc, draw a full circle</span>
+      &nbsp;&nbsp; x.arc( <span class="codeAccentStyle textShrink procPagesThinText">// Define a circle path to draw</span>
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; j*4 + S( t*3+r ) * r, <span class="codeAccentStyle textShrink procPagesThinText">// Horizontal movement</span> 
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; T( t )*r + r*5, <span class="codeAccentStyle textShrink procPagesThinText">// Vertical 'random' animation + perspective</span>
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; S( t+=j&6 ) * r/5 + r,  <span class="codeAccentStyle textShrink procPagesThinText">// Make 'time' unique per + radius </span>
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; 0, 7), <span class="codeAccentStyle textShrink procPagesThinText">// Circle arc, draw a full circle</span>
     </div>
-      &nbsp;&nbsp; x.fill(), <span class="codeAccentStyle">// Draw the circle</span>
+      &nbsp;&nbsp; x.fill(), <span class="codeAccentStyle textBold procPagesLightenText">// --- Draw the circle ---</span>
       
     <div class="textBox procPagesBgColor">
-      &nbsp;&nbsp; r>2 && (  <span class="codeAccentStyle">// Stop making circles when r gets low enough</span>
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; r/=2, <span class="codeAccentStyle">// Divide r by 2</span>
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; d( j-r, r ), <span class="codeAccentStyle">// Run 1st child Recursion</span>
-      <br>&nbsp;&nbsp;&nbsp;&nbsp; d( j, r ) <span class="codeAccentStyle">// Run 2nd child Recursion </span>
+      &nbsp;&nbsp; r>2 && (  <span class="codeAccentStyle textShrink procPagesThinText">// Stop making circles when r gets low enough</span>
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; r/=2, <span class="codeAccentStyle textShrink procPagesThinText">// Divide r by 2</span>
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; d( j-r, r ), <span class="codeAccentStyle textShrink procPagesThinText">// Run 1st child Recursion</span>
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; d( j, r ) <span class="codeAccentStyle textShrink procPagesThinText">// Run 2nd child Recursion </span>
       <br>&nbsp;&nbsp; )
     </div>
        }
       
     <div class="textBox procPagesBgColor">
-      d( <span class="codeAccentStyle">// Start Recursion </span>
-      <br>&nbsp;&nbsp; w=(c.width=999)/2, <span class="codeAccentStyle">// Sets resolution & X placement</span>
-      <br>&nbsp;&nbsp; 600 <span class="codeAccentStyle">// Circle generation count + seed </span>
+      d( <span class="codeAccentStyle textShrink procPagesThinText">// Start Recursion </span>
+      <br>&nbsp;&nbsp; w=( c.width=999 )/2, <span class="codeAccentStyle textShrink procPagesThinText">// Sets resolution & X placement</span>
+      <br>&nbsp;&nbsp; 600 <span class="codeAccentStyle textShrink procPagesThinText">// Circle generation count + seed </span>
       <br> )
     </div>
 
