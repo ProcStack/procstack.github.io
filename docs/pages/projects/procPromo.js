@@ -18,7 +18,7 @@ export const pageListingData = {
   'htmlName' : "procPromo.htm",
   'name' : 'procPromo<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: Shader Pack</span>',
   'title' : 'procPromo :: Shader Pack',
-  'lastModified' : '2025-06-19',
+  'lastModified' : '2026-05-19',
   'schemaData' : shemaData,
   'description' : 'A Minecraft shader pack for Optifine & Iris',
   'keywords' : 'procPromo, shader pack, minecraft, optifine, iris, glsl,',
@@ -47,7 +47,7 @@ export const pageListingData = {
     },
   ],
   'content' : `
-    <a href='https://github.com/ProcStack/procPromo_ShaderPack' class='procPagesRepoLinkStyle' target='_blank'>procPromo Shader Pack</a> <span class="textDrinkMeAlice textItalic">2022-2025</span>
+    <a href='https://github.com/ProcStack/procPromo_ShaderPack' class='procPagesRepoLinkStyle' target='_blank'>procPromo Shader Pack</a> <span class="textDrinkMeAlice textItalic">2022-2026</span>
     <br><span class="textBump">A <span class="textName">Minecraft</span> shader pack for <span class="textName">Optifine</span> & <span class="textName">Iris</span></span>
     <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">GLSL 1.2, 3.3, & 4.5</span></span>
     <div class="pppHBar"></div>
