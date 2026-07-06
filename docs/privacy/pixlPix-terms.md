@@ -18,3 +18,8 @@ You retain all rights to the images you process using pxlPix. We claim no owners
 
 ### 5. Termination
 We may terminate your access to the app at any time without notice if you breach these terms.
+
+### 6. Contact
+If you have any questions regarding these terms, please contact us at:
+ - pxlpix@metal-asylum.net
+ 
