@@ -47,7 +47,7 @@ if(args.length > 0 ){
 app.use('/three', express.static(path.join(dirName, 'node_modules/three')));
 
 app.get("/", function(req,res){
-  res.redirect('/index.htm');
+  res.redirect('/index.html');
 });
 
 // Handle 404 errors by serving the 404.html file

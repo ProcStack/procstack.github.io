@@ -18,7 +18,7 @@
   </style>
 </head>
 <body>
-  <br>If you are not redirected automatically, follow this <a href="/index.htm" id="linkOut">link to ---</a>.
+  <br>If you are not redirected automatically, follow this <a href="/index.html" id="linkOut">link to ---</a>.
   <script>
     (()=>{
       let basePath = window.location.pathname;
@@ -28,7 +28,7 @@
         getData = getData.replace("?", "&");
       }
 
-      let redirectUrl = '/index.htm?redirect=' + basePath + getData;
+      let redirectUrl = '/index.html?redirect=' + basePath + getData;
       window.location.replace( redirectUrl );
 
       // -- -- --
