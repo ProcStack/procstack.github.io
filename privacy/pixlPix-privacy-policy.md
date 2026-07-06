@@ -25,5 +25,5 @@ Our service does not address anyone under the age of 13. We do not knowingly col
 We may update our Privacy Policy from time to time. You are advised to review this page periodically for any changes.
 
 ### 6. Contact Us
-If you have any questions about this Privacy Policy, please contact us.
+If you have any questions about this Privacy Policy, please contact us:
  - pxlpix@metal-asylum.net
