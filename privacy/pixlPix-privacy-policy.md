@@ -7,13 +7,13 @@ ProcStack ("we", "us", or "our") operates the pxlPix mobile application.
 ### 1. Information Collection and Use
 pxlPix is designed as an offline image processing tool. 
 
-*   **Images/Media:** The app requires access to your device's media gallery to load and save edited images. All image processing is performed **locally on your device**. We do not upload, transmit, or store your images on our servers.
+*   **Images/Media:** The app requires access to your device's media gallery and storage to load and save edited images. pxlPix can also receive images shared directly from other applications on your device using standard Android sharing mechanisms (e.g., "Open With" or "Share"). All image processing is performed **locally on your device**. We do not upload, transmit, or store your images on our servers.
 *   **Personal Data:** pxlPix does not require account registration and does not collect personal information such as names, email addresses, or phone numbers.
 
 ### 2. Permissions
 The app requests the following permissions:
-*   **READ_MEDIA_IMAGES / READ_EXTERNAL_STORAGE:** To allow you to select images for editing.
-*   **WRITE_EXTERNAL_STORAGE:** To allow you to save your edited creations.
+*   **READ_MEDIA_IMAGES:** To allow you to select images from your gallery and storage for editing.
+*   **Storage Access Framework:** The app uses the standard Android Storage Access Framework to save your edited creations securely without requiring broad storage write permissions.
 
 ### 3. Third-Party Services
 We do not use any third-party analytics, advertising, or tracking services in the current version of pxlPix.
