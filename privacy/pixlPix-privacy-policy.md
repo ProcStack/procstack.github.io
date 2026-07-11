@@ -12,7 +12,7 @@ pxlPix is designed as an offline image processing tool.
 
 ### 2. Permissions
 The app requests the following permissions:
-*   **READ_MEDIA_IMAGES:** To allow you to select images from your gallery and storage for editing.
+*   **Permissions:** We only request access to specific files you choose to edit via the system file picker. We do not require or request broad access to your photo library.
 *   **Storage Access Framework:** The app uses the standard Android Storage Access Framework to save your edited creations securely without requiring broad storage write permissions.
 
 ### 3. Third-Party Services
