@@ -72,17 +72,17 @@ export const pageListingData = {
     <br>&nbsp;&nbsp; Rather than a full drawing/painting editor like Pxlmancer.
 
     <br><br> <span class="textName">pxlPix</span> is a host to <span class="textNudge textBold">20</span> different <span class="textNudge">Effects</span>
-    <br>&nbsp;&nbsp; Tweak your colors with the basic brightness, contrast, saturation, hue, levels & color channel controls,
+    <br>&nbsp;&nbsp; Tweak your colors with the basic brightness, contrast, saturation, hue, levels, & color channel controls,
     <br>&nbsp;&nbsp; Stylize your image with kaleidoscopic effects, noise warping, vignettes, and more!
     
     <br><br> All displayed as layers in the app,
-    <br>&nbsp;&nbsp; Easily tap a layer to show the effect's options
-    <br>&nbsp;&nbsp; And drag a layer's 3 lines to reorder them.
+    <br>&nbsp;&nbsp; Easily tap a layer to show the effect's options,
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; And drag a layer's 3 lines to reorder them.
 
-    <br><br> Sporting over 100 font families for the text tool,
+    <br><br> Sporting over 100 font families for the <span class="textName">Text</span> tool,
     <br>&nbsp;&nbsp; With options like bending/arcing the text & outlines.
 
-    <br><br> Draw curves with easy to access editing modes,
+    <br><br> Draw curves with easy access editing modes,
     <br>&nbsp;&nbsp; Hit the 'Add' button & tap down points for your curve.
     <br>&nbsp;&nbsp; Set how the curve is drawn; linear, quadratic, or bezier.
     <br>&nbsp;&nbsp; And play with the curve width, blur, & blend mode to get the look you want!
@@ -96,14 +96,14 @@ export const pageListingData = {
 
     <br><br><div class="pppHBar"></div>
 
-    I've written a number of shaders as the effects that get ran in the app.
-    <br>&nbsp;&nbsp; I'm just chaining the effects together in the app,
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; So each layer can remember your settings and apply them to the image one by one.
+    I've written the shaders in AGSL as the effects that run in the app.
+    <br>&nbsp;&nbsp; I'm just chaining the shaders together,
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; So each layer can remember your settings and apply them to the image one-by-one.
     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Just passing the image along!
 
     <br><br><div class="pppHBar"></div>
 
-    So far I'm trying to get the free version of pxlPix approved for the Google Play Store, and then I'll be working on a paid version with more features!
+    So far I'm trying to get the free version of pxlPix approved for the Google Play Store, and then I'll be working on a paid Pro version with more features!
 
     <br><br> Currently, the Pro version has Fast Fourier Transform (FFT) support for altering the color/detail frequencies of an image.
     <br>&nbsp;&nbsp; Soon to have anything using multi-sampling,
