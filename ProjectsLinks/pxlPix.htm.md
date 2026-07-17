@@ -8,7 +8,7 @@ Languages - Kotlin & AGSL
 
     Currently in Closed Testing (Early Access) on Google Play Store!
     
-   Hopefully published soon and then I'll get to update this page with an app listing!
+   Hopefully published soon and then I get to update this page with an app listing!
 
 Some how I've made two image editor apps now...
     
