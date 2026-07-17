@@ -47,7 +47,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/AIDev.htm</loc>
-    <lastmod>2026-01-03</lastmod>
+    <lastmod>2026-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -271,7 +271,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/ProjectsLinks.htm</loc>
-    <lastmod>2026-02-02</lastmod>
+    <lastmod>2026-07-17</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -279,7 +279,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/ProjectsLinks/currentsOfWar.htm</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -287,7 +287,7 @@
   </url>
   <url>
     <loc>https://procstack.github.io/ProjectsLinks/Dwitter.htm</loc>
-    <lastmod>2025-02-24</lastmod>
+    <lastmod>2026-05-18</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -310,8 +310,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://procstack.github.io/ProjectsLinks/procMessenger.htm</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://procstack.github.io/ProjectsLinks/procPromo.htm</loc>
-    <lastmod>2025-06-19</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
@@ -335,6 +343,14 @@
   </url>
   <url>
     <loc>https://procstack.github.io/ProjectsLinks/Pxlmancer.htm</loc>
+    <lastmod>2025-02-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>https://procstack.github.io/images/ProcStack_th.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://procstack.github.io/ProjectsLinks/pxlPix.htm</loc>
     <lastmod>2025-02-24</lastmod>
     <changefreq>monthly</changefreq>
     <image:image>

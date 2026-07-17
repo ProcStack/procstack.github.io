@@ -23,6 +23,7 @@ export const pageListingData = {
   'description' : 'A photo filter camera web app. Use on phone!!',
   'keywords' : 'pxlCam, camera, photo filter, web app, javascript, three.js, glsl es, personal projects',
   'navGroup' : 'Personal Projects',
+  'navStyle' : ['hideOnMobile'],
   'media' : [
     {
       'type' : 'image',
