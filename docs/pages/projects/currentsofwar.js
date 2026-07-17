@@ -78,7 +78,7 @@ export const pageListingData = {
     <a href='https://store.steampowered.com/app/4072230/Currents_of_War/' class='procPagesRepoLinkStyle' target='_blank'>Currents of War</a> <span class="textDrinkMeAlice textItalic">2025</span>
     <br> <span class="textBump">A turn-based item-selling strategy game</span>
     <br>&nbsp;&nbsp; Sell items to shift heroes' chances of winning in battle
-    <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textItalic">Make a profit!
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class="textItalic">Make a profit!</span>
 
     <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">Unity - C#, HLSL;  Python</span> for pipeline tools</span>
     

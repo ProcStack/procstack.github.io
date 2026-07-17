@@ -5,6 +5,7 @@ import { pageListingData as cowData } from './projects/currentsofwar.js';
 import { pageListingData as psghioData } from './projects/procstackgithubio.js';
 import { pageListingData as procPromoData } from './projects/procPromo.js';
 import { pageListingData as pxlVisData } from './projects/pxlVisualizer.js';
+import { pageListingData as pxlPixData } from './projects/pxlPix.js';
 import { pageListingData as pxlmancerData } from './projects/pxlmancer.js';
 import { pageListingData as pxlTextGenData } from './projects/pxlTextGenerator.js';
 
@@ -77,6 +78,7 @@ const pageContentObject = {
         {'type':'spacer','height':'0px', 'style':['hideOnMobile']},
 
         cowData,
+        pxlPixData,
         pxlmancerData,
         procMessengerData,
         procPromoData,
