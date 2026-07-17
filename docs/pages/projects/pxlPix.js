@@ -16,8 +16,8 @@ const shemaData = {
 
 export const pageListingData = {
   'htmlName' : "pxlPix.htm",
-  'name' : 'pxlPix<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: Image Editor App</span>',
-  'title' : 'pxlPix :: Image & Photo Editor App',
+  'name' : 'pxlPix<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: Image Filter App</span>',
+  'title' : 'pxlPix :: Image & Photo Filter App',
   'lastModified' : '2025-02-24',
   'schemaData' : shemaData,
   'description' : 'An image & photo editor app for Android, written in Kotlin with AGSL shaders.',
@@ -61,7 +61,7 @@ export const pageListingData = {
     <div class="pppHBar"></div>
 
     Currently in <span class="textBump">Closed Testing </span><span class="textDrinkMeAlice">(Early Access)</span> on <span class="textNudge">Google Play Store</span>!
-    <br>&nbsp;&nbsp; Hopefully published soon and then I'll get to update this page with an app listing!
+    <br>&nbsp;&nbsp; Hopefully published soon and then I get to update this page with an app listing!
     
     <br><br><div class="pppHBar"></div>
 
