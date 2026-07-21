@@ -1,4 +1,4 @@
-# pxlPix :: Image Editor App
+# pxlPix :: Image Filter App
 
 pxlPix 2026
 
@@ -18,11 +18,11 @@ Some how I've made two image editor apps now...
     
    Rather than a full drawing/painting editor like Pxlmancer.
 
- pxlPix is a host to 20 different Effects
+ pxlPix is a host to 24 different Effects
     
    Tweak your colors with the basic brightness, contrast, saturation, hue, levels, & color channel controls,
     
-   Stylize your image with kaleidoscopic effects, noise warping, vignettes, and more!
+   Stylize your image with kaleidoscopic effects, noise warping, vignettes, pixelation, and more!
 
  All displayed as layers in the app,
     
@@ -30,7 +30,7 @@ Some how I've made two image editor apps now...
     
      And drag a layer's 3 lines to reorder them.
 
- Sporting over 100 font families for the <span class="textName">Text</span> tool,
+ Sporting 135 font families for the Text tool,
     
    With options like bending/arcing the text & outlines.
 
@@ -71,3 +71,53 @@ Some how I've made two image editor apps now...
      Laplacian pyramids for image blending and detail enhancement.
     
        And more!
+
+    Full list of shader effects in the free version of the app:
+
+   1 Brightness
+    
+   2 Contrast
+    
+   3 Saturation
+    
+   4 HSV
+    
+   5 Levels
+    
+   6 Color Mixer
+    
+   7 Invert
+    
+   8 Noise
+    
+   9 Gradient - Linear, Radial, or Fan
+    
+   10 Vignette
+    
+   11 Chromatic Aberration
+    
+   12 Emboss
+    
+   13 Blur - Gaussian, 2-Pass Box, or Directional
+    
+   14 Color Swizzle
+    
+   15 Edges
+    
+   16 Pixelate
+    
+   17 Kaleidoscope
+    
+   18 Glitch
+    
+   19 Curve
+    
+   20 Translate / Rotate / Scale
+    
+   21 Text
+    
+   22 Shape - Circle, Square, Triangle, Star, & more!
+    
+   23 Base Layer - Creates a new image
+    
+   24 Image Reshape - Resize your image

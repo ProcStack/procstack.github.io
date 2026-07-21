@@ -18,7 +18,7 @@ export const pageListingData = {
   'htmlName' : "pxlPix.htm",
   'name' : 'pxlPix<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: Image Filter App</span>',
   'title' : 'pxlPix :: Image & Photo Filter App',
-  'lastModified' : '2025-02-24',
+  'lastModified' : '2026-07-21',
   'schemaData' : shemaData,
   'description' : 'An image & photo editor app for Android, written in Kotlin with AGSL shaders.',
   'keywords' : 'pxlPix, image editor app, filter app, kotlin, agsl, personal projects',
@@ -44,7 +44,7 @@ export const pageListingData = {
       'src' : '../pages/projects/images/pxlPix_s01_effectsList.webp',
       'alt' : 'pxlPix effects list screenshot',
       'style' : 'procPagesImageStyle',
-      'caption' : ["With 20 effects to choose from!", "And more coming in the Pro version!"]
+      'caption' : ["With 24 effects to choose from!", "And more coming in the Pro version!"]
     },
     {
       'type' : 'image',
@@ -71,15 +71,15 @@ export const pageListingData = {
     <br><br> But this is more of an image filter app,
     <br>&nbsp;&nbsp; Rather than a full drawing/painting editor like Pxlmancer.
 
-    <br><br> <span class="textName">pxlPix</span> is a host to <span class="textNudge textBold">20</span> different <span class="textNudge">Effects</span>
+    <br> <span class="textName">pxlPix</span> is a host to <span class="textNudge textBold">24</span> different <span class="textNudge">Effects</span>
     <br>&nbsp;&nbsp; Tweak your colors with the basic brightness, contrast, saturation, hue, levels, & color channel controls,
-    <br>&nbsp;&nbsp; Stylize your image with kaleidoscopic effects, noise warping, vignettes, and more!
+    <br>&nbsp;&nbsp; Stylize your image with kaleidoscopic effects, noise warping, vignettes, pixelation, and more!
     
     <br><br> All displayed as layers in the app,
     <br>&nbsp;&nbsp; Easily tap a layer to show the effect's options,
     <br>&nbsp;&nbsp;&nbsp;&nbsp; And drag a layer's 3 lines to reorder them.
 
-    <br><br> Sporting over 100 font families for the <span class="textName">Text</span> tool,
+    <br><br> Sporting <span class="textNudge textBold">135</span> font families for the <span class="textName">Text</span> tool,
     <br>&nbsp;&nbsp; With options like bending/arcing the text & outlines.
 
     <br><br> Draw curves with easy access editing modes,
@@ -111,6 +111,36 @@ export const pageListingData = {
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Laplacian pyramids for image blending and detail enhancement.
     <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And more!
     
+    <br><br><div class="pppHBar"></div>
+
+    Full list of shader effects in the free version of the app:
+    
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">1 </span><span class="textBold textNudge">Brightness</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">2 </span><span class="textBold textNudge">Contrast</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">3 </span><span class="textBold textNudge">Saturation</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">4 </span><span class="textBold textNudge">HSV</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">5 </span><span class="textBold textNudge">Levels</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">6 </span><span class="textBold textNudge">Color Mixer</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">7 </span><span class="textBold textNudge">Invert</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">8 </span><span class="textBold textNudge">Noise</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">9 </span><span class="textBold textNudge">Gradient</span> - Linear, Radial, or Fan
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">10 </span><span class="textBold textNudge">Vignette</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">11 </span><span class="textBold textNudge">Chromatic Aberration</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">12 </span><span class="textBold textNudge">Emboss</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">13 </span><span class="textBold textNudge">Blur</span> - Gaussian, 2-Pass Box, or Directional
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">14 </span><span class="textBold textNudge">Color Swizzle</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">15 </span><span class="textBold textNudge">Edges</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">16 </span><span class="textBold textNudge">Pixelate</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">17 </span><span class="textBold textNudge">Kaleidoscope</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">18 </span><span class="textBold textNudge">Glitch</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">19 </span><span class="textBold textNudge">Curve</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">20 </span><span class="textBold textNudge">Translate / Rotate / Scale</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">21 </span><span class="textBold textNudge">Text</span>
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">22 </span><span class="textBold textNudge">Shape</span> - Circle, Square, Triangle, Star, & more!
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">23 </span><span class="textBold textNudge">Base Layer</span> - Creates a new image
+    <br>&nbsp;&nbsp; <span class="textDrinkMeAlice textItalic">24 </span><span class="textBold textNudge">Image Reshape</span> - Resize your image
+
+
     <br><br> 
   `,
 };
