@@ -1,7 +1,7 @@
 {
   "title": "pxlPix :: Image Filter App",
   "description": "pxlPix 2026\n    An image & photo editing app for Android.",
-  "lastModified": "2025-02-24",
+  "lastModified": "2026-07-21",
   "media": [
     {
       "type": "image",
@@ -19,7 +19,7 @@
       "type": "image",
       "src": "../pages/projects/images/pxlPix_s01_effectsList.webp",
       "alt": "pxlPix effects list screenshot",
-      "caption": "With 20 effects to choose from! And more coming in the Pro version!"
+      "caption": "With 24 effects to choose from! And more coming in the Pro version!"
     },
     {
       "type": "image",
