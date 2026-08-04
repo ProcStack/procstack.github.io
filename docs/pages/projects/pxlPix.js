@@ -143,4 +143,27 @@ export const pageListingData = {
 
     <br><br> 
   `,
+  'linkedIn' : `
+Need some desktop level image editing power on your phone?
+PxlPix has you covered with a wide range of image effects, text, and shape tools to help you create the perfect image!
+Need to tweak some colors, add some noise, pixelate your image, or turn it kaleidoscopic? PxlPix has you covered!
+
+
+Over the last several weeks, I've built & published my first mobile app to the Google Play Store, named 'pxlPix'!
+Inspired by layer based editors; easily add image effects, text, and shapes with options you can tweak at your leisure.
+In this initial version, pick from 24 different effects, 11 different shapes, 135 font families for your text, and more!
+
+PxlPix shows up in your system's "open with" menu for quick access to open your images,
+Save Presets to quickly apply your favorite effects to your images,
+And then share your creation to your favorite social media platform, messenger, or save it to your device!
+
+Built in Kotlin using AGSL shaders for the effects, I used hardware acceleration to create the effect visuals;
+Allowing me to create a wide range of image manipulation & distortion effects using the power of the GPU on your device.
+It's still being worked on, the icons need upgrades, but the app is live and available for free on the Google Play Store!
+
+My inspiration to create this app?
+In the past I've made a number of different camera-filter websites,
+So I figured, why not just make a mobile app for it?
+Plus, Kotlin seems pretty useful to learn.
+  `,
 };
