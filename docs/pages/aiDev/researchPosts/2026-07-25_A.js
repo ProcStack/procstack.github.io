@@ -88,12 +88,11 @@ entryData.body = `
 <br><br> And just like muscle bound steroids, the growth is fleeting if not measured and understood long term.
 
 <br><br> Now to figure out if this constant micro-expression reading & interpretation is also part of some neurodivergence.
-<br>&nbsp;&nbsp; It confuses me when women complain about men not having emotional intelligence,
-<br>&nbsp;&nbsp;&nbsp;&nbsp; When I can't turn it off...
 <br>&nbsp;&nbsp; I don't play poker anymore...
 
 
   <br><br><div class="textFullRight">- July 25th 2026</div>
+  <div class="textFullRight"> & August 4th 2026</div>
 `;
 
 const blogEntryObj = new blogEntry(null, entryData);
