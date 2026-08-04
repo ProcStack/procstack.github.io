@@ -1,4 +1,4 @@
-# Baby with a Hand Granade
+# Hyper-Focused
 
 I'm an armchair AI researcher at best!
       

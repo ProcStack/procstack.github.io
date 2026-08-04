@@ -1,4 +1,4 @@
-# Baby with a Hand Granade
+# A Fault
 
 I'm an armchair AI researcher at best!
       

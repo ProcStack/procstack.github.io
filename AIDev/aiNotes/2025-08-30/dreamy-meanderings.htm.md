@@ -13,3 +13,7 @@ Tap the Entry Title above to open the Blog Entry List.
 No LLMs here.
       
 These are my own rambly-ass thoughts.
+
+If you are Autistic or ADHD,
+      
+Try Bionic Reading mode; it may help you read faster.

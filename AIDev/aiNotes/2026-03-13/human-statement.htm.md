@@ -1,4 +1,4 @@
-# Baby with a Hand Granade
+# Human Statement
 
 I'm an armchair AI researcher at best!
       

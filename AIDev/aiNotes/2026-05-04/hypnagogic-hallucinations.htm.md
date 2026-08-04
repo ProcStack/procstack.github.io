@@ -1,4 +1,4 @@
-# Baby with a Hand Granade
+# Hypnagogic Hallucinations
 
 I'm an armchair AI researcher at best!
       
