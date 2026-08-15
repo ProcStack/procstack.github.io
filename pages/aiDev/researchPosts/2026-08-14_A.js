@@ -41,7 +41,9 @@ entryData.body = `
   
   <br><br> So Conan didn't need to say anything.
   <br>&nbsp;&nbsp; He didn't need to engage further.
-  <br>&nbsp;&nbsp; He saw what Bill was going through mentally, and knew the crowds were going to fillet him alive online, beyond just the Comedians out there.
+  <br>&nbsp;&nbsp; He saw what Bill was going through mentally,
+  <br>&nbsp;&nbsp;&nbsp;&nbsp; And knew the crowds were going to fillet him alive online, 
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Beyond just the Comedians out there.
 
   <br><br> Am I projecting?
   <br>&nbsp;&nbsp; Maybe...
@@ -59,7 +61,7 @@ entryData.body = `
   <br>&nbsp;&nbsp;&nbsp;&nbsp; Well... If we know them personally, we usually try.
   <br>&nbsp;&nbsp; But then comes someone who
   <br>&nbsp;&nbsp;&nbsp;&nbsp; "Should have known better"
-  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Or "he has a responsibility with his platform"
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Or "has a responsibility with his platform"
 
   <br><br> Morals are so hard to pin down,
   <br>&nbsp;&nbsp; Whether you believe in Absolute or Relativistic Morals,
