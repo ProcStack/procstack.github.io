@@ -75,7 +75,7 @@ entryData.body = `
   <br>&nbsp;&nbsp; Our perception that others will then judge us for complacency if we don't bring up even the lack of response,
   <br>&nbsp;&nbsp;&nbsp;&nbsp; Regardless of the issue being caused by someone else entirely.
 
-  <br><br> So, are we just moral grandstanding here?
+  <br><br> Are we just moral grandstanding here?
 
   <br><br><br><div class='procPagesAIDevBar'></div>
 
