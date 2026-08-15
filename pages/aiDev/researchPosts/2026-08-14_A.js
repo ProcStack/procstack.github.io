@@ -128,12 +128,13 @@ entryData.body = `
 
   <br><br> To perceive an issue,
   <br>&nbsp;&nbsp; Understand the capabilities of self,
-  <br>&nbsp;&nbsp;&nbsp;&nbsp; Find where things can be addressed using those capabilities,
-  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And act!
+  <br>&nbsp;&nbsp;&nbsp;&nbsp; Find things to address using those capabilities,
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Plan, interfere, and evaluate,
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Act!
 
   <br><br> Like the Temperature float value in generative ai,
   <br>&nbsp;&nbsp; The interplay of emotional frequencies is just the next step.
-
+  
   <br><br><div class="textFullRight">- August 14th 2026</div>
 `;
 
