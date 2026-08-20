@@ -52,20 +52,22 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     this.sceneFile = this.assetPath+"SaltFlatsEnvironment.fbx";
     this.sceneMobileFile = this.assetPath+"SaltFlatsEnvironment_mobile.fbx";
     this.animInitCycle = "Walk";
-
+    
     // Animation Source & Clips are managed under the hood,
     //   So you only need to set your rig, animations, and connections in one room.
     // Current issue, re-imports will re-read the file from disk/url,
     //   But wont overwrite the data if it exists from a prior Room's load.
     this.animRigName = "RabbitDruidASalt";
     this.animSource = {};
-
+    
     this.animMixer = null;
     
     this.materialList={};
     this.particleList={};
     
+    this.tau = 3.141592653589793238462643383 * 2;
     
+    this.pxlCamera = null;
     this.pxlCamFOV={ 'PC':40, 'MOBILE':80 };
     this.pxlCamZoom=1;
     this.pxlCamAspect=1;
@@ -84,7 +86,28 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     this.eyeBlinkNext = 0;
     this.eyeBlinkAnim = 0;
     this.eyeBlinkRate = 0;
+
+    this.inspectBlend = new Vector2(0,0);
+    this.inspectRunTime = new Vector2(0,0);
+    this.texelRatio = new Vector2(0,0);
+    this.inspectController = null;
+    this.inspectorBasePos = null;
+    this.inspectMarkerPos = new Vector3();
+    this.inspectorInitialTrigger = false;
+    this.inspectMode = false;
+    this.inspectToMode = false;
+    this.inspectTransition = false;
+    this.inspectBlendStartTime = 0;
+    this.inspectDuration = 1.5;
+    this.inspectInitialTransition = 0;
   }
+
+  setDependencies( pxlNav ){
+    this.pxlCamera = pxlNav.pxlCamera;
+    this.texelRatio.set( 1/pxlNav.pxlDevice.sW, 1/pxlNav.pxlDevice.sH );
+    super.setDependencies( pxlNav );
+  }
+
   init(){
     super.init();
 
@@ -150,6 +173,8 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
       }
     }
 
+    this.stepInspector();
+
   }
   
   // -- -- --
@@ -180,6 +205,113 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     }
     
     curMesh.morphTargetInfluences[0] = this.eyeBlinkInf.x;
+  }
+
+  // -- -- --
+
+    prepInspectMode( curMesh ){
+      this.inspectController = curMesh.parent;
+      /*this.inspectorBasePos = this.inspectController.position.clone();
+      this.inspectController.basePos = this.inspectorBasePos.clone();
+      console.log(curMesh)
+      setTimeout(()=>{
+        console.log(this.inspectController.matrixWorld.elements)
+        console.log(this.inspectController.matrix[12],this.inspectController.matrix[13],this.inspectController.matrix[14])
+      },100);
+      console.log(curMesh.matrixWorld.elements)
+      console.log(this.inspectController.matrixWorld.elements)
+      console.log(this.inspectController.matrix[12],this.inspectController.matrix[13],this.inspectController.matrix[14])
+      console.log(this.inspectorBasePos)*/
+      this.setInspectMarkerPos();
+    }
+    
+    setInspectMarkerPos(){
+      let targetInspectPos = new Vector3();
+      targetInspectPos.x = 105;
+      targetInspectPos.y = 14;
+
+      let screenRatio = this.pxlDevice.sW / this.pxlDevice.sH;
+      targetInspectPos.z =  2.0 + 3.00 * (screenRatio*screenRatio);
+
+
+
+      this.inspectMarkerPos.copy( targetInspectPos );
+    }
+
+    checkInspectTransition(){
+      if( !this.inspectController ) return;
+
+      if( this.inspectorBasePos === null ){
+        let inspectBasePos = this.inspectController.position.clone();
+        if( inspectBasePos.x !== 0 || inspectBasePos.y !== 0 || inspectBasePos.z !== 0 ){
+          this.inspectorBasePos = this.inspectController.position.clone();
+        }else{
+          return;
+        }
+        
+      }
+
+      this.inspectRunTime.x = (this.pxlTimer.curMS - this.inspectBlend.y)*.65;
+
+      this.inspectMode = false;
+      if( this.inspectTransition ){
+        let timeOffset = this.inspectBlend.y + this.inspectDuration;
+        if( timeOffset < this.pxlTimer.curMS){
+          this.inspectTransition = false;
+          this.inspectMode = this.inspectToMode;
+          this.inspectBlend.x = this.inspectMode ? 1 : 0;
+
+          let targetPos = this.inspectMode ? this.inspectMarkerPos : this.inspectorBasePos;
+          this.inspectController.position.copy( targetPos );
+          
+          if( !this.inspectToMode ){
+            this.inspectController.rotation.y = 0 ;
+          }
+        }else{
+          let inspectProgress = Math.max(0.0, (this.pxlTimer.curMS - this.inspectBlendStartTime -.3) / this.inspectDuration );
+          inspectProgress = Math.min(1, Math.max(0, inspectProgress ));
+          this.inspectBlend.x = this.inspectToMode ? inspectProgress : 1 - inspectProgress;
+          
+          let targetPos = new Vector3().copy( this.inspectController.position );
+          let blendPos = this.inspectToMode ? this.inspectMarkerPos : this.inspectorBasePos;
+          targetPos.lerp( blendPos, inspectProgress );
+          this.inspectController.position.copy( targetPos );
+
+          if( !this.inspectToMode ){
+            this.inspectController.rotation.y *= 1 - inspectProgress  ;
+          }
+        }
+
+      }
+    }
+
+    checkInspectorUpdate(){
+      if( !this.inspectTransition && this.inspectMode ){
+        this.inspectController.position.copy( this.inspectMarkerPos );
+      }
+    }
+
+
+    stepInspector(){
+      if( this.pxlDevice.mobile || !this.inspectController ) return;
+
+      if( this.inspectToMode ){
+        let inspectProgress = (this.pxlTimer.curMS - this.inspectBlendStartTime) * .5 - .1;
+        inspectProgress = inspectProgress % this.tau;
+        inspectProgress += Math.sin( inspectProgress + Math.PI*.5 ) * .65 * this.inspectBlend.x;
+        this.inspectController.rotation.y = inspectProgress ;
+      }
+
+      this.checkInspectTransition();
+    }
+
+  // -- -- --
+
+  resize( sw, sh){
+    this.setInspectMarkerPos();
+    this.checkInspectorUpdate();
+    this.texelRatio.set( 1/this.pxlDevice.sW, 1/this.pxlDevice.sH );
+    super.resize( sw, sh );
   }
 
   // -- -- --
@@ -293,11 +425,15 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
       let newSkinnedMtl = this.setSkinnedMaterial( curMesh, rabbitDruidVert(), rabbitDruidFrag() );
       this.materialList[ "RabbitDruidA" ] = newSkinnedMtl;
     }
+    
+    this.prepInspectMode( curMesh );
+
   }
   
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- //
   
+  // Modified for inspect blend based on user interaction --
   setSkinnedMaterial( bindObj, vertShader=null, fragShader=null ){
 
     let skinnedMtlUniforms = UniformsUtils.merge(
@@ -308,15 +444,23 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
           'diffuseTexture' : { type:'t', value: null },
           'areTexture' : { type:'t', value: null },
           'noiseTexture' : { type:'t', value: null },
+          'edgeTexture' : { type:'t', value: null },
           'mult': { type:'f', value:1 },
+          'inspectBlend' : { type:'v2', value: new Vector2(0,0) },
+          'inspectRunner' : { type:'v2', value: new Vector2(0,0) },
+          'texelRatio' : { type:'v2', value: new Vector2(0,0) }
         }
       ]
     );
 
     skinnedMtlUniforms.diffuseTexture.value = bindObj.material.map;
     skinnedMtlUniforms.areTexture.value = this.pxlUtils.loadTexture( this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/RabbitDruidA_lowRes_ARE.webp" );
+    skinnedMtlUniforms.edgeTexture.value = this.pxlUtils.loadTexture( this.pxlOptions.pxlAssetRoot+"/RabbitDruidA/rabbitDruidA_lowRes_edges.webp" );
     skinnedMtlUniforms.noiseTexture.value = this.cloud3dTexture;
     skinnedMtlUniforms.noiseTexture.value = this.cloud3dTexture;
+
+    skinnedMtlUniforms.inspectBlend.value = this.inspectBlend;
+    skinnedMtlUniforms.inspectRunner.value = this.inspectRunTime;
 
     let skinnedMaterial = this.pxlFile.pxlShaderBuilder( skinnedMtlUniforms, vertShader, fragShader );
     skinnedMaterial.skinning = true;
@@ -416,9 +560,47 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
         
     return this.pxlFile.loadRoomFBX( this );
     
-    // -- -- -- -- -- -- -- -- -- -- -- -- -- //
-    
   }
     
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- //
+
+  subPageChange( page ){
+    if( page.hasOwnProperty("page") && page.page === "procstack.github.io.htm" ){
+      this.setInspectMode(true);
+    } else {
+      this.setInspectMode(false);
+    }
+  };
+
+  // Trigger Inspect transition
+  //   When transition completes, this.inspectionMode is set
+  //     Updated in `step()`
+  setInspectMode( active ){
+    if( this.inspectToMode === active ) return;
+
+    // Pre-runtime trigger
+    //   Hold off tween until pxlNav is booted
+    if( !this.pxlAnim || !this.pxlTimer ){
+      this.inspectorInitialTrigger = active;
+      return;
+    }
+
+    if( this.inspectController == null ){
+      if( this.pxlAnim.hasClip( this.animRigName, this.animInitCycle ) ){
+        let rdMesh = this.pxlAnim.getMesh( this.animRigName );
+        this.prepInspectMode( rdMesh );
+      }
+    }
+
+    this.inspectToMode = active;
+    this.inspectTransition = true;
+    this.inspectBlendStartTime = this.pxlTimer.curMS;
+    this.inspectInitialTransition = this.inspectBlend.x;
+    this.inspectBlend.y = this.pxlTimer.curMS;
+  }
+
+  bootListener( boot ){
+    this.setInspectMode( this.inspectorInitialTrigger );
+  }
     
 }

@@ -6,6 +6,8 @@
   justify-items: center;
   z-index: 4;
   overflow: hidden;
+  translate: 0px 0px;
+  transition: translate 0.5s ease;
 }
 
 .gitProjectsPageStyle a{
@@ -135,6 +137,7 @@
                     radial-gradient(150% 75% ellipse at bottom, rgba(59, 81, 107, 0.9), rgba(59, 81, 107, 0.65));
   pointer-events: auto;
   overflow: hidden;
+  transition: width 0.5s ease ;
 }
 
 .gitProjectsPageParentStyle a{
@@ -263,4 +266,14 @@
   max-width: 540px;
   margin: 7px 0px 12px 0px;
   background: linear-gradient(90deg, rgba(86, 150, 172, 0) 0%, rgba(81, 189, 255, 0.25) 25%, rgba(112, 155, 179, 0.4) 5%, rgba(109, 143, 171, 0) 100%);
+}
+
+/* -- -- -- */
+
+.projectsPage_thisProjectBlockStyle {
+  translate: 12vw 0px;
+}
+
+.projectsPage_thisProjectContentStyle {
+  max-width: min(70vw, 1600px);
 }
