@@ -100,6 +100,26 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     this.inspectBlendStartTime = 0;
     this.inspectDuration = 1.5;
     this.inspectInitialTransition = 0;
+
+
+    this.touchMouseData={
+      'active':false,
+      'lock':false,
+      'mode':0,
+      'updated':0,
+      'button':0,
+      'dragCount':0,
+      'dragTotal':0,
+      'startTime':0,
+      'startRot':0,
+      'startPos':null, //vec2
+      'endPos':null, //  [x,y] 
+      'curDistance':new Vector2(0,0), //vec2
+      'curFadeOut':new Vector2(0,0), //vec2
+      'releaseTime':0,
+    };
+
+
   }
 
   setDependencies( pxlNav ){
@@ -149,7 +169,80 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     if( hasScripted && this.geoList["Scripted"].hasOwnProperty("pokinStick_geo") ){
       this.geoList["Scripted"]["pokinStick_geo"].visible = false;
     }
+
+    let coreCanvas = document.getElementById(this.pxlDevice.pxlCore);
+    
+    coreCanvas.addEventListener("mousedown", (e)=>{ this.mapOnDown(e); }, false);
+    coreCanvas.addEventListener("mousemove", (e)=>{ this.mapOnMove(e); }, false);
+    coreCanvas.addEventListener("mouseup", (e)=>{ this.mapOnUp(e); }, false);
   }
+
+  stop(){
+    let coreCanvas = document.getElementById(this.pxlDevice.pxlCore);
+    coreCanvas.removeEventListener("mousedown", (e)=>{ this.mapOnDown(e); }, false);
+    coreCanvas.removeEventListener("mousemove", (e)=>{ this.mapOnMove(e); }, false);
+    coreCanvas.removeEventListener("mouseup", (e)=>{ this.mapOnUp(e); }, false);
+  }
+
+  // -- -- -- -- -- -- -- --
+
+
+  mapOnDown(e){
+    //let target= e.path ? e.path[0] : e.target; // Chrome or Firefox
+    if( this.pxlTimer.active ){
+      this.touchMouseData.button=e.which;
+      this.touchMouseData.active=true;
+      this.touchMouseData.mode=this.touchMouseData.button;
+      this.touchMouseData.startPos=new Vector2(this.pxlDevice.mouseX,this.pxlDevice.mouseY);
+      this.touchMouseData.endPos=new Vector2(this.pxlDevice.mouseX,this.pxlDevice.mouseY);
+      this.touchMouseData.curDistance=new Vector2(0,0);
+      this.touchMouseData.dragCount=0;
+      this.touchMouseData.startTime=this.pxlTimer.curMS;
+      this.touchMouseData.startRot=this.inspectController.rotation.y;
+      this.pxlDevice.setCursor("grabbing");
+      this.pxlDevice.mapLockCursor(true, e.button);
+    }
+  }
+  mapOnMove(e){
+    if( this.pxlTimer.active || this.pxlDevice.cursorLockActive){
+      this.pxlDevice.getMouseXY(e);
+      if((this.touchMouseData.active || this.pxlDevice.cursorLockActive) && this.touchMouseData.startPos ){
+        this.touchMouseData.dragCount++;
+        let xyDeltaTemp=this.touchMouseData.endPos.clone();
+        this.touchMouseData.endPos=new Vector2(this.pxlDevice.mouseX,this.pxlDevice.mouseY);
+        this.touchMouseData.curDistance= this.touchMouseData.startPos.clone().sub(this.touchMouseData.endPos) ;
+        
+        this.touchMouseData.curFadeOut.add( xyDeltaTemp.sub(this.touchMouseData.endPos)  );
+      }
+    }
+  }
+  mapOnUp(e){
+    
+    this.touchMouseData.dragCount++;
+    this.touchMouseData.dragTotal+=this.touchMouseData.dragCount;
+    this.touchMouseData.active=false;
+    this.touchMouseData.releaseTime=this.pxlTimer.curMS;
+    
+    this.touchMouseData.endPos=new Vector2(this.pxlDevice.mouseX,this.pxlDevice.mouseY);
+    
+    let timeOffset = 0;
+    if( this.touchMouseData.active ){
+      //console.log(this.touchMouseData.curDistance)
+      timeOffset = this.pxlTimer.curMS - this.touchMouseData.startTime;
+    }
+    
+    //this.inspectController.rotation.y = this.touchMouseData.startRot + this.touchMouseData.curDistance.x*.02 ;
+    this.inspectController.rotation.y = this.inspectController.rotation.y % this.tau;
+    this.inspectBlendStartTime += timeOffset;
+    this.inspectStartTime = this.pxlTimer.curMS - this.inspectController.rotation.y;
+
+    this.pxlDevice.setCursor("grab");
+    this.pxlDevice.mapLockCursor(false, e.button);
+
+    return false;
+  }
+
+  // -- -- -- -- -- -- -- --
 
   // Per-Frame Render updates
   step(){
@@ -157,7 +250,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
     // When the Druid Rabbit finishes loading, we'll step the animation here
     //   Cycle changes occur here as well.
-    if(this.animMixer){
+    if( this.animMixer ){
       this.pxlAnim.step( this.animRigName );
       this.checkEyeBlink();
     }
@@ -234,7 +327,6 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
       targetInspectPos.z =  2.0 + 3.00 * (screenRatio*screenRatio);
 
 
-
       this.inspectMarkerPos.copy( targetInspectPos );
     }
 
@@ -251,7 +343,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
         
       }
 
-      this.inspectRunTime.x = (this.pxlTimer.curMS - this.inspectBlend.y)*.65;
+      this.inspectRunTime.x = (this.pxlTimer.curMS - this.inspectBlend.y)*.5 -.2;
 
       this.inspectMode = false;
       if( this.inspectTransition ){
@@ -268,7 +360,10 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
             this.inspectController.rotation.y = 0 ;
           }
         }else{
-          let inspectProgress = Math.max(0.0, (this.pxlTimer.curMS - this.inspectBlendStartTime -.3) / this.inspectDuration );
+          let inspectProgress = (this.pxlTimer.curMS - this.inspectBlendStartTime ) / this.inspectDuration ;
+          if( !this.inspectToMode ){
+            this.inspectController.rotation.y *= 1 - inspectProgress  ;
+          }
           inspectProgress = Math.min(1, Math.max(0, inspectProgress ));
           this.inspectBlend.x = this.inspectToMode ? inspectProgress : 1 - inspectProgress;
           
@@ -277,9 +372,6 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
           targetPos.lerp( blendPos, inspectProgress );
           this.inspectController.position.copy( targetPos );
 
-          if( !this.inspectToMode ){
-            this.inspectController.rotation.y *= 1 - inspectProgress  ;
-          }
         }
 
       }
@@ -295,11 +387,21 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     stepInspector(){
       if( this.pxlDevice.mobile || !this.inspectController ) return;
 
-      if( this.inspectToMode ){
+      if( this.touchMouseData.active ){
+        //this.inspectController.rotation.y -= this.touchMouseData.velocity.x*.1 ;
+        this.inspectController.rotation.y = this.touchMouseData.startRot + this.touchMouseData.curDistance.x*.02 ;
+      }else if( this.inspectToMode ){
+        this.touchMouseData.curDistance.x *= 0.92;
+        let offsetDist = this.touchMouseData.curDistance.x * 0.02;
+
+
         let inspectProgress = (this.pxlTimer.curMS - this.inspectBlendStartTime) * .5 - .1;
         inspectProgress = inspectProgress % this.tau;
-        inspectProgress += Math.sin( inspectProgress + Math.PI*.5 ) * .65 * this.inspectBlend.x;
-        this.inspectController.rotation.y = inspectProgress ;
+        let sinOffset = Math.sin( inspectProgress + Math.PI*.5 + .25 ) ;
+        let biasValue = 1.0 - (1.0 - sinOffset) * (1.0 - sinOffset*.5);
+        //sinOffset = sinOffset * Math.max(0, sinOffset) * Math.max(0, sinOffset);
+        inspectProgress += (biasValue*.48-.05) * this.inspectBlend.x;
+        this.inspectController.rotation.y = inspectProgress + offsetDist;
       }
 
       this.checkInspectTransition();
