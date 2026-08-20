@@ -199,24 +199,24 @@ export function rabbitDruidVert(){
         float waveBlend = fract(max(0.0,(ssuv.x-ssuv.y + relTime + lightEnvCdInf.r*.07 + depth*.15 + ((snCd.y-0.5)*snCd.z*0.03) )))*7.0;
         float difBlend = min(1.0,waveBlend);
         float aBlend = min(1.0,max(0.0,waveBlend-2.0)*7.0);
-        float dBlend = min(1.0,max(0.0,waveBlend-3.0)*7.0);
-        float eBlend = min(1.0,max(0.0,waveBlend-4.0)*7.0);
+        float eBlend = min(1.0,max(0.0,waveBlend-3.0)*7.0);
+        float dBlend = min(1.0,max(0.0,waveBlend-4.0)*7.0);
         float nBlend = min(1.0,max(0.0,waveBlend-5.0)*7.0);
         float lBlend = min(1.0,max(0.0,waveBlend-6.0)*7.0);
         
         // Tighten the gray blending values
         aBlend = biasOne( aBlend*aBlend );
-        dBlend = biasOne( dBlend*dBlend );
         eBlend = biasOne( eBlend*eBlend );
+        dBlend = biasOne( dBlend*dBlend );
         nBlend = biasOne( nBlend*nBlend );
         lBlend = biasOne( lBlend*lBlend );
         
-        // Blend base Albedo & A(O)RM
-        areCd.r = max(0.0, areCd.r-areCd.b );
-        vec3 waveCd = mix( diffCd.xyz, areCd.rgb, dBlend );
-        
         // Blend in Edges
-        waveCd = mix( waveCd, edgeCd.rgb, eBlend );
+        areCd.r = max(0.0, areCd.r-areCd.b );
+        vec3 waveCd = mix( diffCd.xyz, edgeCd.rgb, eBlend );
+        
+        // Blend base Albedo & A(O)RM
+        waveCd = mix( waveCd, areCd.rgb, dBlend );
 
         // Blend in Normal
         waveCd = mix( waveCd, abs(vN), nBlend );
