@@ -644,6 +644,7 @@ export class ProcPage {
     this.subPagePath = subPath;
 
     let pageContent = document.createElement('div');
+    pageContent.id = this.idPrefix + this.page + "_Block" ;
     
     pageContent.classList.add("gpcpVisibleStyle");
     pageContent.classList.add('procPagesContentStyle');
@@ -1096,6 +1097,25 @@ export class ProcPage {
     });
 
 
+    
+    // -- -- --
+    
+    // Apply Overrides
+    //   Todo Figure out a Mobile-PC switch
+    if( !this.isMobile && this.sectionData[ sectionName ].hasOwnProperty('styleOverrides') ){
+      // Iterate page css overrides and remove them to allow for the new page's styles, if they exist
+      let curOverrides = this.sectionData[ sectionName ]["styleOverrides"];
+      let overrideKeys = Object.keys( curOverrides );
+      overrideKeys.forEach( (key)=>{
+        let curObj = document.getElementById( key );
+        if( curObj && curOverrides.hasOwnProperty( key ) && !curObj.classList.contains( curOverrides[key] ) ){
+          curObj.classList.add( curOverrides[key] );
+        }
+      });
+    }
+
+    // -- -- --
+
     // Connect any per-page callbacks
     //   Callbacks should be { 'eventName' : function(){} }
     if( this.sectionData[ sectionName ].hasOwnProperty('callbacks') ){
@@ -1117,6 +1137,11 @@ export class ProcPage {
       }
     }
 
+    this.emitPageChangeData( sectionName );
+
+  }
+
+  emitPageChangeData( sectionName ){
     // Gather Callback Emit Data
 
     let curSection = this.sectionData[ sectionName ];
@@ -1175,6 +1200,21 @@ export class ProcPage {
     });
 
     this.stopSectionMedia( sectionName );
+
+    // -- -- --
+    
+    // Remove Overrides
+    if( this.sectionData[ sectionName ].hasOwnProperty('styleOverrides') ){
+      // Iterate page css overrides and remove them to allow for the new page's styles, if they exist
+      let curOverrides = this.sectionData[ sectionName ]["styleOverrides"];
+      let overrideKeys = Object.keys( curOverrides );
+      overrideKeys.forEach( (key)=>{
+        let curObj = document.getElementById( key );
+        if( curObj && curOverrides.hasOwnProperty( key ) && curObj.classList.contains( curOverrides[key] ) ){
+          curObj.classList.remove( curOverrides[key] );
+        }
+      });
+    }
 
     // -- -- --
 

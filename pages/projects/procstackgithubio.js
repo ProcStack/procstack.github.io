@@ -23,6 +23,10 @@ export const pageListingData = {
   'description' : 'The source code for this site, procstack.github.io',
   'keywords' : 'procstack, procstack.github.io, javascript, pxlNav, pages system, personal projects',
   'navGroup' : 'Repos to Check Out',
+  'styleOverrides' : {
+    'pxlPage_ProjectsLinks_Block' : 'projectsPage_thisProjectBlockStyle',
+    'pxlPage_ProjectsLinks' : 'projectsPage_thisProjectContentStyle'
+  },
   'media' : [
     {
       'type' : 'image',

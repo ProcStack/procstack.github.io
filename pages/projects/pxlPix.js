@@ -60,8 +60,8 @@ export const pageListingData = {
     <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">Kotlin & AGSL</span></span>
     <div class="pppHBar"></div>
 
-    Currently in <span class="textBump">Closed Testing </span><span class="textDrinkMeAlice">(Early Access)</span> on <span class="textNudge">Google Play Store</span>!
-    <br>&nbsp;&nbsp; Hopefully published soon and then I get to update this page with an app listing!
+    Check it out on your android device -
+    <br><a href="https://play.google.com/store/apps/details?id=com.procstack.pxlpix.free" target="_blank" class="textLink"><span class="textBump textBold">pxlPix</span> on <span class="textBold">Google Play Store</span></a>
     
     <br><br><div class="pppHBar"></div>
 

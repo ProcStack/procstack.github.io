@@ -6,9 +6,9 @@ pxlPix 2026
     
 Languages - Kotlin & AGSL
 
-    Currently in Closed Testing (Early Access) on Google Play Store!
+    Check it out on your android device -
     
-   Hopefully published soon and then I get to update this page with an app listing!
+[pxlPix on Google Play Store](https://play.google.com/store/apps/details?id=com.procstack.pxlpix.free)
 
 Some how I've made two image editor apps now...
     

@@ -253,6 +253,22 @@ procPages.bindTriggerEmits( pxlNavEnv.trigger.bind(pxlNavEnv) );
 
 // -- -- --
 
+// Custom Bind Trigger
+//   In `procPages` - Subsribing to a page listens to subPage changes
+//     For - ` ProjectsLinks/procstack.github.io.htm `
+//   I wanted to have the rabbit druid move closer to the camera for a better view
+//     So I'm passing the page changes to the salt flats room to detect which subPage is currently active
+if( pageListing.hasOwnProperty('ProjectsLinks') ){
+  // Listen to subpage changes
+  pageListing['ProjectsLinks'].subscribe( SaltFlatsRoom.subPageChange.bind(SaltFlatsRoom) );
+
+  // Trigger initial tween
+  SaltFlatsRoom.subPageChange( { 'page' : pageListing['ProjectsLinks']['currentPageUrl'] } );
+  pxlNavEnv.subscribe( "booted", SaltFlatsRoom.bootListener.bind(SaltFlatsRoom) );
+}
+
+// -- -- --
+
 // Check uri search for `show fps`
 if( showFPS ){
   let verboseConsole = document.getElementById('verbErrorConsole');
