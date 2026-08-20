@@ -744,6 +744,7 @@ export class ProcPage {
       let pageSectionList = document.createElement('nav');
       pageSectionList.setAttribute('role', 'navigation');
       pageSectionList.setAttribute('aria-label', 'Page sections');
+      pageSectionList.classList.add('gitProjectsPageScrollbarStyle');
       
       if( this.layout == 'triple' ){
         pageSectionList.classList.add('procPageSectionList');

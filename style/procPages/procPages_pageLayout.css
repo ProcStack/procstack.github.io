@@ -333,7 +333,7 @@
     grid-auto-flow: row;
     align-content: baseline;
     justify-self: baseline;
-    grid-gap: 4px;
+    grid-gap: 2px;
     margin-right: 2px;
     height: auto;
     max-width: var(--procPage-width);
