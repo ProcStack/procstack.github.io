@@ -275,5 +275,5 @@
 }
 
 .projectsPage_thisProjectContentStyle {
-  max-width: min(70vw, 1600px);
+  width: min(70vw, 1600px);
 }
