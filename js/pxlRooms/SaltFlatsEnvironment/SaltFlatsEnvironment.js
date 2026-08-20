@@ -227,11 +227,9 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     
     let timeOffset = 0;
     if( this.touchMouseData.active ){
-      //console.log(this.touchMouseData.curDistance)
       timeOffset = this.pxlTimer.curMS - this.touchMouseData.startTime;
     }
     
-    //this.inspectController.rotation.y = this.touchMouseData.startRot + this.touchMouseData.curDistance.x*.02 ;
     this.inspectController.rotation.y = this.inspectController.rotation.y % this.tau;
     this.inspectBlendStartTime += timeOffset;
     this.inspectStartTime = this.pxlTimer.curMS - this.inspectController.rotation.y;
@@ -324,7 +322,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
       targetInspectPos.y = 14;
 
       let screenRatio = this.pxlDevice.sW / this.pxlDevice.sH;
-      targetInspectPos.z =  2.0 + 3.00 * (screenRatio*screenRatio);
+      targetInspectPos.z =  2.1 + 3.00 * (screenRatio*screenRatio);
 
 
       this.inspectMarkerPos.copy( targetInspectPos );
@@ -389,10 +387,10 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
       if( this.touchMouseData.active ){
         //this.inspectController.rotation.y -= this.touchMouseData.velocity.x*.1 ;
-        this.inspectController.rotation.y = this.touchMouseData.startRot + this.touchMouseData.curDistance.x*.02 ;
+        this.inspectController.rotation.y = this.touchMouseData.startRot - this.touchMouseData.curDistance.x*.02 ;
       }else if( this.inspectToMode ){
         this.touchMouseData.curDistance.x *= 0.92;
-        let offsetDist = this.touchMouseData.curDistance.x * 0.02;
+        let offsetDist = -this.touchMouseData.curDistance.x * 0.02;
 
 
         let inspectProgress = (this.pxlTimer.curMS - this.inspectBlendStartTime) * .5 - .1;
