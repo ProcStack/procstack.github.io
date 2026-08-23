@@ -31,7 +31,10 @@ import {
   LinearSRGBColorSpace,
   SRGBColorSpace,
   FrontSide,
-  DoubleSide
+  DoubleSide,
+  SphereGeometry,
+  MeshBasicMaterial,
+  Mesh
 } from "three";
 
 import { RoomEnvironment, pxlEffects } from "pxlNav";
@@ -119,6 +122,25 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
       'releaseTime':0,
     };
 
+    // Calculated Camera Space NDC locations
+    //   Updated on Resize
+    this.toRadians = Math.PI / 180;
+    this.ndcPositions = {
+      'inspectorPosition': {
+        basePosition: new Vector3( -0.662, -.6, 28 ),
+        ndcPosition: null
+      },
+      'leftHoodooPosition': {
+        basePosition: new Vector3( -.9, 0.5, 200 ),
+        ndcPosition: null
+      },
+      'rightHoodooPosition': {
+        basePosition: new Vector3( .9, 0.5, 200 ),
+        ndcPosition: null
+      },
+    };
+
+    this.precalculations = {};
 
   }
 
@@ -175,6 +197,8 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     coreCanvas.addEventListener("mousedown", (e)=>{ this.mapOnDown(e); }, false);
     coreCanvas.addEventListener("mousemove", (e)=>{ this.mapOnMove(e); }, false);
     coreCanvas.addEventListener("mouseup", (e)=>{ this.mapOnUp(e); }, false);
+
+    setTimeout(()=>{ this.setCameraSpaceNDC(); }, 0);
   }
 
   stop(){
@@ -182,6 +206,97 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     coreCanvas.removeEventListener("mousedown", (e)=>{ this.mapOnDown(e); }, false);
     coreCanvas.removeEventListener("mousemove", (e)=>{ this.mapOnMove(e); }, false);
     coreCanvas.removeEventListener("mouseup", (e)=>{ this.mapOnUp(e); }, false);
+  }
+
+  // -- -- -- -- -- -- -- --
+
+  preCalculateCameraData( sw=null, sh=null ){
+    if( sw===null ) sw = this.pxlDevice.sW || window.innerWidth;
+    if( sh===null ) sh = this.pxlDevice.sH || window.innerHeight;
+
+    // Pre-calculate half-height for the current camera FOV
+    let camera = this.pxlCamera.camera;
+    let fov = camera.fov * this.toRadians; // Convert to radians
+    this.precalculations["fovTanHalfHeight_"+fov] = Math.tan( fov * 0.5 ); // Using a default depth of 150
+
+    this.texelRatio.set( 1/sw, 1/sh );
+
+    // Let the camera resolve, wait to next update
+    setTimeout(()=>{
+      this.setCameraSpaceNDC( sw, sh );
+      this.setInspectMarkerPos();
+      this.checkInspectorUpdate();
+    }, 0);
+  }
+
+  // Find Camera Space positions to place specific objects in the scene
+  setCameraSpaceNDC( sw=null, sh=null ){
+    if( sw===null ) sw = this.pxlDevice.sW || window.innerWidth;
+    if( sh===null ) sh = this.pxlDevice.sH || window.innerHeight;
+
+    let aspect = sw / sh;
+    // Using Three.js PerspectiveCamera - this.pxlCamera.camera
+    let camera = this.pxlCamera.camera;
+    let fov = camera.fov * this.toRadians; // Convert to radians
+
+    // Offsets in camera space -- ( x: -1 left to 1 right, y: -1 bottom to 1 top, z: distance from camera in units )
+    //   Tweak these while testing marker placements
+    let leftHoodooOffset = this.ndcPositions.leftHoodooPosition.basePosition.clone();
+    let rightHoodooOffset = this.ndcPositions.rightHoodooPosition.basePosition.clone();
+    let inspectOffset = this.ndcPositions.inspectorPosition.basePosition.clone();
+
+    // Find Left and Right Hoodoo locations
+    // Left Hoodoo Position
+    this.ndcPositions.leftHoodooPosition.ndcPosition = this.cameraOffsetToWorld( camera, fov, aspect, leftHoodooOffset );
+
+    // Right Hoodoo Position
+    this.ndcPositions.rightHoodooPosition.ndcPosition = this.cameraOffsetToWorld( camera, fov, aspect, rightHoodooOffset );
+
+    // Inspect Rabbit Druid Position
+    this.ndcPositions.inspectorPosition.ndcPosition = this.cameraOffsetToWorld( camera, fov, aspect, inspectOffset );
+
+    //this.debugPlaceMarkers();
+  }
+
+
+  cameraOffsetToWorld( camera, fov, aspect, offset ){
+    let depth = Math.abs( offset.z );
+    let tanHalfFov = 0;
+
+    if( this.precalculations.hasOwnProperty("fovTanHalfHeight_"+fov)){
+      tanHalfFov = this.precalculations["fovTanHalfHeight_"+fov];
+    }else{
+      tanHalfFov = Math.tan( fov * 0.5 );
+      this.precalculations["fovTanHalfHeight_"+fov] = tanHalfFov;
+    }
+
+    // Actual half-height/width of the frustum at this depth
+    let halfHeight = depth * tanHalfFov;
+    let halfWidth = halfHeight * aspect;
+
+    let localPos = new Vector3( offset.x * halfWidth, offset.y * halfHeight, -depth );
+    return camera.localToWorld( localPos );
+  }
+
+  // Temp visual markers to verify calculated NDC placements in-scene
+  debugPlaceMarkers(){
+    if( !this.scene ) return;
+
+    let markerColors = { 'leftHoodooPosition':0xff0000, 'rightHoodooPosition':0x0000ff, 'inspectorPosition':0x00ff00 };
+    let markerGeo = null;
+
+    for( let key in this.ndcPositions ){
+      let entry = this.ndcPositions[key];
+      if( !entry.ndcPosition ) continue;
+
+      if( !entry.marker ){
+        if( !markerGeo ) markerGeo = new SphereGeometry( 5, 12, 12 );
+        entry.marker = new Mesh( markerGeo, new MeshBasicMaterial( { color:markerColors[key] } ) );
+        this.scene.add( entry.marker );
+      }
+
+      entry.marker.position.copy( entry.ndcPosition );
+    }
   }
 
   // -- -- -- -- -- -- -- --
@@ -313,18 +428,27 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
       console.log(this.inspectController.matrixWorld.elements)
       console.log(this.inspectController.matrix[12],this.inspectController.matrix[13],this.inspectController.matrix[14])
       console.log(this.inspectorBasePos)*/
+      this.setCameraSpaceNDC( this.pxlDevice.sW, this.pxlDevice.sH );
       this.setInspectMarkerPos();
     }
     
     setInspectMarkerPos(){
+      this.inspectMarkerPos.copy( this.ndcPositions.inspectorPosition.ndcPosition );
+      return;
       let targetInspectPos = new Vector3();
       targetInspectPos.x = 105;
       targetInspectPos.y = 14;
 
-      let screenRatio = this.pxlDevice.sW / this.pxlDevice.sH;
-      targetInspectPos.z =  2.1 + 3.00 * (screenRatio*screenRatio);
+      let screenRatio = 0;// this.pxlDevice.sW / this.pxlDevice.sH;
 
-
+      // Use predetermined position if it exists
+      //   It should exist, but who knows, maybe the environment doesn't load propperly or changes in the future.
+      if( this.ndcPositions.inspectorPosition.ndcPosition ){
+        targetInspectPos.copy( this.ndcPositions.inspectorPosition.ndcPosition );
+      }else{
+        screenRatio = this.pxlDevice.sW / this.pxlDevice.sH;
+        targetInspectPos.z =  2.1 + 3.00 * (screenRatio*screenRatio);
+      }
       this.inspectMarkerPos.copy( targetInspectPos );
     }
 
@@ -351,7 +475,8 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
           this.inspectMode = this.inspectToMode;
           this.inspectBlend.x = this.inspectMode ? 1 : 0;
 
-          let targetPos = this.inspectMode ? this.inspectMarkerPos : this.inspectorBasePos;
+          //let targetPos = this.inspectMode ? this.inspectMarkerPos : this.inspectorBasePos;
+          let targetPos = this.inspectMode ? this.ndcPositions.inspectorPosition.ndcPosition : this.inspectorBasePos;
           this.inspectController.position.copy( targetPos );
           
           if( !this.inspectToMode ){
@@ -366,18 +491,18 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
           this.inspectBlend.x = this.inspectToMode ? inspectProgress : 1 - inspectProgress;
           
           let targetPos = new Vector3().copy( this.inspectController.position );
-          let blendPos = this.inspectToMode ? this.inspectMarkerPos : this.inspectorBasePos;
+          //let blendPos = this.inspectToMode ? this.inspectMarkerPos : this.inspectorBasePos;
+          let blendPos = this.inspectToMode ? this.ndcPositions.inspectorPosition.ndcPosition : this.inspectorBasePos;
           targetPos.lerp( blendPos, inspectProgress );
           this.inspectController.position.copy( targetPos );
-
         }
-
       }
     }
 
     checkInspectorUpdate(){
       if( !this.inspectTransition && this.inspectMode ){
-        this.inspectController.position.copy( this.inspectMarkerPos );
+        //this.inspectController.position.copy( this.inspectMarkerPos );
+        this.inspectController.position.copy( this.ndcPositions.inspectorPosition.ndcPosition );
       }
     }
 
@@ -408,9 +533,12 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
   // -- -- --
 
   resize( sw, sh){
-    this.setInspectMarkerPos();
-    this.checkInspectorUpdate();
-    this.texelRatio.set( 1/this.pxlDevice.sW, 1/this.pxlDevice.sH );
+    this.preCalculateCameraData( sw, sh);
+    if( this.inspectToMode && this.inspectController && this.ndcPositions.inspectorPosition.ndcPosition ){
+      setTimeout(()=>{
+        this.inspectController.position.copy( this.ndcPositions.inspectorPosition.ndcPosition );
+      });
+    }
     super.resize( sw, sh );
   }
 
