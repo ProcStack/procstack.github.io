@@ -41,7 +41,8 @@ import { RoomEnvironment, pxlEffects } from "pxlNav";
 
 import { rabbitDruidVert, rabbitDruidFrag,
          envGroundVert, envGroundFrag,
-         salioaPlantVert, salioaPlantFrag
+         salioaPlantVert, salioaPlantFrag,
+         hoodooVert, hoodooFrag
  } from "./Shaders.js";
 
 const FloatingDust = pxlEffects.pxlParticles.FloatingDust;
@@ -104,6 +105,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     this.inspectDuration = 1.5;
     this.inspectInitialTransition = 0;
 
+    this.initialHoodooSet = false;
 
     this.touchMouseData={
       'active':false,
@@ -131,11 +133,11 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
         ndcPosition: null
       },
       'leftHoodooPosition': {
-        basePosition: new Vector3( -.9, 0.5, 200 ),
+        basePosition: new Vector3( -.83, 0.47, 165 ),
         ndcPosition: null
       },
       'rightHoodooPosition': {
-        basePosition: new Vector3( .9, 0.5, 200 ),
+        basePosition: new Vector3( .73, 0.47, 165 ),
         ndcPosition: null
       },
     };
@@ -199,6 +201,15 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     coreCanvas.addEventListener("mouseup", (e)=>{ this.mapOnUp(e); }, false);
 
     setTimeout(()=>{ this.setCameraSpaceNDC(); }, 0);
+
+    if( !this.initialHoodooSet ){
+      setTimeout(() => {
+        this.updateHoodooPositions();
+        this.geoList["Scripted"]["Hoodoo_Left_geo"].updateMatrix();
+        this.geoList["Scripted"]["Hoodoo_Right_geo"].updateMatrix();
+      }, 10 );
+      this.initialHoodooSet = true;
+    }
   }
 
   stop(){
@@ -304,6 +315,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
   mapOnDown(e){
     //let target= e.path ? e.path[0] : e.target; // Chrome or Firefox
+    if ( !this.inspectToMode ) return false;
     if( this.pxlTimer.active ){
       this.touchMouseData.button=e.which;
       this.touchMouseData.active=true;
@@ -319,6 +331,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     }
   }
   mapOnMove(e){
+    if ( !this.inspectToMode ) return false;
     if( this.pxlTimer.active || this.pxlDevice.cursorLockActive){
       this.pxlDevice.getMouseXY(e);
       if((this.touchMouseData.active || this.pxlDevice.cursorLockActive) && this.touchMouseData.startPos ){
@@ -332,6 +345,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     }
   }
   mapOnUp(e){
+    if ( !this.inspectToMode ) return false;
     
     this.touchMouseData.dragCount++;
     this.touchMouseData.dragTotal+=this.touchMouseData.dragCount;
@@ -411,6 +425,21 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     }
     
     curMesh.morphTargetInfluences[0] = this.eyeBlinkInf.x;
+  }
+
+  // -- -- --
+
+  updateHoodooPositions(){
+    if( this.geoList["Scripted"]?.hasOwnProperty( "Hoodoo_Left_geo" ) && this.ndcPositions.leftHoodooPosition.ndcPosition ){
+      let locPos = this.ndcPositions.leftHoodooPosition.ndcPosition.clone();
+      this.geoList["Scripted"]["Hoodoo_Left_geo"].position.copy( locPos );
+      this.geoList["Scripted"]["Hoodoo_Left_geo"].updateMatrix();
+    }
+    if( this.geoList["Scripted"]?.hasOwnProperty( "Hoodoo_Right_geo" ) && this.ndcPositions.rightHoodooPosition.ndcPosition ){
+      let locPos = this.ndcPositions.rightHoodooPosition.ndcPosition.clone();
+      this.geoList["Scripted"]["Hoodoo_Right_geo"].position.copy( locPos );
+      this.geoList["Scripted"]["Hoodoo_Right_geo"].updateMatrix();
+    }
   }
 
   // -- -- --
@@ -537,6 +566,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     if( this.inspectToMode && this.inspectController && this.ndcPositions.inspectorPosition.ndcPosition ){
       setTimeout(()=>{
         this.inspectController.position.copy( this.ndcPositions.inspectorPosition.ndcPosition );
+        this.updateHoodooPositions();
       });
     }
     super.resize( sw, sh );
@@ -616,6 +646,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
       }
     }
+
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -737,6 +768,40 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     envGroundUniforms.noiseTexture.value = this.pxlUtils.loadTexture( "Noise_UniformWebbing.jpg" );
     envGroundUniforms.smoothNoiseTexture.value = this.pxlUtils.loadTexture( "Noise_Soft3d.jpg", null, textureOptionsRepeat );
     
+    // -- -- --
+    
+    let hoodooLeftUniforms = UniformsUtils.merge(
+      [
+        UniformsLib[ "lights" ],
+        {
+          'cloudTexture' : { type:'t', value: this.cloud3dTexture },
+          'fogColor' : { type: "c", value: this.fogColor },
+        }]
+      )
+      let hoodooLeftMtl=this.pxlFile.pxlShaderBuilder( hoodooLeftUniforms, hoodooVert(), hoodooFrag() );
+      hoodooLeftMtl.lights= true;
+      
+      this.materialList[ "Hoodoo_Left_geo" ]=hoodooLeftMtl;
+      
+    // -- -- --
+
+    let hoodooRightUniforms = UniformsUtils.merge(
+      [
+        UniformsLib[ "lights" ],
+        {
+          'cloudTexture' : { type:'t', value: this.cloud3dTexture },
+          'fogColor' : { type: "c", value: this.fogColor },
+        }]
+      )
+      let hoodooRightMtl=this.pxlFile.pxlShaderBuilder( hoodooRightUniforms, hoodooVert(), hoodooFrag() );
+      hoodooRightMtl.lights= true;
+      
+      this.materialList[ "Hoodoo_Right_geo" ]=hoodooRightMtl;
+      
+
+
+
+      
     // No need for normal maps on mobile
     //   Just wasted resources with little pay off
     let enableNormalMap = !this.mobile;
