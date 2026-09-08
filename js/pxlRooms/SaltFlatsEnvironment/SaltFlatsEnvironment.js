@@ -130,14 +130,22 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     this.ndcPositions = {
       'inspectorPosition': {
         basePosition: new Vector3( -0.662, -.6, 28 ),
+        basePositionMobile: new Vector3( -0.662, -.6, 28 ),
+        ndcPosition: null
+      },
+      'walkingPathPosition': {
+        basePosition: new Vector3( 0, 0, 0 ),
+        basePositionMobile: new Vector3( 0, 0, 0 ),
         ndcPosition: null
       },
       'leftHoodooPosition': {
-        basePosition: new Vector3( -.83, 0.47, 165 ),
+        basePosition: new Vector3( -.9, 0.47, 165 ),
+        basePositionMobile: new Vector3( -.9, 0.65, 165 ),
         ndcPosition: null
       },
       'rightHoodooPosition': {
-        basePosition: new Vector3( .73, 0.47, 165 ),
+        basePosition: new Vector3( .8, 0.47, 165 ),
+        basePositionMobile: new Vector3( .8, 0.65, 165 ),
         ndcPosition: null
       },
     };
@@ -237,6 +245,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
       this.setCameraSpaceNDC( sw, sh );
       this.setInspectMarkerPos();
       this.checkInspectorUpdate();
+      this.updateHoodooPositions();
     }, 0);
   }
 
@@ -252,9 +261,16 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
     // Offsets in camera space -- ( x: -1 left to 1 right, y: -1 bottom to 1 top, z: distance from camera in units )
     //   Tweak these while testing marker placements
-    let leftHoodooOffset = this.ndcPositions.leftHoodooPosition.basePosition.clone();
-    let rightHoodooOffset = this.ndcPositions.rightHoodooPosition.basePosition.clone();
-    let inspectOffset = this.ndcPositions.inspectorPosition.basePosition.clone();
+    let leftHoodooOffset, rightHoodooOffset, inspectOffset;
+    if( this.mobile ){
+      leftHoodooOffset = this.ndcPositions.leftHoodooPosition.basePositionMobile.clone();
+      rightHoodooOffset = this.ndcPositions.rightHoodooPosition.basePositionMobile.clone();
+      inspectOffset = this.ndcPositions.inspectorPosition.basePositionMobile.clone();
+    }else{
+      leftHoodooOffset = this.ndcPositions.leftHoodooPosition.basePosition.clone();
+      rightHoodooOffset = this.ndcPositions.rightHoodooPosition.basePosition.clone();
+      inspectOffset = this.ndcPositions.inspectorPosition.basePosition.clone();
+    }
 
     // Find Left and Right Hoodoo locations
     // Left Hoodoo Position
@@ -496,8 +512,8 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
       this.inspectRunTime.x = (this.pxlTimer.curMS - this.inspectBlend.y)*.5 -.2;
 
-      this.inspectMode = false;
       if( this.inspectTransition ){
+        this.inspectMode = false;
         let timeOffset = this.inspectBlend.y + this.inspectDuration;
         if( timeOffset < this.pxlTimer.curMS){
           this.inspectTransition = false;
@@ -525,6 +541,8 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
           targetPos.lerp( blendPos, inspectProgress );
           this.inspectController.position.copy( targetPos );
         }
+      }else{
+        this.inspectMode = this.inspectToMode;
       }
     }
 
@@ -563,13 +581,6 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
 
   resize( sw, sh){
     this.preCalculateCameraData( sw, sh);
-    if( this.inspectToMode && this.inspectController && this.ndcPositions.inspectorPosition.ndcPosition ){
-      setTimeout(()=>{
-        this.inspectController.position.copy( this.ndcPositions.inspectorPosition.ndcPosition );
-        this.updateHoodooPositions();
-      });
-    }
-    super.resize( sw, sh );
   }
 
   // -- -- --

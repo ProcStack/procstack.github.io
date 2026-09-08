@@ -85,8 +85,8 @@ export const pageListingData = {
     <br><br><div class="pppHBar"></div>
 
     <span class="textItch">The <span class="textItalic textShrink">'not-so'</span>&nbsp; Salt-Flats <span class="textItalic textDrinkMeAlice">(this page)</span></span> -
-    <br>&nbsp;&nbsp;  - <span class="textNudge textName">62,788</span> triangles; without Instances
-    <br>&nbsp;&nbsp;  - <span class="textNudge textName">192,588</span> triangles; with Instances
+    <br>&nbsp;&nbsp;  - <span class="textNudge textName">73,788</span> triangles; without Instances
+    <br>&nbsp;&nbsp;  - <span class="textNudge textName">203,588</span> triangles; with Instances
     
     <br><br><div class="pppHBar"></div>
 
