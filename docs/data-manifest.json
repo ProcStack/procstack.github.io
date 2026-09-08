@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "lastUpdated": "2026-08-20",
+  "lastUpdated": "2026-09-08",
   "description": "ProcStack.github.io Data Sources for AI/LLM consumption",
   "baseUrl": "https://procstack.github.io",
   "totalPages": 54,
@@ -9,8 +9,8 @@
       "url": "/bots/siteContent.json",
       "description": "Aggregated site content including all page data",
       "format": "json",
-      "size": "172KB",
-      "lastUpdated": "2026-08-20",
+      "size": "173KB",
+      "lastUpdated": "2026-09-08",
       "pages": 54
     },
     "individualPages": {
@@ -18,7 +18,7 @@
       "description": "Individual page content as separate JSON files",
       "format": "json",
       "count": 32,
-      "lastUpdated": "2026-08-20",
+      "lastUpdated": "2026-09-08",
       "files": [
         "AIDev.htm.json",
         "AIDev_aiIntro.htm.json",
@@ -58,19 +58,19 @@
       "url": "/llms.txt",
       "description": "LLM-friendly text summary of all site content",
       "format": "text/plain",
-      "lastUpdated": "2026-08-20"
+      "lastUpdated": "2026-09-08"
     },
     "aiMetaSpec": {
       "url": "/bots/ai-metadata-spec.html",
       "description": "Technical specification for AI metadata format used across the site",
       "format": "text/html",
-      "lastUpdated": "2026-08-20"
+      "lastUpdated": "2026-09-08"
     },
     "sitemap": {
       "url": "/sitemap.xml",
       "description": "Complete site structure for search engines and crawlers",
       "format": "application/xml",
-      "lastUpdated": "2026-08-20"
+      "lastUpdated": "2026-09-08"
     }
   },
   "aiMetadata": {
@@ -121,7 +121,7 @@
   },
   "generatedBy": {
     "script": "renderStaticPages.mjs",
-    "timestamp": "2026-08-20T10:45:56.995Z",
+    "timestamp": "2026-09-08T18:33:16.894Z",
     "isPartialUpdate": true
   }
 }

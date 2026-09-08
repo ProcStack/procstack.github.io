@@ -44,7 +44,9 @@ Some how I've made two image editor apps now...
 
  My favorite has to be the Shape tool,
     
-   I'm just a sucker for SDF math, haha.
+   With 11 shapes to choose from,
+    
+     I'm just a sucker for SDF math, haha.
 
  Shape is just a bunch of different shapes with signed distance field math controls.
     
