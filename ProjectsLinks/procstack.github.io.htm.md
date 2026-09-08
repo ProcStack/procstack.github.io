@@ -24,9 +24,9 @@ Language - JavaScript
 
     The 'not-so'  Salt-Flats (this page) -
     
-    - 62,788 triangles; without Instances
+    - 73,788 triangles; without Instances
     
-    - 192,588 triangles; with Instances
+    - 203,588 triangles; with Instances
 
 It's funny, out of all the projects I can bootstrap together with my personal boilerplates over the years,
     

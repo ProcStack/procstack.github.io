@@ -34,24 +34,31 @@ export const pageListingData = {
     },
     {
       'type' : 'image',
-      'src' : '../pages/projects/images/pxlPix_s00_mainScreens.webp',
+      'src' : '../pages/projects/images/pxlPix_v0-6-3_s00_mainScreens.webp',
       'alt' : 'pxlPix main screens screenshot',
       'style' : 'procPagesImageStyle',
       'caption' : ["Simple interface, with a lot of power under the hood!"]
     },
     {
       'type' : 'image',
-      'src' : '../pages/projects/images/pxlPix_s01_effectsList.webp',
+      'src' : '../pages/projects/images/pxlPix_v0-6-3_s01_effects.webp',
       'alt' : 'pxlPix effects list screenshot',
       'style' : 'procPagesImageStyle',
       'caption' : ["With 24 effects to choose from!", "And more coming in the Pro version!"]
     },
     {
       'type' : 'image',
-      'src' : '../pages/projects/images/pxlPix_s02_differentEffects.webp',
+      'src' : '../pages/projects/images/pxlPix_v0-6-3_s02_presets.webp',
       'alt' : 'pxlPix more effects screenshot',
       'style' : 'procPagesImageStyle',
       'caption' : ["Kaleidoscope & some inverted Star Shapes!"]
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/projects/images/pxlPix_v0-6-3_s03_themeStyles.webp',
+      'alt' : 'pxlPix theme styles screenshot',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["Amethyst, Forest, Dark, & Light themes!"]
     },
   ],
   'content' : `
@@ -88,7 +95,8 @@ export const pageListingData = {
     <br>&nbsp;&nbsp; And play with the curve width, blur, & blend mode to get the look you want!
 
     <br><br> My favorite has to be the <span class="textName">Shape</span> tool,
-    <br>&nbsp;&nbsp; I'm just a sucker for SDF math, haha.
+    <br>&nbsp;&nbsp; With <span class="textNudge textBold">11</span> shapes to choose from,
+    <br>&nbsp;&nbsp;&nbsp;&nbsp; I'm just a sucker for SDF math, haha.
     
     <br><br> <span class="textName">Shape</span> is just a bunch of different shapes with signed distance field math controls.
     <br>&nbsp;&nbsp; Easily soften pointed lines by shifting the SDF value negatively.
