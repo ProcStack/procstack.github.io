@@ -6,7 +6,11 @@ A Minecraft shader pack for Optifine & Iris
     
 Languages - GLSL 1.2, 3.3, & 4.5
 
-    I started writing procPromo in the spring of 2022 to learn GLSL.
+ Hand written, pet project.
+    
+   Plus ai has some trouple with stylized shader code.
+
+ I started writing procPromo in the spring of 2022 to learn GLSL.
     
    Figured, if I was already playing minecraft, might as well make it look cool too!
     

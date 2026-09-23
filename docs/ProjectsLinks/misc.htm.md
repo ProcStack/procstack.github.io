@@ -2,6 +2,32 @@
 
 Miscellaneous random junk!
 
+ I was bored one day,
+      
+   So I put Bad Apple in Houdini,
+      
+     Bad Node
+
+ I thought it would be funny to animate the music video as Nodes in the graph editor
+      
+   I'm pleased with the result, haha
+
+ Had some timing issues, so there are some hiccups...
+      
+   But decided I'd record it play out on my computer,
+      
+     Then run my Duplicate Frame Remover script I wrote.
+
+ Took an hour and 40 minutes to play through,
+      
+   But I made the mistake of rendering too low of kbps, so the quality suffered.
+      
+     Causing the duplicate frame remover to mess up quite a bit, even with thresholds set.
+
+ So I now have a bunch more options on my dupe frame remover script, hah.
+      
+   Added a bunch of things to account for issues, but still some problems remain.
+
  The green energy warpy portal is just a random Maya render.
 
  I felt like making some Compute Shaders that talked to each other in Unity,

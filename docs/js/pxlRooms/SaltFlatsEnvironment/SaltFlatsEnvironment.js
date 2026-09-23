@@ -103,6 +103,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
     this.inspectTransition = false;
     this.inspectBlendStartTime = 0;
     this.inspectDuration = 1.5;
+    this.inspectRotateRate = 0.65;
     this.inspectInitialTransition = 0;
 
     this.initialHoodooSet = false;
@@ -565,7 +566,7 @@ export class SaltFlatsEnvironment extends RoomEnvironment{
         let offsetDist = -this.touchMouseData.curDistance.x * 0.02;
 
 
-        let inspectProgress = (this.pxlTimer.curMS - this.inspectBlendStartTime) * .5 - .1;
+        let inspectProgress = (this.pxlTimer.curMS - this.inspectBlendStartTime) * this.inspectRotateRate - .1;
         inspectProgress = inspectProgress % this.tau;
         let sinOffset = Math.sin( inspectProgress + Math.PI*.5 + .25 ) ;
         let biasValue = 1.0 - (1.0 - sinOffset) * (1.0 - sinOffset*.5);
