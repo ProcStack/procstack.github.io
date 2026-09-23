@@ -18,7 +18,7 @@ export const pageListingData = {
   'htmlName' : "procPromo.htm",
   'name' : 'procPromo<span class="hideOnMobile textDrinkMeAlice textBottom">&nbsp;:: Shader Pack</span>',
   'title' : 'procPromo :: Shader Pack',
-  'lastModified' : '2026-05-19',
+  'lastModified' : '2026-09-23',
   'schemaData' : shemaData,
   'description' : 'A Minecraft shader pack for Optifine & Iris',
   'keywords' : 'procPromo, shader pack, minecraft, optifine, iris, glsl,',
@@ -26,24 +26,52 @@ export const pageListingData = {
   'media' : [
     {
       'type' : 'image',
+      'src' : '../pages/projects/images/VillagerHeader.webp',
+      'alt' : 'Cartographer chillin in the alley',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["You got the emeralds? I got the maps..."]
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/projects/images/WanderinTradin.webp',
+      'alt' : 'Wandering trader wandering and tradering',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["Wanderin'Traderin"]
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/projects/images/SideBySide_cherryCompare_sm.webp',
+      'alt' : 'Side by side sunset in Minecraft',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["Side by side Default <> procPromo"]
+    },
+    {
+      'type' : 'image',
+      'src' : '../pages/projects/images/SideBySide_ColorBlindSupport_sm.webp',
+      'alt' : 'Side by side trees in Minecraft',
+      'style' : 'procPagesImageStyle',
+      'caption' : ["Hoping it's close enough to help color blind players -", "Color support for Protanopia, Deuteranopia, & Tritanopia", "And grayscale for fun!"]
+    },
+    {
+      'type' : 'image',
       'src' : '../pages/projects/images/CloudPillar_2024-01-08.webp',
       'alt' : 'A Minecraft cloud pillar in procPromo',
       'style' : 'procPagesImageStyle',
-      'caption' : ["Cloud pillar!"]
+      'caption' : ["Cloud pillar!&nbsp; <span class='textDrinkMeAlice textItalic'>[older]</span>"]
     },
     {
       'type' : 'image',
       'src' : '../pages/projects/images/AlienFlora_2024-01-08.webp',
       'alt' : 'The alien fungal bloom has spread!',
       'style' : 'procPagesImageStyle',
-      'caption' : ["The spores have spread!"]
+      'caption' : ["The spores have spread!&nbsp; <span class='textDrinkMeAlice textItalic'>[older]</span>"]
     },
     {
       'type' : 'image',
       'src' : '../pages/projects/images/NetherLavaLake_2024-01-10.webp',
       'alt' : 'A cool day in Minecraft Palm Springs!',
       'style' : 'procPagesImageStyle',
-      'caption' : ["A chill day in Palm Springs"]
+      'caption' : ["A chill day in Palm Springs&nbsp; <span class='textDrinkMeAlice textItalic'>[older]</span>"]
     },
   ],
   'content' : `
@@ -52,7 +80,11 @@ export const pageListingData = {
     <br><span class="textShrink textItalic textName ">Languages - <span class="textBold">GLSL 1.2, 3.3, & 4.5</span></span>
     <div class="pppHBar"></div>
 
-    I started writing <span class="textName">procPromo</span> in the spring of 2022 to learn <span class="textName">GLSL</span>.
+    <br><br> Hand written, pet project.
+    <br>&nbsp;&nbsp; Plus ai has some trouple with stylized shader code.
+
+    <br>
+    <br> I started writing <span class="textName">procPromo</span> in the spring of 2022 to learn <span class="textName">GLSL</span>.
     <br>&nbsp;&nbsp; Figured, if I was already playing minecraft, might as well make it look cool too!
     <br>&nbsp;&nbsp;&nbsp;&nbsp; Like, while I built the sky villa and alien spore in the images.
 

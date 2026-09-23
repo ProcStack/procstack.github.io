@@ -15,16 +15,23 @@ const shemaData = {
 };
 
 export const pageListingData = {
-  'htmlName' : "msic.htm",
+  'htmlName' : "misc.htm",
   'name' : 'Misc.',
   'title' : 'Misc.',
-  'lastModified' : '2025-08-16',
+  'lastModified' : '2026-09-23',
   'schemaData' : shemaData,
   'description' : 'Miscellaneous randous junk of the ages!',
   'keywords' : 'randous, misc, miscellaneous, junk, personal projects',
   'navGroup' : 'Personal Projects',
   'navStyle' : ['hideOnMobile'],
   'media' : [
+    {
+      'type' : 'youtube',
+      'src' : 'J4cfb0X5LaQ',
+      'alt' : 'Bad Node',
+      'style' : ['procPagesMediaStyle', 'procPagesLimitWidthStyle'],
+      'caption' : ['Bad Node']
+    },
     {
       'type' : 'video',
       'src' : '../pages/projects/images/Beam-Xvid_short.webm',
@@ -58,6 +65,27 @@ export const pageListingData = {
     <div class="procPagesProjectsHeaderStyle textBump textBold">Miscellaneous random junk!</div>
     
     <div class="procPagesProjectsDescriptionStyle">
+
+      <br> I was bored one day,
+      <br>&nbsp;&nbsp; So I put Bad Apple in Houdini,
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; <span class='textName'>Bad Node</span>
+
+      <br><br> I thought it would be funny to animate the music video as Nodes in the graph editor
+      <br>&nbsp;&nbsp; I'm pleased with the result, haha
+
+      <br><br> Had some timing issues, so there are some hiccups...
+      <br>&nbsp;&nbsp; But decided I'd record it play out on my computer,
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; Then run my <span class='textNudge'>Duplicate Frame Remover</span> script I wrote.
+
+      <br><br> Took an hour and 40 minutes to play through,
+      <br>&nbsp;&nbsp; But I made the mistake of rendering too low of kbps, so the quality suffered.
+      <br>&nbsp;&nbsp;&nbsp;&nbsp; Causing the duplicate frame remover to mess up quite a bit, even with thresholds set.
+
+      <br><br> So I now have a bunch more options on my dupe frame remover script, hah.
+      <br>&nbsp;&nbsp; Added a bunch of things to account for issues, but still some problems remain.
+
+      <br>
+      <br><div class='procPagesAboutMeBar'></div>
 
       <br> The green energy warpy portal is just a random Maya render.
       
